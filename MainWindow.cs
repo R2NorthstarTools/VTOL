@@ -154,7 +154,7 @@ namespace Northstar_Manger
                     {
                         Console.WriteLine("Trying again at " + dirInfo);
                       
-                      //  WalkDirectoryTree(dirInfo, Search);
+                       // WalkDirectoryTree(dirInfo, Search);
                     }
                     if (dirInfo == null)
                     {
@@ -179,6 +179,59 @@ namespace Northstar_Manger
            
         }
 
+        private void Install_Location_Label_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void Check_Integrity_Of_NSINSTALL()
+        {
+
+
+            if (File.Exists(NSExe))
+            {
+                NS_Installed = true;
+                if (File.Exists(NSExe))
+                {
+
+
+                }
+            }
+            else
+            {
+
+                NS_Installed = false;
+            }
+
+            if (NS_Installed == false)
+            {
+
+                Log_Box.AppendText("OH MY!, NorthStar Launcher Was not found, do you want to Install it by Clicking Install Northstar Launcher?");
+                Version_TextBox.BackColor = Color.Red;
+                Version_TextBox.ForeColor = Color.Black;
+
+            }
+            else
+            {
+
+                Version_TextBox.BackColor = Color.Green;
+                Version_TextBox.ForeColor = Color.Black;
+
+
+
+            }
+            Gamever= Get_And_Set_Filepaths(Current_Install_Folder, "gameversion.txt");
+            Version_TextBox.Text = NSExe;
+
+
+
+
+        }
+
+        private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
         private void Browse_New_Install_Click(object sender, EventArgs e)
         {
             // Log_Box.AppendText(LookForTitanfallInstall());
@@ -189,7 +242,7 @@ namespace Northstar_Manger
                 Cursor.Current = Cursors.WaitCursor;
 
                 FindNSInstall("Titanfall2", @"C:\Program Files (x86)\Steam");
-                Log_Box.AppendText("Could not Find the Install at C:\\Program Files (x86)\\Steam - Continuing Traversal");
+                Log_Box.AppendText("\nCould not Find the Install at C:\\Program Files (x86)\\Steam - Continuing Traversal");
                 FindNSInstall("Titanfall2", @"D:\Games");
                 if (Found_Install_Folder == false)
                 {
@@ -205,26 +258,7 @@ namespace Northstar_Manger
                 Log_Box.AppendText("\nFound Install Location at " + Current_Install_Folder + "\n");
                 NSExe = Get_And_Set_Filepaths(Current_Install_Folder, "NorthstarLauncher.exe");
                 //Checking if the path Given Returned Something Meaningful. I know i could do this better, but its 3.37am and i feel like im dying from this cold :|.
-                if (Directory.Exists(NSExe))
-                {
-                    NS_Installed = true;
-
-                }
-                else
-                {
-
-                    NS_Installed = false;
-                }
-
-                if (NS_Installed == false)
-                {
-
-                    Log_Box.AppendText("OH MY!, NorthStar Launcher Was not found, do you want to Install it by Clicking Install Northstar Launcher?");
-                    Version_TextBox.BackColor = Color.Red;
-                }
-
-                Gamever= Get_And_Set_Filepaths(Current_Install_Folder, "gameversion.txt");
-                Version_TextBox.Text = NSExe;
+                Check_Integrity_Of_NSINSTALL();
             }
 
         }

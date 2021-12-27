@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.InstallNorthsatar = new System.Windows.Forms.Button();
             this.Version_TextBox = new System.Windows.Forms.TextBox();
             this.Northstar_Version_label = new System.Windows.Forms.Label();
             this.Install_Textbox = new System.Windows.Forms.TextBox();
@@ -44,7 +45,6 @@
             this.MainMenuStrip = new System.Windows.Forms.MenuStrip();
             this.panel5 = new System.Windows.Forms.Panel();
             this.button2 = new System.Windows.Forms.Button();
-            this.InstallNorthsatar = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -65,20 +65,29 @@
             this.panel1.Size = new System.Drawing.Size(428, 147);
             this.panel1.TabIndex = 0;
             // 
+            // InstallNorthsatar
+            // 
+            this.InstallNorthsatar.Location = new System.Drawing.Point(3, 102);
+            this.InstallNorthsatar.Name = "InstallNorthsatar";
+            this.InstallNorthsatar.Size = new System.Drawing.Size(420, 40);
+            this.InstallNorthsatar.TabIndex = 7;
+            this.InstallNorthsatar.Text = "Install Northstar";
+            this.InstallNorthsatar.UseVisualStyleBackColor = true;
+            // 
             // Version_TextBox
             // 
-            this.Version_TextBox.BackColor = System.Drawing.SystemColors.Control;
-            this.Version_TextBox.Enabled = false;
-            this.Version_TextBox.Location = new System.Drawing.Point(9, 73);
+            this.Version_TextBox.BackColor = System.Drawing.Color.White;
+            this.Version_TextBox.ForeColor = System.Drawing.Color.Black;
+            this.Version_TextBox.Location = new System.Drawing.Point(3, 73);
             this.Version_TextBox.Name = "Version_TextBox";
             this.Version_TextBox.ReadOnly = true;
-            this.Version_TextBox.Size = new System.Drawing.Size(312, 23);
+            this.Version_TextBox.Size = new System.Drawing.Size(420, 23);
             this.Version_TextBox.TabIndex = 5;
             // 
             // Northstar_Version_label
             // 
             this.Northstar_Version_label.AutoSize = true;
-            this.Northstar_Version_label.Location = new System.Drawing.Point(133, 55);
+            this.Northstar_Version_label.Location = new System.Drawing.Point(169, 55);
             this.Northstar_Version_label.Name = "Northstar_Version_label";
             this.Northstar_Version_label.Size = new System.Drawing.Size(98, 15);
             this.Northstar_Version_label.TabIndex = 4;
@@ -88,14 +97,14 @@
             // 
             this.Install_Textbox.Location = new System.Drawing.Point(9, 24);
             this.Install_Textbox.Name = "Install_Textbox";
-            this.Install_Textbox.Size = new System.Drawing.Size(312, 23);
+            this.Install_Textbox.Size = new System.Drawing.Size(352, 23);
             this.Install_Textbox.TabIndex = 2;
             // 
             // Browse_New_Install
             // 
-            this.Browse_New_Install.Location = new System.Drawing.Point(327, 24);
+            this.Browse_New_Install.Location = new System.Drawing.Point(367, 24);
             this.Browse_New_Install.Name = "Browse_New_Install";
-            this.Browse_New_Install.Size = new System.Drawing.Size(96, 23);
+            this.Browse_New_Install.Size = new System.Drawing.Size(56, 23);
             this.Browse_New_Install.TabIndex = 1;
             this.Browse_New_Install.Text = "Browse";
             this.Browse_New_Install.UseVisualStyleBackColor = true;
@@ -107,12 +116,13 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Install_Location_Label.AutoSize = true;
-            this.Install_Location_Label.Location = new System.Drawing.Point(114, 6);
+            this.Install_Location_Label.Location = new System.Drawing.Point(150, 6);
             this.Install_Location_Label.Name = "Install_Location_Label";
             this.Install_Location_Label.Size = new System.Drawing.Size(141, 15);
             this.Install_Location_Label.TabIndex = 0;
             this.Install_Location_Label.Text = "Titanfall 2 Install Location";
             this.Install_Location_Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Install_Location_Label.Click += new System.EventHandler(this.Install_Location_Label_Click);
             // 
             // panel2
             // 
@@ -140,6 +150,7 @@
             this.checkedListBox1.Name = "checkedListBox1";
             this.checkedListBox1.Size = new System.Drawing.Size(440, 346);
             this.checkedListBox1.TabIndex = 0;
+            this.checkedListBox1.SelectedIndexChanged += new System.EventHandler(this.checkedListBox1_SelectedIndexChanged);
             // 
             // panel4
             // 
@@ -202,15 +213,6 @@
             this.button2.TabIndex = 0;
             this.button2.Text = "Download Mods From Repo";
             this.button2.UseVisualStyleBackColor = true;
-            // 
-            // InstallNorthsatar
-            // 
-            this.InstallNorthsatar.Location = new System.Drawing.Point(9, 102);
-            this.InstallNorthsatar.Name = "InstallNorthsatar";
-            this.InstallNorthsatar.Size = new System.Drawing.Size(414, 40);
-            this.InstallNorthsatar.TabIndex = 7;
-            this.InstallNorthsatar.Text = "Install Northstar";
-            this.InstallNorthsatar.UseVisualStyleBackColor = true;
             // 
             // MainWindow
             // 
