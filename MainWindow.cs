@@ -1,17 +1,16 @@
 using System.ComponentModel;
 using System.Net;
-using System.Collections.Generic;
 using System.IO.Compression;
-using Newtonsoft.Json;
-using System.Data;
-using Newtonsoft.Json;
-using Octokit;
-using System.Text;
 using Newtonsoft.Json.Linq;
+using Microsoft.Win32;
+using MetroSet_UI.Forms;
+using System.Runtime.InteropServices;
+using MetroSet_UI.Enums;
+using System.Windows.Forms;
 
 namespace Northstar_Manger
 {
-    public partial class MainWindow : Form
+    public partial class MainWindow : Form 
     {
         static System.Collections.Specialized.StringCollection log = new System.Collections.Specialized.StringCollection();
 
@@ -218,7 +217,7 @@ namespace Northstar_Manger
                 System.IO.DirectoryInfo[] FolderDir = null;
                 System.IO.DirectoryInfo rootDirs = new DirectoryInfo(Current_Install_Folder);
                 FolderDir = rootDirs.GetDirectories();
-                 List<string> Baseline =  Read_From_Text_File(@"C:\temp\NormalFolderStructure.txt");
+                 List<string> Baseline =  Read_From_Text_File(@"C:\ProgramData\NorthStarModManager\NormalFolderStructure.txt");
                 List<string> current = new List<string>(); 
                 Console.WriteLine("Baseline");
                 
@@ -403,27 +402,56 @@ namespace Northstar_Manger
             //    }
             //}
         }
+
         private void InstallNorthsatar_Click(object sender, EventArgs e)
         {
 
-            Read_Latest_Release("https://api.github.com/repos/R2Northstar/Northstar/releases/latest");
-          //  Is file downloading yet?
-
-            if (webClient != null)
-                return;
-
-            webClient = new WebClient();
-            webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(Completed);
-            Directory.CreateDirectory(@"C:\temp\Releases\");
-            webClient.DownloadFileAsync(new Uri(current_Northstar_version_Url), @"C:\temp\Releases\NorthStar_Release.zip");
-            Log_Box.AppendText("\nStarting Install procedure!");
         }
         private void Completed(object sender, AsyncCompletedEventArgs e)
         {
             webClient = null;
             Log_Box.AppendText("\nDownload completed!");
-            Unpack_To_Location(@"C:\temp\Releases\NorthStar_Release.zip", Current_Install_Folder);
+            Unpack_To_Location(@"C:\ProgramData\NorthStarModManager\Releases\NorthStar_Release.zip", Current_Install_Folder);
 
+        }
+        private void Steam_Install()
+        {
+
+
+            try
+            {
+                if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                {
+
+                    using (RegistryKey key = Registry.LocalMachine.OpenSubKey(@"HKEY_CURRENT_USER\SOFTWARE\Valve\Steam"))
+                    {
+                        if (key != null)
+                        {
+                            Object o = key.GetValue("SteamPath");
+                            if (o != null)
+                            {
+                                Log_Box.AppendText(o.ToString()); //"as" because it's REG_SZ...otherwise ToString() might be safe(r)
+                                                                  //do what you like with version
+                            }
+                        }
+                        else
+                        {
+                            Log_Box.AppendText("oof");
+
+                        }
+                    }
+                }
+                else
+                {
+
+
+
+                }
+            }
+            catch (Exception ex)  //just for demonstration...it's always best to handle specific exceptions
+            {
+                //react appropriately
+            }
         }
         private void Auto_Install_And_verify()
         {
@@ -441,6 +469,7 @@ namespace Northstar_Manger
                 FindNSInstall("Titanfall2", @"D:\Games");
                 if (Found_Install_Folder == false && failed_search_counter >= 2)
                 {
+                    Install_Textbox.BackColor = Color.Red;
                     Log_Box.AppendText("\nCould Not Find, Please Manually Navigate to a proper Titanfall 2 installation");
                     break;
 
@@ -451,6 +480,8 @@ namespace Northstar_Manger
             if (Found_Install_Folder == true)
             {
                 Install_Textbox.Text = Current_Install_Folder;
+                Install_Textbox.BackColor = Color.White;
+
                 Log_Box.AppendText("\nFound Install Location at " + Current_Install_Folder + "\n");
                 NSExe = Get_And_Set_Filepaths(Current_Install_Folder, "NorthstarLauncher.exe");
                 //Checking if the path Given Returned Something Meaningful. I know i could do this better, but its 3.37am and i feel like im dying from this cold :|.
@@ -461,7 +492,6 @@ namespace Northstar_Manger
 
         private void Check_Ver_Click(object sender, EventArgs e)
         {
-            Auto_Install_And_verify();
 
 
         }
@@ -469,6 +499,38 @@ namespace Northstar_Manger
         private void Browse_New_Install_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void metroSetTabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Install_NS_Button_Click_1(object sender, EventArgs e)
+        {
+
+            Read_Latest_Release("https://api.github.com/repos/R2Northstar/Northstar/releases/latest");
+            //  Is file downloading yet?
+
+            if (webClient != null)
+                return;
+
+            webClient = new WebClient();
+            webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(Completed);
+            Directory.CreateDirectory(@"C:\ProgramData\NorthStarModManager\Releases\");
+            webClient.DownloadFileAsync(new Uri(current_Northstar_version_Url), @"C:\ProgramData\NorthStarModManager\Releases\NorthStar_Release.zip");
+            Log_Box.AppendText("\nStarting Install procedure!");
+        }
+
+        private void Check_Bttn_Click(object sender, EventArgs e)
+        {
+            Auto_Install_And_verify();
+
+        }
+
+        private void Brows_Bttn_Click(object sender, EventArgs e)
+        {
+            Steam_Install();
         }
     }
 }
