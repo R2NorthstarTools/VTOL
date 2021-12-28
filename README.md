@@ -30,4 +30,4 @@ You can-
 
 More features to be shipped in hours to come 😊
 
-In 1.0.4 and Lower, the Installer has issues saving configs on certain systems, this will b remedied in 1.0.5. please ensure when you start the installer, you manually navigate to a proper Titanfall installation.
+In 1.0.4 and Lower, the Installer has issues saving configs on certain systems, this will be remedied in 1.0.5. please ensure when you start the installer, you manually navigate to a proper Titanfall installation.
