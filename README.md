@@ -1,4 +1,11 @@
 # NorthStar-Mod-Manager-Ext-1
+
+WINDOWS 11 USER PLEASE DO NOT INSTALL, DOT NET Perquisites are not operable. will migrate to a x64 architeture.
+
+🙏
+
+
+
 Please initiate the install by Downloading the latest release from the Repo,
 
 ![image](https://user-images.githubusercontent.com/23240514/147613628-57550c2f-d6fc-4ad7-9bab-13bbcfd2c4f6.png)
