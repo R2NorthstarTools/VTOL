@@ -7,6 +7,8 @@ using MetroSet_UI.Forms;
 using System.Runtime.InteropServices;
 using MetroSet_UI.Enums;
 using System.Windows.Forms;
+using System.Reflection;
+using System.Diagnostics;
 
 namespace Northstar_Manger
 {
@@ -22,10 +24,49 @@ namespace Northstar_Manger
         private WebClient webClient = null;
         string current_Northstar_version_Url;
         int failed_search_counter =0;
+        bool deep_Chk = false;
+        List<string> Mod_List = new List<string>();
+
         public MainWindow()
         {
             InitializeComponent();
             Log_Box.AppendText("\nWelcome To the Northstar Mod Manager!\n");
+            Log_Box.AppendText("\nPlease Be advised, Mod Toggling Is not enabled as of this release\n");
+            Log_Box.AppendText("\nLastly ENSURE to make a backup of Titanfall2,Files and Folders Lost during the use of this software is to be accounted for by you, the User.\n\n");
+
+            try
+            {
+                if (Directory.Exists(@"C:\ProgramData\NorthStarModManager"))
+                {
+
+                    Current_Install_Folder =  Read_From_TextFile_OneLine(@"C:\ProgramData\NorthStarModManager\VARS\INSTALL.txt");
+
+                }
+                if (Directory.Exists(Current_Install_Folder))
+                {
+                    Found_Install_Folder = true;
+                    Install_Textbox.Text = Current_Install_Folder;
+                    Install_Textbox.BackColor = Color.White;
+                    Log_Box.AppendText("\nFound Install Location at " + Current_Install_Folder + "\n");
+                    NSExe = Get_And_Set_Filepaths(Current_Install_Folder, "NorthstarLauncher.exe");
+                    Check_Integrity_Of_NSINSTALL();
+
+
+                }
+                else
+                {
+
+                    Log_Box.AppendText("\nThe Launcher Tried to Auto Check For an existing CFG, please use the manual Check to search.");
+                }
+            }
+            catch (System.IO.DirectoryNotFoundException e)
+            {
+                Console.WriteLine("Could Not Verify Dir" + Current_Install_Folder);
+                Log_Box.AppendText("\nThe Launcher Tried to Auto Check For an existing CFG, please use the manual Check to search.");
+
+
+
+            }
             Thread.Sleep(2000);
 
         }
@@ -69,7 +110,7 @@ namespace Northstar_Manger
             {
                 Log_Box.AppendText("The process failed: "+ e.ToString());
             }
-            return "Exited with No return";
+            return "Exited with No Due to Missing Or Inaccurate Path";
 
 
         }
@@ -81,7 +122,7 @@ namespace Northstar_Manger
             System.IO.DirectoryInfo rootDirs = new DirectoryInfo(@FolderDir);
 
             WalkDirectoryTree(rootDirs, Search);
-
+            
             Console.WriteLine("Files with restricted access:");
             foreach (string s in log)
             {
@@ -109,9 +150,7 @@ namespace Northstar_Manger
             // than the application provides.
             catch (UnauthorizedAccessException e)
             {
-                // This code just writes out the message and continues to recurse.
-                // You may decide to do something different here. For example, you
-                // can try to elevate your privileges and access the file again.
+                
                 log.Add(e.Message);
             }
 
@@ -122,7 +161,7 @@ namespace Northstar_Manger
             try
             {
 
-                if (files != null)
+                //if (files != null)
                     //{
                     //    if (FolderMode == false)
                     //    {
@@ -175,8 +214,10 @@ namespace Northstar_Manger
                     {
 
                         Console.WriteLine("Trying again at " + dirInfo);
-                      
-                       // WalkDirectoryTree(dirInfo, Search);
+                      if(deep_Chk == true) {
+                            WalkDirectoryTree(dirInfo, Search);
+
+                        }
                     }
                     if (dirInfo == null)
                     {
@@ -290,6 +331,28 @@ namespace Northstar_Manger
 
 
         }
+        public string Read_From_TextFile_OneLine(string Filepath)
+        {
+            string line = "";
+            try
+            {
+                using (var sr = new StreamReader(Filepath))
+                {
+                        line = sr.ReadLine();
+                    return line;
+                }
+               
+            }
+            catch (System.IO.FileNotFoundException e)
+            {
+                Console.WriteLine("Could Not find " + Filepath);
+
+
+            }
+            
+            return line;
+
+        }
         public List<string> Read_From_Text_File(string Filepath)
         {
             List<string> lines = new List<string>(); 
@@ -382,25 +445,25 @@ namespace Northstar_Manger
         private void Unpack_To_Location(string Target_Zip, string Destination_Zip)
         {
             Log_Box.AppendText("\nUnpacking " + Path.GetFileName(Target_Zip) + " to " + Destination_Zip);
-            //if (File.Exists(Target_Zip) && Directory.Exists(Destination_Zip))
-         //   {
+            if (File.Exists(Target_Zip) && Directory.Exists(Destination_Zip))
+          {
                ZipFile.ExtractToDirectory(Target_Zip, Destination_Zip,true);
                 Log_Box.AppendText("\nUnpacking Complete!");
-          //  }
-         //   else
-            //{
-            //    if (!File.Exists(Target_Zip))
-            //    {
-            //        Log_Box.AppendText("\nTarget Zip Does Not exist!!!!!!");
-                    
+           }
+          else
+            {
+                if (!File.Exists(Target_Zip))
+                {
+                    Log_Box.AppendText("\nTarget Zip Does Not exist!!!!!!");
 
-            //    }
-            //    if (!Directory.Exists(Destination_Zip))
-            //    {
-            //        Log_Box.AppendText("\nTarget Location Does Not exist, please Double Check or Browse for the correct install location");
-                    
-            //    }
-            //}
+
+                }
+                if (!Directory.Exists(Destination_Zip))
+                {
+                    Log_Box.AppendText("\nTarget Location Does Not exist, please Double Check or Browse for the correct install location");
+
+                }
+            }
         }
 
         private void InstallNorthsatar_Click(object sender, EventArgs e)
@@ -414,63 +477,29 @@ namespace Northstar_Manger
             Unpack_To_Location(@"C:\ProgramData\NorthStarModManager\Releases\NorthStar_Release.zip", Current_Install_Folder);
 
         }
-        private void Steam_Install()
-        {
 
-
-            try
-            {
-                if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                {
-
-                    using (RegistryKey key = Registry.LocalMachine.OpenSubKey(@"HKEY_CURRENT_USER\SOFTWARE\Valve\Steam"))
-                    {
-                        if (key != null)
-                        {
-                            Object o = key.GetValue("SteamPath");
-                            if (o != null)
-                            {
-                                Log_Box.AppendText(o.ToString()); //"as" because it's REG_SZ...otherwise ToString() might be safe(r)
-                                                                  //do what you like with version
-                            }
-                        }
-                        else
-                        {
-                            Log_Box.AppendText("oof");
-
-                        }
-                    }
-                }
-                else
-                {
-
-
-
-                }
-            }
-            catch (Exception ex)  //just for demonstration...it's always best to handle specific exceptions
-            {
-                //react appropriately
-            }
-        }
+        
         private void Auto_Install_And_verify()
         {
             failed_search_counter = 0;
             Found_Install_Folder = false;
-             Log_Box.AppendText("\nLooking For Titanfall Install");
+             Log_Box.AppendText("\nLooking For Titanfall2 Install");
             while (Found_Install_Folder == false && failed_search_counter < 2)
             {
                 //    FindGitPath("dotnsset", ".exe", @"C:\Program Files");
                 //To Do, add an optional to save the variable of the folder path once assigned!!!!!
+                //use steam navigate
                 Log_Box.AppendText("\nAutomatically Looking For The Northstar And Titandfall Install :-)");
                 Cursor.Current = Cursors.WaitCursor;
-                Log_Box.AppendText("Looking Under these Directories -" +@"C:\Program Files (x86)\Steam" + " " + @"D:\Games");
+               // Log_Box.AppendText("Looking Under these Directories -" +@"C:\Program Files (x86)\Steam" + " " + @"D:\Games");
+                Log_Box.AppendText("Looking Under these Directories -" +@"C:\Program Files (x86)\Steam");
+
                 FindNSInstall("Titanfall2", @"C:\Program Files (x86)\Steam");
-                FindNSInstall("Titanfall2", @"D:\Games");
+              //  FindNSInstall("Titanfall2", @"D:\Games");
                 if (Found_Install_Folder == false && failed_search_counter >= 2)
                 {
                     Install_Textbox.BackColor = Color.Red;
-                    Log_Box.AppendText("\nCould Not Find, Please Manually Navigate to a proper Titanfall 2 installation");
+                    Log_Box.AppendText("\nCould Not Find, Please Manually Navigate to a proper Titanfall2 installation");
                     break;
 
 
@@ -481,7 +510,8 @@ namespace Northstar_Manger
             {
                 Install_Textbox.Text = Current_Install_Folder;
                 Install_Textbox.BackColor = Color.White;
-
+                Directory.CreateDirectory(@"C:\ProgramData\NorthStarModManager\VARS");
+                saveAsyncFile(Current_Install_Folder, @"C:\ProgramData\NorthStarModManager\VARS\INSTALL.txt");
                 Log_Box.AppendText("\nFound Install Location at " + Current_Install_Folder + "\n");
                 NSExe = Get_And_Set_Filepaths(Current_Install_Folder, "NorthstarLauncher.exe");
                 //Checking if the path Given Returned Something Meaningful. I know i could do this better, but its 3.37am and i feel like im dying from this cold :|.
@@ -504,6 +534,49 @@ namespace Northstar_Manger
         private void metroSetTabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+            if (Main_Window.SelectedTab == tabPage2)
+            {
+                Console.WriteLine("In Mods!");
+                if (Current_Install_Folder == null || Current_Install_Folder == "" || !Directory.Exists(Current_Install_Folder))
+                {
+                    MessageBoxButtons buttons = MessageBoxButtons.OK;
+                    DialogResult result = MessageBox.Show("Could Not find That Install Location !!!, please renavigate to the Correct Install Path!", "FATAL ERROR", buttons);
+                    if (result == DialogResult.OK)
+                    {
+                        Main_Window.SelectedTab = tabPage1;
+                        // this.Close();
+                    }
+
+
+
+                }
+                else
+                {
+                    if (Directory.Exists(Current_Install_Folder))
+                    {
+                        string NS_Mod_Dir = Current_Install_Folder + @"\R2Northstar\mods";
+
+                        System.IO.DirectoryInfo rootDirs = new DirectoryInfo(NS_Mod_Dir);
+
+                        System.IO.DirectoryInfo[] subDirs = null;
+                        subDirs = rootDirs.GetDirectories();
+                        foreach (System.IO.DirectoryInfo dirInfo in subDirs)
+                        {
+                            Console.WriteLine(dirInfo.FullName);
+                            checkedListBox1.Items.Add(dirInfo.FullName,true);
+                        }
+
+
+                    }
+
+                    else
+                    {
+
+                        Console.WriteLine("In Install!");
+
+                    }
+                }
+            }
         }
 
         private void Install_NS_Button_Click_1(object sender, EventArgs e)
@@ -530,7 +603,113 @@ namespace Northstar_Manger
 
         private void Brows_Bttn_Click(object sender, EventArgs e)
         {
-            Steam_Install();
+            FolderBrowserDialog folderDlg = new FolderBrowserDialog();
+            folderDlg.ShowNewFolderButton = true;
+            // Show the FolderBrowserDialog.  
+            DialogResult result = folderDlg.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                string path = folderDlg.SelectedPath;
+                Environment.SpecialFolder root = folderDlg.RootFolder;
+                Console.WriteLine(path);
+                Current_Install_Folder = path;
+
+            }
+            Found_Install_Folder = true;
+            Install_Textbox.Text = Current_Install_Folder;
+            Install_Textbox.BackColor = Color.White;
+            Log_Box.AppendText("\nFound Install Location at " + Current_Install_Folder + "\n");
+            NSExe = Get_And_Set_Filepaths(Current_Install_Folder, "NorthstarLauncher.exe");
+            Check_Integrity_Of_NSINSTALL();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void metroSetSwitch1_SwitchedChanged(object sender)
+        {
+            if(metroSetSwitch1.CheckState == MetroSet_UI.Enums.CheckState.Checked)
+            {
+                Log_Box.AppendText("\nDEEP CHECK DISABLED!");
+
+                deep_Chk = false;
+
+
+            }
+            else if (metroSetSwitch1.CheckState == MetroSet_UI.Enums.CheckState.Unchecked)
+               
+                    {
+              //  deep_Chk = true;
+                Console.WriteLine("WARNING DEEP CHECK ENABLED!");
+                Log_Box.AppendText("\nWARNING DEEP CHECK ENABLED! [Currently Inoperable Due to 32 bit Sys errors. Will Be fixed]");
+
+            }
+
+        }
+
+        private void metroSetButton2_Click(object sender, EventArgs e)
+        {
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            FileVersionInfo fileVersionInfo = FileVersionInfo.GetVersionInfo(assembly.Location);
+            string version = fileVersionInfo.ProductVersion;
+            string date = DateTime.Now.ToString("yyyy-MM-dd");
+
+            if (Directory.Exists(@"C:\ProgramData\NorthStarModManager\Logs")){
+                if(File.Exists(@"C:\ProgramData\NorthStarModManager\Logs\" + date+"-LOG_MODMANAGER V-"+version))
+                {
+                    string Accurate_Date = DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss");
+                    saveAsyncFile("\n\n"+Accurate_Date+"\n\n", @"C:\ProgramData\NorthStarModManager\Logs\" + date+"-LOG_MODMANAGER V-"+version, true, true);
+                    saveAsyncFile(Log_Box.Text, @"C:\ProgramData\NorthStarModManager\Logs\" + date+"-LOG_MODMANAGER V-"+version, true, true);
+                    Log_Box.AppendText("\nSaved Successfully to - " + @"C:\ProgramData\NorthStarModManager\Logs");
+
+                }
+                else
+                {
+
+                    saveAsyncFile(Log_Box.Text, @"C:\ProgramData\NorthStarModManager\Logs\" + date+"-LOG_MODMANAGER V-"+version, true, false);
+                    Log_Box.AppendText("\nSaved Successfully to - " + @"C:\ProgramData\NorthStarModManager\Logs");
+
+
+                }
+
+
+
+            }
+            else
+            {
+                Directory.CreateDirectory(@"C:\ProgramData\NorthStarModManager\Logs");
+                saveAsyncFile(Log_Box.Text, @"C:\ProgramData\NorthStarModManager\Logs\" + date+" -LOG_MODMANAGER"+version, true, false);
+                Log_Box.AppendText("\nSaved Successfully to - " + @"C:\ProgramData\NorthStarModManager\Logs");
+
+            }
+
+        }
+
+        private void metroSetButton3_Click(object sender, EventArgs e)
+        {
+            Log_Box.Text =("\nWelcome To the Northstar Mod Manager!\n");
+            Log_Box.AppendText("\nPlease Be advised, Mod Toggling Is not enabled as of this release\n");
+            Log_Box.AppendText("\nLastly ENSURE to make a backup of Titanfall2,Files and Folders Lost during the use of this software is to be accounted for by you, the User.\n\n");
+
+
+        }
+
+        private void checkedListBox1_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+
+           // int i;
+           // string s;
+           // s = "Checked items:\n";
+           // for (i = 0; i <= (checkedListBox1.Items.Count-1); i++)
+           // {
+           //     if (checkedListBox1.GetItemChecked(i))
+           //     {
+           //         s = s + "Item " + (i+1).ToString() + " = " + checkedListBox1.Items[i].ToString() + "\n";
+           //     }
+           // }
+           //Console.WriteLine(s);    
         }
     }
 }
