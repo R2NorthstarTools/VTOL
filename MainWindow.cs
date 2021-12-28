@@ -1,7 +1,7 @@
 using System.ComponentModel;
 using System.Net;
 using System.Collections.Generic;
-
+using System.IO.Compression;
 using Newtonsoft.Json;
 using System.Data;
 using Newtonsoft.Json;
@@ -18,15 +18,17 @@ namespace Northstar_Manger
         public bool Found_Install = false;
         public bool Found_Install_Folder = false;
         public string Current_Install_Folder = "";
-        private string NSExe, Gamever;
+        private string NSExe;
         private bool NS_Installed;
         private WebClient webClient = null;
         string current_Northstar_version_Url;
-
+        int failed_search_counter =0;
         public MainWindow()
         {
             InitializeComponent();
             Log_Box.AppendText("\nWelcome To the Northstar Mod Manager!\n");
+            Thread.Sleep(2000);
+
         }
 
         private void richTextBox1_TextChanged(object sender, EventArgs e)
@@ -152,6 +154,7 @@ namespace Northstar_Manger
                     subDirs = root.GetDirectories();
 
 
+                var last = subDirs.Last();
 
                 foreach (System.IO.DirectoryInfo dirInfo in subDirs)
                 {
@@ -164,8 +167,14 @@ namespace Northstar_Manger
                         break;
 
                     }
+                    else if (last.Equals(dirInfo) && Found_Install_Folder == false)
+                    {
+                        failed_search_counter++;
+                        return;
+                    }
                     else
                     {
+
                         Console.WriteLine("Trying again at " + dirInfo);
                       
                        // WalkDirectoryTree(dirInfo, Search);
@@ -178,6 +187,9 @@ namespace Northstar_Manger
                     }
                     // Resursive call for each subdirectory.
                 }
+
+                Log_Box.AppendText("\nCould not Find the Install at " +root+ " - Continuing Traversal");
+
             }
             catch (NullReferenceException e)
             {
@@ -206,32 +218,42 @@ namespace Northstar_Manger
                 System.IO.DirectoryInfo[] FolderDir = null;
                 System.IO.DirectoryInfo rootDirs = new DirectoryInfo(Current_Install_Folder);
                 FolderDir = rootDirs.GetDirectories();
-                 List<string> Baseline =  Read_From_Text_File("NormalFolderStructure.txt");
+                 List<string> Baseline =  Read_From_Text_File(@"C:\temp\NormalFolderStructure.txt");
                 List<string> current = new List<string>(); 
                 Console.WriteLine("Baseline");
-                current.Append("sdsd");
-
+                
                 foreach (var Folder in FolderDir)
                     {
                         string s = Folder.ToString().Substring(Folder.ToString().LastIndexOf("Titanfall2"));
                     Console.WriteLine(s);
-
+                    
                     current.Add(s);
-                        //saveAsyncFile(s, "NormalFolderStructure");
+                   
+                        //saveAsyncFile(s, @"C:\temp\NormalFolderStructure");
 
                     }
+                Console.WriteLine("current");
+
                 foreach (var Folder in current)
                 {
-                    Console.WriteLine("current");
 
                     Console.WriteLine(Folder.ToString());
 
                 }
+                Console.WriteLine(Baseline.SequenceEqual(current));
+
                 if (Baseline.SequenceEqual(current) == true)
                 {
                     Log_Box.AppendText("\nDirectory Check Successful - File Integrity has not been Implimented yet, so be sure the files are good!");
                    NS_Installed = true;
 
+
+
+                }
+                else
+                {
+                    Log_Box.AppendText("\nDirectory Check Unsuccessful");
+                    NS_Installed = false;
 
 
                 }
@@ -249,7 +271,7 @@ namespace Northstar_Manger
             if (NS_Installed == false)
             {
 
-                Log_Box.AppendText("OH MY!, NorthStar Launcher Was not found, do you want to Install it by Clicking Install Northstar Launcher?");
+                Log_Box.AppendText("\nNorthStar Launcher or Titanfall2 Was not found, do you want to Re-Install it by Clicking Install Northstar Launcher? (Please check the Integrity of Titanfall2 as well)");
                 Version_TextBox.BackColor = Color.Red;
                 Version_TextBox.ForeColor = Color.Black;
 
@@ -263,7 +285,6 @@ namespace Northstar_Manger
 
 
             }
-            Gamever= Get_And_Set_Filepaths(Current_Install_Folder, "gameversion.txt");
             Version_TextBox.Text = NSExe;
 
 
@@ -334,6 +355,7 @@ namespace Northstar_Manger
         }
         private async Task Read_Latest_Release(string address)
         {
+            
             Log_Box.AppendText("\nJson Download Started!");
             WebClient client = new WebClient();
             client.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)");
@@ -354,43 +376,73 @@ namespace Northstar_Manger
             var myJObject = JObject.Parse(myJsonString);
 
 
-            Console.WriteLine(myJObject.SelectToken("assets.browser_download_url").Value<string>());
+            current_Northstar_version_Url =  myJObject.SelectToken("assets.browser_download_url").Value<string>();
+            Log_Box.AppendText("\nRelease Parsed! found - \n"+current_Northstar_version_Url);
 
+        }
+        private void Unpack_To_Location(string Target_Zip, string Destination_Zip)
+        {
+            Log_Box.AppendText("\nUnpacking " + Path.GetFileName(Target_Zip) + " to " + Destination_Zip);
+            //if (File.Exists(Target_Zip) && Directory.Exists(Destination_Zip))
+         //   {
+               ZipFile.ExtractToDirectory(Target_Zip, Destination_Zip,true);
+                Log_Box.AppendText("\nUnpacking Complete!");
+          //  }
+         //   else
+            //{
+            //    if (!File.Exists(Target_Zip))
+            //    {
+            //        Log_Box.AppendText("\nTarget Zip Does Not exist!!!!!!");
+                    
+
+            //    }
+            //    if (!Directory.Exists(Destination_Zip))
+            //    {
+            //        Log_Box.AppendText("\nTarget Location Does Not exist, please Double Check or Browse for the correct install location");
+                    
+            //    }
+            //}
         }
         private void InstallNorthsatar_Click(object sender, EventArgs e)
         {
 
             Read_Latest_Release("https://api.github.com/repos/R2Northstar/Northstar/releases/latest");
-            //Is file downloading yet?
-            //if (webClient != null)
-            //    return;
+          //  Is file downloading yet?
 
-            //webClient = new WebClient();
-            //webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(Completed);
-            //webClient.DownloadFileAsync(new Uri("https://github.com/R2Northstar/Northstar/releases/download/v1.1.3/Northstar.release.v1.1.3.zip"), @"C:\temp\NorthStar_Release.zip");
+            if (webClient != null)
+                return;
 
-            //Log_Box.AppendText("\nStarting Install procedure!");
+            webClient = new WebClient();
+            webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(Completed);
+            Directory.CreateDirectory(@"C:\temp\Releases\");
+            webClient.DownloadFileAsync(new Uri(current_Northstar_version_Url), @"C:\temp\Releases\NorthStar_Release.zip");
+            Log_Box.AppendText("\nStarting Install procedure!");
         }
         private void Completed(object sender, AsyncCompletedEventArgs e)
         {
             webClient = null;
             Log_Box.AppendText("\nDownload completed!");
+            Unpack_To_Location(@"C:\temp\Releases\NorthStar_Release.zip", Current_Install_Folder);
+
         }
-        private void Browse_New_Install_Click(object sender, EventArgs e)
+        private void Auto_Install_And_verify()
         {
-            // Log_Box.AppendText(LookForTitanfallInstall());
-            while (Found_Install_Folder == false)
+            failed_search_counter = 0;
+            Found_Install_Folder = false;
+             Log_Box.AppendText("\nLooking For Titanfall Install");
+            while (Found_Install_Folder == false && failed_search_counter < 2)
             {
                 //    FindGitPath("dotnsset", ".exe", @"C:\Program Files");
+                //To Do, add an optional to save the variable of the folder path once assigned!!!!!
                 Log_Box.AppendText("\nAutomatically Looking For The Northstar And Titandfall Install :-)");
                 Cursor.Current = Cursors.WaitCursor;
-
+                Log_Box.AppendText("Looking Under these Directories -" +@"C:\Program Files (x86)\Steam" + " " + @"D:\Games");
                 FindNSInstall("Titanfall2", @"C:\Program Files (x86)\Steam");
-                Log_Box.AppendText("\nCould not Find the Install at C:\\Program Files (x86)\\Steam - Continuing Traversal");
                 FindNSInstall("Titanfall2", @"D:\Games");
-                if (Found_Install_Folder == false)
+                if (Found_Install_Folder == false && failed_search_counter >= 2)
                 {
-                    Log_Box.AppendText("\nCould Not Find, Please Manually Navigate");
+                    Log_Box.AppendText("\nCould Not Find, Please Manually Navigate to a proper Titanfall 2 installation");
+                    break;
 
 
                 }
@@ -404,6 +456,18 @@ namespace Northstar_Manger
                 //Checking if the path Given Returned Something Meaningful. I know i could do this better, but its 3.37am and i feel like im dying from this cold :|.
                 Check_Integrity_Of_NSINSTALL();
             }
+
+        }
+
+        private void Check_Ver_Click(object sender, EventArgs e)
+        {
+            Auto_Install_And_verify();
+
+
+        }
+
+        private void Browse_New_Install_Click(object sender, EventArgs e)
+        {
 
         }
     }

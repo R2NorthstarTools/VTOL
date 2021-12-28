@@ -45,6 +45,7 @@
             this.MainMenuStrip = new System.Windows.Forms.MenuStrip();
             this.panel5 = new System.Windows.Forms.Panel();
             this.button2 = new System.Windows.Forms.Button();
+            this.Check_Ver = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -54,6 +55,7 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.Check_Ver);
             this.panel1.Controls.Add(this.InstallNorthsatar);
             this.panel1.Controls.Add(this.Version_TextBox);
             this.panel1.Controls.Add(this.Northstar_Version_label);
@@ -82,7 +84,7 @@
             this.Version_TextBox.Location = new System.Drawing.Point(3, 73);
             this.Version_TextBox.Name = "Version_TextBox";
             this.Version_TextBox.ReadOnly = true;
-            this.Version_TextBox.Size = new System.Drawing.Size(420, 23);
+            this.Version_TextBox.Size = new System.Drawing.Size(358, 23);
             this.Version_TextBox.TabIndex = 5;
             // 
             // Northstar_Version_label
@@ -180,10 +182,10 @@
             // 
             this.Log_Box.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.Log_Box.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Log_Box.Enabled = false;
             this.Log_Box.Location = new System.Drawing.Point(3, 22);
             this.Log_Box.Name = "Log_Box";
             this.Log_Box.ReadOnly = true;
+            this.Log_Box.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
             this.Log_Box.Size = new System.Drawing.Size(420, 174);
             this.Log_Box.TabIndex = 0;
             this.Log_Box.Text = "";
@@ -214,6 +216,16 @@
             this.button2.TabIndex = 0;
             this.button2.Text = "Download Mods From Repo";
             this.button2.UseVisualStyleBackColor = true;
+            // 
+            // Check_Ver
+            // 
+            this.Check_Ver.Location = new System.Drawing.Point(367, 73);
+            this.Check_Ver.Name = "Check_Ver";
+            this.Check_Ver.Size = new System.Drawing.Size(56, 23);
+            this.Check_Ver.TabIndex = 8;
+            this.Check_Ver.Text = "Check";
+            this.Check_Ver.UseVisualStyleBackColor = true;
+            this.Check_Ver.Click += new System.EventHandler(this.Check_Ver_Click);
             // 
             // MainWindow
             // 
@@ -258,5 +270,6 @@
         private CheckedListBox checkedListBox1;
         private Button button2;
         private Button InstallNorthsatar;
+        private Button Check_Ver;
     }
 }
