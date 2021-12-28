@@ -73,6 +73,7 @@
             this.InstallNorthsatar.TabIndex = 7;
             this.InstallNorthsatar.Text = "Install Northstar";
             this.InstallNorthsatar.UseVisualStyleBackColor = true;
+            this.InstallNorthsatar.Click += new System.EventHandler(this.InstallNorthsatar_Click);
             // 
             // Version_TextBox
             // 
@@ -193,7 +194,7 @@
             this.MainMenuStrip.BackColor = System.Drawing.SystemColors.ControlDark;
             this.MainMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.MainMenuStrip.Name = "MainMenuStrip";
-            this.MainMenuStrip.Size = new System.Drawing.Size(906, 24);
+            this.MainMenuStrip.Size = new System.Drawing.Size(1344, 24);
             this.MainMenuStrip.TabIndex = 4;
             this.MainMenuStrip.Text = "menuStrip1";
             // 
@@ -219,7 +220,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.ClientSize = new System.Drawing.Size(906, 499);
+            this.ClientSize = new System.Drawing.Size(1344, 499);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel5);
             this.Controls.Add(this.panel4);

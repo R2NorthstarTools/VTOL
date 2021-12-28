@@ -1,3 +1,14 @@
+using System.ComponentModel;
+using System.Net;
+using System.Collections.Generic;
+
+using Newtonsoft.Json;
+using System.Data;
+using Newtonsoft.Json;
+using Octokit;
+using System.Text;
+using Newtonsoft.Json.Linq;
+
 namespace Northstar_Manger
 {
     public partial class MainWindow : Form
@@ -9,6 +20,9 @@ namespace Northstar_Manger
         public string Current_Install_Folder = "";
         private string NSExe, Gamever;
         private bool NS_Installed;
+        private WebClient webClient = null;
+        string current_Northstar_version_Url;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -189,12 +203,42 @@ namespace Northstar_Manger
 
             if (File.Exists(NSExe))
             {
-                NS_Installed = true;
-                if (File.Exists(NSExe))
+                System.IO.DirectoryInfo[] FolderDir = null;
+                System.IO.DirectoryInfo rootDirs = new DirectoryInfo(Current_Install_Folder);
+                FolderDir = rootDirs.GetDirectories();
+                 List<string> Baseline =  Read_From_Text_File("NormalFolderStructure.txt");
+                List<string> current = new List<string>(); 
+                Console.WriteLine("Baseline");
+                current.Append("sdsd");
+
+                foreach (var Folder in FolderDir)
+                    {
+                        string s = Folder.ToString().Substring(Folder.ToString().LastIndexOf("Titanfall2"));
+                    Console.WriteLine(s);
+
+                    current.Add(s);
+                        //saveAsyncFile(s, "NormalFolderStructure");
+
+                    }
+                foreach (var Folder in current)
                 {
+                    Console.WriteLine("current");
+
+                    Console.WriteLine(Folder.ToString());
+
+                }
+                if (Baseline.SequenceEqual(current) == true)
+                {
+                    Log_Box.AppendText("\nDirectory Check Successful - File Integrity has not been Implimented yet, so be sure the files are good!");
+                   NS_Installed = true;
+
 
 
                 }
+
+
+
+
             }
             else
             {
@@ -226,12 +270,112 @@ namespace Northstar_Manger
 
 
         }
+        public List<string> Read_From_Text_File(string Filepath)
+        {
+            List<string> lines = new List<string>(); 
 
+            try
+            {
+                using (var sr = new StreamReader(Filepath))
+                {
+                    while (sr.Peek() >= 0)
+                        lines.Add(sr.ReadLine());
+                }
+                foreach (string line in lines)
+                {
+                    // Use a tab to indent each line of the file.
+                    Console.WriteLine("\t" + line);
+                }
+            }
+            catch (System.IO.FileNotFoundException e)
+            {
+                Console.WriteLine("Could Not find " + Filepath);
+
+
+            }
+            return lines;
+        }
+        public static async Task saveAsyncFile(string Text, string Filename,bool ForceTxt = true, bool append = true)
+        {
+            if (ForceTxt == true)
+            {
+                if (!Filename.Contains(".txt"))
+                {
+                    Filename = Filename+".txt";
+
+                }
+            }
+            if (append == true)
+            {
+                if (File.Exists(Filename))
+                {
+
+                    using StreamWriter file = new(Filename, append: true);
+                    await file.WriteLineAsync(Text);
+                }
+                else
+                {
+
+                    await File.WriteAllTextAsync(Filename, Text);
+
+                }
+            }
+            else
+            {
+
+                await File.WriteAllTextAsync(Filename, Text);
+
+
+            }
+        }
         private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
+        private async Task Read_Latest_Release(string address)
+        {
+            Log_Box.AppendText("\nJson Download Started!");
+            WebClient client = new WebClient();
+            client.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)");
+            Stream data = client.OpenRead(address);
+            StreamReader reader = new StreamReader(data);
+            string s = reader.ReadToEnd();
+            s = s.Replace("[", "");
+            s= s.Replace("]","");
+            saveAsyncFile(s, @"C:\temp\temp.json",false,false);
+            Log_Box.AppendText("\nJson Download completed!");
+            Log_Box.AppendText("\nParsing Latest Release........");
+            Parse_Release();
 
+        }
+        private void Parse_Release()
+        {
+            var myJsonString = File.ReadAllText(@"C:\temp\temp.json");
+            var myJObject = JObject.Parse(myJsonString);
+
+
+            Console.WriteLine(myJObject.SelectToken("assets.browser_download_url").Value<string>());
+
+        }
+        private void InstallNorthsatar_Click(object sender, EventArgs e)
+        {
+
+            Read_Latest_Release("https://api.github.com/repos/R2Northstar/Northstar/releases/latest");
+            //Is file downloading yet?
+            //if (webClient != null)
+            //    return;
+
+            //webClient = new WebClient();
+            //webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(Completed);
+            //webClient.DownloadFileAsync(new Uri("https://github.com/R2Northstar/Northstar/releases/download/v1.1.3/Northstar.release.v1.1.3.zip"), @"C:\temp\NorthStar_Release.zip");
+
+            //Log_Box.AppendText("\nStarting Install procedure!");
+        }
+        private void Completed(object sender, AsyncCompletedEventArgs e)
+        {
+            webClient = null;
+            Log_Box.AppendText("\nDownload completed!");
+        }
         private void Browse_New_Install_Click(object sender, EventArgs e)
         {
             // Log_Box.AppendText(LookForTitanfallInstall());
