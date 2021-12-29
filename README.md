@@ -1,15 +1,23 @@
 # NorthStar-Mod-Manager-Ext-1
 
--This Application Installs The NorthStar Launcher Created by BobTheBob and the countless modders.\n
+-This Application Installs The NorthStar Launcher Created by BobTheBob and the countless modders.
+
 Current Features:
+
 *Updating Northstar Installations
+
 *Installation of the NorthStar Launcher By pulling the latest Json of the NorthStar repo to access the download.
+
 *Verifying a Titanfall 2 NorthStar install
+
 *Viewing Mods in the Mod List
 
 -Features in development:
+
 *Currently working on toggling mods on and off outside of the Client
+
 *Intent to Create Custom Servers using this installer as a base to configure and fine tune setups
+
 *The ability to launch the NorthStar Exe from the base.
 
 -Please Do suggest any new features and/or Improvements Through the Git issue tracker, or by sending me a personal Message.
@@ -28,15 +36,20 @@ Please Note you can do three things Currently,
 You can-
 
 -Check Titanfall Installation.
+
 Please Redirect to a valid Titanfall2 Installation if the Automatic check cannot Find one
+
 ![image](https://user-images.githubusercontent.com/23240514/147613647-15f422c7-c28e-4693-8494-f466b243b16f.png)
 
 
 -See installed Mods
+
 This is only works if the Mod Folder Is populated
+
 ![image](https://user-images.githubusercontent.com/23240514/147613656-b43143dc-16a0-4c42-8bc2-ea7f0ce81b09.png)
 
 -verify your NorthStar Install
+
 This is automatically done on Check
 
 
