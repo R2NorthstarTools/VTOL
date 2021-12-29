@@ -30,10 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.metroSetLabel2 = new MetroSet_UI.Controls.MetroSetLabel();
-            this.metroSetSwitch2 = new MetroSet_UI.Controls.MetroSetSwitch();
-            this.metroSetLabel1 = new MetroSet_UI.Controls.MetroSetLabel();
-            this.metroSetSwitch1 = new MetroSet_UI.Controls.MetroSetSwitch();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.Brows_Bttn = new MetroSet_UI.Controls.MetroSetButton();
             this.Check_Bttn = new MetroSet_UI.Controls.MetroSetButton();
             this.Install_NS_Button = new MetroSet_UI.Controls.MetroSetButton();
@@ -77,10 +75,8 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(21)))), ((int)(((byte)(33)))), ((int)(((byte)(49)))));
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.metroSetLabel2);
-            this.panel1.Controls.Add(this.metroSetSwitch2);
-            this.panel1.Controls.Add(this.metroSetLabel1);
-            this.panel1.Controls.Add(this.metroSetSwitch1);
+            this.panel1.Controls.Add(this.checkBox2);
+            this.panel1.Controls.Add(this.checkBox1);
             this.panel1.Controls.Add(this.Brows_Bttn);
             this.panel1.Controls.Add(this.Check_Bttn);
             this.panel1.Controls.Add(this.Install_NS_Button);
@@ -93,91 +89,31 @@
             this.panel1.Size = new System.Drawing.Size(432, 579);
             this.panel1.TabIndex = 0;
             // 
-            // metroSetLabel2
+            // checkBox2
             // 
-            this.metroSetLabel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.metroSetLabel2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.metroSetLabel2.IsDerivedStyle = true;
-            this.metroSetLabel2.Location = new System.Drawing.Point(113, 158);
-            this.metroSetLabel2.Name = "metroSetLabel2";
-            this.metroSetLabel2.Size = new System.Drawing.Size(250, 23);
-            this.metroSetLabel2.Style = MetroSet_UI.Enums.Style.Dark;
-            this.metroSetLabel2.StyleManager = null;
-            this.metroSetLabel2.TabIndex = 15;
-            this.metroSetLabel2.Text = "DO NOT Overwrite \"ns_startup_args.txt\"";
-            this.metroSetLabel2.ThemeAuthor = "Narwin";
-            this.metroSetLabel2.ThemeName = "MetroDark";
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.checkBox2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.checkBox2.Location = new System.Drawing.Point(150, 123);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(140, 21);
+            this.checkBox2.TabIndex = 19;
+            this.checkBox2.Text = "Toggle Deep Check";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
             // 
-            // metroSetSwitch2
+            // checkBox1
             // 
-            this.metroSetSwitch2.BackColor = System.Drawing.Color.Transparent;
-            this.metroSetSwitch2.BackgroundColor = System.Drawing.Color.Empty;
-            this.metroSetSwitch2.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(165)))), ((int)(((byte)(159)))), ((int)(((byte)(147)))));
-            this.metroSetSwitch2.CheckColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
-            this.metroSetSwitch2.CheckState = MetroSet_UI.Enums.CheckState.Unchecked;
-            this.metroSetSwitch2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.metroSetSwitch2.DisabledBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(205)))), ((int)(((byte)(205)))));
-            this.metroSetSwitch2.DisabledCheckColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
-            this.metroSetSwitch2.DisabledUnCheckColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(205)))), ((int)(((byte)(205)))), ((int)(((byte)(205)))));
-            this.metroSetSwitch2.IsDerivedStyle = true;
-            this.metroSetSwitch2.Location = new System.Drawing.Point(366, 155);
-            this.metroSetSwitch2.Name = "metroSetSwitch2";
-            this.metroSetSwitch2.Size = new System.Drawing.Size(58, 22);
-            this.metroSetSwitch2.Style = MetroSet_UI.Enums.Style.Light;
-            this.metroSetSwitch2.StyleManager = null;
-            this.metroSetSwitch2.Switched = false;
-            this.metroSetSwitch2.SymbolColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(92)))), ((int)(((byte)(92)))));
-            this.metroSetSwitch2.TabIndex = 14;
-            this.metroSetSwitch2.Text = "Toggle_Deep_Search";
-            this.metroSetSwitch2.ThemeAuthor = "Narwin";
-            this.metroSetSwitch2.ThemeName = "MetroLite";
-            this.metroSetSwitch2.UnCheckColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(155)))), ((int)(((byte)(155)))));
-            this.metroSetSwitch2.SwitchedChanged += new MetroSet_UI.Controls.MetroSetSwitch.SwitchedChangedEventHandler(this.metroSetSwitch2_SwitchedChanged);
-            // 
-            // metroSetLabel1
-            // 
-            this.metroSetLabel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.metroSetLabel1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.metroSetLabel1.IsDerivedStyle = true;
-            this.metroSetLabel1.Location = new System.Drawing.Point(237, 117);
-            this.metroSetLabel1.Name = "metroSetLabel1";
-            this.metroSetLabel1.Size = new System.Drawing.Size(126, 23);
-            this.metroSetLabel1.Style = MetroSet_UI.Enums.Style.Dark;
-            this.metroSetLabel1.StyleManager = null;
-            this.metroSetLabel1.TabIndex = 13;
-            this.metroSetLabel1.Text = "Toggle Deep Check";
-            this.metroSetLabel1.ThemeAuthor = "Narwin";
-            this.metroSetLabel1.ThemeName = "MetroDark";
-            // 
-            // metroSetSwitch1
-            // 
-            this.metroSetSwitch1.BackColor = System.Drawing.Color.Transparent;
-            this.metroSetSwitch1.BackgroundColor = System.Drawing.Color.Empty;
-            this.metroSetSwitch1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(165)))), ((int)(((byte)(159)))), ((int)(((byte)(147)))));
-            this.metroSetSwitch1.CheckColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
-            this.metroSetSwitch1.CheckState = MetroSet_UI.Enums.CheckState.Unchecked;
-            this.metroSetSwitch1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.metroSetSwitch1.DisabledBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(205)))), ((int)(((byte)(205)))));
-            this.metroSetSwitch1.DisabledCheckColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
-            this.metroSetSwitch1.DisabledUnCheckColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(205)))), ((int)(((byte)(205)))), ((int)(((byte)(205)))));
-            this.metroSetSwitch1.IsDerivedStyle = true;
-            this.metroSetSwitch1.Location = new System.Drawing.Point(366, 114);
-            this.metroSetSwitch1.Name = "metroSetSwitch1";
-            this.metroSetSwitch1.Size = new System.Drawing.Size(58, 22);
-            this.metroSetSwitch1.Style = MetroSet_UI.Enums.Style.Light;
-            this.metroSetSwitch1.StyleManager = null;
-            this.metroSetSwitch1.Switched = false;
-            this.metroSetSwitch1.SymbolColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(92)))), ((int)(((byte)(92)))));
-            this.metroSetSwitch1.TabIndex = 12;
-            this.metroSetSwitch1.Text = "Toggle_Deep_Search";
-            this.metroSetSwitch1.ThemeAuthor = "Narwin";
-            this.metroSetSwitch1.ThemeName = "MetroLite";
-            this.metroSetSwitch1.UnCheckColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(155)))), ((int)(((byte)(155)))));
-            this.metroSetSwitch1.SwitchedChanged += new MetroSet_UI.Controls.MetroSetSwitch.SwitchedChangedEventHandler(this.metroSetSwitch1_SwitchedChanged);
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.checkBox1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.checkBox1.Location = new System.Drawing.Point(88, 164);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(257, 21);
+            this.checkBox1.TabIndex = 18;
+            this.checkBox1.Text = "DO NOT Overwrite \"ns_startup_args.txt\"";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // Brows_Bttn
             // 
@@ -720,8 +656,6 @@
         private MetroSet_UI.Controls.MetroSetButton Install_NS_Button;
         private MetroSet_UI.Controls.MetroSetButton Brows_Bttn;
         private MetroSet_UI.Controls.MetroSetButton Check_Bttn;
-        private MetroSet_UI.Controls.MetroSetLabel metroSetLabel1;
-        private MetroSet_UI.Controls.MetroSetSwitch metroSetSwitch1;
         private MetroSet_UI.Controls.MetroSetPanel metroSetPanel2;
         private CheckedListBox checkedListBox1;
         private MetroSet_UI.Controls.MetroSetPanel metroSetPanel1;
@@ -731,13 +665,13 @@
         private Label label2;
         private MetroSet_UI.Controls.MetroSetButton metroSetButton3;
         private MetroSet_UI.Controls.MetroSetButton metroSetButton2;
-        private MetroSet_UI.Controls.MetroSetLabel metroSetLabel2;
-        private MetroSet_UI.Controls.MetroSetSwitch metroSetSwitch2;
         private TabPage tabPage3;
         private MetroSet_UI.Controls.MetroSetPanel metroSetPanel3;
         private MetroSet_UI.Controls.MetroSetTile metroSetTile1;
         private MetroSet_UI.Controls.MetroSetButton metroSetButton4;
         private Label label3;
         private MetroSet_UI.Controls.MetroSetButton metroSetButton5;
+        private CheckBox checkBox2;
+        private CheckBox checkBox1;
     }
 }

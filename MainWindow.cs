@@ -24,8 +24,8 @@ namespace Northstar_Manger
         string current_Northstar_version_Url;
         int failed_search_counter = 0;
         bool deep_Chk = false;
-        bool overwrite_Ns_file = false;
         List<string> Mod_List = new List<string>();
+        bool do_not_overwrite_Ns_file = true;
         private int completed_flag;
         public MainWindow()
         {
@@ -86,7 +86,7 @@ namespace Northstar_Manger
             string Header = Path.GetFullPath(Path.Combine(Application.StartupPath, @"../"));
 
             updaterModulePath = Path.Combine(Header, "updater.exe");
-         //   Thread.Sleep(2000);
+            //   Thread.Sleep(2000);
 
         }
         private static String updaterModulePath;
@@ -129,12 +129,12 @@ namespace Northstar_Manger
 
                 }
             }
-            
+
             catch (Exception e)
             {
                 Log_Box.AppendText("The process failed: "+ e.ToString());
             }
-           
+
 
             return "Exited with No Due to Missing Or Inaccurate Path";
 
@@ -168,7 +168,7 @@ namespace Northstar_Manger
 
 
             }
-            
+
             else
 
             {
@@ -293,7 +293,7 @@ namespace Northstar_Manger
 
 
             }
-           
+
         }
 
         private void Install_NS_Button_Click(object sender, EventArgs e)
@@ -327,7 +327,7 @@ namespace Northstar_Manger
                 System.IO.DirectoryInfo[] FolderDir = null;
                 System.IO.DirectoryInfo rootDirs = new DirectoryInfo(Current_Install_Folder);
                 FolderDir = rootDirs.GetDirectories();
-               // List<string> Baseline = Read_From_Text_File(@"C:\ProgramData\NorthStarModManager\NormalFolderStructure.txt");
+                // List<string> Baseline = Read_From_Text_File(@"C:\ProgramData\NorthStarModManager\NormalFolderStructure.txt");
                 List<string> Baseline = new List<string>()
                 {
                     @"Titanfall2\bin",
@@ -364,7 +364,7 @@ namespace Northstar_Manger
                 }
                 Console.WriteLine(Baseline.SequenceEqual(current));
 
-                if (ListCheck(Baseline,current) == true)
+                if (ListCheck(Baseline, current) == true)
                 {
                     Log_Box.AppendText("\nDirectory Check Successful - File Integrity has not been Implimented yet, so be sure the files are good!");
                     NS_Installed = true;
@@ -499,21 +499,33 @@ namespace Northstar_Manger
         {
 
         }
-        private async Task Read_Latest_Release(string address)
+        private void Read_Latest_Release(string address)
         {
+            if (address != null)
+            {
+                Log_Box.AppendText("\nJson Download Started!");
+                WebClient client = new WebClient();
+                Uri uri1 = new Uri(address);
+                 client.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)");
+                 Stream data = client.OpenRead(address);
+                 StreamReader reader = new StreamReader(data);
+                 string s = reader.ReadToEnd();
+           
 
-            Log_Box.AppendText("\nJson Download Started!");
-            WebClient client = new WebClient();
-            client.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)");
-            Stream data = client.OpenRead(address);
-            StreamReader reader = new StreamReader(data);
-            string s = reader.ReadToEnd();
-            s = s.Replace("[", "");
-            s= s.Replace("]", "");
-            saveAsyncFile(s, @"C:\temp\temp.json", false, false);
-            Log_Box.AppendText("\nJson Download completed!");
-            Log_Box.AppendText("\nParsing Latest Release........");
-            Parse_Release();
+
+                s = s.Replace("[", "");
+                s= s.Replace("]", "");
+                saveAsyncFile(s, @"C:\temp\temp.json", false, false);
+                Log_Box.AppendText("\nJson Download completed!");
+                Log_Box.AppendText("\nParsing Latest Release........");
+                Parse_Release();
+            }
+            else
+            {
+
+
+                Log_Box.AppendText("\n Invalid Url Called");
+            }
 
         }
         private void Parse_Release()
@@ -528,11 +540,28 @@ namespace Northstar_Manger
         }
         private void Unpack_To_Location(string Target_Zip, string Destination_Zip)
         {
+
             Log_Box.AppendText("\nUnpacking " + Path.GetFileName(Target_Zip) + " to " + Destination_Zip);
             if (File.Exists(Target_Zip) && Directory.Exists(Destination_Zip))
             {
                 ZipFile.ExtractToDirectory(Target_Zip, Destination_Zip, true);
                 Log_Box.AppendText("\nUnpacking Complete!");
+                if (File.Exists(Current_Install_Folder+@"\ns_startup_args_dedi.txt") && File.Exists(Current_Install_Folder+@"\ns_startup_args.txt"))
+                {
+                    if (do_not_overwrite_Ns_file == true)
+                    {
+                        Log_Box.AppendText("\nRestoring Files");
+
+                        System.IO.File.Copy(Current_Install_Folder+@"\TempCopyFolder\ns_startup_args.txt", Current_Install_Folder+@"\ns_startup_args.txt", true);
+                        System.IO.File.Copy(Current_Install_Folder+@"\TempCopyFolder\ns_startup_args_dedi.txt", Current_Install_Folder+@"\ns_startup_args_dedi.txt", true);
+                        Log_Box.AppendText("\nCleaning Residual");
+
+                        Directory.Delete(Current_Install_Folder+@"\TempCopyFolder", true);
+                        Log_Box.AppendText("\nInstall Complete!");
+
+                    }
+                }
+                
             }
             else
             {
@@ -556,11 +585,10 @@ namespace Northstar_Manger
         }
         private void Completed(object sender, AsyncCompletedEventArgs e)
         {
-            
+
             webClient = null;
             Log_Box.AppendText("\nDownload completed!");
             Unpack_To_Location(@"C:\ProgramData\NorthStarModManager\Releases\NorthStar_Release.zip", Current_Install_Folder);
-            completed_flag = 1;
         }
 
 
@@ -570,7 +598,7 @@ namespace Northstar_Manger
             Log_Box.AppendText("\nLooking For Titanfall2 Install");
             while (Found_Install_Folder == false && failed_search_counter < 1)
             {
-                
+
                 Log_Box.AppendText("\nAutomatically Looking For The Northstar And Titandfall Install :-)");
                 Cursor.Current = Cursors.WaitCursor;
                 Log_Box.AppendText("\nLooking Under the Directory  -" +@"C:\Program Files (x86)\Steam");
@@ -596,7 +624,7 @@ namespace Northstar_Manger
                 Install_Textbox.Text = Current_Install_Folder;
                 Install_Textbox.BackColor = Color.White;
                 Directory.CreateDirectory(@"C:\ProgramData\NorthStarModManager\VARS");
-                saveAsyncFile(Current_Install_Folder, @"C:\ProgramData\NorthStarModManager\VARS\INSTALL.txt",false,false);
+                saveAsyncFile(Current_Install_Folder, @"C:\ProgramData\NorthStarModManager\VARS\INSTALL.txt", false, false);
                 Log_Box.AppendText("\nFound Install Location at " + Current_Install_Folder + "\n");
                 NSExe = Get_And_Set_Filepaths(Current_Install_Folder, "NorthstarLauncher.exe");
                 //Checking if the path Given Returned Something Meaningful. I know i could do this better, but its 3.37am and i feel like im dying from this cold :|.
@@ -676,7 +704,7 @@ namespace Northstar_Manger
                                 Log_Box.AppendText("\nNorthStar Is Not Installed Properly!, do you want to re-install it?.");
 
                             }
-                            else if(IsValidPath(NS_Mod_Dir) == true)
+                            else if (IsValidPath(NS_Mod_Dir) == true)
                             {
 
                                 System.IO.DirectoryInfo[] subDirs = null;
@@ -715,7 +743,10 @@ namespace Northstar_Manger
                 }
             }
         }
-
+        private void Download_Release()
+        {
+            
+        }
         private void Install_NS_Button_Click_1(object sender, EventArgs e)
         {
             completed_flag = 0;
@@ -724,33 +755,29 @@ namespace Northstar_Manger
 
             if (webClient != null)
                 return;
-
             webClient = new WebClient();
             webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(Completed);
             if (File.Exists(Current_Install_Folder+@"\ns_startup_args_dedi.txt") && File.Exists(Current_Install_Folder+@"\ns_startup_args.txt"))
             {
-                if (overwrite_Ns_file == false)
+                if (do_not_overwrite_Ns_file == true)
                 {
                     System.IO.Directory.CreateDirectory(Current_Install_Folder + @"\TempCopyFolder");
+                    Log_Box.AppendText("\nCreating Directory and Backing up arg files");
 
                     System.IO.File.Copy(Current_Install_Folder+@"\ns_startup_args.txt", Current_Install_Folder+@"\TempCopyFolder\ns_startup_args.txt", true);
                     System.IO.File.Copy(Current_Install_Folder+@"\ns_startup_args_dedi.txt", Current_Install_Folder+@"\TempCopyFolder\ns_startup_args_dedi.txt", true);
 
                     Directory.CreateDirectory(@"C:\ProgramData\NorthStarModManager\Releases\");
                     webClient.DownloadFileAsync(new Uri(current_Northstar_version_Url), @"C:\ProgramData\NorthStarModManager\Releases\NorthStar_Release.zip");
+
                     Log_Box.AppendText("\nStarting Install procedure!");
-                    if (completed_flag == 1)
-                    {
 
-                        System.IO.File.Copy(Current_Install_Folder+@"\TempCopyFolder\ns_startup_args.txt", Current_Install_Folder+@"\ns_startup_args.txt", true);
-                        System.IO.File.Copy(Current_Install_Folder+@"\TempCopyFolder\ns_startup_args_dedi.txt", Current_Install_Folder+@"\ns_startup_args_dedi.txt", true);
-
-                    }
 
 
                 }
                 else
                 {
+
                     Directory.CreateDirectory(@"C:\ProgramData\NorthStarModManager\Releases\");
                     webClient.DownloadFileAsync(new Uri(current_Northstar_version_Url), @"C:\ProgramData\NorthStarModManager\Releases\NorthStar_Release.zip");
                     Log_Box.AppendText("\nStarting Install procedure!");
@@ -769,7 +796,6 @@ namespace Northstar_Manger
                 Log_Box.AppendText("\nStarting Install procedure!");
 
             }
-
 
 
         }
@@ -813,12 +839,13 @@ namespace Northstar_Manger
                     }
 
                 }
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
 
                 Log_Box.AppendText("\nIssue with File path, please Rebrowse.");
             }
-           
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -828,22 +855,7 @@ namespace Northstar_Manger
 
         private void metroSetSwitch1_SwitchedChanged(object sender)
         {
-            if (metroSetSwitch1.CheckState == MetroSet_UI.Enums.CheckState.Checked)
-            {
-                Log_Box.AppendText("\nDEEP CHECK DISABLED!");
-
-                deep_Chk = false;
-
-
-            }
-            else if (metroSetSwitch1.CheckState == MetroSet_UI.Enums.CheckState.Unchecked)
-
-            {
-                //  deep_Chk = true;
-                Console.WriteLine("WARNING DEEP CHECK ENABLED!");
-                Log_Box.AppendText("\nWARNING DEEP CHECK ENABLED! [Currently Inoperable Due to 32 bit Sys errors. Will Be fixed]");
-
-            }
+           
 
         }
         private void Reset_LogBox()
@@ -919,27 +931,14 @@ namespace Northstar_Manger
 
         private void metroSetSwitch2_SwitchedChanged(object sender)
         {
-            if (metroSetSwitch1.CheckState == MetroSet_UI.Enums.CheckState.Checked)
-            {
-                Log_Box.AppendText("\nDo not overwrite ns_startup_args.txt ENABLED! - this will backup and restore the original ns_startup_args and ns_startup_args_dedi from the folder");
-
-                overwrite_Ns_file = false;
-
-
-            }
-            else if (metroSetSwitch1.CheckState == MetroSet_UI.Enums.CheckState.Unchecked)
-
-            {
-                Log_Box.AppendText("\nOVERWRITE ns_startup_args.txt DISABLED!");
-
-                overwrite_Ns_file = true;
-
-            }
+            
+            
+             
         }
 
         private void metroSetButton4_Click(object sender, EventArgs e)
         {
-             
+
             Process process = Process.Start(updaterModulePath, "/checknow");
             process.Close();
         }
@@ -953,16 +952,61 @@ namespace Northstar_Manger
         }
         private void metroSetButton5_Click(object sender, EventArgs e)
         {
-           Process process = Process.Start(updaterModulePath, "/configure");
-           process.Close();
-          
+            Process process = Process.Start(updaterModulePath, "/configure");
+            process.Close();
+
         }
- 
+
 
         private void metroSetTile1_Click(object sender, EventArgs e)
         {
-            
 
+
+        }
+
+        private void metroSetRadioButton1_CheckedChanged(object sender)
+        {
+           
+            }
+
+        private void metroSetRadioButton2_CheckedChanged(object sender)
+        {
+          
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if(checkBox1.Checked == true)
+            {
+
+
+                Log_Box.AppendText("\nDo not overwrite ns_startup_args.txt ENABLED! - this will backup and restore the original ns_startup_args and ns_startup_args_dedi from the folder");
+                do_not_overwrite_Ns_file = true;
+
+            }
+            else
+            {
+                Log_Box.AppendText("\nOVERWRITE ns_startup_args.txt ENABLED!");
+                do_not_overwrite_Ns_file = false;
+
+            }
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox2.Checked == true)
+            {
+                //  deep_Chk = true;
+                Console.WriteLine("WARNING DEEP CHECK ENABLED!");
+                Log_Box.AppendText("\nWARNING DEEP CHECK ENABLED! [Currently Inoperable Due to 32 bit Sys errors. Will Be fixed]");
+            }
+            else
+            {
+
+                Log_Box.AppendText("\nDEEP CHECK DISABLED!");
+
+                deep_Chk = false;
+            }
         }
     }
 }
