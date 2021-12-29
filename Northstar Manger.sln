@@ -1,20 +1,28 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.32002.261
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Northstar Manger", "Northstar Manger.csproj", "{DC20B102-3EDF-4F8A-B7B7-97D0C53F653B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Northstar Manger", "Northstar Manger.csproj", "{DC20B102-3EDF-4F8A-B7B7-97D0C53F653B}"
+EndProject
+Project("{840C416C-B8F3-42BC-B0DD-F6BB14C9F8CB}") = "NorthStarInstaller_Advanced", "..\NorthStarInstaller_Advanced\NorthStarInstaller_Advanced.aiproj", "{2EEBF1A9-5AAD-4C76-AA78-8DA292845234}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		All|Any CPU = All|Any CPU
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DC20B102-3EDF-4F8A-B7B7-97D0C53F653B}.All|Any CPU.ActiveCfg = Release|Any CPU
+		{DC20B102-3EDF-4F8A-B7B7-97D0C53F653B}.All|Any CPU.Build.0 = Release|Any CPU
 		{DC20B102-3EDF-4F8A-B7B7-97D0C53F653B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DC20B102-3EDF-4F8A-B7B7-97D0C53F653B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DC20B102-3EDF-4F8A-B7B7-97D0C53F653B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DC20B102-3EDF-4F8A-B7B7-97D0C53F653B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2EEBF1A9-5AAD-4C76-AA78-8DA292845234}.All|Any CPU.ActiveCfg = DefaultBuild
+		{2EEBF1A9-5AAD-4C76-AA78-8DA292845234}.Debug|Any CPU.ActiveCfg = DefaultBuild
+		{2EEBF1A9-5AAD-4C76-AA78-8DA292845234}.Release|Any CPU.ActiveCfg = DefaultBuild
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
