@@ -1,6 +1,8 @@
-# NorthStar-Mod-Manager-Ext-1
+# NorthStar-Mod-Installer
 
 -This Application Installs The NorthStar Launcher Created by BobTheBob and the countless modders.
+
+
 
 Current Features:
 
@@ -12,6 +14,8 @@ Current Features:
 
 *Viewing Mods in the Mod List
 
+
+
 -Features in development:
 
 *Currently working on toggling mods on and off outside of the Client
@@ -20,7 +24,12 @@ Current Features:
 
 *The ability to launch the NorthStar Exe from the base.
 
+
+
 -Please Do suggest any new features and/or Improvements Through the Git issue tracker, or by sending me a personal Message.
+
+
+
 
 Thank you again to all you Pilots, Hope we Wreak havoc on the Frontier for years to come.
 
