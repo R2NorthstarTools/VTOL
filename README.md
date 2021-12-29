@@ -1,7 +1,8 @@
 # NorthStar-Mod-Manager-Ext-1
 Please initiate the install by Downloading the latest release from the Repo,
 
-![image](https://user-images.githubusercontent.com/23240514/147613628-57550c2f-d6fc-4ad7-9bab-13bbcfd2c4f6.png)
+![image](https://user-images.githubusercontent.com/23240514/147621044-cd049e7b-ce98-4d1d-a79e-06a58a02a09f.png)
+
 Once Downloaded and installed,
 
 Please Note you can do three things Currently,
