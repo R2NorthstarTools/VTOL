@@ -26,11 +26,13 @@ namespace Northstar_Manger
         bool deep_Chk = false;
         bool overwrite_Ns_file = false;
         List<string> Mod_List = new List<string>();
-
+        private int completed_flag;
         public MainWindow()
         {
             InitializeComponent();
             Reset_LogBox();
+            Image myimage = new Bitmap(@"bestboy.png");
+            metroSetTile1.BackgroundImage = myimage;
             try
             {
                 if (Directory.Exists(@"C:\ProgramData\NorthStarModManager"))
@@ -76,10 +78,22 @@ namespace Northstar_Manger
 
 
             }
-            Thread.Sleep(2000);
+            // Start the thread that will launch the updater in silent mode with 10 second delay.
+            // Thread thread = new Thread(new ThreadStart(StartSilent));
+            // thread.Start();
+
+            // Compute the updater.exe path relative to the application main module path
+            string Header = Path.GetFullPath(Path.Combine(Application.StartupPath, @"../"));
+
+            updaterModulePath = Path.Combine(Header, "updater.exe");
+         //   Thread.Sleep(2000);
 
         }
-
+        private static String updaterModulePath;
+        private void FileClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
 
@@ -542,10 +556,11 @@ namespace Northstar_Manger
         }
         private void Completed(object sender, AsyncCompletedEventArgs e)
         {
+            
             webClient = null;
             Log_Box.AppendText("\nDownload completed!");
             Unpack_To_Location(@"C:\ProgramData\NorthStarModManager\Releases\NorthStar_Release.zip", Current_Install_Folder);
-
+            completed_flag = 1;
         }
 
 
@@ -703,7 +718,7 @@ namespace Northstar_Manger
 
         private void Install_NS_Button_Click_1(object sender, EventArgs e)
         {
-
+            completed_flag = 0;
             Read_Latest_Release("https://api.github.com/repos/R2Northstar/Northstar/releases/latest");
             //  Is file downloading yet?
 
@@ -712,9 +727,51 @@ namespace Northstar_Manger
 
             webClient = new WebClient();
             webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(Completed);
-            Directory.CreateDirectory(@"C:\ProgramData\NorthStarModManager\Releases\");
-            webClient.DownloadFileAsync(new Uri(current_Northstar_version_Url), @"C:\ProgramData\NorthStarModManager\Releases\NorthStar_Release.zip");
-            Log_Box.AppendText("\nStarting Install procedure!");
+            if (File.Exists(Current_Install_Folder+@"\ns_startup_args_dedi.txt") && File.Exists(Current_Install_Folder+@"\ns_startup_args.txt"))
+            {
+                if (overwrite_Ns_file == false)
+                {
+                    System.IO.Directory.CreateDirectory(Current_Install_Folder + @"\TempCopyFolder");
+
+                    System.IO.File.Copy(Current_Install_Folder+@"\ns_startup_args.txt", Current_Install_Folder+@"\TempCopyFolder\ns_startup_args.txt", true);
+                    System.IO.File.Copy(Current_Install_Folder+@"\ns_startup_args_dedi.txt", Current_Install_Folder+@"\TempCopyFolder\ns_startup_args_dedi.txt", true);
+
+                    Directory.CreateDirectory(@"C:\ProgramData\NorthStarModManager\Releases\");
+                    webClient.DownloadFileAsync(new Uri(current_Northstar_version_Url), @"C:\ProgramData\NorthStarModManager\Releases\NorthStar_Release.zip");
+                    Log_Box.AppendText("\nStarting Install procedure!");
+                    if (completed_flag == 1)
+                    {
+
+                        System.IO.File.Copy(Current_Install_Folder+@"\TempCopyFolder\ns_startup_args.txt", Current_Install_Folder+@"\ns_startup_args.txt", true);
+                        System.IO.File.Copy(Current_Install_Folder+@"\TempCopyFolder\ns_startup_args_dedi.txt", Current_Install_Folder+@"\ns_startup_args_dedi.txt", true);
+
+                    }
+
+
+                }
+                else
+                {
+                    Directory.CreateDirectory(@"C:\ProgramData\NorthStarModManager\Releases\");
+                    webClient.DownloadFileAsync(new Uri(current_Northstar_version_Url), @"C:\ProgramData\NorthStarModManager\Releases\NorthStar_Release.zip");
+                    Log_Box.AppendText("\nStarting Install procedure!");
+
+
+
+                }
+
+            }
+            else
+            {
+                Log_Box.AppendText("\nCould Not Find the ns_startup_args_dedi.txt & ns_startup_args.txt");
+
+                Directory.CreateDirectory(@"C:\ProgramData\NorthStarModManager\Releases\");
+                webClient.DownloadFileAsync(new Uri(current_Northstar_version_Url), @"C:\ProgramData\NorthStarModManager\Releases\NorthStar_Release.zip");
+                Log_Box.AppendText("\nStarting Install procedure!");
+
+            }
+
+
+
         }
 
         private void Check_Bttn_Click(object sender, EventArgs e)
@@ -864,7 +921,7 @@ namespace Northstar_Manger
         {
             if (metroSetSwitch1.CheckState == MetroSet_UI.Enums.CheckState.Checked)
             {
-                Log_Box.AppendText("\nDEEP CHECK DISABLED!");
+                Log_Box.AppendText("\nDo not overwrite ns_startup_args.txt ENABLED! - this will backup and restore the original ns_startup_args and ns_startup_args_dedi from the folder");
 
                 overwrite_Ns_file = false;
 
@@ -873,11 +930,39 @@ namespace Northstar_Manger
             else if (metroSetSwitch1.CheckState == MetroSet_UI.Enums.CheckState.Unchecked)
 
             {
+                Log_Box.AppendText("\nOVERWRITE ns_startup_args.txt DISABLED!");
+
                 overwrite_Ns_file = true;
-                Console.WriteLine("WARNING OVERWRITE ns_startup_args.txt ENABLED!");
-                Log_Box.AppendText("\nWARNING DEEP CHECK ENABLED! [Currently Inoperable Due to 32 bit Sys errors. Will Be fixed]");
 
             }
+        }
+
+        private void metroSetButton4_Click(object sender, EventArgs e)
+        {
+             
+            Process process = Process.Start(updaterModulePath, "/checknow");
+            process.Close();
+        }
+        private static void StartSilent()
+        {
+            Thread.Sleep(10000);
+
+            Process process = Process.Start(updaterModulePath, "/silent");
+
+            process.Close();
+        }
+        private void metroSetButton5_Click(object sender, EventArgs e)
+        {
+           Process process = Process.Start(updaterModulePath, "/configure");
+           process.Close();
+          
+        }
+ 
+
+        private void metroSetTile1_Click(object sender, EventArgs e)
+        {
+            
+
         }
     }
 }
