@@ -31,6 +31,8 @@ namespace Northstar_Manger
         {
             InitializeComponent();
             Reset_LogBox();
+            string version = System.Windows.Forms.Application.ProductVersion;
+            this.Text = String.Format("NorthStar Mod Launcher Version {0}", version);
             Image myimage = new Bitmap(@"bestboy.png");
             metroSetTile1.BackgroundImage = myimage;
             try
@@ -85,7 +87,7 @@ namespace Northstar_Manger
             // Compute the updater.exe path relative to the application main module path
             string Header = Path.GetFullPath(Path.Combine(Application.StartupPath, @"../"));
 
-            updaterModulePath = Path.Combine(Header, "updater.exe");
+            updaterModulePath = Path.Combine(Header, "NSUpdater.exe");
             //   Thread.Sleep(2000);
 
         }
@@ -515,10 +517,24 @@ namespace Northstar_Manger
 
                 s = s.Replace("[", "");
                 s= s.Replace("]", "");
-                saveAsyncFile(s, @"C:\temp\temp.json", false, false);
-                Log_Box.AppendText("\nJson Download completed!");
-                Log_Box.AppendText("\nParsing Latest Release........");
-                Parse_Release();
+                if (Directory.Exists(@"C:\ProgramData\NorthStarModManager\temp"))
+                {
+                    saveAsyncFile(s, @"C:\ProgramData\NorthStarModManager\temp\temp.json", false, false);
+                    Log_Box.AppendText("\nJson Download completed!");
+                    Log_Box.AppendText("\nParsing Latest Release........");
+                    Parse_Release();
+
+                }
+                else
+                {
+                    Directory.CreateDirectory(@"C:\ProgramData\NorthStarModManager\temp");
+                    saveAsyncFile(s, @"C:\ProgramData\NorthStarModManager\temp\temp.json", false, false);
+                    Log_Box.AppendText("\nJson Download completed!");
+                    Log_Box.AppendText("\nParsing Latest Release........");
+                    Parse_Release();
+
+                }
+                
             }
             else
             {
@@ -530,7 +546,7 @@ namespace Northstar_Manger
         }
         private void Parse_Release()
         {
-            var myJsonString = File.ReadAllText(@"C:\temp\temp.json");
+            var myJsonString = File.ReadAllText(@"C:\ProgramData\NorthStarModManager\temp\temp.json");
             var myJObject = JObject.Parse(myJsonString);
 
 

@@ -7,14 +7,15 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
-    <ApplicationManifest>app.manifest</ApplicationManifest>
     <AssemblyName>NorthStarManager</AssemblyName>
     <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
     <StartupObject>Northstar_Manger.Mod_Manager_Main</StartupObject>
     <ApplicationIcon>output-onlinepngtools.ico</ApplicationIcon>
     <DebugType>embedded</DebugType>
-    <FileVersion>1.0.6</FileVersion>
+    <FileVersion>$(VersionPrefix)</FileVersion>
     <PackageIcon>output-onlinepngtools.png</PackageIcon>
+    <UseWPF>False</UseWPF>
+    <Version>1.0.8</Version>
   </PropertyGroup>
 
   <ItemGroup>
