@@ -1,6 +1,6 @@
 # NorthStar-Mod-Manager-Ext-1
 
--This Application Installs The NorthStar Launcher Created by BobTheBob and the countless modders.
+-This Application Installs The NorthStar Launcher Created by BobTheBob and the countless modders.\n
 Current Features:
 *Updating Northstar Installations
 *Installation of the NorthStar Launcher By pulling the latest Json of the NorthStar repo to access the download.
