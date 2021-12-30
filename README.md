@@ -1,12 +1,11 @@
-# NorthStar-Mod-Installer
 
--This Application Installs The NorthStar Launcher Created by BobTheBob and the countless modders.
+-This Application Installs The NorthStar Launcher Created by BobTheBob and the countless Modder’s.
 <br /><br /><br /><br />
 
 
 Current Features:
 
-*Updating Northstar Installations
+*Updating NorthStar Installations
 
 *Installation of the NorthStar Launcher By pulling the latest Json of the NorthStar repo to access the download.
 
@@ -32,7 +31,7 @@ Current Features:
 
 
 Thank you again to all you Pilots, Hope we Wreak havoc on the Frontier for years to come.
-<br /><br />
+<br /><br /><br />
 
 Please initiate the install by Downloading the latest release from the Repo,
 <br />
@@ -48,9 +47,9 @@ You can-
 -Check Titanfall Installation.
 <br />
 Please Redirect to a valid Titanfall2 Installation if the Automatic check cannot Find one
-<br /><br />
+<br /><br /><br />
 ![image](https://user-images.githubusercontent.com/23240514/147613647-15f422c7-c28e-4693-8494-f466b243b16f.png)
-<br /><br />
+<br /><br /><br />
 
 -See installed Mods
 <br />
@@ -61,14 +60,12 @@ This is only works if the Mod Folder Is populated
 -verify your NorthStar Install
 <br />
 This is automatically done on Check
-The Installer will donwload the latest release from The Offical Northstar Page.
-Installations can be overwritten making this function as an Inbuilt updater for the Northstar Launcher.
-<br />
-Clicking Install Northstar will automatically add the new Version From the repo and verify that the update is correct.
-<br />
-Checking Do not Overwrite Ns startup will endure that your Ns startup files are not touched by the new Update.
+The Installer will download the latest release from The Official NorthStar Page.
+Installations can be overwritten making this function as an Inbuilt updater for the NorthStar Launcher.
 <br /><br />
-
+Clicking Install NorthStar will automatically add the new Version From the repo and verify that the update is correct.
+<br /><br />
+Checking Do not Overwrite Ns Startup will ensure that your Ns Startup files are not touched by the new Update.
+<br /><br />
 ![image](https://user-images.githubusercontent.com/23240514/147717378-a3c3bb06-9406-496c-b63c-c1ecac31fa31.png)
 <br /><br />
-
