@@ -9,12 +9,19 @@ using MetroSet_UI.Enums;
 using System.Windows.Forms;
 using System.Reflection;
 using System.Diagnostics;
+using WishLib = IWshRuntimeLibrary;
+
+using CheckState = System.Windows.Forms.CheckState;
 
 namespace Northstar_Manger
 {
     public partial class MainWindow : Form
     {
         static System.Collections.Specialized.StringCollection log = new System.Collections.Specialized.StringCollection();
+        public ListBox.ObjectCollection Inactive_Mods_List => Inactive_List.Items;
+        public ListBox.ObjectCollection Active_Mods_List => Active_List.Items;
+        List<string> Mod_Directory_List_Active = new List<string>();
+        List<string> Mod_Directory_List_InActive = new List<string>();
 
         public bool Found_Install_Folder = false;
         public string Current_Install_Folder = "";
@@ -27,6 +34,7 @@ namespace Northstar_Manger
         List<string> Mod_List = new List<string>();
         bool do_not_overwrite_Ns_file = true;
         private int completed_flag;
+        public int pid;
         public MainWindow()
         {
             InitializeComponent();
@@ -88,6 +96,8 @@ namespace Northstar_Manger
             string Header = Path.GetFullPath(Path.Combine(Application.StartupPath, @"../"));
 
             updaterModulePath = Path.Combine(Header, "NSUpdater.exe");
+            Check_Args();
+
             //   Thread.Sleep(2000);
 
         }
@@ -106,8 +116,8 @@ namespace Northstar_Manger
             {
                 DirectoryInfo hdDirectoryInWhichToSearch = new DirectoryInfo(@rootDir);
                 FileInfo[] filesInDir = hdDirectoryInWhichToSearch.GetFiles("*" + Filename + "*.*");
-                Console.WriteLine(rootDir);
-                Console.WriteLine(Filename);
+                // Console.WriteLine(rootDir);
+                // Console.WriteLine(Filename);
 
                 foreach (FileInfo foundFile in filesInDir)
                 {
@@ -194,6 +204,55 @@ namespace Northstar_Manger
         {
 
         }
+
+        private bool Template_traverse(System.IO.DirectoryInfo root, String Search)
+        {
+            System.IO.DirectoryInfo[] subDirs = null;
+            subDirs = root.GetDirectories();
+
+            try
+            {
+                var last = subDirs.Last();
+                //Log_Box.AppendText(last.FullName + "sdsdsdsd");
+                foreach (System.IO.DirectoryInfo dirInfo in subDirs)
+                {
+                    if (dirInfo.Name.Contains(Search))
+                    {
+                        // Console.WriteLine("Found Folder");
+                          Console.WriteLine(dirInfo.FullName);
+                        return true;
+
+                    }
+                    else if (last.Equals(dirInfo))
+                    {
+                        return false;
+                    }
+                    else
+                    {
+
+                        Console.WriteLine("Trying again at " + dirInfo);
+                        
+                    }
+                    if (dirInfo == null)
+                    {
+                        Console.WriteLine(dirInfo.FullName + "This is not a valid Folder????!");
+                        continue;
+
+                    }
+                    // Resursive call for each subdirectory.
+                }
+
+                Console.WriteLine("\nCould not Find the Install at " +root+ " - Continuing Traversal");
+            }
+            
+            catch (NullReferenceException e)
+            {
+                log.Add(e.Message);
+
+            }
+            return false;
+
+}
         void WalkDirectoryTree(System.IO.DirectoryInfo root, String Search)
         {
             System.IO.FileInfo[] files = null;
@@ -319,6 +378,24 @@ namespace Northstar_Manger
         private void Install_Location_Label_Click(object sender, EventArgs e)
         {
 
+        }
+        private static void AddShortcut(string Location_Of_Exe, string nameofshortcut)
+        {
+            string pathToExe = Location_Of_Exe;
+            string commonStartMenuPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonStartMenu);
+            string appStartMenuPath = Path.Combine(commonStartMenuPath, "Programs", Path.GetFileName(Location_Of_Exe));
+
+            if (!Directory.Exists(appStartMenuPath))
+                Directory.CreateDirectory(appStartMenuPath);
+
+            string shortcutLocation = Path.Combine(appStartMenuPath, nameofshortcut + ".lnk");
+            WishLib.WshShell shell = new WishLib.WshShell();
+            WishLib.IWshShortcut shortcut = (WishLib.IWshShortcut)shell.CreateShortcut(shortcutLocation);
+
+            shortcut.Description = "Test App Description";
+            //shortcut.IconLocation = @"C:\Program Files (x86)\TestApp\TestApp.ico"; //uncomment to set the icon of the shortcut
+            shortcut.TargetPath = pathToExe;
+            shortcut.Save();
         }
         private void Check_Integrity_Of_NSINSTALL()
         {
@@ -508,11 +585,11 @@ namespace Northstar_Manger
                 Log_Box.AppendText("\nJson Download Started!");
                 WebClient client = new WebClient();
                 Uri uri1 = new Uri(address);
-                 client.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)");
-                 Stream data = client.OpenRead(address);
-                 StreamReader reader = new StreamReader(data);
-                 string s = reader.ReadToEnd();
-           
+                client.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)");
+                Stream data = client.OpenRead(address);
+                StreamReader reader = new StreamReader(data);
+                string s = reader.ReadToEnd();
+
 
 
                 s = s.Replace("[", "");
@@ -534,7 +611,7 @@ namespace Northstar_Manger
                     Parse_Release();
 
                 }
-                
+
             }
             else
             {
@@ -577,7 +654,7 @@ namespace Northstar_Manger
 
                     }
                 }
-                
+
             }
             else
             {
@@ -686,7 +763,10 @@ namespace Northstar_Manger
         }
         private void metroSetTabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+                Active_List.Items.Clear();
+            Inactive_List.Items.Clear();
+            Mod_Directory_List_Active.Clear();
+            Mod_Directory_List_InActive.Clear();
             if (Main_Window.SelectedTab == tabPage2)
             {
                 Console.WriteLine("In Mods!");
@@ -709,7 +789,7 @@ namespace Northstar_Manger
                     {
                         if (NS_Installed == true)
                         {
-                            checkedListBox1.Items.Clear();
+                            // checkedListBox1.Items.Clear();
                             string NS_Mod_Dir = Current_Install_Folder + @"\R2Northstar\mods";
                             System.IO.DirectoryInfo rootDirs = new DirectoryInfo(@NS_Mod_Dir);
 
@@ -727,9 +807,23 @@ namespace Northstar_Manger
                                 subDirs = rootDirs.GetDirectories();
                                 foreach (System.IO.DirectoryInfo dirInfo in subDirs)
                                 {
-                                    Console.WriteLine(dirInfo.FullName);
-                                    checkedListBox1.Items.Add(dirInfo.FullName, true);
+                                    if(Template_traverse(dirInfo, "Locked_Folder") == true)
+                                    {
+
+                                        Console.WriteLine("Inactive - " + dirInfo.FullName);
+                                        Mod_Directory_List_InActive.Add(dirInfo.FullName);
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Active - " + dirInfo.FullName);
+
+                                        Mod_Directory_List_Active.Add(dirInfo.FullName);
+
+                                    }
                                 }
+
+                                Active_List.Items.AddRange(Mod_Directory_List_Active.ToArray());
+                                Inactive_List.Items.AddRange(Mod_Directory_List_InActive.ToArray());
 
                             }
                             else
@@ -759,10 +853,7 @@ namespace Northstar_Manger
                 }
             }
         }
-        private void Download_Release()
-        {
-            
-        }
+      
         private void Install_NS_Button_Click_1(object sender, EventArgs e)
         {
             completed_flag = 0;
@@ -871,7 +962,7 @@ namespace Northstar_Manger
 
         private void metroSetSwitch1_SwitchedChanged(object sender)
         {
-           
+
 
         }
         private void Reset_LogBox()
@@ -932,44 +1023,55 @@ namespace Northstar_Manger
         private void checkedListBox1_SelectedIndexChanged_1(object sender, EventArgs e)
         {
 
-            // int i;
-            // string s;
-            // s = "Checked items:\n";
-            // for (i = 0; i <= (checkedListBox1.Items.Count-1); i++)
-            // {
-            //     if (checkedListBox1.GetItemChecked(i))
-            //     {
-            //         s = s + "Item " + (i+1).ToString() + " = " + checkedListBox1.Items[i].ToString() + "\n";
-            //     }
-            // }
-            //Console.WriteLine(s);    
         }
 
-        private void metroSetSwitch2_SwitchedChanged(object sender)
-        {
-            
-            
-             
-        }
+
 
         private void metroSetButton4_Click(object sender, EventArgs e)
         {
+            if (File.Exists(updaterModulePath))
+            {
+                Process process = Process.Start(updaterModulePath, "/checknow");
+                process.Close();
+            }
+            else
+            {
+                Log_Box.AppendText("Please Be Aware That your Updater Exe is not in the Home Folder Of the Northstar Installer");
 
-            Process process = Process.Start(updaterModulePath, "/checknow");
-            process.Close();
+            }
+
         }
-        private static void StartSilent()
+        private void StartSilent()
         {
-            Thread.Sleep(10000);
+            if (File.Exists(updaterModulePath))
+            {
+                Thread.Sleep(10000);
 
-            Process process = Process.Start(updaterModulePath, "/silent");
+                Process process = Process.Start(updaterModulePath, "/silent");
 
-            process.Close();
+                process.Close();
+            }
+            else
+            {
+                Log_Box.AppendText("Please Be Aware That your Updater Exe is not in the Home Folder Of the Northstar Installer");
+
+            }
         }
         private void metroSetButton5_Click(object sender, EventArgs e)
         {
-            Process process = Process.Start(updaterModulePath, "/configure");
-            process.Close();
+            if (File.Exists(updaterModulePath))
+            {
+
+                Process process = Process.Start(updaterModulePath, "/configure");
+                process.Close();
+
+            }
+            else
+            {
+                Log_Box.AppendText("Please Be Aware That your Updater Exe is not in the Home Folder Of the Northstar Installer");
+
+            }
+
 
         }
 
@@ -980,19 +1082,11 @@ namespace Northstar_Manger
 
         }
 
-        private void metroSetRadioButton1_CheckedChanged(object sender)
-        {
-           
-            }
 
-        private void metroSetRadioButton2_CheckedChanged(object sender)
-        {
-          
-        }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            if(checkBox1.Checked == true)
+            if (checkBox1.Checked == true)
             {
 
 
@@ -1024,5 +1118,229 @@ namespace Northstar_Manger
                 deep_Chk = false;
             }
         }
+
+
+        private void CheckIfModenabled(string path)
+        {
+
+            if (Directory.Exists(path+@"\Disable_Corner"))
+            {
+
+                Console.WriteLine(path + "    This Mod is Disabled");
+
+            }
+            else
+            {
+                Console.WriteLine(path + "    This Mod is Enabled");
+
+
+
+            }
+
+
+        }
+        void Check_Args()
+        {
+
+
+            if (Directory.Exists(@"C:\ProgramData\NorthStarModManager\VARS"))
+            {
+                if (File.Exists(@"C:\ProgramData\NorthStarModManager\VARS\Startup_Arguemts.txt"))
+                {
+                    Arg_Box.Text= Read_From_TextFile_OneLine(Current_Install_Folder+@"\ns_startup_args.txt");
+
+
+                }
+                else
+                {
+                    Console.WriteLine("Err, File not found");
+
+                }
+
+            }
+            else
+            {
+
+                Console.WriteLine("Err, Folder not found");
+
+
+            }
+        }
+        private void Start_Client_Click(object sender, EventArgs e)
+        {
+            if (Directory.Exists(Current_Install_Folder))
+            {
+                if (File.Exists(Current_Install_Folder+@"\ns_startup_args.txt"))
+                {
+                    saveAsyncFile(Arg_Box.Text, Current_Install_Folder+@"\ns_startup_args.txt", false, false);
+
+
+                }
+                else
+                {
+                    Console.WriteLine("Err, File not found");
+
+
+                }
+
+            }
+            else
+            {
+
+                Console.WriteLine("Err, File not found");
+
+
+            }
+            if (File.Exists(NSExe))
+            {
+                ProcessStartInfo procStartInfo = new ProcessStartInfo();
+                Process process = new Process();
+                procStartInfo.FileName = NSExe;
+                procStartInfo.WorkingDirectory = System.IO.Path.GetDirectoryName(NSExe);
+                ;
+
+                // procStartInfo.Arguments = args;
+
+                process.StartInfo = procStartInfo;
+
+                process.Start();
+                int id = process.Id;
+                pid = id;
+                Process tempProc = Process.GetProcessById(id);
+                // this.Visible = false;
+                // Thread.Sleep(5000);
+                // tempProc.WaitForExit();
+                // this.Visible = true;
+
+                // Process process = Process.Start(NSExe, Arg_Box.Text);
+                process.Close();
+
+
+            }
+        }
+
+
+
+        private void Arg_Box_Leave(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Arg_Box_Enter(object sender, EventArgs e)
+        {
+        }
+        void Move_List_box(ListBox from, ListBox To)
+        {
+            var selected = from.SelectedItem;
+            if (selected is null)
+            {
+                return;
+
+            }
+            else
+            {
+
+                int index = from.SelectedIndex;
+                from.Items.RemoveAt(index);
+                To.Items.Add(selected);
+                if (index >= from.Items.Count)
+                {
+                    index--;
+
+                }
+                from.SelectedIndex = index;
+            }
+
+
+
+        }
+        private void Make_Active_Click(object sender, EventArgs e)
+        {
+            Move_List_box(Inactive_List, Active_List);
+        }
+
+        private void Make_Inactive_Click(object sender, EventArgs e)
+        {
+            Move_List_box(Active_List, Inactive_List);
+
+        }
+        private static void MoveFiles(string sourceDir, string targetDir)
+        {
+            IEnumerable<FileInfo> files = Directory.GetFiles(sourceDir).Select(f => new FileInfo(f));
+            foreach (var file in files)
+            {
+                File.Move(file.FullName, Path.Combine(targetDir, file.Name));
+            }
+        }
+        private void Apply_Btn_Mods_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                List<string> Inactive = Inactive_List.Items.OfType<string>().ToList();
+                List<string> Active = Active_List.Items.OfType<string>().ToList();
+
+                foreach (var val in Inactive)
+                {
+                    if (val != null)
+                    {
+                        Console.WriteLine(val);
+                        System.IO.DirectoryInfo rootDirs = new DirectoryInfo(val);
+
+                        if (!IsDirectoryEmpty(rootDirs))
+                        {
+                            if (Directory.Exists(val+@"\Locked_Folder"))
+                            {
+
+                                MoveFiles(val, val+@"\Locked_Folder");
+
+                            }
+                            else
+                            {
+
+                                Directory.CreateDirectory(val+@"\Locked_Folder");
+                                MoveFiles(val, val+@"\Locked_Folder");
+
+                            }
+                        }
+                    }
+
+                }
+                foreach (var val in Active)
+                {
+                    if (val != null)
+                    {
+                        Console.WriteLine(val);
+                        System.IO.DirectoryInfo rootDirs = new DirectoryInfo(val);
+
+                        if (!IsDirectoryEmpty(rootDirs))
+                        {
+                            if (Directory.Exists(val+@"\Locked_Folder"))
+                            {
+
+                                MoveFiles(val+@"\Locked_Folder", val);
+                                Directory.Delete(val+@"\Locked_Folder", true);
+
+                            }
+                            else
+                            {
+
+                                //What happens if theres no folder???
+
+                            }
+                        }
+                    }
+
+                }
+
+
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                Log_Box.AppendText(ex.StackTrace);
+
+            }
+        }
     }
+    
 }
