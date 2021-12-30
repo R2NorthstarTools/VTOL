@@ -60,10 +60,9 @@ This is only works if the Mod Folder Is populated
 -verify your NorthStar Install
 
 This is automatically done on Check
-
+The Installer will donwload the latest release from The Offical Northstar Page.
+Installations can be overwritten making this function as an Inbuilt updater for the Northstar Launcher.
 
 ![image](https://user-images.githubusercontent.com/23240514/147613660-b5c9c7b1-3c0d-407c-b2a0-07481f3d081c.png)
 
-More features to be shipped in hours to come 😊
 
-In 1.0.4 and Lower, the Installer has issues saving configs on certain systems, this will be remedied in 1.0.5. please ensure when you start the installer, you manually navigate to a proper Titanfall installation.
