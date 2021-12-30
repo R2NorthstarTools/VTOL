@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0-windows10.0.17763.0</TargetFramework>
     <RootNamespace>Northstar_Manger</RootNamespace>
     <Nullable>enable</Nullable>
@@ -15,7 +15,7 @@
     <FileVersion>$(VersionPrefix)</FileVersion>
     <PackageIcon>output-onlinepngtools.png</PackageIcon>
     <UseWPF>False</UseWPF>
-    <Version>1.0.8</Version>
+    <Version>1.0.9</Version>
   </PropertyGroup>
 
   <ItemGroup>

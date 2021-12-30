@@ -767,6 +767,7 @@ namespace Northstar_Manger
             Inactive_List.Items.Clear();
             Mod_Directory_List_Active.Clear();
             Mod_Directory_List_InActive.Clear();
+            Apply_Btn_Mods.ForeColor = Color.Green;
             if (Main_Window.SelectedTab == tabPage2)
             {
                 Console.WriteLine("In Mods!");
@@ -1180,7 +1181,6 @@ namespace Northstar_Manger
                 {
                     Console.WriteLine("Err, File not found");
 
-
                 }
 
             }
@@ -1214,6 +1214,13 @@ namespace Northstar_Manger
 
                 // Process process = Process.Start(NSExe, Arg_Box.Text);
                 process.Close();
+
+
+            }
+            else
+            {
+
+                MessageBox.Show("Could Not Find NorthStar.exe!");
 
 
             }

@@ -48,7 +48,6 @@
             this.Log_Box = new MetroSet_UI.Controls.MetroSetRichTextBox();
             this.Log_Label = new System.Windows.Forms.Label();
             this.Main_Window = new MetroSet_UI.Controls.MetroSetTabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.metroSetPanel4 = new MetroSet_UI.Controls.MetroSetPanel();
             this.metroSetButton1 = new MetroSet_UI.Controls.MetroSetButton();
@@ -63,6 +62,7 @@
             this.Inactive_List = new System.Windows.Forms.ListBox();
             this.Apply_Btn_Mods = new MetroSet_UI.Controls.MetroSetButton();
             this.label2 = new System.Windows.Forms.Label();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.metroSetPanel3 = new MetroSet_UI.Controls.MetroSetPanel();
             this.label3 = new System.Windows.Forms.Label();
@@ -72,10 +72,10 @@
             this.panel1.SuspendLayout();
             this.panel4.SuspendLayout();
             this.Main_Window.SuspendLayout();
-            this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.metroSetPanel4.SuspendLayout();
             this.metroSetPanel2.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.metroSetPanel3.SuspendLayout();
             this.SuspendLayout();
@@ -133,13 +133,13 @@
             this.Start_Client.Location = new System.Drawing.Point(4, 412);
             this.Start_Client.Name = "Start_Client";
             this.Start_Client.NormalBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
-            this.Start_Client.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
+            this.Start_Client.NormalColor = System.Drawing.Color.DarkCyan;
             this.Start_Client.NormalTextColor = System.Drawing.Color.White;
             this.Start_Client.PressBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(147)))), ((int)(((byte)(195)))));
             this.Start_Client.PressColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(147)))), ((int)(((byte)(195)))));
             this.Start_Client.PressTextColor = System.Drawing.Color.White;
             this.Start_Client.Size = new System.Drawing.Size(420, 50);
-            this.Start_Client.Style = MetroSet_UI.Enums.Style.Light;
+            this.Start_Client.Style = MetroSet_UI.Enums.Style.Custom;
             this.Start_Client.StyleManager = null;
             this.Start_Client.TabIndex = 20;
             this.Start_Client.Text = "Start Northstar Client";
@@ -406,8 +406,8 @@
             this.Main_Window.AnimateEasingType = MetroSet_UI.Enums.EasingType.CubeOut;
             this.Main_Window.AnimateTime = 200;
             this.Main_Window.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.Main_Window.Controls.Add(this.tabPage2);
             this.Main_Window.Controls.Add(this.tabPage1);
+            this.Main_Window.Controls.Add(this.tabPage2);
             this.Main_Window.Controls.Add(this.tabPage3);
             this.Main_Window.HotTrack = true;
             this.Main_Window.IsDerivedStyle = true;
@@ -428,17 +428,6 @@
             this.Main_Window.UseAnimation = false;
             this.Main_Window.SelectedIndexChanged += new System.EventHandler(this.metroSetTabControl1_SelectedIndexChanged);
             // 
-            // tabPage1
-            // 
-            this.tabPage1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.tabPage1.Controls.Add(this.panel1);
-            this.tabPage1.Controls.Add(this.panel4);
-            this.tabPage1.Location = new System.Drawing.Point(4, 42);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(974, 585);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Install";
-            // 
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
@@ -453,7 +442,7 @@
             // metroSetPanel4
             // 
             this.metroSetPanel4.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(21)))), ((int)(((byte)(33)))), ((int)(((byte)(49)))));
-            this.metroSetPanel4.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.metroSetPanel4.BorderColor = System.Drawing.Color.DimGray;
             this.metroSetPanel4.BorderThickness = 1;
             this.metroSetPanel4.Controls.Add(this.metroSetButton1);
             this.metroSetPanel4.Controls.Add(this.textBox1);
@@ -496,9 +485,12 @@
             // 
             // textBox1
             // 
+            this.textBox1.BackColor = System.Drawing.Color.DimGray;
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox1.Enabled = false;
             this.textBox1.Location = new System.Drawing.Point(247, 44);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(463, 23);
+            this.textBox1.Size = new System.Drawing.Size(463, 16);
             this.textBox1.TabIndex = 0;
             // 
             // label1
@@ -666,6 +658,17 @@
             this.label2.TabIndex = 3;
             this.label2.Text = "MODS";
             // 
+            // tabPage1
+            // 
+            this.tabPage1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.tabPage1.Controls.Add(this.panel1);
+            this.tabPage1.Controls.Add(this.panel4);
+            this.tabPage1.Location = new System.Drawing.Point(4, 42);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Size = new System.Drawing.Size(974, 585);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Install";
+            // 
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.metroSetPanel3);
@@ -804,12 +807,12 @@
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
             this.Main_Window.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.metroSetPanel4.ResumeLayout(false);
             this.metroSetPanel4.PerformLayout();
             this.metroSetPanel2.ResumeLayout(false);
             this.metroSetPanel2.PerformLayout();
+            this.tabPage1.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.metroSetPanel3.ResumeLayout(false);
             this.metroSetPanel3.PerformLayout();
