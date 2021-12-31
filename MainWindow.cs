@@ -97,6 +97,44 @@ namespace Northstar_Manger
 
             updaterModulePath = Path.Combine(Header, "NSUpdater.exe");
             Check_Args();
+            if (NS_Installed == true)
+            {
+
+
+                Install_NS_Button.Text = "Update/Repair NorthStar";
+            }
+            else
+            {
+                Install_NS_Button.Text = "Install NorthStar";
+
+
+            }
+            richTextBox1.ReadOnly = true;
+            richTextBox1.Text = @"-This Application Installs The NorthStar Launcher Created by BobTheBob and, installs the countless Mods Authored by the many Titanfall2 Modder’s.
+Current Features:
+*Updating NorthStar Installations
+*Installation of the NorthStar Launcher By pulling the latest Json of the NorthStar repo to access the download.
+*Verifying a Titanfall 2 NorthStar install
+*Viewing Mods in the Mod List
+*Toggling Mods On and off in the NorthStar Client
+*Downloading Mods from a Remote repo
+*Downloading Mods from a Local Zip Download
+*The ability to launch the NorthStar Exe from the base.
+
+
+-Features in development:
+*Intent to Create Custom Servers using this installer as a base to configure and fine tune setups
+
+
+-Please Do suggest any new features and/or Improvements Through the Git issue tracker, or by sending me a personal Message.
+Thank you again to all you Pilots, Hope we Wreak havoc on the Frontier for years to come.
+More Instructions at this link - https://github.com/BigSpice/NorthStar-Mod-Manager-Ext-1/blob/main/README.md
+
+
+Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_ ";
+
+
+
 
             //   Thread.Sleep(2000);
 
@@ -631,9 +669,57 @@ namespace Northstar_Manger
             Log_Box.AppendText("\nRelease Parsed! found - \n"+current_Northstar_version_Url);
 
         }
+        private void Unpack_To_Location_Custom(string Target_Zip, string Destination_Zip)
+        {
+        
+
+
+            Log_Box.AppendText("\nUnpacking " + Path.GetFileName(Target_Zip) + " to " + Destination_Zip);
+            if (File.Exists(Target_Zip) && Directory.Exists(Destination_Zip))
+            {
+                ZipFile.ExtractToDirectory(Target_Zip, Destination_Zip, true);
+                Log_Box.AppendText("\nUnpacking Complete!");
+               
+
+            }
+            else
+            {
+                if (!File.Exists(Target_Zip))
+                {
+                    Log_Box.AppendText("\nTarget Zip Does Not exist!!!!!!");
+
+
+                }
+                if (!Directory.Exists(Destination_Zip))
+                {
+                    Log_Box.AppendText("\nTarget Location Does Not exist, please Double Check or Browse for the correct install location");
+
+                }
+            }
+        }
+
         private void Unpack_To_Location(string Target_Zip, string Destination_Zip)
         {
+                if (Directory.Exists(Current_Install_Folder+@"\R2Northstar\mods\Northstar.Client\Locked_Folder"))
+                {
+                    Directory.Delete(Current_Install_Folder+@"\R2Northstar\mods\Northstar.Client\Locked_Folder",true);
 
+                }
+                if (Directory.Exists(Current_Install_Folder+@"\R2Northstar\mods\Northstar.Custom\Locked_Folder"))
+                {
+                    Directory.Delete(Current_Install_Folder+@"\R2Northstar\mods\Northstar.Custom\Locked_Folder", true);
+
+
+                }
+                if (Directory.Exists(Current_Install_Folder+@"\R2Northstar\mods\Northstar.CustomServers\Locked_Folder"))
+                {
+                    Directory.Delete(Current_Install_Folder+@"\R2Northstar\mods\Northstar.CustomServers\Locked_Folder", true);
+
+
+                }
+
+            
+           
             Log_Box.AppendText("\nUnpacking " + Path.GetFileName(Target_Zip) + " to " + Destination_Zip);
             if (File.Exists(Target_Zip) && Directory.Exists(Destination_Zip))
             {
@@ -683,7 +769,36 @@ namespace Northstar_Manger
             Log_Box.AppendText("\nDownload completed!");
             Unpack_To_Location(@"C:\ProgramData\NorthStarModManager\Releases\NorthStar_Release.zip", Current_Install_Folder);
         }
+        private void Completed_t(object sender, AsyncCompletedEventArgs e)
+        {
 
+            webClient = null;
+            Log_Box.AppendText("\nDownload completed!");
+            Unpack_To_Location_Custom(Current_Install_Folder+ @"\NS_Downloaded_Mods\MOD.zip", Current_Install_Folder+ @"\R2Northstar\mods");
+        }
+        private void parse_git_to_zip(string address)
+        {
+
+            if (webClient != null)
+                return;
+            webClient = new WebClient();
+            webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(Completed_t);
+            if (Directory.Exists(Current_Install_Folder+@"\NS_Downloaded_Mods"))
+            {
+
+                webClient.DownloadFileAsync(new Uri(address), Current_Install_Folder+ @"\NS_Downloaded_Mods\MOD.zip");
+
+            }
+            else
+            {
+                Directory.CreateDirectory(Current_Install_Folder+@"\NS_Downloaded_Mods");
+                webClient.DownloadFileAsync(new Uri(address), Current_Install_Folder+ @"\NS_Downloaded_Mods\MOD.zip");
+
+
+            }
+
+
+        }
 
         private void Auto_Install_And_verify()
         {
@@ -1025,9 +1140,6 @@ namespace Northstar_Manger
         {
 
         }
-
-
-
         private void metroSetButton4_Click(object sender, EventArgs e)
         {
             if (File.Exists(updaterModulePath))
@@ -1105,19 +1217,7 @@ namespace Northstar_Manger
 
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBox2.Checked == true)
-            {
-                //  deep_Chk = true;
-                Console.WriteLine("WARNING DEEP CHECK ENABLED!");
-                Log_Box.AppendText("\nWARNING DEEP CHECK ENABLED! [Currently Inoperable Due to 32 bit Sys errors. Will Be fixed]");
-            }
-            else
-            {
-
-                Log_Box.AppendText("\nDEEP CHECK DISABLED!");
-
-                deep_Chk = false;
-            }
+           
         }
 
 
@@ -1182,7 +1282,39 @@ namespace Northstar_Manger
                     Console.WriteLine("Err, File not found");
 
                 }
+                if (File.Exists(NSExe))
+                {
+                    ProcessStartInfo procStartInfo = new ProcessStartInfo();
+                    Process process = new Process();
+                    procStartInfo.FileName = NSExe;
+                    procStartInfo.WorkingDirectory = System.IO.Path.GetDirectoryName(NSExe);
+                    ;
 
+                    // procStartInfo.Arguments = args;
+
+                    process.StartInfo = procStartInfo;
+
+                    process.Start();
+                    int id = process.Id;
+                    pid = id;
+                    Process tempProc = Process.GetProcessById(id);
+                    // this.Visible = false;
+                    // Thread.Sleep(5000);
+                    // tempProc.WaitForExit();
+                    // this.Visible = true;
+
+                    // Process process = Process.Start(NSExe, Arg_Box.Text);
+                    process.Close();
+
+
+                }
+                else
+                {
+
+                    MessageBox.Show("Could Not Find NorthStar.exe!");
+
+
+                }
             }
             else
             {
@@ -1191,39 +1323,7 @@ namespace Northstar_Manger
 
 
             }
-            if (File.Exists(NSExe))
-            {
-                ProcessStartInfo procStartInfo = new ProcessStartInfo();
-                Process process = new Process();
-                procStartInfo.FileName = NSExe;
-                procStartInfo.WorkingDirectory = System.IO.Path.GetDirectoryName(NSExe);
-                ;
-
-                // procStartInfo.Arguments = args;
-
-                process.StartInfo = procStartInfo;
-
-                process.Start();
-                int id = process.Id;
-                pid = id;
-                Process tempProc = Process.GetProcessById(id);
-                // this.Visible = false;
-                // Thread.Sleep(5000);
-                // tempProc.WaitForExit();
-                // this.Visible = true;
-
-                // Process process = Process.Start(NSExe, Arg_Box.Text);
-                process.Close();
-
-
-            }
-            else
-            {
-
-                MessageBox.Show("Could Not Find NorthStar.exe!");
-
-
-            }
+            
         }
 
 
@@ -1279,8 +1379,9 @@ namespace Northstar_Manger
                 File.Move(file.FullName, Path.Combine(targetDir, file.Name));
             }
         }
-        private void Apply_Btn_Mods_Click(object sender, EventArgs e)
+        public void Move_Mods()
         {
+
             try
             {
                 List<string> Inactive = Inactive_List.Items.OfType<string>().ToList();
@@ -1341,12 +1442,75 @@ namespace Northstar_Manger
 
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
                 Log_Box.AppendText(ex.StackTrace);
 
             }
+        
+
+    }
+
+        
+        private void Apply_Btn_Mods_Click(object sender, EventArgs e)
+        {
+            Move_Mods();
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void metroSetButton1_Click(object sender, EventArgs e) { 
+            try{
+        if (Url_box.Text != null|| Url_box.Text != "")
+            {
+                if (Uri.IsWellFormedUriString(Url_box.Text, UriKind.Absolute))
+                {
+                    parse_git_to_zip(Url_box.Text);
+
+                }
+            }
+}catch(Exception ex)
+{
+                Log_Box.AppendText("\n\n\n"+ex.StackTrace);
+                Main_Window.SelectedTab = tabPage1;
+
+            }
+        }
+
+        private void Browse_Local_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Zip files (*.zip)|*.zip|All files (*.*)|*.*";
+            openFileDialog.RestoreDirectory = true;
+            DialogResult result = openFileDialog.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                string path = openFileDialog.FileName; 
+                if (path == null || !File.Exists(path))
+                {
+                    Log_Box.AppendText("\nInvalid Mod Zip Location chosen");
+                    Main_Window.SelectedTab = tabPage1;
+
+
+                }
+                else
+                {
+                    Console.WriteLine(path);
+                    Unpack_To_Location_Custom(path, Current_Install_Folder+ @"\R2Northstar\mods");
+                   
+
+                }
+
+            }
+        }
+
+        private void richTextBox1_TextChanged_1(object sender, EventArgs e)
+        {
+           
         }
     }
     
