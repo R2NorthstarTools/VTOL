@@ -96,8 +96,8 @@ To Enable or Disable Mods, Click the Corresponding arrows after clicking the mod
 <br />
 ![image](https://user-images.githubusercontent.com/23240514/147835939-ec87cc5d-fc98-4fe7-87f9-47288ce5f891.png)
 <br /><br /><br /><br />
--Update the Mod Manager
-*To Update the Northstar Install please Click Check For updates and Download And Follow the install Instrucions
+-Update the Mod Manager<br />
+*To Update the Northstar Install please Click Check For updates and Download the latest release, after, Follow the install Instrucions
 <br /><br />
 ![image](https://user-images.githubusercontent.com/23240514/147835148-8c8f1b0f-8367-4159-8505-d82104349af8.png)
 <br /><br />
