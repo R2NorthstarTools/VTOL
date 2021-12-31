@@ -86,6 +86,7 @@ You can also Navigate to a Mod Zip, by clicking Browse and It will be installed 
 The Mod will be placed and Become active. Please Change tabs to Update the List if it Does not Show Up immideatley.
 <br /><br />
 To Enable or Disable Mods, Click the Corresponding arrows after clicking the mod you want to activate.
+<br /><br />
 ![image](https://user-images.githubusercontent.com/23240514/147835646-6897dbce-5a22-4428-b5b4-7f878f93ce4d.png)
 <br /><br />
 ![image](https://user-images.githubusercontent.com/23240514/147835674-7518b477-56f8-491d-9e5a-ab6644595fd4.png)
