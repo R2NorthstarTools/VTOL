@@ -67,7 +67,7 @@ This is only works if the Mod Folder Is populated
 <br /><br />
 ![image](https://user-images.githubusercontent.com/23240514/147835357-884a062d-9580-471c-8b88-408c52c0c869.png)
 <br /><br />
-To Download From an existing Mod URL, please navigate to the GitHub page of the Mod and Right click Copy Link address, on the latest Release Page.
+To Download From an existing Mod URL, please navigate to the GitHub page of the Mod, Right click and Copy Link address, on the latest Release Page.
 <br /><br />
 ![image](https://user-images.githubusercontent.com/23240514/147835593-98d160b4-8cf0-45f3-81ab-77d9671e09d0.png)
 <br /><br />
