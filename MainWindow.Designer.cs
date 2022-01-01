@@ -47,7 +47,6 @@
             this.Log_Box = new MetroSet_UI.Controls.MetroSetRichTextBox();
             this.Log_Label = new System.Windows.Forms.Label();
             this.Main_Window = new MetroSet_UI.Controls.MetroSetTabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.metroSetPanel4 = new MetroSet_UI.Controls.MetroSetPanel();
             this.label7 = new System.Windows.Forms.Label();
@@ -59,12 +58,12 @@
             this.metroSetPanel2 = new MetroSet_UI.Controls.MetroSetPanel();
             this.Make_Inactive = new MetroSet_UI.Controls.MetroSetButton();
             this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             this.Make_Active = new MetroSet_UI.Controls.MetroSetButton();
             this.Active_List = new System.Windows.Forms.ListBox();
             this.Inactive_List = new System.Windows.Forms.ListBox();
             this.Apply_Btn_Mods = new MetroSet_UI.Controls.MetroSetButton();
             this.label2 = new System.Windows.Forms.Label();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.metroSetPanel3 = new MetroSet_UI.Controls.MetroSetPanel();
             this.label3 = new System.Windows.Forms.Label();
@@ -74,13 +73,14 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.metroSetPanel1 = new MetroSet_UI.Controls.MetroSetPanel();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel4.SuspendLayout();
             this.Main_Window.SuspendLayout();
-            this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.metroSetPanel4.SuspendLayout();
             this.metroSetPanel2.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.metroSetPanel3.SuspendLayout();
             this.tabPage4.SuspendLayout();
@@ -422,17 +422,6 @@
             this.Main_Window.UseAnimation = false;
             this.Main_Window.SelectedIndexChanged += new System.EventHandler(this.metroSetTabControl1_SelectedIndexChanged);
             // 
-            // tabPage1
-            // 
-            this.tabPage1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.tabPage1.Controls.Add(this.panel1);
-            this.tabPage1.Controls.Add(this.panel4);
-            this.tabPage1.Location = new System.Drawing.Point(4, 42);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(974, 585);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Install";
-            // 
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
@@ -564,9 +553,9 @@
             this.metroSetPanel2.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(21)))), ((int)(((byte)(33)))), ((int)(((byte)(49)))));
             this.metroSetPanel2.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(110)))), ((int)(((byte)(110)))), ((int)(((byte)(110)))));
             this.metroSetPanel2.BorderThickness = 1;
+            this.metroSetPanel2.Controls.Add(this.label5);
             this.metroSetPanel2.Controls.Add(this.Make_Inactive);
             this.metroSetPanel2.Controls.Add(this.label6);
-            this.metroSetPanel2.Controls.Add(this.label5);
             this.metroSetPanel2.Controls.Add(this.Make_Active);
             this.metroSetPanel2.Controls.Add(this.Active_List);
             this.metroSetPanel2.Controls.Add(this.Inactive_List);
@@ -612,21 +601,16 @@
             // 
             // label6
             // 
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(731, 46);
+            this.label6.Location = new System.Drawing.Point(733, 44);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(45, 15);
             this.label6.TabIndex = 9;
             this.label6.Text = "ACTIVE";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(175, 46);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(57, 15);
-            this.label5.TabIndex = 8;
-            this.label5.Text = "INACTIVE";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Make_Active
             // 
@@ -713,6 +697,17 @@
             this.label2.Size = new System.Drawing.Size(53, 20);
             this.label2.TabIndex = 3;
             this.label2.Text = "MODS";
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.tabPage1.Controls.Add(this.panel1);
+            this.tabPage1.Controls.Add(this.panel4);
+            this.tabPage1.Location = new System.Drawing.Point(4, 42);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Size = new System.Drawing.Size(974, 585);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Install";
             // 
             // tabPage3
             // 
@@ -873,6 +868,17 @@
             this.richTextBox1.Text = "";
             this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged_1);
             // 
+            // label5
+            // 
+            this.label5.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(177, 44);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(57, 15);
+            this.label5.TabIndex = 8;
+            this.label5.Text = "INACTIVE";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -890,12 +896,12 @@
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
             this.Main_Window.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.metroSetPanel4.ResumeLayout(false);
             this.metroSetPanel4.PerformLayout();
             this.metroSetPanel2.ResumeLayout(false);
             this.metroSetPanel2.PerformLayout();
+            this.tabPage1.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.metroSetPanel3.ResumeLayout(false);
             this.metroSetPanel3.PerformLayout();
@@ -943,7 +949,6 @@
         private ListBox Inactive_List;
         private MetroSet_UI.Controls.MetroSetButton Make_Inactive;
         private Label label6;
-        private Label label5;
         private MetroSet_UI.Controls.MetroSetButton Make_Active;
         private ListBox Active_List;
         private Label label7;
@@ -952,5 +957,6 @@
         private TabPage tabPage4;
         private MetroSet_UI.Controls.MetroSetPanel metroSetPanel1;
         private RichTextBox richTextBox1;
+        private Label label5;
     }
 }

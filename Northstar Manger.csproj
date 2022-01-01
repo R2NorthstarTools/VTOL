@@ -15,7 +15,7 @@
     <FileVersion>$(VersionPrefix)</FileVersion>
     <PackageIcon>output-onlinepngtools.png</PackageIcon>
     <UseWPF>False</UseWPF>
-    <Version>1.1.0</Version>
+    <Version>1.1.1</Version>
   </PropertyGroup>
 
   <ItemGroup>

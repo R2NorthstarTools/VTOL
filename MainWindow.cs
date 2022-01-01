@@ -182,7 +182,7 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
 
             catch (Exception e)
             {
-                Log_Box.AppendText("The process failed: "+ e.ToString());
+                MessageBox.Show("The process failed: "+ e.ToString());
             }
 
 
@@ -285,7 +285,7 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
             
             catch (NullReferenceException e)
             {
-                log.Add(e.Message);
+                MessageBox.Show(e.Message);
 
             }
             return false;
@@ -388,7 +388,7 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
             }
             catch (NullReferenceException e)
             {
-                log.Add(e.Message);
+                MessageBox.Show(e.Message);
 
 
             }
@@ -483,7 +483,6 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
 
                 if (ListCheck(Baseline, current) == true)
                 {
-                    Log_Box.AppendText("\nDirectory Check Successful - File Integrity has not been Implimented yet, so be sure the files are good!");
                     NS_Installed = true;
 
 
@@ -885,6 +884,8 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
             Apply_Btn_Mods.ForeColor = Color.Green;
             if (Main_Window.SelectedTab == tabPage2)
             {
+                
+
                 Console.WriteLine("In Mods!");
                 if (Current_Install_Folder == null || Current_Install_Folder == "" || !Directory.Exists(Current_Install_Folder))
                 {
@@ -905,10 +906,12 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
                     {
                         if (NS_Installed == true)
                         {
+                         //   label6.Text = "ACTIVE\n"+Current_Install_Folder+@"\R2Northstar\mods\";
+                        //    label5.Text = "INACTIVE\n"+Current_Install_Folder+@"\R2Northstar\mods\";
                             // checkedListBox1.Items.Clear();
                             string NS_Mod_Dir = Current_Install_Folder + @"\R2Northstar\mods";
                             System.IO.DirectoryInfo rootDirs = new DirectoryInfo(@NS_Mod_Dir);
-
+                            Log_Box.AppendText("Current Mod Dir Found At - "+NS_Mod_Dir);
                             if (!Directory.Exists(NS_Mod_Dir))
                             {
                                 Log_Box.AppendText("\nMod Directory is Empty");
@@ -926,14 +929,16 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
                                     if(Template_traverse(dirInfo, "Locked_Folder") == true)
                                     {
 
-                                        Console.WriteLine("Inactive - " + dirInfo.FullName);
-                                        Mod_Directory_List_InActive.Add(dirInfo.FullName);
+                                        Console.WriteLine("Inactive - " + dirInfo.Name);
+                                        Mod_Directory_List_InActive.Add(dirInfo.Name);
+                                      //  Log_Box.AppendText(dirInfo.Name);
                                     }
                                     else
                                     {
-                                        Console.WriteLine("Active - " + dirInfo.FullName);
+                                        Console.WriteLine("Active - " + dirInfo.Name);
 
-                                        Mod_Directory_List_Active.Add(dirInfo.FullName);
+                                        Mod_Directory_List_Active.Add(dirInfo.Name);
+                                      //  Log_Box.AppendText(dirInfo.Name);
 
                                     }
                                 }
@@ -984,12 +989,22 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
             {
                 if (do_not_overwrite_Ns_file == true)
                 {
-                    System.IO.Directory.CreateDirectory(Current_Install_Folder + @"\TempCopyFolder");
-                    Log_Box.AppendText("\nCreating Directory and Backing up arg files");
+                    if (Directory.Exists(Current_Install_Folder + @"\TempCopyFolder"))
+                    {
+                        System.IO.Directory.CreateDirectory(Current_Install_Folder + @"\TempCopyFolder");
+                        Log_Box.AppendText("\nCreating Directory and Backing up arg files");
 
-                    System.IO.File.Copy(Current_Install_Folder+@"\ns_startup_args.txt", Current_Install_Folder+@"\TempCopyFolder\ns_startup_args.txt", true);
-                    System.IO.File.Copy(Current_Install_Folder+@"\ns_startup_args_dedi.txt", Current_Install_Folder+@"\TempCopyFolder\ns_startup_args_dedi.txt", true);
+                        System.IO.File.Copy(Current_Install_Folder+@"\ns_startup_args.txt", Current_Install_Folder+@"\TempCopyFolder\ns_startup_args.txt", true);
+                        System.IO.File.Copy(Current_Install_Folder+@"\ns_startup_args_dedi.txt", Current_Install_Folder+@"\TempCopyFolder\ns_startup_args_dedi.txt", true);
+                    }
+                    else
+                    {
+                        Log_Box.AppendText("\nCreating Directory and Backing up arg files");
 
+                        System.IO.File.Copy(Current_Install_Folder+@"\ns_startup_args.txt", Current_Install_Folder+@"\TempCopyFolder\ns_startup_args.txt", true);
+                        System.IO.File.Copy(Current_Install_Folder+@"\ns_startup_args_dedi.txt", Current_Install_Folder+@"\TempCopyFolder\ns_startup_args_dedi.txt", true);
+
+                    }
                     Directory.CreateDirectory(@"C:\ProgramData\NorthStarModManager\Releases\");
                     webClient.DownloadFileAsync(new Uri(current_Northstar_version_Url), @"C:\ProgramData\NorthStarModManager\Releases\NorthStar_Release.zip");
 
@@ -1066,7 +1081,7 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
             catch (Exception ex)
             {
 
-                Log_Box.AppendText("\nIssue with File path, please Rebrowse.");
+                MessageBox.Show("\nIssue with File path, please Rebrowse.");
             }
 
         }
@@ -1085,7 +1100,6 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
         {
 
             Log_Box.Text =("\nWelcome To the Northstar Mod Manager!\n");
-            Log_Box.AppendText("\nPlease Be advised, Mod Toggling Is not enabled as of this release\n");
             Log_Box.AppendText("\nLastly ENSURE to make a backup of Titanfall2,Files and Folders Lost during the use of this software is to be accounted for by you, the User.\n\n");
 
 
@@ -1339,6 +1353,7 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
         void Move_List_box(ListBox from, ListBox To)
         {
             var selected = from.SelectedItem;
+
             if (selected is null)
             {
                 return;
@@ -1392,21 +1407,21 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
                     if (val != null)
                     {
                         Console.WriteLine(val);
-                        System.IO.DirectoryInfo rootDirs = new DirectoryInfo(val);
+                        System.IO.DirectoryInfo rootDirs = new DirectoryInfo(Current_Install_Folder+@"\R2Northstar\mods\"+val);
 
                         if (!IsDirectoryEmpty(rootDirs))
                         {
-                            if (Directory.Exists(val+@"\Locked_Folder"))
+                            if (Directory.Exists(Current_Install_Folder+@"\R2Northstar\mods\"+val+@"\Locked_Folder"))
                             {
 
-                                MoveFiles(val, val+@"\Locked_Folder");
+                                MoveFiles(Current_Install_Folder+@"\R2Northstar\mods\"+val, Current_Install_Folder+@"\R2Northstar\mods\"+val+@"\Locked_Folder");
 
                             }
                             else
                             {
 
-                                Directory.CreateDirectory(val+@"\Locked_Folder");
-                                MoveFiles(val, val+@"\Locked_Folder");
+                                Directory.CreateDirectory(Current_Install_Folder+@"\R2Northstar\mods\"+val+@"\Locked_Folder");
+                                MoveFiles(Current_Install_Folder+@"\R2Northstar\mods\"+val, Current_Install_Folder+@"\R2Northstar\mods\"+val+@"\Locked_Folder");
 
                             }
                         }
@@ -1417,16 +1432,16 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
                 {
                     if (val != null)
                     {
-                        Console.WriteLine(val);
-                        System.IO.DirectoryInfo rootDirs = new DirectoryInfo(val);
+                        Console.WriteLine(Current_Install_Folder+@"\R2Northstar\mods\"+val);
+                        System.IO.DirectoryInfo rootDirs = new DirectoryInfo(Current_Install_Folder+@"\R2Northstar\mods\"+val);
 
                         if (!IsDirectoryEmpty(rootDirs))
                         {
-                            if (Directory.Exists(val+@"\Locked_Folder"))
+                            if (Directory.Exists(Current_Install_Folder+@"\R2Northstar\mods\"+val+@"\Locked_Folder"))
                             {
 
-                                MoveFiles(val+@"\Locked_Folder", val);
-                                Directory.Delete(val+@"\Locked_Folder", true);
+                                MoveFiles(Current_Install_Folder+@"\R2Northstar\mods\"+val+@"\Locked_Folder", Current_Install_Folder+@"\R2Northstar\mods\"+val);
+                                Directory.Delete(Current_Install_Folder+@"\R2Northstar\mods\"+val+@"\Locked_Folder", true);
 
                             }
                             else
@@ -1445,7 +1460,7 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                Log_Box.AppendText(ex.StackTrace);
+               // Log_Box.AppendText(ex.StackTrace);
 
             }
         
@@ -1475,7 +1490,7 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
             }
 }catch(Exception ex)
 {
-                Log_Box.AppendText("\n\n\n"+ex.StackTrace);
+                MessageBox.Show("\n\n\n"+ex.Message);
                 Main_Window.SelectedTab = tabPage1;
 
             }
