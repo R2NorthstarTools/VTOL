@@ -729,13 +729,22 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
                     if (do_not_overwrite_Ns_file == true)
                     {
                         Log_Box.AppendText("\nRestoring Files");
+                        if (Directory.Exists(Current_Install_Folder+@"\TempCopyFolder\"))
+                        {
+                            System.IO.File.Copy(Current_Install_Folder+@"\TempCopyFolder\ns_startup_args.txt", Current_Install_Folder+@"\ns_startup_args.txt", true);
+                            System.IO.File.Copy(Current_Install_Folder+@"\TempCopyFolder\ns_startup_args_dedi.txt", Current_Install_Folder+@"\ns_startup_args_dedi.txt", true);
+                            Log_Box.AppendText("\nCleaning Residual");
 
-                        System.IO.File.Copy(Current_Install_Folder+@"\TempCopyFolder\ns_startup_args.txt", Current_Install_Folder+@"\ns_startup_args.txt", true);
-                        System.IO.File.Copy(Current_Install_Folder+@"\TempCopyFolder\ns_startup_args_dedi.txt", Current_Install_Folder+@"\ns_startup_args_dedi.txt", true);
-                        Log_Box.AppendText("\nCleaning Residual");
+                            Directory.Delete(Current_Install_Folder+@"\TempCopyFolder", true);
+                            Log_Box.AppendText("\nInstall Complete!");
+                        }
+                        else
+                        {
+                           
+                            Log_Box.AppendText("\nTemp Folder is Gone!, please Click repair.");
+                            return;
 
-                        Directory.Delete(Current_Install_Folder+@"\TempCopyFolder", true);
-                        Log_Box.AppendText("\nInstall Complete!");
+                        }
 
                     }
                 }
@@ -991,15 +1000,16 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
                 {
                     if (Directory.Exists(Current_Install_Folder + @"\TempCopyFolder"))
                     {
-                        System.IO.Directory.CreateDirectory(Current_Install_Folder + @"\TempCopyFolder");
-                        Log_Box.AppendText("\nCreating Directory and Backing up arg files");
+                        Log_Box.AppendText("\nBacking up arg files");
 
                         System.IO.File.Copy(Current_Install_Folder+@"\ns_startup_args.txt", Current_Install_Folder+@"\TempCopyFolder\ns_startup_args.txt", true);
                         System.IO.File.Copy(Current_Install_Folder+@"\ns_startup_args_dedi.txt", Current_Install_Folder+@"\TempCopyFolder\ns_startup_args_dedi.txt", true);
                     }
                     else
                     {
+
                         Log_Box.AppendText("\nCreating Directory and Backing up arg files");
+                        System.IO.Directory.CreateDirectory(Current_Install_Folder + @"\TempCopyFolder");
 
                         System.IO.File.Copy(Current_Install_Folder+@"\ns_startup_args.txt", Current_Install_Folder+@"\TempCopyFolder\ns_startup_args.txt", true);
                         System.IO.File.Copy(Current_Install_Folder+@"\ns_startup_args_dedi.txt", Current_Install_Folder+@"\TempCopyFolder\ns_startup_args_dedi.txt", true);
@@ -1526,6 +1536,54 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
         private void richTextBox1_TextChanged_1(object sender, EventArgs e)
         {
            
+        }
+
+        private void metroSetButton1_Click_1(object sender, EventArgs e)
+        {
+            if (Directory.Exists(Current_Install_Folder))
+            {
+               
+                if (File.Exists(Current_Install_Folder+@"\Titanfall2.exe"))
+                {
+                    ProcessStartInfo procStartInfo = new ProcessStartInfo();
+                    Process process = new Process();
+                    procStartInfo.FileName = Current_Install_Folder+@"\Titanfall2.exe";
+                    procStartInfo.WorkingDirectory = System.IO.Path.GetDirectoryName(Current_Install_Folder);
+                    ;
+
+                    // procStartInfo.Arguments = args;
+
+                    process.StartInfo = procStartInfo;
+
+                    process.Start();
+                    int id = process.Id;
+                    pid = id;
+                    Process tempProc = Process.GetProcessById(id);
+                    // this.Visible = false;
+                    // Thread.Sleep(5000);
+                    // tempProc.WaitForExit();
+                    // this.Visible = true;
+
+                    // Process process = Process.Start(NSExe, Arg_Box.Text);
+                    process.Close();
+
+
+                }
+                else
+                {
+
+                    MessageBox.Show("Could Not Find NorthStar.exe!");
+
+
+                }
+            }
+            else
+            {
+
+                Console.WriteLine("Err, File not found");
+
+
+            }
         }
     }
     
