@@ -35,6 +35,7 @@ namespace Northstar_Manger
         bool do_not_overwrite_Ns_file = true;
         private int completed_flag;
         public int pid;
+        string current_Ver;
         public MainWindow()
         {
             InitializeComponent();
@@ -96,7 +97,7 @@ namespace Northstar_Manger
 
             // Compute the updater.exe path relative to the application main module path
             string Header = Path.GetFullPath(Path.Combine(Application.StartupPath, @"../"));
-
+           // Check_For_NewVer();
             updaterModulePath = Path.Combine(Header, "NSUpdater.exe");
             Check_Args();
             if (NS_Installed == true)
@@ -156,6 +157,42 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
         }
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
+
+        }
+       private void Check_For_NewVer()
+        {
+            current_Ver = Properties.Settings.Default.Version;
+            string out_ = "";
+            
+            Read_Latest_Release("https://api.github.com/repos/R2Northstar/Northstar/releases/latest","temp.json",false,false);
+            if (File.Exists(@"C:\ProgramData\NorthStarModManager\temp\temp.json"))
+            {
+                var myJsonString = File.ReadAllText(@"C:\ProgramData\NorthStarModManager\temp\temp.json");
+                var myJObject = JObject.Parse(myJsonString);
+
+                out_ = myJObject.SelectToken("name").Value<string>();
+          
+            }
+            else
+            {
+                Log_Box.AppendText("\nRelease Not Found!!");
+
+            }
+            if(current_Ver.Equals(out_))
+            {
+                Log_Box.AppendText("\nYou are on the Latest Northstar Client Install");
+
+
+            }
+            else
+            {
+                Log_Box.AppendText("\nNew Release Found! - "+out_);
+                Log_Box.AppendText("\nPlease Click Update to Obtain the Latest Northstar Install");
+
+
+            }
+
+
 
         }
         private string Get_And_Set_Filepaths(string rootDir, string Filename)
@@ -625,12 +662,16 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
         {
 
         }
-        private void Read_Latest_Release_Custom(string address, string json_name = "temp.json")
-        {
 
+        private void Read_Latest_Release(string address,string json_name="temp.json", bool Parse = true,bool Log_Msgs = true)
+        {
             if (address != null)
             {
-                Log_Box.AppendText("\nJson Download Started!");
+                if (Log_Msgs == true)
+                {
+                    Log_Box.AppendText("\nJson Download Started!");
+
+                }
                 WebClient client = new WebClient();
                 Uri uri1 = new Uri(address);
                 client.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)");
@@ -645,51 +686,12 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
                 if (Directory.Exists(@"C:\ProgramData\NorthStarModManager\temp"))
                 {
                     saveAsyncFile(s, @"C:\ProgramData\NorthStarModManager\temp\"+json_name, false, false);
-                    Log_Box.AppendText("\nJson Download completed!");
-                    Log_Box.AppendText("\nParsing Latest Release........");
-
-                }
-                else
-                {
-                    Directory.CreateDirectory(@"C:\ProgramData\NorthStarModManager\temp");
-                    saveAsyncFile(s, @"C:\ProgramData\NorthStarModManager\temp\"+json_name, false, false);
-                    Log_Box.AppendText("\nJson Download completed!");
-                    Log_Box.AppendText("\nParsing Latest Release........");
-                    Parse_Release();
-
-                }
-
-            }
-            else
-            {
-
-
-                Log_Box.AppendText("\n Invalid Url Called");
-            }
-        }
-
-        private void Read_Latest_Release(string address,string json_name="temp.json", bool Parse = true)
-        {
-            if (address != null)
-            {
-                Log_Box.AppendText("\nJson Download Started!");
-                WebClient client = new WebClient();
-                Uri uri1 = new Uri(address);
-                client.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)");
-                Stream data = client.OpenRead(address);
-                StreamReader reader = new StreamReader(data);
-                string s = reader.ReadToEnd();
-
-
-
-                s = s.Replace("[", "");
-                s= s.Replace("]", "");
-                if (Directory.Exists(@"C:\ProgramData\NorthStarModManager\temp"))
-                {
-                    saveAsyncFile(s, @"C:\ProgramData\NorthStarModManager\temp\"+json_name, false, false);
-                    Log_Box.AppendText("\nJson Download completed!");
-                    Log_Box.AppendText("\nParsing Latest Release........");
-                    if(Parse == true)
+                    if (Log_Msgs == true)
+                    {
+                        Log_Box.AppendText("\nJson Download completed!");
+                        Log_Box.AppendText("\nParsing Latest Release........");
+                    }
+                        if(Parse == true)
                     {
                         Parse_Release();
                     }
@@ -699,8 +701,11 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
                 {
                     Directory.CreateDirectory(@"C:\ProgramData\NorthStarModManager\temp");
                     saveAsyncFile(s, @"C:\ProgramData\NorthStarModManager\temp\"+json_name, false, false);
-                    Log_Box.AppendText("\nJson Download completed!");
-                    Log_Box.AppendText("\nParsing Latest Release........");
+                    if (Log_Msgs == true)
+                    {
+                        Log_Box.AppendText("\nJson Download completed!");
+                        Log_Box.AppendText("\nParsing Latest Release........");
+                    }
                     if (Parse == true)
                     {
                         Parse_Release();
@@ -1196,7 +1201,7 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
                     webClient.DownloadFileAsync(new Uri(current_Northstar_version_Url), @"C:\ProgramData\NorthStarModManager\Releases\NorthStar_Release.zip");
                     Log_Box.AppendText("\nStarting Install procedure!");
 
-
+                    
 
                 }
 
@@ -1431,7 +1436,7 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
 
 
         }
-        void Check_Args()
+        private void Check_Args()
         {
 
 

@@ -5,5 +5,8 @@
     <Setting Name="Ns_Startup" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="Version" Type="System.String" Scope="User">
+      <Value Profile="(Default)">v1.2.0</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
