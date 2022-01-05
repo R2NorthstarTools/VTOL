@@ -625,7 +625,50 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
         {
 
         }
-        private void Read_Latest_Release(string address)
+        private void Read_Latest_Release_Custom(string address, string json_name = "temp.json")
+        {
+
+            if (address != null)
+            {
+                Log_Box.AppendText("\nJson Download Started!");
+                WebClient client = new WebClient();
+                Uri uri1 = new Uri(address);
+                client.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)");
+                Stream data = client.OpenRead(address);
+                StreamReader reader = new StreamReader(data);
+                string s = reader.ReadToEnd();
+
+
+
+                s = s.Replace("[", "");
+                s= s.Replace("]", "");
+                if (Directory.Exists(@"C:\ProgramData\NorthStarModManager\temp"))
+                {
+                    saveAsyncFile(s, @"C:\ProgramData\NorthStarModManager\temp\"+json_name, false, false);
+                    Log_Box.AppendText("\nJson Download completed!");
+                    Log_Box.AppendText("\nParsing Latest Release........");
+
+                }
+                else
+                {
+                    Directory.CreateDirectory(@"C:\ProgramData\NorthStarModManager\temp");
+                    saveAsyncFile(s, @"C:\ProgramData\NorthStarModManager\temp\"+json_name, false, false);
+                    Log_Box.AppendText("\nJson Download completed!");
+                    Log_Box.AppendText("\nParsing Latest Release........");
+                    Parse_Release();
+
+                }
+
+            }
+            else
+            {
+
+
+                Log_Box.AppendText("\n Invalid Url Called");
+            }
+        }
+
+        private void Read_Latest_Release(string address,string json_name="temp.json", bool Parse = true)
         {
             if (address != null)
             {
@@ -643,20 +686,25 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
                 s= s.Replace("]", "");
                 if (Directory.Exists(@"C:\ProgramData\NorthStarModManager\temp"))
                 {
-                    saveAsyncFile(s, @"C:\ProgramData\NorthStarModManager\temp\temp.json", false, false);
+                    saveAsyncFile(s, @"C:\ProgramData\NorthStarModManager\temp\"+json_name, false, false);
                     Log_Box.AppendText("\nJson Download completed!");
                     Log_Box.AppendText("\nParsing Latest Release........");
-                    Parse_Release();
+                    if(Parse == true)
+                    {
+                        Parse_Release();
+                    }
 
                 }
                 else
                 {
                     Directory.CreateDirectory(@"C:\ProgramData\NorthStarModManager\temp");
-                    saveAsyncFile(s, @"C:\ProgramData\NorthStarModManager\temp\temp.json", false, false);
+                    saveAsyncFile(s, @"C:\ProgramData\NorthStarModManager\temp\"+json_name, false, false);
                     Log_Box.AppendText("\nJson Download completed!");
                     Log_Box.AppendText("\nParsing Latest Release........");
-                    Parse_Release();
-
+                    if (Parse == true)
+                    {
+                        Parse_Release();
+                    }
                 }
 
             }
@@ -668,40 +716,88 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
             }
 
         }
-        private void Parse_Release()
+        private string Parse_Custom_Release(string json_name = "temp.json")
         {
-            var myJsonString = File.ReadAllText(@"C:\ProgramData\NorthStarModManager\temp\temp.json");
+
+            if (File.Exists(@"C:\ProgramData\NorthStarModManager\temp\"+json_name))
+            {
+                var myJsonString = File.ReadAllText(@"C:\ProgramData\NorthStarModManager\temp\"+json_name);
+                var myJObject = JObject.Parse(myJsonString);
+
+                string out_ = myJObject.SelectToken("assets.browser_download_url").Value<string>();
+                Log_Box.AppendText("\nRelease Parsed! found - \n"+out_);
+
+                return out_;
+
+            }
+            else
+            {
+                Log_Box.AppendText("\nRelease Not Found!!");
+
+                return null;
+            }
+            return null;
+
+        }
+
+        private void Parse_Release(string json_name = "temp.json")
+        {
+            if (File.Exists(@"C:\ProgramData\NorthStarModManager\temp\"+json_name))
+            {
+                var myJsonString = File.ReadAllText(@"C:\ProgramData\NorthStarModManager\temp\"+json_name);
             var myJObject = JObject.Parse(myJsonString);
 
 
             current_Northstar_version_Url =  myJObject.SelectToken("assets.browser_download_url").Value<string>();
             Log_Box.AppendText("\nRelease Parsed! found - \n"+current_Northstar_version_Url);
 
+            }
+            else
+            {
+                Log_Box.AppendText("\nRelease Not Found!!");
+
+
+            }
+
+
         }
         private void Unpack_To_Location_Custom(string Target_Zip, string Destination_Zip)
         {
-        
+
 
 
             Log_Box.AppendText("\nUnpacking " + Path.GetFileName(Target_Zip) + " to " + Destination_Zip);
             if (File.Exists(Target_Zip) && Directory.Exists(Destination_Zip))
             {
-                ZipFile.ExtractToDirectory(Target_Zip, Destination_Zip, true);
-                Log_Box.AppendText("\nUnpacking Complete!");
-               
+                string fileExt = System.IO.Path.GetExtension(Target_Zip);
+
+                if (fileExt == ".zip")
+                {
+                    ZipFile.ExtractToDirectory(Target_Zip, Destination_Zip, true);
+                    Log_Box.AppendText("\nUnpacking Complete!\n");
+                }
+                else
+                {
+                    Main_Window.SelectedTab = tabPage1;
+                    Log_Box.AppendText("\nObject Is Not a Zip!\n");
+
+
+                }
+
+
 
             }
             else
             {
                 if (!File.Exists(Target_Zip))
                 {
-                    Log_Box.AppendText("\nTarget Zip Does Not exist!!!!!!");
+                    Log_Box.AppendText("\nTarget Zip Does Not exist!!!!!!\n");
 
 
                 }
                 if (!Directory.Exists(Destination_Zip))
                 {
-                    Log_Box.AppendText("\nTarget Location Does Not exist, please Double Check or Browse for the correct install location");
+                    Log_Box.AppendText("\nTarget Location Does Not exist, please Double Check or Browse for the correct install location\n");
 
                 }
             }
@@ -797,23 +893,71 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
         private void parse_git_to_zip(string address)
         {
 
-            if (webClient != null)
-                return;
-            webClient = new WebClient();
-            webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(Completed_t);
-            if (Directory.Exists(Current_Install_Folder+@"\NS_Downloaded_Mods"))
+            if (address.Contains(".zip"))
             {
+                if (webClient != null)
+                    return;
+                webClient = new WebClient();
+                webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(Completed_t);
+                if (Directory.Exists(Current_Install_Folder+@"\NS_Downloaded_Mods"))
+                {
 
-                webClient.DownloadFileAsync(new Uri(address), Current_Install_Folder+ @"\NS_Downloaded_Mods\MOD.zip");
+                    webClient.DownloadFileAsync(new Uri(address), Current_Install_Folder+ @"\NS_Downloaded_Mods\MOD.zip");
+
+                }
+                else
+                {
+                    Directory.CreateDirectory(Current_Install_Folder+@"\NS_Downloaded_Mods");
+                    webClient.DownloadFileAsync(new Uri(address), Current_Install_Folder+ @"\NS_Downloaded_Mods\MOD.zip");
+
+
+                }
+
 
             }
             else
             {
-                Directory.CreateDirectory(Current_Install_Folder+@"\NS_Downloaded_Mods");
-                webClient.DownloadFileAsync(new Uri(address), Current_Install_Folder+ @"\NS_Downloaded_Mods\MOD.zip");
+                if (address.Contains("https"))
+                {
+
+                    address=address.Replace(@"https://github.com/", @"https://api.github.com/repos/");
+                    address=address+@"/releases/latest";
+
+                }
+                else
+                {
+
+                    address=address.Replace(@"http://github.com/", @"https://api.github.com/repos/");
+                    address=address+@"/releases/latest";
+                }
+
+                Read_Latest_Release(address, "Mod_temp.json",false);
+                string retruns = Parse_Custom_Release("Mod_temp.json");
+                if(retruns != null)
+                {
+                    if (webClient != null)
+                        return;
+                    webClient = new WebClient();
+                    webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(Completed_t);
+                    if (Directory.Exists(Current_Install_Folder+@"\NS_Downloaded_Mods"))
+                    {
+
+                        webClient.DownloadFileAsync(new Uri(retruns), Current_Install_Folder+ @"\NS_Downloaded_Mods\MOD.zip");
+
+                    }
+                    else
+                    {
+                        Directory.CreateDirectory(Current_Install_Folder+@"\NS_Downloaded_Mods");
+                        webClient.DownloadFileAsync(new Uri(retruns), Current_Install_Folder+ @"\NS_Downloaded_Mods\MOD.zip");
+
+
+                    }
+                }
 
 
             }
+            Active_List.Refresh();
+            Inactive_List.Refresh();
 
 
         }
@@ -1506,9 +1650,12 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
                 if (Uri.IsWellFormedUriString(Url_box.Text, UriKind.Absolute))
                 {
                     parse_git_to_zip(Url_box.Text);
+                        Active_List.Refresh();
+                        Inactive_List.Refresh();
+                        Main_Window.SelectedTab = tabPage1;
 
+                    }
                 }
-            }
 }catch(Exception ex)
 {
                 MessageBox.Show("\n\n\n"+ex.Message);
@@ -1537,8 +1684,8 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
                 {
                     Console.WriteLine(path);
                     Unpack_To_Location_Custom(path, Current_Install_Folder+ @"\R2Northstar\mods");
-                   
-
+                    Active_List.Refresh();
+                    Inactive_List.Refresh();
                 }
 
             }
