@@ -34,17 +34,5 @@ namespace Northstar_Manger.Properties {
                 this["Ns_Startup"] = value;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string Startup_Args {
-            get {
-                return ((string)(this["Startup_Args"]));
-            }
-            set {
-                this["Startup_Args"] = value;
-            }
-        }
     }
 }

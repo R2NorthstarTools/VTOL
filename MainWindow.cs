@@ -828,47 +828,59 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
             Log_Box.AppendText("\nUnpacking " + Path.GetFileName(Target_Zip) + " to " + Destination_Zip);
             if (File.Exists(Target_Zip) && Directory.Exists(Destination_Zip))
             {
-                ZipFile.ExtractToDirectory(Target_Zip, Destination_Zip, true);
-                Log_Box.AppendText("\nUnpacking Complete!");
-                if (File.Exists(Current_Install_Folder+@"\ns_startup_args_dedi.txt") && File.Exists(Current_Install_Folder+@"\ns_startup_args.txt"))
+                string fileExt = System.IO.Path.GetExtension(Target_Zip);
+
+                if (fileExt == ".zip")
                 {
-                    if (do_not_overwrite_Ns_file == true)
+                    ZipFile.ExtractToDirectory(Target_Zip, Destination_Zip, true);
+                    Log_Box.AppendText("\nUnpacking Complete!");
+                    if (File.Exists(Current_Install_Folder+@"\ns_startup_args_dedi.txt") && File.Exists(Current_Install_Folder+@"\ns_startup_args.txt"))
                     {
-                        Log_Box.AppendText("\nRestoring Files");
-                        if (Directory.Exists(Current_Install_Folder+@"\TempCopyFolder\"))
+                        if (do_not_overwrite_Ns_file == true)
                         {
-                            System.IO.File.Copy(Current_Install_Folder+@"\TempCopyFolder\ns_startup_args.txt", Current_Install_Folder+@"\ns_startup_args.txt", true);
-                            System.IO.File.Copy(Current_Install_Folder+@"\TempCopyFolder\ns_startup_args_dedi.txt", Current_Install_Folder+@"\ns_startup_args_dedi.txt", true);
-                            Log_Box.AppendText("\nCleaning Residual");
+                            Log_Box.AppendText("\nRestoring Files");
+                            if (Directory.Exists(Current_Install_Folder+@"\TempCopyFolder\"))
+                            {
+                                System.IO.File.Copy(Current_Install_Folder+@"\TempCopyFolder\ns_startup_args.txt", Current_Install_Folder+@"\ns_startup_args.txt", true);
+                                System.IO.File.Copy(Current_Install_Folder+@"\TempCopyFolder\ns_startup_args_dedi.txt", Current_Install_Folder+@"\ns_startup_args_dedi.txt", true);
+                                Log_Box.AppendText("\nCleaning Residual");
 
-                            Directory.Delete(Current_Install_Folder+@"\TempCopyFolder", true);
-                            Log_Box.AppendText("\nInstall Complete!");
-                        }
-                        else
-                        {
-                           
-                            Log_Box.AppendText("\nTemp Folder is Gone!, please Click repair.");
-                            return;
+                                Directory.Delete(Current_Install_Folder+@"\TempCopyFolder", true);
+                                Log_Box.AppendText("\nInstall Complete!");
+                            }
+                            else
+                            {
+
+                                Log_Box.AppendText("\nTemp Folder is Gone!, please Click repair.");
+                                return;
+
+                            }
 
                         }
+                    }
+
+                }
+                else
+                {
+                    if (!File.Exists(Target_Zip))
+                    {
+                        Log_Box.AppendText("\nTarget Zip Does Not exist!!!!!!");
+
+
+                    }
+                    if (!Directory.Exists(Destination_Zip))
+                    {
+                        Log_Box.AppendText("\nTarget Location Does Not exist, please Double Check or Browse for the correct install location");
 
                     }
                 }
-
             }
             else
             {
-                if (!File.Exists(Target_Zip))
-                {
-                    Log_Box.AppendText("\nTarget Zip Does Not exist!!!!!!");
 
+                Main_Window.SelectedTab = tabPage1;
+                Log_Box.AppendText("\nObject Is Not a Zip!\n");
 
-                }
-                if (!Directory.Exists(Destination_Zip))
-                {
-                    Log_Box.AppendText("\nTarget Location Does Not exist, please Double Check or Browse for the correct install location");
-
-                }
             }
         }
 
@@ -1074,7 +1086,7 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
                             // checkedListBox1.Items.Clear();
                             string NS_Mod_Dir = Current_Install_Folder + @"\R2Northstar\mods";
                             System.IO.DirectoryInfo rootDirs = new DirectoryInfo(@NS_Mod_Dir);
-                            Log_Box.AppendText("Current Mod Dir Found At - "+NS_Mod_Dir);
+                            //Log_Box.AppendText("Current Mod Dir Found At - "+NS_Mod_Dir);
                             if (!Directory.Exists(NS_Mod_Dir))
                             {
                                 Log_Box.AppendText("\nMod Directory is Empty");
