@@ -5,7 +5,7 @@ Current Features:
 <br />
 *Updating NorthStar Installations
 <br />
-*Installation of the NorthStar Launcher By pulling the latest Json of the NorthStar repo to access the download.
+*Installation of the NorthStar Launcher.
 <br />
 *Verifying a Titanfall 2 NorthStar install
 <br />
