@@ -67,7 +67,9 @@ This is only works if the Mod Folder Is populated
 <br /><br />
 ![image](https://user-images.githubusercontent.com/23240514/147835357-884a062d-9580-471c-8b88-408c52c0c869.png)
 <br /><br />
-To Download From an existing Mod URL, please navigate to the GitHub page of the Mod, Right click and Copy Link address, on the latest Release Page.
+**There is 2 ways to Download Mods From Github or .zip Links.**
+<br /><br />
+To Download From an existing Mod URL from a Git Release Manually, please navigate to the GitHub page of the Mod, Right click and Copy Link address, on the latest Release Page.
 <br /><br />
 ![image](https://user-images.githubusercontent.com/23240514/147835593-98d160b4-8cf0-45f3-81ab-77d9671e09d0.png)
 <br /><br />
@@ -75,6 +77,17 @@ Then navigate to the Manager, and paste the link by using CTRL+V in the Download
 <br /><br />
 ![image](https://user-images.githubusercontent.com/23240514/147835480-227d1b1c-2d28-4571-bd16-513de6b60698.png)
 <br /><br />
+To download using a Git Repo Url, please Just Copy the URL.
+ <br /><br />
+![image](https://user-images.githubusercontent.com/23240514/148283718-ee19cd13-002d-4069-be3e-78477d7cb0c8.png)
+<br /><br />
+
+Then paste the link by using CTRL+V in the Download Mod Box.
+<br /><br />
+![image](https://user-images.githubusercontent.com/23240514/148283215-81afa148-cda3-40fc-a8e7-0dbca46d2b5b.png)
+
+<br /><br />
+
 After Doing so, you can click Download, and the Mod will be placed and become active. Please Change tabs to Update the List if it Does not Show Up immediately.
 <br /><br />
 ![image](https://user-images.githubusercontent.com/23240514/147835540-e93c868d-9d61-421c-8d4b-154084400a87.png)
