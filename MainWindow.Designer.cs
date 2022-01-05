@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.Launchvanilla = new MetroSet_UI.Controls.MetroSetButton();
             this.label4 = new System.Windows.Forms.Label();
             this.Arg_Box = new System.Windows.Forms.TextBox();
             this.Start_Client = new MetroSet_UI.Controls.MetroSetButton();
@@ -74,7 +75,6 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.metroSetPanel1 = new MetroSet_UI.Controls.MetroSetPanel();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.Launchvanilla = new MetroSet_UI.Controls.MetroSetButton();
             this.panel1.SuspendLayout();
             this.panel4.SuspendLayout();
             this.Main_Window.SuspendLayout();
@@ -109,6 +109,33 @@
             this.panel1.Size = new System.Drawing.Size(432, 579);
             this.panel1.TabIndex = 0;
             // 
+            // Launchvanilla
+            // 
+            this.Launchvanilla.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
+            this.Launchvanilla.DisabledBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
+            this.Launchvanilla.DisabledForeColor = System.Drawing.Color.Gray;
+            this.Launchvanilla.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.Launchvanilla.HoverBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(207)))), ((int)(((byte)(255)))));
+            this.Launchvanilla.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(207)))), ((int)(((byte)(255)))));
+            this.Launchvanilla.HoverTextColor = System.Drawing.Color.White;
+            this.Launchvanilla.IsDerivedStyle = true;
+            this.Launchvanilla.Location = new System.Drawing.Point(4, 481);
+            this.Launchvanilla.Name = "Launchvanilla";
+            this.Launchvanilla.NormalBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
+            this.Launchvanilla.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
+            this.Launchvanilla.NormalTextColor = System.Drawing.Color.White;
+            this.Launchvanilla.PressBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(147)))), ((int)(((byte)(195)))));
+            this.Launchvanilla.PressColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(147)))), ((int)(((byte)(195)))));
+            this.Launchvanilla.PressTextColor = System.Drawing.Color.White;
+            this.Launchvanilla.Size = new System.Drawing.Size(420, 52);
+            this.Launchvanilla.Style = MetroSet_UI.Enums.Style.Dark;
+            this.Launchvanilla.StyleManager = null;
+            this.Launchvanilla.TabIndex = 23;
+            this.Launchvanilla.Text = "Launch Vanilla Titanfall 2";
+            this.Launchvanilla.ThemeAuthor = "Narwin";
+            this.Launchvanilla.ThemeName = "MetroDark";
+            this.Launchvanilla.Click += new System.EventHandler(this.metroSetButton1_Click_1);
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -125,6 +152,7 @@
             this.Arg_Box.Name = "Arg_Box";
             this.Arg_Box.Size = new System.Drawing.Size(420, 23);
             this.Arg_Box.TabIndex = 21;
+            this.Arg_Box.TextChanged += new System.EventHandler(this.Arg_Box_TextChanged);
             this.Arg_Box.Enter += new System.EventHandler(this.Arg_Box_Enter);
             this.Arg_Box.Leave += new System.EventHandler(this.Arg_Box_Leave);
             // 
@@ -880,33 +908,6 @@
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = "";
             this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged_1);
-            // 
-            // Launchvanilla
-            // 
-            this.Launchvanilla.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
-            this.Launchvanilla.DisabledBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
-            this.Launchvanilla.DisabledForeColor = System.Drawing.Color.Gray;
-            this.Launchvanilla.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Launchvanilla.HoverBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(207)))), ((int)(((byte)(255)))));
-            this.Launchvanilla.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(207)))), ((int)(((byte)(255)))));
-            this.Launchvanilla.HoverTextColor = System.Drawing.Color.White;
-            this.Launchvanilla.IsDerivedStyle = true;
-            this.Launchvanilla.Location = new System.Drawing.Point(4, 481);
-            this.Launchvanilla.Name = "Launchvanilla";
-            this.Launchvanilla.NormalBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
-            this.Launchvanilla.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
-            this.Launchvanilla.NormalTextColor = System.Drawing.Color.White;
-            this.Launchvanilla.PressBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(147)))), ((int)(((byte)(195)))));
-            this.Launchvanilla.PressColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(147)))), ((int)(((byte)(195)))));
-            this.Launchvanilla.PressTextColor = System.Drawing.Color.White;
-            this.Launchvanilla.Size = new System.Drawing.Size(420, 52);
-            this.Launchvanilla.Style = MetroSet_UI.Enums.Style.Dark;
-            this.Launchvanilla.StyleManager = null;
-            this.Launchvanilla.TabIndex = 23;
-            this.Launchvanilla.Text = "Launch Vanilla Titanfall 2";
-            this.Launchvanilla.ThemeAuthor = "Narwin";
-            this.Launchvanilla.ThemeName = "MetroDark";
-            this.Launchvanilla.Click += new System.EventHandler(this.metroSetButton1_Click_1);
             // 
             // MainWindow
             // 

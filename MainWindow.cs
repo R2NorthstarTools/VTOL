@@ -39,6 +39,8 @@ namespace Northstar_Manger
         {
             InitializeComponent();
             Reset_LogBox();
+            do_not_overwrite_Ns_file = Properties.Settings.Default.Ns_Startup;
+
             string version = System.Windows.Forms.Application.ProductVersion;
             this.Text = String.Format("NorthStar Mod Launcher Version {0}", version);
             Image myimage = new Bitmap(@"bestboy.png");
@@ -133,8 +135,16 @@ More Instructions at this link - https://github.com/BigSpice/NorthStar-Mod-Manag
 
 Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_ ";
 
+            if (do_not_overwrite_Ns_file==true)
+            {
+                checkBox1.Checked = true;
 
+            }
+            else
+            {
 
+                checkBox1.Checked=false;
+            }
 
             //   Thread.Sleep(2000);
 
@@ -1228,14 +1238,15 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
 
 
                 Log_Box.AppendText("\nDo not overwrite ns_startup_args.txt ENABLED! - this will backup and restore the original ns_startup_args and ns_startup_args_dedi from the folder");
-                do_not_overwrite_Ns_file = true;
+                Properties.Settings.Default.Ns_Startup = true;
+                Properties.Settings.Default.Save();
 
             }
             else
             {
                 Log_Box.AppendText("\nOVERWRITE ns_startup_args.txt ENABLED!");
-                do_not_overwrite_Ns_file = false;
-
+                Properties.Settings.Default.Ns_Startup = false;
+                Properties.Settings.Default.Save();
             }
         }
 
@@ -1268,9 +1279,9 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
         {
 
 
-            if (Directory.Exists(@"C:\ProgramData\NorthStarModManager\VARS"))
+            if (Directory.Exists(Current_Install_Folder))
             {
-                if (File.Exists(@"C:\ProgramData\NorthStarModManager\VARS\Startup_Arguemts.txt"))
+                if (File.Exists(Current_Install_Folder+@"\ns_startup_args.txt"))
                 {
                     Arg_Box.Text= Read_From_TextFile_OneLine(Current_Install_Folder+@"\ns_startup_args.txt");
 
@@ -1584,6 +1595,11 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
 
 
             }
+        }
+
+        private void Arg_Box_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
     
