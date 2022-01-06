@@ -87,7 +87,6 @@ Then paste the link by using CTRL+V in the Download Mod Box.
 ![image](https://user-images.githubusercontent.com/23240514/148283215-81afa148-cda3-40fc-a8e7-0dbca46d2b5b.png)
 
 <br /><br />
-
 After Doing so, you can click Download, and the Mod will be placed and become active. Please Change tabs to Update the List if it Does not Show Up immediately.
 <br /><br />
 ![image](https://user-images.githubusercontent.com/23240514/147835540-e93c868d-9d61-421c-8d4b-154084400a87.png)
@@ -96,6 +95,25 @@ You can also Navigate to a Mod Zip, by clicking Browse and It will be installed 
 <br /><br />
 ![image](https://user-images.githubusercontent.com/23240514/147835605-43e3d06a-2bf8-41f5-a7b6-83695dd7031a.png)
 <br /><br />
+**PLEASE ENSURE THAT THE ZIPPED MODS TO INSTALLED MUST FOLLOW THE FORMAT OF Mod_Example_Name\Mod.json,Mod_example_Folder.
+<br/>
+IF THIS IS NOT MET IT CAN AND WILL RESULT IN AN ERROR!.**
+<br/><br/>
+![image](https://user-images.githubusercontent.com/23240514/148310616-36f87bcb-95e9-45e5-8f8f-2a144e726d8f.png)
+<br/><br/>
+V<br/>
+V<br/>
+V
+<br/>
+
+<br/><br/>
+
+![image](https://user-images.githubusercontent.com/23240514/148310762-11f751db-73d8-4975-b1cb-5061bb8d4f46.png)
+<br/><br/>
+*AN Example of a format that is **NOT** Accepted is:*
+ ![image](https://user-images.githubusercontent.com/23240514/148310685-e3eb00df-6ffe-4767-b5d4-c26aab1ed6c1.png)
+<br/><br/>
+
 The Mod will be placed and Become active. Please Change tabs to Update the List if it Does not Show Up immideatley.
 <br /><br />
 To Enable or Disable Mods, Click the Corresponding arrows after clicking the mod you want to activate.
