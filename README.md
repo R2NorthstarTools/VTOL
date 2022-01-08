@@ -137,5 +137,10 @@ You can also Configure Automatic Updates
 <br />
 ![image](https://user-images.githubusercontent.com/23240514/147835800-4a4c7cb3-973f-4ea1-b8c7-fd7a6b3596fc.png)
 <br /><br />
+To update your Northstar Installation please click Update/Repair and wait for the process to complete.
 <br /><br />
+![image](https://user-images.githubusercontent.com/23240514/148660824-d2cb2113-9661-4460-81ef-c0f27c8e94b9.png)
+<br /><br />
+
+
 
