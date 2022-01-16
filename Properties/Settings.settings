@@ -8,5 +8,11 @@
     <Setting Name="Version" Type="System.String" Scope="User">
       <Value Profile="(Default)">v1.2.0</Value>
     </Setting>
+    <Setting Name="Ns_Dedi" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="Advanced_Mode" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

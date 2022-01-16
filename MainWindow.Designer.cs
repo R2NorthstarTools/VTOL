@@ -30,6 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.Dedicated_Btn = new System.Windows.Forms.Button();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.Launchvanilla = new MetroSet_UI.Controls.MetroSetButton();
             this.label4 = new System.Windows.Forms.Label();
             this.Arg_Box = new System.Windows.Forms.TextBox();
@@ -48,8 +50,20 @@
             this.Log_Box = new MetroSet_UI.Controls.MetroSetRichTextBox();
             this.Log_Label = new System.Windows.Forms.Label();
             this.Main_Window = new MetroSet_UI.Controls.MetroSetTabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.Skins = new System.Windows.Forms.TabPage();
+            this.Skin_Panel = new System.Windows.Forms.Panel();
+            this.label10 = new System.Windows.Forms.Label();
+            this.Compatible_INDC = new MetroSet_UI.Controls.MetroSetTile();
+            this.label9 = new System.Windows.Forms.Label();
+            this.Normal = new System.Windows.Forms.Label();
+            this.Import_Skin_Bttn = new MetroSet_UI.Controls.MetroSetButton();
+            this.Skin_Glow_Tile = new MetroSet_UI.Controls.MetroSetTile();
+            this.Skin_Normal_Tile = new MetroSet_UI.Controls.MetroSetTile();
+            this.label8 = new System.Windows.Forms.Label();
+            this.Skin_Path_Box = new System.Windows.Forms.TextBox();
+            this.Install_Skin_Bttn = new MetroSet_UI.Controls.MetroSetButton();
+            this.Main = new System.Windows.Forms.TabPage();
+            this.Mods = new System.Windows.Forms.TabPage();
             this.metroSetPanel4 = new MetroSet_UI.Controls.MetroSetPanel();
             this.label7 = new System.Windows.Forms.Label();
             this.Browse_Local = new MetroSet_UI.Controls.MetroSetButton();
@@ -66,25 +80,28 @@
             this.Inactive_List = new System.Windows.Forms.ListBox();
             this.Apply_Btn_Mods = new MetroSet_UI.Controls.MetroSetButton();
             this.label2 = new System.Windows.Forms.Label();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.Updates = new System.Windows.Forms.TabPage();
             this.metroSetPanel3 = new MetroSet_UI.Controls.MetroSetPanel();
             this.label3 = new System.Windows.Forms.Label();
             this.metroSetButton5 = new MetroSet_UI.Controls.MetroSetButton();
             this.metroSetTile1 = new MetroSet_UI.Controls.MetroSetTile();
             this.metroSetButton4 = new MetroSet_UI.Controls.MetroSetButton();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.About = new System.Windows.Forms.TabPage();
             this.metroSetPanel1 = new MetroSet_UI.Controls.MetroSetPanel();
+            this.Adv_chk = new System.Windows.Forms.CheckBox();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.panel1.SuspendLayout();
             this.panel4.SuspendLayout();
             this.Main_Window.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
+            this.Skins.SuspendLayout();
+            this.Skin_Panel.SuspendLayout();
+            this.Main.SuspendLayout();
+            this.Mods.SuspendLayout();
             this.metroSetPanel4.SuspendLayout();
             this.metroSetPanel2.SuspendLayout();
-            this.tabPage3.SuspendLayout();
+            this.Updates.SuspendLayout();
             this.metroSetPanel3.SuspendLayout();
-            this.tabPage4.SuspendLayout();
+            this.About.SuspendLayout();
             this.metroSetPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -92,6 +109,8 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(21)))), ((int)(((byte)(33)))), ((int)(((byte)(49)))));
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.Dedicated_Btn);
+            this.panel1.Controls.Add(this.checkBox2);
             this.panel1.Controls.Add(this.Launchvanilla);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.Arg_Box);
@@ -109,6 +128,32 @@
             this.panel1.Size = new System.Drawing.Size(432, 579);
             this.panel1.TabIndex = 0;
             // 
+            // Dedicated_Btn
+            // 
+            this.Dedicated_Btn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.Dedicated_Btn.FlatAppearance.BorderSize = 0;
+            this.Dedicated_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Dedicated_Btn.ForeColor = System.Drawing.Color.White;
+            this.Dedicated_Btn.Location = new System.Drawing.Point(4, 457);
+            this.Dedicated_Btn.Name = "Dedicated_Btn";
+            this.Dedicated_Btn.Size = new System.Drawing.Size(420, 23);
+            this.Dedicated_Btn.TabIndex = 25;
+            this.Dedicated_Btn.Text = "Launch Dedicated Northstar Client";
+            this.Dedicated_Btn.UseVisualStyleBackColor = false;
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.checkBox2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.checkBox2.Location = new System.Drawing.Point(71, 169);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(288, 21);
+            this.checkBox2.TabIndex = 24;
+            this.checkBox2.Text = "DO NOT Overwrite \"ns_startup_args_dedi.txt\"";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged_1);
+            // 
             // Launchvanilla
             // 
             this.Launchvanilla.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
@@ -119,7 +164,7 @@
             this.Launchvanilla.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(207)))), ((int)(((byte)(255)))));
             this.Launchvanilla.HoverTextColor = System.Drawing.Color.White;
             this.Launchvanilla.IsDerivedStyle = true;
-            this.Launchvanilla.Location = new System.Drawing.Point(4, 481);
+            this.Launchvanilla.Location = new System.Drawing.Point(4, 495);
             this.Launchvanilla.Name = "Launchvanilla";
             this.Launchvanilla.NormalBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
             this.Launchvanilla.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
@@ -166,7 +211,7 @@
             this.Start_Client.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(207)))), ((int)(((byte)(255)))));
             this.Start_Client.HoverTextColor = System.Drawing.Color.White;
             this.Start_Client.IsDerivedStyle = true;
-            this.Start_Client.Location = new System.Drawing.Point(4, 412);
+            this.Start_Client.Location = new System.Drawing.Point(3, 401);
             this.Start_Client.Name = "Start_Client";
             this.Start_Client.NormalBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
             this.Start_Client.NormalColor = System.Drawing.Color.DarkCyan;
@@ -260,7 +305,7 @@
             this.Install_NS_Button.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(207)))), ((int)(((byte)(255)))));
             this.Install_NS_Button.HoverTextColor = System.Drawing.Color.White;
             this.Install_NS_Button.IsDerivedStyle = true;
-            this.Install_NS_Button.Location = new System.Drawing.Point(4, 166);
+            this.Install_NS_Button.Location = new System.Drawing.Point(4, 220);
             this.Install_NS_Button.Name = "Install_NS_Button";
             this.Install_NS_Button.NormalBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
             this.Install_NS_Button.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
@@ -405,6 +450,7 @@
             this.Log_Box.Style = MetroSet_UI.Enums.Style.Dark;
             this.Log_Box.StyleManager = null;
             this.Log_Box.TabIndex = 9;
+            this.Log_Box.Text = "hn";
             this.Log_Box.ThemeAuthor = "Narwin";
             this.Log_Box.ThemeName = "MetroDark";
             this.Log_Box.WordWrap = true;
@@ -429,10 +475,11 @@
             this.Main_Window.AnimateEasingType = MetroSet_UI.Enums.EasingType.CubeOut;
             this.Main_Window.AnimateTime = 200;
             this.Main_Window.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.Main_Window.Controls.Add(this.tabPage1);
-            this.Main_Window.Controls.Add(this.tabPage2);
-            this.Main_Window.Controls.Add(this.tabPage3);
-            this.Main_Window.Controls.Add(this.tabPage4);
+            this.Main_Window.Controls.Add(this.Main);
+            this.Main_Window.Controls.Add(this.Mods);
+            this.Main_Window.Controls.Add(this.Skins);
+            this.Main_Window.Controls.Add(this.Updates);
+            this.Main_Window.Controls.Add(this.About);
             this.Main_Window.HotTrack = true;
             this.Main_Window.IsDerivedStyle = true;
             this.Main_Window.ItemSize = new System.Drawing.Size(100, 38);
@@ -452,27 +499,237 @@
             this.Main_Window.UseAnimation = false;
             this.Main_Window.SelectedIndexChanged += new System.EventHandler(this.metroSetTabControl1_SelectedIndexChanged);
             // 
-            // tabPage1
+            // Skins
             // 
-            this.tabPage1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.tabPage1.Controls.Add(this.panel1);
-            this.tabPage1.Controls.Add(this.panel4);
-            this.tabPage1.Location = new System.Drawing.Point(4, 42);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(974, 585);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Install";
+            this.Skins.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.Skins.Controls.Add(this.Skin_Panel);
+            this.Skins.Location = new System.Drawing.Point(4, 42);
+            this.Skins.Name = "Skins";
+            this.Skins.Size = new System.Drawing.Size(974, 585);
+            this.Skins.TabIndex = 4;
+            this.Skins.Text = "Skins";
             // 
-            // tabPage2
+            // Skin_Panel
             // 
-            this.tabPage2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.tabPage2.Controls.Add(this.metroSetPanel4);
-            this.tabPage2.Controls.Add(this.metroSetPanel2);
-            this.tabPage2.Location = new System.Drawing.Point(4, 42);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Size = new System.Drawing.Size(974, 585);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Mods";
+            this.Skin_Panel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.Skin_Panel.Controls.Add(this.label10);
+            this.Skin_Panel.Controls.Add(this.Compatible_INDC);
+            this.Skin_Panel.Controls.Add(this.label9);
+            this.Skin_Panel.Controls.Add(this.Normal);
+            this.Skin_Panel.Controls.Add(this.Import_Skin_Bttn);
+            this.Skin_Panel.Controls.Add(this.Skin_Glow_Tile);
+            this.Skin_Panel.Controls.Add(this.Skin_Normal_Tile);
+            this.Skin_Panel.Controls.Add(this.label8);
+            this.Skin_Panel.Controls.Add(this.Skin_Path_Box);
+            this.Skin_Panel.Controls.Add(this.Install_Skin_Bttn);
+            this.Skin_Panel.Location = new System.Drawing.Point(0, 3);
+            this.Skin_Panel.Name = "Skin_Panel";
+            this.Skin_Panel.Size = new System.Drawing.Size(974, 586);
+            this.Skin_Panel.TabIndex = 0;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.BackColor = System.Drawing.Color.Transparent;
+            this.label10.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label10.Location = new System.Drawing.Point(451, 63);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(74, 15);
+            this.label10.TabIndex = 9;
+            this.label10.Text = "Compatible?";
+            // 
+            // Compatible_INDC
+            // 
+            this.Compatible_INDC.DisabledBackColor = System.Drawing.Color.Red;
+            this.Compatible_INDC.DisabledBorderColor = System.Drawing.Color.Transparent;
+            this.Compatible_INDC.DisabledForeColor = System.Drawing.Color.Red;
+            this.Compatible_INDC.Enabled = false;
+            this.Compatible_INDC.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.Compatible_INDC.HoverBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
+            this.Compatible_INDC.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
+            this.Compatible_INDC.HoverTextColor = System.Drawing.Color.White;
+            this.Compatible_INDC.IsDerivedStyle = true;
+            this.Compatible_INDC.Location = new System.Drawing.Point(450, 80);
+            this.Compatible_INDC.Name = "Compatible_INDC";
+            this.Compatible_INDC.NormalBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
+            this.Compatible_INDC.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
+            this.Compatible_INDC.NormalTextColor = System.Drawing.Color.White;
+            this.Compatible_INDC.PressBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
+            this.Compatible_INDC.PressColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
+            this.Compatible_INDC.PressTextColor = System.Drawing.Color.White;
+            this.Compatible_INDC.Size = new System.Drawing.Size(75, 23);
+            this.Compatible_INDC.Style = MetroSet_UI.Enums.Style.Custom;
+            this.Compatible_INDC.StyleManager = null;
+            this.Compatible_INDC.TabIndex = 8;
+            this.Compatible_INDC.ThemeAuthor = "Narwin";
+            this.Compatible_INDC.ThemeName = "MetroLite";
+            this.Compatible_INDC.TileAlign = MetroSet_UI.Enums.TileAlign.Topleft;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label9.Location = new System.Drawing.Point(664, 398);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(34, 15);
+            this.label9.TabIndex = 7;
+            this.label9.Text = "Glow";
+            // 
+            // Normal
+            // 
+            this.Normal.AutoSize = true;
+            this.Normal.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.Normal.Location = new System.Drawing.Point(263, 398);
+            this.Normal.Name = "Normal";
+            this.Normal.Size = new System.Drawing.Size(47, 15);
+            this.Normal.TabIndex = 6;
+            this.Normal.Text = "Normal";
+            // 
+            // Import_Skin_Bttn
+            // 
+            this.Import_Skin_Bttn.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
+            this.Import_Skin_Bttn.DisabledBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
+            this.Import_Skin_Bttn.DisabledForeColor = System.Drawing.Color.Gray;
+            this.Import_Skin_Bttn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.Import_Skin_Bttn.HoverBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(207)))), ((int)(((byte)(255)))));
+            this.Import_Skin_Bttn.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(207)))), ((int)(((byte)(255)))));
+            this.Import_Skin_Bttn.HoverTextColor = System.Drawing.Color.White;
+            this.Import_Skin_Bttn.IsDerivedStyle = true;
+            this.Import_Skin_Bttn.Location = new System.Drawing.Point(729, 28);
+            this.Import_Skin_Bttn.Name = "Import_Skin_Bttn";
+            this.Import_Skin_Bttn.NormalBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
+            this.Import_Skin_Bttn.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
+            this.Import_Skin_Bttn.NormalTextColor = System.Drawing.Color.White;
+            this.Import_Skin_Bttn.PressBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(147)))), ((int)(((byte)(195)))));
+            this.Import_Skin_Bttn.PressColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(147)))), ((int)(((byte)(195)))));
+            this.Import_Skin_Bttn.PressTextColor = System.Drawing.Color.White;
+            this.Import_Skin_Bttn.Size = new System.Drawing.Size(82, 23);
+            this.Import_Skin_Bttn.Style = MetroSet_UI.Enums.Style.Light;
+            this.Import_Skin_Bttn.StyleManager = null;
+            this.Import_Skin_Bttn.TabIndex = 5;
+            this.Import_Skin_Bttn.Text = "Import Skin";
+            this.Import_Skin_Bttn.ThemeAuthor = "Narwin";
+            this.Import_Skin_Bttn.ThemeName = "MetroLite";
+            this.Import_Skin_Bttn.Click += new System.EventHandler(this.Import_Skin_Bttn_Click);
+            // 
+            // Skin_Glow_Tile
+            // 
+            this.Skin_Glow_Tile.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.Skin_Glow_Tile.DisabledBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+            this.Skin_Glow_Tile.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+            this.Skin_Glow_Tile.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.Skin_Glow_Tile.HoverBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
+            this.Skin_Glow_Tile.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
+            this.Skin_Glow_Tile.HoverTextColor = System.Drawing.Color.White;
+            this.Skin_Glow_Tile.IsDerivedStyle = true;
+            this.Skin_Glow_Tile.Location = new System.Drawing.Point(555, 139);
+            this.Skin_Glow_Tile.Name = "Skin_Glow_Tile";
+            this.Skin_Glow_Tile.NormalBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
+            this.Skin_Glow_Tile.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
+            this.Skin_Glow_Tile.NormalTextColor = System.Drawing.Color.White;
+            this.Skin_Glow_Tile.PressBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            this.Skin_Glow_Tile.PressColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
+            this.Skin_Glow_Tile.PressTextColor = System.Drawing.Color.White;
+            this.Skin_Glow_Tile.Size = new System.Drawing.Size(256, 256);
+            this.Skin_Glow_Tile.Style = MetroSet_UI.Enums.Style.Dark;
+            this.Skin_Glow_Tile.StyleManager = null;
+            this.Skin_Glow_Tile.TabIndex = 4;
+            this.Skin_Glow_Tile.ThemeAuthor = "Narwin";
+            this.Skin_Glow_Tile.ThemeName = "MetroDark";
+            this.Skin_Glow_Tile.TileAlign = MetroSet_UI.Enums.TileAlign.Topleft;
+            // 
+            // Skin_Normal_Tile
+            // 
+            this.Skin_Normal_Tile.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.Skin_Normal_Tile.DisabledBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+            this.Skin_Normal_Tile.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+            this.Skin_Normal_Tile.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.Skin_Normal_Tile.HoverBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
+            this.Skin_Normal_Tile.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
+            this.Skin_Normal_Tile.HoverTextColor = System.Drawing.Color.White;
+            this.Skin_Normal_Tile.IsDerivedStyle = true;
+            this.Skin_Normal_Tile.Location = new System.Drawing.Point(164, 139);
+            this.Skin_Normal_Tile.Name = "Skin_Normal_Tile";
+            this.Skin_Normal_Tile.NormalBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
+            this.Skin_Normal_Tile.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
+            this.Skin_Normal_Tile.NormalTextColor = System.Drawing.Color.White;
+            this.Skin_Normal_Tile.PressBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            this.Skin_Normal_Tile.PressColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
+            this.Skin_Normal_Tile.PressTextColor = System.Drawing.Color.White;
+            this.Skin_Normal_Tile.Size = new System.Drawing.Size(256, 256);
+            this.Skin_Normal_Tile.Style = MetroSet_UI.Enums.Style.Dark;
+            this.Skin_Normal_Tile.StyleManager = null;
+            this.Skin_Normal_Tile.TabIndex = 3;
+            this.Skin_Normal_Tile.ThemeAuthor = "Narwin";
+            this.Skin_Normal_Tile.ThemeName = "MetroDark";
+            this.Skin_Normal_Tile.TileAlign = MetroSet_UI.Enums.TileAlign.Topleft;
+            this.Skin_Normal_Tile.Click += new System.EventHandler(this.metroSetTile2_Click);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label8.Location = new System.Drawing.Point(450, 10);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(76, 15);
+            this.label8.TabIndex = 2;
+            this.label8.Text = "Skin Zip Path";
+            // 
+            // Skin_Path_Box
+            // 
+            this.Skin_Path_Box.Location = new System.Drawing.Point(164, 28);
+            this.Skin_Path_Box.Name = "Skin_Path_Box";
+            this.Skin_Path_Box.Size = new System.Drawing.Size(559, 23);
+            this.Skin_Path_Box.TabIndex = 1;
+            // 
+            // Install_Skin_Bttn
+            // 
+            this.Install_Skin_Bttn.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
+            this.Install_Skin_Bttn.DisabledBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
+            this.Install_Skin_Bttn.DisabledForeColor = System.Drawing.Color.Gray;
+            this.Install_Skin_Bttn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.Install_Skin_Bttn.HoverBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(207)))), ((int)(((byte)(255)))));
+            this.Install_Skin_Bttn.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(207)))), ((int)(((byte)(255)))));
+            this.Install_Skin_Bttn.HoverTextColor = System.Drawing.Color.White;
+            this.Install_Skin_Bttn.IsDerivedStyle = true;
+            this.Install_Skin_Bttn.Location = new System.Drawing.Point(8, 527);
+            this.Install_Skin_Bttn.Name = "Install_Skin_Bttn";
+            this.Install_Skin_Bttn.NormalBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
+            this.Install_Skin_Bttn.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
+            this.Install_Skin_Bttn.NormalTextColor = System.Drawing.Color.White;
+            this.Install_Skin_Bttn.PressBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(147)))), ((int)(((byte)(195)))));
+            this.Install_Skin_Bttn.PressColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(147)))), ((int)(((byte)(195)))));
+            this.Install_Skin_Bttn.PressTextColor = System.Drawing.Color.White;
+            this.Install_Skin_Bttn.Size = new System.Drawing.Size(958, 47);
+            this.Install_Skin_Bttn.Style = MetroSet_UI.Enums.Style.Light;
+            this.Install_Skin_Bttn.StyleManager = null;
+            this.Install_Skin_Bttn.TabIndex = 0;
+            this.Install_Skin_Bttn.Text = "Install Skin";
+            this.Install_Skin_Bttn.ThemeAuthor = "Narwin";
+            this.Install_Skin_Bttn.ThemeName = "MetroLite";
+            this.Install_Skin_Bttn.Click += new System.EventHandler(this.Install_Skin_Bttn_Click);
+            // 
+            // Main
+            // 
+            this.Main.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.Main.Controls.Add(this.panel1);
+            this.Main.Controls.Add(this.panel4);
+            this.Main.Location = new System.Drawing.Point(4, 42);
+            this.Main.Name = "Main";
+            this.Main.Size = new System.Drawing.Size(974, 585);
+            this.Main.TabIndex = 0;
+            this.Main.Text = "Main";
+            // 
+            // Mods
+            // 
+            this.Mods.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.Mods.Controls.Add(this.metroSetPanel4);
+            this.Mods.Controls.Add(this.metroSetPanel2);
+            this.Mods.Location = new System.Drawing.Point(4, 42);
+            this.Mods.Name = "Mods";
+            this.Mods.Size = new System.Drawing.Size(974, 585);
+            this.Mods.TabIndex = 1;
+            this.Mods.Text = "Mods";
             // 
             // metroSetPanel4
             // 
@@ -750,14 +1007,14 @@
             this.label2.TabIndex = 3;
             this.label2.Text = "MODS";
             // 
-            // tabPage3
+            // Updates
             // 
-            this.tabPage3.Controls.Add(this.metroSetPanel3);
-            this.tabPage3.Location = new System.Drawing.Point(4, 42);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(974, 585);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Updates";
+            this.Updates.Controls.Add(this.metroSetPanel3);
+            this.Updates.Location = new System.Drawing.Point(4, 42);
+            this.Updates.Name = "Updates";
+            this.Updates.Size = new System.Drawing.Size(974, 585);
+            this.Updates.TabIndex = 2;
+            this.Updates.Text = "Updates";
             // 
             // metroSetPanel3
             // 
@@ -871,21 +1128,22 @@
             this.metroSetButton4.ThemeName = "MetroDark";
             this.metroSetButton4.Click += new System.EventHandler(this.metroSetButton4_Click);
             // 
-            // tabPage4
+            // About
             // 
-            this.tabPage4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.tabPage4.Controls.Add(this.metroSetPanel1);
-            this.tabPage4.Location = new System.Drawing.Point(4, 42);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(974, 585);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "About";
+            this.About.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.About.Controls.Add(this.metroSetPanel1);
+            this.About.Location = new System.Drawing.Point(4, 42);
+            this.About.Name = "About";
+            this.About.Size = new System.Drawing.Size(974, 585);
+            this.About.TabIndex = 3;
+            this.About.Text = "About";
             // 
             // metroSetPanel1
             // 
             this.metroSetPanel1.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
             this.metroSetPanel1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.metroSetPanel1.BorderThickness = 1;
+            this.metroSetPanel1.Controls.Add(this.Adv_chk);
             this.metroSetPanel1.Controls.Add(this.richTextBox1);
             this.metroSetPanel1.IsDerivedStyle = true;
             this.metroSetPanel1.Location = new System.Drawing.Point(-4, 3);
@@ -897,6 +1155,21 @@
             this.metroSetPanel1.ThemeAuthor = "Narwin";
             this.metroSetPanel1.ThemeName = "MetroLite";
             // 
+            // Adv_chk
+            // 
+            this.Adv_chk.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Adv_chk.AutoSize = true;
+            this.Adv_chk.CheckAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.Adv_chk.Location = new System.Drawing.Point(419, 541);
+            this.Adv_chk.Name = "Adv_chk";
+            this.Adv_chk.Size = new System.Drawing.Size(147, 33);
+            this.Adv_chk.TabIndex = 1;
+            this.Adv_chk.Text = "Enable Advanced Settings";
+            this.Adv_chk.UseVisualStyleBackColor = true;
+            this.Adv_chk.CheckedChanged += new System.EventHandler(this.Adv_chk_CheckedChanged);
+            // 
             // richTextBox1
             // 
             this.richTextBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
@@ -904,7 +1177,7 @@
             this.richTextBox1.ForeColor = System.Drawing.Color.White;
             this.richTextBox1.Location = new System.Drawing.Point(4, 3);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(978, 583);
+            this.richTextBox1.Size = new System.Drawing.Size(978, 532);
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = "";
             this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged_1);
@@ -926,17 +1199,21 @@
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
             this.Main_Window.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
+            this.Skins.ResumeLayout(false);
+            this.Skin_Panel.ResumeLayout(false);
+            this.Skin_Panel.PerformLayout();
+            this.Main.ResumeLayout(false);
+            this.Mods.ResumeLayout(false);
             this.metroSetPanel4.ResumeLayout(false);
             this.metroSetPanel4.PerformLayout();
             this.metroSetPanel2.ResumeLayout(false);
             this.metroSetPanel2.PerformLayout();
-            this.tabPage3.ResumeLayout(false);
+            this.Updates.ResumeLayout(false);
             this.metroSetPanel3.ResumeLayout(false);
             this.metroSetPanel3.PerformLayout();
-            this.tabPage4.ResumeLayout(false);
+            this.About.ResumeLayout(false);
             this.metroSetPanel1.ResumeLayout(false);
+            this.metroSetPanel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -951,8 +1228,8 @@
         private TextBox Install_Textbox;
         private Label Log_Label;
         private MetroSet_UI.Controls.MetroSetTabControl Main_Window;
-        private TabPage tabPage1;
-        private TabPage tabPage2;
+        private TabPage Main;
+        private TabPage Mods;
         private MetroSet_UI.Controls.MetroSetRichTextBox Log_Box;
         private MetroSet_UI.Controls.MetroSetButton Install_NS_Button;
         private MetroSet_UI.Controls.MetroSetButton Brows_Bttn;
@@ -964,7 +1241,7 @@
         private Label label2;
         private MetroSet_UI.Controls.MetroSetButton metroSetButton3;
         private MetroSet_UI.Controls.MetroSetButton metroSetButton2;
-        private TabPage tabPage3;
+        private TabPage Updates;
         private MetroSet_UI.Controls.MetroSetPanel metroSetPanel3;
         private MetroSet_UI.Controls.MetroSetTile metroSetTile1;
         private MetroSet_UI.Controls.MetroSetButton metroSetButton4;
@@ -984,10 +1261,25 @@
         private Label label7;
         private MetroSet_UI.Controls.MetroSetButton Browse_Local;
         private TextBox local_box;
-        private TabPage tabPage4;
+        private TabPage About;
         private MetroSet_UI.Controls.MetroSetPanel metroSetPanel1;
         private RichTextBox richTextBox1;
         private Label label5;
         private MetroSet_UI.Controls.MetroSetButton Launchvanilla;
+        private CheckBox checkBox2;
+        private TabPage Skins;
+        private Panel Skin_Panel;
+        private MetroSet_UI.Controls.MetroSetTile Skin_Normal_Tile;
+        private Label label8;
+        private TextBox Skin_Path_Box;
+        private MetroSet_UI.Controls.MetroSetButton Install_Skin_Bttn;
+        private Label label9;
+        private Label Normal;
+        private MetroSet_UI.Controls.MetroSetButton Import_Skin_Bttn;
+        private MetroSet_UI.Controls.MetroSetTile Skin_Glow_Tile;
+        private Label label10;
+        private MetroSet_UI.Controls.MetroSetTile Compatible_INDC;
+        private Button Dedicated_Btn;
+        private CheckBox Adv_chk;
     }
 }

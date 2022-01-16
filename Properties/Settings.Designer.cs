@@ -46,5 +46,29 @@ namespace Northstar_Manger.Properties {
                 this["Version"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Ns_Dedi {
+            get {
+                return ((bool)(this["Ns_Dedi"]));
+            }
+            set {
+                this["Ns_Dedi"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Advanced_Mode {
+            get {
+                return ((bool)(this["Advanced_Mode"]));
+            }
+            set {
+                this["Advanced_Mode"] = value;
+            }
+        }
     }
 }

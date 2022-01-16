@@ -1,5 +1,7 @@
 namespace Northstar_Manger
 {
+    //Jordan Kaweesa Muguluma @Juicy
+
     internal static class Mod_Manager_Main
     {
         /// <summary>

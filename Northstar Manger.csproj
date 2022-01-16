@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <TargetFramework>net6.0-windows10.0.17763.0</TargetFramework>
     <RootNamespace>Northstar_Manger</RootNamespace>
     <Nullable>enable</Nullable>
@@ -15,7 +15,7 @@
     <FileVersion>$(VersionPrefix)</FileVersion>
     <PackageIcon>output-onlinepngtools.png</PackageIcon>
     <UseWPF>False</UseWPF>
-    <Version>1.1.4</Version>
+    <Version>1.1.5</Version>
     <Platforms>AnyCPU;x86</Platforms>
   </PropertyGroup>
 
@@ -47,10 +47,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Aspose.Zip" Version="21.11.0" />
+    <PackageReference Include="Aspose.Zip" Version="22.1.0" />
     <PackageReference Include="MetroSet_UI" Version="2.0.0" />
+    <PackageReference Include="ModernWPF" Version="1.4.6" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Octokit" Version="0.50.0" />
+    <PackageReference Include="Pfim" Version="0.10.3" />
+    <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="1.0.0-beta0005" />
   </ItemGroup>
 
   <ItemGroup>
