@@ -82,6 +82,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.Updates = new System.Windows.Forms.TabPage();
             this.metroSetPanel3 = new MetroSet_UI.Controls.MetroSetPanel();
+            this.NS_Client_Updates = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
             this.metroSetButton5 = new MetroSet_UI.Controls.MetroSetButton();
             this.metroSetTile1 = new MetroSet_UI.Controls.MetroSetTile();
@@ -140,6 +141,7 @@
             this.Dedicated_Btn.TabIndex = 25;
             this.Dedicated_Btn.Text = "Launch Dedicated Northstar Client";
             this.Dedicated_Btn.UseVisualStyleBackColor = false;
+            this.Dedicated_Btn.Click += new System.EventHandler(this.Dedicated_Btn_Click);
             // 
             // checkBox2
             // 
@@ -549,7 +551,7 @@
             this.Compatible_INDC.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
             this.Compatible_INDC.HoverTextColor = System.Drawing.Color.White;
             this.Compatible_INDC.IsDerivedStyle = true;
-            this.Compatible_INDC.Location = new System.Drawing.Point(450, 80);
+            this.Compatible_INDC.Location = new System.Drawing.Point(164, 80);
             this.Compatible_INDC.Name = "Compatible_INDC";
             this.Compatible_INDC.NormalBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
             this.Compatible_INDC.NormalColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
@@ -557,7 +559,7 @@
             this.Compatible_INDC.PressBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
             this.Compatible_INDC.PressColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(177)))), ((int)(((byte)(225)))));
             this.Compatible_INDC.PressTextColor = System.Drawing.Color.White;
-            this.Compatible_INDC.Size = new System.Drawing.Size(75, 23);
+            this.Compatible_INDC.Size = new System.Drawing.Size(647, 23);
             this.Compatible_INDC.Style = MetroSet_UI.Enums.Style.Custom;
             this.Compatible_INDC.StyleManager = null;
             this.Compatible_INDC.TabIndex = 8;
@@ -669,11 +671,11 @@
             // 
             this.label8.AutoSize = true;
             this.label8.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label8.Location = new System.Drawing.Point(450, 10);
+            this.label8.Location = new System.Drawing.Point(428, 10);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(76, 15);
+            this.label8.Size = new System.Drawing.Size(123, 15);
             this.label8.TabIndex = 2;
-            this.label8.Text = "Skin Zip Path";
+            this.label8.Text = "Weapon Skin Zip Path";
             // 
             // Skin_Path_Box
             // 
@@ -1021,6 +1023,7 @@
             this.metroSetPanel3.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(21)))), ((int)(((byte)(33)))), ((int)(((byte)(49)))));
             this.metroSetPanel3.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(110)))), ((int)(((byte)(110)))), ((int)(((byte)(110)))));
             this.metroSetPanel3.BorderThickness = 1;
+            this.metroSetPanel3.Controls.Add(this.NS_Client_Updates);
             this.metroSetPanel3.Controls.Add(this.label3);
             this.metroSetPanel3.Controls.Add(this.metroSetButton5);
             this.metroSetPanel3.Controls.Add(this.metroSetTile1);
@@ -1035,6 +1038,19 @@
             this.metroSetPanel3.TabIndex = 0;
             this.metroSetPanel3.ThemeAuthor = "Narwin";
             this.metroSetPanel3.ThemeName = "MetroDark";
+            // 
+            // NS_Client_Updates
+            // 
+            this.NS_Client_Updates.AutoSize = true;
+            this.NS_Client_Updates.CheckAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.NS_Client_Updates.Location = new System.Drawing.Point(365, 514);
+            this.NS_Client_Updates.Name = "NS_Client_Updates";
+            this.NS_Client_Updates.Size = new System.Drawing.Size(200, 33);
+            this.NS_Client_Updates.TabIndex = 4;
+            this.NS_Client_Updates.Text = "Automatic Northstar Client Updates";
+            this.NS_Client_Updates.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.NS_Client_Updates.UseVisualStyleBackColor = true;
+            this.NS_Client_Updates.CheckedChanged += new System.EventHandler(this.NS_Client_Updates_CheckedChanged);
             // 
             // label3
             // 
@@ -1281,5 +1297,6 @@
         private MetroSet_UI.Controls.MetroSetTile Compatible_INDC;
         private Button Dedicated_Btn;
         private CheckBox Adv_chk;
+        private CheckBox NS_Client_Updates;
     }
 }

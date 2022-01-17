@@ -37,7 +37,7 @@ namespace Northstar_Manger.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("v1.2.0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string Version {
             get {
                 return ((string)(this["Version"]));
@@ -68,6 +68,18 @@ namespace Northstar_Manger.Properties {
             }
             set {
                 this["Advanced_Mode"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Automatic_Client_Updates {
+            get {
+                return ((bool)(this["Automatic_Client_Updates"]));
+            }
+            set {
+                this["Automatic_Client_Updates"] = value;
             }
         }
     }
