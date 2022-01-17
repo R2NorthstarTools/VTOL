@@ -17,11 +17,19 @@ Current Features:
 <br />
 *Downloading Mods from a Local Zip Download
 <br />
+*Installing All Types of Weapon Skins into Titanfall 2
+<br />
+*Launching the Dedicated Server from the Northstar Client
+<br />
+
 *The ability to launch the NorthStar Exe from the base.
 <br /><br /><br />
 -Features in development:
 <br />
 *Intent to Create Custom Servers using this installer as a base to configure and fine tune setups
+<br />
+<br />
+*Manage And Configure Dedicated Servers in the Current UI
 <br /><br />
 
 -Please Do suggest any new features and/or Improvements Through the Git issue tracker, or by sending me a personal Message.
@@ -128,6 +136,37 @@ To Enable or Disable Mods, Click the Corresponding arrows after clicking the mod
 <br />
 ![image](https://user-images.githubusercontent.com/23240514/147835939-ec87cc5d-fc98-4fe7-87f9-47288ce5f891.png)
 <br /><br /><br /><br />
+
+-Installing Skins<br />
+<br /><br />
+When installing Skins you will be met with this Screen.
+<br /><br />
+![image](https://user-images.githubusercontent.com/23240514/149738019-d6160f70-e56e-48ea-9dee-45a6d42751f4.png)
+<br /><br />
+
+Please Click import skin and wait to see if the compatibility bar changes to Green.
+<br /><br />
+![image](https://user-images.githubusercontent.com/23240514/149739098-e8d0c4ad-f3af-4d01-a928-aca7967cc781.png)
+<br /><br />
+![image](https://user-images.githubusercontent.com/23240514/149738019-d6160f70-e56e-48ea-9dee-45a6d42751f4.png)
+<br /><br />
+Once compatibility is confirmed the Application can now process the skin.
+<br /><br />
+please proceed to Click install Skin to start the process.
+<br /><br />
+
+![image](https://user-images.githubusercontent.com/23240514/149714425-a8e5110e-9861-420f-9fa2-e271863d6236.png)
+
+<br /><br />
+Skins can be previewed in these following windows.
+***Due To Certaind Issues accross skin packs, some Select skins will not have a preview image.***
+<br /><br />
+
+![image](https://user-images.githubusercontent.com/23240514/149739001-7cc36a95-4319-41d2-a125-ca2051ff6d2c.png)
+
+<br /><br /><br /><br />
+
+
 -Update the Mod Manager<br />
 *To Update the Northstar Install please Click Check For updates and Download the latest release, after, Follow the install Instrucions
 <br /><br />
@@ -142,5 +181,11 @@ To update your Northstar Installation please click Update/Repair and wait for th
 ![image](https://user-images.githubusercontent.com/23240514/148660824-d2cb2113-9661-4460-81ef-c0f27c8e94b9.png)
 <br /><br />
 
+
+***-Advanced Settings***<br />
+***THERE IS NOW A HIDDEN TOGGLE TO ENABLE ADVANCED MODE.
+THIS CHANGES THE READ STARTUP TEXT BOX TO THE NS DEDICATED ARGUMENTS
+THIS ENABLES A HIDDEN BUTTON TO LAUNCH THE DEDICATED SERVER***
+All settings are persistent.
 
 
