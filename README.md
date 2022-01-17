@@ -159,7 +159,8 @@ please proceed to Click install Skin to start the process.
 
 <br /><br />
 Skins can be previewed in these following windows.
-***Due To Certaind Issues accross skin packs, some Select skins will not have a preview image.***
+<br />
+***Due To Certain Issues accross skin packs, some Select skins will not have a preview image.***
 <br /><br />
 
 ![image](https://user-images.githubusercontent.com/23240514/149739001-7cc36a95-4319-41d2-a125-ca2051ff6d2c.png)
@@ -184,8 +185,11 @@ To update your Northstar Installation please click Update/Repair and wait for th
 
 ***-Advanced Settings***<br />
 ***THERE IS NOW A HIDDEN TOGGLE TO ENABLE ADVANCED MODE.
+<br />
 THIS CHANGES THE READ STARTUP TEXT BOX TO THE NS DEDICATED ARGUMENTS
+<br />
 THIS ENABLES A HIDDEN BUTTON TO LAUNCH THE DEDICATED SERVER***
+<br />
 All settings are persistent.
 
 
