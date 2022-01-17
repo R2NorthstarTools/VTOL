@@ -191,5 +191,12 @@ THIS CHANGES THE READ STARTUP TEXT BOX TO THE NS DEDICATED ARGUMENTS
 THIS ENABLES A HIDDEN BUTTON TO LAUNCH THE DEDICATED SERVER***
 <br />
 All settings are persistent.
+<br /><br />
+
+![image](https://user-images.githubusercontent.com/23240514/149739725-c570f807-b0d2-41fd-9f91-519014cfa50a.png)<br /><br />
+
+![image](https://user-images.githubusercontent.com/23240514/149739772-5860894e-1ec4-4c86-849f-6684dd0898ac.png)<br /><br />
+
+
 
 
