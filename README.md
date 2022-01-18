@@ -131,7 +131,9 @@ To Enable or Disable Mods, Click the Corresponding arrows after clicking the mod
 <br /><br />
 When installing Skins you will be met with this Screen.
 <br /><br />
-![image](https://user-images.githubusercontent.com/23240514/150025163-823f2b07-338d-4134-be73-7c3b7e85b152.png)<br /><br />
+![image](https://user-images.githubusercontent.com/23240514/150025788-32fdcb88-a6f9-496d-bb04-688331a07fbe.png)
+<br /><br />
+
 Please Click import skin and wait to see if the compatibility bar changes to Green.
 <br /><br />
 ![image](https://user-images.githubusercontent.com/23240514/150025256-dfa4ab0c-2362-4688-b45a-2e2276eef60a.png)<br /><br />
