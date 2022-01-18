@@ -1,6 +1,9 @@
 
 -This Application Installs and manages The NorthStar Launcher Created by BobTheBob and, installs the countless Mods Authored by the many Titanfall2 Modder’s.
 <br /><br />
+![](Preview.gif)
+<br /><br />
+
 Current Features:
 <br />
 *Updating +NorthStar Installations
