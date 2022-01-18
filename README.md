@@ -67,7 +67,7 @@ Please Redirect to a valid Titanfall2 Installation if the Automatic check cannot
 
 <br /><br />
 
-*Installations will be updated if a version lower is detected, repairing Will be done if the version is the same.
+*Installations will be updated if a version lower is detected, repairing Will be done if the version is the same.*
 <br /><br /><br /><br />
 
 
