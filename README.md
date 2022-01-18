@@ -3,7 +3,7 @@ Total Users Of the Latest Release
 <br /><br />
 <br /><br />
 
-**This Application Installs and manages The NorthStar Launcher Created by BobTheBob and, installs the countless Mods Authored by the many Titanfall2 Modder’s.**
+**This Application Installs and manages The +NorthStar Launcher Created by BobTheBob and, installs the countless Mods Authored by the many Titanfall2 Modder’s.**
 <br /><br />
 ![](Preview.gif)
 <br /><br />
