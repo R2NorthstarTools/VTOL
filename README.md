@@ -59,9 +59,9 @@ Please Redirect to a valid Titanfall2 Installation if the Automatic check cannot
 -verify your NorthStar Install
 <br /><br />
 ![image](https://user-images.githubusercontent.com/23240514/150023333-cc9f6b04-7327-4b7a-a31c-03f9c03c81a7.png)<br /><br />
-*Pease Click Check to verify and existing Installation, or to Check for a Manually placed Install.
+*Pease Click Check to verify and existing Installation, or to Check for a Manually placed Install.*
 <br /><br />
-*By Clicking this, the Installer will download the latest release from The Official NorthStar Page.
+*By Clicking this, the Installer will download the latest release from The Official NorthStar Page.*
 <br /><br />
 ![image](https://user-images.githubusercontent.com/23240514/150023447-444f8619-c836-4284-a00a-cc9b79d91046.png)
 
@@ -131,25 +131,21 @@ To Enable or Disable Mods, Click the Corresponding arrows after clicking the mod
 <br /><br />
 When installing Skins you will be met with this Screen.
 <br /><br />
-![image](https://user-images.githubusercontent.com/23240514/149738019-d6160f70-e56e-48ea-9dee-45a6d42751f4.png)
-<br /><br />
+![image](https://user-images.githubusercontent.com/23240514/150025163-823f2b07-338d-4134-be73-7c3b7e85b152.png)<br /><br />
 Please Click import skin and wait to see if the compatibility bar changes to Green.
 <br /><br />
-![image](https://user-images.githubusercontent.com/23240514/149739098-e8d0c4ad-f3af-4d01-a928-aca7967cc781.png)
-<br /><br />
-![image](https://user-images.githubusercontent.com/23240514/149842709-6ac624e1-bdc9-4f85-add1-5abf272387d8.png)<br /><br />
+![image](https://user-images.githubusercontent.com/23240514/150025256-dfa4ab0c-2362-4688-b45a-2e2276eef60a.png)<br /><br />
+![image](https://user-images.githubusercontent.com/23240514/150025237-6f597c97-13a9-4fb7-99c5-65891d3b1e22.png)<br /><br />
 Once compatibility is confirmed the Application can now process the skin.
 <br /><br />
 please proceed to Click install Skin to start the process.
 <br /><br />
-![image](https://user-images.githubusercontent.com/23240514/149842806-457f3581-37bc-4283-b9ba-68b912839c68.png)
+![image](https://user-images.githubusercontent.com/23240514/150025271-91c20743-f333-4854-95d6-689dfdaa110f.png)
 <br /><br />
 Skins can be previewed in these following windows.
-<br />
-***Due To Certain Issues accross skin packs, some Select skins will not have a preview image.***
 <br /><br />
+![image](https://user-images.githubusercontent.com/23240514/150025315-0d3b3dae-c001-4605-9ba6-26ec96ddcc44.png)
 
-![image](https://user-images.githubusercontent.com/23240514/149739001-7cc36a95-4319-41d2-a125-ca2051ff6d2c.png)
 <br /><br /><br /><br />
 -Update the Mod Manager<br />
 *To Update the Northstar Install please Click Check For updates and Download the latest release, after, Follow the install Instrucions*
