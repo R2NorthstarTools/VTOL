@@ -1,4 +1,6 @@
-
+Total Users Of the Latest Release
+https://img.shields.io/github/downloads/BigSpice/NorthStar-Mod-Manager-Ext-1/latest/total?style=for-the-badge
+<br /><br />
 -This Application Installs and manages The NorthStar Launcher Created by BobTheBob and, installs the countless Mods Authored by the many Titanfall2 Modder’s.
 <br /><br />
 ![](Preview.gif)
