@@ -43,7 +43,7 @@ Thank you again to all you Pilots, Hope we Wreak havoc on the Frontier for years
 
 Please initiate the install by Downloading the latest release from the Repo,
 <br /><br />
-![image](https://user-images.githubusercontent.com/23240514/147837096-4fb0efdc-fc99-435f-bfa0-d07183e24270.png)
+![image](https://user-images.githubusercontent.com/23240514/150025911-aacaf334-cc33-4239-94d7-512cfb84fe49.png)
 <br /><br />
 For Exisitng Users, Please Click Check for Updates and Download the recommended Release<br /><br />
 ![image](https://user-images.githubusercontent.com/23240514/150024995-41b49d70-fedc-40cc-9ad6-d9f3dbf2801b.png)<br /><br />
