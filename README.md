@@ -3,15 +3,15 @@
 <br /><br />
 Current Features:
 <br />
-*Updating NorthStar Installations
+*Updating +NorthStar Installations
 <br />
-*Installation of the NorthStar Launcher.
+*Installation of the +NorthStar Launcher.
 <br />
-*Verifying a Titanfall 2 NorthStar install
+*Verifying a Titanfall 2 +NorthStar install
 <br />
 *Viewing Mods in the Mod List
 <br />
-*Toggling Mods On and off in the NorthStar Client
+*Toggling Mods On and off in the +NorthStar Client
 <br />
 *Downloading Mods from a Remote repo
 <br />
@@ -19,10 +19,10 @@ Current Features:
 <br />
 *Installing All Types of Weapon Skins into Titanfall 2
 <br />
-*Launching the Dedicated Server from the Northstar Client
+*Launching the Dedicated Server from the +Northstar Client
 <br />
 
-*The ability to launch the NorthStar Exe from the base.
+*The ability to launch the +NorthStar Exe from the base.
 <br /><br /><br />
 -Features in development:
 <br />
