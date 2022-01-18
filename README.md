@@ -42,14 +42,13 @@ Thank you again to all you Pilots, Hope we Wreak havoc on the Frontier for years
 
 
 Please initiate the install by Downloading the latest release from the Repo,
-<br />
+<br /><br />
 ![image](https://user-images.githubusercontent.com/23240514/147837096-4fb0efdc-fc99-435f-bfa0-d07183e24270.png)
-<br />
-For Exisitng Users, Please Click Check for Updates and Download the recommended Release
-![image](https://user-images.githubusercontent.com/23240514/147835148-8c8f1b0f-8367-4159-8505-d82104349af8.png)
-<br />
+<br /><br />
+For Exisitng Users, Please Click Check for Updates and Download the recommended Release<br /><br />
+![image](https://user-images.githubusercontent.com/23240514/150024995-41b49d70-fedc-40cc-9ad6-d9f3dbf2801b.png)<br /><br />
 Once Downloaded and installed,
-<br />
+<br /><br />
 You can-
 <br /><br /><br />
 -Check Titanfall Installation.
@@ -124,7 +123,7 @@ To Enable or Disable Mods, Click the Corresponding arrows after clicking the mod
 ![image](https://user-images.githubusercontent.com/23240514/150023807-0ba63ffc-7aef-43c1-a959-1e11f7301928.png)<br /><br />
 ![image](https://user-images.githubusercontent.com/23240514/150023889-e7172ba0-b4f6-4e34-8591-ba4dc0ef0abf.png)<br /><br />
 ![image](https://user-images.githubusercontent.com/23240514/150024067-9b641b7a-e965-44ca-8dcf-69088aba785d.png)<br /><br />
-**PLEASE ALWAYS CLICK APPLY AFTER ENABLING OR DISABLING MODS!
+**PLEASE ALWAYS CLICK APPLY AFTER ENABLING OR DISABLING MODS!**
 <br />
 ![image](https://user-images.githubusercontent.com/23240514/150024129-d18e51b2-f349-49bd-8a49-3a5a57bb0ded.png)<br /><br /><br /><br />
 
@@ -153,7 +152,7 @@ Skins can be previewed in these following windows.
 ![image](https://user-images.githubusercontent.com/23240514/149739001-7cc36a95-4319-41d2-a125-ca2051ff6d2c.png)
 <br /><br /><br /><br />
 -Update the Mod Manager<br />
-*To Update the Northstar Install please Click Check For updates and Download the latest release, after, Follow the install Instrucions
+*To Update the Northstar Install please Click Check For updates and Download the latest release, after, Follow the install Instrucions*
 <br /><br />
 ![image](https://user-images.githubusercontent.com/23240514/147835148-8c8f1b0f-8367-4159-8505-d82104349af8.png)
 <br /><br />
@@ -163,10 +162,9 @@ You can also Configure Automatic Updates
 <br /><br />
 To update your Northstar Installation please click Update/Repair and wait for the process to complete.
 <br /><br />
-![image](https://user-images.githubusercontent.com/23240514/148660824-d2cb2113-9661-4460-81ef-c0f27c8e94b9.png)
-<br /><br />
-***-Advanced Settings***<br />
-***THERE IS NOW AN ADVANCED MODE TARGETED TOWARD SERVER HOSTING AND DEVELOPMENT.
+![image](https://user-images.githubusercontent.com/23240514/150024939-a6898b5b-1395-4985-97db-14947a907296.png)<br /><br />
+***-Advanced Settings***<br /><br />
+***THERE IS NOW AN ADVANCED MODE TARGETED TOWARD SERVER HOSTING AND DEVELOPMENT.***<br /><br />
 This update lays the groundwork, as i build on this system to enable server management from the UI.
 <br /><br />
 There are 4 options as of currently,<br /><br />
