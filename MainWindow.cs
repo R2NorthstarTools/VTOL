@@ -14,7 +14,6 @@ using CheckState = System.Windows.Forms.CheckState;
 using System.Drawing.Imaging;
 using DDSReader;
 using System.Text;
-//Jordan Kaweesa Muguluma @Juicy
 
 namespace Northstar_Manger
 {
@@ -47,6 +46,8 @@ namespace Northstar_Manger
         string col_path = "";
         string ilum_path = "";
         bool Auto_Client_Updates = false;
+        Image Defualt_Image_Vanilla;
+        Image Defualt_Image_NS;
         public MainWindow()
         {
             InitializeComponent();
@@ -55,21 +56,67 @@ namespace Northstar_Manger
             do_not_overwrite_Ns_file_Dedi = Properties.Settings.Default.Ns_Dedi;
            // Auto_Client_Updates = Properties.Settings.Default.Automatic_Client_Updates;
             advanced_Mode = Properties.Settings.Default.Advanced_Mode;
-            Compatible_INDC.DisabledBackColor = Color.Gray;
+             Compatible_INDC.DisabledBackColor = Color.Gray;
             Compatible_INDC.DisabledForeColor = Color.Gray;
             Install_Skin_Bttn.Enabled = false;
             current_Ver =  Properties.Settings.Default.Version;
-
+            Defualt_Image_Vanilla= new Bitmap(@"Titanfall2_Vanilla_Picture.jpg");
+            Defualt_Image_NS  = new Bitmap(@"Titanfall2_Plus_Northstar_Picture.jpg");
             string version = System.Windows.Forms.Application.ProductVersion;
             this.Text = String.Format("NorthStar Mod Launcher Version {0}", version);
 
             Image myimage = new Bitmap(@"bestboy.png");
-            NS_Client_Updates.Visible=false;
-
             metroSetTile1.BackgroundImage = myimage;
+            Install_Skin_Bttn.DisabledBackColor = Color.DarkSlateGray;
+
+
+            Image Defualt_Image = new Bitmap(@"Titanfall2_Vanilla_Picture.jpg");
+            Selected_Banner.BackgroundImage =Defualt_Image;
 
             try
             {
+                Image Image_1 = new Bitmap(Directory.GetCurrentDirectory()+@"\No_Texture.jpg");
+                Skin_Normal_Tile.BackgroundImage = Image_1;
+
+                Image Image_2 = new Bitmap(Directory.GetCurrentDirectory()+@"\No_Texture.jpg");
+                Skin_Glow_Tile.BackgroundImage = Image_2;
+                Import_Skin_Bttn.Enabled=true;
+
+                if (Directory.Exists(Current_Install_Folder+ @"\Skins_Unpack_Mod_MNGR"))
+                {
+                    try
+                    {
+                      
+                        Directory.Delete(Current_Install_Folder+ @"\Skins_Unpack_Mod_MNGR",true);
+                        GC.Collect();
+                    }
+                    catch (Exception ef)
+                    {
+                        Log_Box.AppendText(ef.StackTrace);
+
+                        Log_Box.AppendText(ef.ToString());
+                    }
+                    
+                   
+
+
+                }
+                if (Directory.Exists(Current_Install_Folder+@"\Thumbnail"))
+                {
+                    try
+                    {
+                        Directory.Delete(Current_Install_Folder+@"\Thumbnail", true);
+                        GC.Collect();
+                    }
+                    catch (Exception ef)
+                    {
+                        Log_Box.AppendText(ef.StackTrace);
+
+                    }
+
+                }
+
+               
                 if (Directory.Exists(@"C:\ProgramData\NorthStarModManager"))
                 {
 
@@ -122,7 +169,16 @@ namespace Northstar_Manger
 
             // Compute the updater.exe path relative to the application main module path
             string Header = Path.GetFullPath(Path.Combine(Application.StartupPath, @"../"));
-            // Check_For_NewVer();
+
+
+
+
+            //updaterModulePath = Path.Combine(@"D:\Development Northstar AmVCX C++ branch 19023 ID 44\Northstar Manger\bin\Release\net6.0-windows10.0.17763.0\", "Updater.exe");
+
+
+
+
+
             updaterModulePath = Path.Combine(Header, "NSUpdater.exe");
             Check_Args();
             if (NS_Installed == true)
@@ -148,7 +204,8 @@ Current Features:
 *Downloading Mods from a Remote repo
 *Downloading Mods from a Local Zip Download
 *The ability to launch the NorthStar Exe from the base.
-
+*Install Skins From a Zip
+*Launch The Dedicated Northsatar Server Client
 
 -Features in development:
 *Intent to Create Custom Servers using this installer as a base to configure and fine tune setups
@@ -163,41 +220,27 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
 
             if (do_not_overwrite_Ns_file==true)
             {
-                checkBox2.Checked = true;
+                Ns_Args.Checked = true;
 
             }
             else
             {
 
-                checkBox2.Checked=false;
+                Ns_Args.Checked=false;
 
             }
             if (do_not_overwrite_Ns_file_Dedi==true)
             {
-                checkBox2.Checked = true;
+                Ns_Args_Dedi.Checked = true;
 
             }
             else
             {
 
-                checkBox2.Checked=false;
+                Ns_Args_Dedi.Checked=false;
 
             }
-            if (advanced_Mode==true)
-            {
-                Adv_chk.Checked = true;
-                Dedicated_Btn.Visible = true;
-                Dedicated_Btn.Enabled = true;
-
-            }
-            else
-            {
-
-                Adv_chk.Checked=false;
-                Dedicated_Btn.Visible = false;
-                Dedicated_Btn.Enabled = false;
-
-            }
+           
             if (Auto_Client_Updates==true)
             {
           //      NS_Client_Updates.Checked = true;
@@ -208,7 +251,6 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
             else
             {
 
-                NS_Client_Updates.Checked=false;
               
 
             }
@@ -381,11 +423,12 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
 
         private bool Template_traverse(System.IO.DirectoryInfo root, String Search)
         {
-            System.IO.DirectoryInfo[] subDirs = null;
-            subDirs = root.GetDirectories();
+            
 
             try
             {
+                System.IO.DirectoryInfo[] subDirs = null;
+                subDirs = root.GetDirectories();
                 var last = subDirs.Last();
                 //Log_Box.AppendText(last.FullName + "sdsdsdsd");
                 foreach (System.IO.DirectoryInfo dirInfo in subDirs)
@@ -417,13 +460,15 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
                 }
 
                 Console.WriteLine("\nCould not Find the Install at " +root+ " - Continuing Traversal");
+                
             }
-
-            catch (NullReferenceException e)
+            catch (Exception e)
             {
                 MessageBox.Show(e.Message);
-
+               // Log_Box.AppendText("\nCould not Find the Install at " +root+ " - Continuing Traversal");
             }
+            
+            
             return false;
 
         }
@@ -1161,97 +1206,106 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
         }
         void Call_Mods_From_Folder()
         {
-            Active_List.Items.Clear();
-            Inactive_List.Items.Clear();
-            Mod_Directory_List_Active.Clear();
-            Mod_Directory_List_InActive.Clear();
-            Console.WriteLine("In Mods!");
-            if (Current_Install_Folder == null || Current_Install_Folder == "" || !Directory.Exists(Current_Install_Folder))
+            try
             {
-                MessageBoxButtons buttons = MessageBoxButtons.OK;
-                DialogResult result = MessageBox.Show("Could Not find That Install Location !!!, please renavigate to the Correct Install Path!", "FATAL ERROR", buttons);
-                if (result == DialogResult.OK)
+                Active_List.Items.Clear();
+                Inactive_List.Items.Clear();
+                Mod_Directory_List_Active.Clear();
+                Mod_Directory_List_InActive.Clear();
+                Console.WriteLine("In Mods!");
+                if (Current_Install_Folder == null || Current_Install_Folder == "" || !Directory.Exists(Current_Install_Folder))
                 {
-                    Main_Window.SelectedTab = Main;
-                    // this.Close();
-                }
-
-
-
-            }
-            else
-            {
-                if (Directory.Exists(Current_Install_Folder))
-                {
-                    if (NS_Installed == true)
+                    MessageBoxButtons buttons = MessageBoxButtons.OK;
+                    DialogResult result = MessageBox.Show("Could Not find That Install Location !!!, please renavigate to the Correct Install Path!", "FATAL ERROR", buttons);
+                    if (result == DialogResult.OK)
                     {
-                        //   label6.Text = "ACTIVE\n"+Current_Install_Folder+@"\R2Northstar\mods\";
-                        //    label5.Text = "INACTIVE\n"+Current_Install_Folder+@"\R2Northstar\mods\";
-                        // checkedListBox1.Items.Clear();
-                        string NS_Mod_Dir = Current_Install_Folder + @"\R2Northstar\mods";
-                        System.IO.DirectoryInfo rootDirs = new DirectoryInfo(@NS_Mod_Dir);
-                        //Log_Box.AppendText("Current Mod Dir Found At - "+NS_Mod_Dir);
-                        if (!Directory.Exists(NS_Mod_Dir))
-                        {
-                            Log_Box.AppendText("\nMod Directory is Empty");
-                            Main_Window.SelectedTab = Main;
-                            Log_Box.AppendText("\nNorthStar Is Not Installed Properly!, do you want to re-install it?.");
+                        Main_Window.SelectedTab = Main;
+                        // this.Close();
+                    }
 
-                        }
-                        else if (IsValidPath(NS_Mod_Dir) == true)
-                        {
 
-                            System.IO.DirectoryInfo[] subDirs = null;
-                            subDirs = rootDirs.GetDirectories();
-                            foreach (System.IO.DirectoryInfo dirInfo in subDirs)
+
+                }
+                else
+                {
+                    if (Directory.Exists(Current_Install_Folder))
+                    {
+                        if (NS_Installed == true)
+                        {
+                            //   label6.Text = "ACTIVE\n"+Current_Install_Folder+@"\R2Northstar\mods\";
+                            //    label5.Text = "INACTIVE\n"+Current_Install_Folder+@"\R2Northstar\mods\";
+                            // checkedListBox1.Items.Clear();
+                            string NS_Mod_Dir = Current_Install_Folder + @"\R2Northstar\mods";
+                            System.IO.DirectoryInfo rootDirs = new DirectoryInfo(@NS_Mod_Dir);
+                            //Log_Box.AppendText("Current Mod Dir Found At - "+NS_Mod_Dir);
+                            if (!Directory.Exists(NS_Mod_Dir))
                             {
-                                if (Template_traverse(dirInfo, "Locked_Folder") == true)
-                                {
+                                Log_Box.AppendText("\nMod Directory is Empty");
+                                Main_Window.SelectedTab = Main;
+                                Log_Box.AppendText("\nNorthStar Is Not Installed Properly!, do you want to re-install it?.");
 
-                                    Console.WriteLine("Inactive - " + dirInfo.Name);
-                                    Mod_Directory_List_InActive.Add(dirInfo.Name);
-                                    //  Log_Box.AppendText(dirInfo.Name);
-                                }
-                                else
-                                {
-                                    Console.WriteLine("Active - " + dirInfo.Name);
-
-                                    Mod_Directory_List_Active.Add(dirInfo.Name);
-                                    //  Log_Box.AppendText(dirInfo.Name);
-
-                                }
                             }
+                            else if (IsValidPath(NS_Mod_Dir) == true)
+                            {
 
-                            Active_List.Items.AddRange(Mod_Directory_List_Active.ToArray());
-                            Inactive_List.Items.AddRange(Mod_Directory_List_InActive.ToArray());
+                                System.IO.DirectoryInfo[] subDirs = null;
+                                subDirs = rootDirs.GetDirectories();
+                                foreach (System.IO.DirectoryInfo dirInfo in subDirs)
+                                {
+                                    if (Template_traverse(dirInfo, "Locked_Folder") == true)
+                                    {
 
+                                        Console.WriteLine("Inactive - " + dirInfo.Name);
+                                        Mod_Directory_List_InActive.Add(dirInfo.Name);
+                                        //  Log_Box.AppendText(dirInfo.Name);
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Active - " + dirInfo.Name);
+
+                                        Mod_Directory_List_Active.Add(dirInfo.Name);
+                                        //  Log_Box.AppendText(dirInfo.Name);
+
+                                    }
+                                }
+
+                                Active_List.Items.AddRange(Mod_Directory_List_Active.ToArray());
+                                Inactive_List.Items.AddRange(Mod_Directory_List_InActive.ToArray());
+
+                            }
+                            else
+                            {
+
+                                Log_Box.AppendText("\nInvalid Path");
+                                Main_Window.SelectedTab = Main;
+                                Log_Box.AppendText("\nNorthStar Is Not Installed Properly!, do you want to re-install it?.");
+                            }
                         }
                         else
                         {
-
-                            Log_Box.AppendText("\nInvalid Path");
                             Main_Window.SelectedTab = Main;
-                            Log_Box.AppendText("\nNorthStar Is Not Installed Properly!, do you want to re-install it?.");
+
+                            Log_Box.AppendText("\nNorthStar Is Not Installed!, do you want to install it?.");
+
+
                         }
                     }
+
                     else
                     {
-                        Main_Window.SelectedTab = Main;
 
-                        Log_Box.AppendText("\nNorthStar Is Not Installed!, do you want to install it?.");
-
+                        Log_Box.AppendText("\nInvalid Path To Titanfall2!");
 
                     }
                 }
-
-                else
-                {
-
-                    Log_Box.AppendText("\nInvalid Path To Titanfall2!");
-
-                }
             }
+            catch (Exception ex)
+            {
 
+                Log_Box.AppendText(ex.StackTrace);
+
+
+            }
 
 
         }
@@ -1265,7 +1319,17 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
 
             }
 
+            if (Main_Window.SelectedTab == Skins)
+            {
+                if (Found_Install_Folder == false)
+                {
+                    Main_Window.SelectedTab = Main;
+                    Log_Box.AppendText("NorthStar Install Is Corrupted, Please Re-install");
+                }
 
+
+
+            }
 
         }
         void Install_NS_METHOD()
@@ -1407,6 +1471,7 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
             {
 
                 MessageBox.Show("\nIssue with File path, please Rebrowse.");
+                Log_Box.AppendText(ex.Message);
             }
 
         }
@@ -1425,7 +1490,7 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
         {
 
             Log_Box.Text =("\nWelcome To the Northstar Mod Manager!\n");
-            Log_Box.AppendText("\nLastly ENSURE to make a backup of Titanfall2,Files and Folders Lost during the use of this software is to be accounted for by you, the User.\n\n");
+            Log_Box.AppendText("\n ENSURE to make a backup of Titanfall2,Files and Folders Lost during the use of this software is to be accounted for by you, the User.\n\n");
 
 
         }
@@ -1483,8 +1548,9 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
         {
             if (File.Exists(updaterModulePath))
             {
+             //   StartSilent();
                 Process process = Process.Start(updaterModulePath, "/checknow");
-                process.Close();
+              // process.Close();
             }
             else
             {
@@ -1499,7 +1565,7 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
             {
                 Thread.Sleep(10000);
 
-                Process process = Process.Start(updaterModulePath, "/silent");
+                Process process = Process.Start(updaterModulePath, "/set loglevel <Error|Off>");
 
                 process.Close();
             }
@@ -1536,28 +1602,10 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
 
 
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBox1.Checked == true)
-            {
-
-
-                Log_Box.AppendText("\nDo not overwrite ns_startup_args.txt ENABLED! - this will backup and restore the original ns_startup_args and from the folder");
-                Properties.Settings.Default.Ns_Startup = true;
-                Properties.Settings.Default.Save();
-
-            }
-            else
-            {
-                Log_Box.AppendText("\nOVERWRITE ns_startup_args.txt ENABLED!");
-                Properties.Settings.Default.Ns_Startup = false;
-                Properties.Settings.Default.Save();
-            }
-        }
-
+       
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBox2.Checked == true)
+            if (Ns_Args_Dedi.Checked == true)
             {
 
 
@@ -1600,25 +1648,23 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
 
             if (Directory.Exists(Current_Install_Folder))
             {
-                if (advanced_Mode == true)
-                {
+                
                     if (File.Exists(Current_Install_Folder+@"\ns_startup_args_dedi.txt"))
                     {
-                        Arg_Box.Text = "";
-                        Arg_Box.Text= Read_From_TextFile_OneLine(Current_Install_Folder+@"\ns_startup_args_dedi.txt");
+                        Arg_Box_Dedi.Text = "";
+                        Arg_Box_Dedi.Text= Read_From_TextFile_OneLine(Current_Install_Folder+@"\ns_startup_args_dedi.txt");
 
 
                     }
                     else
                     {
                         Console.WriteLine("Err, File not found");
+                    Arg_Box_Dedi.Text = "Err, File not found - ns_startup_args_dedi.txt";
 
-                    }
                 }
-                else
-                {
 
-                    if (File.Exists(Current_Install_Folder+@"\ns_startup_args.txt"))
+
+                if (File.Exists(Current_Install_Folder+@"\ns_startup_args.txt"))
                     {
                         Arg_Box.Text = "";
 
@@ -1629,12 +1675,13 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
                     else
                     {
                         Console.WriteLine("Err, File not found");
-
-                    }
+                         Arg_Box.Text = "Err, File not found - ns_startup_args.txt";
 
                 }
 
             }
+
+            
             else
             {
 
@@ -1647,17 +1694,7 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
         {
             if (Directory.Exists(Current_Install_Folder))
             {
-                if (File.Exists(Current_Install_Folder+@"\ns_startup_args.txt"))
-                {
-                    saveAsyncFile(Arg_Box.Text, Current_Install_Folder+@"\ns_startup_args.txt", false, false);
-
-
-                }
-                else
-                {
-                    Console.WriteLine("Err, File not found");
-
-                }
+               
                 if (File.Exists(NSExe))
                 {
                     ProcessStartInfo procStartInfo = new ProcessStartInfo();
@@ -1858,6 +1895,7 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
             }
             catch (Exception ex)
             {
+                Log_Box.AppendText(ex.StackTrace);
                 MessageBox.Show("\n\n\n"+ex.Message);
                 Main_Window.SelectedTab = Main;
 
@@ -1965,7 +2003,47 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
         private void Import_Skin_Bttn_Click(object sender, EventArgs e)
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            if (Directory.Exists(Current_Install_Folder+ @"\Skins_Unpack_Mod_MNGR"))
+            {
+                try
+                {
+                    Image Image_1 = new Bitmap(Directory.GetCurrentDirectory()+@"\No_Texture.jpg");
+                    Skin_Normal_Tile.BackgroundImage = Image_1;
+                    Image Image_2 = new Bitmap(Directory.GetCurrentDirectory()+@"\No_Texture.jpg");
+                    Skin_Glow_Tile.BackgroundImage = Image_2;
+                    Directory.Delete(Current_Install_Folder+ @"\Skins_Unpack_Mod_MNGR", true);
+                    GC.Collect();
+                }
+                catch (Exception ef)
+                {
+                    Log_Box.AppendText(ef.StackTrace);
 
+                    Console.WriteLine(ef.ToString());
+                }
+
+
+
+
+            }
+            if (Directory.Exists(Current_Install_Folder+@"\Thumbnail"))
+            {
+                try
+                {
+                    Image Image_1 = new Bitmap(Directory.GetCurrentDirectory()+@"\No_Texture.jpg");
+                    Skin_Normal_Tile.BackgroundImage = Image_1;
+                    Image Image_2 = new Bitmap(Directory.GetCurrentDirectory()+@"\No_Texture.jpg");
+                    Skin_Glow_Tile.BackgroundImage = Image_2;
+                    Directory.Delete(Current_Install_Folder+@"\Thumbnail", true);
+                    GC.Collect();
+                }
+                catch (Exception ef)
+                {
+                    Log_Box.AppendText(ef.StackTrace);
+
+                    Console.WriteLine(ef.ToString());
+                }
+
+            }
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Zip files (*.zip)|*.zip|All files (*.*)|*.*";
             openFileDialog.RestoreDirectory = true;
@@ -1988,8 +2066,8 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
                     if (ZipHasFile(".dds", Skin_Temp_Loc))
                     {
                         Console.WriteLine("Compatible");
-                        Compatible_INDC.DisabledBackColor = Color.Green;
-                        Compatible_INDC.DisabledForeColor = Color.Green;
+                        Compatible_INDC.DisabledForeColor = Color.YellowGreen;
+                        Compatible_INDC.DisabledBackColor = Color.YellowGreen;
                         Install_Skin_Bttn.Enabled = true;
                      //   var directory = new DirectoryInfo(root);
                        // var myFile = (from f in directory.GetFiles()orderby f.LastWriteTime descending select f).First();
@@ -2017,172 +2095,195 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
                         Install_Skin_Bttn.Enabled = false;
 
                     }
-                    Console.WriteLine(Skin_Temp_Loc);
-                    String Thumbnail = Current_Install_Folder+@"\Thumbnails\";
-                    if (Directory.Exists(Thumbnail))
+
+                    try
                     {
-                        //DirectoryInfo dir = new DirectoryInfo(Thumbnail);
-                        var Serached = SearchAccessibleFiles(Skin_Path,"col");
-                        var firstOrDefault_Col = Serached.FirstOrDefault();
-                        if (!Serached.Any())
+                        Console.WriteLine(Skin_Temp_Loc);
+                        String Thumbnail = Current_Install_Folder+@"\Thumbnails\";
+                        if (Directory.Exists(Thumbnail))
                         {
-                            throw new InvalidOperationException();
-                        }
-                        else
-                        {
-                            if (File.Exists(firstOrDefault_Col))
+                            //DirectoryInfo dir = new DirectoryInfo(Thumbnail);
+                            var Serached = SearchAccessibleFiles(Skin_Path, "col");
+                            var firstOrDefault_Col = Serached.FirstOrDefault();
+                            if (!Serached.Any())
                             {
-                                Console.WriteLine(firstOrDefault_Col);
-                               if(File.Exists(firstOrDefault_Col +".png")){
-
-                                    Image Image_1 = new Bitmap(Thumbnail+Path.GetFileName(firstOrDefault_Col)+".png");
-                                    Skin_Normal_Tile.BackgroundImage = Image_1;
-                                }
-                                else
-                                {
-                                    DDSImage img_1 = new DDSImage(firstOrDefault_Col);
-                                    img_1.Save(Thumbnail+Path.GetFileName(firstOrDefault_Col)+".png");
-                                    Image Image_1 = new Bitmap(Thumbnail+Path.GetFileName(firstOrDefault_Col)+".png");
-                                    Skin_Normal_Tile.BackgroundImage = Image_1;
-
-                                }
-
+                                throw new InvalidOperationException();
                             }
                             else
                             {
-                                Image Image_1 = new Bitmap(@"\No_Texture.jpg");
-                                Skin_Normal_Tile.BackgroundImage = Image_1;
-
-                            }
-
-
-                        }
-
-                        var Serached_ = SearchAccessibleFiles(Skin_Path, "ilm");
-                        var firstOrDefault_ilm = Serached_.FirstOrDefault();
-                        if (!Serached.Any())
-                        {
-                            throw new InvalidOperationException();
-                        }
-                        else
-                        {
-                            if (File.Exists(firstOrDefault_ilm))
-                            {
-                                if (File.Exists(firstOrDefault_ilm +".png"))
+                                if (File.Exists(firstOrDefault_Col))
                                 {
-                                    Console.WriteLine(firstOrDefault_ilm);
-                                    Image Image_2 = new Bitmap(Thumbnail+Path.GetFileName(firstOrDefault_ilm)+".png");
-                                    Skin_Glow_Tile.BackgroundImage = Image_2;
+                                    String col = Thumbnail+Path.GetFileName(firstOrDefault_Col)+".png";
+                                    Console.WriteLine(firstOrDefault_Col);
+                                    if (File.Exists(col))
+                                    {
+
+                                        DDSImage img_1 = new DDSImage(firstOrDefault_Col);
+                                        img_1.Save(Thumbnail+Path.GetFileName(firstOrDefault_Col)+".png");
+                                        Image Image_1 = new Bitmap(col);
+                                        Skin_Normal_Tile.BackgroundImage = Image_1;
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine(col);
+                                        DDSImage img_1 = new DDSImage(firstOrDefault_Col);
+
+                                        img_1.Save(col);
+
+                                        Image Image_S = new Bitmap(col);
+                                        Skin_Normal_Tile.BackgroundImage = Image_S;
+
+                                    }
+
                                 }
                                 else
                                 {
+                                    Image Image_1 = new Bitmap(Directory.GetCurrentDirectory()+@"\No_Texture.jpg");
+                                    Skin_Normal_Tile.BackgroundImage = Image_1;
 
-                                    DDSImage img_2 = new DDSImage(firstOrDefault_ilm);
-                                    img_2.Save(Thumbnail+Path.GetFileName(firstOrDefault_ilm)+".png");
-                                    
-                                    Image Image_2 = new Bitmap(Thumbnail+Path.GetFileName(firstOrDefault_ilm)+".png");
-                                    Skin_Glow_Tile.BackgroundImage = Image_2;
                                 }
+
+
+                            }
+
+                            var Serached_ = SearchAccessibleFiles(Skin_Path, "ilm");
+                            var firstOrDefault_ilm = Serached_.FirstOrDefault();
+                            if (!Serached.Any())
+                            {
+                                throw new InvalidOperationException();
                             }
                             else
                             {
-                                Image Image_1 = new Bitmap(@"\No_Texture.jpg");
-                                Skin_Glow_Tile.BackgroundImage = Image_1;
+                                if (File.Exists(firstOrDefault_ilm))
+                                {
+                                    if (File.Exists(firstOrDefault_ilm +".png"))
+                                    {
+
+                                        Console.WriteLine(firstOrDefault_ilm);
+                                        Image Image_2 = new Bitmap(Thumbnail+Path.GetFileName(firstOrDefault_ilm)+".png");
+                                        Skin_Glow_Tile.BackgroundImage = Image_2;
+                                    }
+                                    else
+                                    {
+
+                                        DDSImage img_2 = new DDSImage(firstOrDefault_ilm);
+                                        img_2.Save(Thumbnail+Path.GetFileName(firstOrDefault_ilm)+".png");
+
+                                        Image Image_2 = new Bitmap(Thumbnail+Path.GetFileName(firstOrDefault_ilm)+".png");
+                                        Skin_Glow_Tile.BackgroundImage = Image_2;
+                                    }
+                                }
+                                else
+                                {
+                                    Image Image_1 = new Bitmap(Directory.GetCurrentDirectory()+@"\No_Texture.jpg");
+                                    Skin_Glow_Tile.BackgroundImage = Image_1;
+
+                                }
 
                             }
 
+
+
+
                         }
 
+                        else
+                        {
 
-                        
+                            Directory.CreateDirectory(Thumbnail);
+
+                            //DirectoryInfo dir = new DirectoryInfo(Thumbnail);
+                            var Serached = SearchAccessibleFiles(Skin_Path, "col");
+                            var firstOrDefault_Col = Serached.FirstOrDefault();
+                            if (!Serached.Any())
+                            {
+                                throw new InvalidOperationException();
+                            }
+                            else
+                            {
+                                if (File.Exists(firstOrDefault_Col))
+                                {
+                                    Console.WriteLine(firstOrDefault_Col);
+                                    if (File.Exists(firstOrDefault_Col +".png"))
+                                    {
+
+                                        Image Image_1 = new Bitmap(Thumbnail+Path.GetFileName(firstOrDefault_Col)+".png");
+                                        Skin_Normal_Tile.BackgroundImage = Image_1;
+                                    }
+                                    else
+                                    {
+                                        DDSImage img_1 = new DDSImage(firstOrDefault_Col);
+                                        img_1.Save(Thumbnail+Path.GetFileName(firstOrDefault_Col)+".png");
+                                        Image Image_1 = new Bitmap(Thumbnail+Path.GetFileName(firstOrDefault_Col)+".png");
+                                        Skin_Normal_Tile.BackgroundImage = Image_1;
+
+                                    }
+
+                                }
+                                else
+                                {
+                                    Image Image_1 = new Bitmap(Directory.GetCurrentDirectory()+@"\No_Texture.jpg");
+                                    Skin_Normal_Tile.BackgroundImage = Image_1;
+
+                                }
+
+
+                            }
+
+                            var Serached_ = SearchAccessibleFiles(Skin_Path, "ilm");
+                            var firstOrDefault_ilm = Serached_.FirstOrDefault();
+                            if (!Serached.Any())
+                            {
+                                throw new InvalidOperationException();
+                            }
+                            else
+                            {
+                                if (File.Exists(firstOrDefault_ilm))
+                                {
+                                    if (File.Exists(firstOrDefault_ilm +".png"))
+                                    {
+
+                                        Console.WriteLine(firstOrDefault_ilm);
+                                        Image Image_2 = new Bitmap(Thumbnail+Path.GetFileName(firstOrDefault_ilm)+".png");
+                                        Skin_Glow_Tile.BackgroundImage = Image_2;
+                                    }
+                                    else
+                                    {
+
+                                        DDSImage img_2 = new DDSImage(firstOrDefault_ilm);
+                                        img_2.Save(Thumbnail+Path.GetFileName(firstOrDefault_ilm)+".png");
+                                        Image Image_2 = new Bitmap(Thumbnail+Path.GetFileName(firstOrDefault_ilm)+".png");
+                                        Skin_Glow_Tile.BackgroundImage = Image_2;
+                                    }
+                                }
+                                else
+                                {
+                                    Image Image_1 = new Bitmap(Directory.GetCurrentDirectory()+@"\No_Texture.jpg");
+                                    Skin_Glow_Tile.BackgroundImage = Image_1;
+
+                                }
+
+                            }
+
+
+
+
+
+                        }
+
+                        //   Import_Skin_Bttn.Enabled=false;
+                    }
+                    catch (Exception ex)
+                    {
+                        Image Image_1 = new Bitmap(Directory.GetCurrentDirectory()+@"\No_Texture.jpg");
+                        Skin_Normal_Tile.BackgroundImage = Image_1;
+                        Image Image_2 = new Bitmap(Directory.GetCurrentDirectory()+@"\No_Texture.jpg");
+                        Skin_Glow_Tile.BackgroundImage = Image_2;
+                        Console.WriteLine(ex.StackTrace);
+                        Log_Box.AppendText(ex.StackTrace);
 
                     }
 
-                    else
-                    {
-
-                        Directory.CreateDirectory(Thumbnail);
-
-                        //DirectoryInfo dir = new DirectoryInfo(Thumbnail);
-                        var Serached = SearchAccessibleFiles(Skin_Path, "col");
-                        var firstOrDefault_Col = Serached.FirstOrDefault();
-                        if (!Serached.Any())
-                        {
-                            throw new InvalidOperationException();
-                        }
-                        else
-                        {
-                            if (File.Exists(firstOrDefault_Col))
-                            {
-                                Console.WriteLine(firstOrDefault_Col);
-                                if (File.Exists(firstOrDefault_Col +".png"))
-                                {
-
-                                    Image Image_1 = new Bitmap(Thumbnail+Path.GetFileName(firstOrDefault_Col)+".png");
-                                    Skin_Normal_Tile.BackgroundImage = Image_1;
-                                }
-                                else
-                                {
-                                    DDSImage img_1 = new DDSImage(firstOrDefault_Col);
-                                    img_1.Save(Thumbnail+Path.GetFileName(firstOrDefault_Col)+".png");
-                                    Image Image_1 = new Bitmap(Thumbnail+Path.GetFileName(firstOrDefault_Col)+".png");
-                                    Skin_Normal_Tile.BackgroundImage = Image_1;
-
-                                }
-
-                            }
-                            else
-                            {
-                                Image Image_1 = new Bitmap(@"\No_Texture.jpg");
-                                Skin_Normal_Tile.BackgroundImage = Image_1;
-
-                            }
-
-
-                        }
-
-                        var Serached_ = SearchAccessibleFiles(Skin_Path, "ilm");
-                        var firstOrDefault_ilm = Serached_.FirstOrDefault();
-                        if (!Serached.Any())
-                        {
-                            throw new InvalidOperationException();
-                        }
-                        else
-                        {
-                            if (File.Exists(firstOrDefault_ilm))
-                            {
-                                if (File.Exists(firstOrDefault_ilm +".png"))
-                                {
-                                    Console.WriteLine(firstOrDefault_ilm);
-                                    Image Image_2 = new Bitmap(Thumbnail+Path.GetFileName(firstOrDefault_ilm)+".png");
-                                    Skin_Glow_Tile.BackgroundImage = Image_2;
-                                }
-                                else
-                                {
-
-                                    DDSImage img_2 = new DDSImage(firstOrDefault_ilm);
-                                    img_2.Save(Thumbnail+Path.GetFileName(firstOrDefault_ilm)+".png");
-                                    Image Image_2 = new Bitmap(Thumbnail+Path.GetFileName(firstOrDefault_ilm)+".png");
-                                    Skin_Glow_Tile.BackgroundImage = Image_2;
-                                }
-                            }
-                            else
-                            {
-                                Image Image_1 = new Bitmap(@"\No_Texture.jpg");
-                                Skin_Glow_Tile.BackgroundImage = Image_1;
-
-                            }
-
-                        }
-
-
-
-
-
-                    }
-
-
-                  
                 }
 
             }
@@ -2290,6 +2391,8 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
             }
             catch (Exception ex)
             {
+                Log_Box.AppendText(ex.StackTrace);
+
                 MessageBox.Show(ex.Message);
             }
         }
@@ -2364,7 +2467,7 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
         private void Install_Skin_Bttn_Click(object sender, EventArgs e)
         {
             Skin_Path_Box.Text = "";
-            Compatible_INDC.DisabledBackColor = Color.Gray;
+          Compatible_INDC.DisabledBackColor = Color.Gray;
             Compatible_INDC.DisabledForeColor = Color.Gray;
 
 
@@ -2429,8 +2532,12 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
             MessageBox.Show("Installed!");
             DirectoryInfo di = new DirectoryInfo(Skin_Path);
             FileInfo[] files = di.GetFiles();
-            Skin_Glow_Tile.BackgroundImage = null;
-            Skin_Normal_Tile.BackgroundImage = null;
+
+            Image Image_1 = new Bitmap(Directory.GetCurrentDirectory()+@"\No_Texture.jpg");
+            Skin_Normal_Tile.BackgroundImage = Image_1;
+
+            Image Image_2 = new Bitmap(Directory.GetCurrentDirectory()+@"\No_Texture.jpg");
+            Skin_Glow_Tile.BackgroundImage = Image_2; 
             try
             {
                 foreach (FileInfo file in files)
@@ -2446,26 +2553,65 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
             }
             catch(Exception ef)
             {
+                Import_Skin_Bttn.Enabled=true;
+                Log_Box.AppendText(ef.StackTrace);
 
                 Log_Box.AppendText(ef.ToString());
             }
             Console.WriteLine("Files deleted successfully");
             GC.Collect();
             Install_Skin_Bttn.Enabled = false;
+            Install_Skin_Bttn.DisabledBackColor = Color.DarkSlateGray;
+
+            Import_Skin_Bttn.Enabled=true;
+
+            String Thumbnail = Current_Install_Folder+@"\Thumbnails\";
+            if (Directory.Exists(Thumbnail))
+            {
+                Directory.Delete(Thumbnail, true);
+
+
+            }
+
             //Install_Skin_Bttn.ForeColor = Install_Skin_Bttn.DisabledBackColor;
 
         }
-        private Image GetCopyImage(string path)
+       
+        private void Adv_chk_CheckedChanged(object sender, EventArgs e)
         {
-            using (Image im = Image.FromFile(path))
+           
+            
+        }
+
+        
+
+        private void NS_Client_Updates_CheckedChanged(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void checkBox1_CheckedChanged_1(object sender, EventArgs e)
+        {
+            if (Ns_Args.Checked == true)
             {
-                Bitmap bm = new Bitmap(im);
-                return bm;
+
+
+                Log_Box.AppendText("\nDo not overwrite ns_startup_args.txt ENABLED! - this will backup and restore the original ns_startup_args and from the folder");
+                Properties.Settings.Default.Ns_Startup = true;
+                Properties.Settings.Default.Save();
+
+            }
+            else
+            {
+                Log_Box.AppendText("\nOVERWRITE ns_startup_args.txt ENABLED!");
+                Properties.Settings.Default.Ns_Startup = false;
+                Properties.Settings.Default.Save();
             }
         }
-        private void checkBox2_CheckedChanged_1(object sender, EventArgs e)
+
+        private void checkBox2_CheckedChanged_2(object sender, EventArgs e)
         {
-            if (checkBox1.Checked == true)
+            if (Ns_Args_Dedi.Checked == true)
             {
 
 
@@ -2480,65 +2626,41 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
                 Properties.Settings.Default.Ns_Dedi = false;
                 Properties.Settings.Default.Save();
             }
-
         }
 
-        private void Adv_chk_CheckedChanged(object sender, EventArgs e)
+        private void Launch_Northstar_Advanced_Click(object sender, EventArgs e)
         {
-           
-            if (Adv_chk.Checked == true)
+            if (File.Exists(Current_Install_Folder+@"\ns_startup_args.txt"))
             {
-                Dedicated_Btn.Visible = true;
-                Dedicated_Btn.Enabled = true;
-                Properties.Settings.Default.Advanced_Mode = true;
-                Properties.Settings.Default.Save();
-                Check_Args();
+                saveAsyncFile(Arg_Box.Text, Current_Install_Folder+@"\ns_startup_args.txt", false, false);
+
+
             }
             else
             {
-                Dedicated_Btn.Visible = false;
-                Dedicated_Btn.Enabled = false;
-                Properties.Settings.Default.Advanced_Mode = false;
-                Properties.Settings.Default.Save();
-                Check_Args();
+                Console.WriteLine("Err, File not found");
 
             }
-        }
 
-        private void Dedicated_Btn_Click(object sender, EventArgs e)
-        {
             if (Directory.Exists(Current_Install_Folder))
             {
-                if (advanced_Mode == true)
-                {
-                    if (File.Exists(Current_Install_Folder+@"\ns_startup_args_dedi.txt"))
-                    {
-                        saveAsyncFile(Arg_Box.Text, Current_Install_Folder+@"\ns_startup_args_dedi.txt", false, false);
 
-
-                    }
-                    else
-                    {
-                        Console.WriteLine("Err, File not found ns_startup_args_dedi");
-
-                    }
-                }
                 if (File.Exists(NSExe))
                 {
                     ProcessStartInfo procStartInfo = new ProcessStartInfo();
                     Process process = new Process();
-                    procStartInfo.FileName = Current_Install_Folder+@"\r2ds.bat";
+                    procStartInfo.FileName = NSExe;
                     procStartInfo.WorkingDirectory = System.IO.Path.GetDirectoryName(NSExe);
-                    
+                    ;
 
-                    // procStartInfo.Arguments = "-dedicated -multiple";
+                    // procStartInfo.Arguments = args;
 
                     process.StartInfo = procStartInfo;
 
                     process.Start();
-                   // int id = process.Id;
-                  //  pid = id;
-                   // Process tempProc = Process.GetProcessById(id);
+                    int id = process.Id;
+                    pid = id;
+                    Process tempProc = Process.GetProcessById(id);
                     // this.Visible = false;
                     // Thread.Sleep(5000);
                     // tempProc.WaitForExit();
@@ -2547,7 +2669,67 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
                     // Process process = Process.Start(NSExe, Arg_Box.Text);
                     process.Close();
 
-                    
+
+                }
+                else
+                {
+
+                    MessageBox.Show("Could Not Find NorthStar.exe!");
+
+
+                }
+            }
+            else
+            {
+
+                Console.WriteLine("Err, File not found");
+
+
+            }
+        }
+
+        private void Dedicated_Btn_Click_1(object sender, EventArgs e)
+        {
+            if (Directory.Exists(Current_Install_Folder))
+            {
+
+                if (File.Exists(Current_Install_Folder+@"\ns_startup_args_dedi.txt"))
+                {
+                    saveAsyncFile(Arg_Box.Text, Current_Install_Folder+@"\ns_startup_args_dedi.txt", false, false);
+
+
+                }
+                else
+                {
+                    Console.WriteLine("Err, File not found ns_startup_args_dedi");
+
+                }
+
+                if (File.Exists(NSExe))
+                {
+                    ProcessStartInfo procStartInfo = new ProcessStartInfo();
+                    Process process = new Process();
+                    procStartInfo.FileName = Current_Install_Folder+@"\r2ds.bat";
+                    procStartInfo.WorkingDirectory = System.IO.Path.GetDirectoryName(NSExe);
+
+
+                    // procStartInfo.Arguments = "-dedicated -multiple";
+
+                    process.StartInfo = procStartInfo;
+
+                    process.Start();
+                    // int id = process.Id;
+                    //  pid = id;
+                    // Process tempProc = Process.GetProcessById(id);
+                    // this.Visible = false;
+                    // Thread.Sleep(5000);
+                    // tempProc.WaitForExit();
+                    // this.Visible = true;
+
+                    // Process process = Process.Start(NSExe, Arg_Box.Text);
+                    process.Close();
+
+
 
                 }
                 else
@@ -2568,20 +2750,31 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
 
         }
 
-        private void NS_Client_Updates_CheckedChanged(object sender, EventArgs e)
+        private void metroSetTile2_Click_1(object sender, EventArgs e)
         {
-            if (NS_Client_Updates.Checked == true)
-            {
-                
-                Properties.Settings.Default.Automatic_Client_Updates = true;
-                Properties.Settings.Default.Save();
-            }
-            else
-            {
-                Properties.Settings.Default.Automatic_Client_Updates = false;
-                Properties.Settings.Default.Save();
+            
+        }
 
-            }
+        private void Launchvanilla_MouseHover(object sender, EventArgs e)
+        {
+           
+
+            Selected_Banner.BackgroundImage =Defualt_Image_Vanilla;
+        }
+
+        private void Start_Client_MouseHover(object sender, EventArgs e)
+        {
+            Selected_Banner.BackgroundImage =Defualt_Image_NS;
+        }
+
+        private void Normal_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label9_Click(object sender, EventArgs e)
+        {
+
         }
     }
 
