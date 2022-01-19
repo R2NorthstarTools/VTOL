@@ -15,12 +15,11 @@ namespace Titanfall2_SkinTool.Titanfall2.WeaponData.Default.Titan
             public int length;
             public int seeklength;
         }
-
+        //浪人剑没有ilm
         public ReallyData[] LeadWall_col;
         public ReallyData[] LeadWall_nml;
         public ReallyData[] LeadWall_gls;
         public ReallyData[] LeadWall_spc;
-        public ReallyData[] LeadWall_ilm;
         public ReallyData[] LeadWall_ao;
         public ReallyData[] LeadWall_cav;
         public LeadWall()
@@ -31,13 +30,12 @@ namespace Titanfall2_SkinTool.Titanfall2.WeaponData.Default.Titan
             LeadWall_nml = new ReallyData[3];
             LeadWall_gls = new ReallyData[3];
             LeadWall_spc = new ReallyData[3];
-            LeadWall_ilm = new ReallyData[3];
             LeadWall_ao = new ReallyData[3];
             LeadWall_cav = new ReallyData[3];
             //2为2048x2048,1为1024x1024,0为512x512
 
             LeadWall_col[0].name = "col";
-            LeadWall_col[0].seek = 9510850560;
+            LeadWall_col[0].seek = 10198650880;
             LeadWall_col[0].length = 131072;
             LeadWall_col[0].seeklength = 128;
             while (i <= 2)
@@ -51,7 +49,7 @@ namespace Titanfall2_SkinTool.Titanfall2.WeaponData.Default.Titan
             i = 1;
 
             LeadWall_nml[0].name = "nml";
-            LeadWall_nml[0].seek = 9513668608;
+            LeadWall_nml[0].seek = 10201468928;
             LeadWall_nml[0].length = 262144;
             LeadWall_nml[0].seeklength = 128;
             while (i <= 2)
@@ -65,7 +63,7 @@ namespace Titanfall2_SkinTool.Titanfall2.WeaponData.Default.Titan
             i = 1;
 
             LeadWall_gls[0].name = "gls";
-            LeadWall_gls[0].seek = 9519173632;
+            LeadWall_gls[0].seek = 10206973952;
             LeadWall_gls[0].length = 131072;
             LeadWall_gls[0].seeklength = 128;
             while (i <= 2)
@@ -79,7 +77,7 @@ namespace Titanfall2_SkinTool.Titanfall2.WeaponData.Default.Titan
             i = 1;
 
             LeadWall_spc[0].name = "spc";
-            LeadWall_spc[0].seek = 9521926144;
+            LeadWall_spc[0].seek = 10209726464;
             LeadWall_spc[0].length = 131072;
             LeadWall_spc[0].seeklength = 128;
             while (i <= 2)
@@ -92,22 +90,8 @@ namespace Titanfall2_SkinTool.Titanfall2.WeaponData.Default.Titan
             }
             i = 1;
 
-            LeadWall_ilm[0].name = "ilm";
-            LeadWall_ilm[0].seek = 9524678656;
-            LeadWall_ilm[0].length = 131072;
-            LeadWall_ilm[0].seeklength = 128;
-            while (i <= 2)
-            {
-                LeadWall_ilm[i].name = "ilm";
-                LeadWall_ilm[i].seek = LeadWall_ilm[i - 1].seek + LeadWall_ilm[i - 1].length;
-                LeadWall_ilm[i].length = LeadWall_ilm[i - 1].length * 4;
-                LeadWall_ilm[i].seeklength = 128;
-                i++;
-            }
-            i = 1;
-
             LeadWall_ao[0].name = "ao";
-            LeadWall_ao[0].seek = 9527431168;
+            LeadWall_ao[0].seek = 10212478976;
             LeadWall_ao[0].length = 131072;
             LeadWall_ao[0].seeklength = 128;
             while (i <= 2)
@@ -121,7 +105,7 @@ namespace Titanfall2_SkinTool.Titanfall2.WeaponData.Default.Titan
             i = 1;
 
             LeadWall_cav[0].name = "cav";
-            LeadWall_cav[0].seek = 9530183680;
+            LeadWall_cav[0].seek = 10215231488;
             LeadWall_cav[0].length = 131072;
             LeadWall_cav[0].seeklength = 128;
             while (i <= 2)

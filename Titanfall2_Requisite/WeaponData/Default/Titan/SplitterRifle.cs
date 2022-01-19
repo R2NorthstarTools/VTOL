@@ -20,7 +20,6 @@ namespace Titanfall2_SkinTool.Titanfall2.WeaponData.Default.Titan
         public ReallyData[] SplitterRifle_nml;
         public ReallyData[] SplitterRifle_gls;
         public ReallyData[] SplitterRifle_spc;
-        public ReallyData[] SplitterRifle_ilm;
         public ReallyData[] SplitterRifle_ao;
         public ReallyData[] SplitterRifle_cav;
         public SplitterRifle()
@@ -31,13 +30,13 @@ namespace Titanfall2_SkinTool.Titanfall2.WeaponData.Default.Titan
             SplitterRifle_nml = new ReallyData[3];
             SplitterRifle_gls = new ReallyData[3];
             SplitterRifle_spc = new ReallyData[3];
-            SplitterRifle_ilm = new ReallyData[3];
             SplitterRifle_ao = new ReallyData[3];
             SplitterRifle_cav = new ReallyData[3];
             //2为2048x2048,1为1024x1024,0为512x512
+            //分裂枪没有ilm
 
             SplitterRifle_col[0].name = "col";
-            SplitterRifle_col[0].seek = 9510850560;
+            SplitterRifle_col[0].seek = 9119141888;
             SplitterRifle_col[0].length = 131072;
             SplitterRifle_col[0].seeklength = 128;
             while (i <= 2)
@@ -51,7 +50,7 @@ namespace Titanfall2_SkinTool.Titanfall2.WeaponData.Default.Titan
             i = 1;
 
             SplitterRifle_nml[0].name = "nml";
-            SplitterRifle_nml[0].seek = 9513668608;
+            SplitterRifle_nml[0].seek = 9121959936;
             SplitterRifle_nml[0].length = 262144;
             SplitterRifle_nml[0].seeklength = 128;
             while (i <= 2)
@@ -65,7 +64,7 @@ namespace Titanfall2_SkinTool.Titanfall2.WeaponData.Default.Titan
             i = 1;
 
             SplitterRifle_gls[0].name = "gls";
-            SplitterRifle_gls[0].seek = 9519173632;
+            SplitterRifle_gls[0].seek = 9127464960;
             SplitterRifle_gls[0].length = 131072;
             SplitterRifle_gls[0].seeklength = 128;
             while (i <= 2)
@@ -79,7 +78,7 @@ namespace Titanfall2_SkinTool.Titanfall2.WeaponData.Default.Titan
             i = 1;
 
             SplitterRifle_spc[0].name = "spc";
-            SplitterRifle_spc[0].seek = 9521926144;
+            SplitterRifle_spc[0].seek = 9130217472;
             SplitterRifle_spc[0].length = 131072;
             SplitterRifle_spc[0].seeklength = 128;
             while (i <= 2)
@@ -92,22 +91,9 @@ namespace Titanfall2_SkinTool.Titanfall2.WeaponData.Default.Titan
             }
             i = 1;
 
-            SplitterRifle_ilm[0].name = "ilm";
-            SplitterRifle_ilm[0].seek = 9524678656;
-            SplitterRifle_ilm[0].length = 131072;
-            SplitterRifle_ilm[0].seeklength = 128;
-            while (i <= 2)
-            {
-                SplitterRifle_ilm[i].name = "ilm";
-                SplitterRifle_ilm[i].seek = SplitterRifle_ilm[i - 1].seek + SplitterRifle_ilm[i - 1].length;
-                SplitterRifle_ilm[i].length = SplitterRifle_ilm[i - 1].length * 4;
-                SplitterRifle_ilm[i].seeklength = 128;
-                i++;
-            }
-            i = 1;
 
             SplitterRifle_ao[0].name = "ao";
-            SplitterRifle_ao[0].seek = 9527431168;
+            SplitterRifle_ao[0].seek = 9132969984;
             SplitterRifle_ao[0].length = 131072;
             SplitterRifle_ao[0].seeklength = 128;
             while (i <= 2)
@@ -121,7 +107,7 @@ namespace Titanfall2_SkinTool.Titanfall2.WeaponData.Default.Titan
             i = 1;
 
             SplitterRifle_cav[0].name = "cav";
-            SplitterRifle_cav[0].seek = 9530183680;
+            SplitterRifle_cav[0].seek = 9135722496;
             SplitterRifle_cav[0].length = 131072;
             SplitterRifle_cav[0].seeklength = 128;
             while (i <= 2)

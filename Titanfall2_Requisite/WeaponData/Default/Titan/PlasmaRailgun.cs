@@ -37,7 +37,7 @@ namespace Titanfall2_SkinTool.Titanfall2.WeaponData.Default.Titan
             //2为2048x2048,1为1024x1024,0为512x512
 
             PlasmaRailgun_col[0].name = "col";
-            PlasmaRailgun_col[0].seek = 9510850560;
+            PlasmaRailgun_col[0].seek = 10074984448;
             PlasmaRailgun_col[0].length = 131072;
             PlasmaRailgun_col[0].seeklength = 128;
             while (i <= 2)
@@ -51,7 +51,7 @@ namespace Titanfall2_SkinTool.Titanfall2.WeaponData.Default.Titan
             i = 1;
 
             PlasmaRailgun_nml[0].name = "nml";
-            PlasmaRailgun_nml[0].seek = 9513668608;
+            PlasmaRailgun_nml[0].seek = 10077802496;
             PlasmaRailgun_nml[0].length = 262144;
             PlasmaRailgun_nml[0].seeklength = 128;
             while (i <= 2)
@@ -65,7 +65,7 @@ namespace Titanfall2_SkinTool.Titanfall2.WeaponData.Default.Titan
             i = 1;
 
             PlasmaRailgun_gls[0].name = "gls";
-            PlasmaRailgun_gls[0].seek = 9519173632;
+            PlasmaRailgun_gls[0].seek = 10083307520;
             PlasmaRailgun_gls[0].length = 131072;
             PlasmaRailgun_gls[0].seeklength = 128;
             while (i <= 2)
@@ -79,7 +79,7 @@ namespace Titanfall2_SkinTool.Titanfall2.WeaponData.Default.Titan
             i = 1;
 
             PlasmaRailgun_spc[0].name = "spc";
-            PlasmaRailgun_spc[0].seek = 9521926144;
+            PlasmaRailgun_spc[0].seek = 10086060032;
             PlasmaRailgun_spc[0].length = 131072;
             PlasmaRailgun_spc[0].seeklength = 128;
             while (i <= 2)
@@ -93,7 +93,7 @@ namespace Titanfall2_SkinTool.Titanfall2.WeaponData.Default.Titan
             i = 1;
 
             PlasmaRailgun_ilm[0].name = "ilm";
-            PlasmaRailgun_ilm[0].seek = 9524678656;
+            PlasmaRailgun_ilm[0].seek = 10088812544;
             PlasmaRailgun_ilm[0].length = 131072;
             PlasmaRailgun_ilm[0].seeklength = 128;
             while (i <= 2)
@@ -107,7 +107,7 @@ namespace Titanfall2_SkinTool.Titanfall2.WeaponData.Default.Titan
             i = 1;
 
             PlasmaRailgun_ao[0].name = "ao";
-            PlasmaRailgun_ao[0].seek = 9527431168;
+            PlasmaRailgun_ao[0].seek = 10091565056;
             PlasmaRailgun_ao[0].length = 131072;
             PlasmaRailgun_ao[0].seeklength = 128;
             while (i <= 2)
@@ -121,7 +121,7 @@ namespace Titanfall2_SkinTool.Titanfall2.WeaponData.Default.Titan
             i = 1;
 
             PlasmaRailgun_cav[0].name = "cav";
-            PlasmaRailgun_cav[0].seek = 9530183680;
+            PlasmaRailgun_cav[0].seek = 10094317568;
             PlasmaRailgun_cav[0].length = 131072;
             PlasmaRailgun_cav[0].seeklength = 128;
             while (i <= 2)
@@ -133,6 +133,8 @@ namespace Titanfall2_SkinTool.Titanfall2.WeaponData.Default.Titan
                 i++;
             }
             i = 1;
+
+            //didn't know if it's necessarily to add opacity texture
         }
     }
 }

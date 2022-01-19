@@ -37,7 +37,7 @@ namespace Titanfall2_SkinTool.Titanfall2.WeaponData.Default.Titan
             //2为2048x2048,1为1024x1024,0为512x512
 
             TrackerCannon_col[0].name = "col";
-            TrackerCannon_col[0].seek = 9510850560;
+            TrackerCannon_col[0].seek = 10019540992;
             TrackerCannon_col[0].length = 131072;
             TrackerCannon_col[0].seeklength = 128;
             while (i <= 2)
@@ -51,7 +51,7 @@ namespace Titanfall2_SkinTool.Titanfall2.WeaponData.Default.Titan
             i = 1;
 
             TrackerCannon_nml[0].name = "nml";
-            TrackerCannon_nml[0].seek = 9513668608;
+            TrackerCannon_nml[0].seek = 10022359040;
             TrackerCannon_nml[0].length = 262144;
             TrackerCannon_nml[0].seeklength = 128;
             while (i <= 2)
@@ -65,7 +65,7 @@ namespace Titanfall2_SkinTool.Titanfall2.WeaponData.Default.Titan
             i = 1;
 
             TrackerCannon_gls[0].name = "gls";
-            TrackerCannon_gls[0].seek = 9519173632;
+            TrackerCannon_gls[0].seek = 10027864064;
             TrackerCannon_gls[0].length = 131072;
             TrackerCannon_gls[0].seeklength = 128;
             while (i <= 2)
@@ -79,7 +79,7 @@ namespace Titanfall2_SkinTool.Titanfall2.WeaponData.Default.Titan
             i = 1;
 
             TrackerCannon_spc[0].name = "spc";
-            TrackerCannon_spc[0].seek = 9521926144;
+            TrackerCannon_spc[0].seek = 10030616576;
             TrackerCannon_spc[0].length = 131072;
             TrackerCannon_spc[0].seeklength = 128;
             while (i <= 2)
@@ -93,7 +93,7 @@ namespace Titanfall2_SkinTool.Titanfall2.WeaponData.Default.Titan
             i = 1;
 
             TrackerCannon_ilm[0].name = "ilm";
-            TrackerCannon_ilm[0].seek = 9524678656;
+            TrackerCannon_ilm[0].seek = 10033369088;
             TrackerCannon_ilm[0].length = 131072;
             TrackerCannon_ilm[0].seeklength = 128;
             while (i <= 2)
@@ -107,7 +107,7 @@ namespace Titanfall2_SkinTool.Titanfall2.WeaponData.Default.Titan
             i = 1;
 
             TrackerCannon_ao[0].name = "ao";
-            TrackerCannon_ao[0].seek = 9527431168;
+            TrackerCannon_ao[0].seek = 10036121600;
             TrackerCannon_ao[0].length = 131072;
             TrackerCannon_ao[0].seeklength = 128;
             while (i <= 2)
@@ -121,7 +121,7 @@ namespace Titanfall2_SkinTool.Titanfall2.WeaponData.Default.Titan
             i = 1;
 
             TrackerCannon_cav[0].name = "cav";
-            TrackerCannon_cav[0].seek = 9530183680;
+            TrackerCannon_cav[0].seek = 10038874112;
             TrackerCannon_cav[0].length = 131072;
             TrackerCannon_cav[0].seeklength = 128;
             while (i <= 2)

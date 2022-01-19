@@ -63,15 +63,14 @@ namespace Northstar_Manger
             Defualt_Image_Vanilla= new Bitmap(@"Titanfall2_Vanilla_Picture.jpg");
             Defualt_Image_NS  = new Bitmap(@"Titanfall2_Plus_Northstar_Picture.jpg");
             string version = System.Windows.Forms.Application.ProductVersion;
-            this.Text = String.Format("NorthStar Mod Launcher Version {0}", version);
+            this.Text = String.Format("NorthStar Mod Manager Version {0}", version);
 
             Image myimage = new Bitmap(@"bestboy.png");
             metroSetTile1.BackgroundImage = myimage;
             Install_Skin_Bttn.DisabledBackColor = Color.DarkSlateGray;
 
 
-            Image Defualt_Image = new Bitmap(@"Titanfall2_Vanilla_Picture.jpg");
-            Selected_Banner.BackgroundImage =Defualt_Image;
+            Selected_Banner.BackgroundImage =Defualt_Image_Vanilla;
 
             try
             {

@@ -20,9 +20,7 @@ namespace Titanfall2_SkinTool.Titanfall2.WeaponData.Default.Titan
         public ReallyData[] PredatorCannon_nml;
         public ReallyData[] PredatorCannon_gls;
         public ReallyData[] PredatorCannon_spc;
-        public ReallyData[] PredatorCannon_ilm;
         public ReallyData[] PredatorCannon_ao;
-        public ReallyData[] PredatorCannon_cav;
         public PredatorCannon()
         {
             int i = 1;
@@ -31,13 +29,12 @@ namespace Titanfall2_SkinTool.Titanfall2.WeaponData.Default.Titan
             PredatorCannon_nml = new ReallyData[3];
             PredatorCannon_gls = new ReallyData[3];
             PredatorCannon_spc = new ReallyData[3];
-            PredatorCannon_ilm = new ReallyData[3];
             PredatorCannon_ao = new ReallyData[3];
-            PredatorCannon_cav = new ReallyData[3];
             //2为2048x2048,1为1024x1024,0为512x512
+            //猎杀者机炮没有ilm和cav
 
             PredatorCannon_col[0].name = "col";
-            PredatorCannon_col[0].seek = 9510850560;
+            PredatorCannon_col[0].seek = 8985055232;
             PredatorCannon_col[0].length = 131072;
             PredatorCannon_col[0].seeklength = 128;
             while (i <= 2)
@@ -51,7 +48,7 @@ namespace Titanfall2_SkinTool.Titanfall2.WeaponData.Default.Titan
             i = 1;
 
             PredatorCannon_nml[0].name = "nml";
-            PredatorCannon_nml[0].seek = 9513668608;
+            PredatorCannon_nml[0].seek = 8987873280;
             PredatorCannon_nml[0].length = 262144;
             PredatorCannon_nml[0].seeklength = 128;
             while (i <= 2)
@@ -65,7 +62,7 @@ namespace Titanfall2_SkinTool.Titanfall2.WeaponData.Default.Titan
             i = 1;
 
             PredatorCannon_gls[0].name = "gls";
-            PredatorCannon_gls[0].seek = 9519173632;
+            PredatorCannon_gls[0].seek = 8993378304;
             PredatorCannon_gls[0].length = 131072;
             PredatorCannon_gls[0].seeklength = 128;
             while (i <= 2)
@@ -79,7 +76,7 @@ namespace Titanfall2_SkinTool.Titanfall2.WeaponData.Default.Titan
             i = 1;
 
             PredatorCannon_spc[0].name = "spc";
-            PredatorCannon_spc[0].seek = 9521926144;
+            PredatorCannon_spc[0].seek = 8996130816;
             PredatorCannon_spc[0].length = 131072;
             PredatorCannon_spc[0].seeklength = 128;
             while (i <= 2)
@@ -92,22 +89,8 @@ namespace Titanfall2_SkinTool.Titanfall2.WeaponData.Default.Titan
             }
             i = 1;
 
-            PredatorCannon_ilm[0].name = "ilm";
-            PredatorCannon_ilm[0].seek = 9524678656;
-            PredatorCannon_ilm[0].length = 131072;
-            PredatorCannon_ilm[0].seeklength = 128;
-            while (i <= 2)
-            {
-                PredatorCannon_ilm[i].name = "ilm";
-                PredatorCannon_ilm[i].seek = PredatorCannon_ilm[i - 1].seek + PredatorCannon_ilm[i - 1].length;
-                PredatorCannon_ilm[i].length = PredatorCannon_ilm[i - 1].length * 4;
-                PredatorCannon_ilm[i].seeklength = 128;
-                i++;
-            }
-            i = 1;
-
             PredatorCannon_ao[0].name = "ao";
-            PredatorCannon_ao[0].seek = 9527431168;
+            PredatorCannon_ao[0].seek = 8998883328;
             PredatorCannon_ao[0].length = 131072;
             PredatorCannon_ao[0].seeklength = 128;
             while (i <= 2)
@@ -120,19 +103,6 @@ namespace Titanfall2_SkinTool.Titanfall2.WeaponData.Default.Titan
             }
             i = 1;
 
-            PredatorCannon_cav[0].name = "cav";
-            PredatorCannon_cav[0].seek = 9530183680;
-            PredatorCannon_cav[0].length = 131072;
-            PredatorCannon_cav[0].seeklength = 128;
-            while (i <= 2)
-            {
-                PredatorCannon_cav[i].name = "cav";
-                PredatorCannon_cav[i].seek = PredatorCannon_cav[i - 1].seek + PredatorCannon_cav[i - 1].length;
-                PredatorCannon_cav[i].length = PredatorCannon_cav[i - 1].length * 4;
-                PredatorCannon_cav[i].seeklength = 128;
-                i++;
-            }
-            i = 1;
         }
     }
 }
