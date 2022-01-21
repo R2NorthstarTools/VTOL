@@ -8,6 +8,7 @@ Total Users Of the Latest Release
 ![](Preview.gif)
 <br /><br />
 
+**TroubleShooting Install Isssues at the bottom**
 Current Features:
 <br />
 *Updating +NorthStar Installations
@@ -187,7 +188,21 @@ Enabling This will skip The NS_Startup_Arg_Dedi file when updating.<br /><br />
 <br /><br />
 All settings are persistent.
 <br /><br />
+Please note if you see this error, Please download the 4.8 runtime.
+<br /><br />
+![image](https://user-images.githubusercontent.com/23240514/150569733-e1142d29-54f3-4842-b34a-81520e293f0c.png)
+<br /><br />
+The framework can be found here - https://dotnet.microsoft.com/en-us/download/dotnet-framework/net48
+<br /><br />
+Please note if you see this error, Please download the .NET 6.0 x64 Desktop Runtime Version.
+![image](https://user-images.githubusercontent.com/23240514/150570184-6cf29ee6-40a5-4517-839c-3e2dcddcf637.png)
+<br /><br />
+The Runtime can be found here - https://dotnet.microsoft.com/en-us/download/dotnet/6.0
+<br /><br />
 
+
+<br /><br />
+<br /><br />
 
 
 
