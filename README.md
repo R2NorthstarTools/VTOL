@@ -8,7 +8,7 @@ Total Users Of the Latest Release
 ![](Preview.gif)
 <br /><br /><br />
 
-**TroubleShooting Install Isssues at the bottom**
+**TroubleShooting launch Isssues at the bottom**
 <br /><br />
 <br /><br />
 
