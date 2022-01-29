@@ -1,81 +1,74 @@
-Total Users Of the Latest Release
+Total Users using the latest release
 [![Github All Releases](https://img.shields.io/github/downloads/BigSpice/NorthStar-Mod-Manager-Ext-1/latest/total?style=for-the-badge)]()
 <br /><br />
 <br /><br />
 
-**This Application Installs and manages The +NorthStar Launcher Created by BobTheBob and, installs the countless Mods Authored by the many Titanfall2 Modder’s.**
+**This application installs the [Titanfall 2 Northstar Client](https://northstar.tf), and optionally installs compatible mods for it created by various modders.**
 <br /><br />
 ![](Preview.gif)
 <br /><br /><br />
 
-**TroubleShooting launch Isssues at the bottom**
-<br /><br />
-<br /><br />
-
-Current Features:
+Features:
 <br />
-*Updating +NorthStar Installations
+• Updating [Northstar](https://northstar.tf) installations.
 <br />
-*Installation of the +NorthStar Launcher.
+• Easy installation of the [Northstar Client](https://northstar.tf)
 <br />
-*Verifying a Titanfall 2 +NorthStar install
+• Verification of a [Northstar](https://northstar.tf) installation (if you did it manually)
 <br />
-*Viewing Mods in the Mod List
+• Viewing installed mods
 <br />
-*Toggling Mods On and off in the +NorthStar Client
+• Toggling installed [Northstar](https://northstar.tf) mods
 <br />
-*Downloading Mods from a Remote repo
+• Downloading and installing [Northstar](https://northstar.tf) mods from a GitHub/GitLab repository
 <br />
-*Downloading Mods from a Local Zip Download
+• Installing downloaded [Northstar](https://northstar.tf) mods (.zip files)
 <br />
-*Installing All Types of Weapon Skins into Titanfall 2
+• Installing and injecting various types of Titanfall 2 player/weapon skins
 <br />
-*Launching the Dedicated Server from the +Northstar Client
+• Booting up a dedicated server for the [Northstar Client](https://northstar.tf)
 <br />
-
-*The ability to launch the +NorthStar Exe from the base.
+• Boot Northstar
 <br /><br /><br />
--Features in development:
+WIP Features:
 <br />
-*Intent to Create Custom Servers using this installer as a base to configure and fine tune setups
+• Create custom servers using this application to fine tune setups.
 <br />
 <br />
-*Manage And Configure Dedicated Servers in the Current UI
+• Manage dedicated [Northstar](https://northstar.tf) servers.
 <br /><br />
 
--Please Do suggest any new features and/or Improvements Through the Git issue tracker, or by sending me a personal Message.
+*Suggestions/bug reports are highly appreciated. Please create a new [issue](https://github.com/BigSpice/NorthStar-Mod-Manager-Ext-1/issues/new] and fill out the fields.*
 <br />
-Thank you again to all you Pilots, Hope we Wreak havoc on the Frontier for years to come.
-<br /><br /><br /><br />
+<br /><br />
 
 
-Please initiate the install by Downloading the latest release from the Repo,
+Install this application by downloading and running the latest release:
 <br /><br />
 ![image](https://user-images.githubusercontent.com/23240514/150025911-aacaf334-cc33-4239-94d7-512cfb84fe49.png)
 <br /><br />
-For Exisitng Users, Please Click Check for Updates and Download the recommended Release<br /><br />
+If you already use this application, consider navigating to "check for updates" inside the application to download and install the latest release.<br /><br />
 ![image](https://user-images.githubusercontent.com/23240514/150024995-41b49d70-fedc-40cc-9ad6-d9f3dbf2801b.png)<br /><br />
-Once Downloaded and installed,
+Once the application successful downloaded and installed:
 <br /><br />
-You can-
 <br /><br /><br />
--Check Titanfall Installation.
+1. Configure your Titanfall 2 installation directory.
 <br /><br />
-Please Redirect to a valid Titanfall2 Installation if the Automatic check cannot Find one
+If the automatic browse cannot find your Titanfall 2 installation, please select "browse" and *browse* to where your Titanfall 2 installation is, and select it.
 <br /><br />
 ![image](https://user-images.githubusercontent.com/23240514/150023304-d583c3ca-9785-4344-b4b9-136062d5f1dd.png)<br /><br />
--verify your NorthStar Install
+2. Verify, or install the [Northstar Client](https://northstar.tf)
 <br /><br />
 ![image](https://user-images.githubusercontent.com/23240514/150023333-cc9f6b04-7327-4b7a-a31c-03f9c03c81a7.png)<br /><br />
-*Pease Click Check to verify and existing Installation, or to Check for a Manually placed Install.*
+Use this to verify your existing Northstar installation.
 <br /><br />
-*By Clicking this, the Installer will download the latest release from The Official NorthStar Page.*
+*By using that, the application will download the latest [Northstar release](https://github.com/R2Northstar/Northstar/releases/latest).*
 <br /><br />
 ![image](https://user-images.githubusercontent.com/23240514/150023447-444f8619-c836-4284-a00a-cc9b79d91046.png)
 
 <br /><br />
 
-*Installations will be updated if a version lower is detected, repairing Will be done if the version is the same.*
+*Installations will automatically be updated if an outdated version is detected, repairing will be done if the version is the same.*
 <br /><br /><br /><br />
 
 
