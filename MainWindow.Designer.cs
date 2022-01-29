@@ -117,8 +117,8 @@
             // 
             // richTextBox2
             // 
-            richTextBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            richTextBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             richTextBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             richTextBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -131,7 +131,7 @@
             richTextBox2.ShortcutsEnabled = false;
             richTextBox2.Size = new System.Drawing.Size(355, 40);
             richTextBox2.TabIndex = 33;
-            richTextBox2.Text = "This Section Allows For Some More advanced Settings to be Used.                  " +
+            richTextBox2.Text = "Advanced settings used for server management.                  " +
     "               ";
             // 
             // panel1
@@ -184,8 +184,8 @@
             // 
             // Log_Label
             // 
-            this.Log_Label.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.Log_Label.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Log_Label.AutoSize = true;
             this.Log_Label.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
@@ -194,7 +194,7 @@
             this.Log_Label.Name = "Log_Label";
             this.Log_Label.Size = new System.Drawing.Size(67, 17);
             this.Log_Label.TabIndex = 0;
-            this.Log_Label.Text = "Install Log";
+            this.Log_Label.Text = "Installation Log";
             this.Log_Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panel3
@@ -421,7 +421,7 @@
             this.Install_NS_Button.Style = MetroSet_UI.Enums.Style.Custom;
             this.Install_NS_Button.StyleManager = null;
             this.Install_NS_Button.TabIndex = 9;
-            this.Install_NS_Button.Text = "Install NorthStar";
+            this.Install_NS_Button.Text = "Install Northstar";
             this.Install_NS_Button.ThemeAuthor = "Narwin";
             this.Install_NS_Button.ThemeName = "MetroLite";
             this.Install_NS_Button.Click += new System.EventHandler(this.Install_NS_Button_Click_1);
@@ -455,8 +455,8 @@
             // 
             // Install_Location_Label
             // 
-            this.Install_Location_Label.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.Install_Location_Label.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Install_Location_Label.AutoSize = true;
             this.Install_Location_Label.ForeColor = System.Drawing.SystemColors.ControlLightLight;
@@ -464,7 +464,7 @@
             this.Install_Location_Label.Name = "Install_Location_Label";
             this.Install_Location_Label.Size = new System.Drawing.Size(141, 15);
             this.Install_Location_Label.TabIndex = 0;
-            this.Install_Location_Label.Text = "Titanfall 2 Install Location";
+            this.Install_Location_Label.Text = "Titanfall2 Installation Directory";
             this.Install_Location_Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.Install_Location_Label.Click += new System.EventHandler(this.Install_Location_Label_Click);
             // 
@@ -522,8 +522,8 @@
             // 
             // metroSetPanel2
             // 
-            this.metroSetPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.metroSetPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.metroSetPanel2.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.metroSetPanel2.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(110)))), ((int)(((byte)(110)))), ((int)(((byte)(110)))));
@@ -560,7 +560,7 @@
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(193, 17);
             this.label7.TabIndex = 5;
-            this.label7.Text = "Install New Mod From Local Zip";
+            this.label7.Text = "Install mod from .zip file";
             // 
             // label5
             // 
@@ -640,8 +640,8 @@
             // 
             // label6
             // 
-            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(704, 136);
@@ -734,7 +734,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(190, 17);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Download New Mod From URL";
+            this.label1.Text = "Download mod from GitHub";
             // 
             // Inactive_List
             // 
@@ -821,7 +821,7 @@
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(74, 15);
             this.label10.TabIndex = 9;
-            this.label10.Text = "Compatible?";
+            this.label10.Text = "Compatibility";
             // 
             // Compatible_INDC
             // 
@@ -960,7 +960,7 @@
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(123, 15);
             this.label8.TabIndex = 2;
-            this.label8.Text = "Weapon Skin Zip Path";
+            this.label8.Text = "Weapon Skin .zip path";
             // 
             // Skin_Path_Box
             // 
@@ -1014,8 +1014,8 @@
             this.Advanced_Settings_Tab.Name = "Advanced_Settings_Tab";
             this.Advanced_Settings_Tab.Size = new System.Drawing.Size(974, 585);
             this.Advanced_Settings_Tab.TabIndex = 5;
-            this.Advanced_Settings_Tab.Text = "Advanced Settings";
-            this.Advanced_Settings_Tab.ToolTipText = "Advanced Settings";
+            this.Advanced_Settings_Tab.Text = "Advanced";
+            this.Advanced_Settings_Tab.ToolTipText = "Advanced";
             // 
             // panel2
             // 
@@ -1043,7 +1043,7 @@
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(250, 15);
             this.label11.TabIndex = 32;
-            this.label11.Text = "Startup Arguments Northstar Dedicated Client";
+            this.label11.Text = "Startup Arguments (Dedicated Northstar Server)";
             // 
             // Arg_Box_Dedi
             // 
@@ -1058,7 +1058,7 @@
             this.Launch_Northstar_Advanced.Name = "Launch_Northstar_Advanced";
             this.Launch_Northstar_Advanced.Size = new System.Drawing.Size(420, 59);
             this.Launch_Northstar_Advanced.TabIndex = 30;
-            this.Launch_Northstar_Advanced.Text = "Launch Northstar Normal";
+            this.Launch_Northstar_Advanced.Text = "Launch Northstar";
             this.Launch_Northstar_Advanced.UseVisualStyleBackColor = true;
             this.Launch_Northstar_Advanced.Click += new System.EventHandler(this.Launch_Northstar_Advanced_Click);
             // 
@@ -1072,7 +1072,7 @@
             this.Dedicated_Btn.Name = "Dedicated_Btn";
             this.Dedicated_Btn.Size = new System.Drawing.Size(420, 59);
             this.Dedicated_Btn.TabIndex = 29;
-            this.Dedicated_Btn.Text = "Launch Dedicated Northstar Client";
+            this.Dedicated_Btn.Text = "Launch Northstar Dedicated Server";
             this.Dedicated_Btn.UseVisualStyleBackColor = false;
             this.Dedicated_Btn.Click += new System.EventHandler(this.Dedicated_Btn_Click_1);
             // 
@@ -1084,7 +1084,7 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(194, 15);
             this.label4.TabIndex = 28;
-            this.label4.Text = "Startup Arguments Northstar Client";
+            this.label4.Text = "Startup Arguments (Northstar Client)";
             // 
             // Arg_Box
             // 
@@ -1121,8 +1121,8 @@
             // 
             // panel5
             // 
-            this.panel5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.panel5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel5.Location = new System.Drawing.Point(3, 3);
@@ -1191,7 +1191,7 @@
             this.metroSetButton5.Style = MetroSet_UI.Enums.Style.Custom;
             this.metroSetButton5.StyleManager = null;
             this.metroSetButton5.TabIndex = 2;
-            this.metroSetButton5.Text = "Configure Updates";
+            this.metroSetButton5.Text = "Automatic Updates";
             this.metroSetButton5.ThemeAuthor = "Narwin";
             this.metroSetButton5.ThemeName = "MetroDark";
             this.metroSetButton5.Click += new System.EventHandler(this.metroSetButton5_Click);
@@ -1263,8 +1263,8 @@
             // 
             // metroSetPanel1
             // 
-            this.metroSetPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.metroSetPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.metroSetPanel1.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
             this.metroSetPanel1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
@@ -1303,7 +1303,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "MainWindow";
-            this.Text = "NorthStar Mod Manager Version 1.0.7";
+            this.Text = "Northstar Mod Manager";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel3.ResumeLayout(false);
