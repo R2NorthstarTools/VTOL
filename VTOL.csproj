@@ -13,6 +13,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="LEGACY_NORTHSTAR_INSTALLER\**" />
+    <EmbeddedResource Remove="LEGACY_NORTHSTAR_INSTALLER\**" />
+    <None Remove="LEGACY_NORTHSTAR_INSTALLER\**" />
+    <Page Remove="LEGACY_NORTHSTAR_INSTALLER\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Banner_normal.jpg" />
     <None Remove="Resources\Banner_normal.jpg" />
     <None Remove="Resources\bestboy.png" />
