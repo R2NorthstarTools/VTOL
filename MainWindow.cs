@@ -63,7 +63,7 @@ namespace Northstar_Manger
             Defualt_Image_Vanilla= new Bitmap(@"Titanfall2_Vanilla_Picture.jpg");
             Defualt_Image_NS  = new Bitmap(@"Titanfall2_Plus_Northstar_Picture.jpg");
             string version = System.Windows.Forms.Application.ProductVersion;
-            this.Text = String.Format("NorthStar Mod Manager Version {0}", version);
+            this.Text = String.Format("NorthStar Manager Version {0}", version);
 
             Image myimage = new Bitmap(@"bestboy.png");
             metroSetTile1.BackgroundImage = myimage;
@@ -321,10 +321,6 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
             }
    
             }
-            
-
-
-        
         private string Get_And_Set_Filepaths(string rootDir, string Filename)
         {
             try
@@ -419,7 +415,6 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
         {
 
         }
-
         private bool Template_traverse(System.IO.DirectoryInfo root, String Search)
         {
             
@@ -574,7 +569,6 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
             }
 
         }
-
         private void Install_NS_Button_Click(object sender, EventArgs e)
         {
 
@@ -797,7 +791,6 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
         {
 
         }
-
         private void Read_Latest_Release(string address, string json_name = "temp.json", bool Parse = true, bool Log_Msgs = true)
         {
             if (address != null)
@@ -882,7 +875,6 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
             return null;
 
         }
-
         private void Parse_Release(string json_name = "temp.json")
         {
             if (File.Exists(@"C:\ProgramData\NorthStarModManager\temp\"+json_name))
@@ -948,7 +940,6 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
                 }
             }
         }
-
         private void Unpack_To_Location(string Target_Zip, string Destination_Zip)
         {
             if (Directory.Exists(Current_Install_Folder+@"\R2Northstar\mods\Northstar.Client\Locked_Folder"))
@@ -1036,7 +1027,6 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
 
             }
         }
-
         private void InstallNorthsatar_Click(object sender, EventArgs e)
         {
 
@@ -1126,7 +1116,6 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
 
 
         }
-
         private void Auto_Install_And_verify()
         {
             failed_search_counter = 0;
@@ -1167,13 +1156,11 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
             }
 
         }
-
         private void Check_Ver_Click(object sender, EventArgs e)
         {
 
 
         }
-
         private void Browse_New_Install_Click(object sender, EventArgs e)
         {
 
@@ -1425,13 +1412,11 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
             Install_NS_METHOD();
 
         }
-
         private void Check_Bttn_Click(object sender, EventArgs e)
         {
             Auto_Install_And_verify();
 
         }
-
         private void Brows_Bttn_Click(object sender, EventArgs e)
         {
             try
@@ -1474,12 +1459,10 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
             }
 
         }
-
         private void button1_Click(object sender, EventArgs e)
         {
 
         }
-
         private void metroSetSwitch1_SwitchedChanged(object sender)
         {
 
@@ -1493,7 +1476,6 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
 
 
         }
-
         private void metroSetButton2_Click(object sender, EventArgs e)
         {
             Assembly assembly = Assembly.GetExecutingAssembly();
@@ -1532,13 +1514,11 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
             }
 
         }
-
         private void metroSetButton3_Click(object sender, EventArgs e)
         {
 
             Reset_LogBox();
         }
-
         private void checkedListBox1_SelectedIndexChanged_1(object sender, EventArgs e)
         {
 
@@ -1548,7 +1528,7 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
             if (File.Exists(updaterModulePath))
             {
              //   StartSilent();
-                Process process = Process.Start(updaterModulePath, "/checknow");
+                Process process = Process.Start(updaterModulePath, "/checknow ");
               // process.Close();
             }
             else
@@ -1591,17 +1571,11 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
 
 
         }
-
-
         private void metroSetTile1_Click(object sender, EventArgs e)
         {
 
 
         }
-
-
-
-       
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
             if (Ns_Args_Dedi.Checked == true)
@@ -1618,8 +1592,6 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
                 Properties.Settings.Default.Save();
             }
         }
-
-
         private void CheckIfModenabled(string path)
         {
 
@@ -1737,14 +1709,10 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
             }
 
         }
-
-
-
         private void Arg_Box_Leave(object sender, EventArgs e)
         {
 
         }
-
         private void Arg_Box_Enter(object sender, EventArgs e)
         {
         }
@@ -1778,7 +1746,6 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
         {
             Move_List_box(Inactive_List, Active_List);
         }
-
         private void Make_Inactive_Click(object sender, EventArgs e)
         {
             Move_List_box(Active_List, Inactive_List);
@@ -1864,18 +1831,14 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
 
 
         }
-
-
         private void Apply_Btn_Mods_Click(object sender, EventArgs e)
         {
             Move_Mods();
         }
-
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
         }
-
         private void metroSetButton1_Click(object sender, EventArgs e)
         {
             try
@@ -1900,7 +1863,6 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
 
             }
         }
-
         private void Browse_Local_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -1933,12 +1895,10 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
 
             }
         }
-
         private void richTextBox1_TextChanged_1(object sender, EventArgs e)
         {
 
         }
-
         private void metroSetButton1_Click_1(object sender, EventArgs e)
         {
             GC.Collect();
@@ -1988,17 +1948,14 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
 
             }
         }
-
         private void Arg_Box_TextChanged(object sender, EventArgs e)
         {
 
         }
-
         private void metroSetTile2_Click(object sender, EventArgs e)
         {
 
         }
-
         private void Import_Skin_Bttn_Click(object sender, EventArgs e)
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
@@ -2288,7 +2245,6 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
             }
 
         }
-       
         IEnumerable<string> SearchAccessibleFiles(string root, string searchTerm)
         {
             var files = new List<string>();
@@ -2450,7 +2406,6 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
             }
             return result;
         }
-
         private bool IsPilot(string Name)
         {
             if (Name.Contains("Stim_") || Name.Contains("PhaseShift_") || Name.Contains("HoloPilot_") || Name.Contains("PulseBlade_") || Name.Contains("Grapple_") || Name.Contains("AWall_") || Name.Contains("Cloak_") || Name.Contains("Public_"))
@@ -2462,7 +2417,6 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
                 return false;
             }
         }
-
         private void Install_Skin_Bttn_Click(object sender, EventArgs e)
         {
             Skin_Path_Box.Text = "";
@@ -2575,20 +2529,15 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
             //Install_Skin_Bttn.ForeColor = Install_Skin_Bttn.DisabledBackColor;
 
         }
-       
         private void Adv_chk_CheckedChanged(object sender, EventArgs e)
         {
            
             
         }
-
-        
-
         private void NS_Client_Updates_CheckedChanged(object sender, EventArgs e)
         {
            
         }
-
         private void checkBox1_CheckedChanged_1(object sender, EventArgs e)
         {
             if (Ns_Args.Checked == true)
@@ -2607,7 +2556,6 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
                 Properties.Settings.Default.Save();
             }
         }
-
         private void checkBox2_CheckedChanged_2(object sender, EventArgs e)
         {
             if (Ns_Args_Dedi.Checked == true)
@@ -2626,7 +2574,6 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
                 Properties.Settings.Default.Save();
             }
         }
-
         private void Launch_Northstar_Advanced_Click(object sender, EventArgs e)
         {
             if (File.Exists(Current_Install_Folder+@"\ns_startup_args.txt"))
@@ -2686,7 +2633,6 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
 
             }
         }
-
         private void Dedicated_Btn_Click_1(object sender, EventArgs e)
         {
             if (Directory.Exists(Current_Install_Folder))
@@ -2748,30 +2694,30 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
             }
 
         }
-
         private void metroSetTile2_Click_1(object sender, EventArgs e)
         {
             
         }
-
         private void Launchvanilla_MouseHover(object sender, EventArgs e)
         {
            
 
             Selected_Banner.BackgroundImage =Defualt_Image_Vanilla;
         }
-
         private void Start_Client_MouseHover(object sender, EventArgs e)
         {
             Selected_Banner.BackgroundImage =Defualt_Image_NS;
         }
-
         private void Normal_Click(object sender, EventArgs e)
         {
 
         }
-
         private void label9_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Arg_Box_Dedi_TextChanged(object sender, EventArgs e)
         {
 
         }

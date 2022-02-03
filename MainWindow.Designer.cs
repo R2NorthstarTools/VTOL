@@ -47,7 +47,6 @@
             this.Install_Textbox = new System.Windows.Forms.TextBox();
             this.Install_Location_Label = new System.Windows.Forms.Label();
             this.Main_Window = new MetroSet_UI.Controls.MetroSetTabControl();
-            this.Main = new System.Windows.Forms.TabPage();
             this.Mods = new System.Windows.Forms.TabPage();
             this.metroSetPanel2 = new MetroSet_UI.Controls.MetroSetPanel();
             this.label7 = new System.Windows.Forms.Label();
@@ -64,6 +63,10 @@
             this.Inactive_List = new System.Windows.Forms.ListBox();
             this.Apply_Btn_Mods = new MetroSet_UI.Controls.MetroSetButton();
             this.label2 = new System.Windows.Forms.Label();
+            this.About = new System.Windows.Forms.TabPage();
+            this.metroSetPanel1 = new MetroSet_UI.Controls.MetroSetPanel();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.Main = new System.Windows.Forms.TabPage();
             this.Skins = new System.Windows.Forms.TabPage();
             this.Skin_Panel = new System.Windows.Forms.Panel();
             this.label10 = new System.Windows.Forms.Label();
@@ -94,16 +97,15 @@
             this.metroSetButton5 = new MetroSet_UI.Controls.MetroSetButton();
             this.metroSetTile1 = new MetroSet_UI.Controls.MetroSetTile();
             this.metroSetButton4 = new MetroSet_UI.Controls.MetroSetButton();
-            this.About = new System.Windows.Forms.TabPage();
-            this.metroSetPanel1 = new MetroSet_UI.Controls.MetroSetPanel();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             richTextBox2 = new System.Windows.Forms.RichTextBox();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.Main_Window.SuspendLayout();
-            this.Main.SuspendLayout();
             this.Mods.SuspendLayout();
             this.metroSetPanel2.SuspendLayout();
+            this.About.SuspendLayout();
+            this.metroSetPanel1.SuspendLayout();
+            this.Main.SuspendLayout();
             this.Skins.SuspendLayout();
             this.Skin_Panel.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -111,8 +113,6 @@
             this.panel2.SuspendLayout();
             this.Updates.SuspendLayout();
             this.metroSetPanel3.SuspendLayout();
-            this.About.SuspendLayout();
-            this.metroSetPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // richTextBox2
@@ -473,12 +473,12 @@
             this.Main_Window.AnimateEasingType = MetroSet_UI.Enums.EasingType.CubeOut;
             this.Main_Window.AnimateTime = 200;
             this.Main_Window.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.Main_Window.Controls.Add(this.Main);
-            this.Main_Window.Controls.Add(this.Mods);
-            this.Main_Window.Controls.Add(this.Skins);
             this.Main_Window.Controls.Add(this.Advanced_Settings_Tab);
-            this.Main_Window.Controls.Add(this.Updates);
+            this.Main_Window.Controls.Add(this.Mods);
             this.Main_Window.Controls.Add(this.About);
+            this.Main_Window.Controls.Add(this.Main);
+            this.Main_Window.Controls.Add(this.Skins);
+            this.Main_Window.Controls.Add(this.Updates);
             this.Main_Window.HotTrack = true;
             this.Main_Window.IsDerivedStyle = true;
             this.Main_Window.ItemSize = new System.Drawing.Size(100, 38);
@@ -498,17 +498,6 @@
             this.Main_Window.UnselectedTextColor = System.Drawing.Color.Gray;
             this.Main_Window.UseAnimation = false;
             this.Main_Window.SelectedIndexChanged += new System.EventHandler(this.metroSetTabControl1_SelectedIndexChanged);
-            // 
-            // Main
-            // 
-            this.Main.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.Main.Controls.Add(this.panel1);
-            this.Main.Location = new System.Drawing.Point(4, 42);
-            this.Main.Name = "Main";
-            this.Main.Size = new System.Drawing.Size(974, 585);
-            this.Main.TabIndex = 0;
-            this.Main.Text = "Main";
-            this.Main.ToolTipText = "Main Window";
             // 
             // Mods
             // 
@@ -784,6 +773,58 @@
             this.label2.TabIndex = 3;
             this.label2.Text = "MODS";
             // 
+            // About
+            // 
+            this.About.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.About.Controls.Add(this.metroSetPanel1);
+            this.About.Location = new System.Drawing.Point(4, 42);
+            this.About.Name = "About";
+            this.About.Size = new System.Drawing.Size(974, 585);
+            this.About.TabIndex = 3;
+            this.About.Text = "About";
+            // 
+            // metroSetPanel1
+            // 
+            this.metroSetPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.metroSetPanel1.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.metroSetPanel1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.metroSetPanel1.BorderThickness = 1;
+            this.metroSetPanel1.Controls.Add(this.richTextBox1);
+            this.metroSetPanel1.IsDerivedStyle = true;
+            this.metroSetPanel1.Location = new System.Drawing.Point(3, 3);
+            this.metroSetPanel1.Name = "metroSetPanel1";
+            this.metroSetPanel1.Size = new System.Drawing.Size(968, 582);
+            this.metroSetPanel1.Style = MetroSet_UI.Enums.Style.Custom;
+            this.metroSetPanel1.StyleManager = null;
+            this.metroSetPanel1.TabIndex = 0;
+            this.metroSetPanel1.ThemeAuthor = "Narwin";
+            this.metroSetPanel1.ThemeName = "MetroLite";
+            // 
+            // richTextBox1
+            // 
+            this.richTextBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.richTextBox1.ForeColor = System.Drawing.Color.White;
+            this.richTextBox1.Location = new System.Drawing.Point(12, 13);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(944, 555);
+            this.richTextBox1.TabIndex = 0;
+            this.richTextBox1.Text = "";
+            this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged_1);
+            // 
+            // Main
+            // 
+            this.Main.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.Main.Controls.Add(this.panel1);
+            this.Main.Location = new System.Drawing.Point(4, 42);
+            this.Main.Name = "Main";
+            this.Main.Size = new System.Drawing.Size(974, 585);
+            this.Main.TabIndex = 0;
+            this.Main.Text = "Main";
+            this.Main.ToolTipText = "Main Window";
+            // 
             // Skins
             // 
             this.Skins.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
@@ -1051,6 +1092,7 @@
             this.Arg_Box_Dedi.Name = "Arg_Box_Dedi";
             this.Arg_Box_Dedi.Size = new System.Drawing.Size(420, 23);
             this.Arg_Box_Dedi.TabIndex = 31;
+            this.Arg_Box_Dedi.TextChanged += new System.EventHandler(this.Arg_Box_Dedi_TextChanged);
             // 
             // Launch_Northstar_Advanced
             // 
@@ -1251,47 +1293,6 @@
             this.metroSetButton4.ThemeName = "MetroDark";
             this.metroSetButton4.Click += new System.EventHandler(this.metroSetButton4_Click);
             // 
-            // About
-            // 
-            this.About.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.About.Controls.Add(this.metroSetPanel1);
-            this.About.Location = new System.Drawing.Point(4, 42);
-            this.About.Name = "About";
-            this.About.Size = new System.Drawing.Size(974, 585);
-            this.About.TabIndex = 3;
-            this.About.Text = "About";
-            // 
-            // metroSetPanel1
-            // 
-            this.metroSetPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.metroSetPanel1.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
-            this.metroSetPanel1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
-            this.metroSetPanel1.BorderThickness = 1;
-            this.metroSetPanel1.Controls.Add(this.richTextBox1);
-            this.metroSetPanel1.IsDerivedStyle = true;
-            this.metroSetPanel1.Location = new System.Drawing.Point(3, 3);
-            this.metroSetPanel1.Name = "metroSetPanel1";
-            this.metroSetPanel1.Size = new System.Drawing.Size(968, 582);
-            this.metroSetPanel1.Style = MetroSet_UI.Enums.Style.Custom;
-            this.metroSetPanel1.StyleManager = null;
-            this.metroSetPanel1.TabIndex = 0;
-            this.metroSetPanel1.ThemeAuthor = "Narwin";
-            this.metroSetPanel1.ThemeName = "MetroLite";
-            // 
-            // richTextBox1
-            // 
-            this.richTextBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
-            this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.richTextBox1.ForeColor = System.Drawing.Color.White;
-            this.richTextBox1.Location = new System.Drawing.Point(12, 13);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(944, 555);
-            this.richTextBox1.TabIndex = 0;
-            this.richTextBox1.Text = "";
-            this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged_1);
-            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -1308,10 +1309,12 @@
             this.panel1.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.Main_Window.ResumeLayout(false);
-            this.Main.ResumeLayout(false);
             this.Mods.ResumeLayout(false);
             this.metroSetPanel2.ResumeLayout(false);
             this.metroSetPanel2.PerformLayout();
+            this.About.ResumeLayout(false);
+            this.metroSetPanel1.ResumeLayout(false);
+            this.Main.ResumeLayout(false);
             this.Skins.ResumeLayout(false);
             this.Skin_Panel.ResumeLayout(false);
             this.Skin_Panel.PerformLayout();
@@ -1322,8 +1325,6 @@
             this.Updates.ResumeLayout(false);
             this.metroSetPanel3.ResumeLayout(false);
             this.metroSetPanel3.PerformLayout();
-            this.About.ResumeLayout(false);
-            this.metroSetPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
