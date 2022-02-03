@@ -80,6 +80,8 @@ namespace VTOL
         public MainWindow()
         {
             InitializeComponent();
+            Application.Current.MainWindow.Closing += new CancelEventHandler(MainWindow_Closing);
+
             do_not_overwrite_Ns_file = Properties.Settings.Default.Ns_Startup;
             do_not_overwrite_Ns_file_Dedi = Properties.Settings.Default.Ns_Dedi;
             try
@@ -283,6 +285,12 @@ namespace VTOL
         {
             MessageBox.Show("Ask Question?");
         }
+        void MainWindow_Closing(object sender, CancelEventArgs e)
+        {
+            HandyControl.Controls.Growl.ClearGlobal();
+           
+        }
+       
         async Task Thunderstore_Parse()
 
 
