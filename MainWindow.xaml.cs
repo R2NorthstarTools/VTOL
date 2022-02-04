@@ -2218,7 +2218,7 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
 
         private void Check_Btn_Click(object sender, RoutedEventArgs e)
         {
-            //Auto_Install_And_verify();
+            Auto_Install_And_verify();
 
         }
 

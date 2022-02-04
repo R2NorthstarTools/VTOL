@@ -12,7 +12,7 @@
         x:Class="VTOL.MainWindow"
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
-        Title="VTOL" Height="750" Width="1200" UseLayoutRounding="True" ResizeMode="CanMinimize" Icon="/Resources/ICON_64.png" Background="#FF1D2021">
+        Title="VTOL" Height="750" Width="1200" UseLayoutRounding="True" ResizeMode="CanMinimize" Icon="/Resources/ICON_64.png" Background="#FF1D2021" WindowStyle="SingleBorderWindow">
     <Window.Style>
         <Style/>
 
