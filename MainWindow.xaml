@@ -106,6 +106,7 @@
                 <Button x:Name="Enable_Mod" Content="" Height="51" Width="56" Margin="0,110,0,0" VerticalAlignment="Top" Background="{StaticResource Enable_Button}" BorderBrush="{x:Null}" Click="Enable_Mod_Click"/>
                 <Button x:Name="Disable_Mod" Content="" Height="51" Width="56" Margin="0,212,0,0" VerticalAlignment="Top" Background="{StaticResource Disable_Button}" BorderBrush="{x:Null}" Click="Disable_Mod_Click"/>
                 <Button x:Name="Apply_Btn" Content="Apply" Width="890" Margin="0,0,0,13" VerticalAlignment="Bottom" Background="#FF2C4C4C" BorderBrush="{x:Null}" Height="30" Click="Apply_Btn_Click"/>
+                <Label Content="MODS" Height="44" Width="190" Margin="0,-201,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi"/>
 
             </hc:SimplePanel>
             <hc:SimplePanel Margin="30,59,30,444">
