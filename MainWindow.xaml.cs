@@ -379,6 +379,9 @@ namespace VTOL
             ArrayList itemsList = new ArrayList();
             string ICON = "";
             List<string> lst = new List<string> { };
+            List<string> Icons = new List<string> { };
+            Icons.Clear();
+
             lst.Clear();
             foreach (var item in Update.Thunderstore)
             {
@@ -399,16 +402,20 @@ namespace VTOL
                     GC.Collect();
 
                     lst.Add(items.DownloadUrl);
+                    Icons.Add(items.Icon);
 
 
-
-                    ICON = items.Icon;
+                 //   ICON = items.Icon;
 
 
                 }
                 lst.Sort();
+                Icons.Sort();
                 download_url = (lst.Last());
+                ICON = (Icons.Last());
+
                 lst.Clear();
+                Icons.Clear();
 
 
 
@@ -446,7 +453,7 @@ Current Features:
 *The ability to launch the NorthStar Exe from the base.
 *Install Skins From a Zip
 *Launch The Dedicated Northsatar Server Client
-
+*Browse and Install Mods From the Thunderstore Mod Repo
 -Features in development:
 *Intent to Create Custom Servers using this installer as a base to configure and fine tune setups
 
@@ -1160,17 +1167,21 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
             try
             {
 
-                if (File.Exists(Target_Zip) && Directory.Exists(Destination))
+                if (File.Exists(Target_Zip))
                 {
+                    if (!Directory.Exists(Destination))
+                    {
+                        Directory.CreateDirectory(Destination);
+                    }
                     string fileExt = System.IO.Path.GetExtension(Target_Zip);
-
+                    Console.WriteLine("It only works if i have this line :(");
                     if (fileExt == ".zip")
                     {
                         ZipFile.ExtractToDirectory(Target_Zip, Destination, true);
                         Send_Info_Notif("Unpacked " + Path.GetFileName(Target_Zip) + " to " + Destination);
                         Send_Success_Notif("Installed - " + LAST_INSTALLED_MOD);
                         // Send_Success_Notif("\nUnpacking Complete!\n");
-                        if (Clean_Thunderstore = true)
+                        if (Clean_Thunderstore == true)
                         {
 
                             try
