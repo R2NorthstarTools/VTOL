@@ -2,7 +2,6 @@ Total Users using the latest release
 ![GitHub release (latest by date)](https://img.shields.io/github/downloads/BigSpice/VTOL/latest/total?style=flat-square)
 <br /><br />
 <br /><br />
-
 **This application installs the [Titanfall 2 Northstar Client](https://northstar.tf),Installs Skins, and optionally installs compatible mods for it created by various modders.**
 <br /><br />
 ![VTOL_Showcase_Trim](https://user-images.githubusercontent.com/23240514/152448826-0a92b6d8-3cce-4107-911c-0a1480ad8a8e.gif)<br /><br /><br />
@@ -181,3 +180,6 @@ If you instead see the following error message:
 ![image](https://user-images.githubusercontent.com/23240514/150570184-6cf29ee6-40a5-4517-839c-3e2dcddcf637.png)
 <br /><br />
 Simply click "Yes" and the application will attempt to fix the issue.
+
+Thank you to @ConnorDoesDev for the massive support in making the application more readable.
+<br /><br />
