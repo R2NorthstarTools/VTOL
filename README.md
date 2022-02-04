@@ -1,5 +1,5 @@
 Total Users using the latest release
-[![Github All Releases](https://img.shields.io/github/downloads/BigSpice/VTOL/latest/total?style=for-the-badge)]()
+![GitHub release (latest by date)](https://img.shields.io/github/downloads/BigSpice/VTOL/latest/total?style=flat-square)
 <br /><br />
 <br /><br />
 
