@@ -353,6 +353,8 @@ namespace VTOL
         }
         void Download_Install(object sender, RoutedEventArgs e)
         {
+            Send_Info_Notif("Starting Download!, please do not be alarmed if there is no activity!.");
+
             var objname = ((System.Windows.Controls.Button)sender).Tag.ToString();
             string[] words = objname.Split("|");
            // Send_Success_Notif(words[0]);
@@ -1160,10 +1162,73 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
 
 
         }
+        private void DirectoryCopy(
+              string sourceDirName, string destDirName, bool copySubDirs)
+        {
+            DirectoryInfo dir = new DirectoryInfo(sourceDirName);
+            DirectoryInfo[] dirs = dir.GetDirectories();
+
+            // If the source directory does not exist, throw an exception.
+            if (!dir.Exists)
+            {
+                throw new DirectoryNotFoundException(
+                    "Source directory does not exist or could not be found: "
+                    + sourceDirName);
+            }
+
+            // If the destination directory does not exist, create it.
+            if (!Directory.Exists(destDirName))
+            {
+                Directory.CreateDirectory(destDirName);
+            }
+
+
+            // Get the file contents of the directory to copy.
+            FileInfo[] files = dir.GetFiles();
+
+            foreach (FileInfo file in files)
+            {
+                // Create the path to the new copy of the file.
+                string temppath = Path.Combine(destDirName, file.Name);
+
+                // Copy the file.
+                file.CopyTo(temppath, false);
+            }
+
+            // If copySubDirs is true, copy the subdirectories.
+            if (copySubDirs)
+            {
+
+                foreach (DirectoryInfo subdir in dirs)
+                {
+                    // Create the subdirectory.
+                    string temppath = Path.Combine(destDirName, subdir.Name);
+
+                    // Copy the subdirectories.
+                    DirectoryCopy(subdir.FullName, temppath, copySubDirs);
+                }
+            }
+        }
+
+        private static void CopyFilesRecursively(string sourcePath, string targetPath)
+        {
+            //Now Create all of the directories
+            foreach (string dirPath in Directory.GetDirectories(sourcePath, "*", SearchOption.AllDirectories))
+            {
+                Directory.CreateDirectory(dirPath.Replace(sourcePath, targetPath));
+            }
+
+            //Copy all the files & Replaces any files with the same name
+            foreach (string newPath in Directory.GetFiles(sourcePath, "*.*", SearchOption.AllDirectories))
+            {
+                File.Copy(newPath, newPath.Replace(sourcePath, targetPath), true);
+            }
+        }
         private void Unpack_To_Location_Custom(string Target_Zip, string Destination,bool Clean_Thunderstore= false)
         {
             //ToDo Check if url or zip location
             //add drag and drop
+
             try
             {
 
@@ -1178,7 +1243,6 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
                     if (fileExt == ".zip")
                     {
                         ZipFile.ExtractToDirectory(Target_Zip, Destination, true);
-                        Send_Info_Notif("Unpacked " + Path.GetFileName(Target_Zip) + " to " + Destination);
                         Send_Success_Notif("Installed - " + LAST_INSTALLED_MOD);
                         // Send_Success_Notif("\nUnpacking Complete!\n");
                         if (Clean_Thunderstore == true)
@@ -1186,11 +1250,20 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
 
                             try
                             {
+                                
+                              
+
                                 // Check if file exists with its full path    
                                 if (File.Exists(Path.Combine(Destination, "icon.png")))
                                 {
                                     // If file found, delete it    
                                     File.Delete(Path.Combine(Destination, "icon.png"));
+                                }
+                                else { Send_Warning_Notif("Cleanup Files not found"); }
+                                if (File.Exists(Path.Combine(Destination, "manifest.json")))
+                                {
+                                    // If file found, delete it    
+                                    File.Delete(Path.Combine(Destination, "manifest.json"));
                                 }
                                 else { Send_Warning_Notif("Cleanup Files not found"); }
 
@@ -1200,6 +1273,50 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
                                     File.Delete(Path.Combine(Destination, "README.md"));
                                 }
                                 else { Send_Warning_Notif("Cleanup Files not found"); }
+
+
+
+
+
+
+
+                                string searchQuery = "*" + "vpk" + "*";
+                                string searchQuery2 = "*" + "keyvalues" + "*";
+
+                                string folderName = Destination;
+
+                                var directory = new DirectoryInfo(folderName);
+                                var Destinfo = new DirectoryInfo(Destination);
+
+                                var Normal = directory.GetDirectories(searchQuery2, SearchOption.AllDirectories);
+                                var Skin = directory.GetDirectories(searchQuery, SearchOption.AllDirectories);
+                                string Final_Dir="";
+                                foreach (var d in Normal)
+                                {
+                                    if (Directory.Exists(d.Parent.FullName))
+                                    {
+                                        Final_Dir = Destinfo.Parent.FullName +@"\"+ d.Parent.Name;
+                                        CopyFilesRecursively(d.Parent.FullName, Destinfo.Parent.FullName +@"\"+ d.Parent.Name);
+                                    }
+                                    //   DirectoryCopy(d.Parent.FullName,Destination, true);
+                                  
+                                }
+                                foreach (var d in Skin)
+                                {
+                                    if (Directory.Exists(d.Parent.FullName))
+                                    {
+                                        Final_Dir = Destinfo.Parent.FullName +@"\"+ d.Parent.Name;
+
+                                        CopyFilesRecursively(d.Parent.FullName, Destinfo.Parent.FullName +@"\"+ d.Parent.Name);
+                                    }
+                                    //   DirectoryCopy(d.Parent.FullName,Destination, true);
+
+                                }
+                                Directory.Delete(Destination,true);
+
+                                Send_Info_Notif("Unpacked " + Path.GetFileName(Target_Zip) + " to " + Final_Dir);
+
+
                             }
                             catch (IOException ioExp)
                             {
