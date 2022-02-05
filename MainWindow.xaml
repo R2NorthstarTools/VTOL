@@ -129,11 +129,11 @@
 
 
 
-        <hc:SimplePanel x:Name="Mod_Browse_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="2" Grid.RowSpan="2">
+        <hc:SimplePanel x:Name="Mod_Browse_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Visible" Margin="190,0,0,2" Grid.ColumnSpan="2" Grid.RowSpan="2">
 
             <hc:SimplePanel Margin="10,10,10,10" Background="#FF101010">
 
-                <ListBox SelectedItem="{Binding Selected_Item}" x:Name="Test_List" Margin="44,50,44,0" SelectionChanged="Test_List_SelectionChanged" RequestBringIntoView="Test_List_RequestBringIntoView" Height="475" VerticalAlignment="Top">
+                <ListBox SelectedItem="{Binding Selected_Item}" x:Name="Test_List" Margin="44,50,44,0" SelectionChanged="Test_List_SelectionChanged" RequestBringIntoView="Test_List_RequestBringIntoView" Height="475" VerticalAlignment="Top" ScrollViewer.CanContentScroll="True" Width="903">
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
                             <Style.Triggers>
@@ -149,34 +149,33 @@
                     <ListBox.ItemTemplate>
                         <DataTemplate>
 
+                            <Button Margin="0,0,0,0" VerticalAlignment="Center" Width="886" Height="151" Padding="0,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left">
+                                <Grid Height="151" Width="885" HorizontalAlignment="Stretch" VerticalAlignment="Center" Background="{x:Null}">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="111*"/>
+                                        <RowDefinition Height="38*"/>
+
+                                        <RowDefinition Height="2*"/>
+                                    </Grid.RowDefinitions>
+                                    <Image Source="{Binding Icon}" Margin="0,0,792,22" Height="84" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="88"/>
+                                    <TextBlock TextWrapping="WrapWithOverflow" Text="{Binding description}" VerticalAlignment="Top" FontSize="12" Margin="98,71,0,0" Height="35" HorizontalAlignment="Left" Width="432" FontWeight="Bold" FontStyle="Italic"/>
+                                    <TextBlock  Text="{Binding Name}"  FontSize="16" Margin="98,0,0,86" Height="19" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="604" />
+                                    <TextBlock TextWrapping="Wrap" Text="{Binding owner}" Margin="149,0,0,60" Height="15" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="284"/>
+                                    <TextBlock TextWrapping="Wrap" Text="{Binding date_created}" FontSize="10" Margin="74,3,0,0" HorizontalAlignment="Left" Width="604" Height="12" VerticalAlignment="Top" Grid.Row="1"/>
+                                    <Label Content="Created By:" Height="14" Width="47" HorizontalAlignment="Left" Margin="98,37,0,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="9"/>
+                                    <Label Content="Date Published:" Height="14" Width="64" HorizontalAlignment="Left" Margin="5,3,0,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="9" Grid.Row="1"/>
+                                    <hc:Rate Height="25" Width="122" Value="{Binding Rating}" IsReadOnly="True" Margin="734,105,0,0" Background="#FF2D2D30" Foreground="#FFFFDE00" ItemMargin="0,0,0,0" Grid.RowSpan="2" ItemWidth="25"/>
+                                    <Button Content="Download And Install"  HorizontalAlignment="Left" Margin="722,15,0,0" VerticalAlignment="Top" Background="#FF2C4C4C" BorderBrush="{x:Null}" Height="53" Width="146" Click="Download_Install" Tag="{Binding download_url}" Padding="0,0,0,0"  />
 
 
-            <Button Margin="0,51,0,0" VerticalAlignment="Top" Width="886" Height="151" Padding="0,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}">
-                <Grid Height="151" Width="885" HorizontalAlignment="Center" VerticalAlignment="Top">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="111*"/>
-                        <RowDefinition Height="38*"/>
+                                    <Button Content="Go To Webpage" HorizontalAlignment="Left" Margin="722,73,0,0" Tag ="{Binding Webpage}" VerticalAlignment="Top" Background="#FF2C4C4C" BorderBrush="{x:Null}" Height="22" Width="146" Click="Open_Package_Webpage" Padding="0,0,0,0"/>
+                                    <Label Content="Description-" Height="14" Width="52" HorizontalAlignment="Left" Margin="97,54,0,0" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="9" VerticalAlignment="Top" FontStyle="Normal" FontWeight="Normal"/>
+                                    <Label Content="File Size:" Height="14" Width="39" HorizontalAlignment="Left" Margin="5,19,0,0" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="9" Grid.Row="1" VerticalAlignment="Top"/>
+                                    <TextBlock TextWrapping="Wrap" Text="{Binding File_Size}" FontSize="10" Margin="44,19,0,0" HorizontalAlignment="Left" Width="304" Height="12" VerticalAlignment="Top" Grid.Row="1"/>
 
-                        <RowDefinition Height="2*"/>
-                    </Grid.RowDefinitions>
-                    <Image Source="{Binding Icon}" Margin="0,0,792,22" Height="84" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="88"/>
-                    <TextBlock TextWrapping="WrapWithOverflow" Text="{Binding description}" VerticalAlignment="Top" FontSize="12" Margin="98,71,0,0" Height="35" HorizontalAlignment="Left" Width="432" FontWeight="Bold" FontStyle="Italic"/>
-                    <TextBlock  Text="{Binding Name}"  FontSize="16" Margin="98,0,0,86" Height="19" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="604" />
-                    <TextBlock TextWrapping="Wrap" Text="{Binding owner}" Margin="149,0,0,60" Height="15" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="284"/>
-                    <TextBlock TextWrapping="Wrap" Text="{Binding date_created}" FontSize="10" Margin="74,3,0,0" HorizontalAlignment="Left" Width="604" Height="12" VerticalAlignment="Top" Grid.Row="1"/>
-                    <Label Content="Created By:" Height="14" Width="47" HorizontalAlignment="Left" Margin="98,37,0,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="9"/>
-                    <Label Content="Date Published:" Height="14" Width="64" HorizontalAlignment="Left" Margin="5,3,0,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="9" Grid.Row="1"/>
-                    <hc:Rate Height="25" Width="122" Value="{Binding Rating}" IsReadOnly="True" Margin="734,105,0,0" Background="#FF2D2D30" Foreground="#FFFFDE00" ItemMargin="0,0,0,0" Grid.RowSpan="2" ItemWidth="25"/>
-                    <Button Content="Download And Install"  HorizontalAlignment="Left" Margin="722,15,0,0" VerticalAlignment="Top" Background="#FF2C4C4C" BorderBrush="{x:Null}" Height="53" Width="146" Click="Download_Install" Tag="{Binding download_url}" Padding="0,0,0,0"  />
+                                </Grid>
+                            </Button>
 
-
-                    <Button Content="Go To Webpage" HorizontalAlignment="Left" Margin="722,73,0,0" Tag ="{Binding Webpage}" VerticalAlignment="Top" Background="#FF2C4C4C" BorderBrush="{x:Null}" Height="22" Width="146" Click="Open_Package_Webpage" Padding="0,0,0,0"/>
-                    <Label Content="Description-" Height="14" Width="52" HorizontalAlignment="Left" Margin="97,54,0,0" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="9" VerticalAlignment="Top" FontStyle="Normal" FontWeight="Normal"/>
-                    <Label Content="File Size:" Height="14" Width="39" HorizontalAlignment="Left" Margin="5,19,0,0" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="9" Grid.Row="1" VerticalAlignment="Top"/>
-                    <TextBlock TextWrapping="Wrap" Text="{Binding File_Size}" FontSize="10" Margin="44,19,0,0" HorizontalAlignment="Left" Width="304" Height="12" VerticalAlignment="Top" Grid.Row="1"/>
-
-                </Grid>
-            </Button>
 
 
                         </DataTemplate>
@@ -184,6 +183,7 @@
                 </ListBox>
                 <Label Content="BROWSE" Height="44" Width="190" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Margin="0,2,0,0"/>
 
+               
 
 
             </hc:SimplePanel>

@@ -60,6 +60,7 @@ namespace VTOL
         List<string> Mod_List = new List<string>();
         bool do_not_overwrite_Ns_file = true;
         bool do_not_overwrite_Ns_file_Dedi = true;
+        ArrayList itemsList = new ArrayList();
 
         bool advanced_Mode = false;
         private int completed_flag;
@@ -313,12 +314,12 @@ namespace VTOL
           */
 
 
-            List<string> lst = new List<string> { };
             Update = new Updater("https://gtfo.thunderstore.io/api/v1/package/");
             Update.Download_Cutom_JSON();
+            
 
-
-            LoadListViewData();
+            //LoadListViewData();
+          
             //Test_List.ItemsSource = null;
             //Test_List.ItemsSource = Update.Thunderstore.results;
             Test_List.ItemsSource = LoadListViewData();
@@ -395,7 +396,6 @@ namespace VTOL
         {
 
             // var myValue = ((Button)sender).Tag;
-            ArrayList itemsList = new ArrayList();
             string ICON = "";
             List<string> lst = new List<string> { };
             List<string> Icons = new List<string> { };
@@ -3314,5 +3314,9 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
 
             }
         }
+       
+        
+
+        
     }
 }
