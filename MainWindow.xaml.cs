@@ -86,7 +86,7 @@ namespace VTOL
             do_not_overwrite_Ns_file_Dedi = Properties.Settings.Default.Ns_Dedi;
             try
             {
-
+                
                 Animation_Start_Northstar = false;
                 Animation_Start_Vanilla = false;
                 Write_To_Log("", true);
@@ -349,8 +349,8 @@ namespace VTOL
             public string Webpage { get; set; }
             public string date_created { get; set; }
             public int Rating { get; set; }
-
-        }
+            public string File_Size { get; set; }
+    }
         void Download_Install(object sender, RoutedEventArgs e)
         {
             Send_Info_Notif("Starting Download!, please do not be alarmed if there is no activity!.");
@@ -374,19 +374,47 @@ namespace VTOL
                 UseShellExecute = true
             });
         }
+        string Convert_To_Size(int size)
+        {
+            string[] sizes = { "B", "KB", "MB", "GB", "TB" };
+            int order = 0;
+            double len = Convert.ToDouble(size);
+            while (len >= 1024 && order < sizes.Length - 1)
+            {
+                order++;
+                len = len/1024;
+            }
 
+            string result = String.Format("{0:0.##} {1}", len, sizes[order]);                 //   ICON = items.Icon;
+            return result;
+
+        }
+      
+       
         private ArrayList LoadListViewData()
         {
+
             // var myValue = ((Button)sender).Tag;
             ArrayList itemsList = new ArrayList();
             string ICON = "";
             List<string> lst = new List<string> { };
             List<string> Icons = new List<string> { };
-            Icons.Clear();
+            List<string> Description = new List<string> { };
+            List<string> File_Size_ = new List<string> { };
 
+
+            string download_url = "";
+            string Descrtiption = "";
+            string FileSize = "";
+
+            Icons.Clear();
+            Description.Clear();
             lst.Clear();
+            File_Size_.Clear();
+
             foreach (var item in Update.Thunderstore)
             {
+               
                 int rating = item.RatingScore;
                 if (rating <= 0)
                 {
@@ -396,8 +424,7 @@ namespace VTOL
                 {
                     rating = 5;
                 }
-                string download_url = "";
-
+              
                 foreach (var items in item.versions)
                 {
 
@@ -405,29 +432,39 @@ namespace VTOL
 
                     lst.Add(items.DownloadUrl);
                     Icons.Add(items.Icon);
-
-
-                 //   ICON = items.Icon;
-
+                    Description.Add(items.Description);
+                    File_Size_.Add(items.FileSize.ToString());
+                    //   ICON = items.Icon;
+                    
 
                 }
                 lst.Sort();
                 Icons.Sort();
+                File_Size_.Sort();
+                Description.Sort();
+
                 download_url = (lst.Last());
                 ICON = (Icons.Last());
-
+                FileSize = (File_Size_.Last());
+                Descrtiption = (Description.Last());
+                
+                    Description.Clear();
+                File_Size_.Clear();
                 lst.Clear();
                 Icons.Clear();
 
 
-
+                if (int.TryParse(FileSize, out int value))
+                {
+                    FileSize = Convert_To_Size(value);
+                }
                 //   foreach (object o in lst)
                 //     {
                 //       MessageBox.Show(o.ToString());
                 //  }
 
                 //itemsList.Add(new Button {  Name = item.full_name.ToString() , Icon = item.latest.icon,date_created = item.date_created.ToString(), description = item.latest.description, owner=item.owner, Rating = rating});
-                itemsList.Add(new Button { Name = item.FullName.ToString(), Icon = ICON, date_created = item.DateCreated.ToString(), description = item.PackageUrl, owner=item.Owner, Rating = rating, download_url = download_url +"|"+item.FullName.ToString(), Webpage  = item.PackageUrl });
+                itemsList.Add(new Button { Name = item.Name, Icon = ICON, date_created = item.DateCreated.ToString(), description = Descrtiption, owner=item.Owner, Rating = rating, download_url = download_url +"|"+item.FullName.ToString(), Webpage  = item.PackageUrl, File_Size = FileSize });
 
                 // itemsList.Add(item.full_name.ToString());
             }
@@ -1280,35 +1317,30 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
 
 
 
-                                string searchQuery = "*" + "vpk" + "*";
-                                string searchQuery2 = "*" + "keyvalues" + "*";
-
+                                string searchQuery3 = "*" + "mods" + "*";
                                 string folderName = Destination;
 
                                 var directory = new DirectoryInfo(folderName);
                                 var Destinfo = new DirectoryInfo(Destination);
 
-                                var Normal = directory.GetDirectories(searchQuery2, SearchOption.AllDirectories);
-                                var Skin = directory.GetDirectories(searchQuery, SearchOption.AllDirectories);
-                                string Final_Dir="";
-                                foreach (var d in Normal)
+
+                                var Script = directory.GetDirectories(searchQuery3, SearchOption.AllDirectories);
+
+                                string Final_Dir ="";
+                               
+                                foreach (var d in Script)
                                 {
-                                    if (Directory.Exists(d.Parent.FullName))
-                                    {
-                                        Final_Dir = Destinfo.Parent.FullName +@"\"+ d.Parent.Name;
-                                        CopyFilesRecursively(d.Parent.FullName, Destinfo.Parent.FullName +@"\"+ d.Parent.Name);
-                                    }
-                                    //   DirectoryCopy(d.Parent.FullName,Destination, true);
-                                  
-                                }
-                                foreach (var d in Skin)
-                                {
-                                    if (Directory.Exists(d.Parent.FullName))
+                                    DirectoryInfo di = new DirectoryInfo(d.FullName);
+                                    DirectoryInfo[] diArr = di.GetDirectories();
+                                    string firstFolder = diArr[0].FullName;
+                                    
+                                    if (Directory.Exists(firstFolder))
                                     {
                                         Final_Dir = Destinfo.Parent.FullName +@"\"+ d.Parent.Name;
 
-                                        CopyFilesRecursively(d.Parent.FullName, Destinfo.Parent.FullName +@"\"+ d.Parent.Name);
+                                        CopyFilesRecursively(diArr[0].FullName, Destinfo.Parent.FullName +@"\"+ diArr[0].Name);
                                     }
+                                    
                                     //   DirectoryCopy(d.Parent.FullName,Destination, true);
 
                                 }
