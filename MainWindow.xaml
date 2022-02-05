@@ -129,11 +129,11 @@
 
 
 
-        <hc:SimplePanel x:Name="Mod_Browse_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Visible" Margin="190,0,0,2" Grid.ColumnSpan="2" Grid.RowSpan="2">
+        <hc:SimplePanel x:Name="Mod_Browse_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="2" Grid.RowSpan="2">
 
             <hc:SimplePanel Margin="10,10,10,10" Background="#FF101010">
 
-                <ListBox SelectedItem="{Binding Selected_Item}" x:Name="Test_List" Margin="44,50,44,0" SelectionChanged="Test_List_SelectionChanged" RequestBringIntoView="Test_List_RequestBringIntoView" Height="475" VerticalAlignment="Top" ScrollViewer.CanContentScroll="True" Width="903">
+                <ListBox SelectedItem="{Binding Selected_Item}" x:Name="Test_List" Margin="44,50,44,0" SelectionChanged="Test_List_SelectionChanged" RequestBringIntoView="Test_List_RequestBringIntoView" Height="475" VerticalAlignment="Top" ScrollViewer.CanContentScroll="True">
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
                             <Style.Triggers>
@@ -183,7 +183,7 @@
                 </ListBox>
                 <Label Content="BROWSE" Height="44" Width="190" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Margin="0,2,0,0"/>
 
-               
+
 
 
             </hc:SimplePanel>

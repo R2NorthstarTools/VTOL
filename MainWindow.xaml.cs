@@ -316,9 +316,8 @@ namespace VTOL
 
             Update = new Updater("https://gtfo.thunderstore.io/api/v1/package/");
             Update.Download_Cutom_JSON();
-            
 
-            //LoadListViewData();
+           // LoadListViewData();
           
             //Test_List.ItemsSource = null;
             //Test_List.ItemsSource = Update.Thunderstore.results;
@@ -1268,15 +1267,16 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
 
             try
             {
-
+                 
                 if (File.Exists(Target_Zip))
                 {
-                    if (!Directory.Exists(Destination))
+                    if (!Directory.Exists(Destination)) 
                     {
                         Directory.CreateDirectory(Destination);
                     }
                     string fileExt = System.IO.Path.GetExtension(Target_Zip);
                     Console.WriteLine("It only works if i have this line :(");
+                    
                     if (fileExt == ".zip")
                     {
                         ZipFile.ExtractToDirectory(Target_Zip, Destination, true);
@@ -2424,7 +2424,50 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
         private void Titanfall_2_Btn_Click(object sender, RoutedEventArgs e)
         {
 
+            if (Directory.Exists(Current_Install_Folder))
+            {
 
+                if (File.Exists(Current_Install_Folder+@"\"+"Titanfall2.exe"))
+                {
+                    ProcessStartInfo procStartInfo = new ProcessStartInfo();
+                    Process process = new Process();
+                    procStartInfo.FileName = Current_Install_Folder+@"\"+"Titanfall2.exe";
+                    procStartInfo.WorkingDirectory = System.IO.Path.GetDirectoryName(Current_Install_Folder+@"\"+"Titanfall2.exe");
+                    ;
+
+                    // procStartInfo.Arguments = args;
+
+                    process.StartInfo = procStartInfo;
+
+                    process.Start();
+                    int id = process.Id;
+                    pid = id;
+                    Process tempProc = Process.GetProcessById(id);
+                    // this.Visible = false;
+                    // Thread.Sleep(5000);
+                    // tempProc.WaitForExit();
+                    // this.Visible = true;
+
+                    // Process process = Process.Start(NSExe, Arg_Box.Text);
+                    process.Close();
+
+
+                }
+                else
+                {
+
+                    MessageBox.Show("Could Not Find NorthStar.exe!");
+
+
+                }
+            }
+            else
+            {
+
+                Console.WriteLine("Err, File not found");
+
+
+            }
 
         }
             private void Browse_For_Skin_Click(object sender, RoutedEventArgs e)
@@ -3109,8 +3152,7 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
 
         private async void Load_Click(object sender, RoutedEventArgs e)
         {
-            Load_Line.IsRunning = true;
-            Load_Line.Visibility = Visibility.Visible;
+           
             Thunderstore_Parse();
         }
 
