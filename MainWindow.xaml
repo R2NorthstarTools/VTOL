@@ -133,7 +133,7 @@
 
             <hc:SimplePanel Margin="10,10,10,10" Background="#FF101010">
 
-                <ListBox SelectedItem="{Binding Selected_Item}" x:Name="Test_List" Margin="44,50,44,0" SelectionChanged="Test_List_SelectionChanged" RequestBringIntoView="Test_List_RequestBringIntoView" Height="475" VerticalAlignment="Top" ScrollViewer.CanContentScroll="True">
+                <ListBox SelectedItem="{Binding Selected_Item}" x:Name="Test_List" Margin="44,50,44,0" SelectionChanged="Test_List_SelectionChanged" RequestBringIntoView="Test_List_RequestBringIntoView" Height="475" VerticalAlignment="Top" ScrollViewer.CanContentScroll="False">
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
                             <Style.Triggers>
@@ -237,7 +237,7 @@
 
 
 
-        <hc:SimplePanel x:Name="Dedicated_Server_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Visible" Margin="190,0,0,2" Grid.ColumnSpan="2" Grid.RowSpan="2" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+        <hc:SimplePanel x:Name="Dedicated_Server_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="2" Grid.RowSpan="2" ScrollViewer.VerticalScrollBarVisibility="Disabled">
             <Button x:Name="Launch_Northstar_Advanced" Content="Launch Northstar Advanced" Height="40" Width="392" Margin="0,207,0,0" VerticalAlignment="Top" Click="Launch_Northstar_Advanced_Click" BorderBrush="White" Background="#FF085F36" />
             <hc:TextBox x:Name="Arg_Box" HorizontalAlignment="Center" Height="38" TextWrapping="Wrap" VerticalAlignment="Top" Width="392" Margin="0,164,0,0" KeyDown="OnKeyDownHandler_Nrml_Arg"/>
             <Button x:Name="Dedicated_Btn" Content="Launch Dedicated Northstar Client" Height="40" Width="392" Margin="0,377,0,0" VerticalAlignment="Top" Click="Dedicated_Btn_Click" BorderBrush="White" Background="#FF282C50" />

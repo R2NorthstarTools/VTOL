@@ -1304,7 +1304,6 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
                     if (fileExt == ".zip")
                     {
                         ZipFile.ExtractToDirectory(Target_Zip, Destination, true);
-                        Send_Success_Notif("Installed - " + LAST_INSTALLED_MOD);
                         // Send_Success_Notif("\nUnpacking Complete!\n");
                         if (Clean_Thunderstore == true)
                         {
@@ -1359,8 +1358,13 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
                                     
                                     if (Directory.Exists(firstFolder))
                                     {
-                                        Dir_Final = Destinfo.Parent.FullName +@"\"+ diArr[0].Name+@"\"+"Locked_Folder";
+                                        Dir_Final = Destinfo.Parent.FullName +@"\"+ diArr[0].Name;
+                                        if ((Destinfo.Parent.FullName +@"\"+ diArr[0].Name).Contains("keyvalues") || (Destinfo.Parent.FullName +@"\"+ diArr[0].Name).Contains("vpk")||(Destinfo.Parent.FullName +@"\"+ diArr[0].Name).Contains("materials")||(Destinfo.Parent.FullName +@"\"+ diArr[0].Name).Contains("resource")||(Destinfo.Parent.FullName +@"\"+ diArr[0].Name).Contains("scripts"))
+                                        {
+                                            Send_Error_Notif("Mod has been Detected as incompatible!, The mod creator must be contacted to remedy this issue!");
 
+                                            return;
+                                        }
                                         CopyFilesRecursively(firstFolder, Destinfo.Parent.FullName +@"\"+ diArr[0].Name);
                                     }
                                     if (Directory.Exists(Destinfo.Parent.FullName +@"\"+ diArr[0].Name+@"\"+"Locked_Folder"))
@@ -1372,8 +1376,18 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
 
                                 }
                                 Directory.Delete(Destination,true);
+                                if(Dir_Final == "")
+                                {
 
-                                Send_Info_Notif("Unpacked " + Path.GetFileName(Target_Zip) + " to " + Dir_Final);
+                                    Send_Error_Notif("Mod has been Detected as incompatible!, The mod creator must be contacted to remedy this issue!");
+                                    return;
+                                }
+                                else
+                                {
+                                    Send_Info_Notif("Unpacked " + Path.GetFileName(Target_Zip) + " to " + Dir_Final);
+                                    Send_Success_Notif("Installed - " + LAST_INSTALLED_MOD);
+
+                                }
 
 
                             }
