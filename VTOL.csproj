@@ -25,13 +25,16 @@
     <None Remove="Resources\bestboy.png" />
     <None Remove="Resources\BG_Panels.png" />
     <None Remove="Resources\Disable_Img.png" />
+    <None Remove="Resources\download_icon.png" />
     <None Remove="Resources\Enable_Image.png" />
     <None Remove="Resources\folder.png" />
+    <None Remove="Resources\heart.png" />
     <None Remove="Resources\home.png" />
     <None Remove="Resources\ICON_64.ico" />
     <None Remove="Resources\ICON_64.png" />
     <None Remove="Resources\info.png" />
     <None Remove="Resources\internet.png" />
+    <None Remove="Resources\like.png" />
     <None Remove="Resources\LOG_ICON.png" />
     <None Remove="Resources\main-menu.png" />
     <None Remove="Resources\NorthStar_Smurfson.gif" />
@@ -66,6 +69,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\BG_Panels.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\download_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\heart.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\ICON_32.ico">
@@ -116,6 +125,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\internet.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\like.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\LOG_ICON.png">

@@ -25,6 +25,7 @@ using WishLib = IWshRuntimeLibrary;
 using Newtonsoft.Json.Linq;
 using Microsoft.Win32;
 using System.Collections;
+using System.Collections.ObjectModel;
 //****TODO*****//
 
 //Migrate Release Parse to the New Updater Sys
@@ -48,6 +49,7 @@ namespace VTOL
         List<string> Mod_Directory_List_Active = new List<string>();
         List<string> Mod_Directory_List_InActive = new List<string>();
         private static String updaterModulePath;
+        private readonly CollectionViewSource viewSource = new CollectionViewSource();
 
         public bool Found_Install_Folder = false;
         public string Current_Install_Folder = "";
@@ -61,7 +63,11 @@ namespace VTOL
         bool do_not_overwrite_Ns_file = true;
         bool do_not_overwrite_Ns_file_Dedi = true;
         ArrayList itemsList = new ArrayList();
+        ArrayList Mirror_Item_List = new ArrayList();
+        private ICollectionView phrasesView;
+        private string filter;
 
+        public ObservableCollection<string> Phrases { get; private set; }
         bool advanced_Mode = false;
         private int completed_flag;
         public int pid;
@@ -111,6 +117,7 @@ namespace VTOL
                 this.VTOL.Title = String.Format("VTOL {0}", version);
                 Check_For_New_Northstar_Install();
                 GC.Collect();
+                
                 if (do_not_overwrite_Ns_file==true)
                 {
                     Ns_Args.IsChecked = true;
@@ -144,9 +151,8 @@ namespace VTOL
 
             catch (System.IO.DirectoryNotFoundException e)
             {
-                Console.WriteLine("Could Not Verify Dir" + Current_Install_Folder);
+                Write_To_Log("Could Not Verify Dir" + Current_Install_Folder);
                 HandyControl.Controls.Growl.ErrorGlobal("\nThe Launcher Tried to Auto Check For an existing CFG, please use the manual Check to search.");
-
                 //log.AppendText("\nThe Launcher Tried to Auto Check For an existing CFG, please use the manual Check to search.");
 
 
@@ -168,9 +174,9 @@ namespace VTOL
                     }
                     catch (Exception ef)
                     {
-                        Send_Fatal_Notif(ef.StackTrace);
+                        Write_To_Log(ef.StackTrace);
 
-                        Send_Fatal_Notif(ef.ToString());
+                        Send_Fatal_Notif("Fatal Error Occured, Please Check Logs!");
                     }
 
 
@@ -186,7 +192,8 @@ namespace VTOL
                     }
                     catch (Exception ef)
                     {
-                        Send_Fatal_Notif(ef.StackTrace);
+                        Send_Fatal_Notif("Fatal Error Occured, Please Check Logs!");
+                        Write_To_Log(ef.StackTrace);
 
                     }
 
@@ -246,7 +253,7 @@ namespace VTOL
             }
             catch (System.IO.DirectoryNotFoundException e)
             {
-                Console.WriteLine("Could Not Verify Dir" + Current_Install_Folder);
+               Write_To_Log("Could Not Verify Dir" + Current_Install_Folder);
                 Send_Warning_Notif("\nThe Launcher Tried to Auto Check For an existing CFG, please use the manual Check to search.");
 
 
@@ -296,33 +303,45 @@ namespace VTOL
 
 
         {
-            /*
-            Uri uri = new Uri("https://valheim.thunderstore.io/package/");
-            string json;
-
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
-            request.UserAgent = "GithubUpdater";
-            request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
-            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
-            using (Stream stream = response.GetResponseStream())
-            using (StreamReader reader = new StreamReader(stream))
+            try
             {
-                json =  reader.ReadToEnd();
+                itemsList.Clear();
+                Test_List.ItemsSource = null;
+                Test_List.Items.Clear();
+                /*
+                Uri uri = new Uri("https://valheim.thunderstore.io/package/");
+                string json;
+
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
+                request.UserAgent = "GithubUpdater";
+                request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                using (Stream stream = response.GetResponseStream())
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    json =  reader.ReadToEnd();
+                }
+                Thunderstore_ = Thunderstore.FromJson(json);
+                Send_Info_Notif(Thunderstore_.results.ToString());
+              */
+
+
+
+
+                Update = new Updater("https://gtfo.thunderstore.io/api/v1/package/");
+                Update.Download_Cutom_JSON();
+               
+                // LoadListViewData();
+
+                //Test_List.ItemsSource = null;
+                //Test_List.ItemsSource = Update.Thunderstore.results;
+                Test_List.ItemsSource = LoadListViewData();
             }
-            Thunderstore_ = Thunderstore.FromJson(json);
-            Send_Info_Notif(Thunderstore_.results.ToString());
-          */
-
-
-            Update = new Updater("https://gtfo.thunderstore.io/api/v1/package/");
-            Update.Download_Cutom_JSON();
-
-           // LoadListViewData();
-          
-            //Test_List.ItemsSource = null;
-            //Test_List.ItemsSource = Update.Thunderstore.results;
-            Test_List.ItemsSource = LoadListViewData();
-
+            catch (Exception ex)
+            {
+                Send_Fatal_Notif("Error Occured, Please Check Logs for details");
+                Write_To_Log(ex.ToString());
+            }
         }
 
         private void Test_List_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -350,7 +369,9 @@ namespace VTOL
             public string date_created { get; set; }
             public int Rating { get; set; }
             public string File_Size { get; set; }
-    }
+            public string Downloads { get; set; }
+
+        }
         void Download_Install(object sender, RoutedEventArgs e)
         {
             Send_Info_Notif("Starting Download!, please do not be alarmed if there is no activity!.");
@@ -400,8 +421,10 @@ namespace VTOL
             List<string> Icons = new List<string> { };
             List<string> Description = new List<string> { };
             List<string> File_Size_ = new List<string> { };
+            List<int> Downloads = new List<int> { };
 
-
+            string Tags = "";
+            string downloads = "";
             string download_url = "";
             string Descrtiption = "";
             string FileSize = "";
@@ -415,15 +438,10 @@ namespace VTOL
             {
                
                 int rating = item.RatingScore;
-                if (rating <= 0)
-                {
+                
+                //Tag = item.Categories;
+                Tags = String.Join(" , ", item.Categories);
 
-                    rating = Math.Abs(rating)+1;
-                } else if (rating > 5)
-                {
-                    rating = 5;
-                }
-              
                 foreach (var items in item.versions)
                 {
 
@@ -433,8 +451,9 @@ namespace VTOL
                     Icons.Add(items.Icon);
                     Description.Add(items.Description);
                     File_Size_.Add(items.FileSize.ToString());
+                    Downloads.Add(Convert.ToInt32(items.Downloads));
+
                     //   ICON = items.Icon;
-                    
 
                 }
                 lst.Sort();
@@ -446,11 +465,13 @@ namespace VTOL
                 ICON = (Icons.Last());
                 FileSize = (File_Size_.Last());
                 Descrtiption = (Description.Last());
-                
-                    Description.Clear();
+                downloads = (Downloads.Sum()).ToString();
+
+                Description.Clear();
                 File_Size_.Clear();
                 lst.Clear();
                 Icons.Clear();
+                Downloads.Clear();
 
 
                 if (int.TryParse(FileSize, out int value))
@@ -463,7 +484,8 @@ namespace VTOL
                 //  }
 
                 //itemsList.Add(new Button {  Name = item.full_name.ToString() , Icon = item.latest.icon,date_created = item.date_created.ToString(), description = item.latest.description, owner=item.owner, Rating = rating});
-                itemsList.Add(new Button { Name = item.Name, Icon = ICON, date_created = item.DateCreated.ToString(), description = Descrtiption, owner=item.Owner, Rating = rating, download_url = download_url +"|"+item.FullName.ToString(), Webpage  = item.PackageUrl, File_Size = FileSize });
+                itemsList.Add(new Button { Name = item.Name, Icon = ICON, date_created = item.DateCreated.ToString(), description = Descrtiption, owner=item.Owner, Rating = rating, download_url = download_url +"|"+item.FullName.ToString(), Webpage  = item.PackageUrl, File_Size = FileSize , Tag = Tags, Downloads = downloads});
+                Mirror_Item_List.Add(item.Name);
 
                 // itemsList.Add(item.full_name.ToString());
             }
@@ -618,7 +640,7 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
             Update_Tab.IsSelected = false;
 
         }
-        void Select_Mod_Browse()
+        async Task Select_Mod_Browse()
         {
             Mod_Panel.Visibility = Visibility.Hidden;
             skins_Panel.Visibility = Visibility.Hidden;
@@ -826,7 +848,9 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
 
             catch (Exception e)
             {
-                MessageBox.Show("The process failed: "+ e.ToString());
+                Send_Fatal_Notif("Fatal Error Occured, Please Check Logs!");
+
+                Write_To_Log("The process failed: "+ e.ToString());
             }
 
 
@@ -1020,7 +1044,7 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
             }
             catch (System.IO.FileNotFoundException e)
             {
-                Console.WriteLine("Could Not find " + Filepath);
+                Send_Error_Notif("Could Not find " + Filepath);
 
 
             }
@@ -1047,7 +1071,7 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
             }
             catch (System.IO.FileNotFoundException e)
             {
-                Console.WriteLine("Could Not find " + Filepath);
+                Send_Error_Notif("Could Not find " + Filepath);
 
 
             }
@@ -1267,7 +1291,7 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
 
             try
             {
-                 
+                string Dir_Final = "";
                 if (File.Exists(Target_Zip))
                 {
                     if (!Directory.Exists(Destination)) 
@@ -1287,9 +1311,9 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
 
                             try
                             {
-                                
-                              
 
+
+                                
                                 // Check if file exists with its full path    
                                 if (File.Exists(Path.Combine(Destination, "icon.png")))
                                 {
@@ -1326,7 +1350,6 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
 
                                 var Script = directory.GetDirectories(searchQuery3, SearchOption.AllDirectories);
 
-                                string Final_Dir ="";
                                
                                 foreach (var d in Script)
                                 {
@@ -1336,23 +1359,29 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
                                     
                                     if (Directory.Exists(firstFolder))
                                     {
-                                        Final_Dir = Destinfo.Parent.FullName +@"\"+ d.Parent.Name;
+                                        Dir_Final = Destinfo.Parent.FullName +@"\"+ diArr[0].Name+@"\"+"Locked_Folder";
 
-                                        CopyFilesRecursively(diArr[0].FullName, Destinfo.Parent.FullName +@"\"+ diArr[0].Name);
+                                        CopyFilesRecursively(firstFolder, Destinfo.Parent.FullName +@"\"+ diArr[0].Name);
                                     }
-                                    
+                                    if (Directory.Exists(Destinfo.Parent.FullName +@"\"+ diArr[0].Name+@"\"+"Locked_Folder"))
+                                    {
+                                        Directory.Delete(Destinfo.Parent.FullName +@"\"+ diArr[0].Name+@"\"+"Locked_Folder", true);
+
+                                    }
                                     //   DirectoryCopy(d.Parent.FullName,Destination, true);
 
                                 }
                                 Directory.Delete(Destination,true);
 
-                                Send_Info_Notif("Unpacked " + Path.GetFileName(Target_Zip) + " to " + Final_Dir);
+                                Send_Info_Notif("Unpacked " + Path.GetFileName(Target_Zip) + " to " + Dir_Final);
 
 
                             }
                             catch (IOException ioExp)
                             {
-                               Send_Warning_Notif(ioExp.Message);
+                               Write_To_Log(ioExp.Message);
+                                Send_Warning_Notif(" Issue Detected, Please Check Logs!");
+
                             }
 
 
@@ -1405,7 +1434,8 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
             } catch (Exception ex)
             {
 
-                Send_Fatal_Notif(ex.ToString());
+                Write_To_Log(ex.ToString());
+                Send_Fatal_Notif("Fatal Error Occured, Please Check Logs!");
 
             }
         }
@@ -1539,7 +1569,9 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                Write_To_Log(e.Message);
+                Send_Fatal_Notif("Fatal Error Occured, Please Check Logs!");
+
                 // Log_Box.AppendText("\nCould not Find the Install at " +root+ " - Continuing Traversal");
             }
 
@@ -1644,7 +1676,8 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
             }
             catch (NullReferenceException e)
             {
-                MessageBox.Show(e.Message);
+               Write_To_Log(e.Message);
+                Send_Fatal_Notif("Fatal Error Occured, Please Check Logs!");
 
 
             }
@@ -1747,6 +1780,8 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
             catch (Exception ex)
             {
                 isValid = false;
+                Send_Fatal_Notif("Fatal Error Occured, Please Check Logs!");
+Write_To_Log(ex.StackTrace);
             }
 
             return isValid;
@@ -1851,7 +1886,8 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
             catch (Exception ex)
             {
 
-                Send_Fatal_Notif(ex.StackTrace);
+                Write_To_Log(ex.StackTrace);
+                Send_Fatal_Notif("Fatal Error Occured, Please Check Logs!");
 
 
             }
@@ -2162,7 +2198,7 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
             }
             catch (Exception ex)
             {
-                Send_Error_Notif(ex.Message);
+                Write_To_Log(ex.Message);
                 Send_Warning_Notif("Please check Your Mod Folder at - " +Current_Install_Folder+@"\R2Northstar\mods\");
                 // Log_Box.AppendText(ex.StackTrace);
 
@@ -2191,7 +2227,9 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
                 }
                 catch (UnauthorizedAccessException ex)
                 {
-                    // ...
+                    Send_Warning_Notif("No Access to the Directory!");
+                Write_To_Log(ex.StackTrace);
+                
                 }
             }
 
@@ -2206,8 +2244,9 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
                 // Exception could occur due to insufficient permission.
                 files = Directory.GetFiles(path, searchPattern, SearchOption.TopDirectoryOnly);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+
                 return string.Empty;
             }
 
@@ -2271,9 +2310,9 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
             }
             catch (Exception ex)
             {
-                Send_Fatal_Notif(ex.StackTrace);
+                Send_Fatal_Notif("Fatal Error Occured, Please Check Logs!");
 
-                MessageBox.Show(ex.Message);
+                Write_To_Log(ex.Message);
             }
         }
         public static bool ZipHasFile(string Search, string zipFullPath)
@@ -2414,7 +2453,7 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
             catch (Exception ex)
             {
                 Send_Warning_Notif("Please install Northstar again To Try Remedy This Error");
-                Send_Warning_Notif(ex.ToString());
+                Write_To_Log(ex.ToString());
             }
 
 
@@ -2491,9 +2530,9 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
                 }
                 catch (Exception ef)
                 {
-                    Send_Fatal_Notif(ef.StackTrace);
+                    Send_Fatal_Notif("Fatal Error Occured, Please Check Logs!");
 
-                    Console.WriteLine(ef.ToString());
+                    Write_To_Log(ef.StackTrace.ToString());
                 }
 
 
@@ -2518,9 +2557,9 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
                 }
                 catch (Exception ef)
                 {
-                    Send_Fatal_Notif(ef.StackTrace);
+                    Send_Fatal_Notif("Fatal Error Occured, Please Check Logs!");
 
-                    Console.WriteLine(ef.ToString());
+                    Write_To_Log(ef.ToString());
                 }
 
             }
@@ -2802,8 +2841,8 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
                         Diffuse_IMG.Source = bitmap;
                        
                         Glow_IMG.Source = bitmap;
-                        Console.WriteLine(ex.StackTrace);
-                     //Send_Fatal_Notif(ex.StackTrace);
+                        Write_To_Log(ex.StackTrace);
+                        Send_Fatal_Notif("Fatal Error Occured, Please Check Logs!");
 
                     }
 
@@ -2851,8 +2890,8 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
             catch (Exception ex)
             {
 
-                MessageBox.Show("\nIssue with File path, please Rebrowse.");
-                Send_Fatal_Notif(ex.Message);
+               Send_Fatal_Notif("\nIssue with File path, please Rebrowse.");
+                Write_To_Log(ex.Message);
             }
         }
 
@@ -2975,7 +3014,7 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
             {
 
                 Send_Error_Notif("\nIssue with File path, please Rebrowse.");
-                Send_Fatal_Notif(ex.Message);
+                Write_To_Log(ex.Message);
             }
         }
 
@@ -3077,9 +3116,9 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
             }
             catch (Exception ef)
             {
-                Console.WriteLine(ef.StackTrace);
+                Write_To_Log(ef.StackTrace);
 
-                Send_Fatal_Notif(ef.ToString());
+                Send_Fatal_Notif("Fatal Error Occured, Please Check Logs!");
             }
         }
         void Write_To_Log(string Text, bool clear_First = false)
@@ -3121,14 +3160,13 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
                     string Accurate_Date = DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss");
                     saveAsyncFile("\n\n"+Accurate_Date+"\n\n", @"C:\ProgramData\VTOL_DATA\Logs\" + date+"-LOG_MODMANAGER V-"+version, true, true);
                     saveAsyncFile(Log_Box.Text, @"C:\ProgramData\VTOL_DATA\Logs\" + date+"-LOG_MODMANAGER V-"+version, true, true);
-                    Write_To_Log("\nSaved Successfully to - " + @"C:\ProgramData\VTOL_DATA\Logs  " + date);
-
+                    Send_Success_Notif("Saved Successfully to - " + @"C:\ProgramData\VTOL_DATA\Logs");
                 }
                 else
                 {
 
                     saveAsyncFile(Log_Box.Text, @"C:\ProgramData\VTOL_DATA\Logs\" + date+"-LOG_MODMANAGER V-"+version, true, false);
-                    Write_To_Log("\nSaved Successfully to - " + @"C:\ProgramData\VTOL_DATA\Logs  " + date);
+                    Send_Success_Notif("Saved Successfully to - " + @"C:\ProgramData\VTOL_DATA\Logs");
 
 
                 }
@@ -3140,7 +3178,7 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
             {
                 Directory.CreateDirectory(@"C:\ProgramData\VTOL_DATA\Logs");
                 saveAsyncFile(Log_Box.Text, @"C:\ProgramData\VTOL_DATA\Logs\" + date+" -LOG_MODMANAGER"+version, true, false);
-                Write_To_Log("\nSaved Successfully to - " + @"C:\ProgramData\VTOL_DATA\Logs  " + date);
+                Send_Success_Notif("Saved Successfully to - " + @"C:\ProgramData\VTOL_DATA\Logs");
 
             }
         }
@@ -3152,7 +3190,7 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
 
         private async void Load_Click(object sender, RoutedEventArgs e)
         {
-           
+          
             Thunderstore_Parse();
         }
 
@@ -3356,9 +3394,17 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
 
             }
         }
-       
-        
 
-        
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            Mirror_Item_List.Reverse();
+            foreach (string element in Mirror_Item_List)
+            {
+                
+                
+                Send_Info_Notif(element);
+            }// CollectionViewSource.GetDefaultView(Test_List.ItemsSource).Refresh();
+
+            }
     }
 }

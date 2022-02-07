@@ -129,7 +129,7 @@
 
 
 
-        <hc:SimplePanel x:Name="Mod_Browse_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="2" Grid.RowSpan="2">
+        <hc:SimplePanel x:Name="Mod_Browse_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Visible" Margin="190,0,0,2" Grid.ColumnSpan="2" Grid.RowSpan="2">
 
             <hc:SimplePanel Margin="10,10,10,10" Background="#FF101010">
 
@@ -154,38 +154,42 @@
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="111*"/>
                                         <RowDefinition Height="38*"/>
-
                                         <RowDefinition Height="2*"/>
                                     </Grid.RowDefinitions>
                                     <Image Source="{Binding Icon}" Margin="0,0,792,22" Height="84" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="88"/>
-                                    <TextBlock TextWrapping="WrapWithOverflow" Text="{Binding description}" VerticalAlignment="Top" FontSize="12" Margin="98,71,0,0" Height="35" HorizontalAlignment="Left" Width="432" FontWeight="Bold" FontStyle="Italic"/>
+                                    <TextBlock TextWrapping="Wrap" Text="{Binding description}" VerticalAlignment="Top" FontSize="11" Margin="99,64,0,0" Height="28" HorizontalAlignment="Left" Width="510" FontWeight="Bold" FontStyle="Italic"/>
                                     <TextBlock  Text="{Binding Name}"  FontSize="16" Margin="98,0,0,86" Height="19" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="604" />
-                                    <TextBlock TextWrapping="Wrap" Text="{Binding owner}" Margin="149,0,0,60" Height="15" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="284"/>
-                                    <TextBlock TextWrapping="Wrap" Text="{Binding date_created}" FontSize="10" Margin="74,3,0,0" HorizontalAlignment="Left" Width="604" Height="12" VerticalAlignment="Top" Grid.Row="1"/>
-                                    <Label Content="Created By:" Height="14" Width="47" HorizontalAlignment="Left" Margin="98,37,0,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="9"/>
+                                    <TextBlock TextWrapping="Wrap" Text="{Binding owner}" Margin="150,0,0,67" Height="15" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="284"/>
+                                    <TextBlock TextWrapping="Wrap" Text="{Binding date_created}" FontSize="10" Margin="74,3,0,0" HorizontalAlignment="Left" Width="604" Height="14" VerticalAlignment="Top" Grid.Row="1"/>
+                                    <Label Content="Created By:" Height="14" Width="47" HorizontalAlignment="Left" Margin="99,30,0,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="9"/>
                                     <Label Content="Date Published:" Height="14" Width="64" HorizontalAlignment="Left" Margin="5,3,0,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="9" Grid.Row="1"/>
-                                    <hc:Rate Height="25" Width="122" Value="{Binding Rating}" IsReadOnly="True" Margin="734,105,0,0" Background="#FF2D2D30" Foreground="#FFFFDE00" ItemMargin="0,0,0,0" Grid.RowSpan="2" ItemWidth="25"/>
                                     <Button Content="Download And Install"  HorizontalAlignment="Left" Margin="722,15,0,0" VerticalAlignment="Top" Background="#FF2C4C4C" BorderBrush="{x:Null}" Height="53" Width="146" Click="Download_Install" Tag="{Binding download_url}" Padding="0,0,0,0"  />
-
-
                                     <Button Content="Go To Webpage" HorizontalAlignment="Left" Margin="722,73,0,0" Tag ="{Binding Webpage}" VerticalAlignment="Top" Background="#FF2C4C4C" BorderBrush="{x:Null}" Height="22" Width="146" Click="Open_Package_Webpage" Padding="0,0,0,0"/>
-                                    <Label Content="Description-" Height="14" Width="52" HorizontalAlignment="Left" Margin="97,54,0,0" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="9" VerticalAlignment="Top" FontStyle="Normal" FontWeight="Normal"/>
+                                    <Label Content="Description-" Height="14" Width="52" HorizontalAlignment="Left" Margin="98,0,0,0" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="9" FontStyle="Normal" FontWeight="Normal"/>
                                     <Label Content="File Size:" Height="14" Width="39" HorizontalAlignment="Left" Margin="5,19,0,0" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="9" Grid.Row="1" VerticalAlignment="Top"/>
-                                    <TextBlock TextWrapping="Wrap" Text="{Binding File_Size}" FontSize="10" Margin="44,19,0,0" HorizontalAlignment="Left" Width="304" Height="12" VerticalAlignment="Top" Grid.Row="1"/>
+                                    <TextBlock TextWrapping="Wrap" Text="{Binding File_Size}" FontSize="10" Margin="46,19,0,0" HorizontalAlignment="Left" Width="304" Height="14" VerticalAlignment="Top" Grid.Row="1"/>
+                                    <hc:Badge Margin="737,97,97,10" BorderBrush="{x:Null}" Maximum="9000" BadgeMargin="0,0,0,0" Grid.RowSpan="2" Value="{Binding Rating}" Foreground="#FFF9D900" FontSize="11" />
+                                    <Image Margin="738,109,112,10" Source="/Resources/heart.png" RenderTransformOrigin="0.471,0.217" Grid.RowSpan="2"/>
+                                    <hc:Badge Margin="803,97,31,10" BorderBrush="{x:Null}"  Value="{Binding Downloads}" Maximum="9000" BadgeMargin="0,0,0,0" Grid.RowSpan="2"  Foreground="#FF4EFF48" FontSize="11" RenderTransformOrigin="0,0" Text="" />
+                                    <Image Margin="804,109,46,10" Source="/Resources/download_icon.png"  Grid.RowSpan="2"/>
+                                    <Label Content="Tags:" Height="14" Width="23" HorizontalAlignment="Left" Margin="5,97,0,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="9"/>
+                                    <TextBlock TextWrapping="Wrap" Text="{Binding Tag}" FontSize="11" Margin="31,97,0,0" HorizontalAlignment="Left" Width="604" Height="14" VerticalAlignment="Top" FontWeight="Bold" FontStyle="Italic" Foreground="#FFFFF0C6"/>
 
                                 </Grid>
                             </Button>
 
-
-
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
+
+               
+
+
+
+
+
+
                 <Label Content="BROWSE" Height="44" Width="190" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Margin="0,2,0,0"/>
-
-
-
-
             </hc:SimplePanel>
             <hc:LoadingLine x:Name="Load_Line" Margin="57,540,55,0" DotCount="8" DotSpeed="5" Height="6" VerticalAlignment="Top" IsRunning="False"/>
 
