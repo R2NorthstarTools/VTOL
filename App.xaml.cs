@@ -13,5 +13,6 @@ namespace VTOL
     /// </summary>
     public partial class App : Application
     {
+        
     }
 }

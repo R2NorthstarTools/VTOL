@@ -93,7 +93,8 @@ namespace VTOL
             do_not_overwrite_Ns_file_Dedi = Properties.Settings.Default.Ns_Dedi;
             try
             {
-                
+             
+              
                 Animation_Start_Northstar = false;
                 Animation_Start_Vanilla = false;
                 Write_To_Log("", true);
@@ -2077,63 +2078,107 @@ Write_To_Log(ex.StackTrace);
         }
         void Move_List_box_Inactive_To_Active(ListBox Inactive)
         {
-            var selected = Inactive.SelectedValue.ToString();
-
-            if (selected is null)
+            try
             {
+                string selected = null;
+                if (Inactive.Items.Count != 0)
+                {
+
+                    if (Inactive.SelectedValue != null || Inactive.SelectedValue != "")
+                    {
+                        selected = Inactive.SelectedValue.ToString();
+                        int index = Inactive.SelectedIndex;
+                        if (Mod_Directory_List_Active != null && Mod_Directory_List_InActive !=null)
+                        {
+                            Mod_Directory_List_InActive.RemoveAt(index);
+                            Mod_Directory_List_Active.Add(selected);
+                        }
+                        ApplyDataBinding();
+                        //  from.Items.RemoveAt(from.Items.IndexOf(from.SelectedItem));
+                        //  To.Items.Add(selected);
+                        if (index >= Inactive.Items.Count)
+                        {
+                            index--;
+
+                        }
+                        Inactive.SelectedIndex = index;
+                    }
+                    else
+                    {
+                        Inactive.SelectedIndex =0;
+
+                    }
+                }
+                else
+                {
+                    Send_Warning_Notif("Cannot Move a Mod From An emppty List!");
+                    return;
+
+                }
+            }
+            catch(NullReferenceException ex)
+            {
+
+                Write_To_Log(ex.StackTrace);
+                Send_Warning_Notif("You cant move a mod you havent selected!");
                 return;
-
             }
-            else
-            {
-                int index = Inactive.SelectedIndex;
-                if (Mod_Directory_List_Active != null && Mod_Directory_List_InActive !=null)
-                {
-                    Mod_Directory_List_InActive.RemoveAt(index);
-                    Mod_Directory_List_Active.Add(selected);
-                }
-                ApplyDataBinding();
-                //  from.Items.RemoveAt(from.Items.IndexOf(from.SelectedItem));
-                //  To.Items.Add(selected);
-                if (index >= Inactive.Items.Count)
-                {
-                    index--;
 
-                }
-                Inactive.SelectedIndex = index;
-            }
+
 
 
 
         }
         void Move_List_box_Active_To_Inactive(ListBox Active)
         {
-            var selected = Active.SelectedValue.ToString();
-
-            if (selected is null)
+            try
             {
+                string selected = null;
+
+
+                if (Active.Items.Count != 0)
+                {
+
+                    if (Active.SelectedValue != null || Active.SelectedValue != "")
+                    {
+                        selected = Active.SelectedValue.ToString();
+
+                        int index = Active.SelectedIndex;
+                        if (Mod_Directory_List_Active != null && Mod_Directory_List_InActive !=null)
+                        {
+                            Mod_Directory_List_Active.RemoveAt(index);
+                            Mod_Directory_List_InActive.Add(selected);
+                        }
+                        ApplyDataBinding();
+                        //  from.Items.RemoveAt(from.Items.IndexOf(from.SelectedItem));
+                        //  To.Items.Add(selected);
+                        if (index >= Active.Items.Count)
+                        {
+                            index--;
+
+                        }
+                        Active.SelectedIndex = index;
+                    }
+                    else
+                    {
+                        Active.SelectedIndex =0;
+
+                    }
+                }
+                else
+                {
+                    Send_Warning_Notif("Cannot Move a Mod From An emppty List!");
+                    return;
+
+                }
+            }
+            catch (NullReferenceException ex)
+            {
+
+                Write_To_Log(ex.StackTrace);
+                Send_Warning_Notif("You cant move a mod you havent selected!");
                 return;
-
             }
-            else
-            {
-                int index = Active.SelectedIndex;
-                if (Mod_Directory_List_Active != null && Mod_Directory_List_InActive !=null)
-                {
-                    Mod_Directory_List_Active.RemoveAt(index);
-                    Mod_Directory_List_InActive.Add(selected);
-                }
-                ApplyDataBinding();
-                //  from.Items.RemoveAt(from.Items.IndexOf(from.SelectedItem));
-                //  To.Items.Add(selected);
-                if (index >= Active.Items.Count)
-                {
-                    index--;
-
-                }
-                Active.SelectedIndex = index;
-            }
-
 
 
         }
@@ -2420,7 +2465,10 @@ Write_To_Log(ex.StackTrace);
 
         private void Check_Btn_Click(object sender, RoutedEventArgs e)
         {
-            Auto_Install_And_verify();
+
+
+        
+             Auto_Install_And_verify();
 
         }
 
@@ -2975,6 +3023,10 @@ Write_To_Log(ex.StackTrace);
 
         private void Enable_Mod_Click(object sender, RoutedEventArgs e)
         {
+            if(Enabled_ListBox.SelectedIndex == 0)
+            {
+                Send_Fatal_Notif("No");
+            }
             Move_List_box_Inactive_To_Active(Dsiabled_ListBox);
 
         }

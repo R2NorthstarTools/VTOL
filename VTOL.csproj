@@ -10,6 +10,7 @@
     <AssemblyVersion>1.2.0</AssemblyVersion>
     <FileVersion>1.2.0</FileVersion>
     <ApplicationManifest>app.manifest</ApplicationManifest>
+    <PackageTags>Mod_Manager;Installer;VTOL</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>

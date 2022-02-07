@@ -98,7 +98,7 @@
 
 
 
-        <hc:SimplePanel x:Name="Mod_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="2" Grid.RowSpan="2">
+        <hc:SimplePanel x:Name="Mod_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Visible" Margin="190,0,0,2" Grid.ColumnSpan="2" Grid.RowSpan="2">
 
             <hc:SimplePanel Margin="30,209,30,10" Background="#FF101010">
                 <ListBox x:Name="Dsiabled_ListBox"  Margin="30,60,0,60" BorderBrush="#FF545454" Width="371" HorizontalAlignment="Left" Background="#FF333333"/>
