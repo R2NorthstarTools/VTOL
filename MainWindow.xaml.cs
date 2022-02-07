@@ -1363,10 +1363,19 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
                                         if ((Destinfo.Parent.FullName +@"\"+ diArr[0].Name).Contains("keyvalues") || (Destinfo.Parent.FullName +@"\"+ diArr[0].Name).Contains("vpk")||(Destinfo.Parent.FullName +@"\"+ diArr[0].Name).Contains("materials")||(Destinfo.Parent.FullName +@"\"+ diArr[0].Name).Contains("resource")||(Destinfo.Parent.FullName +@"\"+ diArr[0].Name).Contains("scripts"))
                                         {
                                             Send_Error_Notif("Mod has been Detected as incompatible!, The mod creator must be contacted to remedy this issue!");
-
+                                            Send_Warning_Notif("If the mod is enabled please disable it immediately!");
+                                            if (Directory.Exists(Current_Install_Folder+@"\NS_Downloaded_Mods"))
+                                            {
+                                                Directory.Delete(Current_Install_Folder+@"\NS_Downloaded_Mods", true);
+                                            }
                                             return;
                                         }
-                                        CopyFilesRecursively(firstFolder, Destinfo.Parent.FullName +@"\"+ diArr[0].Name);
+                                        else
+                                        {
+                                            CopyFilesRecursively(firstFolder, Destinfo.Parent.FullName +@"\"+ diArr[0].Name);
+
+
+                                        }
                                     }
                                     if (Directory.Exists(Destinfo.Parent.FullName +@"\"+ diArr[0].Name+@"\"+"Locked_Folder"))
                                     {
@@ -1381,6 +1390,8 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
                                 {
 
                                     Send_Error_Notif("Mod has been Detected as incompatible!, The mod creator must be contacted to remedy this issue!");
+                                    Send_Warning_Notif("If the mod is enabled please disable it immediately!");
+
                                     return;
                                 }
                                 else
@@ -1389,7 +1400,10 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
                                     Send_Success_Notif("Installed - " + LAST_INSTALLED_MOD);
 
                                 }
-
+                                if (Directory.Exists(Current_Install_Folder+@"\NS_Downloaded_Mods"))
+                                {
+                                    Directory.Delete(Current_Install_Folder+@"\NS_Downloaded_Mods", true);
+                                }
 
                             }
                             catch (IOException ioExp)
@@ -1851,8 +1865,14 @@ Write_To_Log(ex.StackTrace);
 
                                 System.IO.DirectoryInfo[] subDirs = null;
                                 subDirs = rootDirs.GetDirectories();
+                               
                                 foreach (System.IO.DirectoryInfo dirInfo in subDirs)
                                 {
+                                    if (IsDirectoryEmpty(dirInfo))
+                                    {
+                                        Send_Info_Notif("No inactive Mods Found");
+
+                                    }
                                     if (Template_traverse(dirInfo, "Locked_Folder") == true)
                                     {
 
