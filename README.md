@@ -77,7 +77,7 @@ _Installations will automatically be updated if an outdated version is detected,
 
 _As of 1.1.7 the Thunderstore integration is complete.<br />
 <br />
-![image](https://user-images.githubusercontent.com/23240514/152448143-e43e5960-a164-429c-9927-823835fa62ce.png)
+![image](https://user-images.githubusercontent.com/23240514/152892120-b94042eb-06bb-47e2-8d8f-9fc2aecc45ac.png)
 <br />
 
 Please click refresh to load the page and populate it with mods.
