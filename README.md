@@ -27,7 +27,7 @@ Features:
 <br />
 • Booting up a dedicated server for the [Northstar Client](https://northstar.tf)
 <br />
-• Install Mods from The Northstar Collection on the [Thunderstore](https://northstar.tf) Platform.
+• Install Mods from The Northstar Collection on the [Thunderstore](https://northstar.thunderstore.io) Platform.
 <br />
 • Boot Northstar
 <br /><br /><br />
