@@ -1077,7 +1077,7 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
             }
             return lines;
         }
-        public static async Task saveAsyncFile(string Text, string Filename, bool ForceTxt = true, bool append = true)
+        public async Task saveAsyncFile(string Text, string Filename, bool ForceTxt = true, bool append = true)
         {
             if (ForceTxt == true)
             {
@@ -3407,6 +3407,63 @@ Write_To_Log(ex.StackTrace);
 
             }
 
-       
+        private void OnKeyDownHandler_Dedi_Arg(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (e.Key == Key.Return)
+                {
+                    if (File.Exists(Current_Install_Folder+@"\ns_startup_args_dedi.txt"))
+                    {
+                        saveAsyncFile(Arg_Box_Dedi.Text, Current_Install_Folder+@"\ns_startup_args_dedi.txt", false, false);
+
+                        Send_Success_Notif("Saved to - ns_startup_args_dedi.txt");
+                    }
+                    else
+                    {
+                        Send_Fatal_Notif("\nIssue with Auto Saving the File, Please Check Logs");
+
+                        Write_To_Log("File Location Not Found!");
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                Send_Fatal_Notif("\nIssue with Auto Saving the File, Please Check Logs");
+                Write_To_Log(ex.Message);
+            }
+        }
+
+        private void OnKeyDownHandler_Nrml_Arg(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (e.Key == Key.Return)
+                {
+
+                    if (File.Exists(Current_Install_Folder+@"\ns_startup_args.txt"))
+                    {
+                        saveAsyncFile(Arg_Box.Text, Current_Install_Folder+@"\ns_startup_args.txt", false, false);
+                        Send_Success_Notif("Saved to - ns_startup_args.txt");
+
+
+                    }
+                    else
+                    {
+                        Send_Fatal_Notif("\nIssue with Auto Saving the File, Please Check Logs");
+                        Write_To_Log("File Location Not Found!");
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                Send_Fatal_Notif("\nIssue with Auto Saving the File, Please Check Logs");
+                Write_To_Log(ex.Message);
+            }
+        }
     }
 }
