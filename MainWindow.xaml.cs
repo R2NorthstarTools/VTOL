@@ -3406,5 +3406,7 @@ Write_To_Log(ex.StackTrace);
             }// CollectionViewSource.GetDefaultView(Test_List.ItemsSource).Refresh();
 
             }
+
+       
     }
 }

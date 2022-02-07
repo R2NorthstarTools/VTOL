@@ -129,7 +129,7 @@
 
 
 
-        <hc:SimplePanel x:Name="Mod_Browse_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Visible" Margin="190,0,0,2" Grid.ColumnSpan="2" Grid.RowSpan="2">
+        <hc:SimplePanel x:Name="Mod_Browse_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="2" Grid.RowSpan="2">
 
             <hc:SimplePanel Margin="10,10,10,10" Background="#FF101010">
 
@@ -239,9 +239,9 @@
 
         <hc:SimplePanel x:Name="Dedicated_Server_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="2" Grid.RowSpan="2" ScrollViewer.VerticalScrollBarVisibility="Disabled">
             <Button x:Name="Launch_Northstar_Advanced" Content="Launch Northstar Advanced" Height="40" Width="392" Margin="0,207,0,0" VerticalAlignment="Top" Click="Launch_Northstar_Advanced_Click" BorderBrush="White" Background="#FF085F36"/>
-            <hc:TextBox x:Name="Arg_Box" HorizontalAlignment="Center" Height="38" TextWrapping="Wrap" VerticalAlignment="Top" Width="392" Margin="0,164,0,0" IsReadOnly="True"/>
+            <hc:TextBox x:Name="Arg_Box" HorizontalAlignment="Center" Height="38" TextWrapping="Wrap" VerticalAlignment="Top" Width="392" Margin="0,164,0,0"/>
             <Button x:Name="Dedicated_Btn" Content="Launch Dedicated Northstar Client" Height="40" Width="392" Margin="0,377,0,0" VerticalAlignment="Top" Click="Dedicated_Btn_Click" BorderBrush="White" Background="#FF282C50"/>
-            <hc:TextBox x:Name="Arg_Box_Dedi" HorizontalAlignment="Center" Height="38" TextWrapping="Wrap" VerticalAlignment="Top" Width="392" Margin="0,334,0,0" IsReadOnly="True"/>
+            <hc:TextBox x:Name="Arg_Box_Dedi" HorizontalAlignment="Center" Height="38" TextWrapping="Wrap" VerticalAlignment="Top" Width="392" Margin="0,334,0,0" />
             <CheckBox x:Name="Ns_Args_Dedi" Content="DO NOT Overwrite &quot;ns startup args dedi.txt&quot;" HorizontalAlignment="Center" Height="30" Width="274" Margin="0,490,0,0" VerticalAlignment="Top" Checked="Ns_Args_Dedi_Checked" Unchecked="Ns_Args_Dedi_Unchecked"/>
             <CheckBox x:Name="Ns_Args" Content="DO NOT Overwrite &quot;ns startup args.txt&quot;" HorizontalAlignment="Center" Height="30" Width="254" Margin="0,455,0,0" VerticalAlignment="Top" Unchecked="Ns_Args_Unchecked" Checked="Ns_Args_Checked"/>
             <Label Content="Startup Arguments Northstar Dedicated Client" Height="35" Width="350" BorderBrush="{x:Null}" Background="{x:Null}"/>
