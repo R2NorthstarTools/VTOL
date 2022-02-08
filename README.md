@@ -75,7 +75,7 @@ _Installations will automatically be updated if an outdated version is detected,
 
 _The [Thunderstore](https://northstar.thunderstore.io) integration has been released in v1.1.7_<br />
 <br />
-![image](https://user-images.githubusercontent.com/23240514/152448143-e43e5960-a164-429c-9927-823835fa62ce.png)
+![image](https://user-images.githubusercontent.com/23240514/153077819-5cd04c1c-f280-453e-9d07-ecc08e8934e1.png)
 <br />
 
 Click "Refresh" to update the list of mods featured on Thunderstore.
