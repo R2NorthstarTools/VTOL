@@ -6,7 +6,6 @@ Total Users using the latest release
 <br /><br />
 ![VTOL_Showcase_Trim](https://user-images.githubusercontent.com/23240514/152448826-0a92b6d8-3cce-4107-911c-0a1480ad8a8e.gif)<br /><br /><br />
 
-
 Features:
 <br />
 • Updating [Northstar](https://northstar.tf) installations.
@@ -27,7 +26,7 @@ Features:
 <br />
 • Booting up a dedicated server for the [Northstar Client](https://northstar.tf)
 <br />
-• Install Mods from The Northstar Collection on the [Thunderstore](https://northstar.tf) Platform.
+• Install mods featured in the [Thunderstore](https://northstar.thunderstore.io) collection.
 <br />
 • Boot Northstar
 <br /><br /><br />
@@ -38,7 +37,6 @@ WIP Features:
 <br />
 • Manage dedicated [Northstar](https://northstar.tf) servers.
 <br /><br />
-
 
 _Suggestions/bug reports are highly appreciated. Please create a new [issue](https://github.com/BigSpice/VTOL/issues/new] and fill out the fields._
 <br />
@@ -73,32 +71,21 @@ Once the application successful downloaded and installed:
 _Installations will automatically be updated if an outdated version is detected, repairing will be done if the version is the same._
 <br /><br /><br /><br />
 
-<h1> MOD BROWSE </h1>
+<h1> MOD BROWSER </h1>
 
-_As of 1.1.7 the Thunderstore integration is complete.<br />
+_The [Thunderstore](https://northstar.thunderstore.io) integration has been released in v1.1.7_<br />
 <br />
-![image](https://user-images.githubusercontent.com/23240514/152448143-e43e5960-a164-429c-9927-823835fa62ce.png)
+![image](https://user-images.githubusercontent.com/23240514/153077819-5cd04c1c-f280-453e-9d07-ecc08e8934e1.png)
 <br />
 
-Please click refresh to load the page and populate it with mods.
+Click "Refresh" to update the list of mods featured on Thunderstore.
 <br />
 <br />
 ![image](https://user-images.githubusercontent.com/23240514/152448128-cdc1fa9e-df7b-4022-8247-48b355e53d65.png)
-
+<br />
+If you wish to, you can also navigate to the mod's thunderstore site to download the mod manually.
 <br />
 <br />
-
-**TO INSTALL MODS PLEASE CLICK DONWLOAD AND INSTALL**<br />
-<br />
-![image](https://user-images.githubusercontent.com/23240514/152448071-c161a2b2-7e08-4c77-b695-54164d87885c.png)
-
-<br />
-<br />
-
-You can also click go to webpage to download the mod manually in the event of any errors.
-<br />
-<br />
-
 ![image](https://user-images.githubusercontent.com/23240514/152448103-037443e3-8ffc-47e0-9ea2-1926a1e06457.png)
 
 <br />
@@ -110,11 +97,6 @@ You can also click go to webpage to download the mod manually in the event of an
 You can see a detailed list of your installed mods by navigating to the "mods" section inside the application.
 <br /><br />
 ![image](https://user-images.githubusercontent.com/23240514/152446534-9109f141-c98c-4046-b023-7451b4796d3e.png)<br /><br />
-
-<br /><br />
-
-Please Donwload The MOD to install it as a local zip.
-<br /><br />
 **If you have a .zip file of the mod you want to install, you simply need to browse to the .zip file and select it. It'll be installed in the same way.**
 <br /><br />
 If you want to enable, or disable mods, simply click the specific mod's name in the list, and press the corresponding arrow button.
