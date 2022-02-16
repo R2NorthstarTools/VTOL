@@ -27,6 +27,8 @@ using Microsoft.Win32;
 using System.Collections;
 using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
+using System.Windows.Media.Animation;
+using Utils.Extensions;
 //****TODO*****//
 
 //Migrate Release Parse to the New Updater Sys
@@ -67,7 +69,7 @@ namespace VTOL
         ArrayList Mirror_Item_List = new ArrayList();
         private ICollectionView phrasesView;
         private string filter;
-        public ObservableCollection<string> Phrases { get; private set; }
+        public IEnumerable<string> Phrases { get; private set; }
         public List<string> Game_Modes_List = new List<string>();
 
         bool advanced_Mode = false;
@@ -96,10 +98,14 @@ namespace VTOL
             try
             {
 
+                Phrases = new ObservableCollection<string>();
 
-
-
-
+                //BG_panel_Main.BlurApply(40, new TimeSpan(0, 0, 1), TimeSpan.Zero);
+                Phrases.Append("gg");
+                Phrases.Append("private_match");
+                Phrases.Append("at");
+                Phrases.Append("cl");
+                DataContext = this;
                 Animation_Start_Northstar = false;
                 Animation_Start_Vanilla = false;
                 Write_To_Log("", true);
@@ -114,6 +120,7 @@ namespace VTOL
                 Dedicated_Server_Panel.Visibility = Visibility.Hidden;
                 Log_Panel.Visibility = Visibility.Hidden;
                 Updates_Panel.Visibility = Visibility.Hidden;
+                Drag_Drop_Overlay.Visibility = Visibility.Hidden;
                 Select_Main();
                 string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
                 Install_Skin_Bttn.IsEnabled = false;
@@ -2524,6 +2531,10 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
 
         private void Titanfall_2_Btn_MouseEnter(object sender, MouseEventArgs e)
         {
+
+           //Button Bt = (Button)sender;
+           // DoubleAnimation Anim = new DoubleAnimation(0, TimeSpan.FromSeconds(2));
+
             Banner_Image.Visibility = Visibility.Hidden;
 
             Gif_Image_Northstar.Visibility = Visibility.Hidden;
@@ -3718,7 +3729,6 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
         }
                 void Save_On_Focus_(object sender, KeyEventArgs e)
         {
-            HandyControl.Controls.Dialog.Show(new Junk_Test_Page(), "DialogContainer");
 
             try
             {
@@ -3902,5 +3912,79 @@ return Arg_List;
 }
 
         
+
+        private void Dsiabled_ListBox_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Send_Error_Notif("right click");
+
+        }
+
+        private void Mod_Panel_Drop(object sender, DragEventArgs e)
+        {
+
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                // Note that you can have more than one file.
+                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+
+                // Assuming you have one file that you care about, pass it off to whatever
+                // handling code you have defined.
+                try
+                {
+
+                    foreach (string file in files)
+                    {
+                        string path = file;
+                        if (path == null || !File.Exists(file))
+                        {
+                           
+                            Send_Error_Notif("\nInvalid Mod Zip Location chosen");
+
+
+                        }
+                        else
+                        {
+                            string FolderName = path.Split(Path.DirectorySeparatorChar).Last();
+                            Browse_For_MOD.Text = path;
+                            Console.WriteLine(path);
+                            Console.WriteLine("The Folder Name is-" + FolderName + "\n\n");
+                            Send_Success_Notif("Recieved - " + file);
+
+                           Unpack_To_Location_Custom(path, Current_Install_Folder + @"\R2Northstar\mods");
+                            Call_Mods_From_Folder();
+
+                            ApplyDataBinding();
+                        }
+                    }
+                    
+                }
+                catch (Exception ex)
+                {
+
+                    Send_Error_Notif("\nIssue with File path, please Rebrowse.");
+                    Write_To_Log(ex.Message);
+                }
+            }
+            Drag_Drop_Overlay.Visibility = Visibility.Hidden;
+
+        }
+
+        private void Mod_Panel_DragOver(object sender, DragEventArgs e)
+        {
+
+        }
+
+        private void Mod_Panel_DragLeave(object sender, DragEventArgs e)
+        {
+            Send_Success_Notif("leave");
+            Drag_Drop_Overlay.Visibility = Visibility.Hidden;
+
+        }
+
+        private void Mod_Panel_DragEnter(object sender, DragEventArgs e)
+        {
+            Send_Success_Notif("Enter");
+            Drag_Drop_Overlay.Visibility = Visibility.Visible;
+        }
     }
 }

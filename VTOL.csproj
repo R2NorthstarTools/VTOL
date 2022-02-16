@@ -25,6 +25,8 @@
     <None Remove="Banner_normal.jpg" />
     <None Remove="Resources\Banner_normal.jpg" />
     <None Remove="Resources\bestboy.png" />
+    <None Remove="Resources\BG.jpg" />
+    <None Remove="Resources\BG_Drag_Drop.gif" />
     <None Remove="Resources\BG_Panels.png" />
     <None Remove="Resources\Disable_Img.png" />
     <None Remove="Resources\download_icon.png" />
@@ -73,6 +75,12 @@
     <Resource Include="Resources\bestboy.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\BG.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\BG_Drag_Drop.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\BG_Panels.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -115,6 +123,12 @@
     <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="1.0.0-beta0005" />
     <PackageReference Include="WpfAnimatedGif" Version="2.0.2" />
     <PackageReference Include="XamlAnimatedGif" Version="2.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Utils">
+      <HintPath>Utils.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>

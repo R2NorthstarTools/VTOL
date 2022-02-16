@@ -4,7 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:gif="https://github.com/XamlAnimatedGif/XamlAnimatedGif"
-
         xmlns:hc="https://handyorg.github.io/handycontrol"
         xmlns:local="clr-namespace:VTOL"
         xmlns:gif1="http://wpfanimatedgif.codeplex.com"
@@ -12,7 +11,7 @@
         x:Class="VTOL.MainWindow"
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
-        Title="VTOL" Height="750" Width="1200" UseLayoutRounding="True" ResizeMode="CanMinimize" Icon="/Resources/ICON_64.png" Background="#FF1D2021" WindowStyle="SingleBorderWindow">
+        Title="VTOL" Height="750" Width="1200" UseLayoutRounding="True" ResizeMode="CanMinimize" Icon="/Resources/ICON_64.png" Background="Black" WindowStyle="SingleBorderWindow">
     <Window.Style>
         <Style/>
 
@@ -25,7 +24,7 @@
             <ImageBrush x:Key="Disable_Button" ImageSource="/Resources/Disable_Img.png" Stretch="UniformToFill"/>
             <ImageBrush x:Key="Search_ICON" ImageSource="/Resources/Search_Icon.png" Stretch="Uniform"/>
             <ImageBrush x:Key="NO_Texture" ImageSource="/Resources/NO_TEXTURE.png" Stretch="UniformToFill"/>
-            <ImageBrush x:Key="BG_PANELS" ImageSource="/Resources/Panel_Var_2.png" Stretch="UniformToFill"/>
+            <ImageBrush x:Key="BG_PANELS" ImageSource="/Resources/BG.jpg" Stretch="UniformToFill"/>
 
         </Grid.Resources>
 
@@ -45,7 +44,8 @@
 
         <hc:SimplePanel x:Name="Main_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Visible" Margin="190,0,0,2" Grid.ColumnSpan="2" Grid.RowSpan="2" >
 
-            <hc:SimplePanel Margin="38,50,37,238" Background="#FF101010"  hc:BorderElement.CornerRadius="15">
+            <hc:SimplePanel x:Name="BG_panel_Main" Margin="38,50,37,238" Background="#FF101010"  hc:BorderElement.CornerRadius="15">
+                
                 <hc:Badge x:Name="Badge" Value="2" Text="New" Margin="60,227,60,9" Background="#FFFF0C0C" BorderBrush="White"  />
                 <Button x:Name="Install_NS" Content="Update/Repair +NorthStar" Height="50" Margin="60,242,60,0" VerticalAlignment="Top" BorderBrush="White" Background="#FF2C4C4C" Click="Install_NS_Click" HorizontalAlignment="Stretch"/>
 
@@ -85,8 +85,10 @@
             </hc:GifImage>
             <Label Content="MAIN" Height="44" Width="190" Margin="0,6,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi"/>
         </hc:SimplePanel>
-        <hc:SimplePanel Background="#FF1D2021" HorizontalAlignment="Left" Width="1010" Grid.Column="1" VerticalAlignment="Top" ScrollViewer.CanContentScroll="True" Grid.IsSharedSizeScope="True" ClipToBounds="True" Height="104" Grid.Row="1" Margin="0,212,0,0" Grid.RowSpan="2">
-            <Button x:Name="Titanfall_2_Btn" Content="Launch Vanilla Titanfall 2" Height="54" Width="430" Background="#FF2C4C4C" BorderThickness="1,1,1,1" BorderBrush="{x:Null}" HorizontalAlignment="Left" Margin="35,0,0,0" MouseEnter="Titanfall_2_Btn_MouseEnter" Click="Titanfall_2_Btn_Click" />
+        <hc:SimplePanel Background="Black" HorizontalAlignment="Left" Width="1010" Grid.Column="1" VerticalAlignment="Top" ScrollViewer.CanContentScroll="True" Grid.IsSharedSizeScope="True" ClipToBounds="True" Height="104" Grid.Row="1" Margin="0,212,0,0" Grid.RowSpan="2">
+            <Button x:Name="Titanfall_2_Btn" Content="Launch Vanilla Titanfall 2" Height="54" Width="430" Background="#FF2C4C4C" BorderThickness="1,1,1,1" BorderBrush="{x:Null}" HorizontalAlignment="Left" Margin="35,0,0,0" MouseEnter="Titanfall_2_Btn_MouseEnter" Click="Titanfall_2_Btn_Click" >
+
+            </Button>
             <Button x:Name="Northstar_Btn" Content="Launch +NorthStar" Height="54" Background="#FF2C4C4C" BorderThickness="1,1,1,1" BorderBrush="#FF02FFB4" HorizontalAlignment="Stretch" Margin="524,0,35,0" MouseEnter="Northstar_Btn_MouseEnter" Click="Northstar_Btn_Click" Width="430"  />
         </hc:SimplePanel>
 
@@ -98,10 +100,10 @@
 
 
 
-        <hc:SimplePanel x:Name="Mod_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="2" Grid.RowSpan="2">
+        <hc:SimplePanel x:Name="Mod_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Visible" Margin="190,0,0,2" Grid.ColumnSpan="2" Grid.RowSpan="2" AllowDrop="True" Drop="Mod_Panel_Drop" DragOver="Mod_Panel_DragOver" DragLeave="Mod_Panel_DragLeave" DragEnter="Mod_Panel_DragEnter">
 
             <hc:SimplePanel Margin="30,209,30,10" Background="#FF101010">
-                <ListBox x:Name="Dsiabled_ListBox"  Margin="30,60,0,60" BorderBrush="#FF545454" Width="371" HorizontalAlignment="Left" Background="#FF333333"/>
+                <ListBox x:Name="Dsiabled_ListBox"  Margin="30,60,0,60" BorderBrush="#FF545454" Width="371" HorizontalAlignment="Left" Background="#FF333333" PreviewMouseRightButtonDown="Dsiabled_ListBox_PreviewMouseRightButtonDown"/>
                 <ListBox x:Name="Enabled_ListBox"  Margin="550,60,30,60" BorderBrush="#FF545454" Background="#FF333333"/>
                 <Button x:Name="Enable_Mod" Content="" Height="51" Width="56" Margin="0,110,0,0" VerticalAlignment="Top" Background="{StaticResource Enable_Button}" BorderBrush="{x:Null}" Click="Enable_Mod_Click"/>
                 <Button x:Name="Disable_Mod" Content="" Height="51" Width="56" Margin="0,212,0,0" VerticalAlignment="Top" Background="{StaticResource Disable_Button}" BorderBrush="{x:Null}" Click="Disable_Mod_Click"/>
@@ -120,7 +122,11 @@
             <Label Content="MODS" Height="44" Width="190" Margin="0,10,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Visibility="Hidden"/>
             <Label Content="Disabled" Height="44" Width="190" HorizontalAlignment="Left" Margin="148,224,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="14" FontWeight="Normal" FontFamily="Gadugi"/>
             <Label Content="Enabled" Height="44" Width="190" HorizontalAlignment="Left" Margin="664,224,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="14" FontWeight="Normal" FontFamily="Gadugi"/>
-
+            <hc:GifImage x:Name="Drag_Drop_Overlay" Opacity="0.95" Visibility="Hidden" >
+                <hc:GifImage.Source>
+                    <BitmapImage x:Name="Drag_Drop" UriSource="\Resources\BG_Drag_Drop.gif"/>
+                </hc:GifImage.Source>
+            </hc:GifImage>
         </hc:SimplePanel>
 
 
@@ -246,24 +252,21 @@
             <Label Content="This Section Allows For Some More advanced Settings to be Used." Height="35" Width="392" Margin="0,37,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="14" FontStyle="Normal" FontWeight="Thin" Padding="0,0,0,0"/>
         </Grid>
 
-        <hc:SimplePanel x:Name="Dedicated_Server_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Visible" Margin="190,0,0,2" Grid.ColumnSpan="2" Grid.RowSpan="2" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+        <hc:SimplePanel x:Name="Dedicated_Server_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="2" Grid.RowSpan="2" ScrollViewer.VerticalScrollBarVisibility="Disabled">
             <hc:ScrollViewer Margin="10,10,10,10" PanningMode="VerticalOnly">
                 <hc:SimpleStackPanel Margin="10,10,10,10" Height="1066" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Cursor="">
-                    <UserControl hc:Dialog.Token="DialogContainer">
-                        <hc:DialogContainer>
-                        </hc:DialogContainer>
-                    </UserControl>
+                    <hc:CheckComboBox MaxWidth="380" ItemsSource="{Binding Phrases}" Width="380" hc:InfoElement.TitleWidth="140" hc:InfoElement.TitlePlacement="Left" hc:InfoElement.Placeholder="PlsEnterContent" hc:InfoElement.Title="TitleDemoStr3"  hc:InfoElement.Necessary="True" Margin="0,16,0,0"/>
                     <Label Height="58" Width="329" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,89,0,0" Content="Startup Arguments" FontSize="36" FontFamily="Bahnschrift SemiLight" Background="{x:Null}" BorderBrush="{x:Null}" />
-                    <ListBox x:Name="Startup_Arguments_UI_List" Margin="0,0,0,-386" Background="#FF1C1C1C">
-                        
-                        
+                    <ListBox x:Name="Startup_Arguments_UI_List" Margin="0,0,0,-386" Background="#FF101010" BorderBrush="{x:Null}">
+
+
                         <ListBox.ItemTemplate>
                             <DataTemplate>
- <Grid Width="970" Background="{x:Null}" HorizontalAlignment="Center" Margin="0,0,0,3" Height="58">
-                        <Label HorizontalAlignment="Stretch" Height="38" Margin="30,0,505,0" Background="#FF004439" Foreground="White" Content="{Binding Name}" FontSize="16" ToolTip="{Binding Description}" BorderBrush="White"/>
-                                    <TextBox Margin="505,0,30,0" VerticalAlignment="Center" Height="38" Text ="{Binding Default}"   CaretBrush="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="#FF00EDBD" SelectionTextBrush="#FF847300"    Foreground="White" ToolTip="{Binding Type}" Tag="{Binding Tag}" Background="#FF4C4C4C" PreviewTextInput="ValidationTextBox" FontSize="16" RenderTransformOrigin="0,0" LostFocus="validate" KeyUp="Save_On_Focus_"   />
+                                <Grid Width="970" Background="{x:Null}" HorizontalAlignment="Center" Margin="0,0,0,3" Height="58">
+                                    <Label HorizontalAlignment="Stretch" Height="38" Margin="30,0,505,0" Background="#FF004439" Foreground="White" Content="{Binding Name}" FontSize="16" ToolTip="{Binding Description}" BorderBrush="{x:Null}"/>
+                                    <TextBox Margin="505,0,30,0" VerticalAlignment="Center" Height="38" Text ="{Binding Default}"   CaretBrush="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="#FF00EDBD" SelectionTextBrush="#FF847300"    Foreground="White" ToolTip="{Binding Type}" Tag="{Binding Tag}" Background="#FF4C4C4C" PreviewTextInput="ValidationTextBox" FontSize="16" RenderTransformOrigin="0,0" LostFocus="validate" KeyUp="Save_On_Focus_"   Style="{StaticResource TextBoxExtend}" />
 
-                    </Grid>
+                                </Grid>
                             </DataTemplate>
 
                         </ListBox.ItemTemplate>
@@ -301,11 +304,12 @@
 
         <hc:SimplePanel x:Name="Updates_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="2" Grid.RowSpan="2">
 
-            <Label Content="UPDATES" Width="190" Margin="0,10,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Height="44" Padding="10,3,10,3"/>
-            <hc:SimplePanel Margin="175,59,175,39" Background="#FF101010">
+            <Label Content="UPDATES" Width="190" Margin="0,32,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Height="44" Padding="10,3,10,3"/>
+            <hc:SimplePanel Margin="175,59,175,39">
+
                 <Image Height="380" VerticalAlignment="Top" Margin="140,25,0,0" Source="/Resources/bestboy.png" HorizontalAlignment="Left" Width="380"/>
-                <Button x:Name="Check_For_Updates" Content="Check For Updates" Height="62" HorizontalAlignment="Left" Margin="23,428,0,0" VerticalAlignment="Top" Background="#FF2C4C4C" BorderBrush="{x:Null}" Click="Check_For_Updates_Click" Width="275"/>
-                <Button x:Name="Config_Updates" Content="Configure Updates" Height="62" HorizontalAlignment="Stretch" Margin="362,428,23,0" VerticalAlignment="Top" Background="#FF2C4C4C" BorderBrush="{x:Null}" Click="Config_Updates_Click"/>
+                <Button x:Name="Check_For_Updates" Content="Check For Updates" Height="47" HorizontalAlignment="Stretch" Margin="140,428,350,0" VerticalAlignment="Top" Background="#FF2C4C4C" BorderBrush="{x:Null}" Click="Check_For_Updates_Click" FontSize="14"/>
+                <Button x:Name="Config_Updates" Content="Configure Updates" Height="47" HorizontalAlignment="Stretch" Margin="350,428,140,0" VerticalAlignment="Top" Background="#FF2C4C4C" BorderBrush="{x:Null}" Click="Config_Updates_Click" FontSize="14"/>
 
             </hc:SimplePanel>
         </hc:SimplePanel>
