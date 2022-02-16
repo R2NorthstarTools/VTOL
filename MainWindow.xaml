@@ -132,8 +132,7 @@
         <hc:SimplePanel x:Name="Mod_Browse_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="2" Grid.RowSpan="2">
 
             <hc:SimplePanel Margin="10,10,10,10" Background="#FF101010">
-
-                <ListBox SelectedItem="{Binding Selected_Item}" x:Name="Test_List" Margin="44,50,44,0" SelectionChanged="Test_List_SelectionChanged" RequestBringIntoView="Test_List_RequestBringIntoView" Height="475" VerticalAlignment="Top" ScrollViewer.CanContentScroll="False">
+                <ListBox SelectedItem="{Binding Selected_Item}" x:Name="Test_List" Margin="44,50,44,0" SelectionChanged="Test_List_SelectionChanged" RequestBringIntoView="Test_List_RequestBringIntoView" Height="475" VerticalAlignment="Top" ScrollViewer.CanContentScroll="False" Visibility="Visible">
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
                             <Style.Triggers>
@@ -182,7 +181,6 @@
                     </ListBox.ItemTemplate>
                 </ListBox>
 
-               
 
 
 
@@ -236,8 +234,7 @@
 
 
 
-
-        <hc:SimplePanel x:Name="Dedicated_Server_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="2" Grid.RowSpan="2" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+        <Grid Visibility="Visible">
             <Button x:Name="Launch_Northstar_Advanced" Content="Launch Northstar Advanced" Height="40" Width="392" Margin="0,207,0,0" VerticalAlignment="Top" Click="Launch_Northstar_Advanced_Click" BorderBrush="White" Background="#FF085F36" />
             <hc:TextBox x:Name="Arg_Box" HorizontalAlignment="Center" Height="38" TextWrapping="Wrap" VerticalAlignment="Top" Width="392" Margin="0,164,0,0" KeyDown="OnKeyDownHandler_Nrml_Arg"/>
             <Button x:Name="Dedicated_Btn" Content="Launch Dedicated Northstar Client" Height="40" Width="392" Margin="0,377,0,0" VerticalAlignment="Top" Click="Dedicated_Btn_Click" BorderBrush="White" Background="#FF282C50" />
@@ -246,7 +243,41 @@
             <CheckBox x:Name="Ns_Args" Content="DO NOT Overwrite &quot;ns startup args.txt&quot;" HorizontalAlignment="Center" Height="30" Width="254" Margin="0,455,0,0" VerticalAlignment="Top" Unchecked="Ns_Args_Unchecked" Checked="Ns_Args_Checked"/>
             <Label Content="Startup Arguments Northstar Dedicated Client" Height="35" Width="350" BorderBrush="{x:Null}" Background="{x:Null}"/>
             <Label Content="Startup Arguments Northstar Client" Height="35" Width="350" Margin="0,124,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Background="{x:Null}"/>
-            <Label Content="This Section Allows For Some More advanced Settings to be Used.                                 " Height="35" Width="392" Margin="0,37,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="14" FontStyle="Normal" FontWeight="Thin" Padding="0,0,0,0"/>
+            <Label Content="This Section Allows For Some More advanced Settings to be Used." Height="35" Width="392" Margin="0,37,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="14" FontStyle="Normal" FontWeight="Thin" Padding="0,0,0,0"/>
+        </Grid>
+
+        <hc:SimplePanel x:Name="Dedicated_Server_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Visible" Margin="190,0,0,2" Grid.ColumnSpan="2" Grid.RowSpan="2" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+            <hc:ScrollViewer Margin="10,10,10,10" PanningMode="VerticalOnly">
+                <hc:SimpleStackPanel Margin="10,10,10,10" Height="1066" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Cursor="">
+                    <UserControl hc:Dialog.Token="DialogContainer">
+                        <hc:DialogContainer>
+                        </hc:DialogContainer>
+                    </UserControl>
+                    <Label Height="58" Width="329" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,89,0,0" Content="Startup Arguments" FontSize="36" FontFamily="Bahnschrift SemiLight" Background="{x:Null}" BorderBrush="{x:Null}" />
+                    <ListBox x:Name="Startup_Arguments_UI_List" Margin="0,0,0,-386" Background="#FF1C1C1C">
+                        
+                        
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+ <Grid Width="970" Background="{x:Null}" HorizontalAlignment="Center" Margin="0,0,0,3" Height="58">
+                        <Label HorizontalAlignment="Stretch" Height="38" Margin="30,0,505,0" Background="#FF004439" Foreground="White" Content="{Binding Name}" FontSize="16" ToolTip="{Binding Description}" BorderBrush="White"/>
+                                    <TextBox Margin="505,0,30,0" VerticalAlignment="Center" Height="38" Text ="{Binding Default}"   CaretBrush="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="#FF00EDBD" SelectionTextBrush="#FF847300"    Foreground="White" ToolTip="{Binding Type}" Tag="{Binding Tag}" Background="#FF4C4C4C" PreviewTextInput="ValidationTextBox" FontSize="16" RenderTransformOrigin="0,0" LostFocus="validate" KeyUp="Save_On_Focus_"   />
+
+                    </Grid>
+                            </DataTemplate>
+
+                        </ListBox.ItemTemplate>
+
+                    </ListBox>
+
+
+
+
+                </hc:SimpleStackPanel>
+            </hc:ScrollViewer>
+
+
+
 
         </hc:SimplePanel>
 

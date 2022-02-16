@@ -26,6 +26,7 @@ using Newtonsoft.Json.Linq;
 using Microsoft.Win32;
 using System.Collections;
 using System.Collections.ObjectModel;
+using System.Text.RegularExpressions;
 //****TODO*****//
 
 //Migrate Release Parse to the New Updater Sys
@@ -50,7 +51,7 @@ namespace VTOL
         List<string> Mod_Directory_List_InActive = new List<string>();
         private static String updaterModulePath;
         private readonly CollectionViewSource viewSource = new CollectionViewSource();
-
+        public Server_Setup Server_Json;
         public bool Found_Install_Folder = false;
         public string Current_Install_Folder = "";
         private string NSExe;
@@ -66,8 +67,9 @@ namespace VTOL
         ArrayList Mirror_Item_List = new ArrayList();
         private ICollectionView phrasesView;
         private string filter;
-
         public ObservableCollection<string> Phrases { get; private set; }
+        public List<string> Game_Modes_List = new List<string>();
+
         bool advanced_Mode = false;
         private int completed_flag;
         public int pid;
@@ -93,14 +95,17 @@ namespace VTOL
             do_not_overwrite_Ns_file_Dedi = Properties.Settings.Default.Ns_Dedi;
             try
             {
-             
-              
+
+
+
+
+
                 Animation_Start_Northstar = false;
                 Animation_Start_Vanilla = false;
                 Write_To_Log("", true);
                 LOG_BOX.IsReadOnly = true;
                 Mod_Panel.Visibility = Visibility.Hidden;
-                Load_Line.Visibility = Visibility.Hidden;
+                //  Load_Line.Visibility = Visibility.Hidden;
                 skins_Panel.Visibility = Visibility.Hidden;
                 Main_Panel.Visibility = Visibility.Visible;
                 About_Panel.Visibility = Visibility.Hidden;
@@ -118,7 +123,7 @@ namespace VTOL
                 this.VTOL.Title = String.Format("VTOL {0}", version);
                 Check_For_New_Northstar_Install();
                 GC.Collect();
-                
+
                 if (do_not_overwrite_Ns_file==true)
                 {
                     Ns_Args.IsChecked = true;
@@ -142,7 +147,7 @@ namespace VTOL
 
                 }
 
-               
+
 
 
 
@@ -160,7 +165,7 @@ namespace VTOL
 
             }
 
-           
+
             // HandyControl.Controls.Growl.InfoGlobal(Header);
             // Send_Info_Notif(Properties.Settings.Default.Version);
             try
@@ -254,7 +259,7 @@ namespace VTOL
             }
             catch (System.IO.DirectoryNotFoundException e)
             {
-               Write_To_Log("Could Not Verify Dir" + Current_Install_Folder);
+                Write_To_Log("Could Not Verify Dir" + Current_Install_Folder);
                 Send_Warning_Notif("\nThe Launcher Tried to Auto Check For an existing CFG, please use the manual Check to search.");
 
 
@@ -297,9 +302,9 @@ namespace VTOL
         void MainWindow_Closing(object sender, CancelEventArgs e)
         {
             HandyControl.Controls.Growl.ClearGlobal();
-           
+
         }
-       
+
         async Task Thunderstore_Parse()
 
 
@@ -331,7 +336,7 @@ namespace VTOL
 
                 Update = new Updater("https://gtfo.thunderstore.io/api/v1/package/");
                 Update.Download_Cutom_JSON();
-               
+
                 // LoadListViewData();
 
                 //Test_List.ItemsSource = null;
@@ -376,13 +381,12 @@ namespace VTOL
         void Download_Install(object sender, RoutedEventArgs e)
         {
             Send_Info_Notif("Starting Download!, please do not be alarmed if there is no activity!.");
-
             var objname = ((System.Windows.Controls.Button)sender).Tag.ToString();
             string[] words = objname.Split("|");
-           // Send_Success_Notif(words[0]);
+            // Send_Success_Notif(words[0]);
             LAST_INSTALLED_MOD = (words[1]);
 
-             parse_git_to_zip(words[0]);
+            parse_git_to_zip(words[0]);
 
         }
         void Open_Package_Webpage(object sender, RoutedEventArgs e)
@@ -411,11 +415,32 @@ namespace VTOL
             return result;
 
         }
-      
-       
+
+
         private ArrayList LoadListViewData()
         {
-
+            /*
+             * 
+             * 
+             * 
+             * 
+             * 
+             * 
+             * 
+             * 
+             * 
+             * 
+             * ADDDDDDDDDDD DOWNLOAD PROGRES!!!!!!!!!!!!!!
+             * 
+             * 
+             * 
+             * 
+             * 
+             * 
+             * 
+             * 
+             * 
+             */
             // var myValue = ((Button)sender).Tag;
             string ICON = "";
             List<string> lst = new List<string> { };
@@ -437,9 +462,9 @@ namespace VTOL
 
             foreach (var item in Update.Thunderstore)
             {
-               
+
                 int rating = item.RatingScore;
-                
+
                 //Tag = item.Categories;
                 Tags = String.Join(" , ", item.Categories);
 
@@ -485,7 +510,7 @@ namespace VTOL
                 //  }
 
                 //itemsList.Add(new Button {  Name = item.full_name.ToString() , Icon = item.latest.icon,date_created = item.date_created.ToString(), description = item.latest.description, owner=item.owner, Rating = rating});
-                itemsList.Add(new Button { Name = item.Name, Icon = ICON, date_created = item.DateCreated.ToString(), description = Descrtiption, owner=item.Owner, Rating = rating, download_url = download_url +"|"+item.FullName.ToString(), Webpage  = item.PackageUrl, File_Size = FileSize , Tag = Tags, Downloads = downloads});
+                itemsList.Add(new Button { Name = item.Name, Icon = ICON, date_created = item.DateCreated.ToString(), description = Descrtiption, owner=item.Owner, Rating = rating, download_url = download_url +"|"+item.FullName.ToString(), Webpage  = item.PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads });
                 Mirror_Item_List.Add(item.Name);
 
                 // itemsList.Add(item.full_name.ToString());
@@ -682,6 +707,8 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
             Mod_Browse.IsSelected = false;
             Update_Tab.IsSelected = false;
             Log.IsSelected = false;
+            Startup_Arguments_UI_List.ItemsSource = Load_Args();
+
 
         }
         void Select_Log()
@@ -809,6 +836,7 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
         }
         void Send_Fatal_Notif(string Input_Message)
         {
+
 
             HandyControl.Controls.Growl.FatalGlobal(Input_Message);
             Write_To_Log("\n"+Input_Message + '\n' + DateTime.Now.ToString());
@@ -1285,7 +1313,7 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
                 File.Copy(newPath, newPath.Replace(sourcePath, targetPath), true);
             }
         }
-        private void Unpack_To_Location_Custom(string Target_Zip, string Destination,bool Clean_Thunderstore= false)
+        private void Unpack_To_Location_Custom(string Target_Zip, string Destination, bool Clean_Thunderstore = false)
         {
             //ToDo Check if url or zip location
             //add drag and drop
@@ -1295,13 +1323,13 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
                 string Dir_Final = "";
                 if (File.Exists(Target_Zip))
                 {
-                    if (!Directory.Exists(Destination)) 
+                    if (!Directory.Exists(Destination))
                     {
                         Directory.CreateDirectory(Destination);
                     }
                     string fileExt = System.IO.Path.GetExtension(Target_Zip);
                     Console.WriteLine("It only works if i have this line :(");
-                    
+
                     if (fileExt == ".zip")
                     {
                         ZipFile.ExtractToDirectory(Target_Zip, Destination, true);
@@ -1313,7 +1341,7 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
                             {
 
 
-                                
+
                                 // Check if file exists with its full path    
                                 if (File.Exists(Path.Combine(Destination, "icon.png")))
                                 {
@@ -1350,13 +1378,13 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
 
                                 var Script = directory.GetDirectories(searchQuery3, SearchOption.AllDirectories);
 
-                               
+
                                 foreach (var d in Script)
                                 {
                                     DirectoryInfo di = new DirectoryInfo(d.FullName);
                                     DirectoryInfo[] diArr = di.GetDirectories();
                                     string firstFolder = diArr[0].FullName;
-                                    
+
                                     if (Directory.Exists(firstFolder))
                                     {
                                         Dir_Final = Destinfo.Parent.FullName +@"\"+ diArr[0].Name;
@@ -1385,8 +1413,8 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
                                     //   DirectoryCopy(d.Parent.FullName,Destination, true);
 
                                 }
-                                Directory.Delete(Destination,true);
-                                if(Dir_Final == "")
+                                Directory.Delete(Destination, true);
+                                if (Dir_Final == "")
                                 {
 
                                     Send_Error_Notif("Mod has been Detected as incompatible!, The mod creator must be contacted to remedy this issue!");
@@ -1408,7 +1436,7 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
                             }
                             catch (IOException ioExp)
                             {
-                               Write_To_Log(ioExp.Message);
+                                Write_To_Log(ioExp.Message);
                                 Send_Warning_Notif(" Issue Detected, Please Check Logs!");
 
                             }
@@ -1419,7 +1447,7 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
                     else
                     {
                         //Main_Window.SelectedTab = Main;
-                      
+
                         Send_Error_Notif("\nObject Is Not a Zip!\n");
 
 
@@ -1428,7 +1456,7 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
 
 
                 }
-                else if(File.Exists(Target_Zip) && !Directory.Exists(Destination))
+                else if (File.Exists(Target_Zip) && !Directory.Exists(Destination))
                 {
                     Directory.CreateDirectory(Destination);
                     string fileExt = System.IO.Path.GetExtension(Target_Zip);
@@ -1705,7 +1733,7 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
             }
             catch (NullReferenceException e)
             {
-               Write_To_Log(e.Message);
+                Write_To_Log(e.Message);
                 Send_Fatal_Notif("Fatal Error Occured, Please Check Logs!");
 
 
@@ -1810,7 +1838,7 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
             {
                 isValid = false;
                 Send_Fatal_Notif("Fatal Error Occured, Please Check Logs!");
-Write_To_Log(ex.StackTrace);
+                Write_To_Log(ex.StackTrace);
             }
 
             return isValid;
@@ -1865,7 +1893,7 @@ Write_To_Log(ex.StackTrace);
 
                                 System.IO.DirectoryInfo[] subDirs = null;
                                 subDirs = rootDirs.GetDirectories();
-                               
+
                                 foreach (System.IO.DirectoryInfo dirInfo in subDirs)
                                 {
                                     if (IsDirectoryEmpty(dirInfo))
@@ -2131,12 +2159,12 @@ Write_To_Log(ex.StackTrace);
                 }
                 else
                 {
-                    Send_Warning_Notif("Cannot Move a Mod From An emppty List!");
+                    Send_Warning_Notif("Cannot Move a Mod From An empty List!");
                     return;
 
                 }
             }
-            catch(NullReferenceException ex)
+            catch (NullReferenceException ex)
             {
 
                 Write_To_Log(ex.StackTrace);
@@ -2307,8 +2335,8 @@ Write_To_Log(ex.StackTrace);
                 catch (UnauthorizedAccessException ex)
                 {
                     Send_Warning_Notif("No Access to the Directory!");
-                Write_To_Log(ex.StackTrace);
-                
+                    Write_To_Log(ex.StackTrace);
+
                 }
             }
 
@@ -2466,6 +2494,7 @@ Write_To_Log(ex.StackTrace);
             webClient = null;
             Send_Info_Notif("\nDownload completed!");
             Unpack_To_Location(@"C:\ProgramData\VTOL_DATA\Releases\NorthStar_Release.zip", Current_Install_Folder);
+            Install_NS.IsEnabled = true;
         }
         private void Completed_t(object sender, AsyncCompletedEventArgs e)
         {
@@ -2480,15 +2509,15 @@ Write_To_Log(ex.StackTrace);
 
             webClient = null;
             Send_Info_Notif("\nDownload completed!");
-            Unpack_To_Location_Custom(Current_Install_Folder+ @"\NS_Downloaded_Mods\"+LAST_INSTALLED_MOD+".zip", Current_Install_Folder+ @"\R2Northstar\mods\"+LAST_INSTALLED_MOD,true);
+            Unpack_To_Location_Custom(Current_Install_Folder+ @"\NS_Downloaded_Mods\"+LAST_INSTALLED_MOD+".zip", Current_Install_Folder+ @"\R2Northstar\mods\"+LAST_INSTALLED_MOD, true);
         }
 
         private void Check_Btn_Click(object sender, RoutedEventArgs e)
         {
 
 
-        
-             Auto_Install_And_verify();
+
+            Auto_Install_And_verify();
 
         }
 
@@ -2591,7 +2620,7 @@ Write_To_Log(ex.StackTrace);
             }
 
         }
-            private void Browse_For_Skin_Click(object sender, RoutedEventArgs e)
+        private void Browse_For_Skin_Click(object sender, RoutedEventArgs e)
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             if (Directory.Exists(Current_Install_Folder+ @"\Skins_Unpack_Mod_MNGR"))
@@ -2604,7 +2633,7 @@ Write_To_Log(ex.StackTrace);
                     bitmap.EndInit();
                     Diffuse_IMG.Source = bitmap;
 
-                  
+
                     Glow_IMG.Source = bitmap;
 
                     Directory.Delete(Current_Install_Folder+ @"\Skins_Unpack_Mod_MNGR", true);
@@ -2631,7 +2660,7 @@ Write_To_Log(ex.StackTrace);
                     bitmap.EndInit();
                     Diffuse_IMG.Source = bitmap;
 
-                  
+
                     Glow_IMG.Source = bitmap;
 
                     Directory.Delete(Current_Install_Folder+@"\Thumbnails", true);
@@ -2654,17 +2683,17 @@ Write_To_Log(ex.StackTrace);
                 if (Skin_Temp_Loc == null || !File.Exists(Skin_Temp_Loc))
                 {
 
-                   Send_Error_Notif("\nInvalid Mod Zip Location chosen");
+                    Send_Error_Notif("\nInvalid Mod Zip Location chosen");
                     return;
 
                 }
                 else
                 {
                     Skin_Path_Box.Text = Skin_Temp_Loc;
-                   // Send_Success_Notif("\nSkin Found!");
+                    // Send_Success_Notif("\nSkin Found!");
                     if (ZipHasFile(".dds", Skin_Temp_Loc))
                     {
-                       Send_Success_Notif("Compatible Skin Detected");
+                        Send_Success_Notif("Compatible Skin Detected");
                         Compat_Indicator.Fill = Brushes.Green;
                         Install_Skin_Bttn.IsEnabled = true;
                         //   var directory = new DirectoryInfo(root);
@@ -2766,7 +2795,7 @@ Write_To_Log(ex.StackTrace);
                                     {
 
                                         Console.WriteLine(firstOrDefault_ilm);
-                                       // Image Image_2 = new Bitmap(Thumbnail+Path.GetFileName(firstOrDefault_ilm)+".png");
+                                        // Image Image_2 = new Bitmap(Thumbnail+Path.GetFileName(firstOrDefault_ilm)+".png");
                                         BitmapImage bitmap = new BitmapImage();
                                         bitmap.BeginInit();
                                         bitmap.UriSource = new Uri(Thumbnail+Path.GetFileName(firstOrDefault_ilm)+".png");
@@ -2789,7 +2818,7 @@ Write_To_Log(ex.StackTrace);
                                 }
                                 else
                                 {
-                                   // Image Image_1 = new Bitmap(Directory.GetCurrentDirectory()+@"\No_Texture.jpg");
+                                    // Image Image_1 = new Bitmap(Directory.GetCurrentDirectory()+@"\No_Texture.jpg");
                                     BitmapImage bitmap = new BitmapImage();
                                     bitmap.BeginInit();
                                     bitmap.UriSource = new Uri(@"pack://application:,,,/Resources/NO_TEXTURE.png");
@@ -2824,7 +2853,7 @@ Write_To_Log(ex.StackTrace);
                                     if (File.Exists(firstOrDefault_Col +".png"))
                                     {
 
-                                     //   Image Image_1 = new Bitmap(Thumbnail+Path.GetFileName(firstOrDefault_Col)+".png");
+                                        //   Image Image_1 = new Bitmap(Thumbnail+Path.GetFileName(firstOrDefault_Col)+".png");
                                         BitmapImage bitmap = new BitmapImage();
                                         bitmap.BeginInit();
                                         bitmap.UriSource = new Uri(Thumbnail+Path.GetFileName(firstOrDefault_Col)+".png");
@@ -2835,7 +2864,7 @@ Write_To_Log(ex.StackTrace);
                                     {
                                         DDSImage img_1 = new DDSImage(firstOrDefault_Col);
                                         img_1.Save(Thumbnail+Path.GetFileName(firstOrDefault_Col)+".png");
-                                       // Image Image_1 = new Bitmap(Thumbnail+Path.GetFileName(firstOrDefault_Col)+".png");
+                                        // Image Image_1 = new Bitmap(Thumbnail+Path.GetFileName(firstOrDefault_Col)+".png");
                                         BitmapImage bitmap = new BitmapImage();
                                         bitmap.BeginInit();
                                         bitmap.UriSource = new Uri(Thumbnail+Path.GetFileName(firstOrDefault_Col)+".png");
@@ -2847,7 +2876,7 @@ Write_To_Log(ex.StackTrace);
                                 }
                                 else
                                 {
-                                   // Image Image_1 = new Bitmap(Directory.GetCurrentDirectory()+@"\No_Texture.jpg");
+                                    // Image Image_1 = new Bitmap(Directory.GetCurrentDirectory()+@"\No_Texture.jpg");
                                     BitmapImage bitmap = new BitmapImage();
                                     bitmap.BeginInit();
                                     bitmap.UriSource =  new Uri(@"pack://application:,,,/Resources/NO_TEXTURE.png");
@@ -2873,7 +2902,7 @@ Write_To_Log(ex.StackTrace);
                                     {
 
                                         Console.WriteLine(firstOrDefault_ilm);
-                                    //    Image Image_2 = new Bitmap(Thumbnail+Path.GetFileName(firstOrDefault_ilm)+".png");
+                                        //    Image Image_2 = new Bitmap(Thumbnail+Path.GetFileName(firstOrDefault_ilm)+".png");
                                         BitmapImage bitmap = new BitmapImage();
                                         bitmap.BeginInit();
                                         bitmap.UriSource = new Uri(Thumbnail+Path.GetFileName(firstOrDefault_ilm)+".png");
@@ -2885,7 +2914,7 @@ Write_To_Log(ex.StackTrace);
 
                                         DDSImage img_2 = new DDSImage(firstOrDefault_ilm);
                                         img_2.Save(Thumbnail+Path.GetFileName(firstOrDefault_ilm)+".png");
-                                       // Image Image_2 = new Bitmap(Thumbnail+Path.GetFileName(firstOrDefault_ilm)+".png");
+                                        // Image Image_2 = new Bitmap(Thumbnail+Path.GetFileName(firstOrDefault_ilm)+".png");
                                         BitmapImage bitmap = new BitmapImage();
                                         bitmap.BeginInit();
                                         bitmap.UriSource = new Uri(Thumbnail+Path.GetFileName(firstOrDefault_ilm)+".png");
@@ -2895,7 +2924,7 @@ Write_To_Log(ex.StackTrace);
                                 }
                                 else
                                 {
-                                  //  Image Image_1 = new Bitmap(Directory.GetCurrentDirectory()+@"\No_Texture.jpg");
+                                    //  Image Image_1 = new Bitmap(Directory.GetCurrentDirectory()+@"\No_Texture.jpg");
                                     BitmapImage bitmap = new BitmapImage();
                                     bitmap.BeginInit();
                                     bitmap.UriSource = new Uri(@"pack://application:,,,/Resources/NO_TEXTURE.png");
@@ -2921,7 +2950,7 @@ Write_To_Log(ex.StackTrace);
                         bitmap.UriSource =  new Uri(@"pack://application:,,,/Resources/NO_TEXTURE.png");
                         bitmap.EndInit();
                         Diffuse_IMG.Source = bitmap;
-                       
+
                         Glow_IMG.Source = bitmap;
                         Write_To_Log(ex.StackTrace);
                         Send_Fatal_Notif("Fatal Error Occured, Please Check Logs!");
@@ -2972,7 +3001,7 @@ Write_To_Log(ex.StackTrace);
             catch (Exception ex)
             {
 
-               Send_Fatal_Notif("\nIssue with File path, please Rebrowse.");
+                Send_Fatal_Notif("\nIssue with File path, please Rebrowse.");
                 Write_To_Log(ex.Message);
             }
         }
@@ -2981,7 +3010,7 @@ Write_To_Log(ex.StackTrace);
         {
             Badge.Visibility = Visibility.Collapsed;
 
-
+            Install_NS.IsEnabled = false;
 
 
 
@@ -2990,6 +3019,7 @@ Write_To_Log(ex.StackTrace);
             do_not_overwrite_Ns_file = Properties.Settings.Default.Ns_Startup;
             do_not_overwrite_Ns_file_Dedi = Properties.Settings.Default.Ns_Dedi;
             Install_NS_METHOD();
+
 
         }
 
@@ -3043,9 +3073,9 @@ Write_To_Log(ex.StackTrace);
 
         private void Enable_Mod_Click(object sender, RoutedEventArgs e)
         {
-            if(Enabled_ListBox.SelectedIndex == 0)
+            if (Dsiabled_ListBox.SelectedIndex == 0)
             {
-                Send_Fatal_Notif("No");
+                Send_Warning_Notif("No Mods in List");
             }
             Move_List_box_Inactive_To_Active(Dsiabled_ListBox);
 
@@ -3053,6 +3083,10 @@ Write_To_Log(ex.StackTrace);
 
         private void Disable_Mod_Click(object sender, RoutedEventArgs e)
         {
+            if (Enabled_ListBox.SelectedIndex == 0)
+            {
+                Send_Warning_Notif("No Mods in List");
+            }
             Move_List_box_Active_To_Inactive(Enabled_ListBox);
 
         }
@@ -3069,7 +3103,7 @@ Write_To_Log(ex.StackTrace);
             try
             {
                 var File = new Ookii.Dialogs.Wpf.VistaOpenFileDialog();
-                 
+
                 // Show the FolderBrowserDialog.  
                 var result = File.ShowDialog();
                 if (result == true)
@@ -3078,7 +3112,7 @@ Write_To_Log(ex.StackTrace);
                     if (path == null || !File.CheckFileExists)
                     {
 
-                      Send_Error_Notif("\nInvalid Mod Zip Location chosen");
+                        Send_Error_Notif("\nInvalid Mod Zip Location chosen");
 
 
                     }
@@ -3198,7 +3232,7 @@ Write_To_Log(ex.StackTrace);
                 Install_Skin_Bttn.IsEnabled = false;
 
 
-              
+
             }
             catch (Exception ef)
             {
@@ -3271,13 +3305,29 @@ Write_To_Log(ex.StackTrace);
 
         private void Clear_LOG_Click(object sender, RoutedEventArgs e)
         {
-            Write_To_Log("",true);
+            Write_To_Log("", true);
         }
+        public async Task Run_Load_Line()
+        {
+            Load_Line.IsRunning = true;
 
+
+        }
         private async void Load_Click(object sender, RoutedEventArgs e)
         {
-          
-            Thunderstore_Parse();
+            Load.IsEnabled = false;
+            Load_Line.IsRunning=true;
+            try
+            {
+                await Thunderstore_Parse();
+            }
+            finally
+            {
+                Load_Line.IsRunning=false;
+                Load.IsEnabled = true;
+            }
+
+
         }
 
         private void Test_List_RequestBringIntoView(object sender, RequestBringIntoViewEventArgs e)
@@ -3288,7 +3338,7 @@ Write_To_Log(ex.StackTrace);
 
         private void Browse_For_MOD_TextChanged(object sender, TextChangedEventArgs e)
         {
-          
+
         }
 
         private void Dedicated_Btn_Click(object sender, RoutedEventArgs e)
@@ -3356,7 +3406,7 @@ Write_To_Log(ex.StackTrace);
 
         private void Launch_Northstar_Advanced_Click(object sender, RoutedEventArgs e)
         {
-             if (File.Exists(Current_Install_Folder+@"\ns_startup_args.txt"))
+            if (File.Exists(Current_Install_Folder+@"\ns_startup_args.txt"))
             {
                 saveAsyncFile(Arg_Box.Text, Current_Install_Folder+@"\ns_startup_args.txt", false, false);
 
@@ -3460,7 +3510,7 @@ Write_To_Log(ex.StackTrace);
             }
             else
             {
-               Send_Error_Notif("Please Be Aware That your Updater Exe is not in the Home Folder Of VTOL");
+                Send_Error_Notif("Please Be Aware That your Updater Exe is not in the Home Folder Of VTOL");
 
             }
         }
@@ -3486,12 +3536,12 @@ Write_To_Log(ex.StackTrace);
             Mirror_Item_List.Reverse();
             foreach (string element in Mirror_Item_List)
             {
-                
-                
+
+
                 Send_Info_Notif(element);
             }// CollectionViewSource.GetDefaultView(Test_List.ItemsSource).Refresh();
 
-            }
+        }
 
         private void OnKeyDownHandler_Dedi_Arg(object sender, KeyEventArgs e)
         {
@@ -3551,5 +3601,305 @@ Write_To_Log(ex.StackTrace);
                 Write_To_Log(ex.Message);
             }
         }
+        private void ValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            var Var = ((TextBox)sender).Tag.ToString();
+            string[] Split = Var.Split("|");
+            string type = Split[0];
+            switch (type)
+            {
+
+                case "STRING":
+                   // Send_Success_Notif("Found type String!");
+                    break;
+                case "PORT":
+                    Regex regex = new Regex("[^0-9]+");
+                    e.Handled = regex.IsMatch(e.Text);
+
+
+                    break;
+
+            }
+
+        }
+        public static bool IsPort(string value)
+        {
+            if (string.IsNullOrEmpty(value))
+                return false;
+
+            Regex numeric = new Regex(@"^[0-9]+$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+
+            if (numeric.IsMatch(value))
+            {
+                try
+                {
+                    if (Convert.ToInt32(value) < 65535)
+                        return true;
+                }
+                catch (OverflowException)
+                {
+                }
+            }
+
+            return false;
+        }
+        void validate(object sender, RoutedEventArgs e) {
+
+
+
+
+
+        }
+        public  IEnumerable<string> GetFile(string directory,string Search)
+        {
+            List<string> files = new List<string>();
+
+            try
+            {
+                files.AddRange(Directory.GetFiles(directory, Search, SearchOption.AllDirectories));
+            }
+            catch (Exception ex)
+            {
+               Send_Warning_Notif(ex.Message);
+            }
+
+            return files;
+        }
+        void Write_convar_To_File(string Convar_Name,string Convar_Value)
+        {
+            List<string> Lines = new List<string>();
+
+            foreach (string line in System.IO.File.ReadLines(GetFile(Current_Install_Folder, "autoexec_ns_server.cfg").First()))
+            {
+                Lines.Add(line);
+            }
+            if (Lines.Contains(Convar_Name) == true)
+            {
+                Send_Warning_Notif("Found"+ Lines.Contains(Convar_Name));
+
+            }
+        }
+        void Write_Startup_Arg_To_File(string Convar_Name, string Convar_Value)
+        {
+            List<string> Lines = new List<string>();
+
+            foreach (string line in System.IO.File.ReadLines(GetFile(Current_Install_Folder, "ns_startup_args_dedi.txt").First()))
+            {
+                Lines.Add(line);
+            }
+            if (Lines.Contains(Convar_Name) == true)
+            {
+                Send_Warning_Notif("Found"+ Lines.Contains(Convar_Name));
+
+            }
+        }
+        int cntr = 0;
+        void Clear_Box(object sender, KeyEventArgs e)
+        {
+            cntr++;
+           
+
+            
+            TextBox Text_Box = (TextBox)sender;
+            if (cntr < 2)
+            {
+                string Reg2;
+                Reg2= Text_Box.Text;
+                if (Text_Box.Text == Reg2)
+                {
+                    Text_Box.Text = "";
+
+
+                }
+
+            }
+            
+        }
+                void Save_On_Focus_(object sender, KeyEventArgs e)
+        {
+            HandyControl.Controls.Dialog.Show(new Junk_Test_Page(), "DialogContainer");
+
+            try
+            {
+                var val = ((TextBox)sender).Text.ToString();
+                var Tag = ((TextBox)sender).Tag.ToString();
+                TextBox Text_Box = (TextBox)sender;
+                string[] Split = Tag.Split("|");
+                string type = Split[0];
+                string name = Split[1];
+                var x = sender.GetType().GetProperty(type);
+
+                if (val != null && val != "" && Game_Modes_List.Count > 0 && Game_Modes_List != null)
+                {
+
+                    switch (type)
+                    {
+
+                        case "STRING":
+                            if (e.Key == Key.Return)
+                            {
+                                if (Verify_List(Game_Modes_List, val)== true)
+                                {
+                                    Send_Success_Notif("");
+                                    Text_Box.Text = "Lol";
+                                }
+                                else
+                                {
+
+                                    Send_Error_Notif("Not_found!");
+                                }
+                            }
+                            break;
+                        case "PORT":
+                           
+                            if (val.Count() >5)
+                                {
+                                Send_Warning_Notif("Port is larger Than Required");
+                                Text_Box.Background = Brushes.Red;
+                            }
+                            else
+                            {
+                                Text_Box.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF4C4C4C");
+
+                                if (e.Key == Key.Return)
+                                {
+                                    Write_Startup_Arg_To_File(name, val);
+
+
+                                    if (IsPort(val) == true && val.Count() <6)
+                                    {
+                                        Send_Success_Notif("Succesfully Set - [" +name+"]");
+                                        Text_Box.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF4C4C4C");
+                                        
+
+                                    }
+                                    else
+                                    {
+                                        Send_Warning_Notif("Error At ["+name+"]");
+                                        Text_Box.Background = Brushes.Red;
+                                      // Text_Box.AutoComplete = false;
+                                        Text_Box.Text = null;
+
+                                    }
+                                }
+                            }                          
+                            break;
+
+                    }
+                    
+
+
+                        
+
+                    }
+                
+            }
+            catch (Exception ex)
+            {
+                Send_Fatal_Notif("\nIssue with using Autocomplete sys, Please Check Logs");
+                Write_To_Log(ex.Message);
+
+            }
+        }
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+
+
+        }
+        class Arg_Set
+        {
+            public string Name { get; set; }
+            public string Type { get; set; }
+            public string Default { get; set; }
+            public string Tag { get; set; }
+            public string regex { get; set; }
+
+            public string Description { get; set; }
+            public string[] List { get; set; }
+
+        }
+        bool Verify_List( List<string> Good_Words,string Input)
+        {
+           return Good_Words.Contains(Input);
+
+        }
+        private ArrayList Load_Args()
+        {
+      
+
+        ArrayList Arg_List = new ArrayList();
+
+            using (StreamReader r = new StreamReader(@"D:\Development Northstar AmVCX C++ branch 19023 ID 44\VTOL\Resources\Test_Args_1.json"))
+            {
+                string json = r.ReadToEnd();
+               // Send_Success_Notif(json);
+               Server_Json = Server_Setup.FromJson(json);
+}
+
+            string register_1;
+            foreach (var items in Server_Json.Startup_Arguments)
+            {
+                if (items.Name == "+mpgamemode")
+                {
+                    foreach (var item in items.List)
+                    {
+
+                        Game_Modes_List.Add(item);
+                    }
+
+                }
+                
+                Arg_List.Add(new Arg_Set
+                {
+                    Name = items.Name,
+                    Type = items.Type,
+                    Default = items.Default,
+                    Description = items.Description_Tooltip,
+                    List = items.List,
+                    Tag = items.Type+"|"+items.Name,
+
+
+
+                }); ; 
+
+            }
+            
+            string Name = "";
+            string Type = "";
+            string Argument_Defualt = "";
+
+            //  foreach (var item in Update.Thunderstore)
+            //   {
+
+                //    foreach (var items in item.versions)
+                //    {
+
+
+                //   ICON = items.Icon;
+
+
+                /*
+                 * 
+                 * 
+                 * 
+                 * 
+                    Game_Modes_List = new ObservableCollection<string>();
+
+                    Game_Modes_List.Add("gg");
+                    Game_Modes_List.Add("sns");
+                    Game_Modes_List.Add("private_match");
+
+
+
+                Arg_List.Add(new Arg_Set { });
+
+                */
+
+
+return Arg_List;
+
+}
+
+        
     }
 }

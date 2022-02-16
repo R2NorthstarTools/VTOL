@@ -11,6 +11,7 @@
     <FileVersion>1.2.0</FileVersion>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <PackageTags>Mod_Manager;Installer;VTOL</PackageTags>
+    <DebugType>embedded</DebugType>
   </PropertyGroup>
 
   <ItemGroup>
@@ -36,6 +37,8 @@
     <None Remove="Resources\info.png" />
     <None Remove="Resources\internet.png" />
     <None Remove="Resources\like.png" />
+    <None Remove="Resources\Lock_BW.png" />
+    <None Remove="Resources\Lock_WB.png" />
     <None Remove="Resources\LOG_ICON.png" />
     <None Remove="Resources\main-menu.png" />
     <None Remove="Resources\NorthStar_Smurfson.gif" />
@@ -46,6 +49,7 @@
     <None Remove="Resources\Server_ICON.png" />
     <None Remove="Resources\space-invaders-gif-6.gif" />
     <None Remove="Resources\target.png" />
+    <None Remove="Resources\Test_Args_1.json" />
     <None Remove="Resources\TF2_Vanilla_promo.gif" />
     <None Remove="Resources\Update_ICON.png" />
     <None Remove="Resources\VTOL_Hover.ico" />
@@ -101,6 +105,7 @@
 
   <ItemGroup>
     <PackageReference Include="Aspose.Zip" Version="22.1.0" />
+    <PackageReference Include="AutoCompleteTextBox" Version="1.3.0" />
     <PackageReference Include="HandyControls" Version="3.3.11" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Octokit" Version="0.50.0" />
@@ -131,6 +136,12 @@
     <Resource Include="Resources\like.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Lock_BW.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Lock_WB.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\LOG_ICON.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -157,6 +168,9 @@
     </Resource>
     <Resource Include="Resources\target.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Test_Args_1.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\TF2_Vanilla_promo.gif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
