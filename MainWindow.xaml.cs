@@ -40,20 +40,7 @@ using static VTOL.MainWindow;
 //**************//
 namespace VTOL
 {
-    public static class Extensions
-    {
-        public static T[] Append<T>(this T[] array, T item)
-        {
-            if (array == null)
-            {
-                return new T[] { item };
-            }
-            Array.Resize(ref array, array.Length + 1);
-            array[array.Length - 1] = item;
-
-            return array;
-        }
-    }
+   
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -3649,22 +3636,25 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
         private void Validate_Combo_Box(object sender, SelectionChangedEventArgs e)
         {
             
-            if (sender.GetType() == typeof(HandyControl.Controls.CheckComboBox))
-            {
-                HandyControl.Controls.CheckComboBox comboBox = (HandyControl.Controls.CheckComboBox)sender;
-                var Var = ((HandyControl.Controls.CheckComboBox)sender).Tag.ToString();
 
-                string[] Split = Var.Split("|");
-                string type = Split[0];
-                string name = Split[1];
+                if (sender.GetType() == typeof(HandyControl.Controls.CheckComboBox))
+                {
+                    HandyControl.Controls.CheckComboBox comboBox = (HandyControl.Controls.CheckComboBox)sender;
+                    var Var = ((HandyControl.Controls.CheckComboBox)sender).Tag.ToString();
 
-                string list = String.Join(" ", comboBox.SelectedItems.Cast<String>().ToArray());
-                
-                
-                Write_Startup_Arg_To_File(name, list);
-                
+                    string[] Split = Var.Split("|");
+                    string type = Split[0];
+                    string name = Split[1];
+
+                    string list = String.Join(" ", comboBox.SelectedItems.Cast<String>().ToArray());
+
+
+                    Write_Startup_Arg_To_File(name, list);
+
+                }
             }
-        }
+           
+        
         private void ValidationTextBox(object sender, TextCompositionEventArgs e)
         {
             var Var = ((TextBox)sender).Tag.ToString();
@@ -3770,12 +3760,12 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             tw.Close();
         }
 
-        string Read_Startup_args(string Convar_Name, string Convar_Value, string File_Root = null)
+        string Read_Startup_args(string Convar_Name, string File_Root = null)
         {
             try
             {
-                Send_Info_Notif(Convar_Name.Trim(new Char[] { '-', '+'}) + "   "+ Convar_Value);
-                string val = Convar_Name.Trim(new Char[] { '-', '+' });
+                var pattern = @"(?=[+-])";
+
                 string RootFolder = "";
                 if (File_Root != null)
                 {
@@ -3794,24 +3784,21 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
                 foreach (string line in intake)
                 {
-                    intermid = line.Split('+');
+                    intermid = Regex.Split(line.Trim(' '), pattern);
 
                 }
-                if (Array.Exists(intermid, element => element.StartsWith(val))) { 
-                    Send_Success_Notif("Found"+ val);
-                    for (int j = 0; j<intermid.Length; j++)
-                    {
-                     //   Console.WriteLine("array[{0}] = {1}", j, intermid[j]);
-                    }
-                    int index_of_var = Array.FindIndex(intermid, element => element.StartsWith(val));
-                   Send_Success_Notif(intermid[index_of_var].ToString());
+
+                if (Array.Exists(intermid, element => element.StartsWith(Convar_Name))) { 
+                  
+                    
+                    int index_of_var = Array.FindIndex(intermid, element => element.StartsWith(Convar_Name));
                     return intermid[index_of_var].ToString();
 
 
                 }
                 else
                 {
-                    Send_Error_Notif("Did Not Find"+ val);
+                    Send_Error_Notif("Did Not Find"+ Convar_Name);
 
                     return null;
                 }
@@ -3825,77 +3812,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             }
             return null;
         }
-        public static String CompactWhitespaces(String s)
-        {
-            StringBuilder sb = new StringBuilder(s);
-
-            CompactWhitespaces(sb);
-
-            return sb.ToString();
-        }
-        public static void CompactWhitespaces(StringBuilder sb)
-        {
-            if (sb.Length == 0)
-                return;
-
-            // set [start] to first not-whitespace char or to sb.Length
-
-            int start = 0;
-
-            while (start < sb.Length)
-            {
-                if (Char.IsWhiteSpace(sb[start]))
-                    start++;
-                else
-                    break;
-            }
-
-            // if [sb] has only whitespaces, then return empty string
-
-            if (start == sb.Length)
-            {
-                sb.Length = 0;
-                return;
-            }
-
-            // set [end] to last not-whitespace char
-
-            int end = sb.Length - 1;
-
-            while (end >= 0)
-            {
-                if (Char.IsWhiteSpace(sb[end]))
-                    end--;
-                else
-                    break;
-            }
-
-            // compact string
-
-            int dest = 0;
-            bool previousIsWhitespace = false;
-
-            for (int i = start; i <= end; i++)
-            {
-                if (Char.IsWhiteSpace(sb[i]))
-                {
-                    if (!previousIsWhitespace)
-                    {
-                        previousIsWhitespace = true;
-                        sb[dest] = ' ';
-                        dest++;
-                    }
-                }
-                else
-                {
-                    previousIsWhitespace = false;
-                    sb[dest] = sb[i];
-                    dest++;
-                }
-            }
-
-            sb.Length = dest;
-        }
+      
         void Write_Startup_Arg_To_File(string Convar_Name, string Convar_Value,string File_Root = null)
         {
 
@@ -3903,7 +3820,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             {
 
                 string val = Convar_Name.Trim(new Char[] { '-', '+' });
-                var pattern = @"(?=[+])";
+                var pattern = @"(?=[+-])";
 
                 string RootFolder = "";
                 if (File_Root != null)
@@ -3923,7 +3840,6 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
                 foreach (string line in intake)
                 {
-                    //  intermid_ = line.Split('+');
                     intermid = Regex.Split(line.Trim(' '), pattern);
                     
 
@@ -3935,35 +3851,23 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 }
                 if (Array.Exists(intermid, element => element.StartsWith(Convar_Name)))
                 {
-                    //Send_Success_Notif("Found"+ Convar_Name);
-                    Console.WriteLine("\n\n\n\n\n OLD");
 
                    
                     int index_of_var = Array.FindIndex(intermid, element => element.StartsWith(Convar_Name));
-                    Send_Info_Notif(Convar_Name + " " +Convar_Value);
                     intermid[index_of_var] = Convar_Name + " " +Convar_Value;
                     
                    
                    
                     String x = String.Join(" ", intermid.ToArray());
-                    //x.Replace(System.Environment.NewLine, "replacement text");
-                    // File.WriteAllText(RootFolder, String.Empty);
                     ClearFile(RootFolder +@"\" + "ns_startup_args_dedi.txt");
-                    Send_Info_Notif(Regex.Replace(x, @"\s+", " ").Replace("+ ", "+"));
 
                     using (StreamWriter sw = new StreamWriter(RootFolder +@"\" + "ns_startup_args_dedi.txt", false, Encoding.UTF8, 65536))
                     {
                         sw.WriteLine(Regex.Replace(x, @"\s+", " ").Replace("+ ","+"));
                     }
-                    Send_Success_Notif("The Varible "+ Convar_Name+" Has been Found in the File.The value is now "+ Convar_Value);
-                    Console.WriteLine("\n\n\n\n\n NEW");
+                  //  Send_Success_Notif("The Varible "+ Convar_Name+" Has been Found in the File.The value is now "+ Convar_Value);
 
-                    for (int j = 0; j<intermid.Length; j++)
-                    {
-
-                        Console.WriteLine("array[{0}] = {1}", j, intermid[j]);
-
-                    }
+                    
                 }
                 else 
                 {
@@ -3977,15 +3881,11 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                         intermid_ = Regex.Split(line, pattern);
 
                     }
-                    for (int j = 0; j<intermid_.Length; j++)
-                    {
-                        Console.WriteLine("array[{0}] = {1}", j, intermid_[j]);
-                    }
+                    
                     intermid_ = AddElementToArray(intermid_, Convar_Name +" "+ Convar_Value);
                     
                   
                     String x = String.Join(" ", intermid_.ToArray());
-                    Send_Info_Notif(Regex.Replace(x, @"\s+", " ").Replace("+ ", "+"));
                     //x.Replace(System.Environment.NewLine, "replacement text");
                     //  File.WriteAllText(RootFolder, String.Empty);
                     ClearFile(RootFolder +@"\" + "ns_startup_args_dedi.txt");
@@ -4007,40 +3907,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             }
 
         }
-        public string[] SplitString(string stringToSplit, char[] delimiters, bool includeDelimiter, bool trimEnds)
-        {
-            int index = -1;
-            List<string> stringList = new List<string>();
-            StringBuilder sBuilder = new StringBuilder();
-
-            while (++index < stringToSplit.Length)
-            {
-                sBuilder.Append(stringToSplit[index]);
-
-                foreach (char c in delimiters)
-                {
-                    if (stringToSplit[index] == c)
-                    {
-                        if (!includeDelimiter)
-                        {
-                            sBuilder.Remove(sBuilder.Length -1, 1);
-                        }
-                        if (trimEnds)
-                        {
-                            stringList.Add(sBuilder.ToString().Trim());
-                        }
-                        else
-                        {
-                            stringList.Add(sBuilder.ToString());
-                        }
-                        sBuilder.Clear();
-                        break;
-                    }
-                }
-            }
-            return stringList.ToArray();
-        }
-    
+       
     int cntr = 0;
         void Clear_Box(object sender, KeyEventArgs e)
         {
@@ -4082,7 +3949,6 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                     string type = Split[0];
                     string name = Split[1];
 
-                    var x = sender.GetType().GetProperty(type);
 
                     if (val != null && val != "" && Game_Modes_List.Count > 0 && Game_Modes_List != null)
                     {
@@ -4716,11 +4582,11 @@ return Arg_List;
                     string type = Split[0];
                     string name = Split[1];
 
-                    string list = String.Join(" ", comboBox.SelectedItems.Cast<String>().ToArray());
+                   // string list = String.Join(" ", comboBox.SelectedItems.Cast<String>().ToArray());
                 string import =null;
                 this.Dispatcher.Invoke(() =>
                 {
-                    import = Read_Startup_args(name, list);
+                    import = Read_Startup_args(name);
                 });
                 if (import != null)
                     {
@@ -4728,7 +4594,7 @@ return Arg_List;
                         string[] import_split = import.Split(" ");
                         foreach (string item in import_split)
                         {
-                            comboBox.SelectedItems.Add(item);
+                           comboBox.SelectedItems.Add(item);
 
                         }
 
@@ -4739,5 +4605,37 @@ return Arg_List;
             
 
         }
+
+        private void TextBox_Initialized(object sender, EventArgs e)
+        {
+
+            var val = ((TextBox)sender).Text.ToString();
+            var Tag = ((TextBox)sender).Tag.ToString();
+            TextBox Text_Box = (TextBox)sender;
+            string[] Split = Tag.Split("|");
+            string type = Split[0];
+            string name = Split[1];
+            string import = null;
+            this.Dispatcher.Invoke(() =>
+            {
+              import = Read_Startup_args(name);
+            });
+            if (import != null)
+            {
+                import.Replace(name.Trim(new Char[] { '-', '+' }), "");
+                string[] import_split = import.Split(" ");
+                for (int i = 1; i < import_split.Length; i++)
+                {
+                    Text_Box.Text = import_split[1];
+                }
+                
+
+                
+
+
+            }
+        }
+
+       
     }
 }

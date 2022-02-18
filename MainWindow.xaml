@@ -16,14 +16,14 @@
         <DataTemplate x:Key="NormalBox">
             <Grid Width="970" Background="{x:Null}" HorizontalAlignment="Center" Margin="0,0,0,3" Height="58">
                 <Label HorizontalAlignment="Stretch" Height="38" Margin="30,0,505,0" Background="#FF004439" Foreground="White" Content="{Binding Name}" FontSize="16" ToolTip="{Binding Description}" BorderBrush="{x:Null}"/>
-                <TextBox Margin="505,0,30,0" VerticalAlignment="Center" Height="38" Text ="{Binding Default}"   CaretBrush="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="#FF00EDBD" SelectionTextBrush="#FF847300"    Foreground="White" ToolTip="{Binding Type}" Tag="{Binding Tag}" Background="#FF4C4C4C" PreviewTextInput="ValidationTextBox" FontSize="16" RenderTransformOrigin="0,0" LostFocus="validate" KeyUp="Save_On_Focus_"   Style="{StaticResource TextBoxExtend}" />
+                <TextBox Margin="505,0,30,0" VerticalAlignment="Center" Height="38" Text ="{Binding Default}"   CaretBrush="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="#FF00EDBD" SelectionTextBrush="#FF847300"    Foreground="White" ToolTip="{Binding Type}" Tag="{Binding Tag}" Background="#FF4C4C4C" PreviewTextInput="ValidationTextBox" FontSize="16" RenderTransformOrigin="0,0" LostFocus="validate" KeyUp="Save_On_Focus_"   Style="{StaticResource TextBoxExtend}" Initialized="TextBox_Initialized" />
 
             </Grid>
         </DataTemplate >
         <DataTemplate x:Key="ComboBox" >
             <Grid Width="970" Background="{x:Null}" HorizontalAlignment="Center" Margin="0,0,0,3" Height="58">
                 <Label HorizontalAlignment="Stretch" Height="38" Margin="30,0,505,0" Background="#FF004439" Foreground="White" Content="{Binding Name}" FontSize="16" ToolTip="{Binding Description}" BorderBrush="{x:Null}"/>
-                <hc:CheckComboBox Margin="505,0,30,0" VerticalAlignment="Center" Height="38"    BorderBrush="{x:Null}"    Foreground="White" ToolTip="{Binding Type}" Tag="{Binding Tag}" Background="#FF4C4C4C" FontSize="16" RenderTransformOrigin="0,0" ItemsSource="{Binding List}" SelectionChanged="Validate_Combo_Box" SelectionMode="Extended" IsSynchronizedWithCurrentItem="False" Initialized="CheckComboBox_Initialized"  />
+                <hc:CheckComboBox Margin="505,0,30,0" VerticalAlignment="Center" Height="38"    BorderBrush="{x:Null}"    Foreground="White" ToolTip="{Binding Type}" Tag="{Binding Tag}" Background="#FF4C4C4C" FontSize="16" RenderTransformOrigin="0,0" ItemsSource="{Binding List}" SelectionMode="Extended" IsSynchronizedWithCurrentItem="False" Initialized="CheckComboBox_Initialized" SelectionChanged="Validate_Combo_Box"  />
 
             </Grid>
         </DataTemplate>
