@@ -40,10 +40,25 @@ using static VTOL.MainWindow;
 //**************//
 namespace VTOL
 {
+    public static class Extensions
+    {
+        public static T[] Append<T>(this T[] array, T item)
+        {
+            if (array == null)
+            {
+                return new T[] { item };
+            }
+            Array.Resize(ref array, array.Length + 1);
+            array[array.Length - 1] = item;
+
+            return array;
+        }
+    }
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     /// 
+
     public class Server_Template_Selector : DataTemplateSelector
     {
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
@@ -51,8 +66,8 @@ namespace VTOL
             FrameworkElement element = container as FrameworkElement;
 
             var Item = item as Arg_Set;
-            if (Item == null)
-                return null;
+            if (Item == null) { return null; }
+                
             if (Item.Type == "PORT" || Item.Type == "STRING")
                 return
                     element.FindResource("NormalBox")
@@ -66,6 +81,7 @@ namespace VTOL
     public partial class MainWindow : Window
     {
        
+
         BitmapImage Vanilla = new BitmapImage(new Uri(@"/Resources/TF2_Vanilla_promo.gif", UriKind.Relative));
         BitmapImage Northstar = new BitmapImage(new Uri(@"/Resources/Northstar_Smurfson.gif", UriKind.Relative));
         static System.Collections.Specialized.StringCollection log = new System.Collections.Specialized.StringCollection();
@@ -88,22 +104,13 @@ namespace VTOL
         bool do_not_overwrite_Ns_file_Dedi = true;
         ArrayList itemsList = new ArrayList();
         ArrayList Mirror_Item_List = new ArrayList();
-        private ICollectionView phrasesView;
-        private string filter;
         public IEnumerable<string> Phrases { get; private set; }
         public List<string> Game_Modes_List = new List<string>();
-
-        bool advanced_Mode = false;
-        private int completed_flag;
+        int completed_flag;
         public int pid;
-        string current_Ver;
         string Skin_Path = "";
         string Skin_Temp_Loc = "";
-        string col_path = "";
-        string ilum_path = "";
-        bool Auto_Client_Updates = false;
-        Image Defualt_Image_Vanilla;
-        Image Defualt_Image_NS;
+      
         public Thunderstore_V1 Thunderstore_;
         Updater Update;
         public bool Animation_Start_Northstar { get; set; }
@@ -187,6 +194,8 @@ namespace VTOL
             catch (System.IO.DirectoryNotFoundException e)
             {
                 Write_To_Log("Could Not Verify Dir" + Current_Install_Folder);
+                Write_To_Log(e.StackTrace);
+
                 HandyControl.Controls.Growl.ErrorGlobal("\nVTOL tried to check for an existing config (cfg), please manually select it.");
                 //log.AppendText("\nThe Launcher Tried to Auto Check For an existing CFG, please use the manual Check to search.");
 
@@ -290,6 +299,7 @@ namespace VTOL
             {
                 Write_To_Log("Could Not Verify Dir" + Current_Install_Folder);
                 Send_Warning_Notif("\nThe Launcher Tried to Auto Check For an existing CFG, please use the manual Check to search.");
+                Write_To_Log(e.StackTrace);
 
 
 
@@ -334,7 +344,7 @@ namespace VTOL
 
         }
 
-        async Task Thunderstore_Parse()
+       async  Task  Thunderstore_Parse()
 
 
         {
@@ -585,10 +595,7 @@ Big Thanks to -
 @EmmaM#6474
 @laundmo#7544
 @E3VL#6669
-
-
-
-Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_ ";
+Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/Ju1cy ";
             About_BOX.Document.Blocks.Clear();
             Run run = new Run(Text);
             paragraph.Inlines.Add(run);
@@ -1103,6 +1110,7 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
             catch (System.IO.FileNotFoundException e)
             {
                 Send_Error_Notif("Could Not find " + Filepath);
+                Write_To_Log(e.StackTrace);
 
 
             }
@@ -1130,6 +1138,7 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
             catch (System.IO.FileNotFoundException e)
             {
                 Send_Error_Notif("Could Not find " + Filepath);
+                Write_To_Log(e.StackTrace);
 
 
             }
@@ -1253,7 +1262,7 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
 
                 return null;
             }
-            return null;
+          
 
         }
         private void Parse_Release(string json_name = "temp.json")
@@ -1668,7 +1677,7 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
         }
         void WalkDirectoryTree(System.IO.DirectoryInfo root, String Search)
         {
-            System.IO.FileInfo[] files = null;
+           // System.IO.FileInfo[] files = null;
             System.IO.DirectoryInfo[] subDirs = null;
 
             //// First, process all the files directly under this folder
@@ -2383,6 +2392,7 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
             }
             catch (Exception ex)
             {
+                
 
                 return string.Empty;
             }
@@ -3636,6 +3646,25 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
                 Write_To_Log(ex.Message);
             }
         }
+        private void Validate_Combo_Box(object sender, SelectionChangedEventArgs e)
+        {
+            
+            if (sender.GetType() == typeof(HandyControl.Controls.CheckComboBox))
+            {
+                HandyControl.Controls.CheckComboBox comboBox = (HandyControl.Controls.CheckComboBox)sender;
+                var Var = ((HandyControl.Controls.CheckComboBox)sender).Tag.ToString();
+
+                string[] Split = Var.Split("|");
+                string type = Split[0];
+                string name = Split[1];
+
+                string list = String.Join(" ", comboBox.SelectedItems.Cast<String>().ToArray());
+                
+                
+                Write_Startup_Arg_To_File(name, list);
+                
+            }
+        }
         private void ValidationTextBox(object sender, TextCompositionEventArgs e)
         {
             var Var = ((TextBox)sender).Tag.ToString();
@@ -3681,7 +3710,7 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
         void validate(object sender, RoutedEventArgs e) {
 
 
-
+            
 
 
         }
@@ -3710,25 +3739,309 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
             }
             if (Lines.Contains(Convar_Name) == true)
             {
-                Send_Warning_Notif("Found"+ Lines.Contains(Convar_Name));
+                Send_Success_Notif("Found"+ Lines.Contains(Convar_Name));
+
+            }
+            else
+            {
+                Send_Warning_Notif("DID NOT FIND"+ Convar_Name);
 
             }
         }
-        void Write_Startup_Arg_To_File(string Convar_Name, string Convar_Value)
+        private T[] AddElementToArray<T>(T[] array, T element)
         {
-            List<string> Lines = new List<string>();
-
-            foreach (string line in System.IO.File.ReadLines(GetFile(Current_Install_Folder, "ns_startup_args_dedi.txt").First()))
+            T[] newArray = new T[array.Length + 1];
+            int i;
+            for (i = 0; i < array.Length; i++)
             {
-                Lines.Add(line);
+                newArray[i] = array[i];
             }
-            if (Lines.Contains(Convar_Name) == true)
-            {
-                Send_Warning_Notif("Found"+ Lines.Contains(Convar_Name));
-
-            }
+            newArray[i] = element;
+            return newArray;
         }
-        int cntr = 0;
+        private void ClearFile(string path)
+        {
+            if (!File.Exists(path))
+                File.Create(path);
+
+            StreamWriter tw = new StreamWriter(path, false);
+            tw.Flush();
+
+            tw.Close();
+        }
+
+        string Read_Startup_args(string Convar_Name, string Convar_Value, string File_Root = null)
+        {
+            try
+            {
+                Send_Info_Notif(Convar_Name.Trim(new Char[] { '-', '+'}) + "   "+ Convar_Value);
+                string val = Convar_Name.Trim(new Char[] { '-', '+' });
+                string RootFolder = "";
+                if (File_Root != null)
+                {
+                    RootFolder  = File_Root;
+
+                }
+                else
+                {
+
+
+                    RootFolder  = Current_Install_Folder;
+                }
+                string[] intake = File.ReadAllLines(GetFile(RootFolder, "ns_startup_args_dedi.txt").First());
+
+                string[] intermid = null;
+
+                foreach (string line in intake)
+                {
+                    intermid = line.Split('+');
+
+                }
+                if (Array.Exists(intermid, element => element.StartsWith(val))) { 
+                    Send_Success_Notif("Found"+ val);
+                    for (int j = 0; j<intermid.Length; j++)
+                    {
+                     //   Console.WriteLine("array[{0}] = {1}", j, intermid[j]);
+                    }
+                    int index_of_var = Array.FindIndex(intermid, element => element.StartsWith(val));
+                   Send_Success_Notif(intermid[index_of_var].ToString());
+                    return intermid[index_of_var].ToString();
+
+
+                }
+                else
+                {
+                    Send_Error_Notif("Did Not Find"+ val);
+
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                Send_Fatal_Notif("\nIssue with using Server Setup sys, Please Check Logs!");
+                Write_To_Log(ex.Message);
+
+
+            }
+            return null;
+        }
+        public static String CompactWhitespaces(String s)
+        {
+            StringBuilder sb = new StringBuilder(s);
+
+            CompactWhitespaces(sb);
+
+            return sb.ToString();
+        }
+        public static void CompactWhitespaces(StringBuilder sb)
+        {
+            if (sb.Length == 0)
+                return;
+
+            // set [start] to first not-whitespace char or to sb.Length
+
+            int start = 0;
+
+            while (start < sb.Length)
+            {
+                if (Char.IsWhiteSpace(sb[start]))
+                    start++;
+                else
+                    break;
+            }
+
+            // if [sb] has only whitespaces, then return empty string
+
+            if (start == sb.Length)
+            {
+                sb.Length = 0;
+                return;
+            }
+
+            // set [end] to last not-whitespace char
+
+            int end = sb.Length - 1;
+
+            while (end >= 0)
+            {
+                if (Char.IsWhiteSpace(sb[end]))
+                    end--;
+                else
+                    break;
+            }
+
+            // compact string
+
+            int dest = 0;
+            bool previousIsWhitespace = false;
+
+            for (int i = start; i <= end; i++)
+            {
+                if (Char.IsWhiteSpace(sb[i]))
+                {
+                    if (!previousIsWhitespace)
+                    {
+                        previousIsWhitespace = true;
+                        sb[dest] = ' ';
+                        dest++;
+                    }
+                }
+                else
+                {
+                    previousIsWhitespace = false;
+                    sb[dest] = sb[i];
+                    dest++;
+                }
+            }
+
+            sb.Length = dest;
+        }
+        void Write_Startup_Arg_To_File(string Convar_Name, string Convar_Value,string File_Root = null)
+        {
+
+            try
+            {
+
+                string val = Convar_Name.Trim(new Char[] { '-', '+' });
+                var pattern = @"(?=[+])";
+
+                string RootFolder = "";
+                if (File_Root != null)
+                {
+                    RootFolder  = File_Root;
+
+                }
+                else
+                {
+
+
+                    RootFolder  = Current_Install_Folder;
+                }
+                string[] intake = File.ReadAllLines(GetFile(RootFolder, "ns_startup_args_dedi.txt").First());
+
+                string[] intermid = null;
+
+                foreach (string line in intake)
+                {
+                    //  intermid_ = line.Split('+');
+                    intermid = Regex.Split(line.Trim(' '), pattern);
+                    
+
+                }
+                for (int j = 0; j<intermid.Length; j++)
+                {
+                    Console.WriteLine("array[{0}] = {1}", j, intermid[j]);
+
+                }
+                if (Array.Exists(intermid, element => element.StartsWith(Convar_Name)))
+                {
+                    //Send_Success_Notif("Found"+ Convar_Name);
+                    Console.WriteLine("\n\n\n\n\n OLD");
+
+                   
+                    int index_of_var = Array.FindIndex(intermid, element => element.StartsWith(Convar_Name));
+                    Send_Info_Notif(Convar_Name + " " +Convar_Value);
+                    intermid[index_of_var] = Convar_Name + " " +Convar_Value;
+                    
+                   
+                   
+                    String x = String.Join(" ", intermid.ToArray());
+                    //x.Replace(System.Environment.NewLine, "replacement text");
+                    // File.WriteAllText(RootFolder, String.Empty);
+                    ClearFile(RootFolder +@"\" + "ns_startup_args_dedi.txt");
+                    Send_Info_Notif(Regex.Replace(x, @"\s+", " ").Replace("+ ", "+"));
+
+                    using (StreamWriter sw = new StreamWriter(RootFolder +@"\" + "ns_startup_args_dedi.txt", false, Encoding.UTF8, 65536))
+                    {
+                        sw.WriteLine(Regex.Replace(x, @"\s+", " ").Replace("+ ","+"));
+                    }
+                    Send_Success_Notif("The Varible "+ Convar_Name+" Has been Found in the File.The value is now "+ Convar_Value);
+                    Console.WriteLine("\n\n\n\n\n NEW");
+
+                    for (int j = 0; j<intermid.Length; j++)
+                    {
+
+                        Console.WriteLine("array[{0}] = {1}", j, intermid[j]);
+
+                    }
+                }
+                else 
+                {
+
+                    string[] intake_ = File.ReadAllLines(GetFile(RootFolder, "ns_startup_args_dedi.txt").First());
+
+                    string[] intermid_ = null;
+                    foreach (string line in intake_)
+                    {
+                        //  intermid_ = line.Split('+');
+                        intermid_ = Regex.Split(line, pattern);
+
+                    }
+                    for (int j = 0; j<intermid_.Length; j++)
+                    {
+                        Console.WriteLine("array[{0}] = {1}", j, intermid_[j]);
+                    }
+                    intermid_ = AddElementToArray(intermid_, Convar_Name +" "+ Convar_Value);
+                    
+                  
+                    String x = String.Join(" ", intermid_.ToArray());
+                    Send_Info_Notif(Regex.Replace(x, @"\s+", " ").Replace("+ ", "+"));
+                    //x.Replace(System.Environment.NewLine, "replacement text");
+                    //  File.WriteAllText(RootFolder, String.Empty);
+                    ClearFile(RootFolder +@"\" + "ns_startup_args_dedi.txt");
+                    using (StreamWriter sw = new StreamWriter(RootFolder +@"\" + "ns_startup_args_dedi.txt", false, Encoding.UTF8, 65536))
+                    {
+                        sw.WriteLine(Regex.Replace(x, @"\s+", " "));
+                    }
+                    // File.WriteAllText(GetFile(RootFolder, "ns_startup_args_dedi.txt").First(), x);
+                    Send_Warning_Notif("The Varible"+ Convar_Name+" Was not Found in File. It Has Been Added Now with the value of " + Convar_Value);
+
+                }
+            }
+            catch(Exception ex)
+            {
+                Send_Fatal_Notif("\nIssue with using Server Setup sys, Please Check Logs!");
+                Write_To_Log(ex.Message);
+
+
+            }
+
+        }
+        public string[] SplitString(string stringToSplit, char[] delimiters, bool includeDelimiter, bool trimEnds)
+        {
+            int index = -1;
+            List<string> stringList = new List<string>();
+            StringBuilder sBuilder = new StringBuilder();
+
+            while (++index < stringToSplit.Length)
+            {
+                sBuilder.Append(stringToSplit[index]);
+
+                foreach (char c in delimiters)
+                {
+                    if (stringToSplit[index] == c)
+                    {
+                        if (!includeDelimiter)
+                        {
+                            sBuilder.Remove(sBuilder.Length -1, 1);
+                        }
+                        if (trimEnds)
+                        {
+                            stringList.Add(sBuilder.ToString().Trim());
+                        }
+                        else
+                        {
+                            stringList.Add(sBuilder.ToString());
+                        }
+                        sBuilder.Clear();
+                        break;
+                    }
+                }
+            }
+            return stringList.ToArray();
+        }
+    
+    int cntr = 0;
         void Clear_Box(object sender, KeyEventArgs e)
         {
             cntr++;
@@ -3755,97 +4068,86 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
 
             try
             {
-                if(sender.GetType() == typeof(TextBox))
+                if (sender.GetType() == typeof(TextBox))
                 {
 
-                    Send_Info_Notif("TXT");
-                }
-                if(sender.GetType() == typeof(HandyControl.Controls.CheckComboBox))
-                {
-                    HandyControl.Controls.CheckComboBox comboBox = (HandyControl.Controls.CheckComboBox)sender;
-                    foreach (string item in comboBox.SelectedItems)
-                    {
-                        Send_Info_Notif(item);
-                    }
 
-                }
-               
-                var val = ((TextBox)sender).Text.ToString();
-                var Tag = ((TextBox)sender).Tag.ToString();
-                TextBox Text_Box = (TextBox)sender;
-                string[] Split = Tag.Split("|");
-                string type = Split[0];
-                string name = Split[1];
-                var x = sender.GetType().GetProperty(type);
 
-                if (val != null && val != "" && Game_Modes_List.Count > 0 && Game_Modes_List != null)
-                {
 
-                    switch (type)
+
+                    var val = ((TextBox)sender).Text.ToString();
+                    var Tag = ((TextBox)sender).Tag.ToString();
+                    TextBox Text_Box = (TextBox)sender;
+                    string[] Split = Tag.Split("|");
+                    string type = Split[0];
+                    string name = Split[1];
+
+                    var x = sender.GetType().GetProperty(type);
+
+                    if (val != null && val != "" && Game_Modes_List.Count > 0 && Game_Modes_List != null)
                     {
 
-                        case "STRING":
-                            if (e.Key == Key.Return)
-                            {
-                                if (Verify_List(Game_Modes_List, val)== true)
-                                {
-                                    Send_Success_Notif("");
-                                    Text_Box.Text = "Lol";
-                                }
-                                else
-                                {
+                        switch (type)
+                        {
 
-                                    Send_Error_Notif("Not_found!");
-                                }
-                            }
-                            break;
-                        case "PORT":
-                           
-                            if (val.Count() >5)
-                                {
-                                Send_Warning_Notif("Port is larger Than Required");
-                                Text_Box.Background = Brushes.Red;
-                            }
-                            else
-                            {
-                                Text_Box.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF4C4C4C");
-
+                            case "STRING":
                                 if (e.Key == Key.Return)
                                 {
                                     Write_Startup_Arg_To_File(name, val);
 
+                                   
 
-                                    if (IsPort(val) == true && val.Count() <6)
+                                  
+                                   
+                                }
+                                break;
+                            case "PORT":
+
+                                if (val.Count() >5)
+                                {
+                                    Send_Warning_Notif("Port is larger Than Required");
+                                    Text_Box.Background = Brushes.Red;
+                                }
+                                else
+                                {
+                                    Text_Box.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF4C4C4C");
+
+                                    if (e.Key == Key.Return)
                                     {
-                                        Send_Success_Notif("Succesfully Set - [" +name+"]");
-                                        Text_Box.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF4C4C4C");
-                                        
 
-                                    }
-                                    else
-                                    {
-                                        Send_Warning_Notif("Error At ["+name+"]");
-                                        Text_Box.Background = Brushes.Red;
-                                      // Text_Box.AutoComplete = false;
-                                        Text_Box.Text = null;
+                                        if (IsPort(val) == true && val.Count() <6)
+                                        {
+                                            Write_Startup_Arg_To_File(name, val);
 
+                                            Text_Box.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF4C4C4C");
+
+
+                                        }
+                                        else
+                                        {
+                                            Send_Warning_Notif("Error At ["+name+"]");
+                                            Text_Box.Background = Brushes.Red;
+                                            // Text_Box.AutoComplete = false;
+                                            Text_Box.Text = null;
+
+                                        }
                                     }
                                 }
-                            }                          
-                            break;
+                                break;
+
+                        }
+
+
+
+
 
                     }
-                    
-
-
-                        
-
-                    }
+                }
                 
             }
             catch (Exception ex)
             {
-                Send_Fatal_Notif("\nIssue with using Autocomplete sys, Please Check Logs");
+                Send_Fatal_Notif("\nIssue with writing Input, Please Check Logs");
                 Write_To_Log(ex.Message);
 
             }
@@ -3884,10 +4186,9 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
                Server_Json = Server_Setup.FromJson(json);
 }
 
-            string register_1;
             foreach (var items in Server_Json.Startup_Arguments)
             {
-                if (items.Name == "+mpgamemode")
+                if (items.Name == "+mp_gamemode")
                 {
                     foreach (var item in items.List)
                     {
@@ -3913,11 +4214,7 @@ Every cent counts towards feeding my baby Ticks - https://www.patreon.com/Juicy_
 
             }
 
-            string Name = "";
-            string Type = "";
-            string Argument_Defualt = "";
-            Test_Box.ItemsSource = Game_Modes_List;
-
+         
             //  foreach (var item in Update.Thunderstore)
             //   {
 
@@ -4390,14 +4687,56 @@ return Arg_List;
 
         }
 
-        private void Handle_listBox_Items(object sender, RoutedEventArgs e)
-        {
-           
 
+        
+
+        
+        private void Help_Button_Click(object sender, RoutedEventArgs e)
+        {
+            string val = @"https://github.com/BigSpice/VTOL/blob/master/README.md";
+
+            Send_Info_Notif("Opening - " + val);
+            System.Diagnostics.Process.Start(new ProcessStartInfo
+            {
+                FileName = val,
+                UseShellExecute = true
+            });
         }
 
-        private void Save_On_Focus_(object sender, RoutedEventArgs e)
+
+        private async void CheckComboBox_Initialized(object sender, EventArgs e)
         {
+            
+                if (sender.GetType() == typeof(HandyControl.Controls.CheckComboBox))
+                {
+                    HandyControl.Controls.CheckComboBox comboBox = (HandyControl.Controls.CheckComboBox)sender;
+                    var Var = ((HandyControl.Controls.CheckComboBox)sender).Tag.ToString();
+
+                    string[] Split = Var.Split("|");
+                    string type = Split[0];
+                    string name = Split[1];
+
+                    string list = String.Join(" ", comboBox.SelectedItems.Cast<String>().ToArray());
+                string import =null;
+                this.Dispatcher.Invoke(() =>
+                {
+                    import = Read_Startup_args(name, list);
+                });
+                if (import != null)
+                    {
+                        import.Replace(name.Trim(new Char[] { '-', '+' }), "");
+                        string[] import_split = import.Split(" ");
+                        foreach (string item in import_split)
+                        {
+                            comboBox.SelectedItems.Add(item);
+
+                        }
+
+
+                    }
+
+                }
+            
 
         }
     }

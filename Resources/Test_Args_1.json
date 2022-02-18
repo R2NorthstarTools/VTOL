@@ -14,7 +14,7 @@
       "Description": "Determines which UDP port the server will listen to"
     },
     {
-      "Display_Val": "+mpgamemode",
+      "Display_Val": "+mp_gamemode",
       "Type": "GAME_MODE",
       "Default": "private_match",
       "Description": "Forces the gamemode of the server",

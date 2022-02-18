@@ -23,14 +23,14 @@
         <DataTemplate x:Key="ComboBox" >
             <Grid Width="970" Background="{x:Null}" HorizontalAlignment="Center" Margin="0,0,0,3" Height="58">
                 <Label HorizontalAlignment="Stretch" Height="38" Margin="30,0,505,0" Background="#FF004439" Foreground="White" Content="{Binding Name}" FontSize="16" ToolTip="{Binding Description}" BorderBrush="{x:Null}"/>
-                <hc:CheckComboBox Margin="505,0,30,0" VerticalAlignment="Center" Height="38"    BorderBrush="{x:Null}"    Foreground="White" ToolTip="{Binding Type}" Tag="{Binding Tag}" Background="#FF4C4C4C" PreviewTextInput="ValidationTextBox" FontSize="16" RenderTransformOrigin="0,0" LostFocus="validate" KeyUp="Save_On_Focus_" ItemsSource="{Binding List}" />
+                <hc:CheckComboBox Margin="505,0,30,0" VerticalAlignment="Center" Height="38"    BorderBrush="{x:Null}"    Foreground="White" ToolTip="{Binding Type}" Tag="{Binding Tag}" Background="#FF4C4C4C" FontSize="16" RenderTransformOrigin="0,0" ItemsSource="{Binding List}" SelectionChanged="Validate_Combo_Box" SelectionMode="Extended" IsSynchronizedWithCurrentItem="False" Initialized="CheckComboBox_Initialized"  />
 
             </Grid>
         </DataTemplate>
         <local:Server_Template_Selector x:Key="Server_Template_Selector" />
     </Window.Resources>
 
-        <Grid Visibility="Visible">
+    <Grid Visibility="Visible">
 
         <Grid.Resources>
             <ImageBrush x:Key="Enable_Button" ImageSource="/Resources/Enable_Image.png" Stretch="UniformToFill"/>
@@ -271,22 +271,22 @@
         </Grid>
 
         <hc:SimplePanel x:Name="Dedicated_Server_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Visible" Margin="190,0,0,2" Grid.ColumnSpan="2" Grid.RowSpan="2" ScrollViewer.VerticalScrollBarVisibility="Disabled">
-            
+
             <hc:ScrollViewer Margin="10,10,10,10" PanningMode="VerticalOnly">
                 <hc:SimpleStackPanel Margin="10,10,10,10" Height="1066" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Cursor="">
-                    <hc:CheckComboBox x:Name="Test_Box" MaxWidth="380"  Width="380" hc:InfoElement.TitleWidth="140" hc:InfoElement.TitlePlacement="Left" hc:InfoElement.Placeholder="PlsEnterContent" hc:InfoElement.Title="TitleDemoStr3"  hc:InfoElement.Necessary="True" Margin="0,16,0,0" LostFocus="Save_On_Focus_"/>
                     <Label Height="58" Width="329" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,89,0,0" Content="Startup Arguments" FontSize="36" FontFamily="Bahnschrift SemiLight" Background="{x:Null}" BorderBrush="{x:Null}" />
                     <ListBox x:Name="Startup_Arguments_UI_List" Margin="0,0,0,-386" Background="#FF101010" BorderBrush="{x:Null}" ItemTemplateSelector="{StaticResource Server_Template_Selector}">
-                       
+
 
 
 
                     </ListBox>
 
-                   
+
 
 
                 </hc:SimpleStackPanel>
+
             </hc:ScrollViewer>
 
 
@@ -322,7 +322,7 @@
                 <Button x:Name="Config_Updates" Content="Configure Updates" Height="47" HorizontalAlignment="Left" Margin="350,428,0,0" VerticalAlignment="Top" Background="#FF2C4C4C" BorderBrush="{x:Null}" Click="Config_Updates_Click" FontSize="14" Width="170"/>
 
             </hc:SimplePanel>
-            
+
         </hc:SimplePanel>
 
 
@@ -331,10 +331,13 @@
                 <FlowDocument>
                     <Paragraph>
                         <Run Text="RichTextBox"/>
+
                     </Paragraph>
+
                 </FlowDocument>
             </RichTextBox>
             <Label Content="ABOUT" Width="190" Margin="0,8,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Height="44" Padding="10,3,10,3"/>
+            <Button x:Name="Help_Button" Content="Help" Height="38" Background="#FF1E4C51" Click="Help_Button_Click" HorizontalAlignment="Stretch" Margin="847,14,45,0" VerticalAlignment="Top" BorderBrush="White"/>
         </hc:SimplePanel>
 
 
