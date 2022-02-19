@@ -41,6 +41,17 @@
 
             </Grid>
         </DataTemplate>
+        <DataTemplate x:Key="BOOLBox" >
+            <Grid Width="970" Background="{x:Null}" HorizontalAlignment="Center" Margin="0,0,0,3" Height="58">
+                <Label HorizontalAlignment="Stretch" Height="38" Margin="30,0,505,0" Background="#FF004439" Foreground="White" Content="{Binding Name}" FontSize="16" ToolTip="{Binding Description}" BorderBrush="{x:Null}"/>
+                <ComboBox Margin="505,0,30,0" Height="38" Text ="{Binding Default}" Foreground="White" ToolTip="{Binding Type}" Tag="{Binding Tag}" Background="#FF4C4C4C"  FontSize="16" >
+
+                    <ComboBoxItem Content="No" />
+                    <ComboBoxItem Content="Yes" />
+                </ComboBox>
+
+            </Grid>
+        </DataTemplate>
         <local:Server_Template_Selector x:Key="Server_Template_Selector" />
     </Window.Resources>
 
@@ -278,6 +289,9 @@
 
             <hc:ScrollViewer Margin="10,10,10,10" PanningMode="VerticalOnly">
                 <hc:SimpleStackPanel Margin="10,10,10,10" Height="1564" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Cursor="">
+                    
+
+
                     <Grid Visibility="Visible">
                         <Button x:Name="Launch_Northstar_Advanced" Content="Launch Northstar Advanced" Height="40" Width="392" Margin="0,155,0,0" VerticalAlignment="Top" Click="Launch_Northstar_Advanced_Click" BorderBrush="White" Background="#FF085F36" />
                         <hc:TextBox x:Name="Arg_Box" HorizontalAlignment="Center" Height="38" TextWrapping="Wrap" VerticalAlignment="Top" Width="392" Margin="0,110,0,0" KeyDown="OnKeyDownHandler_Nrml_Arg"/>

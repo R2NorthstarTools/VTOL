@@ -101,6 +101,13 @@
       "Default": "",
       "Description": "The delay between each tick ran on the server, your tickrate will be 1 divided by this value",
       "ARG": "CONVAR"
+    },
+    {
+      "Display_Val": "ns_auth_allow_insecure",
+      "Type": "BOOL",
+      "Default": "0",
+      "Description": "keep this to 0 unless you want to allow people to join without masterserver auth/persistence",
+      "ARG": "CONVAR"
     }
   ]
 

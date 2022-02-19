@@ -67,10 +67,15 @@ namespace VTOL
                 return
                     element.FindResource("FloatBox")
                     as DataTemplate;
+            else if (Item.Type == "BOOL")
+                return
+                    element.FindResource("BOOLBox")
+                    as DataTemplate;
             else
                 return
                     element.FindResource("ComboBox")
                     as DataTemplate;
+           
 
         }
 
