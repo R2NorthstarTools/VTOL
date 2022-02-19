@@ -13,7 +13,8 @@ namespace VTOL
       
         [JsonPropertyName("Startup_Arguments")]
         public List<Startup_Arguments> Startup_Arguments { get; set; }
-
+        [JsonPropertyName("Convar_Arguments")]
+        public List<Convar_Arguments> Convar_Arguments { get; set; }
     }
 
     // Root myDeserializedClass = JsonSerializer.Deserialize<Root>(myJsonResponse);
@@ -31,11 +32,33 @@ namespace VTOL
         [JsonPropertyName("Description")]
         public string Description_Tooltip { get; set; }
 
+        [JsonPropertyName("ARG")]
+        public string ARG { get; set; }
+
         [JsonPropertyName("List")]
         public string[] List { get; set; }
     }
 
+    public class Convar_Arguments
+    {
+        [JsonPropertyName("Display_Val")]
+        public string Name { get; set; }
 
+        [JsonPropertyName("Type")]
+        public string Type { get; set; }
+
+        [JsonPropertyName("ARG")]
+        public string ARG { get; set; }
+
+        [JsonPropertyName("Default")]
+        public string Default { get; set; }
+
+        [JsonPropertyName("Description")]
+        public string Description_Tooltip { get; set; }
+
+        [JsonPropertyName("List")]
+        public string[] List { get; set; }
+    }
 
 
     public partial class Server_Setup

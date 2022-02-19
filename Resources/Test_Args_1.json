@@ -4,21 +4,103 @@
       "Display_Val": "+setplaylist",
       "Type": "STRING",
       "Default": "private_match",
-      "Description": "Currently needed to make servers work"
+      "Description": "Currently needed to make servers work",
+      "ARG": "STARTUP"
+
 
     },
     {
       "Display_Val": "-port",
       "Type": "PORT",
       "Default": "8080",
-      "Description": "Determines which UDP port the server will listen to"
+      "Description": "Determines which UDP port the server will listen to",
+      "ARG": "STARTUP"
+
     },
     {
       "Display_Val": "+mp_gamemode",
       "Type": "GAME_MODE",
       "Default": "private_match",
       "Description": "Forces the gamemode of the server",
-      "List": [ "private_match", "ps", "gg" ]
+      "ARG": "STARTUP",
+      "List": [ "private_match", "ps", "gg", "coliseum", "cp", "lf", "lts", "mfd", "ps", "solo", "tdm", "ttdm" ]
+
+    },
+    {
+      "Display_Val": "+setplaylistvaroverrides",
+      "Type": "STRINGQ",
+      "Default": "",
+      "Description": "Currently needed to make servers work",
+      "ARG": "STARTUP"
+
+    }
+  ],
+  "Convar_Arguments": [
+    {
+      "Display_Val": "ns_server_name",
+      "Type": "STRING",
+      "Default": "Unnamed Northstar Server",
+      "Description": "Your server's name on the server browser",
+        "ARG": "CONVAR"
+    },
+    {
+      "Display_Val": "ns_server_desc",
+      "Type": "STRING",
+      "Default": "Default server description",
+      "Description": "Your server's description on the server browser",
+      "ARG": "CONVAR"
+    },
+    {
+      "Display_Val": "ns_server_password",
+      "Type": "STRING",
+      "Default": "private_match",
+      "Description": "The password required to join your server, can be bypassed if clients directly connect and you are using insecure auth",
+      "ARG": "CONVAR"
+    },
+    {
+      "Display_Val": "base_tickinterval_mp",
+      "Type": "FLOAT",
+      "Default": "0.016666667",
+      "Description": "The delay between each tick ran on the server, your tickrate will be 1 divided by this value",
+      "ARG": "CONVAR"
+    },
+    {
+      "Display_Val": "sv_updaterate_mp",
+      "Type": "INT",
+      "Default": "20",
+      "Description": "The maximum number of times per second your server will send information to connected players, if a player's cl_updaterate_mp value is lower than this, their rate will be limited to it",
+      "ARG": "CONVAR"
+    },
+    {
+      "Display_Val": "ns_private_match_last_mode",
+      "Type": "GAME_MODE",
+      "Default": "tdm",
+      "Description": "Forces the lobby to a specific Gamemode",
+      "List": [ "private_match", "ps", "gg", "coliseum", "cp", "lf", "lts", "mfd", "ps", "solo", "tdm", "ttdm" ],
+      "ARG": "CONVAR"
+    },
+    {
+      "Display_Val": "ns_private_match_last_map",
+      "Type": "GAME_MAP",
+      "Default": "mp_forwardbase_kodai",
+      "Description": "Forces the lobby to a specifig map",
+      "List": [ "private_match", "ps", "gg", "coliseum", "cp", "lf", "lts", "mfd", "ps", "solo", "tdm", "ttdm" ],
+      "ARG": "CONVAR"
+    },
+    {
+      "Display_Val": "ns_disallowed_weapons",
+      "Type": "WEAPONS",
+      "Default": "",
+      "Description": "The delay between each tick ran on the server, your tickrate will be 1 divided by this value",
+      "List": [ "private_match", "ps", "gg", "coliseum", "cp", "lf", "lts", "mfd", "ps", "solo", "tdm", "ttdm" ],
+      "ARG": "CONVAR"
+    },
+    {
+      "Display_Val": "ns_disallowed_weapon_primary_replacement",
+      "Type": "WEAPON_REPLACE",
+      "Default": "",
+      "Description": "The delay between each tick ran on the server, your tickrate will be 1 divided by this value",
+      "ARG": "CONVAR"
     }
   ]
 

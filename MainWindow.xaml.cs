@@ -55,16 +55,31 @@ namespace VTOL
             var Item = item as Arg_Set;
             if (Item == null) { return null; }
                 
-            if (Item.Type == "PORT" || Item.Type == "STRING")
+            if (Item.Type == "PORT" || Item.Type == "STRING" || Item.Type=="STRINGQ")
                 return
                     element.FindResource("NormalBox")
+                    as DataTemplate;
+           else if (Item.Type == "INT")
+                return
+                    element.FindResource("IntBox")
+                    as DataTemplate;
+            else if (Item.Type == "FLOAT")
+                return
+                    element.FindResource("FloatBox")
                     as DataTemplate;
             else
                 return
                     element.FindResource("ComboBox")
                     as DataTemplate;
+
         }
+
+
+
+      
+
     }
+   
     public partial class MainWindow : Window
     {
        
@@ -93,6 +108,9 @@ namespace VTOL
         ArrayList Mirror_Item_List = new ArrayList();
         public IEnumerable<string> Phrases { get; private set; }
         public List<string> Game_Modes_List = new List<string>();
+        public List<string> Game_MAP_List = new List<string>();
+        public List<string> Game_WEAPON_List = new List<string>();
+
         int completed_flag;
         public int pid;
         string Skin_Path = "";
@@ -731,6 +749,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             Update_Tab.IsSelected = false;
             Log.IsSelected = false;
             Startup_Arguments_UI_List.ItemsSource = Load_Args();
+            Convar_Arguments_UI_List.ItemsSource = Convar_Args();
 
 
         }
@@ -3645,12 +3664,20 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                     string[] Split = Var.Split("|");
                     string type = Split[0];
                     string name = Split[1];
+                string ARG = Split[2];
 
+                if (ARG!= null || ARG!= "" && ARG == "CONVAR")
+                {
+
+                    Send_Success_Notif("Convar");
+                }
+                else
+                {
                     string list = String.Join(" ", comboBox.SelectedItems.Cast<String>().ToArray());
 
 
                     Write_Startup_Arg_To_File(name, list);
-
+                }
                 }
             }
            
@@ -3660,6 +3687,8 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             var Var = ((TextBox)sender).Tag.ToString();
             string[] Split = Var.Split("|");
             string type = Split[0];
+            Regex regex = new Regex("[^0-9]+");
+
             switch (type)
             {
 
@@ -3667,12 +3696,17 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                    // Send_Success_Notif("Found type String!");
                     break;
                 case "PORT":
-                    Regex regex = new Regex("[^0-9]+");
                     e.Handled = regex.IsMatch(e.Text);
 
 
                     break;
-
+                case "INT":
+                    e.Handled = regex.IsMatch(e.Text);
+                    break;
+                case "FLOAT":
+                    Regex Floaty = new Regex(@"^[-+]?[0-9]*\.?[0-9]+$ or ^[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?$");
+                    e.Handled = Floaty.IsMatch(e.Text);
+                    break;
             }
 
         }
@@ -3719,22 +3753,116 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
             return files;
         }
-        void Write_convar_To_File(string Convar_Name,string Convar_Value)
+        void Write_convar_To_File(string Convar_Name,string Convar_Value,string Description,bool add_quotation = false, string File_Root = null)
         {
-            List<string> Lines = new List<string>();
+            try
+            {
 
-            foreach (string line in System.IO.File.ReadLines(GetFile(Current_Install_Folder, "autoexec_ns_server.cfg").First()))
-            {
-                Lines.Add(line);
-            }
-            if (Lines.Contains(Convar_Name) == true)
-            {
-                Send_Success_Notif("Found"+ Lines.Contains(Convar_Name));
+                // string val = Convar_Name.Trim(new Char[] { '-', '+' });
 
+
+                Convar_Value = Convar_Value.Trim();
+                string RootFolder = "";
+                if (File_Root != null)
+                {
+                    RootFolder  = File_Root;
+
+                }
+                else
+                {
+
+
+                    RootFolder  = Current_Install_Folder;
+                }
+                string[] intake = File.ReadAllLines(GetFile(RootFolder, "autoexec_ns_server.cfg").First());
+
+                string[] intermid = intake;
+
+               
+                
+                if (Array.Exists(intermid, element => element.StartsWith(Convar_Name)))
+                {
+
+
+                    int index_of_var = Array.FindIndex(intermid, element => element.StartsWith(Convar_Name));
+                    if (add_quotation == true)
+                    {
+                        var desc = intermid[index_of_var];
+                        desc = desc.Substring(desc.LastIndexOf('/') + 1);
+                        if(desc != null && desc != "")
+                        {
+                            intermid[index_of_var] = Convar_Name + " " + '\u0022'+Convar_Value+ '\u0022' +" " +"//" +desc;
+
+
+                        }
+                        else
+                        {
+
+                            intermid[index_of_var] = Convar_Name + " " + '\u0022'+Convar_Value+ '\u0022' +" " +"//" +Description;
+
+                        }
+
+                    }
+                    else
+                    {
+                       
+                        var desc = intermid[index_of_var];
+                        desc = desc.Substring(desc.LastIndexOf('/') + 1);
+                        intermid[index_of_var] = Convar_Name + " "+Convar_Value+" " +"//" +desc;
+                        if (desc != null && desc != "")
+                        {
+                            intermid[index_of_var] = Convar_Name + " "+Convar_Value+" " +"//" +desc;
+
+
+                        }
+                        else
+                        {
+
+                            intermid[index_of_var] = Convar_Name + " "+Convar_Value+" " +"//" +Description;
+
+                        }
+                    }
+
+
+                    
+                    String x = String.Join("\r\n", intermid.ToArray());
+                    //Send_Warning_Notif(x);
+                    // x = x.Replace("\r\n", "\n").Replace("\r", "\n").Replace("\n", "\r\n");
+                    //ClearFile(GetFile(RootFolder, "autoexec_ns_server.cfg").First());
+                 using (StreamWriter sw = new StreamWriter(GetFile(RootFolder, "autoexec_ns_server.cfg").First(), false, Encoding.UTF8, 65536))
+                {
+                      
+                     sw.WriteLine(x);
+                   }
+                    Send_Success_Notif("The Varible ["+ Convar_Name+"] Has been Found in the File.The value is now ["+ Convar_Value+"]");
+
+
+                }
+                else
+                {
+
+                    string[] intake_ = File.ReadAllLines(GetFile(RootFolder, "autoexec_ns_server.cfg").First());
+
+                    string[] intermid_ = intake_;
+                    
+                    intermid_ = AddElementToArray(intermid_, Convar_Name + " "+Convar_Value+" " +"//" +Description);
+
+                    
+                    String x = String.Join("\r\n", intermid.ToArray());
+
+                    using (StreamWriter sw = new StreamWriter(GetFile(RootFolder, "autoexec_ns_server.cfg").First(), false, Encoding.UTF8, 65536))
+                    {
+                        sw.WriteLine(x);
+                    }
+                    Send_Success_Notif("The Varible ["+ Convar_Name+"] Has been Found in the File.The value is now ["+ Convar_Value+"]");
+
+                }
             }
-            else
+            catch (Exception ex)
             {
-                Send_Warning_Notif("DID NOT FIND"+ Convar_Name);
+                Send_Fatal_Notif("\nIssue with using Server Setup sys, Please Check Logs!");
+                Write_To_Log(ex.Message);
+
 
             }
         }
@@ -3759,7 +3887,61 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
             tw.Close();
         }
+        string Read_Convar_args(string Convar_Name, string File_Root = null)
+        {
+            try
+            {
+                var pattern = @"(?=[+-])";
 
+                string RootFolder = "";
+                if (File_Root != null)
+                {
+                    RootFolder  = File_Root;
+
+                }
+                else
+                {
+
+
+                    RootFolder  = Current_Install_Folder;
+                }
+                string[] intake = File.ReadAllLines(GetFile(RootFolder, "autoexec_ns_server.cfg").First());
+                string[] intermid = null;
+
+
+                 for (int i = 0; i<intake.Length; i++)
+                {
+                   Console.WriteLine(String.Format(" array[{0}] = {1}", i, intake[i]));
+                 }
+                Console.WriteLine("\n\n\n");
+             //   Send_Warning_Notif(intake[Array.FindIndex(intake, element => element.Contains(Convar_Name))].ToString());
+
+                if (Array.Exists(intake, element => element.StartsWith(Convar_Name)))
+                {
+
+
+                    int index_of_var = Array.FindIndex(intake, element => element.StartsWith(Convar_Name));
+
+                    return intake[index_of_var].ToString();
+
+
+                }
+                else
+                {
+                  //  Send_Error_Notif("CONVAR NOT FOUND-"+ Convar_Name);
+
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                Send_Fatal_Notif("\nIssue with using Server Setup sys, Please Check Logs!");
+                Write_To_Log(ex.Message);
+
+
+            }
+            return null;
+        }
         string Read_Startup_args(string Convar_Name, string File_Root = null)
         {
             try
@@ -3798,7 +3980,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 }
                 else
                 {
-                    Send_Error_Notif("Did Not Find"+ Convar_Name);
+                   // Send_Error_Notif("Did Not Find-"+ Convar_Name);
 
                     return null;
                 }
@@ -3813,7 +3995,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             return null;
         }
       
-        void Write_Startup_Arg_To_File(string Convar_Name, string Convar_Value,string File_Root = null)
+        void Write_Startup_Arg_To_File(string Convar_Name, string Convar_Value, bool add_quotation = false, string File_Root = null)
         {
 
             try
@@ -3821,7 +4003,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
                 string val = Convar_Name.Trim(new Char[] { '-', '+' });
                 var pattern = @"(?=[+-])";
-
+                Convar_Value = Convar_Value.Trim();
                 string RootFolder = "";
                 if (File_Root != null)
                 {
@@ -3854,10 +4036,20 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
                    
                     int index_of_var = Array.FindIndex(intermid, element => element.StartsWith(Convar_Name));
-                    intermid[index_of_var] = Convar_Name + " " +Convar_Value;
-                    
-                   
-                   
+                    if(add_quotation == true)
+                    {
+                        intermid[index_of_var] = Convar_Name + " " + '\u0022'+Convar_Value+ '\u0022';
+
+
+                    }
+                    else
+                    {
+                        intermid[index_of_var] = Convar_Name + " " +Convar_Value;
+
+                    }
+
+
+
                     String x = String.Join(" ", intermid.ToArray());
                     ClearFile(RootFolder +@"\" + "ns_startup_args_dedi.txt");
 
@@ -3894,7 +4086,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                         sw.WriteLine(Regex.Replace(x, @"\s+", " "));
                     }
                     // File.WriteAllText(GetFile(RootFolder, "ns_startup_args_dedi.txt").First(), x);
-                    Send_Warning_Notif("The Varible"+ Convar_Name+" Was not Found in File. It Has Been Added Now with the value of " + Convar_Value);
+                    Send_Warning_Notif("The Varible ["+ Convar_Name+"] Was not Found in File. It Has Been Added Now with the value of [" + Convar_Value+"]");
 
                 }
             }
@@ -3944,13 +4136,16 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
                     var val = ((TextBox)sender).Text.ToString();
                     var Tag = ((TextBox)sender).Tag.ToString();
+                    var Description = ((TextBox)sender).ToolTip.ToString();
+
                     TextBox Text_Box = (TextBox)sender;
                     string[] Split = Tag.Split("|");
                     string type = Split[0];
                     string name = Split[1];
+                    string ARG = Split[2];
 
 
-                    if (val != null && val != "" && Game_Modes_List.Count > 0 && Game_Modes_List != null)
+                    if (val != null && val != "")
                     {
 
                         switch (type)
@@ -3959,12 +4154,96 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                             case "STRING":
                                 if (e.Key == Key.Return)
                                 {
+                                    if (ARG!= null || ARG!= "" && ARG== "CONVAR")
+                                    {
+                                        Send_Success_Notif("string convar");
+                                        Write_convar_To_File(name, val, Description, true, @"D:\Games\Titanfall2\R2Northstar\mods\Northstar.CustomServers\mod\cfg");
+                                        GC.Collect();
+
+                                    }
+                                    else { 
+                                    Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
+
                                     Write_Startup_Arg_To_File(name, val);
 
+                                    Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow;
                                    
 
-                                  
-                                   
+                                    }
+
+
+
+                                }
+                                break;
+                            case "STRINGQ":
+                                if (e.Key == Key.Return)
+                                {
+                                    if (ARG!= null || ARG!= "" && ARG== "CONVAR")
+                                    {
+                                        Send_Success_Notif("string convarq");
+                                        Write_convar_To_File(name, val, Description, true, @"D:\Games\Titanfall2\R2Northstar\mods\Northstar.CustomServers\mod\cfg");
+
+                                        GC.Collect();
+
+                                    }
+                                    else { 
+                                        Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
+
+                                    Write_Startup_Arg_To_File(name, val,true);
+                                    Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow;
+
+                                    
+
+                                    }
+
+
+
+                                }
+                                break;
+                            case "INT":
+                                if (e.Key == Key.Return)
+                                {
+                                    if (ARG!= null || ARG!= "" && ARG== "CONVAR")
+                                    {
+                                        Write_convar_To_File(name, val, Description, false, @"D:\Games\Titanfall2\R2Northstar\mods\Northstar.CustomServers\mod\cfg");
+
+                                    }
+                                    else
+                                    {
+                                        Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
+
+                                        Write_Startup_Arg_To_File(name, val, true);
+                                        Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow;
+
+
+
+                                    }
+
+
+
+                                }
+                                break;
+                            case "FLOAT":
+                                if (e.Key == Key.Return)
+                                {
+                                    if (ARG!= null || ARG!= "" && ARG== "CONVAR")
+                                    {
+                                        Write_convar_To_File(name, val, Description, false, @"D:\Games\Titanfall2\R2Northstar\mods\Northstar.CustomServers\mod\cfg");
+
+                                    }
+                                    else
+                                    {
+                                        Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
+
+                                        Write_Startup_Arg_To_File(name, val, true);
+                                        Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow;
+                                        GC.Collect();
+
+
+                                    }
+
+
+
                                 }
                                 break;
                             case "PORT":
@@ -3983,7 +4262,12 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
                                         if (IsPort(val) == true && val.Count() <6)
                                         {
+                                            Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
+
                                             Write_Startup_Arg_To_File(name, val);
+                                            Text_Box.Foreground = Brushes.White;
+
+                                            Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow;
 
                                             Text_Box.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF4C4C4C");
 
@@ -4018,6 +4302,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
             }
         }
+        
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
 
@@ -4030,6 +4315,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             public string Default { get; set; }
             public string Tag { get; set; }
             public string regex { get; set; }
+            public string ARG { get; set; }
 
             public string Description { get; set; }
             public string[] List { get; set; }
@@ -4054,7 +4340,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
             foreach (var items in Server_Json.Startup_Arguments)
             {
-                if (items.Name == "+mp_gamemode")
+                if (items.Type == "GAME_MODE")
                 {
                     foreach (var item in items.List)
                     {
@@ -4071,7 +4357,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                     Default = items.Default,
                     Description = items.Description_Tooltip,
                     List = items.List,
-                    Tag = items.Type+"|"+items.Name,
+                    Tag = items.Type+"|"+items.Name+"|"+items.ARG,
 
 
 
@@ -4080,40 +4366,53 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
             }
 
-         
-            //  foreach (var item in Update.Thunderstore)
-            //   {
-
-            //    foreach (var items in item.versions)
-            //    {
-
-
-            //   ICON = items.Icon;
-
-
-            /*
-             * 
-             * 
-             * 
-             * 
-                Game_Modes_List = new ObservableCollection<string>();
-
-                Game_Modes_List.Add("gg");
-                Game_Modes_List.Add("sns");
-                Game_Modes_List.Add("private_match");
-
-
-
-            Arg_List.Add(new Arg_Set { });
-
-            */
-
 
 return Arg_List;
 
 }
 
-        
+        private ArrayList Convar_Args()
+        {
+
+            ArrayList Arg_List = new ArrayList();
+
+            using (StreamReader r = new StreamReader(@"D:\Development Northstar AmVCX C++ branch 19023 ID 44\VTOL\Resources\Test_Args_1.json"))
+            {
+                string json = r.ReadToEnd();
+                // Send_Success_Notif(json);
+                Server_Json = Server_Setup.FromJson(json);
+            }
+
+            foreach (var items in Server_Json.Convar_Arguments)
+            {
+                if (items.Type == "GAME_MODE")
+                {
+                    foreach (var item in items.List)
+                    {
+
+                        Game_Modes_List.Add(item);
+                    }
+
+                }
+
+                Arg_List.Add(new Arg_Set
+                {
+                    Name = items.Name,
+                    Type = items.Type,
+                    Default = items.Default,
+                    Description = items.Description_Tooltip,
+                    List = items.List,
+                    Tag = items.Type+"|"+items.Name+"|"+items.ARG,
+                    
+
+
+                });
+                DataContext = this;
+
+            }
+            return Arg_List;
+
+        }
 
         private void Dsiabled_ListBox_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -4569,7 +4868,7 @@ return Arg_List;
             });
         }
 
-
+        
         private async void CheckComboBox_Initialized(object sender, EventArgs e)
         {
             
@@ -4581,31 +4880,40 @@ return Arg_List;
                     string[] Split = Var.Split("|");
                     string type = Split[0];
                     string name = Split[1];
+                    string ARG = Split[2];
 
-                   // string list = String.Join(" ", comboBox.SelectedItems.Cast<String>().ToArray());
-                string import =null;
-                this.Dispatcher.Invoke(() =>
+                // string list = String.Join(" ", comboBox.SelectedItems.Cast<String>().ToArray());
+                if ( ARG == "CONVAR")
                 {
-                    import = Read_Startup_args(name);
-                });
-                if (import != null)
+               //   Send_Success_Notif("Convar");
+              //      Read_Convar_args(name, @"D:\Games\Titanfall2\R2Northstar\mods\Northstar.CustomServers\mod\cfg");
+                }
+                else
+                {
+                    // string list = String.Join(" ", comboBox.SelectedItems.Cast<String>().ToArray());
+                    string import = null;
+                    this.Dispatcher.Invoke(() =>
+                    {
+                        import = Read_Startup_args(name);
+                    });
+                    if (import != null)
                     {
                         import.Replace(name.Trim(new Char[] { '-', '+' }), "");
                         string[] import_split = import.Split(" ");
                         foreach (string item in import_split)
                         {
-                           comboBox.SelectedItems.Add(item);
+                            comboBox.SelectedItems.Add(item);
 
                         }
 
 
                     }
-
+                }
                 }
             
 
         }
-
+        
         private void TextBox_Initialized(object sender, EventArgs e)
         {
 
@@ -4615,27 +4923,116 @@ return Arg_List;
             string[] Split = Tag.Split("|");
             string type = Split[0];
             string name = Split[1];
+            string ARG = Split[2];
+
             string import = null;
-            this.Dispatcher.Invoke(() =>
+            if (ARG == "CONVAR")
             {
-              import = Read_Startup_args(name);
-            });
-            if (import != null)
-            {
-                import.Replace(name.Trim(new Char[] { '-', '+' }), "");
-                string[] import_split = import.Split(" ");
-                for (int i = 1; i < import_split.Length; i++)
+                this.Dispatcher.Invoke(() =>
                 {
-                    Text_Box.Text = import_split[1];
+                    import =  Read_Convar_args(name, @"D:\Games\Titanfall2\R2Northstar\mods\Northstar.CustomServers\mod\cfg");
+                    
+                });
+                if (import != null)
+                {
+                    Text_Box.Foreground = Brushes.White;
+
+                    if (type == "STRING")
+                    {
+                       //  import = import.Replace(name.Trim(new Char[] { '-', '+' }), "");
+                        import = import.Replace("\"", "").Replace(name, "");
+                        int index = import.IndexOf("//");
+                        if (index >= 0)
+                            import = import.Substring(0, index);
+
+                        Text_Box.Text = import.Trim();
+                        //  Send_Warning_Notif(import);
+
+
+                    }
+                    else
+                    {
+                        //  import = import.Replace(name.Trim(new Char[] { '-', '+' }), "");
+                        import = import.Replace("\"", "").Replace(name, "");
+                        int index = import.IndexOf("//");
+                        if (index >= 0)
+                            import = import.Substring(0, index);
+
+
+                        Text_Box.Text = import.Trim() ;
+
+
+                    }
+
+
+
+
+
+
                 }
-                
+                else
+                {
 
-                
+                    Text_Box.Foreground = Brushes.Gray;
+                }
+            }
+            else
+            {
 
 
+                this.Dispatcher.Invoke(() =>
+                {
+                    import = Read_Startup_args(name);
+                });
+                if (import != null)
+                {
+                    Text_Box.Foreground = Brushes.White;
+
+                    if (type == "STRINGQ")
+                    {
+                        Send_Info_Notif(import);
+                        //  import = import.Replace(name.Trim(new Char[] { '-', '+' }), "");
+                        import = import.Replace("\"", "").Replace(name, "");
+
+
+
+                        Text_Box.Text = import.Trim();
+                        //  Send_Warning_Notif(import);
+
+
+                    }
+                    else
+                    {
+                        import.Replace(name.Trim(new Char[] { '-', '+' }), "");
+                        string[] import_split = import.Split(" ");
+                        for (int i = 1; i < import_split.Length; i++)
+                        {
+                            Text_Box.Text = import_split[1].Trim();
+                        }
+                    }
+
+
+
+
+
+
+                }
+                else
+                {
+
+                    Text_Box.Foreground = Brushes.Gray;
+                }
             }
         }
 
-       
+        private void UI_List_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+           
+        }
+
+        private void S(object sender, MouseWheelEventArgs e)
+        {
+
+        }
     }
 }
