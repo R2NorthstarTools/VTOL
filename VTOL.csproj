@@ -33,6 +33,8 @@
     <None Remove="Resources\download_icon.png" />
     <None Remove="Resources\Enable_Image.png" />
     <None Remove="Resources\folder.png" />
+    <None Remove="Resources\Folder_Browse_Icon.ico" />
+    <None Remove="Resources\Folder_Browse_Icon.png" />
     <None Remove="Resources\heart.png" />
     <None Remove="Resources\home.png" />
     <None Remove="Resources\ICON_64.ico" />
@@ -52,6 +54,7 @@
     <None Remove="Resources\Panel_Var_2.png" />
     <None Remove="Resources\Search_Icon.png" />
     <None Remove="Resources\Server_ICON.png" />
+    <None Remove="Resources\Sheet.png" />
     <None Remove="Resources\space-invaders-gif-6.gif" />
     <None Remove="Resources\target.png" />
     <None Remove="Resources\Test_Args_1.json" />
@@ -79,6 +82,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Folder_Browse_Icon.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <DesignDataWithDesignTimeCreatableTypes Include="Resources\Northstar-512.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </DesignDataWithDesignTimeCreatableTypes>
@@ -101,6 +107,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\download_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Folder_Browse_Icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\heart.png">
@@ -200,6 +209,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Server_ICON.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Sheet.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\space-invaders-gif-6.gif">

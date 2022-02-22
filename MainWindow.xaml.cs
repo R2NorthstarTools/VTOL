@@ -575,8 +575,7 @@ namespace VTOL
                 // itemsList.Add(item.full_name.ToString());
             }
 
-            Load_Line.IsRunning = false;
-            Load_Line.Visibility = Visibility.Hidden;
+  
             return itemsList;
 
         }
@@ -1247,7 +1246,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                         Parse_Release();
                     }
                 }
-
+                
             }
             else
             {
@@ -1270,7 +1269,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 Properties.Settings.Default.Save();
 
                 Send_Info_Notif("\nRelease Parsed! found - \n" + out_);
-
+                File.Delete(@"C:\ProgramData\VTOL_DATA\temp\" + json_name);
                 return out_;
 
             }
@@ -1296,6 +1295,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 Properties.Settings.Default.Save();
 
                 Send_Info_Notif("\nRelease Parsed! found - \n" + current_Northstar_version_Url);
+                File.Delete(@"C:\ProgramData\VTOL_DATA\temp\" + json_name);
 
             }
             else
@@ -1592,10 +1592,9 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                             if (Directory.Exists(Current_Install_Folder + @"\TempCopyFolder\"))
                             {
                                 System.IO.File.Copy(Current_Install_Folder + @"\TempCopyFolder\ns_startup_args.txt", Current_Install_Folder + @"\ns_startup_args.txt", true);
+
                                 Send_Info_Notif("\nCleaning Residual");
 
-                                Directory.Delete(Current_Install_Folder + @"\TempCopyFolder", true);
-                                Send_Info_Notif("\nInstall Complete!");
                             }
 
 
@@ -1605,15 +1604,18 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                             Send_Info_Notif("\nRestoring Files");
                             if (Directory.Exists(Current_Install_Folder + @"\TempCopyFolder\"))
                             {
+                                System.IO.File.Copy(Current_Install_Folder + @"\TempCopyFolder\autoexec_ns_server.cfg", Current_Install_Folder + @"\R2Northstar\mods\Northstar.CustomServers\mod\cfg\autoexec_ns_server.cfg", true);
+
                                 System.IO.File.Copy(Current_Install_Folder + @"\TempCopyFolder\ns_startup_args_dedi.txt", Current_Install_Folder + @"\ns_startup_args_dedi.txt", true);
                                 Send_Info_Notif("\nCleaning Residual");
 
-                                Directory.Delete(Current_Install_Folder + @"\TempCopyFolder", true);
-                                Send_Info_Notif("\nInstall Complete!");
                             }
 
 
                         }
+                        Directory.Delete(Current_Install_Folder + @"\TempCopyFolder", true);
+                        Send_Info_Notif("\nInstall Complete!");
+
                     }
 
                 }
@@ -2025,15 +2027,18 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 return;
             webClient = new WebClient();
             webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(Completed);
-            if (File.Exists(Current_Install_Folder + @"\ns_startup_args_dedi.txt") && File.Exists(Current_Install_Folder + @"\ns_startup_args.txt"))
+            string x = "";
+            if (File.Exists(Current_Install_Folder + @"\ns_startup_args_dedi.txt") && File.Exists(Current_Install_Folder + @"\ns_startup_args.txt") && File.Exists(GetFile(Current_Install_Folder, "autoexec_ns_server.cfg").First()))
             {
+                x = GetFile(Current_Install_Folder, "autoexec_ns_server.cfg").First();
+
                 if (do_not_overwrite_Ns_file_Dedi == true)
                 {
                     if (Directory.Exists(Current_Install_Folder + @"\TempCopyFolder"))
                     {
                         Send_Info_Notif("\nBacking up arg files");
-
                         System.IO.File.Copy(Current_Install_Folder + @"\ns_startup_args.txt", Current_Install_Folder + @"\TempCopyFolder\ns_startup_args.txt", true);
+                        System.IO.File.Copy(x, Current_Install_Folder + @"\TempCopyFolder\autoexec_ns_server.cfg", true);
 
                         System.IO.File.Copy(Current_Install_Folder + @"\ns_startup_args_dedi.txt", Current_Install_Folder + @"\TempCopyFolder\ns_startup_args_dedi.txt", true);
                     }
@@ -2042,6 +2047,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
                         Send_Info_Notif("\nCreating Directory and Backing up arg files");
                         System.IO.Directory.CreateDirectory(Current_Install_Folder + @"\TempCopyFolder");
+                        System.IO.File.Copy(x, Current_Install_Folder + @"\TempCopyFolder\autoexec_ns_server.cfg", true);
 
                         System.IO.File.Copy(Current_Install_Folder + @"\ns_startup_args.txt", Current_Install_Folder + @"\TempCopyFolder\ns_startup_args.txt", true);
                         System.IO.File.Copy(Current_Install_Folder + @"\ns_startup_args_dedi.txt", Current_Install_Folder + @"\TempCopyFolder\ns_startup_args_dedi.txt", true);
@@ -2132,7 +2138,6 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 {
                     Dedicated_Server_Startup_ARGS.Text = Ns_dedi_File;
                     Dedicated_Server_Startup_ARGS.Background = Brushes.White;
-                    Arg_Box_Dedi.Text = "x";
                     Arg_Box_Dedi.Text = Read_From_TextFile_OneLine(Ns_dedi_File);
                     GC.Collect();
 
@@ -2151,7 +2156,6 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
                 if (File.Exists(GetFile(Current_Install_Folder, "ns_startup_args.txt").First()))
                 {
-                    Arg_Box.Text = "x";
                     Arg_Box.Text = Read_From_TextFile_OneLine(Current_Install_Folder + @"\ns_startup_args.txt");
 
                     GC.Collect();
@@ -3391,16 +3395,10 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
         {
             Write_To_Log("", true);
         }
-        public async Task Run_Load_Line()
-        {
-            Load_Line.IsRunning = true;
-
-
-        }
+    
         private async void Load_Click(object sender, RoutedEventArgs e)
         {
-            Load.IsEnabled = false;
-            Load_Line.IsRunning=true;
+            
             try
             {
                 Dispatcher.BeginInvoke(
@@ -3408,8 +3406,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             }
             finally
             {
-                Load_Line.IsRunning=false;
-                Load.IsEnabled = true;
+               
             }
 
 
@@ -3554,6 +3551,8 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             Write_To_Log("\nOVERWRITE ns_startup_args.txt ENABLED!");
             Properties.Settings.Default.Ns_Startup = false;
             Properties.Settings.Default.Save();
+            do_not_overwrite_Ns_file= Properties.Settings.Default.Ns_Dedi;
+
         }
 
         private void Ns_Args_Checked(object sender, RoutedEventArgs e)
@@ -3562,14 +3561,17 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             Write_To_Log("\nDo not overwrite ns_startup_args.txt ENABLED! - this will backup and restore the original ns_startup_args and from the folder");
             Properties.Settings.Default.Ns_Startup = true;
             Properties.Settings.Default.Save();
+            do_not_overwrite_Ns_file= Properties.Settings.Default.Ns_Dedi;
+
         }
 
         private void Ns_Args_Dedi_Checked(object sender, RoutedEventArgs e)
         {
-
             Write_To_Log("\nDo not overwrite ns_startup_args_Dedi.txt ENABLED! - this will backup and restore the original ns_startup_args_dedi from the folder");
             Properties.Settings.Default.Ns_Dedi = true;
             Properties.Settings.Default.Save();
+            do_not_overwrite_Ns_file_Dedi = Properties.Settings.Default.Ns_Dedi;
+
         }
 
         private void Ns_Args_Dedi_Unchecked(object sender, RoutedEventArgs e)
@@ -3577,6 +3579,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             Write_To_Log("\nOVERWRITE ns_startup_args_Dedi.txt ENABLED!");
             Properties.Settings.Default.Ns_Dedi = false;
             Properties.Settings.Default.Save();
+            do_not_overwrite_Ns_file_Dedi = Properties.Settings.Default.Ns_Dedi;
         }
 
         private void Gif_Image_Northstar_AnimationStarted(DependencyObject d, XamlAnimatedGif.AnimationStartedEventArgs e)
@@ -3604,7 +3607,19 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
         {
             if (File.Exists(updaterModulePath))
             {
+                try
+                {
 
+
+                    Process[] processes = Process.GetProcessesByName(updaterModulePath);
+                    if (processes.Length > 0)
+                        processes[0].CloseMainWindow();
+                }
+                catch(Exception ex)
+                {
+                    Write_To_Log(ex.Message);
+
+                }
                 Process process = Process.Start(updaterModulePath, "/configure");
                 process.Close();
 
@@ -3703,7 +3718,6 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                         string type = Split[0];
                         string name = Split[1];
                         string ARG = Split[2];
-                        Send_Info_Notif(ARG);
                         if (ARG!= null && ARG!= "" && ARG == "CONVAR")
                         {
 
@@ -3727,7 +3741,6 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
                         {
                             string list = String.Join(" ", comboBox.SelectedItems.Cast<String>().ToArray());
-
 
                             Write_Startup_Arg_To_File(name, list, false, true, Ns_dedi_File);
                             comboBox.Foreground = Brushes.White;
@@ -4171,15 +4184,15 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             return null;
         }
       
-        void Write_Startup_Arg_To_File(string Convar_Name, string Convar_Value, bool add_quotation = false,bool Kill_If_empty = false, string File_Root = null )
+        void Write_Startup_Arg_To_File(string var_Name, string var_Value, bool add_quotation = false,bool Kill_If_empty = false, string File_Root = null )
         {
 
             try
             {
 
-                string val = Convar_Name.Trim(new Char[] { '-', '+' });
+                string val = var_Name.Trim(new Char[] { '-', '+' });
                 var pattern = @"(?=[+-])";
-                Convar_Value = Convar_Value.Trim();
+                var_Value = var_Value.Trim();
                 string RootFolder = "";
                 if (File_Root != null)
                 {
@@ -4215,26 +4228,26 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                     Console.WriteLine("array[{0}] = {1}", j, intermid[j]);
 
                 }
-                if (Array.Exists(intermid, element => element.StartsWith(Convar_Name)))
+                if (Array.Exists(intermid, element => element.StartsWith(var_Name)))
                 {
 
                    
-                    int index_of_var = Array.FindIndex(intermid, element => element.StartsWith(Convar_Name));
+                    int index_of_var = Array.FindIndex(intermid, element => element.StartsWith(var_Name));
                     if(add_quotation == true)
                     {
-                        intermid[index_of_var] = Convar_Name + " " + '\u0022'+Convar_Value+ '\u0022';
+                        intermid[index_of_var] = var_Name + " " + '\u0022'+var_Value+ '\u0022';
 
 
                     }
                     else
                     {
-                        intermid[index_of_var] = Convar_Name + " " +Convar_Value;
+                        intermid[index_of_var] = var_Name + " " +var_Value;
 
                     }
 
                     if (Kill_If_empty == true)
                     {
-                        if (Convar_Value == "" || Convar_Value == null)
+                        if (var_Value == "" || var_Value == null)
                         {
                             intermid =intermid.Where((source, index) => index != index_of_var).ToArray();
                         }
@@ -4244,11 +4257,11 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                     String x = String.Join(" ", intermid.ToArray());
                   //  ClearFile(RootFolder +@"\" + "ns_startup_args_dedi.txt");
 
-                    using (StreamWriter sw = new StreamWriter(RootFolder +@"\" + "ns_startup_args_dedi.txt", false, Encoding.UTF8, 65536))
+                    using (StreamWriter sw = new StreamWriter(RootFolder, false, Encoding.UTF8, 65536))
                     {
                         sw.WriteLine(Regex.Replace(x, @"\s+", " ").Replace("+ ","+"));
                     }
-                  //  Send_Success_Notif("The Varible "+ Convar_Name+" Has been Found in the File.The value is now "+ Convar_Value);
+                   Send_Success_Notif("The Varible "+ var_Name+" Has been Found in the File.The value is now "+ var_Value);
 
                     
                 }
@@ -4265,19 +4278,19 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
                     }
                     
-                    intermid_ = AddElementToArray(intermid_, Convar_Name +" "+ Convar_Value);
+                    intermid_ = AddElementToArray(intermid_, var_Name +" "+ var_Value);
                     
                   
                     String x = String.Join(" ", intermid_.ToArray());
                     //x.Replace(System.Environment.NewLine, "replacement text");
                     //  File.WriteAllText(RootFolder, String.Empty);
-                    ClearFile(RootFolder +@"\" + "ns_startup_args_dedi.txt");
-                    using (StreamWriter sw = new StreamWriter(RootFolder +@"\" + "ns_startup_args_dedi.txt", false, Encoding.UTF8, 65536))
+                   // ClearFile(RootFolder +@"\" + "ns_startup_args_dedi.txt");
+                    using (StreamWriter sw = new StreamWriter(RootFolder , false, Encoding.UTF8, 65536))
                     {
                         sw.WriteLine(Regex.Replace(x, @"\s+", " "));
                     }
                     // File.WriteAllText(GetFile(RootFolder, "ns_startup_args_dedi.txt").First(), x);
-                    Send_Warning_Notif("The Varible ["+ Convar_Name+"] Was not Found in File. It Has Been Added Now with the value of [" + Convar_Value+"]");
+                    Send_Warning_Notif("The Varible ["+ var_Name+"] Was not Found in File. It Has Been Added Now with the value of [" + var_Value+"]");
 
                 }
             }
@@ -4444,49 +4457,97 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                 }
                                 break;
                             case "PORT":
-
-                                if (val.Count() >5)
+                                if (ARG!= null && ARG!= "" && ARG== "CONVAR")
                                 {
-                                    Send_Warning_Notif("Port is larger Than Required");
-                                    Text_Box.Background = Brushes.Red;
-                                }
-                                else
-                                {
-                                    Text_Box.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF4C4C4C");
-
-                                    if (e.Key == Key.Return)
+                                    if (val.Count() >5)
                                     {
+                                        Send_Warning_Notif("Port is larger Than Required");
+                                        Text_Box.Background = Brushes.Red;
+                                    }
+                                    else
+                                    {
+                                        Text_Box.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF4C4C4C");
 
-                                        if (IsPort(val) == true && val.Count() <6)
+                                        if (e.Key == Key.Return)
                                         {
-                                            Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
 
-                                            Write_Startup_Arg_To_File(name, val, false, true, Ns_dedi_File);
-                                            Text_Box.Foreground = Brushes.White;
-
-                                            Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow;
-
-                                            Text_Box.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF4C4C4C");
-
-
-                                        }
-                                        else
-                                        {
-                                            if(val == null || val == "")
+                                            if (IsPort(val) == true && val.Count() <6)
                                             {
+                                                Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
 
-                                                Send_Warning_Notif("An Empty Value At ["+name+"], Has been removed");
-                                                Write_Startup_Arg_To_File(name, val, false, true, Ns_dedi_File);
+                                                Text_Box.Foreground = Brushes.White;
+                                                Write_convar_To_File(name, val, Description, false, Convar_File);
+
+                                                Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow;
+
+                                                Text_Box.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF4C4C4C");
+
 
                                             }
                                             else
                                             {
-                                                Send_Warning_Notif("Error At ["+name+"]");
-                                                Text_Box.Background = Brushes.Red;
-                                                Text_Box.Text = null;
+                                                if (val == null || val == "")
+                                                {
+
+                                                    Write_convar_To_File(name, val, Description, false, Convar_File);
+
+                                                }
+                                                else
+                                                {
+                                                    Send_Warning_Notif("Error At ["+name+"]");
+                                                    Text_Box.Background = Brushes.Red;
+                                                    Text_Box.Text = null;
+
+                                                }
 
                                             }
+                                        }
+                                    }
+                                }
+                                else { 
+                                    if (val.Count() >5)
+                                    {
+                                        Send_Warning_Notif("Port is larger Than Required");
+                                        Text_Box.Background = Brushes.Red;
+                                    }
+                                    else
+                                    {
+                                        Text_Box.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF4C4C4C");
 
+                                        if (e.Key == Key.Return)
+                                        {
+
+                                            if (IsPort(val) == true && val.Count() <6)
+                                            {
+                                                Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
+
+                                                Write_Startup_Arg_To_File(name, val, false, true, Ns_dedi_File);
+                                                Text_Box.Foreground = Brushes.White;
+
+                                                Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow;
+
+                                                Text_Box.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF4C4C4C");
+
+
+                                            }
+                                            else
+                                            {
+                                                if (val == null || val == "")
+                                                {
+
+                                                    Send_Warning_Notif("An Empty Value At ["+name+"], Has been removed");
+                                                    Write_Startup_Arg_To_File(name, val, false, true, Ns_dedi_File);
+
+                                                }
+                                                else
+                                                {
+                                                    Send_Warning_Notif("Error At ["+name+"]");
+                                                    Text_Box.Background = Brushes.Red;
+                                                    Text_Box.Text = null;
+
+                                                }
+
+                                            }
                                         }
                                     }
                                 }
@@ -4623,7 +4684,7 @@ return Arg_List;
 
         private void Dsiabled_ListBox_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
-            Send_Error_Notif("right click");
+//            Send_Error_Notif("right click");
 
         }
 
@@ -5260,113 +5321,123 @@ return Arg_List;
         
         private void TextBox_Initialized(object sender, EventArgs e)
         {
-
-            var val = ((TextBox)sender).Text.ToString();
-            var Tag = ((TextBox)sender).Tag.ToString();
-            TextBox Text_Box = (TextBox)sender;
-            string[] Split = Tag.Split("|");
-            string type = Split[0];
-            string name = Split[1];
-            string ARG = Split[2];
-
-            string import = null;
-            if (ARG == "CONVAR")
+            try
             {
-                this.Dispatcher.Invoke(() =>
-                {
-                    import =  Read_Convar_args(name, Convar_File);
-                    
-                });
-                if (import != null)
-                {
-                    Text_Box.Foreground = Brushes.White;
+                var val = ((TextBox)sender).Text.ToString();
+                var Tag = ((TextBox)sender).Tag.ToString();
+                TextBox Text_Box = (TextBox)sender;
+                string[] Split = Tag.Split("|");
+                string type = Split[0];
+                string name = Split[1];
+                string ARG = Split[2];
 
-                    if (type == "STRING")
+                string import = null;
+                if (ARG == "CONVAR")
+                {
+                    this.Dispatcher.Invoke(() =>
                     {
-                       //  import = import.Replace(name.Trim(new Char[] { '-', '+' }), "");
-                        import = import.Replace("\"", "").Replace(name, "");
-                        int index = import.IndexOf("//");
-                        if (index >= 0)
-                            import = import.Substring(0, index);
+                        import =  Read_Convar_args(name, Convar_File);
 
-                        Text_Box.Text = import.Trim();
-                        //  Send_Warning_Notif(import);
-
-
-                    }
-                    else
+                    });
+                    if (import != null)
                     {
-                        //  import = import.Replace(name.Trim(new Char[] { '-', '+' }), "");
-                        import = import.Replace("\"", "").Replace(name, "");
-                        int index = import.IndexOf("//");
-                        if (index >= 0)
-                            import = import.Substring(0, index);
+                        Text_Box.Foreground = Brushes.White;
 
-
-                        Text_Box.Text = import.Trim() ;
-
-
-                    }
-
-
-
-
-
-
-                }
-                else
-                {
-
-                    Text_Box.Foreground = Brushes.Gray;
-                }
-            }
-            else
-            {
-
-
-                this.Dispatcher.Invoke(() =>
-                {
-                    import = Read_Startup_args(name);
-                });
-                if (import != null)
-                {
-                    Text_Box.Foreground = Brushes.White;
-
-                    if (type == "STRINGQ")
-                    {
-                        Send_Info_Notif(import);
-                        //  import = import.Replace(name.Trim(new Char[] { '-', '+' }), "");
-                        import = import.Replace("\"", "").Replace(name, "");
-
-
-
-                        Text_Box.Text = import.Trim();
-                        //  Send_Warning_Notif(import);
-
-
-                    }
-                    else
-                    {
-                        import.Replace(name.Trim(new Char[] { '-', '+' }), "");
-                        string[] import_split = import.Split(" ");
-                        for (int i = 1; i < import_split.Length; i++)
+                        if (type == "STRING")
                         {
-                            Text_Box.Text = import_split[1].Trim();
+                            //  import = import.Replace(name.Trim(new Char[] { '-', '+' }), "");
+                            import = import.Replace("\"", "").Replace(name, "");
+                            int index = import.IndexOf("//");
+                            if (index >= 0)
+                                import = import.Substring(0, index);
+
+                            Text_Box.Text = import.Trim();
+                            //  Send_Warning_Notif(import);
+
+
                         }
+                        else
+                        {
+                            //  import = import.Replace(name.Trim(new Char[] { '-', '+' }), "");
+                            import = import.Replace("\"", "").Replace(name, "");
+                            int index = import.IndexOf("//");
+                            if (index >= 0)
+                                import = import.Substring(0, index);
+
+
+                            Text_Box.Text = import.Trim();
+
+
+                        }
+
+
+
+
+
+
                     }
+                    else
+                    {
 
-
-
-
-
-
+                        Text_Box.Foreground = Brushes.Gray;
+                    }
                 }
                 else
                 {
 
-                    Text_Box.Foreground = Brushes.Gray;
+
+                    this.Dispatcher.Invoke(() =>
+                    {
+                        import = Read_Startup_args(name);
+                    });
+                    if (import != null)
+                    {
+                        Text_Box.Foreground = Brushes.White;
+
+                        if (type == "STRINGQ")
+                        {
+                            Send_Info_Notif(import);
+                            //  import = import.Replace(name.Trim(new Char[] { '-', '+' }), "");
+                            import = import.Replace("\"", "").Replace(name, "");
+
+
+
+                            Text_Box.Text = import.Trim();
+                            //  Send_Warning_Notif(import);
+
+
+                        }
+                        else
+                        {
+                            import.Replace(name.Trim(new Char[] { '-', '+' }), "");
+                            string[] import_split = import.Split(" ");
+                            for (int i = 1; i < import_split.Length; i++)
+                            {
+                                Text_Box.Text = import_split[1].Trim();
+                            }
+                        }
+
+
+
+
+
+
+                    }
+                    else
+                    {
+
+                        Text_Box.Foreground = Brushes.Gray;
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+               
+                Write_To_Log(ex.Message);
+                Send_Fatal_Notif("Fatal Error Occured, Please Check Logs!");
+
+            }
+
         }
 
         private void UI_List_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
@@ -5446,6 +5517,48 @@ return Arg_List;
 
 
         }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (Directory.Exists(Current_Install_Folder + @"\R2Northstar\mods\"))
+                {
+                    Process.Start("explorer.exe", Current_Install_Folder + @"\R2Northstar\mods\");
+                }
+            }
+            
+            catch (Exception ex)
+            {
+
+                Write_To_Log(ex.Message);
+                Send_Fatal_Notif("Fatal Error Occured, Please Check Logs!");
+
+            }
+
+        }
+
+        private void Cheat_Sheet_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+
+            Send_Info_Notif("Opening - R2-Northstar Wiki");
+            System.Diagnostics.Process.Start(new ProcessStartInfo
+            {
+                FileName = @"https://r2northstar.gitbook.io/r2northstar-wiki/hosting-a-server-with-northstar/dedicated-server#gamemodes",
+                UseShellExecute = true
+            });
+            }
+
+            catch (Exception ex)
+            {
+
+                Write_To_Log(ex.Message);
+                Send_Fatal_Notif("Fatal Error Occured, Please Check Logs!");
+
+            }
+        }
+    }
     }
     
-}

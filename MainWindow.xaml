@@ -16,7 +16,7 @@
         <DataTemplate x:Key="NormalBox">
             <Grid Width="970" Background="{x:Null}" HorizontalAlignment="Center" Margin="0,0,0,3" Height="58">
                 <Label HorizontalAlignment="Stretch" Height="38" Margin="30,0,505,0" Background="#FF004439" Foreground="White" Content="{Binding Name}" FontSize="16" ToolTip="{Binding Description}" BorderBrush="{x:Null}"/>
-                <TextBox Margin="505,0,30,0" VerticalAlignment="Center" Height="38" Text ="{Binding Default}"   CaretBrush="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="#FF00EDBD" SelectionTextBrush="#FF847300"    Foreground="White" ToolTip="{Binding Type}" Tag="{Binding Tag}" Background="#FF4C4C4C" PreviewTextInput="ValidationTextBox" FontSize="16" RenderTransformOrigin="0,0" LostFocus="validate" KeyUp="Save_On_Focus_"   Style="{StaticResource TextBoxExtend}" Initialized="TextBox_Initialized" />
+                <TextBox Margin="505,0,30,0" VerticalAlignment="Center" Height="38" Text ="{Binding Default}"   CaretBrush="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="#FF00EDBD" SelectionTextBrush="#FF847300"    Foreground="White" ToolTip="{Binding Type}" Tag="{Binding Tag}" Background="#FF4C4C4C" PreviewTextInput="ValidationTextBox" FontSize="16" RenderTransformOrigin="0,0" LostFocus="validate" KeyUp="Save_On_Focus_"    Initialized="TextBox_Initialized" />
 
             </Grid>
         </DataTemplate >
@@ -30,14 +30,14 @@
         <DataTemplate x:Key="FloatBox" >
             <Grid Width="970" Background="{x:Null}" HorizontalAlignment="Center" Margin="0,0,0,3" Height="58">
                 <Label HorizontalAlignment="Stretch" Height="38" Margin="30,0,505,0" Background="#FF004439" Foreground="White" Content="{Binding Name}" FontSize="16" ToolTip="{Binding Description}" BorderBrush="{x:Null}"/>
-                <TextBox Margin="505,0,30,0" VerticalAlignment="Center" Height="38" Text ="{Binding Default}"   CaretBrush="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="#FF00EDBD" SelectionTextBrush="#FF847300"    Foreground="White" ToolTip="{Binding Type}" Tag="{Binding Tag}" Background="#FF4C4C4C" PreviewTextInput="ValidationTextBox" FontSize="16" RenderTransformOrigin="0,0" LostFocus="validate" KeyUp="Save_On_Focus_"   Style="{StaticResource TextBoxExtend}" Initialized="TextBox_Initialized" />
+                <TextBox Margin="505,0,30,0" VerticalAlignment="Center" Height="38" Text ="{Binding Default}"   CaretBrush="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="#FF00EDBD" SelectionTextBrush="#FF847300"    Foreground="White" ToolTip="{Binding Type}" Tag="{Binding Tag}" Background="#FF4C4C4C" PreviewTextInput="ValidationTextBox" FontSize="16" RenderTransformOrigin="0,0" LostFocus="validate" KeyUp="Save_On_Focus_"   Initialized="TextBox_Initialized" />
 
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="IntBox" >
             <Grid Width="970" Background="{x:Null}" HorizontalAlignment="Center" Margin="0,0,0,3" Height="58">
                 <Label HorizontalAlignment="Stretch" Height="38" Margin="30,0,505,0" Background="#FF004439" Foreground="White" Content="{Binding Name}" FontSize="16" ToolTip="{Binding Description}" BorderBrush="{x:Null}"/>
-                <TextBox Margin="505,0,30,0" VerticalAlignment="Center" Height="38" Text ="{Binding Default}"   CaretBrush="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="#FF00EDBD" SelectionTextBrush="#FF847300"    Foreground="White" ToolTip="{Binding Description}" Tag="{Binding Tag}" Background="#FF4C4C4C" PreviewTextInput="ValidationTextBox" FontSize="16" RenderTransformOrigin="0,0" KeyUp="Save_On_Focus_"   Style="{StaticResource TextBoxExtend}" Initialized="TextBox_Initialized" />
+                <TextBox Margin="505,0,30,0" VerticalAlignment="Center" Height="38" Text ="{Binding Default}"   CaretBrush="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="#FF00EDBD" SelectionTextBrush="#FF847300"    Foreground="White" ToolTip="{Binding Description}" Tag="{Binding Tag}" Background="#FF4C4C4C" PreviewTextInput="ValidationTextBox" FontSize="16" RenderTransformOrigin="0,0" KeyUp="Save_On_Focus_"    Initialized="TextBox_Initialized" />
 
             </Grid>
         </DataTemplate>
@@ -149,6 +149,17 @@
         <hc:SimplePanel x:Name="Mod_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="2" Grid.RowSpan="2" AllowDrop="True" Drop="Mod_Panel_Drop" DragOver="Mod_Panel_DragOver" DragLeave="Mod_Panel_DragLeave" DragEnter="Mod_Panel_DragEnter">
 
             <hc:SimplePanel Margin="30,209,30,10" Background="#FF101010">
+                <hc:SimplePanel.ContextMenu>
+
+                    <ContextMenu>
+                        <MenuItem Click="MenuItem_Click" Header="Open Current Mod Folder">
+                            <MenuItem.Icon>
+                                <Image Source="/Resources/Folder_Browse_Icon.png" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+
+                    </ContextMenu>
+                </hc:SimplePanel.ContextMenu>
                 <ListBox x:Name="Dsiabled_ListBox"  Margin="30,60,0,60" BorderBrush="#FF545454" Width="371" HorizontalAlignment="Left" Background="#FF333333" PreviewMouseRightButtonDown="Dsiabled_ListBox_PreviewMouseRightButtonDown"/>
                 <ListBox x:Name="Enabled_ListBox"  Margin="550,60,30,60" BorderBrush="#FF545454" Background="#FF333333"/>
                 <Button x:Name="Enable_Mod" Content="" Height="51" Width="56" Margin="0,110,0,0" VerticalAlignment="Top" Background="{StaticResource Enable_Button}" BorderBrush="{x:Null}" Click="Enable_Mod_Click"/>
@@ -241,7 +252,6 @@
 
                 <Label Content="BROWSE" Height="44" Width="190" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Margin="0,2,0,0"/>
             </hc:SimplePanel>
-            <hc:LoadingLine x:Name="Load_Line" Margin="57,540,55,0" DotCount="8" DotSpeed="5" Height="6" VerticalAlignment="Top" IsRunning="False"/>
 
             <Button x:Name="Load" Content="Refresh" Height="39" Width="580" Click="Load_Click" Margin="0,551,0,0" VerticalAlignment="Top" Background="#FF2C4C4C" BorderBrush="{x:Null}"/>
 
@@ -296,21 +306,32 @@
         <hc:SimplePanel x:Name="Dedicated_Server_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Visible" Margin="190,0,0,2" Grid.ColumnSpan="2" Grid.RowSpan="2" ScrollViewer.VerticalScrollBarVisibility="Disabled">
 
             <hc:ScrollViewer x:Name="Scoller"  Margin="10,10,10,10" PanningMode="VerticalOnly">
-                <hc:SimpleStackPanel Margin="10,10,10,10" Height="2445" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Cursor="">
+                <hc:SimpleStackPanel Margin="10,10,10,10" Height="2596" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Cursor="">
+                    <hc:SimpleStackPanel.ContextMenu>
+
+                        <ContextMenu>
+                            <MenuItem x:Name="Cheat_Sheet"  Header="Open R2 Northstar Wiki Cheat Sheet" Click="Cheat_Sheet_Click">
+                                <MenuItem.Icon>
+                                    <Image Source="/Resources/Sheet.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+
+                        </ContextMenu>
+                    </hc:SimpleStackPanel.ContextMenu>
 
                     <Grid Visibility="Visible">
                         <Button x:Name="Launch_Northstar_Advanced" Content="Launch Northstar Advanced" Height="40" Width="392" Margin="40,174,0,0" VerticalAlignment="Top" Click="Launch_Northstar_Advanced_Click" BorderBrush="White" Background="#FF085F36" HorizontalAlignment="Left" />
                         <hc:TextBox x:Name="Arg_Box" HorizontalAlignment="Left" Height="81" TextWrapping="Wrap" VerticalAlignment="Top" Width="392" Margin="40,86,0,0" KeyDown="OnKeyDownHandler_Nrml_Arg"/>
                         <Button x:Name="Dedicated_Btn" Content="Launch Dedicated Northstar Client" Height="40" Width="392" Margin="538,174,0,0" Click="Dedicated_Btn_Click" BorderBrush="White" Background="#FF282C50" HorizontalAlignment="Left" VerticalAlignment="Top" />
                         <hc:TextBox x:Name="Arg_Box_Dedi" HorizontalAlignment="Left" Height="86" TextWrapping="Wrap" VerticalAlignment="Top" Width="392" Margin="538,81,0,0" KeyDown="OnKeyDownHandler_Dedi_Arg"/>
-                        <CheckBox x:Name="Ns_Args_Dedi" Content="DO NOT Overwrite &quot;ns startup args dedi.txt&quot;" HorizontalAlignment="Left" Height="30" Width="274" Margin="597,233,0,0" VerticalAlignment="Top" Checked="Ns_Args_Dedi_Checked" Unchecked="Ns_Args_Dedi_Unchecked"/>
+                        <CheckBox x:Name="Ns_Args_Dedi" Content="DO NOT Overwrite &quot;[ns startup args dedi.txt] and [autoexec_ns_server.cfg] &quot;" HorizontalAlignment="Left" Height="30" Width="418" Margin="525,233,0,0" VerticalAlignment="Top" Checked="Ns_Args_Dedi_Checked" Unchecked="Ns_Args_Dedi_Unchecked"/>
                         <CheckBox x:Name="Ns_Args" Content="DO NOT Overwrite &quot;ns startup args.txt&quot;" HorizontalAlignment="Left" Height="30" Width="254" Margin="109,233,0,0" VerticalAlignment="Top" Unchecked="Ns_Args_Unchecked" Checked="Ns_Args_Checked"/>
                         <Label Content="Startup Arguments Northstar Dedicated Client" Height="36" Width="350" BorderBrush="{x:Null}" Background="{x:Null}" Margin="559,45,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                         <Label Content="Startup Arguments Northstar Client" Height="35" Width="350" Margin="61,45,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Background="{x:Null}" HorizontalAlignment="Left"/>
                         <Label Content="Quick Launch" Height="35" Width="392" Margin="0,10,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="16" FontStyle="Normal" FontWeight="Bold" Padding="0,0,0,0"/>
 
                     </Grid>
-                    <Label Content="File Paths" Height="32" Width="282" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Background="{x:Null}" BorderBrush="{x:Null}" Margin="0,-2,0,0" />
+                    <Label Content="File Paths" Height="32" Width="282" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Background="{x:Null}" BorderBrush="{x:Null}" Margin="0,44,0,0" />
 
                     <Label Content="+NS Startup Dedicated Path" Width="282" Margin="0,18,0,0" VerticalAlignment="Stretch" FontWeight="Normal" Background="{x:Null}" BorderBrush="{x:Null}" />
 
@@ -318,13 +339,13 @@
                     <Label Content="+NS Convar_ Path" Width="282" Margin="0,18,0,0" VerticalAlignment="Stretch" FontWeight="Normal" Background="{x:Null}" BorderBrush="{x:Null}" />
 
                     <hc:TextBox x:Name="Dedicated_Convar_ARGS" Width="438" Background="White" Height="30" VerticalAlignment="Bottom" IsReadOnly="True" IsUndoEnabled="False" Foreground="Black" />
-                    <Button x:Name="Load_Bt" Height="36" Width="950" Margin="0,72,0,0" VerticalAlignment="Top" Background="#FF1E4C51" Content="Load Files" Click="Load_Bt_" />
+                    <Button x:Name="Load_Bt" Height="36" Width="950" Margin="0,72,0,0" VerticalAlignment="Top" Background="#FF2C4C4C" Content="Load Files" Click="Load_Bt_" BorderBrush="{x:Null}" />
 
                     <Label Height="58" Width="329" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,36,0,0" Content="Startup Arguments" FontSize="36" FontFamily="Bahnschrift SemiLight" Background="{x:Null}" BorderBrush="{x:Null}" />
                     <ListBox x:Name="Startup_Arguments_UI_List" Margin="0,-4,0,-322" Background="#FF101010" BorderBrush="{x:Null}" ItemTemplateSelector="{StaticResource Server_Template_Selector}" PreviewMouseWheel="S" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="False">
                     </ListBox>
                     <Label Height="58" Width="329" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,357,0,0" Content="Convar Arguments" FontSize="36" FontFamily="Bahnschrift SemiLight" Background="{x:Null}" BorderBrush="{x:Null}" />
-                    <ListBox x:Name="Convar_Arguments_UI_List" Background="#FF101010" BorderBrush="{x:Null}" ItemTemplateSelector="{StaticResource Server_Template_Selector}" Height="1197" VerticalAlignment="Top" PreviewMouseWheel="Convar_Arguments_UI_List_PreviewMouseWheel" ScrollViewer.CanContentScroll="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
+                    <ListBox x:Name="Convar_Arguments_UI_List" Background="#FF101010" BorderBrush="{x:Null}" ItemTemplateSelector="{StaticResource Server_Template_Selector}" Height="1448" VerticalAlignment="Top" PreviewMouseWheel="Convar_Arguments_UI_List_PreviewMouseWheel" ScrollViewer.CanContentScroll="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
 
 
 
