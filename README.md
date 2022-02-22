@@ -1,167 +1,169 @@
-Total Users using the latest release
+# VTOL
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/45333346/155147598-71510387-7b83-4dea-a1b8-b322888d8a3e.png" />
+</p>
+
+Users on the latest release:
+
 ![GitHub release (latest by date)](https://img.shields.io/github/downloads/BigSpice/VTOL/latest/total?style=flat-square)
-<br /><br />
-<br /><br />
-**This application installs the [Titanfall 2 Northstar Client](https://northstar.tf),Installs Skins, and optionally installs compatible mods for it created by various modders.**
-<br /><br />
+
+
+## This is a launcher for the [Titanfall 2 Northstar Client](https://northstar.tf)
+
+
 ![VTOL_Showcase_Trim](https://user-images.githubusercontent.com/23240514/152448826-0a92b6d8-3cce-4107-911c-0a1480ad8a8e.gif)<br /><br /><br />
 
-Features:
-<br />
-• Updating [Northstar](https://northstar.tf) installations.
-<br />
-• Easy installation of the [Northstar Client](https://northstar.tf)
-<br />
-• Verification of a [Northstar](https://northstar.tf) installation (if you did it manually)
-<br />
-• Viewing installed mods
-<br />
-• Toggling installed [Northstar](https://northstar.tf) mods
-<br />
-• Downloading and installing [Northstar](https://northstar.tf) mods from a GitHub/GitLab repository
-<br />
-• Installing downloaded [Northstar](https://northstar.tf) mods (.zip files)
-<br />
-• Installing and injecting various types of Titanfall 2 player/weapon skins
-<br />
-• Booting up a dedicated server for the [Northstar Client](https://northstar.tf)
-<br />
-• Install mods featured in the [Thunderstore](https://northstar.thunderstore.io) collection.
-<br />
-• Boot Northstar
-<br /><br /><br />
-WIP Features:
-<br />
-• Create custom servers using this application to fine tune setups.
-<br />
-<br />
-• Manage dedicated [Northstar](https://northstar.tf) servers.
-<br /><br />
+## Features:
 
-_Suggestions/bug reports are highly appreciated. Please create a new [issue](https://github.com/BigSpice/VTOL/issues/new] and fill out the fields._
-<br />
-<br /><br />
+* Easilly install, update and launch [Northstar](https://northstar.tf)
 
-Install this application by downloading and running the latest release:
-<br /><br />
+* Manage installed [Northstar](https://northstar.tf) mods
+
+* Downloading and installing [Northstar](https://northstar.tf) mods from a GitHub/GitLab repository
+
+* Installing downloaded [Northstar](https://northstar.tf) mods (.zip files)
+
+* Easilly isntall custom Wepaon/Pilot Skins
+
+* Easilly start a [Northstar](https://northstar.tf) Dedicated Server
+
+* [Thunderstore](https://northstar.thunderstore.io) Mod Browser
+
+
+### WIP Features:
+
+* Create custom servers using this application to fine tune setups.
+
+* Manage dedicated [Northstar](https://northstar.tf) servers.
+
+### Suggestions/Bug reports?
+* Suggestions/bug reports are highly appreciated. Please create a new [issue](https://github.com/BigSpice/VTOL/issues/new) and fill out the fields.
+
+### Installation and updates
+* Install this application by downloading and running the latest [release from here](https://github.com/BigSpice/VTOL/releases)
+   * ``Download the .msi package``
+
 ![image](https://user-images.githubusercontent.com/23240514/150025911-aacaf334-cc33-4239-94d7-512cfb84fe49.png)
-<br /><br />
-If you already use this application, consider navigating to "check for updates" inside the application to download and install the latest release.<br /><br />
-![image](https://user-images.githubusercontent.com/23240514/152447226-88662295-b7a9-4fd5-a958-dfc5ce59bd9c.png)<br /><br />
-Once the application successful downloaded and installed:
-<br /><br />
-<br /><br /><br />
 
-1. Configure your Titanfall 2 installation directory.
-   <br /><br />
-   If the automatic browse cannot find your Titanfall 2 installation, please select "browse" and _browse_ to where your Titanfall 2 installation is, and select it.
-   <br /><br />
-   ![image](https://user-images.githubusercontent.com/23240514/152446386-4bb584c1-038a-4dd6-9588-ac3827884144.png)<br /><br />
-2. Verify, or install the [Northstar Client](https://northstar.tf)
-   <br /><br />
-   ![image](https://user-images.githubusercontent.com/23240514/152446412-d10f1f7e-bbc2-4558-8e8b-033aae2af410.png)<br /><br />
-   Use this to verify your existing Northstar installation.
-   <br /><br />
-   _By using that, the application will download the latest [Northstar release](https://github.com/R2Northstar/Northstar/releases/latest)._
-   <br /><br />
+* This application has an auto-update Feature in the Update section
+
+![image](https://user-images.githubusercontent.com/23240514/152447226-88662295-b7a9-4fd5-a958-dfc5ce59bd9c.png)
+
+### Configuration
+
+ * If the launcher fails to automatically find your Titanfall 2 installation, please select ``Browse`` on the Main page and _browse_ to where your Titanfall 2 installation is, and select the Titnafall2 folder
+
+ * Common Game Install Locations:
+   *    Steam: `C:\Program Files (x86)\Steam\steamapps\common\Titanfall2`
+   *    Origin: `C:\Program Files (x86)\Origin Games\Titanfall2` 
+
+
+   ![image](https://user-images.githubusercontent.com/23240514/152446386-4bb584c1-038a-4dd6-9588-ac3827884144.png)
+
+
+### Verify [Northstar](https://northstar.tf)
+
+* Point the ``+Northstar install Exe Directory`` field to where northstar is installed: 
+    *    Steam: `C:\Program Files (x86)\Steam\steamapps\common\Titanfall2NorthstarLauncher.exe`
+    *    Origin: `C:\Program Files (x86)\Origin Games\Titanfall2\NorthstarLauncher.exe` 
+
+   ![image](https://user-images.githubusercontent.com/23240514/152446412-d10f1f7e-bbc2-4558-8e8b-033aae2af410.png)
+   
+* To update or repair your northstar installation, Click the ``Update/Repair Northstar`` Button.
+    * This will download the latest [Northstar release](https://github.com/R2Northstar/Northstar/releases/latest) and repair/update your current instllation.
+
+
    ![image](https://user-images.githubusercontent.com/23240514/152446466-26d91f33-948d-4051-9247-c21b20328515.png)
 
-<br /><br />
+_If an outdated version is detected, this will update it, If the installed version is up to date, it will repair it._
 
-_Installations will automatically be updated if an outdated version is detected, repairing will be done if the version is the same._
-<br /><br /><br /><br />
+## Feature Guides
+### Thunderstore Mod Browser
 
-<h1> MOD BROWSER </h1>
-
-_The [Thunderstore](https://northstar.thunderstore.io) integration has been released in v1.1.7_<br />
-<br />
+_[Thunderstore](https://northstar.thunderstore.io) Support released as of version 1.1.7_
 ![image](https://user-images.githubusercontent.com/23240514/153077819-5cd04c1c-f280-453e-9d07-ecc08e8934e1.png)
-<br />
 
-Click "Refresh" to update the list of mods featured on Thunderstore.
-<br />
-<br />
+Click ``Refresh`` to Refresh the list of mods featured on Thunderstore.
+
 ![image](https://user-images.githubusercontent.com/23240514/152448128-cdc1fa9e-df7b-4022-8247-48b355e53d65.png)
-<br />
-If you wish to, you can also navigate to the mod's thunderstore site to download the mod manually.
-<br />
-<br />
+
+If you wish to, you can also navigate to the mod's thunderstore site to download the mod manually using the ``Go To Webpage`` button.
+
 ![image](https://user-images.githubusercontent.com/23240514/152448103-037443e3-8ffc-47e0-9ea2-1926a1e06457.png)
 
-<br />
-<br />
-<br />
 
-<h1> Installing Mods</h1>
 
-You can see a detailed list of your installed mods by navigating to the "mods" section inside the application.
-<br /><br />
-![image](https://user-images.githubusercontent.com/23240514/152446534-9109f141-c98c-4046-b023-7451b4796d3e.png)<br /><br />
-**If you have a .zip file of the mod you want to install, you simply need to browse to the .zip file and select it. It'll be installed in the same way.**
-<br /><br />
-If you want to enable, or disable mods, simply click the specific mod's name in the list, and press the corresponding arrow button.
-<br /><br />
-![image](https://user-images.githubusercontent.com/23240514/152447411-2f7b1f99-a558-4885-bd11-f45952d6a04b.png)<br /><br />
-![image](https://user-images.githubusercontent.com/23240514/152447434-f2996352-9237-46f0-aa07-2c2e3181ea21.png)<br /><br />
-![image](https://user-images.githubusercontent.com/23240514/152447448-24d51ad1-da48-44d2-b1d6-c864767cd230.png)<br /><br />
-**<!-- ALWAYS CLICK APPLY AFTER ENABLING OR DISABLING MODS! --!>**
-<br />
-![image](https://user-images.githubusercontent.com/23240514/152447480-e40d2b78-c020-4c58-8da2-f29b85a95e7e.png)<br /><br /><br /><br />
+## Installing Mods
 
-<h1> Installing Skins</h1>
+* You can see a list of all installed and disabled mods in the ``Mods`` section:
+![image](https://user-images.githubusercontent.com/23240514/152446534-9109f141-c98c-4046-b023-7451b4796d3e.png)
 
+* If you have a .zip file of the mod you want to install, you simply need to browse to the .zip file and   select it. It'll be installed in the same way.
+
+* If you want to enable, or disable mods, simply click the specific mod's name in the list, and press the corresponding arrow button to move them between the Enabled/Disabled lists.
+
+![image](https://user-images.githubusercontent.com/23240514/152447411-2f7b1f99-a558-4885-bd11-f45952d6a04b.png)
+![image](https://user-images.githubusercontent.com/23240514/152447434-f2996352-9237-46f0-aa07-2c2e3181ea21.png)
+![image](https://user-images.githubusercontent.com/23240514/152447448-24d51ad1-da48-44d2-b1d6-c864767cd230.png)
+* **ALWAYS CLICK ``APPLY`` AFTER ENABLING OR DISABLING MODS!**
+
+## Installing Skins 
+
+* First, Navigate to your desired Skin's ``.ZIP`` file
 ![image](https://user-images.githubusercontent.com/23240514/152447515-c4eb762b-d4b9-49da-b713-87aded2220d2.png)
 <br /><br />
 
-Click import skin and wait for the compatibliity check to finish.
-<br /><br />
-![image](https://user-images.githubusercontent.com/23240514/152447613-e3fc58d8-992e-46ad-9c2c-499a87888603.png)<br /><br />
-![image](https://user-images.githubusercontent.com/23240514/152447631-03075684-204e-4311-b3dc-4bd6e264d0f3.png)<br /><br />
-Once the compatibility is confirmed, the application can now inject the skin.
-<br /><br />
-Click "Install Skin" to proceed with the installation of the skin.
-<br /><br />
+* Click import skin and wait for the compatibliity check to finish.
+
+![image](https://user-images.githubusercontent.com/23240514/152447613-e3fc58d8-992e-46ad-9c2c-499a87888603.png)
+
+![image](https://user-images.githubusercontent.com/23240514/152447631-03075684-204e-4311-b3dc-4bd6e264d0f3.png)
+
+* Once the compatibility is ``Confirmed`` with a green light, the application can now inject the skin.
+* Click ``Install Skin`` to proceed with the installation of the skin.
+* Installed Skins usually replace the ``Factory Issue`` skin of a weapon
+
 ![image](https://user-images.githubusercontent.com/23240514/152447644-27b7089a-1c17-4628-8616-42f8c0950baa.png)
-<br /><br />
-Skins will be previewed in the following way
-<br /><br />
+
+Skin Textures will be previewed in the following way
+
 ![image](https://user-images.githubusercontent.com/23240514/152447664-09a21668-b54f-41df-8493-f1567c497ec1.png)
-<br /><br /><br /><br />
 
-<h1>Updating</h1>
 
-<br /><br />
+## Updating VTOL
+
+* You cam check for updates in the ``Updates`` Section
+
 ![image](https://user-images.githubusercontent.com/23240514/152447690-94ba2d70-c832-4b25-b040-532bf0f27f33.png)
-<br /><br />
-If you wish to, you can configure automatic updates for your installation.
-<br />
+
+* If you wish to, you can configure automatic updates for your installation.
+
 ![image](https://user-images.githubusercontent.com/23240514/152447709-58e9ae8c-e630-4bfc-976c-b56f741effad.png)
-<br /><br />
-If you wish to update or repair your installation, simply click the "Update/Repair" button.
-<br /><br />
-![image](https://user-images.githubusercontent.com/23240514/152447727-332cc754-fb71-4552-ab3f-f206390cede1.png)<br /><br />
 
-<h1>Advanced</h1><br />
 
-Currently, there are 4 advanced options. \*All are used for server management and advanced launching **only.**<br /><br />
+* If you wish to update or repair your installation, simply click the "Update/Repair" button.
+
+![image](https://user-images.githubusercontent.com/23240514/152447727-332cc754-fb71-4552-ab3f-f206390cede1.png)
+
+
+## Advanced
+
+Currently, there are 4 advanced options. \*All are used for server management and advanced launching **only.**
+
 ![image](https://user-images.githubusercontent.com/23240514/152447755-5b1fdb1d-d9e5-4418-a5b1-22eaf86f172d.png)
-<br /><br />
+
 All settings persist between sessions.
-<br /><br />
 
-<h1>Troubleshooting</h1>
-If you see the following error message:
 
-<br /><br />
+# Troubleshooting
+* If you see one of the following error messages
+Simply click "Yes" and the application will attempt to fix the issue by downloading the required dependacies
+
 ![image](https://user-images.githubusercontent.com/23240514/150569733-e1142d29-54f3-4842-b34a-81520e293f0c.png)
-<br /><br />
-Simply click "Yes" and the application will attempt to fix the issue.
-<br /><br />
-If you instead see the following error message:
 
 ![image](https://user-images.githubusercontent.com/23240514/150570184-6cf29ee6-40a5-4517-839c-3e2dcddcf637.png)
-<br /><br />
-Simply click "Yes" and the application will attempt to fix the issue.
+
 
 Thank you to @ConnorDoesDev for the massive support in making the application more readable.
-<br /><br />
+
+Logo by @MysteriousRSA
