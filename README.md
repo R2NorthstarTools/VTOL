@@ -75,7 +75,7 @@ Users on the latest release:
 
    ![image](https://user-images.githubusercontent.com/23240514/152446466-26d91f33-948d-4051-9247-c21b20328515.png)
 
-_If an outdated version is detected, this will update it, If the installed version is up to date, it will repair it._
+_If an outdated version is detected, this will update it, if the installed version is up to date, it will repair it._
 
 ## Feature Guides
 ### Thunderstore Mod Browser
