@@ -36,7 +36,7 @@ Users on the latest release:
 
 * Manage dedicated [Northstar](https://northstar.tf) servers.
 
-### Suggestions/Bug reports?
+### Contribute
 * _Suggestions/bug reports are highly appreciated. Please create a new [issue](https://github.com/BigSpice/VTOL/issues/new) and fill out the fields._
 
 ### Installation and updates
