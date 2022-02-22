@@ -306,7 +306,7 @@
         <hc:SimplePanel x:Name="Dedicated_Server_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Visible" Margin="190,0,0,2" Grid.ColumnSpan="2" Grid.RowSpan="2" ScrollViewer.VerticalScrollBarVisibility="Disabled">
 
             <hc:ScrollViewer x:Name="Scoller"  Margin="10,10,10,10" PanningMode="VerticalOnly">
-                <hc:SimpleStackPanel Margin="10,10,10,10" Height="2596" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Cursor="">
+                <hc:SimpleStackPanel Margin="10,10,10,10" Height="2716" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Cursor="">
                     <hc:SimpleStackPanel.ContextMenu>
 
                         <ContextMenu>
@@ -346,6 +346,7 @@
                     </ListBox>
                     <Label Height="58" Width="329" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,357,0,0" Content="Convar Arguments" FontSize="36" FontFamily="Bahnschrift SemiLight" Background="{x:Null}" BorderBrush="{x:Null}" />
                     <ListBox x:Name="Convar_Arguments_UI_List" Background="#FF101010" BorderBrush="{x:Null}" ItemTemplateSelector="{StaticResource Server_Template_Selector}" Height="1448" VerticalAlignment="Top" PreviewMouseWheel="Convar_Arguments_UI_List_PreviewMouseWheel" ScrollViewer.CanContentScroll="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
+                    <Button Content="Launch Dedicated Northstar Client" Height="60" Width="950" Click="Dedicated_Btn_Click" BorderBrush="White" Background="#FF2C4C4C" Margin="0,54,0,0" VerticalAlignment="Top" />
 
 
 

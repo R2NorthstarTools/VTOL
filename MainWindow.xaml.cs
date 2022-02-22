@@ -1613,7 +1613,10 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
 
                         }
-                        Directory.Delete(Current_Install_Folder + @"\TempCopyFolder", true);
+                        if (Directory.Exists(Current_Install_Folder + @"\TempCopyFolder"))
+                        {
+                            Directory.Delete(Current_Install_Folder + @"\TempCopyFolder", true);
+                        }
                         Send_Info_Notif("\nInstall Complete!");
 
                     }
@@ -2018,6 +2021,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
         }
         void Install_NS_METHOD()
         {
+            try { 
 
             completed_flag = 0;
             Read_Latest_Release("https://api.github.com/repos/R2Northstar/Northstar/releases/latest");
@@ -2105,7 +2109,15 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 Send_Warning_Notif("\nStarting Install procedure!");
 
             }
+            }
+            catch (Exception ex)
+            {
 
+                Write_To_Log(ex.StackTrace);
+                Send_Fatal_Notif("Fatal Error Occured, Please Check Logs!");
+
+
+            }
         }
         private void CheckIfModenabled(string path)
         {
@@ -4718,7 +4730,7 @@ return Arg_List;
                             Console.WriteLine("The Folder Name is-" + FolderName + "\n\n");
                             Send_Success_Notif("Recieved - " + file);
 
-                           Unpack_To_Location_Custom(path, Current_Install_Folder + @"\R2Northstar\mods");
+                            Unpack_To_Location_Custom(path, Current_Install_Folder + @"\R2Northstar\mods");
                             Call_Mods_From_Folder();
 
                             ApplyDataBinding();

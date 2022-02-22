@@ -12,6 +12,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <PackageTags>Mod_Manager;Installer;VTOL</PackageTags>
     <DebugType>embedded</DebugType>
+    <Platforms>AnyCPU;x64;x86</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
