@@ -15,7 +15,7 @@ Users on the latest release:
 
 ## Features:
 
-* Easilly install, update and launch [Northstar](https://northstar.tf)
+* Easily install, update and launch [Northstar](https://northstar.tf)
 
 * Manage installed [Northstar](https://northstar.tf) mods
 
@@ -23,21 +23,21 @@ Users on the latest release:
 
 * Installing downloaded [Northstar](https://northstar.tf) mods (.zip files)
 
-* Easilly isntall custom Wepaon/Pilot Skins
+* Easily isntall custom Wepaon/Pilot Skins
 
-* Easilly start a [Northstar](https://northstar.tf) Dedicated Server
+* Easily start a [Northstar](https://northstar.tf) Dedicated Server
 
 * [Thunderstore](https://northstar.thunderstore.io) Mod Browser
 
 
-### WIP Features:
+### Work In Progress
 
 * Create custom servers using this application to fine tune setups.
 
 * Manage dedicated [Northstar](https://northstar.tf) servers.
 
 ### Suggestions/Bug reports?
-* Suggestions/bug reports are highly appreciated. Please create a new [issue](https://github.com/BigSpice/VTOL/issues/new) and fill out the fields.
+* _Suggestions/bug reports are highly appreciated. Please create a new [issue](https://github.com/BigSpice/VTOL/issues/new) and fill out the fields._
 
 ### Installation and updates
 * Install this application by downloading and running the latest [release from here](https://github.com/BigSpice/VTOL/releases)
@@ -63,13 +63,13 @@ Users on the latest release:
 
 ### Verify [Northstar](https://northstar.tf)
 
-* Point the ``+Northstar install Exe Directory`` field to where northstar is installed: 
+* Select the NorthstarLauncher.exe file in the Northstar installation field: 
     *    Steam: `C:\Program Files (x86)\Steam\steamapps\common\Titanfall2NorthstarLauncher.exe`
     *    Origin: `C:\Program Files (x86)\Origin Games\Titanfall2\NorthstarLauncher.exe` 
 
    ![image](https://user-images.githubusercontent.com/23240514/152446412-d10f1f7e-bbc2-4558-8e8b-033aae2af410.png)
    
-* To update or repair your northstar installation, Click the ``Update/Repair Northstar`` Button.
+* To update or repair your northstar installation, click the ``Update/Repair Northstar`` Button.
     * This will download the latest [Northstar release](https://github.com/R2Northstar/Northstar/releases/latest) and repair/update your current instllation.
 
 
@@ -83,7 +83,7 @@ _If an outdated version is detected, this will update it, If the installed versi
 _[Thunderstore](https://northstar.thunderstore.io) Support released as of version 1.1.7_
 ![image](https://user-images.githubusercontent.com/23240514/153077819-5cd04c1c-f280-453e-9d07-ecc08e8934e1.png)
 
-Click ``Refresh`` to Refresh the list of mods featured on Thunderstore.
+Click ``Refresh`` to refresh the list of mods featured on Thunderstore.
 
 ![image](https://user-images.githubusercontent.com/23240514/152448128-cdc1fa9e-df7b-4022-8247-48b355e53d65.png)
 
@@ -132,7 +132,7 @@ Skin Textures will be previewed in the following way
 
 ## Updating VTOL
 
-* You cam check for updates in the ``Updates`` Section
+* You can check for updates in the ``Updates`` Section
 
 ![image](https://user-images.githubusercontent.com/23240514/152447690-94ba2d70-c832-4b25-b040-532bf0f27f33.png)
 
@@ -157,7 +157,7 @@ All settings persist between sessions.
 
 # Troubleshooting
 * If you see one of the following error messages
-Simply click "Yes" and the application will attempt to fix the issue by downloading the required dependacies
+Simply click "Yes" and the application will attempt to fix the issue.
 
 ![image](https://user-images.githubusercontent.com/23240514/150569733-e1142d29-54f3-4842-b34a-81520e293f0c.png)
 
