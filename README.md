@@ -63,7 +63,7 @@ Users on the latest release:
 
 ### Verify [Northstar](https://northstar.tf)
 
-* This will check the staatus of NorthstarLauncher.exe and show it's install location
+* This will check the status of NorthstarLauncher.exe and show it's install location.
     *    Steam: `C:\Program Files (x86)\Steam\steamapps\common\Titanfall2NorthstarLauncher.exe`
     *    Origin: `C:\Program Files (x86)\Origin Games\Titanfall2\NorthstarLauncher.exe` 
 
