@@ -45,7 +45,7 @@ Users on the latest release:
 
 ![image](https://user-images.githubusercontent.com/23240514/150025911-aacaf334-cc33-4239-94d7-512cfb84fe49.png)
 
-* This application has an auto-update Feature in the Update section
+* You can preferably enable the automatic-updater module in the ``Update`` section
 
 ![image](https://user-images.githubusercontent.com/23240514/152447226-88662295-b7a9-4fd5-a958-dfc5ce59bd9c.png)
 
