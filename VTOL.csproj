@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
-    <ApplicationIcon>Resources\ICON_32.ico</ApplicationIcon>
-    <PackageIcon>VTOL_Hover.png</PackageIcon>
+    <ApplicationIcon>Resources\32x32.ico</ApplicationIcon>
+    <PackageIcon>Northstar-512.png</PackageIcon>
     <AssemblyVersion>1.2.1</AssemblyVersion>
     <FileVersion>1.2.1</FileVersion>
     <ApplicationManifest>app.manifest</ApplicationManifest>
@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <None Remove="Banner_normal.jpg" />
+    <None Remove="Resources\32x32.ico" />
     <None Remove="Resources\Banner_normal.jpg" />
     <None Remove="Resources\bestboy.png" />
     <None Remove="Resources\BG.jpg" />
@@ -43,6 +44,8 @@
     <None Remove="Resources\Lock_WB.png" />
     <None Remove="Resources\LOG_ICON.png" />
     <None Remove="Resources\main-menu.png" />
+    <None Remove="Resources\Northstar-512-maskable.png" />
+    <None Remove="Resources\Northstar512-maskable.ico" />
     <None Remove="Resources\NorthStar_Smurfson.gif" />
     <None Remove="Resources\NO_TEXTURE.png" />
     <None Remove="Resources\NO_TEXTURE.png" />
@@ -72,6 +75,19 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Resources\32x32.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <DesignDataWithDesignTimeCreatableTypes Include="Resources\Northstar-512.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </DesignDataWithDesignTimeCreatableTypes>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\32x32.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\bestboy.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -162,6 +178,15 @@
     <Resource Include="Resources\main-menu.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Northstar-512-maskable.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Northstar-512.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Northstar512-maskable.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\NorthStar_Smurfson.gif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -215,6 +240,10 @@
     <None Update="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Resources\Northstar-512.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
 

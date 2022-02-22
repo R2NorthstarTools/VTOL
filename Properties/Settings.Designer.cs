@@ -25,7 +25,7 @@ namespace VTOL.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool Ns_Startup {
             get {
                 return ((bool)(this["Ns_Startup"]));
@@ -37,7 +37,7 @@ namespace VTOL.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("v1.5.0")]
         public string Version {
             get {
                 return ((string)(this["Version"]));
@@ -49,7 +49,7 @@ namespace VTOL.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool Ns_Dedi {
             get {
                 return ((bool)(this["Ns_Dedi"]));

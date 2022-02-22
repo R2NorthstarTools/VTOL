@@ -30,6 +30,8 @@ using System.Text.RegularExpressions;
 using System.Windows.Media.Animation;
 using Utils.Extensions;
 using static VTOL.MainWindow;
+using Microsoft.Xaml.Behaviors;
+using System.Threading;
 //****TODO*****//
 
 //Migrate Release Parse to the New Updater Sys
@@ -71,11 +73,15 @@ namespace VTOL
                 return
                     element.FindResource("BOOLBox")
                     as DataTemplate;
-            else
+            else if (Item.Type == "ONE_SELECT")
+                return
+                    element.FindResource("One_Select_Combo")
+                    as DataTemplate;
+             else
                 return
                     element.FindResource("ComboBox")
                     as DataTemplate;
-           
+
 
         }
 
@@ -125,7 +131,9 @@ namespace VTOL
         Updater Update;
         public bool Animation_Start_Northstar { get; set; }
         public bool Animation_Start_Vanilla { get; set; }
-
+        public string Ns_dedi_File = "";
+        public string Convar_File = "";
+        bool Started_Selection = false;
         public MainWindow()
         {
             InitializeComponent();
@@ -137,6 +145,7 @@ namespace VTOL
             {
 
                 Phrases = new ObservableCollection<string>();
+              
 
                 //BG_panel_Main.BlurApply(40, new TimeSpan(0, 0, 1), TimeSpan.Zero);
                 Phrases.Append("gg");
@@ -199,6 +208,7 @@ namespace VTOL
 
                 string Header = Path.GetFullPath(Path.Combine(System.Reflection.Assembly.GetExecutingAssembly().Location, @"../"));
                 updaterModulePath = Path.Combine(Header, "VTOL_Updater.exe");
+               
             }
 
             catch (System.IO.DirectoryNotFoundException e)
@@ -744,7 +754,6 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             Log_Panel.Visibility = Visibility.Hidden;
             Updates_Panel.Visibility = Visibility.Hidden;
 
-            Check_Args();
             Skins.IsSelected = false;
             Main.IsSelected = false;
             About.IsSelected = false;
@@ -753,8 +762,6 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             Mod_Browse.IsSelected = false;
             Update_Tab.IsSelected = false;
             Log.IsSelected = false;
-            Startup_Arguments_UI_List.ItemsSource = Load_Args();
-            Convar_Arguments_UI_List.ItemsSource = Convar_Args();
 
 
         }
@@ -2120,27 +2127,31 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             if (Directory.Exists(Current_Install_Folder))
             {
 
-                if (File.Exists(Current_Install_Folder + @"\ns_startup_args_dedi.txt"))
+
+                if (File.Exists(Ns_dedi_File))
                 {
+                    Dedicated_Server_Startup_ARGS.Text = Ns_dedi_File;
+                    Dedicated_Server_Startup_ARGS.Background = Brushes.White;
                     Arg_Box_Dedi.Text = "x";
-                    Arg_Box_Dedi.Text = Read_From_TextFile_OneLine(Current_Install_Folder + @"\ns_startup_args_dedi.txt");
+                    Arg_Box_Dedi.Text = Read_From_TextFile_OneLine(Ns_dedi_File);
                     GC.Collect();
 
 
                 }
                 else
                 {
-                    Console.WriteLine("Err, File not found");
+                    Send_Error_Notif("Err, File not found , please set it in filepaths!");
                     Arg_Box_Dedi.Text = "Err, File not found - ns_startup_args_dedi.txt";
+                    Dedicated_Server_Startup_ARGS.Background = Brushes.Red;
+
                     GC.Collect();
 
                 }
 
 
-                if (File.Exists(Current_Install_Folder + @"\ns_startup_args.txt"))
+                if (File.Exists(GetFile(Current_Install_Folder, "ns_startup_args.txt").First()))
                 {
                     Arg_Box.Text = "x";
-
                     Arg_Box.Text = Read_From_TextFile_OneLine(Current_Install_Folder + @"\ns_startup_args.txt");
 
                     GC.Collect();
@@ -2148,18 +2159,35 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 }
                 else
                 {
-                    Console.WriteLine("Err, File not found");
+                    Send_Error_Notif("Err, File not found , please create it in the folder!");
                     Arg_Box.Text = "Err, File not found - ns_startup_args.txt";
                     GC.Collect();
                 }
 
+                if (File.Exists(Convar_File))
+                {
+
+                    Dedicated_Convar_ARGS.Text = Convar_File;
+                    Dedicated_Convar_ARGS.Background = Brushes.White;
+
+                    GC.Collect();
+
+                }
+                else
+                {
+                    Send_Error_Notif("Err, File not found , please set it in filepaths!");
+                    Dedicated_Convar_ARGS.Background = Brushes.Red;
+
+                    Dedicated_Convar_ARGS.Text = "Err, File not found - autoexec_ns_server.cfg";
+                    GC.Collect();
+                }
             }
 
 
             else
             {
 
-                Console.WriteLine("Err, Folder not found");
+                Send_Error_Notif("Err, Folder not found");
                 GC.Collect();
 
 
@@ -3375,7 +3403,8 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             Load_Line.IsRunning=true;
             try
             {
-                await Thunderstore_Parse();
+                Dispatcher.BeginInvoke(
+        new ThreadStart(() => Thunderstore_Parse()));
             }
             finally
             {
@@ -3659,82 +3688,192 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
         }
         private void Validate_Combo_Box(object sender, SelectionChangedEventArgs e)
         {
-            
-
-                if (sender.GetType() == typeof(HandyControl.Controls.CheckComboBox))
-                {
-                    HandyControl.Controls.CheckComboBox comboBox = (HandyControl.Controls.CheckComboBox)sender;
-                    var Var = ((HandyControl.Controls.CheckComboBox)sender).Tag.ToString();
-
-                    string[] Split = Var.Split("|");
-                    string type = Split[0];
-                    string name = Split[1];
-                string ARG = Split[2];
-
-                if (ARG!= null || ARG!= "" && ARG == "CONVAR")
+            try
+            {
+                if (Started_Selection == true)
                 {
 
-                    Send_Success_Notif("Convar");
-                }
-                else
-                {
-                    string list = String.Join(" ", comboBox.SelectedItems.Cast<String>().ToArray());
+                    if (sender.GetType() == typeof(HandyControl.Controls.CheckComboBox))
+                    {
+                        HandyControl.Controls.CheckComboBox comboBox = (HandyControl.Controls.CheckComboBox)sender;
+                        var Var = ((HandyControl.Controls.CheckComboBox)sender).Tag.ToString();
+                        var Description = ((HandyControl.Controls.CheckComboBox)sender).ToolTip.ToString();
+
+                        string[] Split = Var.Split("|");
+                        string type = Split[0];
+                        string name = Split[1];
+                        string ARG = Split[2];
+                        Send_Info_Notif(ARG);
+                        if (ARG!= null && ARG!= "" && ARG == "CONVAR")
+                        {
 
 
-                    Write_Startup_Arg_To_File(name, list);
-                }
+
+                            string list = String.Join(",", comboBox.SelectedItems.Cast<String>().ToArray());
+                            Write_convar_To_File(name, list, Description, true, Convar_File);
+                            if (list == "" || list == null)
+                            {
+
+                                Send_Error_Notif("No Selection!, Removing Item!");
+                                Write_convar_To_File(name, "REMOVE", Description, true, Convar_File);
+
+                            }
+                            comboBox.Foreground = Brushes.White;
+
+
+                        }
+
+                        else if (ARG!= null && ARG!= "" && ARG == "STARTUP")
+
+                        {
+                            string list = String.Join(" ", comboBox.SelectedItems.Cast<String>().ToArray());
+
+
+                            Write_Startup_Arg_To_File(name, list, false, true, Ns_dedi_File);
+                            comboBox.Foreground = Brushes.White;
+
+                        }
+                        else
+                        {
+                            Send_Error_Notif("Could Not UnderStand Input Type!");
+                        }
+                    }
+                    else
+                    {
+
+                        if (sender.GetType() == typeof(ComboBox))
+                        {
+                            ComboBox comboBox = (ComboBox)sender;
+                            var Var = comboBox.Tag.ToString();
+                            var Description = ((ComboBox)sender).ToolTip.ToString();
+
+                            string[] Split = Var.Split("|");
+                            string type = Split[0];
+                            string name = Split[1];
+                            string ARG = Split[2];
+                            if (ARG == "CONVAR")
+                            {
+
+                                if (type == "BOOL")
+                                {
+                                    if (comboBox.SelectedIndex != -1)
+                                    {
+                                        if (comboBox.SelectedIndex == 1)
+                                        {
+                                            Write_convar_To_File(name, "1", Description, false, Convar_File);
+                                            comboBox.Foreground = Brushes.White;
+
+
+                                        }
+                                        else
+                                        {
+
+
+                                            Write_convar_To_File(name, "0", Description, false, Convar_File);
+                                            comboBox.Foreground = Brushes.White;
+
+                                        }
+                                    }
+
+                                }
+                                if (type == "ONE_SELECT")
+                                {
+                                    if (comboBox.SelectedIndex != -1)
+                                    {
+
+                                        Write_convar_To_File(name, comboBox.SelectedValue.ToString(), Description, false, Convar_File);
+                                        comboBox.Foreground = Brushes.White;
+                                    }
+
+
+                                }
+
+
+
+                            }
+                        }
+                    }
                 }
             }
-           
+            catch (Exception ex)
+            {
+
+                Write_To_Log(ex.StackTrace);
+                Send_Error_Notif("Fatal Error Occured, Please Check Logs!");
+
+
+            }
+        }
         
         private void ValidationTextBox(object sender, TextCompositionEventArgs e)
         {
-            var Var = ((TextBox)sender).Tag.ToString();
-            string[] Split = Var.Split("|");
-            string type = Split[0];
-            Regex regex = new Regex("[^0-9]+");
+            try
+            {
+                var Var = ((TextBox)sender).Tag.ToString();
+                string[] Split = Var.Split("|");
+                string type = Split[0];
+                Regex regex = new Regex("[^0-9]+");
 
-            switch (type)
+                switch (type)
+                {
+
+                    case "STRING":
+                        // Send_Success_Notif("Found type String!");
+                        break;
+                    case "PORT":
+                        e.Handled = regex.IsMatch(e.Text);
+
+
+                        break;
+                    case "INT":
+                        e.Handled = regex.IsMatch(e.Text);
+                        break;
+                    case "FLOAT":
+                        Regex Floaty = new Regex(@"^[-+]?[0-9]*\.?[0-9]+$ or ^[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?$");
+                        e.Handled = Floaty.IsMatch(e.Text);
+                        break;
+                }
+            }
+            catch (Exception ex)
             {
 
-                case "STRING":
-                   // Send_Success_Notif("Found type String!");
-                    break;
-                case "PORT":
-                    e.Handled = regex.IsMatch(e.Text);
+                Write_To_Log(ex.StackTrace);
+                Send_Fatal_Notif("Fatal Error Occured, Please Check Logs!");
 
 
-                    break;
-                case "INT":
-                    e.Handled = regex.IsMatch(e.Text);
-                    break;
-                case "FLOAT":
-                    Regex Floaty = new Regex(@"^[-+]?[0-9]*\.?[0-9]+$ or ^[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?$");
-                    e.Handled = Floaty.IsMatch(e.Text);
-                    break;
             }
-
         }
-        public static bool IsPort(string value)
+        public  bool IsPort(string value)
         {
-            if (string.IsNullOrEmpty(value))
-                return false;
-
-            Regex numeric = new Regex(@"^[0-9]+$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-
-            if (numeric.IsMatch(value))
+            try
             {
-                try
+                if (string.IsNullOrEmpty(value))
+                    return false;
+
+                Regex numeric = new Regex(@"^[0-9]+$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+
+                if (numeric.IsMatch(value))
                 {
-                    if (Convert.ToInt32(value) < 65535)
-                        return true;
-                }
-                catch (OverflowException)
-                {
+                    try
+                    {
+                        if (Convert.ToInt32(value) < 65535)
+                            return true;
+                    }
+                    catch (OverflowException)
+                    {
+                    }
                 }
             }
+            catch (Exception ex)
+            {
 
+                Write_To_Log(ex.StackTrace);
+                Send_Fatal_Notif("Fatal Error Occured, Please Check Logs!");
+
+
+            }
             return false;
+
         }
         void validate(object sender, RoutedEventArgs e) {
 
@@ -3754,6 +3893,8 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             catch (Exception ex)
             {
                Send_Warning_Notif(ex.Message);
+                Write_To_Log(ex.StackTrace);
+
             }
 
             return files;
@@ -3770,16 +3911,24 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 string RootFolder = "";
                 if (File_Root != null)
                 {
-                    RootFolder  = File_Root;
+                    if (File.Exists(File_Root))
+                    {
+                        RootFolder  = File_Root;
+                    }
+                    else
+                    {
+                        Send_Warning_Notif("Could Not find Set path!, routing to defualt search.");
+                        RootFolder  = GetFile(Current_Install_Folder, "autoexec_ns_server.cfg").First();
 
+                    }
                 }
                 else
                 {
 
 
-                    RootFolder  = Current_Install_Folder;
+                    RootFolder  = GetFile(Current_Install_Folder, "autoexec_ns_server.cfg").First();
                 }
-                string[] intake = File.ReadAllLines(GetFile(RootFolder, "autoexec_ns_server.cfg").First());
+                string[] intake = File.ReadAllLines(RootFolder);
 
                 string[] intermid = intake;
 
@@ -3803,7 +3952,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                         else
                         {
 
-                            intermid[index_of_var] = Convar_Name + " " + '\u0022'+Convar_Value+ '\u0022' +" " +"//" +Description;
+                            intermid[index_of_var] = Convar_Name + " " + '\u0022'+Convar_Value+ '\u0022' +" " +"//" +desc;
 
                         }
 
@@ -3827,14 +3976,18 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
                         }
                     }
+                    if (Convar_Value == "REMOVE")
+                    {
+                        intermid =intermid.Where((source, index) => index != index_of_var).ToArray();
+
+                    }
 
 
-                    
                     String x = String.Join("\r\n", intermid.ToArray());
                     //Send_Warning_Notif(x);
                     // x = x.Replace("\r\n", "\n").Replace("\r", "\n").Replace("\n", "\r\n");
-                    //ClearFile(GetFile(RootFolder, "autoexec_ns_server.cfg").First());
-                 using (StreamWriter sw = new StreamWriter(GetFile(RootFolder, "autoexec_ns_server.cfg").First(), false, Encoding.UTF8, 65536))
+                    //ClearFile(Convar_File);
+                 using (StreamWriter sw = new StreamWriter(Convar_File, false, Encoding.UTF8, 65536))
                 {
                       
                      sw.WriteLine(x);
@@ -3845,21 +3998,21 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 }
                 else
                 {
+                   
 
-                    string[] intake_ = File.ReadAllLines(GetFile(RootFolder, "autoexec_ns_server.cfg").First());
+                    string[] intake_ = File.ReadAllLines(Convar_File);
 
                     string[] intermid_ = intake_;
-                    
+                   
                     intermid_ = AddElementToArray(intermid_, Convar_Name + " "+Convar_Value+" " +"//" +Description);
 
-                    
-                    String x = String.Join("\r\n", intermid.ToArray());
+                    String x = String.Join("\r\n", intermid_.ToArray());
 
-                    using (StreamWriter sw = new StreamWriter(GetFile(RootFolder, "autoexec_ns_server.cfg").First(), false, Encoding.UTF8, 65536))
+                    using (StreamWriter sw = new StreamWriter(Convar_File, false, Encoding.UTF8, 65536))
                     {
                         sw.WriteLine(x);
                     }
-                    Send_Success_Notif("The Varible ["+ Convar_Name+"] Has been Found in the File.The value is now ["+ Convar_Value+"]");
+                    Send_Success_Notif("The Varible ["+ Convar_Name+"] Has Not been Found in the File.The value Has Been Added and is now ["+ Convar_Value+"]");
 
                 }
             }
@@ -3873,6 +4026,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
         }
         private T[] AddElementToArray<T>(T[] array, T element)
         {
+            
             T[] newArray = new T[array.Length + 1];
             int i;
             for (i = 0; i < array.Length; i++)
@@ -3901,16 +4055,25 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 string RootFolder = "";
                 if (File_Root != null)
                 {
-                    RootFolder  = File_Root;
+                    if (File.Exists(File_Root))
+                    {
+                        RootFolder  = File_Root;
+                    }
+                    else
+                    {
+                        Send_Warning_Notif("Could Not find Set path!, routing to defualt search.");
+                        RootFolder  = GetFile(Current_Install_Folder, "autoexec_ns_server.cfg").First();
+
+                    }
 
                 }
                 else
                 {
 
 
-                    RootFolder  = Current_Install_Folder;
+                    RootFolder  = GetFile(Current_Install_Folder, "autoexec_ns_server.cfg").First();
                 }
-                string[] intake = File.ReadAllLines(GetFile(RootFolder, "autoexec_ns_server.cfg").First());
+                string[] intake = File.ReadAllLines(RootFolder);
                 string[] intermid = null;
 
 
@@ -3956,16 +4119,24 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 string RootFolder = "";
                 if (File_Root != null)
                 {
-                    RootFolder  = File_Root;
+                    if (File.Exists(File_Root))
+                    {
+                        RootFolder  = File_Root;
+                    }
+                    else
+                    {
+                        Send_Warning_Notif("Could Not find Set path!, routing to defualt search.");
+                        RootFolder  = GetFile(Current_Install_Folder, "ns_startup_args_dedi.txt").First();
 
+                    }
                 }
                 else
                 {
 
 
-                    RootFolder  = Current_Install_Folder;
+                    RootFolder  = GetFile(Current_Install_Folder, "ns_startup_args_dedi.txt").First();
                 }
-                string[] intake = File.ReadAllLines(GetFile(RootFolder, "ns_startup_args_dedi.txt").First());
+                string[] intake = File.ReadAllLines(Ns_dedi_File);
 
                 string[] intermid = null;
 
@@ -4000,7 +4171,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             return null;
         }
       
-        void Write_Startup_Arg_To_File(string Convar_Name, string Convar_Value, bool add_quotation = false, string File_Root = null)
+        void Write_Startup_Arg_To_File(string Convar_Name, string Convar_Value, bool add_quotation = false,bool Kill_If_empty = false, string File_Root = null )
         {
 
             try
@@ -4012,16 +4183,24 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 string RootFolder = "";
                 if (File_Root != null)
                 {
-                    RootFolder  = File_Root;
+                    if (File.Exists(File_Root))
+                    {
+                        RootFolder  = File_Root;
+                    }
+                    else
+                    {
+                        Send_Warning_Notif("Could Not find Set path!, routing to defualt search.");
+                        RootFolder  = GetFile(Current_Install_Folder, "ns_startup_args_dedi.txt").First();
 
+                    }
                 }
                 else
                 {
 
 
-                    RootFolder  = Current_Install_Folder;
+                    RootFolder  = GetFile(Current_Install_Folder, "ns_startup_args_dedi.txt").First();
                 }
-                string[] intake = File.ReadAllLines(GetFile(RootFolder, "ns_startup_args_dedi.txt").First());
+                string[] intake = File.ReadAllLines(RootFolder);
 
                 string[] intermid = null;
 
@@ -4053,10 +4232,17 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
                     }
 
+                    if (Kill_If_empty == true)
+                    {
+                        if (Convar_Value == "" || Convar_Value == null)
+                        {
+                            intermid =intermid.Where((source, index) => index != index_of_var).ToArray();
+                        }
 
+                    }
 
                     String x = String.Join(" ", intermid.ToArray());
-                    ClearFile(RootFolder +@"\" + "ns_startup_args_dedi.txt");
+                  //  ClearFile(RootFolder +@"\" + "ns_startup_args_dedi.txt");
 
                     using (StreamWriter sw = new StreamWriter(RootFolder +@"\" + "ns_startup_args_dedi.txt", false, Encoding.UTF8, 65536))
                     {
@@ -4069,7 +4255,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 else 
                 {
 
-                    string[] intake_ = File.ReadAllLines(GetFile(RootFolder, "ns_startup_args_dedi.txt").First());
+                    string[] intake_ = File.ReadAllLines(Ns_dedi_File);
 
                     string[] intermid_ = null;
                     foreach (string line in intake_)
@@ -4150,7 +4336,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                     string ARG = Split[2];
 
 
-                    if (val != null && val != "")
+                    if (val != null)
                     {
 
                         switch (type)
@@ -4159,20 +4345,21 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                             case "STRING":
                                 if (e.Key == Key.Return)
                                 {
-                                    if (ARG!= null || ARG!= "" && ARG== "CONVAR")
+                                    if (ARG!= null && ARG!= "" && ARG== "CONVAR")
                                     {
-                                        Send_Success_Notif("string convar");
-                                        Write_convar_To_File(name, val, Description, true, @"D:\Games\Titanfall2\R2Northstar\mods\Northstar.CustomServers\mod\cfg");
+                                        Write_convar_To_File(name, val, Description, true, Convar_File);
                                         GC.Collect();
+                                        Text_Box.Foreground = Brushes.White;
 
                                     }
                                     else { 
                                     Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
 
-                                    Write_Startup_Arg_To_File(name, val);
+                                        Write_Startup_Arg_To_File(name, val, false, true,Ns_dedi_File);
 
-                                    Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow;
-                                   
+                                        Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow;
+                                        Text_Box.Foreground = Brushes.White;
+
 
                                     }
 
@@ -4183,10 +4370,10 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                             case "STRINGQ":
                                 if (e.Key == Key.Return)
                                 {
-                                    if (ARG!= null || ARG!= "" && ARG== "CONVAR")
+                                    if (ARG!= null && ARG!= "" && ARG== "CONVAR")
                                     {
-                                        Send_Success_Notif("string convarq");
-                                        Write_convar_To_File(name, val, Description, true, @"D:\Games\Titanfall2\R2Northstar\mods\Northstar.CustomServers\mod\cfg");
+                                        Write_convar_To_File(name, val, Description, true, Convar_File);
+                                        Text_Box.Foreground = Brushes.White;
 
                                         GC.Collect();
 
@@ -4194,10 +4381,11 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                     else { 
                                         Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
 
-                                    Write_Startup_Arg_To_File(name, val,true);
-                                    Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow;
+                                        Write_Startup_Arg_To_File(name, val, false, true, Ns_dedi_File);
+                                        Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow;
+                                        Text_Box.Foreground = Brushes.White;
 
-                                    
+
 
                                     }
 
@@ -4208,17 +4396,19 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                             case "INT":
                                 if (e.Key == Key.Return)
                                 {
-                                    if (ARG!= null || ARG!= "" && ARG== "CONVAR")
+                                    if (ARG!= null && ARG!= "" && ARG== "CONVAR")
                                     {
-                                        Write_convar_To_File(name, val, Description, false, @"D:\Games\Titanfall2\R2Northstar\mods\Northstar.CustomServers\mod\cfg");
+                                        Write_convar_To_File(name, val, Description, false, Convar_File);
+                                        Text_Box.Foreground = Brushes.White;
 
                                     }
                                     else
                                     {
                                         Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
 
-                                        Write_Startup_Arg_To_File(name, val, true);
+                                        Write_Startup_Arg_To_File(name, val, false, true, Ns_dedi_File);
                                         Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow;
+                                        Text_Box.Foreground = Brushes.White;
 
 
 
@@ -4231,18 +4421,20 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                             case "FLOAT":
                                 if (e.Key == Key.Return)
                                 {
-                                    if (ARG!= null || ARG!= "" && ARG== "CONVAR")
+                                    if (ARG!= null && ARG!= "" && ARG== "CONVAR")
                                     {
-                                        Write_convar_To_File(name, val, Description, false, @"D:\Games\Titanfall2\R2Northstar\mods\Northstar.CustomServers\mod\cfg");
+                                        Write_convar_To_File(name, val, Description, false, Convar_File);
+                                        Text_Box.Foreground = Brushes.White;
 
                                     }
                                     else
                                     {
                                         Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
 
-                                        Write_Startup_Arg_To_File(name, val, true);
+                                        Write_Startup_Arg_To_File(name, val, true, true,Ns_dedi_File);
                                         Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow;
                                         GC.Collect();
+                                        Text_Box.Foreground = Brushes.White;
 
 
                                     }
@@ -4269,7 +4461,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                         {
                                             Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
 
-                                            Write_Startup_Arg_To_File(name, val);
+                                            Write_Startup_Arg_To_File(name, val, false, true, Ns_dedi_File);
                                             Text_Box.Foreground = Brushes.White;
 
                                             Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow;
@@ -4280,10 +4472,20 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                         }
                                         else
                                         {
-                                            Send_Warning_Notif("Error At ["+name+"]");
-                                            Text_Box.Background = Brushes.Red;
-                                            // Text_Box.AutoComplete = false;
-                                            Text_Box.Text = null;
+                                            if(val == null || val == "")
+                                            {
+
+                                                Send_Warning_Notif("An Empty Value At ["+name+"], Has been removed");
+                                                Write_Startup_Arg_To_File(name, val, false, true, Ns_dedi_File);
+
+                                            }
+                                            else
+                                            {
+                                                Send_Warning_Notif("Error At ["+name+"]");
+                                                Text_Box.Background = Brushes.Red;
+                                                Text_Box.Text = null;
+
+                                            }
 
                                         }
                                     }
@@ -4433,8 +4635,7 @@ return Arg_List;
                 // Note that you can have more than one file.
                 string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
 
-                // Assuming you have one file that you care about, pass it off to whatever
-                // handling code you have defined.
+                // Assuming you have one file that you care about, pass it off 
                 try
                 {
 
@@ -4883,18 +5084,85 @@ return Arg_List;
                     var Var = ((HandyControl.Controls.CheckComboBox)sender).Tag.ToString();
 
                     string[] Split = Var.Split("|");
-                    string type = Split[0];
+                    string type = Split[0]; 
                     string name = Split[1];
                     string ARG = Split[2];
-
                 // string list = String.Join(" ", comboBox.SelectedItems.Cast<String>().ToArray());
-                if ( ARG == "CONVAR")
+                if (ARG == "CONVAR")
                 {
-               //   Send_Success_Notif("Convar");
-              //      Read_Convar_args(name, @"D:\Games\Titanfall2\R2Northstar\mods\Northstar.CustomServers\mod\cfg");
+                    if (type == "LIST")
+                    {
+                        string import = null;
+                        this.Dispatcher.Invoke(() =>
+                        {
+                            import = Read_Convar_args(name, Convar_File);
+                        });
+                        if (import != null)
+                        {
+                            import = import.Replace("\"", "").Replace(name, "");
+                            int index = import.IndexOf("//");
+                            if (index >= 0)
+                                import = import.Substring(0, index);
+                            import = import.Trim();
+                            string[] import_split = import.Split(",");
+                            foreach (string item in import_split)
+                            {
+                                comboBox.SelectedItems.Add(item);
+                            }
+
+                            comboBox.Foreground = Brushes.White;
+
+                        }
+                        else
+                        {
+                            comboBox.Foreground = Brushes.Gray;
+
+                        }
+
+                    }
+                    else
+                    {
+
+
+                        //   Send_Success_Notif("Convar");
+                        //      Read_Convar_args(name, Convar_File);
+                        string import = null;
+                        this.Dispatcher.Invoke(() =>
+                        {
+                            import =  Read_Convar_args(name, Convar_File);
+                        });
+                        if (import != null)
+                        {
+                            import = import.Replace("\"", "").Replace(name, "");
+                            int index = import.IndexOf("//");
+                            if (index >= 0)
+                                import = import.Substring(0, index);
+
+                            string[] import_split = import.Split(" ");
+                            foreach (string item in import_split)
+                            {
+                                comboBox.SelectedItems.Add(item);
+
+
+                                Send_Error_Notif(item);
+                            }
+                                comboBox.Foreground = Brushes.White;
+
+                        }
+                        else
+                        {
+                            comboBox.Foreground = Brushes.Gray;
+
+                        }
+                    }
                 }
+
+
                 else
                 {
+
+                    //Send_Info_Notif(Var);
+
                     // string list = String.Join(" ", comboBox.SelectedItems.Cast<String>().ToArray());
                     string import = null;
                     this.Dispatcher.Invoke(() =>
@@ -4911,12 +5179,83 @@ return Arg_List;
 
                         }
 
+                        comboBox.Foreground = Brushes.White;
+
+                    }
+                    else
+                    {
+                        comboBox.Foreground = Brushes.Gray;
 
                     }
                 }
                 }
-            
+            else if (sender.GetType() == typeof(ComboBox))
+            {
+                ComboBox comboBox = (ComboBox)sender;
+                var Var = ((ComboBox)sender).Tag.ToString();
 
+                string[] Split = Var.Split("|");
+                string type = Split[0];
+                string name = Split[1];
+                string ARG = Split[2];
+                if (ARG == "CONVAR")
+                {
+                    if (type == "BOOL")
+                    {
+                        string import = null;
+                        this.Dispatcher.Invoke(() =>
+                        {
+                            import = Read_Convar_args(name, Convar_File);
+                        });
+                        if (import != null)
+                        {
+                            import = import.Replace("\"", "").Replace(name, "");
+                            int index = import.IndexOf("//");
+                            if (index >= 0)
+                                import = import.Substring(0, index);
+                            comboBox.SelectedIndex = Convert.ToInt32(import);
+                            comboBox.Foreground = Brushes.White;
+
+                        }
+                        else
+                        {
+                            comboBox.Foreground = Brushes.Gray;
+
+                        }
+
+                    }
+                    if (type == "ONE_SELECT")
+                    {
+                        string import = null;
+                        this.Dispatcher.Invoke(() =>
+                        {
+                            import = Read_Convar_args(name, Convar_File);
+                        });
+                        if (import != null)
+                        {
+                            import = import.Replace("\"", "").Replace(name, "");
+                            int index = import.IndexOf("//");
+                            if (index >= 0)
+                            {
+                                import = import.Substring(0, index);
+                            }
+                         
+                            comboBox.SelectedValue = import.Trim();
+                            comboBox.Foreground = Brushes.White;
+                        }
+                        else
+                        {
+                            comboBox.Foreground = Brushes.Gray;
+
+                        }
+
+                    }
+                    
+
+                }
+            }
+
+            Started_Selection = false;
         }
         
         private void TextBox_Initialized(object sender, EventArgs e)
@@ -4935,7 +5274,7 @@ return Arg_List;
             {
                 this.Dispatcher.Invoke(() =>
                 {
-                    import =  Read_Convar_args(name, @"D:\Games\Titanfall2\R2Northstar\mods\Northstar.CustomServers\mod\cfg");
+                    import =  Read_Convar_args(name, Convar_File);
                     
                 });
                 if (import != null)
@@ -5037,7 +5376,76 @@ return Arg_List;
 
         private void S(object sender, MouseWheelEventArgs e)
         {
+            if (e.Delta < 0)
+
+            {
+
+                Scoller.LineDown();
+
+            }
+
+            else
+
+            {
+
+                Scoller.LineUp();
+
+            }
+        }
+
+        private void Convar_Arguments_UI_List_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if (e.Delta < 0)
+
+            {
+
+                Scoller.LineDown();
+
+            }
+
+            else
+
+            {
+
+                Scoller.LineUp();
+
+            }
+        }
+
+        private void ComboBox_MouseEnter(object sender, MouseEventArgs e)
+        {
+             Started_Selection = true;
+
+        }
+
+       
+
+        private void Load_Bt_(object sender, RoutedEventArgs e)
+        {
+            if (Directory.Exists(Current_Install_Folder))
+            {
+                Convar_File = GetFile(Current_Install_Folder, "autoexec_ns_server.cfg").First();
+                Ns_dedi_File = GetFile(Current_Install_Folder, "ns_startup_args_dedi.txt").First();
+            }
+            if (File.Exists(Ns_dedi_File) && File.Exists(Convar_File)){
+                Startup_Arguments_UI_List.ItemsSource = Load_Args();
+                Convar_Arguments_UI_List.ItemsSource = Convar_Args();
+                Started_Selection = false;
+
+                Load_Bt.Content = "Relead Arguments";
+                Check_Args();
+
+
+            }
+            else
+            {
+                Send_Error_Notif("Please rebrowse for a Correct Location!");
+                return;
+            }
+
+
 
         }
     }
+    
 }

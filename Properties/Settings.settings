@@ -3,13 +3,13 @@
   <Profiles />
   <Settings>
     <Setting Name="Ns_Startup" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="Version" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">v1.5.0</Value>
     </Setting>
     <Setting Name="Ns_Dedi" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="Advanced_Mode" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>

@@ -19,7 +19,7 @@
     },
     {
       "Display_Val": "+mp_gamemode",
-      "Type": "GAME_MODE",
+      "Type": "LIST",
       "Default": "private_match",
       "Description": "Forces the gamemode of the server",
       "ARG": "STARTUP",
@@ -73,40 +73,42 @@
     },
     {
       "Display_Val": "ns_private_match_last_mode",
-      "Type": "GAME_MODE",
+      "Type": "ONE_SELECT",
       "Default": "tdm",
       "Description": "Forces the lobby to a specific Gamemode",
-      "List": [ "private_match", "ps", "gg", "coliseum", "cp", "lf", "lts", "mfd", "ps", "solo", "tdm", "ttdm" ],
+      "List": [ "private_match", "ps", "gg", "coliseum", "cp", "lf", "lts", "mfd", "ps", "solo", "tdm", "ttdm", "REMOVE" ],
       "ARG": "CONVAR"
     },
     {
       "Display_Val": "ns_private_match_last_map",
-      "Type": "GAME_MAP",
+      "Type": "ONE_SELECT",
       "Default": "mp_forwardbase_kodai",
       "Description": "Forces the lobby to a specifig map",
-      "List": [ "private_match", "ps", "gg", "coliseum", "cp", "lf", "lts", "mfd", "ps", "solo", "tdm", "ttdm" ],
+      "List": [ "private_match", "ps", "gg", "coliseum", "cp", "lf", "lts", "mfd", "ps", "solo", "tdm", "mp_forwardbase_kodai" ,"REMOVE"],
       "ARG": "CONVAR"
     },
     {
       "Display_Val": "ns_disallowed_weapons",
-      "Type": "WEAPONS",
-      "Default": "",
+      "Type": "LIST",
+      "Default": "private_match",
       "Description": "The delay between each tick ran on the server, your tickrate will be 1 divided by this value",
-      "List": [ "private_match", "ps", "gg", "coliseum", "cp", "lf", "lts", "mfd", "ps", "solo", "tdm", "ttdm" ],
+      "List": [ "private_match", "ps", "gg", "coliseum", "cp", "lf", "lts", "mfd", "ps", "solo", "tdm", "ttdm", "REMOVE" ],
       "ARG": "CONVAR"
     },
     {
       "Display_Val": "ns_disallowed_weapon_primary_replacement",
-      "Type": "WEAPON_REPLACE",
-      "Default": "",
+      "Type": "ONE_SELECT",
+      "Default": "ps",
       "Description": "The delay between each tick ran on the server, your tickrate will be 1 divided by this value",
+      "List": [ "private_match", "ps", "gg", "coliseum", "cp", "lf", "lts", "mfd", "ps", "solo", "tdm", "ttdm", "REMOVE" ],
+
       "ARG": "CONVAR"
     },
     {
       "Display_Val": "ns_auth_allow_insecure",
       "Type": "BOOL",
       "Default": "0",
-      "Description": "keep this to 0 unless you want to allow people to join without masterserver auth/persistence",
+      "Description": "keep this to 0 unless you want to allow people to join without masterserver auth persistence",
       "ARG": "CONVAR"
     }
   ]
