@@ -113,7 +113,7 @@ If you wish to, you can also navigate to the mod's thunderstore site to download
 ![image](https://user-images.githubusercontent.com/23240514/152447515-c4eb762b-d4b9-49da-b713-87aded2220d2.png)
 <br /><br />
 
-* Click import skin and wait for the compatibliity check to finish.
+* Click import skin and wait for the compatibility check to finish.
 
 ![image](https://user-images.githubusercontent.com/23240514/152447613-e3fc58d8-992e-46ad-9c2c-499a87888603.png)
 
