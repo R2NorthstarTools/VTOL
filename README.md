@@ -164,6 +164,6 @@ Simply click "Yes" and the application will attempt to fix the issue.
 ![image](https://user-images.githubusercontent.com/23240514/150570184-6cf29ee6-40a5-4517-839c-3e2dcddcf637.png)
 
 
-Thank you to @ConnorDoesDev and @MysteriousRSA for the massive support in making the application more readable.
+Thank you to @ConnorDoesDev and @MysteriousRSA for the massive support in making the application and #Readme more readable.
 
 Logo by @MysteriousRSA
