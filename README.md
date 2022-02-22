@@ -51,7 +51,7 @@ Users on the latest release:
 
 ### Configuration
 
- * If the launcher fails to automatically find your Titanfall 2 installation, please select ``Browse`` on the Main page and _browse_ to where your Titanfall 2 installation is, and select the Titnafall2 folder
+ * If the launcher fails to automatically find your Titanfall 2 installation, please select ``Browse`` on the Main page and _browse_ to where your Titanfall 2 installation is, and select the Titanfall2 folder
 
  * Common Game Install Locations:
    *    Steam: `C:\Program Files (x86)\Steam\steamapps\common\Titanfall2`
