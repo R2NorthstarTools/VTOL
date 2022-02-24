@@ -145,13 +145,10 @@ namespace VTOL
             {
 
                 Phrases = new ObservableCollection<string>();
-              
+
 
                 //BG_panel_Main.BlurApply(40, new TimeSpan(0, 0, 1), TimeSpan.Zero);
-                Phrases.Append("gg");
-                Phrases.Append("private_match");
-                Phrases.Append("at");
-                Phrases.Append("cl");
+              
                 DataContext = this;
                 Animation_Start_Northstar = false;
                 Animation_Start_Vanilla = false;
@@ -439,14 +436,26 @@ namespace VTOL
         }
         void Download_Install(object sender, RoutedEventArgs e)
         {
-            Send_Info_Notif("Starting Download!, please do not be alarmed if there is no activity!.");
-            var objname = ((System.Windows.Controls.Button)sender).Tag.ToString();
-            string[] words = objname.Split("|");
-            // Send_Success_Notif(words[0]);
-            LAST_INSTALLED_MOD = (words[1]);
+            try
+            {
 
-            parse_git_to_zip(words[0]);
 
+                Send_Info_Notif("Starting Download!, please do not be alarmed if there is no activity!.");
+                var objname = ((System.Windows.Controls.Button)sender).Tag.ToString();
+                string[] words = objname.Split("|");
+                // Send_Success_Notif(words[0]);
+                LAST_INSTALLED_MOD = (words[1]);
+
+                parse_git_to_zip(words[0]);
+            }catch (Exception ex)
+            {
+                Mod_Progress_BAR.Value = 0;
+                Mod_Progress_BAR.ShowText = false;
+                Send_Fatal_Notif("Error Occured, Please Check Logs for details");
+                Write_To_Log(ex.ToString());
+                Write_To_Log(ex.Message);
+
+            }
         }
         void Open_Package_Webpage(object sender, RoutedEventArgs e)
         {
@@ -1369,7 +1378,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 File.Copy(newPath, newPath.Replace(sourcePath, targetPath), true);
             }
         }
-        private void Unpack_To_Location_Custom(string Target_Zip, string Destination, bool Clean_Thunderstore = false)
+        private void Unpack_To_Location_Custom(string Target_Zip, string Destination, bool Clean_Thunderstore = false, bool clean_normal = false)
         {
             //ToDo Check if url or zip location
             //add drag and drop
@@ -1519,9 +1528,22 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
                     if (fileExt == ".zip")
                     {
-                        ZipFile.ExtractToDirectory(Target_Zip, Destination, true);
-                        // Send_Success_Notif("\nUnpacking Complete!\n");
-                    }
+                        if (clean_normal == true)
+                        {
+                            //TODO
+                        //    string folderName = Destination;
+
+                        //    var directory = new DirectoryInfo(folderName);
+                         //   var Destinfo = new DirectoryInfo(Destination);
+                            ZipFile.ExtractToDirectory(Target_Zip, Destination, true);
+
+                        }
+                        else
+                        {
+                            ZipFile.ExtractToDirectory(Target_Zip, Destination, true);
+                            // Send_Success_Notif("\nUnpacking Complete!\n");
+                        }
+                        }
                     else
                     {
                         //Main_Window.SelectedTab = Main;
@@ -1805,6 +1827,8 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
         private void parse_git_to_zip(string address)
         {
 
+            Mod_Progress_BAR.Value = 0;
+            Mod_Progress_BAR.ShowText = true;
 
             if (webClient != null)
                 return;
@@ -1814,12 +1838,14 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             {
 
                 webClient.DownloadFileAsync(new Uri(address), Current_Install_Folder + @"\NS_Downloaded_Mods\" + LAST_INSTALLED_MOD + ".zip");
+                webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadProgressCallback4);
 
             }
             else
             {
                 Directory.CreateDirectory(Current_Install_Folder + @"\NS_Downloaded_Mods");
                 webClient.DownloadFileAsync(new Uri(address), Current_Install_Folder + @"\NS_Downloaded_Mods\" + LAST_INSTALLED_MOD + ".zip");
+                webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadProgressCallback4);
 
 
             }
@@ -1835,7 +1861,13 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
 
         }
+        private  void DownloadProgressCallback4(object sender, DownloadProgressChangedEventArgs e)
+        {
+            // Displays the operation identifier, and the transfer progress.
+            Console.WriteLine("{0}    downloaded {1} of {2} bytes. {3} % complete...", (string)e.UserState, e.BytesReceived,e.TotalBytesToReceive,e.ProgressPercentage);
 
+            Mod_Progress_BAR.Value = e.ProgressPercentage;
+        }
         private void Auto_Install_And_verify()
         {
             failed_search_counter = 0;
@@ -2604,6 +2636,10 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
             webClient = null;
             Send_Info_Notif("\nDownload completed!");
+            Mod_Progress_BAR.Value = 0;
+            Mod_Progress_BAR.ShowText = false;
+
+
             Unpack_To_Location_Custom(Current_Install_Folder+ @"\NS_Downloaded_Mods\"+LAST_INSTALLED_MOD+".zip", Current_Install_Folder+ @"\R2Northstar\mods\"+LAST_INSTALLED_MOD, true);
         }
 
@@ -3134,7 +3170,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                     Process process = new Process();
                     procStartInfo.FileName = NSExe;
                     procStartInfo.WorkingDirectory = System.IO.Path.GetDirectoryName(NSExe);
-                    ;
+                    
 
                     // procStartInfo.Arguments = args;
 
@@ -3144,6 +3180,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                     int id = process.Id;
                     pid = id;
                     Process tempProc = Process.GetProcessById(id);
+                    WindowState = WindowState.Minimized;
                     // this.Visible = false;
                     // Thread.Sleep(5000);
                     // tempProc.WaitForExit();
@@ -5570,6 +5607,11 @@ return Arg_List;
                 Send_Fatal_Notif("Fatal Error Occured, Please Check Logs!");
 
             }
+        }
+
+        private void Grid_DragOver(object sender, DragEventArgs e)
+        {
+
         }
     }
     }

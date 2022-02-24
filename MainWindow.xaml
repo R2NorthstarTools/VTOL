@@ -63,7 +63,7 @@
         <local:Server_Template_Selector x:Key="Server_Template_Selector" />
     </Window.Resources>
 
-    <Grid Visibility="Visible">
+    <Grid Visibility="Visible" >
 
         <Grid.Resources>
             <ImageBrush x:Key="Enable_Button" ImageSource="/Resources/Enable_Image.png" Stretch="UniformToFill"/>
@@ -146,44 +146,46 @@
 
 
 
-        <hc:SimplePanel x:Name="Mod_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="2" Grid.RowSpan="2" AllowDrop="True" Drop="Mod_Panel_Drop" DragOver="Mod_Panel_DragOver" DragLeave="Mod_Panel_DragLeave" DragEnter="Mod_Panel_DragEnter">
+        <hc:SimplePanel x:Name="Mod_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="2" Grid.RowSpan="2">
+            <Grid HorizontalAlignment="Stretch" DockPanel.Dock="Top" Height="Auto"
+AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Background="Transparent" DragLeave="Mod_Panel_DragLeave" DragOver="Mod_Panel_DragOver" >
+                <hc:SimplePanel Margin="30,209,30,10" Background="#FF101010">
+                    <hc:SimplePanel.ContextMenu>
 
-            <hc:SimplePanel Margin="30,209,30,10" Background="#FF101010">
-                <hc:SimplePanel.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Click="MenuItem_Click" Header="Open Current Mod Folder">
+                                <MenuItem.Icon>
+                                    <Image Source="/Resources/Folder_Browse_Icon.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
 
-                    <ContextMenu>
-                        <MenuItem Click="MenuItem_Click" Header="Open Current Mod Folder">
-                            <MenuItem.Icon>
-                                <Image Source="/Resources/Folder_Browse_Icon.png" />
-                            </MenuItem.Icon>
-                        </MenuItem>
+                        </ContextMenu>
+                    </hc:SimplePanel.ContextMenu>
+                    <ListBox x:Name="Dsiabled_ListBox"  Margin="30,60,0,60" BorderBrush="#FF545454" Width="371" HorizontalAlignment="Left" Background="#FF333333" PreviewMouseRightButtonDown="Dsiabled_ListBox_PreviewMouseRightButtonDown"/>
+                    <ListBox x:Name="Enabled_ListBox"  Margin="550,60,30,60" BorderBrush="#FF545454" Background="#FF333333"/>
+                    <Button x:Name="Enable_Mod" Content="" Height="51" Width="56" Margin="0,110,0,0" VerticalAlignment="Top" Background="{StaticResource Enable_Button}" BorderBrush="{x:Null}" Click="Enable_Mod_Click"/>
+                    <Button x:Name="Disable_Mod" Content="" Height="51" Width="56" Margin="0,212,0,0" VerticalAlignment="Top" Background="{StaticResource Disable_Button}" BorderBrush="{x:Null}" Click="Disable_Mod_Click"/>
+                    <Button x:Name="Apply_Btn" Content="Apply" Width="890" Margin="0,0,0,13" VerticalAlignment="Bottom" Background="#FF2C4C4C" BorderBrush="{x:Null}" Height="30" Click="Apply_Btn_Click"/>
+                    <Label Content="MODS" Height="44" Width="190" Margin="0,-201,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi"/>
 
-                    </ContextMenu>
-                </hc:SimplePanel.ContextMenu>
-                <ListBox x:Name="Dsiabled_ListBox"  Margin="30,60,0,60" BorderBrush="#FF545454" Width="371" HorizontalAlignment="Left" Background="#FF333333" PreviewMouseRightButtonDown="Dsiabled_ListBox_PreviewMouseRightButtonDown"/>
-                <ListBox x:Name="Enabled_ListBox"  Margin="550,60,30,60" BorderBrush="#FF545454" Background="#FF333333"/>
-                <Button x:Name="Enable_Mod" Content="" Height="51" Width="56" Margin="0,110,0,0" VerticalAlignment="Top" Background="{StaticResource Enable_Button}" BorderBrush="{x:Null}" Click="Enable_Mod_Click"/>
-                <Button x:Name="Disable_Mod" Content="" Height="51" Width="56" Margin="0,212,0,0" VerticalAlignment="Top" Background="{StaticResource Disable_Button}" BorderBrush="{x:Null}" Click="Disable_Mod_Click"/>
-                <Button x:Name="Apply_Btn" Content="Apply" Width="890" Margin="0,0,0,13" VerticalAlignment="Bottom" Background="#FF2C4C4C" BorderBrush="{x:Null}" Height="30" Click="Apply_Btn_Click"/>
-                <Label Content="MODS" Height="44" Width="190" Margin="0,-201,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi"/>
+                </hc:SimplePanel>
+                <hc:SimplePanel Margin="30,59,30,444">
+                    <Border BorderThickness="1" Background="#FF101010" Height="129" VerticalAlignment="Bottom" >
+                        <Label Content="Browse for Local Mod Zip" Margin="32,40,0,61" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Foreground="White" FontFamily="Gadugi" FontWeight="Normal" VerticalAlignment="Stretch" Width="141" Padding="0,0,0,0"/>
+                    </Border>
+                    <hc:TextBox x:Name="Browse_For_MOD" TextWrapping="Wrap" Margin="35,0,0,26" SelectionTextBrush="Black" Background="White" BorderBrush="{x:Null}" Height="32" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="780" TextChanged="Browse_For_MOD_TextChanged" Foreground="Black"/>
+                    <Button x:Name="Browse_For_Mod_zip_Btn" Content="Browse" HorizontalAlignment="Left" BorderBrush="{x:Null}" Margin="820,0,0,27" VerticalAlignment="Bottom" Background="#FF2C4C4C" Height="32" Width="100" BorderThickness="1,1,1,1" Padding="6,6,10,6" Click="Browse_For_Mod_zip_Btn_Click"/>
 
-            </hc:SimplePanel>
-            <hc:SimplePanel Margin="30,59,30,444">
-                <Border BorderThickness="1" Background="#FF101010" Height="129" VerticalAlignment="Bottom" >
-                    <Label Content="Browse for Local Mod Zip" Margin="32,40,0,61" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Foreground="White" FontFamily="Gadugi" FontWeight="Normal" VerticalAlignment="Stretch" Width="141" Padding="0,0,0,0"/>
-                </Border>
-                <hc:TextBox x:Name="Browse_For_MOD" TextWrapping="Wrap" Margin="35,0,0,26" SelectionTextBrush="Black" Background="White" BorderBrush="{x:Null}" Height="32" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="780" TextChanged="Browse_For_MOD_TextChanged" Foreground="Black"/>
-                <Button x:Name="Browse_For_Mod_zip_Btn" Content="Browse" HorizontalAlignment="Left" BorderBrush="{x:Null}" Margin="820,0,0,27" VerticalAlignment="Bottom" Background="#FF2C4C4C" Height="32" Width="100" BorderThickness="1,1,1,1" Padding="6,6,10,6" Click="Browse_For_Mod_zip_Btn_Click"/>
-
-            </hc:SimplePanel>
-            <Label Content="MODS" Height="44" Width="190" Margin="0,10,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Visibility="Hidden"/>
-            <Label Content="Disabled" Height="44" Width="190" HorizontalAlignment="Left" Margin="148,224,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="14" FontWeight="Normal" FontFamily="Gadugi"/>
-            <Label Content="Enabled" Height="44" Width="190" HorizontalAlignment="Left" Margin="664,224,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="14" FontWeight="Normal" FontFamily="Gadugi"/>
-            <hc:GifImage x:Name="Drag_Drop_Overlay" Opacity="0.95" Visibility="Hidden" >
-                <hc:GifImage.Source>
-                    <BitmapImage x:Name="Drag_Drop" UriSource="\Resources\BG_Drag_Drop.gif"/>
-                </hc:GifImage.Source>
-            </hc:GifImage>
+                </hc:SimplePanel>
+                <Label Content="MODS" Height="44" Width="190" Margin="0,10,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Visibility="Hidden"/>
+                <Label Content="Disabled" Height="44" Width="190" HorizontalAlignment="Left" Margin="148,224,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="14" FontWeight="Normal" FontFamily="Gadugi"/>
+                <Label Content="Enabled" Height="44" Width="190" HorizontalAlignment="Left" Margin="664,224,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="14" FontWeight="Normal" FontFamily="Gadugi"/>
+                <hc:GifImage x:Name="Drag_Drop_Overlay" Opacity="0.95" Visibility="Hidden" >
+                    <hc:GifImage.Source>
+                        <BitmapImage x:Name="Drag_Drop" UriSource="\Resources\BG_Drag_Drop.gif"/>
+                    </hc:GifImage.Source>
+                </hc:GifImage>
+            </Grid>
         </hc:SimplePanel>
 
 
@@ -193,7 +195,6 @@
 
 
         <hc:SimplePanel x:Name="Mod_Browse_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="2" Grid.RowSpan="2">
-
             <hc:SimplePanel Margin="10,10,10,10" Background="#FF101010">
                 <ListBox SelectedItem="{Binding Selected_Item}" x:Name="Test_List" Margin="44,50,44,0" SelectionChanged="Test_List_SelectionChanged" RequestBringIntoView="Test_List_RequestBringIntoView" Height="475" VerticalAlignment="Top" ScrollViewer.CanContentScroll="False" Visibility="Visible">
                     <ListBox.ItemContainerStyle>
@@ -254,6 +255,7 @@
             </hc:SimplePanel>
 
             <Button x:Name="Load" Content="Refresh" Height="39" Width="580" Click="Load_Click" Margin="0,551,0,0" VerticalAlignment="Top" Background="#FF2C4C4C" BorderBrush="{x:Null}"/>
+            <hc:CircleProgressBar  x:Name="Mod_Progress_BAR" Margin="0,16,16,0"  Foreground="White" Width="43" BorderBrush="{x:Null}" HorizontalAlignment="Right" Height="43" VerticalAlignment="Top" Background="#FF2C4C4C" Value="-4" ArcThickness="2" ShowText="False" />
 
         </hc:SimplePanel>
 
@@ -265,34 +267,37 @@
 
 
 
-        <hc:SimplePanel x:Name="skins_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="2" Grid.RowSpan="2" Drop="skins_Panel_Drop" DragLeave="skins_Panel_DragLeave" DragEnter="skins_Panel_DragEnter" AllowDrop="True">
-            <hc:SimplePanel Margin="30,59,30,444">
-                <Border BorderThickness="1" Background="#FF101010" Height="129" VerticalAlignment="Bottom" >
-                    <Label Content="Locate Skin Zip" Margin="24,28,0,55" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Foreground="White" FontFamily="Gadugi" FontWeight="Normal" VerticalAlignment="Stretch" Height="44" Width="109"/>
-                </Border>
-                <hc:TextBox x:Name="Skin_Path_Box" TextWrapping="Wrap" Margin="35,0,0,26" SelectionTextBrush="Black" Background="White" BorderBrush="{x:Null}" Height="32" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="780" Foreground="Black"/>
-                <Button x:Name="Browse_For_Skin" Content="Browse" HorizontalAlignment="Left" BorderBrush="{x:Null}" Margin="820,0,0,27" VerticalAlignment="Bottom" Background="#FF1E4C51" Height="32" Width="100" BorderThickness="1,1,1,1" Padding="6,6,10,6" Click="Browse_For_Skin_Click"/>
+        <hc:SimplePanel x:Name="skins_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="2" Grid.RowSpan="2">
+            <Grid HorizontalAlignment="Stretch" DockPanel.Dock="Top" Height="Auto"
+AllowDrop="True" Drop="skins_Panel_Drop" DragEnter="skins_Panel_DragEnter" Background="Transparent" DragLeave="skins_Panel_DragLeave"  >
+                <hc:SimplePanel Margin="30,59,30,444">
+                    <Border BorderThickness="1" Background="#FF101010" Height="129" VerticalAlignment="Bottom" >
+                        <Label Content="Locate Skin Zip" Margin="24,28,0,55" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Foreground="White" FontFamily="Gadugi" FontWeight="Normal" VerticalAlignment="Stretch" Height="44" Width="109"/>
+                    </Border>
+                    <hc:TextBox x:Name="Skin_Path_Box" TextWrapping="Wrap" Margin="35,0,0,26" SelectionTextBrush="Black" Background="White" BorderBrush="{x:Null}" Height="32" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="780" Foreground="Black"/>
+                    <Button x:Name="Browse_For_Skin" Content="Browse" HorizontalAlignment="Left" BorderBrush="{x:Null}" Margin="820,0,0,27" VerticalAlignment="Bottom" Background="#FF1E4C51" Height="32" Width="100" BorderThickness="1,1,1,1" Padding="6,6,10,6" Click="Browse_For_Skin_Click"/>
 
-            </hc:SimplePanel>
-            <hc:SimplePanel Margin="30,209,30,10" Background="#FF101010">
+                </hc:SimplePanel>
+                <hc:SimplePanel Margin="30,209,30,10" Background="#FF101010">
 
-                <Label Content="Compatible?" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontFamily="Gadugi" FontWeight="Normal" VerticalAlignment="Top" Width="110" Margin="420,6,420,0" Height="44" HorizontalAlignment="Stretch"/>
+                    <Label Content="Compatible?" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontFamily="Gadugi" FontWeight="Normal" VerticalAlignment="Top" Width="110" Margin="420,6,420,0" Height="44" HorizontalAlignment="Stretch"/>
 
-                <Ellipse x:Name="Compat_Indicator" Grid.Column="1" Margin="452,50,0,0" Fill="White" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50"/>
+                    <Ellipse x:Name="Compat_Indicator" Grid.Column="1" Margin="452,50,0,0" Fill="White" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50"/>
 
 
-                <Label Content="Diffuse" Margin="177,311,0,0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontFamily="Gadugi" FontWeight="Normal" VerticalAlignment="Top" Height="28" Width="110" HorizontalAlignment="Left"/>
-                <Label Content="Glow" Margin="663,311,0,0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontFamily="Gadugi" FontWeight="Normal" VerticalAlignment="Top" Height="27" Width="110" HorizontalAlignment="Left"/>
-                <Image x:Name="Diffuse_IMG" HorizontalAlignment="Left" Height="256" VerticalAlignment="Top" Width="256" Margin="104,56,0,0" Source="/Resources/NO_TEXTURE.png"/>
-                <Image x:Name="Glow_IMG" Height="256" VerticalAlignment="Top" Margin="590,56,104,0" Source="/Resources/NO_TEXTURE.png"/>
-                <Button x:Name="Install_Skin_Bttn" Content="Install Skin" Width="366" Margin="0,351,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Background="#FF2C4C4C" Height="30" Click="Install_Skin_Bttn_Click"/>
-            </hc:SimplePanel>
-            <Label Content="SKINS" Height="44" Width="190" Margin="0,10,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi"/>
-            <hc:GifImage x:Name="Drag_Drop_Overlay_Skins" Opacity="0.95" Visibility="Hidden" >
-                <hc:GifImage.Source>
-                    <BitmapImage  UriSource="\Resources\BG_Drag_Drop.gif"/>
-                </hc:GifImage.Source>
-            </hc:GifImage>
+                    <Label Content="Diffuse" Margin="177,311,0,0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontFamily="Gadugi" FontWeight="Normal" VerticalAlignment="Top" Height="28" Width="110" HorizontalAlignment="Left"/>
+                    <Label Content="Glow" Margin="663,311,0,0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontFamily="Gadugi" FontWeight="Normal" VerticalAlignment="Top" Height="27" Width="110" HorizontalAlignment="Left"/>
+                    <Image x:Name="Diffuse_IMG" HorizontalAlignment="Left" Height="256" VerticalAlignment="Top" Width="256" Margin="104,56,0,0" Source="/Resources/NO_TEXTURE.png"/>
+                    <Image x:Name="Glow_IMG" Height="256" VerticalAlignment="Top" Margin="590,56,104,0" Source="/Resources/NO_TEXTURE.png"/>
+                    <Button x:Name="Install_Skin_Bttn" Content="Install Skin" Width="366" Margin="0,351,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Background="#FF2C4C4C" Height="30" Click="Install_Skin_Bttn_Click"/>
+                </hc:SimplePanel>
+                <Label Content="SKINS" Height="44" Width="190" Margin="0,10,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi"/>
+                <hc:GifImage x:Name="Drag_Drop_Overlay_Skins" Opacity="0.95" Visibility="Hidden" >
+                    <hc:GifImage.Source>
+                        <BitmapImage  UriSource="\Resources\BG_Drag_Drop.gif"/>
+                    </hc:GifImage.Source>
+                </hc:GifImage>
+            </Grid>
         </hc:SimplePanel>
 
 
@@ -303,7 +308,7 @@
 
 
 
-        <hc:SimplePanel x:Name="Dedicated_Server_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Visible" Margin="190,0,0,2" Grid.ColumnSpan="2" Grid.RowSpan="2" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+        <hc:SimplePanel x:Name="Dedicated_Server_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="2" Grid.RowSpan="2" ScrollViewer.VerticalScrollBarVisibility="Disabled">
 
             <hc:ScrollViewer x:Name="Scoller"  Margin="10,10,10,10" PanningMode="VerticalOnly">
                 <hc:SimpleStackPanel Margin="10,10,10,10" Height="2716" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Cursor="">
