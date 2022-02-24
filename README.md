@@ -167,3 +167,5 @@ Simply click "Yes" and the application will attempt to fix the issue.
 Thank you to @ConnorDoesDev and @MysteriousRSA for the massive support in making the application and #Readme more readable.
 
 Logo by @MysteriousRSA
+
+
