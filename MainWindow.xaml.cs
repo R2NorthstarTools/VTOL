@@ -5552,7 +5552,7 @@ return Arg_List;
                 Convar_Arguments_UI_List.ItemsSource = Convar_Args();
                 Started_Selection = false;
 
-                Load_Bt.Content = "Relead Arguments";
+                Load_Bt.Content = "Reload Arguments";
                 Check_Args();
 
 
