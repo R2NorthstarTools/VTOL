@@ -1277,7 +1277,13 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 Properties.Settings.Default.Save();
 
                 Send_Info_Notif("\nRelease Parsed! found - \n" + out_);
-                File.Delete(@"C:\ProgramData\VTOL_DATA\temp\" + json_name);
+                if (Directory.Exists(@"C:\ProgramData\VTOL_DATA\temp\" + json_name))
+                {
+                    if (File.Exists(@"C:\ProgramData\VTOL_DATA\temp\" + json_name))
+                    {
+                        File.Delete(@"C:\ProgramData\VTOL_DATA\temp\" + json_name);
+                    }
+                }
                 return out_;
 
             }
@@ -1287,7 +1293,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
                 return null;
             }
-          
+            
 
         }
         private void Parse_Release(string json_name = "temp.json")
@@ -1303,7 +1309,6 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 Properties.Settings.Default.Save();
 
                 Send_Info_Notif("\nRelease Parsed! found - \n" + current_Northstar_version_Url);
-                File.Delete(@"C:\ProgramData\VTOL_DATA\temp\" + json_name);
 
             }
             else
@@ -1313,7 +1318,13 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
             }
 
-
+            if (Directory.Exists(@"C:\ProgramData\VTOL_DATA\temp\" + json_name))
+            {
+                if (File.Exists(@"C:\ProgramData\VTOL_DATA\temp\" + json_name))
+                {
+                File.Delete(@"C:\ProgramData\VTOL_DATA\temp\" + json_name);
+                }
+            }
         }
         private void DirectoryCopy(
               string sourceDirName, string destDirName, bool copySubDirs)
