@@ -607,9 +607,7 @@ Current Features:
 *Install Skins From a Zip
 *Launch The Dedicated Northsatar Server Client
 *Browse and Install Mods From the Thunderstore Mod Repo
--Features in development:
-*Intent to Create Custom Servers using this installer as a base to configure and fine tune setups
-
+*Configure a Dedicated Server From Start To Finish in the Application.
 
 -Please Do suggest any new features and/or Improvements Through the Git issue tracker, or by sending me a personal Message.
 Thank you again to all you Pilots, Hope we Wreak havoc on the Frontier for years to come.
@@ -619,7 +617,8 @@ Gif image used on Northstar is from @Smurfson.
 
 Big Thanks to - 
 @Ralley#3354
-
+@Mysterious#7899
+@wolf109909#5291
 @EmmaM#6474
 @laundmo#7544
 @E3VL#6669
@@ -2042,9 +2041,18 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             }
             catch (Exception ex)
             {
+                if(ex.StackTrace == "Sequence contains no elements")
+                {
+                    Send_Info_Notif("No Mods Found,Grab Some Mods From Mod Browser or the NorthStar Discrod :D");
 
-                Write_To_Log(ex.StackTrace);
-                Send_Fatal_Notif("Fatal Error Occured, Please Check Logs!");
+                }
+                else
+                {
+                    Write_To_Log(ex.StackTrace);
+                    Send_Fatal_Notif("Fatal Error Occured, Please Check Logs!");
+
+                }
+
 
 
             }
