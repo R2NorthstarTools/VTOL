@@ -32,6 +32,8 @@ using Utils.Extensions;
 using static VTOL.MainWindow;
 using Microsoft.Xaml.Behaviors;
 using System.Threading;
+using System.Management;
+using System.Runtime.InteropServices;
 //****TODO*****//
 
 //Migrate Release Parse to the New Updater Sys
@@ -94,7 +96,6 @@ namespace VTOL
     public partial class MainWindow : Window
     {
        
-
         BitmapImage Vanilla = new BitmapImage(new Uri(@"/Resources/TF2_Vanilla_promo.gif", UriKind.Relative));
         BitmapImage Northstar = new BitmapImage(new Uri(@"/Resources/Northstar_Smurfson.gif", UriKind.Relative));
         static System.Collections.Specialized.StringCollection log = new System.Collections.Specialized.StringCollection();
@@ -144,11 +145,13 @@ namespace VTOL
             try
             {
 
-                Phrases = new ObservableCollection<string>();
+              
 
+                Phrases = new ObservableCollection<string>();
+                
 
                 //BG_panel_Main.BlurApply(40, new TimeSpan(0, 0, 1), TimeSpan.Zero);
-              
+
                 DataContext = this;
                 Animation_Start_Northstar = false;
                 Animation_Start_Vanilla = false;
@@ -174,7 +177,11 @@ namespace VTOL
                 GC.Collect();
                 this.VTOL.Title = String.Format("VTOL {0}", version);
                 Check_For_New_Northstar_Install();
-                GC.Collect();
+                getOperatingSystemInfo();
+                getProcessorInfo();
+                string[] arguments = Environment.GetCommandLineArgs();
+
+                Console.WriteLine("GetCommandLineArgs: {0}", string.Join(", ", arguments));
 
                 if (do_not_overwrite_Ns_file==true)
                 {
@@ -202,10 +209,10 @@ namespace VTOL
 
 
 
-
                 string Header = Path.GetFullPath(Path.Combine(System.Reflection.Assembly.GetExecutingAssembly().Location, @"../"));
                 updaterModulePath = Path.Combine(Header, "VTOL_Updater.exe");
-               
+                GC.Collect();
+
             }
 
             catch (System.IO.DirectoryNotFoundException e)
@@ -3395,6 +3402,45 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
                 Send_Fatal_Notif("Fatal Error Occured, Please Check Logs!");
             }
+        }
+        public void getOperatingSystemInfo()
+        {
+            Write_To_Log("Displaying operating system info....");
+            //Create an object of ManagementObjectSearcher class and pass query as parameter.
+            ManagementObjectSearcher mos = new ManagementObjectSearcher("select * from Win32_OperatingSystem");
+            string x = "";
+            foreach (ManagementObject managementObject in mos.Get())
+            {
+                if (managementObject["Caption"] != null)
+                {
+                    x = x +"\n"+ "Operating System Name  :  " + managementObject["Caption"].ToString();   //Display operating system caption
+                }
+                if (managementObject["OSArchitecture"] != null)
+                {
+                    x = x +"\n"+ "Operating System Architecture  :  " + managementObject["OSArchitecture"].ToString();   //Display operating system architecture.
+                }
+                if (managementObject["CSDVersion"] != null)
+                {
+                    x = x +"\n"+ "Operating System Service Pack   :  " + managementObject["CSDVersion"].ToString();     //Display operating system version.
+                }
+            }
+            Write_To_Log(x);
+        }
+        public void getProcessorInfo()
+        {
+            Write_To_Log("\nDisplaying Processor Name....");
+            RegistryKey processor_name = Registry.LocalMachine.OpenSubKey(@"Hardware\Description\System\CentralProcessor\0", RegistryKeyPermissionCheck.ReadSubTree);   //This registry entry contains entry for processor info.
+            string x = "";
+
+            if (processor_name != null)
+            {
+                if (processor_name.GetValue("ProcessorNameString") != null)
+                {
+                    x = x + processor_name.GetValue("ProcessorNameString");   //Display processor ingo.
+                }
+            }
+            Write_To_Log(x);
+
         }
         void Write_To_Log(string Text, bool clear_First = false)
         {
