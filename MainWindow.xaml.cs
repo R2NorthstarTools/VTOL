@@ -139,7 +139,7 @@ namespace VTOL
         {
             InitializeComponent();
             Application.Current.MainWindow.Closing += new CancelEventHandler(MainWindow_Closing);
-
+            ChangeLanguageTo("en");//do this here so there will be UI  texts showing up
             do_not_overwrite_Ns_file = Properties.Settings.Default.Ns_Startup;
             do_not_overwrite_Ns_file_Dedi = Properties.Settings.Default.Ns_Dedi;
             try
@@ -345,6 +345,16 @@ namespace VTOL
             //set image source
             //   Gif_Image.UriSource = new Uri(@"/Resources/TF2_Vanilla_promo.gif");
 
+        }
+        private void ChangeLanguageTo(string LanguageCode)
+        {
+            
+            ResourceDictionary dict = new ResourceDictionary();
+
+            dict.Source = new Uri(@"Resources\Languages\"+ LanguageCode + ".xaml", UriKind.Relative);
+
+            this.Resources.MergedDictionaries.Add(dict);
+            
         }
         public void LIST_CLICK(object sender, RoutedEventArgs e)
         {
@@ -5680,9 +5690,52 @@ return Arg_List;
 
        
 
-        private void Language_Selection_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Language_Selection_SelectionChanged(object sender, SelectionChangedEventArgs e) //TODO: fill in the correct xaml file names to each language
         {
+            if (English.IsSelected == true)
+            {
 
+                ChangeLanguageTo("en");
+            
+            }
+            if (French.IsSelected == true)
+            {
+
+                ChangeLanguageTo("en");
+
+            }
+            if (German.IsSelected == true)
+            {
+
+                ChangeLanguageTo("en");
+
+            }
+            if (Italian.IsSelected == true)
+            {
+                ChangeLanguageTo("en");
+
+            }
+            if (Japanese.IsSelected == true)
+            {
+
+                ChangeLanguageTo("en");
+
+            }
+            if (Portugese.IsSelected == true)
+            {
+                ChangeLanguageTo("en");
+
+            }
+            if (Russian.IsSelected == true)
+            {
+                ChangeLanguageTo("en");
+
+            }
+            if (Chinese.IsSelected == true)
+            {
+                ChangeLanguageTo("cn");
+
+            }
         }
     }
     }
