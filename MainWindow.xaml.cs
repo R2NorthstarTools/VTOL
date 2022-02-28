@@ -354,7 +354,16 @@ namespace VTOL
             dict.Source = new Uri(@"Resources\Languages\"+ LanguageCode + ".xaml", UriKind.Relative);
 
             this.Resources.MergedDictionaries.Add(dict);
-            
+
+
+            switch (LanguageCode)
+            {
+
+                case "en":
+                    Language_Selection.SelectedIndex = 0;
+                        break;
+
+            }
         }
         public void LIST_CLICK(object sender, RoutedEventArgs e)
         {
@@ -5736,6 +5745,17 @@ return Arg_List;
                 ChangeLanguageTo("cn");
 
             }
+        }
+
+        private void Language_Selection_MouseEnter(object sender, MouseEventArgs e)
+        {
+            Language_Selection.BorderBrush = Brushes.White;
+        }
+
+        private void Language_Selection_MouseLeave(object sender, MouseEventArgs e)
+        {
+            Language_Selection.BorderBrush = Brushes.Black;
+
         }
     }
     }

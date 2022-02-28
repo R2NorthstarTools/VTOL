@@ -469,7 +469,7 @@ AllowDrop="True" Drop="skins_Panel_Drop" DragEnter="skins_Panel_DragEnter" Backg
                 </hc:SideMenuItem.Icon>
             </hc:SideMenuItem>
         </hc:SideMenu>
-        <hc:ComboBox x:Name="Language_Selection" Margin="10,0,10,50" Grid.Row="2" Background="#FF2C4C4C" BorderBrush="White" Height="32" VerticalAlignment="Bottom" SelectionChanged="Language_Selection_SelectionChanged" >
+        <hc:ComboBox x:Name="Language_Selection" Margin="10,0,10,50" Grid.Row="2" Background="#FF2C4C4C" BorderBrush="Black" Height="32" VerticalAlignment="Bottom" SelectionChanged="Language_Selection_SelectionChanged" MouseEnter="Language_Selection_MouseEnter" MouseLeave="Language_Selection_MouseLeave" Foreground="White" >
             <ComboBoxItem x:Name="English">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/Resources/Language_Icons/us.png" />
