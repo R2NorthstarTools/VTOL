@@ -2003,7 +2003,6 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                     if (IsDirectoryEmpty(dirInfo))
                                     {
                                         Send_Info_Notif("No inactive Mods Found");
-
                                     }
                                     if (Template_traverse(dirInfo, "Locked_Folder") == true)
                                     {
@@ -5632,6 +5631,13 @@ return Arg_List;
         {
 
         }
+
+       
+
+        private void Language_Selection_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }s
     }
     }
     

@@ -468,7 +468,57 @@ AllowDrop="True" Drop="skins_Panel_Drop" DragEnter="skins_Panel_DragEnter" Backg
                     <Image Source="/Resources/info.png" Width="24" Height="24"/>
                 </hc:SideMenuItem.Icon>
             </hc:SideMenuItem>
-
         </hc:SideMenu>
+        <hc:ComboBox x:Name="Language_Selection" Margin="10,0,10,50" Grid.Row="2" Background="#FF2C4C4C" BorderBrush="White" Height="32" VerticalAlignment="Bottom" SelectionChanged="Language_Selection_SelectionChanged" >
+            <ComboBoxItem x:Name="English">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Resources/Language_Icons/us.png" />
+                    <TextBlock Foreground="White"> English</TextBlock>
+                </StackPanel>
+            </ComboBoxItem>
+            <ComboBoxItem x:Name="French">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Resources/Language_Icons/fr.png" />
+                    <TextBlock Foreground="White"> French</TextBlock>
+                </StackPanel>
+            </ComboBoxItem>
+            <ComboBoxItem x:Name="German">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Resources/Language_Icons/de.png" />
+                    <TextBlock Foreground="White"> German</TextBlock>
+                </StackPanel>
+            </ComboBoxItem>
+            <ComboBoxItem x:Name="Italian">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Resources/Language_Icons/it.png" />
+                    <TextBlock Foreground="White"> Italian</TextBlock>
+                </StackPanel>
+            </ComboBoxItem>
+            <ComboBoxItem x:Name="Japanese">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Resources/Language_Icons/jp.png" />
+                    <TextBlock Foreground="White"> Japanese</TextBlock>
+                </StackPanel>
+            </ComboBoxItem>
+            <ComboBoxItem x:Name="Portugese">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Resources/Language_Icons/pt.png" />
+                    <TextBlock Foreground="White"> Portugese</TextBlock>
+                </StackPanel>
+            </ComboBoxItem>
+            <ComboBoxItem x:Name="Russian">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Resources/Language_Icons/ru.png" />
+                    <TextBlock Foreground="White"> Russian</TextBlock>
+                </StackPanel>
+            </ComboBoxItem>
+            <ComboBoxItem x:Name="Chinese">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Resources/Language_Icons/cn.png" />
+                    <TextBlock Foreground="White"> Chinese</TextBlock>
+                </StackPanel>
+            </ComboBoxItem>
+            
+        </hc:ComboBox>
     </Grid>
 </Window>

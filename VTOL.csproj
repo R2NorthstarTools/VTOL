@@ -47,6 +47,15 @@
     <None Remove="Resources\ICON_64.png" />
     <None Remove="Resources\info.png" />
     <None Remove="Resources\internet.png" />
+    <None Remove="Resources\Language_Icons\cn.png" />
+    <None Remove="Resources\Language_Icons\de.png" />
+    <None Remove="Resources\Language_Icons\fr.png" />
+    <None Remove="Resources\Language_Icons\gb.png" />
+    <None Remove="Resources\Language_Icons\it.png" />
+    <None Remove="Resources\Language_Icons\jp.png" />
+    <None Remove="Resources\Language_Icons\pt.png" />
+    <None Remove="Resources\Language_Icons\ru.png" />
+    <None Remove="Resources\Language_Icons\us.png" />
     <None Remove="Resources\like.png" />
     <None Remove="Resources\Lock_BW.png" />
     <None Remove="Resources\Lock_WB.png" />
@@ -90,6 +99,33 @@
     </Resource>
     <Resource Include="Resources\Folder_Browse_Icon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Language_Icons\cn.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Language_Icons\de.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Language_Icons\fr.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Language_Icons\gb.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Language_Icons\it.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Language_Icons\jp.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Language_Icons\pt.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Language_Icons\ru.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Language_Icons\us.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Northstar-512.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
