@@ -301,8 +301,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Page Update="Resources\Languages\cn.xaml">
+    <Page Update="Resources\Languages\en - Copy.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Page>
     <Page Update="Resources\Languages\en.xaml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
