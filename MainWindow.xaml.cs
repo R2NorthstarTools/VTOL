@@ -34,6 +34,8 @@ using Microsoft.Xaml.Behaviors;
 using System.Threading;
 using System.Management;
 using System.Runtime.InteropServices;
+using System.Globalization;
+using System.Windows.Threading;
 //****TODO*****//
 
 //Migrate Release Parse to the New Updater Sys
@@ -44,7 +46,14 @@ using System.Runtime.InteropServices;
 //**************//
 namespace VTOL
 {
-   
+    public static class ExtensionMethods
+    {
+        private static readonly Action EmptyDelegate = delegate { };
+        public static void Refresh(this UIElement uiElement)
+        {
+            uiElement.Dispatcher.Invoke(DispatcherPriority.Render, EmptyDelegate);
+        }
+    }
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -122,12 +131,13 @@ namespace VTOL
         public List<string> Game_Modes_List = new List<string>();
         public List<string> Game_MAP_List = new List<string>();
         public List<string> Game_WEAPON_List = new List<string>();
+        private static readonly Action EmptyDelegate = delegate { };
 
         int completed_flag;
         public int pid;
         string Skin_Path = "";
         string Skin_Temp_Loc = "";
-      
+
         public Thunderstore_V1 Thunderstore_;
         Updater Update;
         public bool Animation_Start_Northstar { get; set; }
@@ -139,16 +149,24 @@ namespace VTOL
         {
             InitializeComponent();
             Application.Current.MainWindow.Closing += new CancelEventHandler(MainWindow_Closing);
-            ChangeLanguageTo("en");//do this here so there will be UI  texts showing up
             do_not_overwrite_Ns_file = Properties.Settings.Default.Ns_Startup;
             do_not_overwrite_Ns_file_Dedi = Properties.Settings.Default.Ns_Dedi;
+
             try
             {
 
-              
+                /*Ref Code To see The ISO name for Lang
+                Console.WriteLine("Default Language Info:");
+                Console.WriteLine("* Name: {0}", ci.Name);
+                Console.WriteLine("* Display Name: {0}", ci.DisplayName);
+                Console.WriteLine("* English Name: {0}", ci.EnglishName);
+                Console.WriteLine("* 2-letter ISO Name: {0}", ci.TwoLetterISOLanguageName);
+                Console.WriteLine("* 3-letter ISO Name: {0}", ci.ThreeLetterISOLanguageName);
+                Console.WriteLine("* 3-letter Win32 API Name: {0}", ci.ThreeLetterWindowsLanguageName);
+                */
 
                 Phrases = new ObservableCollection<string>();
-                
+
 
                 //BG_panel_Main.BlurApply(40, new TimeSpan(0, 0, 1), TimeSpan.Zero);
 
@@ -179,6 +197,17 @@ namespace VTOL
                 Check_For_New_Northstar_Install();
                 getOperatingSystemInfo();
                 getProcessorInfo();
+                if (File.Exists(@"C:\ProgramData\VTOL_DATA\VARS\Language.txt"))
+                {
+                  ChangeLanguageTo(Read_From_TextFile_OneLine(@"C:\ProgramData\VTOL_DATA\VARS\Language.txt").Trim());
+                }
+                else
+                {
+                    CultureInfo ci = CultureInfo.InstalledUICulture;
+                    ChangeLanguageTo(ci.TwoLetterISOLanguageName);//do this here so there will be UI  texts showing up
+                    Write_To_Log("\nLanguage Detected was - " + ci.TwoLetterISOLanguageName);
+                }
+              
                 string[] arguments = Environment.GetCommandLineArgs();
 
                 Console.WriteLine("GetCommandLineArgs: {0}", string.Join(", ", arguments));
@@ -346,23 +375,40 @@ namespace VTOL
             //   Gif_Image.UriSource = new Uri(@"/Resources/TF2_Vanilla_promo.gif");
 
         }
-        private void ChangeLanguageTo(string LanguageCode)
+     
+        private async void ChangeLanguageTo(string LanguageCode)
+
         {
-            
-            ResourceDictionary dict = new ResourceDictionary();
-
-            dict.Source = new Uri(@"Resources\Languages\"+ LanguageCode + ".xaml", UriKind.Relative);
-
-            this.Resources.MergedDictionaries.Add(dict);
-
-
-            switch (LanguageCode)
+            try
             {
 
-                case "en":
-                    Language_Selection.SelectedIndex = 0;
+                ResourceDictionary dict = new ResourceDictionary();
+
+                dict.Source = new Uri(@"Resources\Languages\"+ LanguageCode + ".xaml", UriKind.Relative);
+
+                this.Resources.MergedDictionaries.Add(dict);
+                //  this.Resources.MergedDictionaries[0] = dict;
+
+                switch (LanguageCode)
+                {
+
+                    case "en":
+                        Language_Selection.SelectedIndex = 0;
+
+                        break;
+                    case "cn":
+                        Language_Selection.SelectedIndex = 7;
+
                         break;
 
+                }
+                saveAsyncFile(LanguageCode, @"C:\ProgramData\VTOL_DATA\VARS\Language.txt", true, false);
+
+            }
+            catch (Exception ex)
+            {
+                Send_Fatal_Notif("Error Occured, Please Check Logs for details");
+                Write_To_Log(ex.ToString() + "\n" + ex.Message);
             }
         }
         public void LIST_CLICK(object sender, RoutedEventArgs e)
