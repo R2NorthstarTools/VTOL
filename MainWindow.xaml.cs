@@ -400,6 +400,10 @@ namespace VTOL
                         Language_Selection.SelectedIndex = 7;
 
                         break;
+                    case "fr":
+                        Language_Selection.SelectedIndex = 1;
+
+                        break;
 
                 }
                 saveAsyncFile(LanguageCode, @"C:\ProgramData\VTOL_DATA\VARS\Language.txt", true, false);
@@ -5751,12 +5755,12 @@ return Arg_List;
             {
 
                 ChangeLanguageTo("en");
-            
+
             }
             if (French.IsSelected == true)
             {
 
-                ChangeLanguageTo("en");
+                ChangeLanguageTo("fr");
 
             }
             if (German.IsSelected == true)

@@ -267,12 +267,12 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
 
 
 
-        <hc:SimplePanel x:Name="skins_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="2" Grid.RowSpan="2">
+        <hc:SimplePanel x:Name="skins_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Visible" Margin="190,0,0,2" Grid.ColumnSpan="2" Grid.RowSpan="2">
             <Grid HorizontalAlignment="Stretch" DockPanel.Dock="Top" Height="Auto"
 AllowDrop="True" Drop="skins_Panel_Drop" DragEnter="skins_Panel_DragEnter" Background="Transparent" DragLeave="skins_Panel_DragLeave"  >
                 <hc:SimplePanel Margin="30,59,30,444">
                     <Border BorderThickness="1" Background="#FF101010" Height="129" VerticalAlignment="Bottom" >
-                        <Label Content="{DynamicResource UI_TEXT_SKINS_LOCATE_ZIP}" Margin="24,28,0,55" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Foreground="White" FontFamily="Gadugi" FontWeight="Normal" VerticalAlignment="Stretch" Height="44" Width="109"/>
+                        <Label x:Name="Locate_LBL" Content="{DynamicResource UI_TEXT_SKINS_LOCATE_ZIP}" Margin="0,29,775,54" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Right" Foreground="White" FontFamily="Gadugi" FontWeight="Normal" VerticalAlignment="Stretch" Height="44" BorderThickness="0,0,0,0" MinWidth="141" MinHeight="44" MaxHeight="44" MaxWidth="169" Width="163"/>
                     </Border>
                     <hc:TextBox x:Name="Skin_Path_Box" TextWrapping="Wrap" Margin="35,0,0,26" SelectionTextBrush="Black" Background="White" BorderBrush="{x:Null}" Height="32" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="780" Foreground="Black"/>
                     <Button x:Name="Browse_For_Skin" Content="{DynamicResource UI_BUTTON_SKINS_BROWSE}" HorizontalAlignment="Left" BorderBrush="{x:Null}" Margin="820,0,0,27" VerticalAlignment="Bottom" Background="#FF1E4C51" Height="32" Width="100" BorderThickness="1,1,1,1" Padding="6,6,10,6" Click="Browse_For_Skin_Click"/>
