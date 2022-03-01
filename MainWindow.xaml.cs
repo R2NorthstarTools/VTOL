@@ -187,14 +187,11 @@ namespace VTOL
                 Updates_Panel.Visibility = Visibility.Hidden;
                 Drag_Drop_Overlay.Visibility = Visibility.Hidden;
                 Drag_Drop_Overlay_Skins.Visibility = Visibility.Hidden;
-                Select_Main();
                 string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
                 Install_Skin_Bttn.IsEnabled = false;
-                Set_About();
                 Badge.Visibility = Visibility.Collapsed;
                 GC.Collect();
                 this.VTOL.Title = String.Format("VTOL {0}", version);
-                Check_For_New_Northstar_Install();
                 getOperatingSystemInfo();
                 getProcessorInfo();
                 if (File.Exists(@"C:\ProgramData\VTOL_DATA\VARS\Language.txt"))
@@ -207,7 +204,10 @@ namespace VTOL
                     ChangeLanguageTo(ci.TwoLetterISOLanguageName);//do this here so there will be UI  texts showing up
                     Write_To_Log("\nLanguage Detected was - " + ci.TwoLetterISOLanguageName);
                 }
-              
+                Check_For_New_Northstar_Install();
+                Set_About();
+                Select_Main();
+
                 string[] arguments = Environment.GetCommandLineArgs();
 
                 Console.WriteLine("GetCommandLineArgs: {0}", string.Join(", ", arguments));
@@ -5773,7 +5773,7 @@ return Arg_List;
             if (French.IsSelected == true)
             {
 
-                ChangeLanguageTo("en");
+                ChangeLanguageTo("fr");
 
             }
             if (German.IsSelected == true)
