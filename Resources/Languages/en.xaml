@@ -114,7 +114,7 @@
     <system:String x:Key="NOTIF_INFO_DOWNLOAD_START">Starting Download!, please do not be alarmed if there is no activity!</system:String>
     <system:String x:Key="NOTIF_INFO_FINDING_GAME"> Looking For Titanfall2 Install</system:String>
     <system:String x:Key="NOTIF_INFO_FOUND_INSTALL_PATH"> Found installation location at</system:String>
-    <system:String x:Key="NOTIF_INFO_GROUP_UNPACK_UNPACKED">Unpacked</system:String>
+    <system:String x:Key="NOTIF_INFO_GROUP_UNPACK_UNPACKED">Unpacked </system:String>
     <system:String x:Key="NOTIF_INFO_GROUP_UNPACK_TO"> to </system:String>
     <system:String x:Key="NOTIF_INFO_GROUP_UNPACK_UNPACKING"> Unpacking</system:String>
     <system:String x:Key="NOTIF_INFO_INSTALL_COMPLETE"> Install Complete!</system:String>

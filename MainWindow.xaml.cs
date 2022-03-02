@@ -36,6 +36,7 @@ using System.Management;
 using System.Runtime.InteropServices;
 using System.Globalization;
 using System.Windows.Threading;
+using ZIPI = Ionic.Zip;
 //****TODO*****//
 
 //Migrate Release Parse to the New Updater Sys
@@ -46,6 +47,7 @@ using System.Windows.Threading;
 //**************//
 namespace VTOL
 {
+
     public static class ExtensionMethods
     {
         private static readonly Action EmptyDelegate = delegate { };
@@ -132,6 +134,10 @@ namespace VTOL
         public List<string> Game_MAP_List = new List<string>();
         public List<string> Game_WEAPON_List = new List<string>();
         private static readonly Action EmptyDelegate = delegate { };
+        Zip_Install_Dialog ZipDialog = (new Zip_Install_Dialog());
+        int Progress_Tracker;
+        HandyControl.Controls.Dialog Diag;
+
 
         int completed_flag;
         public int pid;
@@ -154,7 +160,6 @@ namespace VTOL
 
             try
             {
-
                 /*Ref Code To see The ISO name for Lang
                 Console.WriteLine("Default Language Info:");
                 Console.WriteLine("* Name: {0}", ci.Name);
@@ -192,8 +197,7 @@ namespace VTOL
                 Badge.Visibility = Visibility.Collapsed;
                 GC.Collect();
                 this.VTOL.Title = String.Format("VTOL {0}", version);
-                getOperatingSystemInfo();
-                getProcessorInfo();
+               
                 if (File.Exists(@"C:\ProgramData\VTOL_DATA\VARS\Language.txt"))
                 {
                   ChangeLanguageTo(Read_From_TextFile_OneLine(@"C:\ProgramData\VTOL_DATA\VARS\Language.txt").Trim());
@@ -207,7 +211,8 @@ namespace VTOL
                 Check_For_New_Northstar_Install();
                 Set_About();
                 Select_Main();
-
+                getOperatingSystemInfo();
+                getProcessorInfo();
                 string[] arguments = Environment.GetCommandLineArgs();
 
                 Console.WriteLine("GetCommandLineArgs: {0}", string.Join(", ", arguments));
@@ -410,6 +415,14 @@ namespace VTOL
 
                     case "en":
                         Language_Selection.SelectedIndex = 0;
+
+                        break;
+                    case "fr":
+                        Language_Selection.SelectedIndex = 1;
+
+                        break;
+                    case "de":
+                        Language_Selection.SelectedIndex = 2;
 
                         break;
                     case "cn":
@@ -1476,11 +1489,48 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 File.Copy(newPath, newPath.Replace(sourcePath, targetPath), true);
             }
         }
+     
+        public string Current_Zip;
+        private void zipProgress(object sender, ZIPI.ExtractProgressEventArgs e)
+        {
+
+
+            //     Z.Add_Progress(10, Target_Zip);
+            //   ZipFile.ExtractToDirectory(Target_Zip, Destination, true);
+            //  Z.Add_Progress(80, Target_Zip);
+
+            if (e.EventType == ZIPI.ZipProgressEventType.Extracting_BeforeExtractAll)
+            {
+                //  ZipDialog.Current_File_Label.Content = Current_Zip;
+             //Diag = HandyControl.Controls.Dialog.Show(ZipDialog);
+
+
+            }
+            //  this.ZIPI.progressbar1.Value = (int)((e.BytesTransferred * 100) / e.TotalBytesToTransfer);
+
+            if (e.EventType == ZIPI.ZipProgressEventType.Extracting_AfterExtractAll)
+                    {
+             //   Diag.Close();
+            //    dialog.Close();
+               // if (e.BytesTransferred > 0 && e.TotalBytesToTransfer > 0)
+            //    {
+                  //  int progress = (int)Math.Floor((decimal)((e.BytesTransferred * 100) / e.TotalBytesToTransfer));
+                   
+              //  }
+            }
+
+          //  Z.Add_Progress(0, Current_Zip);
+
+            //    Z.Add_Progress(90, Current_Zip);
+            // Send_Info_Notif(e.EntriesExtracted.ToString());
+            //Send_Info_Notif(e.BytesTransferred.ToString());
+           
+        }
         private void Unpack_To_Location_Custom(string Target_Zip, string Destination, bool Clean_Thunderstore = false, bool clean_normal = false)
         {
             //ToDo Check if url or zip location
             //add drag and drop
-
+            
             try
             {
                 string Dir_Final = "";
@@ -1495,7 +1545,34 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
                     if (fileExt == ".zip")
                     {
-                        ZipFile.ExtractToDirectory(Target_Zip, Destination, true);
+                        //     Zip_Install_Dialog Z = (new Zip_Install_Dialog());
+                        //    var d = HandyControl.Controls.Dialog.Show(Z);
+                        //   var dialog = HandyControl.Controls.Dialog.Show(Z);
+                        //     Z.Add_Progress(0, Target_Zip);
+
+                        //     Z.Add_Progress(10, Target_Zip);
+                        //   ZipFile.ExtractToDirectory(Target_Zip, Destination, true);
+                        //  Z.Add_Progress(80, Target_Zip);
+                        Current_Zip = Target_Zip;
+
+                        using (ZIPI.ZipFile zip = ZIPI.ZipFile.Read(Target_Zip))
+                        {
+                            zip.ExtractProgress += zipProgress;
+
+                            
+
+                                zip.ExtractAll(Destination, ZIPI.ExtractExistingFileAction.OverwriteSilently);
+
+                            
+                            
+                           // Diag.Close();
+                        }
+
+
+
+
+
+                        //dialog.Close();
                         // Send_Success_Notif("\nUnpacking Complete!\n");
                         if (Clean_Thunderstore == true)
                         {
@@ -1587,7 +1664,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                 }
                                 else
                                 {
-                                    Send_Info_Notif(GetTextResource("NOTIF_INFO_GROUP_UNPACK_UNPACKED") + Path.GetFileName(Target_Zip) + GetTextResource("NOTIF_INFO_GROUP_UNPACK_TO") + Dir_Final);
+                                    Send_Info_Notif(GetTextResource("NOTIF_INFO_GROUP_UNPACK_UNPACKED") +"  "+ Path.GetFileName(Target_Zip) +"  "+ GetTextResource("NOTIF_INFO_GROUP_UNPACK_TO") + "  "+Dir_Final);
                                     Send_Success_Notif(GetTextResource("NOTIF_SUCCESS_INSTALLED_DASH") + LAST_INSTALLED_MOD);
 
                                 }
@@ -1611,7 +1688,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                     {
                         //Main_Window.SelectedTab = Main;
 
-                        Send_Error_Notif(GetTextResource("NOTIF_ERROR_OBJ_NOT_ZIP"));
+                        Send_Warning_Notif(GetTextResource("NOTIF_ERROR_OBJ_NOT_ZIP"));
 
 
                     }
@@ -2754,7 +2831,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
 
 
-            Auto_Install_And_verify();
+            //Auto_Install_And_verify();
 
         }
 
@@ -5779,7 +5856,7 @@ return Arg_List;
             if (German.IsSelected == true)
             {
 
-                ChangeLanguageTo("en");
+                ChangeLanguageTo("de");
 
             }
             if (Italian.IsSelected == true)
@@ -5808,6 +5885,7 @@ return Arg_List;
                 ChangeLanguageTo("cn");
 
             }
+
         }
 
         private void Language_Selection_MouseEnter(object sender, MouseEventArgs e)

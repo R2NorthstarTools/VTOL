@@ -12,17 +12,27 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using HandyControl;
+using System.Threading;
 namespace VTOL
 {
     /// <summary>
     /// Interaction logic for Junk_Test_Page.xaml
     /// </summary>
-    public partial class Junk_Test_Page : Page
+    public partial class Zip_Install_Dialog
+
     {
-        public Junk_Test_Page()
+       public int prog = 0;
+        public Zip_Install_Dialog()
         {
             InitializeComponent();
         }
+        public void Add_Progress(string Filename)
+        {
+           // Progress_Bar.Value = progress;
+            Current_File_Label.Content = Filename;
+
+        }
+
     }
 }
