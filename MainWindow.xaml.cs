@@ -2121,7 +2121,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 Dsiabled_ListBox.ItemsSource = null;
                 Mod_Directory_List_Active.Clear();
                 Mod_Directory_List_InActive.Clear();
-                Console.WriteLine("In Mods!");
+             //   Console.WriteLine("In Mods!");
                 if (Current_Install_Folder == null || Current_Install_Folder == "" || !Directory.Exists(Current_Install_Folder))
                 {
                     HandyControl.Controls.Growl.AskGlobal("Could Not find That Install Location !!!, please renavigate to the Correct Install Path!", isConfirmed =>
@@ -2172,13 +2172,13 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                     if (Template_traverse(dirInfo, "Locked_Folder") == true)
                                     {
 
-                                        Console.WriteLine("Inactive - " + dirInfo.Name);
+                                     //   Console.WriteLine("Inactive - " + dirInfo.Name);
                                         Mod_Directory_List_InActive.Add(dirInfo.Name);
                                         //  Log_Box.AppendText(dirInfo.Name);
                                     }
                                     else
                                     {
-                                        Console.WriteLine("Active - " + dirInfo.Name);
+                                       // Console.WriteLine("Active - " + dirInfo.Name);
 
                                         Mod_Directory_List_Active.Add(dirInfo.Name);
                                         //  Log_Box.AppendText(dirInfo.Name);
@@ -2340,12 +2340,12 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             if (Directory.Exists(path + @"\Disable_Corner"))
             {
 
-                Console.WriteLine(path + "    This Mod is Disabled");
+             //   Console.WriteLine(path + "    This Mod is Disabled");
 
             }
             else
             {
-                Console.WriteLine(path + "    This Mod is Enabled");
+              // Console.WriteLine(path + "    This Mod is Enabled");
 
 
 
@@ -2559,7 +2559,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 {
                     if (val != null)
                     {
-                        Console.WriteLine(val);
+                      //Console.WriteLine(val);
                         System.IO.DirectoryInfo rootDirs = new DirectoryInfo(Current_Install_Folder + @"\R2Northstar\mods\" + val);
 
                         if (!IsDirectoryEmpty(rootDirs))
@@ -2586,7 +2586,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 {
                     if (val != null)
                     {
-                        Console.WriteLine(Current_Install_Folder + @"\R2Northstar\mods\" + val);
+                      //  Console.WriteLine(Current_Install_Folder + @"\R2Northstar\mods\" + val);
                         System.IO.DirectoryInfo rootDirs = new DirectoryInfo(Current_Install_Folder + @"\R2Northstar\mods\" + val);
 
                         if (!IsDirectoryEmpty(rootDirs))
@@ -3044,7 +3044,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
                     try
                     {
-                        Console.WriteLine(Skin_Temp_Loc);
+                      //  Console.WriteLine(Skin_Temp_Loc);
                         String Thumbnail = Current_Install_Folder + @"\Thumbnails\";
                         if (Directory.Exists(Thumbnail))
                         {
@@ -3060,7 +3060,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                 if (File.Exists(firstOrDefault_Col))
                                 {
                                     String col = Thumbnail + Path.GetFileName(firstOrDefault_Col) + ".png";
-                                    Console.WriteLine(firstOrDefault_Col);
+                                  //  Console.WriteLine(firstOrDefault_Col);
                                     if (File.Exists(col))
                                     {
 
@@ -3074,7 +3074,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                     }
                                     else
                                     {
-                                        Console.WriteLine(col);
+                                        //Console.WriteLine(col);
                                         DDSImage img_1 = new DDSImage(firstOrDefault_Col);
 
                                         img_1.Save(col);
@@ -3169,7 +3169,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                             {
                                 if (File.Exists(firstOrDefault_Col))
                                 {
-                                    Console.WriteLine(firstOrDefault_Col);
+                                  //  Console.WriteLine(firstOrDefault_Col);
                                     if (File.Exists(firstOrDefault_Col + ".png"))
                                     {
 
@@ -3221,7 +3221,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                     if (File.Exists(firstOrDefault_ilm + ".png"))
                                     {
 
-                                        Console.WriteLine(firstOrDefault_ilm);
+                                     //   Console.WriteLine(firstOrDefault_ilm);
                                         //    Image Image_2 = new Bitmap(Thumbnail+Path.GetFileName(firstOrDefault_ilm)+".png");
                                         BitmapImage bitmap = new BitmapImage();
                                         bitmap.BeginInit();
@@ -3301,7 +3301,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                     }
                     else
                     {
-                        Console.WriteLine(path);
+                      //  Console.WriteLine(path);
                         Current_Install_Folder = path;
                         Found_Install_Folder = true;
                         Titanfall2_Directory_TextBox.Background = Brushes.White;
@@ -3386,7 +3386,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             else
             {
 
-                Console.WriteLine("Err, File not found");
+             //   Console.WriteLine("Err, File not found");
 
 
             }
@@ -3441,8 +3441,8 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                     {
                         string FolderName = path.Split(Path.DirectorySeparatorChar).Last();
                         Browse_For_MOD.Text = path;
-                        Console.WriteLine(path);
-                        Console.WriteLine("The Folder Name is-" + FolderName + "\n\n");
+                      //  Console.WriteLine(path);
+                      //  Console.WriteLine("The Folder Name is-" + FolderName + "\n\n");
                         Unpack_To_Location_Custom(path, Current_Install_Folder + @"\R2Northstar\mods");
                         Call_Mods_From_Folder();
 
@@ -3474,13 +3474,13 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 Console.WriteLine(i);
 
             var matchingvalues = FileList.FirstOrDefault(stringToCheck => stringToCheck.Contains(""));
-            for (int i = 0; i < FileList.Count; i++)
-            {
-                if (FileList[i].Contains("col")) // (you use the word "contains". either equals or indexof might be appropriate)
-                {
-                    Console.WriteLine(i);
-                }
-            }
+           // for (int i = 0; i < FileList.Count; i++)
+         //   {
+         //       if (FileList[i].Contains("col")) // (you use the word "contains". either equals or indexof might be appropriate)
+         //       {
+                  //  Console.WriteLine(i);
+          //      }
+        //    }
             int DDSFolderExist = 0;
 
             DDSFolderExist = FileList.Count;
@@ -3548,7 +3548,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
 
 
-                Console.WriteLine("Files deleted successfully");
+               Console.WriteLine("Files deleted successfully");
                 GC.Collect();
                 Install_Skin_Bttn.IsEnabled = false;
 
@@ -4497,7 +4497,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 }
                 for (int j = 0; j<intermid.Length; j++)
                 {
-                    Console.WriteLine("array[{0}] = {1}", j, intermid[j]);
+                   // Console.WriteLine("array[{0}] = {1}", j, intermid[j]);
 
                 }
                 if (Array.Exists(intermid, element => element.StartsWith(var_Name)))
@@ -4986,8 +4986,8 @@ return Arg_List;
                         {
                             string FolderName = path.Split(Path.DirectorySeparatorChar).Last();
                             Browse_For_MOD.Text = path;
-                            Console.WriteLine(path);
-                            Console.WriteLine("The Folder Name is-" + FolderName + "\n\n");
+                          //Console.WriteLine(path);
+                       //     Console.WriteLine("The Folder Name is-" + FolderName + "\n\n");
                             Send_Success_Notif(GetTextResource("NOTIF_SUCCESS_RECEIVED_DASH") + file);
 
                             Unpack_To_Location_Custom(path, Current_Install_Folder + @"\R2Northstar\mods");
