@@ -82,7 +82,7 @@
     <system:String x:Key="NOTIF_ERROR_INVALID_INSTALL_PATH"> Dossier d'installation invalide</system:String>
     <system:String x:Key="NOTIF_ERROR_INVALID_MOD_ZIP_PATH"> Zip de mod invalide</system:String>
     <system:String x:Key="NOTIF_ERROR_INVALID_PATH_FED"> Chemin incorrect, ce dossier n'est pas accessible ou n'existe pas</system:String>
-    <system:String x:Key="NOTIF_ERROR_INVALID_URL"> URL invalide</system:String>
+    <system:String x:Key="NOTIF_ERROR_INVALID_URL"> URL Invalde</system:String>
     <system:String x:Key="NOTIF_ERROR_INVALID_ZIP_PATH"> Zip de mod invalide</system:String>
     <system:String x:Key="NOTIF_ERROR_MOD_INCOMPATIBLE">Ce mod est incompatible, son créateur doit être contacté pour y remédier !</system:String>
     <system:String x:Key="NOTIF_ERROR_NO_SELECTION">Pas de sélection, suppression de l'objet !</system:String>
@@ -159,5 +159,8 @@
     <system:String x:Key="NOTIF_WARN_SUGGEST_DISABLE_MOD">Si ce mod est activé, veuillez le désactiver !</system:String>
     <system:String x:Key="NOTIF_WARN_SUGGEST_REINSTALL_NS">Veuillez réinstaller Northstar pour remédier à ce problème.</system:String>
     <system:String x:Key="BADGE_NEW_UPDATE_AVAILABLE">Nouvelle version disponible</system:String>
-    <system:String x:Key="TEST_THIS_HURTS_MY_BRAIN">AAAAAAAAAAAAAAAAAAAAAA</system:String>
+    <system:String x:Key="UPDATE_REPAIR_NS">Mise à jour/réparation de Northstar</system:String>
+	<system:String x:Key="INSTALL_NS">Installer Northstar</system:String>
+	<system:String x:Key="OPEN_BROWSER">Ouvrir le dossier du mod actuel</system:String>
+
 </ResourceDictionary>

@@ -159,5 +159,9 @@
     <system:String x:Key="NOTIF_WARN_SUGGEST_DISABLE_MOD">如果该Mod已启用请立即禁用!</system:String>
     <system:String x:Key="NOTIF_WARN_SUGGEST_REINSTALL_NS">请尝试重新安装Northstar来解决这个问题!</system:String>
     <system:String x:Key="BADGE_NEW_UPDATE_AVAILABLE">发现新版本</system:String>
-    <system:String x:Key="TEST_THIS_HURTS_MY_BRAIN">AAAAAAAAAAAAAAAAAAAAAA</system:String>
+     <system:String x:Key="UPDATE_REPAIR_NS">更新/维修Northstar</system:String>
+	<system:String x:Key="INSTALL_NS">安装Northstar</system:String>
+		<system:String x:Key="OPEN_MOD_FOLDER">安装Northstar</system:String>
+	<system:String x:Key="OPEN_BROWSER">打开当前MOD文件夹</system:String>
+
 </ResourceDictionary>

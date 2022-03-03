@@ -95,7 +95,7 @@
             <hc:SimplePanel x:Name="BG_panel_Main" Margin="38,50,37,238" Background="#FF101010"  hc:BorderElement.CornerRadius="15">
 
                 <hc:Badge x:Name="Badge" Value="2" Text="New" Margin="60,227,60,9" Background="#FFFF0C0C" BorderBrush="White"  />
-                <Button x:Name="Install_NS" Content="{DynamicResource UI_BUTTON_MAIN_INSTALL_OR_REPAIR_NS}" Height="50" Margin="60,242,60,0" VerticalAlignment="Top" BorderBrush="White" Background="#FF2C4C4C" Click="Install_NS_Click" HorizontalAlignment="Stretch"/>
+                <Button x:Name="Install_NS"  Height="50" Margin="60,242,60,0" VerticalAlignment="Top" BorderBrush="White" Background="#FF2C4C4C" Click="Install_NS_Click" HorizontalAlignment="Stretch"/>
 
 
 
@@ -155,7 +155,7 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
                     <hc:SimplePanel.ContextMenu>
 
                         <ContextMenu>
-                            <MenuItem Click="MenuItem_Click" Header="Open Current Mod Folder">
+                            <MenuItem Click="MenuItem_Click" Header="{DynamicResource OPEN_BROWSER}">
                                 <MenuItem.Icon>
                                     <Image Source="/Resources/Folder_Browse_Icon.png" />
                                 </MenuItem.Icon>
@@ -367,7 +367,7 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
         </hc:SimplePanel>
 
 
-        <hc:SimplePanel x:Name="Log_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
+        <hc:SimplePanel x:Name="Log_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Visible" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
             <RichTextBox x:Name="LOG_BOX" Margin="32,69,32,0" Background="#FF101010" Height="395" VerticalAlignment="Top" BorderBrush="#FF101010" SelectionTextBrush="{x:Null}" SelectionBrush="#FF101010" CaretBrush="#FF101010" AutomationProperties.HelpText="Log Area">
                 <FlowDocument>
                     <Paragraph>
@@ -380,7 +380,7 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
                 <Button x:Name="Clear_LOG" Content="{DynamicResource UI_BUTTON_LOG_CLEAR}" Height="36" HorizontalAlignment="Stretch" Margin="568,0,40,0" Background="#FF1E4C51" Click="Clear_LOG_Click"/>
             </hc:SimplePanel>
             <hc:SimplePanel/>
-            <Label Content="{DynamicResource UI_TITLE_LOG}" Width="190" Margin="0,8,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Height="44" Padding="10,3,10,3"/>
+            <Label Content="{DynamicResource UI_TITLE_LOG}" Margin="390,10,390,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Height="44" Padding="0,3,0,3" HorizontalAlignment="Stretch"/>
         </hc:SimplePanel>
 
 
@@ -490,13 +490,13 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
                     <TextBlock Foreground="White"> German</TextBlock>
                 </StackPanel>
             </ComboBoxItem>
-            <ComboBoxItem x:Name="Italian">
+            <!--   <ComboBoxItem x:Name="Italian">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/Resources/Language_Icons/it.png" />
                     <TextBlock Foreground="White"> Italian</TextBlock>
                 </StackPanel>
             </ComboBoxItem>
-            <ComboBoxItem x:Name="Japanese">
+              <ComboBoxItem x:Name="Japanese">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/Resources/Language_Icons/jp.png" />
                     <TextBlock Foreground="White"> Japanese</TextBlock>
@@ -513,7 +513,7 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
                     <Image Source="/Resources/Language_Icons/ru.png" />
                     <TextBlock Foreground="White"> Russian</TextBlock>
                 </StackPanel>
-            </ComboBoxItem>
+            </ComboBoxItem>-->
             <ComboBoxItem x:Name="Chinese">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/Resources/Language_Icons/cn.png" />

@@ -324,12 +324,12 @@ namespace VTOL
                             {
 
 
-                                Install_NS.Content = "Update/Repair Northstar";
+                                Install_NS.Content = GetTextResource("UPDATE_REPAIR_NS");
                             }
                             else
                             {
 
-                                Install_NS.Content = "Install Northstar";
+                                Install_NS.Content = GetTextResource("INSTALL_NS");
 
 
                             }
@@ -426,13 +426,26 @@ namespace VTOL
 
                         break;
                     case "cn":
-                        Language_Selection.SelectedIndex = 7;
+                        Language_Selection.SelectedIndex = 3;
 
                         break;
 
                 }
                 saveAsyncFile(LanguageCode, @"C:\ProgramData\VTOL_DATA\VARS\Language.txt", true, false);
+                if (NS_Installed == true)
+                {
 
+
+                    Install_NS.Content = GetTextResource("UPDATE_REPAIR_NS");
+                }
+                else
+                {
+
+                    Install_NS.Content = GetTextResource("INSTALL_NS");
+
+
+                }
+                Badge.Text = GetTextResource("BADGE_NEW_UPDATE_AVAILABLE");
             }
             catch (Exception ex)
             {
@@ -5859,6 +5872,7 @@ return Arg_List;
                 ChangeLanguageTo("de");
 
             }
+            /*
             if (Italian.IsSelected == true)
             {
                 ChangeLanguageTo("en");
@@ -5880,6 +5894,7 @@ return Arg_List;
                 ChangeLanguageTo("en");
 
             }
+            */
             if (Chinese.IsSelected == true)
             {
                 ChangeLanguageTo("cn");
