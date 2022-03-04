@@ -19,7 +19,6 @@ using System.IO;
 using Path = System.IO.Path;
 using System.Reflection;
 using System.ComponentModel;
-using Prism.Services.Dialogs;
 using System.Diagnostics;
 using WishLib = IWshRuntimeLibrary;
 using Newtonsoft.Json.Linq;
@@ -32,11 +31,9 @@ using Utils.Extensions;
 using static VTOL.MainWindow;
 using Microsoft.Xaml.Behaviors;
 using System.Threading;
-using System.Management;
 using System.Runtime.InteropServices;
 using System.Globalization;
 using System.Windows.Threading;
-using ZIPI = Ionic.Zip;
 //****TODO*****//
 
 //Migrate Release Parse to the New Updater Sys
@@ -211,11 +208,10 @@ namespace VTOL
                 Check_For_New_Northstar_Install();
                 Set_About();
                 Select_Main();
-                getOperatingSystemInfo();
                 getProcessorInfo();
                 string[] arguments = Environment.GetCommandLineArgs();
 
-                Console.WriteLine("GetCommandLineArgs: {0}", string.Join(", ", arguments));
+               Console.WriteLine("GetCommandLineArgs: {0}", string.Join(", ", arguments));
 
                 if (do_not_overwrite_Ns_file==true)
                 {
@@ -1504,41 +1500,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
         }
      
         public string Current_Zip;
-        private void zipProgress(object sender, ZIPI.ExtractProgressEventArgs e)
-        {
-
-
-            //     Z.Add_Progress(10, Target_Zip);
-            //   ZipFile.ExtractToDirectory(Target_Zip, Destination, true);
-            //  Z.Add_Progress(80, Target_Zip);
-
-            if (e.EventType == ZIPI.ZipProgressEventType.Extracting_BeforeExtractAll)
-            {
-                //  ZipDialog.Current_File_Label.Content = Current_Zip;
-             //Diag = HandyControl.Controls.Dialog.Show(ZipDialog);
-
-
-            }
-            //  this.ZIPI.progressbar1.Value = (int)((e.BytesTransferred * 100) / e.TotalBytesToTransfer);
-
-            if (e.EventType == ZIPI.ZipProgressEventType.Extracting_AfterExtractAll)
-                    {
-             //   Diag.Close();
-            //    dialog.Close();
-               // if (e.BytesTransferred > 0 && e.TotalBytesToTransfer > 0)
-            //    {
-                  //  int progress = (int)Math.Floor((decimal)((e.BytesTransferred * 100) / e.TotalBytesToTransfer));
-                   
-              //  }
-            }
-
-          //  Z.Add_Progress(0, Current_Zip);
-
-            //    Z.Add_Progress(90, Current_Zip);
-            // Send_Info_Notif(e.EntriesExtracted.ToString());
-            //Send_Info_Notif(e.BytesTransferred.ToString());
-           
-        }
+      
         private void Unpack_To_Location_Custom(string Target_Zip, string Destination, bool Clean_Thunderstore = false, bool clean_normal = false)
         {
             //ToDo Check if url or zip location
@@ -1558,35 +1520,10 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
                     if (fileExt == ".zip")
                     {
-                        //     Zip_Install_Dialog Z = (new Zip_Install_Dialog());
-                        //    var d = HandyControl.Controls.Dialog.Show(Z);
-                        //   var dialog = HandyControl.Controls.Dialog.Show(Z);
-                        //     Z.Add_Progress(0, Target_Zip);
-
-                        //     Z.Add_Progress(10, Target_Zip);
-                        //   ZipFile.ExtractToDirectory(Target_Zip, Destination, true);
-                        //  Z.Add_Progress(80, Target_Zip);
-                        Current_Zip = Target_Zip;
-
-                        using (ZIPI.ZipFile zip = ZIPI.ZipFile.Read(Target_Zip))
-                        {
-                            zip.ExtractProgress += zipProgress;
-
-                            
-
-                                zip.ExtractAll(Destination, ZIPI.ExtractExistingFileAction.OverwriteSilently);
-
-                            
-                            
-                           // Diag.Close();
-                        }
-
-
-
-
-
+                      
+                        ZipFile.ExtractToDirectory(Target_Zip,Destination);
                         //dialog.Close();
-                        // Send_Success_Notif("\nUnpacking Complete!\n");
+                        Send_Success_Notif("\nUnpacking Complete!\n");
                         if (Clean_Thunderstore == true)
                         {
 
@@ -3574,7 +3511,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
                 Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
             }
-        }
+        }/*
         public void getOperatingSystemInfo()
         {
             Write_To_Log("Displaying operating system info....");
@@ -3597,10 +3534,32 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 }
             }
             Write_To_Log(x);
+        }*/
+        public string HKLM_GetString(string path, string key)
+        {
+            try
+            {
+                RegistryKey rk = Registry.LocalMachine.OpenSubKey(path);
+                if (rk == null) return "";
+                return (string)rk.GetValue(key);
+            }
+            catch { return ""; }
+        }
+
+        public string FriendlyName()
+        {
+            string ProductName = HKLM_GetString(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion", "ProductName");
+            string CSDVersion = HKLM_GetString(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion", "CSDVersion");
+            if (ProductName != "")
+            {
+                return (ProductName.StartsWith("Microsoft") ? "" : "Microsoft ") + ProductName +
+                            (CSDVersion != "" ? " " + CSDVersion : "");
+            }
+            return "";
         }
         public void getProcessorInfo()
         {
-            Write_To_Log("\nDisplaying Processor Name....");
+            Write_To_Log("\nDisplaying Processor Name And System Info....");
             RegistryKey processor_name = Registry.LocalMachine.OpenSubKey(@"Hardware\Description\System\CentralProcessor\0", RegistryKeyPermissionCheck.ReadSubTree);   //This registry entry contains entry for processor info.
             string x = "";
 
@@ -3611,7 +3570,9 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                     x = x + processor_name.GetValue("ProcessorNameString");   //Display processor ingo.
                 }
             }
+
             Write_To_Log(x);
+            Write_To_Log(FriendlyName()+"\n");
 
         }
         void Write_To_Log(string Text, bool clear_First = false)
@@ -3867,10 +3828,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             do_not_overwrite_Ns_file_Dedi = Properties.Settings.Default.Ns_Dedi;
         }
 
-        private void Gif_Image_Northstar_AnimationStarted(DependencyObject d, XamlAnimatedGif.AnimationStartedEventArgs e)
-        {
-
-        }
+       
 
         private void Check_For_Updates_Click(object sender, RoutedEventArgs e)
         {

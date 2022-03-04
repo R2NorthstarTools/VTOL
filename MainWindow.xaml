@@ -367,7 +367,7 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
         </hc:SimplePanel>
 
 
-        <hc:SimplePanel x:Name="Log_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Visible" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
+        <hc:SimplePanel x:Name="Log_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
             <RichTextBox x:Name="LOG_BOX" Margin="32,69,32,0" Background="#FF101010" Height="395" VerticalAlignment="Top" BorderBrush="#FF101010" SelectionTextBrush="{x:Null}" SelectionBrush="#FF101010" CaretBrush="#FF101010" AutomationProperties.HelpText="Log Area">
                 <FlowDocument>
                     <Paragraph>

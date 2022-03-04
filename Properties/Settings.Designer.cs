@@ -37,7 +37,7 @@ namespace VTOL.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("v1.5.0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("v1.5.1")]
         public string Version {
             get {
                 return ((string)(this["Version"]));

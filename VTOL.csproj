@@ -78,6 +78,7 @@
     <None Remove="Resources\VTOL_Hover.ico" />
     <None Remove="Resources\VTOL_Hover.png" />
     <None Remove="Resources\VTOL_POINTER.cur" />
+    <None Remove="Utils.dll" />
     <None Remove="VTOL_Hover.png" />
   </ItemGroup>
 
@@ -91,6 +92,12 @@
       <Isolated>false</Isolated>
       <EmbedInteropTypes>true</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Utils.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
@@ -160,7 +167,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Banner_normal.jpg" />
+    <Resource Include="Banner_normal.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Banner_normal.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -176,9 +185,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Aspose.Zip" Version="22.1.0" />
-    <PackageReference Include="AutoCompleteTextBox" Version="1.3.0" />
-    <PackageReference Include="DotNetZip" Version="1.16.0" />
     <PackageReference Include="HandyControls" Version="3.3.11" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Octokit" Version="0.50.0" />
@@ -187,7 +193,6 @@
     <PackageReference Include="Prism.Wpf" Version="8.1.97" />
     <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="1.0.0-beta0005" />
     <PackageReference Include="System.Management" Version="6.0.0" />
-    <PackageReference Include="WpfAnimatedGif" Version="2.0.2" />
     <PackageReference Include="XamlAnimatedGif" Version="2.0.2" />
   </ItemGroup>
 
@@ -302,6 +307,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Page Update="Resources\Languages\cn.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
     <Page Update="Resources\Languages\de.xaml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
