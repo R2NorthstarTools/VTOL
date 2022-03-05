@@ -1,4 +1,4 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:system="clr-namespace:System;assembly=mscorlib">
     <system:String x:Key="UI_SIDEMENU_TITLE_MAIN">Main</system:String>
@@ -160,7 +160,6 @@
     <system:String x:Key="NOTIF_WARN_SUGGEST_REINSTALL_NS">Please install Northstar again To Try Remedy This Error</system:String>
     <system:String x:Key="BADGE_NEW_UPDATE_AVAILABLE">New Version Available</system:String>
     <system:String x:Key="UPDATE_REPAIR_NS">Update/Repair Northstar</system:String>
-	<system:String x:Key="INSTALL_NS">Install Northstar</system:String>
-		<system:String x:Key="OPEN_BROWSER">Open Current Mod Folder</system:String>
-
+    <system:String x:Key="INSTALL_NS">Install Northstar</system:String>
+    <system:String x:Key="OPEN_BROWSER">Open Current Mod Folder</system:String>
 </ResourceDictionary>
