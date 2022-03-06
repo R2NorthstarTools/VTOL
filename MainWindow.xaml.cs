@@ -2327,7 +2327,9 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             {
 
                 Write_To_Log(ex.StackTrace);
+                Install_NS.IsEnabled = true;
                 Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
+                Loading_Panel.Visibility = Visibility.Hidden;
 
 
             }
