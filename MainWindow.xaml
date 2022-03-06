@@ -13,6 +13,7 @@
         mc:Ignorable="d"
         Title="VTOL" Height="750" Width="1200" UseLayoutRounding="True" ResizeMode="CanMinimize" Icon="/Resources/Northstar-512.png" Background="Black" WindowStyle="SingleBorderWindow">
     <Window.Resources>
+
         <DataTemplate x:Key="NormalBox">
             <Grid Width="970" Background="{x:Null}" HorizontalAlignment="Center" Margin="0,0,0,3" Height="58">
                 <Label HorizontalAlignment="Stretch" Height="38" Margin="30,0,505,0" Background="#FF004439" Foreground="White" Content="{Binding Name}" FontSize="16" ToolTip="{Binding Description}" BorderBrush="{x:Null}"/>
@@ -62,6 +63,7 @@
         </DataTemplate>
         <local:Server_Template_Selector x:Key="Server_Template_Selector" />
     </Window.Resources>
+
 
     <Grid Visibility="Visible" >
 
@@ -199,6 +201,7 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
         <hc:SimplePanel x:Name="Mod_Browse_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
             <hc:SimplePanel Margin="10,10,10,10" Background="#FF101010">
                 <ListBox SelectedItem="{Binding Selected_Item}" x:Name="Test_List" Margin="44,50,44,0" SelectionChanged="Test_List_SelectionChanged" RequestBringIntoView="Test_List_RequestBringIntoView" Height="475" VerticalAlignment="Top" ScrollViewer.CanContentScroll="False" Visibility="Visible">
+
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
                             <Style.Triggers>
@@ -490,13 +493,13 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
                     <TextBlock Foreground="White"> German</TextBlock>
                 </StackPanel>
             </ComboBoxItem>
-            <!--   <ComboBoxItem x:Name="Italian">
+            <ComboBoxItem x:Name="Italian">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/Resources/Language_Icons/it.png" />
                     <TextBlock Foreground="White"> Italian</TextBlock>
                 </StackPanel>
             </ComboBoxItem>
-              <ComboBoxItem x:Name="Japanese">
+            <!-- <ComboBoxItem x:Name="Japanese">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/Resources/Language_Icons/jp.png" />
                     <TextBlock Foreground="White"> Japanese</TextBlock>
@@ -523,5 +526,26 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
 
 
         </hc:ComboBox>
+        <hc:SimplePanel x:Name="Loading_Panel" Grid.ColumnSpan="4" Margin="4,0,-4,-4" Grid.RowSpan="3" Visibility="Visible" >
+            <hc:SimplePanel Background="Black" Grid.ColumnSpan="4" Margin="4,0,-4,-4" Grid.RowSpan="3" Opacity="0.745" Visibility="Visible"/>
+            <hc:SimpleStackPanel Margin="402,193,306,241" Background="Black">
+                <TextBlock x:Name="Wait_Text"  Text="Please Wait..." Margin="61,86,61,-6" Foreground="White" FontSize="24" TextAlignment="Center"/>
+                <ProgressBar x:Name="Progress_Bar_Window"  Margin="10,21,10,0" Value="57" Orientation="Horizontal" Height="25" VerticalAlignment="Top" Background="#FF30302D">
+                    <ProgressBar.Foreground>
+                        <LinearGradientBrush EndPoint="1,0">
+                            <GradientStop Color="#FF32F39F" Offset="0"/>
+                            <GradientStop Color="#FF1E4C51" Offset="0.98"/>
+                        </LinearGradientBrush>
+                    </ProgressBar.Foreground>
+                </ProgressBar>
+                <Label x:Name="Status_Label" Content="Currently Downloading:" Height="27" VerticalAlignment="Top" FontSize="9" BorderBrush="{x:Null}" Margin="156,11,156,0" Background="{x:Null}" HorizontalAlignment="Stretch" Padding="0,0,0,0" HorizontalContentAlignment="Center"/>
+                <Label x:Name="Current_File_Label" Content="" Height="26" FontSize="10" BorderBrush="{x:Null}" BorderThickness="0,0,0,0" Background="{x:Null}" Margin="43,0,43,0" Padding="0,0,0,0" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
+
+            </hc:SimpleStackPanel>
+        </hc:SimplePanel>
+
+
+
     </Grid>
+
 </Window>

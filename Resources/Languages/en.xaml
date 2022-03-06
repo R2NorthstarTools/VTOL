@@ -162,4 +162,7 @@
     <system:String x:Key="UPDATE_REPAIR_NS">Update/Repair Northstar</system:String>
     <system:String x:Key="INSTALL_NS">Install Northstar</system:String>
     <system:String x:Key="OPEN_BROWSER">Open Current Mod Folder</system:String>
+    <system:String x:Key="PLEASE_WAIT">PLEASE WAIT...</system:String>
+    <system:String x:Key="CURRENTLY_INSTALLING">Currently Installing:</system:String>
+    <system:String x:Key="CURRENTLY_DOWNLOADING">Currently Downloading:</system:String>
 </ResourceDictionary>

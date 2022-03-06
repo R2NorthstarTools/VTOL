@@ -77,7 +77,7 @@
     <system:String x:Key="NOTIF_ERROR_DIRECTORY_EMPTY">目录为空！</system:String>
     <system:String x:Key="NOTIF_ERROR_FATAL">发生了一个致命错误，请查看日志！</system:String>
     <system:String x:Key="NOTIF_ERROR_FILE_PATH_ISSUE_REBROWSE">指定目录存在问题，请重新选择。</system:String>
-    <system:String x:Key="NOTIF_ERROR_GROUP_DIRECTORY_TREE_CANNOT_FIND_INSTALL_AT">无法在当前目录寻找安装内容：</system:String>
+    <system:String x:Key="NOTIF_ERROR_GROUP_DIRECTORY_TREE_CANNOT_FIND_INSTALL_AT">无法在当前目录寻找安装内容:</system:String>
     <system:String x:Key="NOTIF_ERROR_GROUP_DIRECTORY_TREE_CONTINUE_TRAVERSE">- 将继续寻找</system:String>
     <system:String x:Key="NOTIF_ERROR_INVALID_INSTALL_PATH">选择的安装路径不合法</system:String>
     <system:String x:Key="NOTIF_ERROR_INVALID_MOD_ZIP_PATH">选择的模组包(Zip)路径不合法</system:String>
@@ -163,4 +163,7 @@
     <system:String x:Key="INSTALL_NS">安装 Northstar</system:String>
     <system:String x:Key="OPEN_MOD_FOLDER">安装 Northstar</system:String>
     <system:String x:Key="OPEN_BROWSER">打开当前模组的文件夹</system:String>
+    <system:String x:Key="PLEASE_WAIT">请等待...</system:String>
+    <system:String x:Key="CURRENTLY_INSTALLING">目前正在安装:</system:String>
+    <system:String x:Key="CURRENTLY_DOWNLOADING">目前正在下载:</system:String>
 </ResourceDictionary>
