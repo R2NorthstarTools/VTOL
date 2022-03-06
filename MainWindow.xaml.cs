@@ -34,6 +34,7 @@ using System.Threading;
 using System.Runtime.InteropServices;
 using System.Globalization;
 using System.Windows.Threading;
+using Zipi = Ionic.Zip;
 //****TODO*****//
 
 //Migrate Release Parse to the New Updater Sys
@@ -131,7 +132,6 @@ namespace VTOL
         public List<string> Game_MAP_List = new List<string>();
         public List<string> Game_WEAPON_List = new List<string>();
         private static readonly Action EmptyDelegate = delegate { };
-        Zip_Install_Dialog ZipDialog = (new Zip_Install_Dialog());
         int Progress_Tracker;
         HandyControl.Controls.Dialog Diag;
 
@@ -167,9 +167,7 @@ namespace VTOL
                 Console.WriteLine("* 3-letter Win32 API Name: {0}", ci.ThreeLetterWindowsLanguageName);
                 */
 
-                Phrases = new ObservableCollection<string>();
-
-
+             
                 //BG_panel_Main.BlurApply(40, new TimeSpan(0, 0, 1), TimeSpan.Zero);
 
                 DataContext = this;
@@ -177,6 +175,7 @@ namespace VTOL
                 Animation_Start_Vanilla = false;
                 Write_To_Log("", true);
                 LOG_BOX.IsReadOnly = true;
+                Loading_Panel.Visibility = Visibility.Hidden;
                 Mod_Panel.Visibility = Visibility.Hidden;
                 //  Load_Line.Visibility = Visibility.Hidden;
                 skins_Panel.Visibility = Visibility.Hidden;
@@ -421,8 +420,12 @@ namespace VTOL
                         Language_Selection.SelectedIndex = 2;
 
                         break;
-                    case "cn":
+                    case "it":
                         Language_Selection.SelectedIndex = 3;
+
+                        break;
+                    case "cn":
+                        Language_Selection.SelectedIndex = 4;
 
                         break;
 
@@ -1032,8 +1035,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                         string fullName = foundFile.FullName;
                         Console.WriteLine(fullName);
                         return fullName;
-
-
+                        
 
                     }
                     else
@@ -1499,8 +1501,25 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             }
         }
      
-        public string Current_Zip;
-      
+        private void zipProgress(object sender, Zipi.ExtractProgressEventArgs e)
+        {
+            if (e.TotalBytesToTransfer > 0)
+            {
+                if (e.EventType == Zipi.ZipProgressEventType.Extracting_EntryBytesWritten) { 
+                    Progress_Bar_Window.Value = (int)((e.BytesTransferred * 100) / e.TotalBytesToTransfer);
+            }
+            }
+            if(e.EventType == Zipi.ZipProgressEventType.Extracting_AfterExtractAll)
+            {
+                Current_File_Label.Content = "";
+
+            }
+            //  if (e.EventType == Zipi.ZipProgressEventType.Saving_EntryBytesRead)
+            // this.progressbar1.Value = (int)((e.BytesTransferred * 100) / e.TotalBytesToTransfer);
+
+            //   else if (e.EventType == ZipProgressEventType.Saving_Completed)
+            // this.progressbar1.Value = 100;
+        }
         private void Unpack_To_Location_Custom(string Target_Zip, string Destination, bool Clean_Thunderstore = false, bool clean_normal = false)
         {
             //ToDo Check if url or zip location
@@ -1508,6 +1527,8 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             
             try
             {
+              //  Loading_Panel.Visibility = Visibility.Visible;
+
                 string Dir_Final = "";
                 if (File.Exists(Target_Zip))
                 {
@@ -1520,8 +1541,20 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
                     if (fileExt == ".zip")
                     {
-                      
-                        ZipFile.ExtractToDirectory(Target_Zip,Destination);
+                     //   Current_File_Label.Content = Target_Zip;
+
+                        using (Zipi.ZipFile zip = Zipi.ZipFile.Read(Target_Zip))
+                        {
+                            // initial setup before extraction
+                            zip.ExtractProgress += zipProgress;
+                            // actual extraction process
+                            zip.ExtractAll(Destination, Zipi.ExtractExistingFileAction.OverwriteSilently);
+                            // since the boolean below is in the same "thread" the extraction must 
+                            // complete for the boolean to be set to true
+                        }
+                      //  Loading_Panel.Visibility = Visibility.Hidden;
+
+                        // ZipFile.ExtractToDirectory(Target_Zip,Destination);
                         //dialog.Close();
                         Send_Success_Notif("\nUnpacking Complete!\n");
                         if (Clean_Thunderstore == true)
@@ -1989,9 +2022,15 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
         private  void DownloadProgressCallback4(object sender, DownloadProgressChangedEventArgs e)
         {
             // Displays the operation identifier, and the transfer progress.
-            Console.WriteLine("{0}    downloaded {1} of {2} bytes. {3} % complete...", (string)e.UserState, e.BytesReceived,e.TotalBytesToReceive,e.ProgressPercentage);
+            //Console.WriteLine("{0}    downloaded {1} of {2} bytes. {3} % complete...", (string)e.UserState, e.BytesReceived,e.TotalBytesToReceive,e.ProgressPercentage);
 
             Mod_Progress_BAR.Value = e.ProgressPercentage;
+        }
+        private void DownloadProgressCallback_Progress_Window(object sender, DownloadProgressChangedEventArgs e)
+        {
+            // Displays the operation identifier, and the transfer progress.
+
+            Progress_Bar_Window.Value = e.ProgressPercentage;
         }
         private void Auto_Install_And_verify()
         {
@@ -2190,8 +2229,12 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
             completed_flag = 0;
             Read_Latest_Release("https://api.github.com/repos/R2Northstar/Northstar/releases/latest");
-            //  Is file downloading yet?
+                Current_File_Label.Content = "Nortstar Latest";
+                Status_Label.Content = "Currently Downloading:";
 
+                //  Is file downloading yet?
+                Loading_Panel.Visibility = Visibility.Visible;
+                Progress_Bar_Window.Value = 0;
             if (webClient != null)
                 return;
             webClient = new WebClient();
@@ -2245,8 +2288,9 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                     }
                     Directory.CreateDirectory(@"C:\ProgramData\VTOL_DATA\Releases\");
                     webClient.DownloadFileAsync(new Uri(current_Northstar_version_Url), @"C:\ProgramData\VTOL_DATA\Releases\Northstar_Release.zip");
+                        webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadProgressCallback_Progress_Window);
 
-                    Send_Warning_Notif(GetTextResource("NOTIF_WARN_INSTALL_START"));
+                        Send_Warning_Notif(GetTextResource("NOTIF_WARN_INSTALL_START"));
 
 
 
@@ -2256,7 +2300,9 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
                     Directory.CreateDirectory(@"C:\ProgramData\VTOL_DATA\Releases\");
                     webClient.DownloadFileAsync(new Uri(current_Northstar_version_Url), @"C:\ProgramData\VTOL_DATA\Releases\Northstar_Release.zip");
-                    Send_Warning_Notif(GetTextResource("NOTIF_WARN_INSTALL_START"));
+                        webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadProgressCallback_Progress_Window);
+
+                        Send_Warning_Notif(GetTextResource("NOTIF_WARN_INSTALL_START"));
 
 
 
@@ -2271,7 +2317,9 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
                 Directory.CreateDirectory(@"C:\ProgramData\VTOL_DATA\Releases\");
                 webClient.DownloadFileAsync(new Uri(current_Northstar_version_Url), @"C:\ProgramData\VTOL_DATA\Releases\Northstar_Release.zip");
-                Send_Warning_Notif(GetTextResource("NOTIF_WARN_INSTALL_START"));
+                    webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadProgressCallback_Progress_Window);
+
+                    Send_Warning_Notif(GetTextResource("NOTIF_WARN_INSTALL_START"));
 
             }
             }
@@ -2755,6 +2803,10 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             Send_Info_Notif(GetTextResource("NOTIF_INFO_DOWNLOAD_COMPLETE"));
             Unpack_To_Location(@"C:\ProgramData\VTOL_DATA\Releases\NorthStar_Release.zip", Current_Install_Folder);
             Install_NS.IsEnabled = true;
+            Loading_Panel.Visibility = Visibility.Hidden;
+            Status_Label.Content = "Currently Downloading:";
+            Progress_Bar_Window.Value = 0;
+            Current_File_Label.Content = "";
         }
         private void Completed_t(object sender, AsyncCompletedEventArgs e)
         {
@@ -2762,6 +2814,11 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             webClient = null;
             Send_Info_Notif(GetTextResource("NOTIF_INFO_DOWNLOAD_COMPLETE"));
             Unpack_To_Location_Custom(Current_Install_Folder + @"\NS_Downloaded_Mods\MOD.zip", Current_Install_Folder + @"\R2Northstar\mods");
+            Loading_Panel.Visibility = Visibility.Hidden;
+            Status_Label.Content = "Currently Installing:";
+
+            Progress_Bar_Window.Value = 0;
+            Current_File_Label.Content = "";
         }
 
         private void Completed_Mod_Browser(object sender, AsyncCompletedEventArgs e)
@@ -5830,29 +5887,30 @@ return Arg_List;
                 ChangeLanguageTo("de");
 
             }
-            /*
+           
             if (Italian.IsSelected == true)
             {
-                ChangeLanguageTo("en");
+                ChangeLanguageTo("it");
 
             }
-            if (Japanese.IsSelected == true)
-            {
+            /*
+           if (Japanese.IsSelected == true)
+           {
 
-                ChangeLanguageTo("en");
+               ChangeLanguageTo("en");
 
-            }
-            if (Portugese.IsSelected == true)
-            {
-                ChangeLanguageTo("en");
+           }
+           if (Portugese.IsSelected == true)
+           {
+               ChangeLanguageTo("en");
 
-            }
-            if (Russian.IsSelected == true)
-            {
-                ChangeLanguageTo("en");
+           }
+           if (Russian.IsSelected == true)
+           {
+               ChangeLanguageTo("en");
 
-            }
-            */
+           }
+           */
             if (Chinese.IsSelected == true)
             {
                 ChangeLanguageTo("cn");
