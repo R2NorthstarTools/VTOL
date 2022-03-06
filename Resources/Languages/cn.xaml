@@ -163,5 +163,7 @@
 	<system:String x:Key="INSTALL_NS">安装Northstar</system:String>
 		<system:String x:Key="OPEN_MOD_FOLDER">安装Northstar</system:String>
 	<system:String x:Key="OPEN_BROWSER">打开当前MOD文件夹</system:String>
-
+		<system:String x:Key="PLEASE_WAIT">请等待...</system:String>
+		<system:String x:Key="CURRENTLY_INSTALLING">目前正在安装:</system:String>
+		<system:String x:Key="CURRENTLY_DOWNLOADING">目前正在下载:</system:String>
 </ResourceDictionary>

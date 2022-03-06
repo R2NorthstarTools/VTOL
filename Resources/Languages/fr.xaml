@@ -162,5 +162,7 @@
     <system:String x:Key="UPDATE_REPAIR_NS">Mise à jour/réparation de Northstar</system:String>
 	<system:String x:Key="INSTALL_NS">Installer Northstar</system:String>
 	<system:String x:Key="OPEN_BROWSER">Ouvrir le dossier du mod actuel</system:String>
-
+		<system:String x:Key="PLEASE_WAIT">S'IL VOUS PLAÎT, ATTENDEZ...</system:String>
+		<system:String x:Key="CURRENTLY_INSTALLING">Actuellement en cours d'installation:</system:String>
+		<system:String x:Key="CURRENTLY_DOWNLOADING">Actuellement en cours de téléchargement:</system:String>
 </ResourceDictionary>

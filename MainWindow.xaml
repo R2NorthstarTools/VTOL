@@ -529,9 +529,8 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
         <hc:SimplePanel x:Name="Loading_Panel" Grid.ColumnSpan="4" Margin="4,0,-4,-4" Grid.RowSpan="3" Visibility="Visible" >
             <hc:SimplePanel Background="Black" Grid.ColumnSpan="4" Margin="4,0,-4,-4" Grid.RowSpan="3" Opacity="0.745" Visibility="Visible"/>
             <hc:SimpleStackPanel Margin="402,193,306,241" Background="Black">
-                <TextBlock  Text="Please Wait..." Margin="0,67,0,0" VerticalAlignment="Top" Foreground="White" FontSize="48" HorizontalAlignment="Center"/>
-                <Button Width="22" Height="22" Command="hc:ControlCommands.Close"   Padding="0" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,4,4,0"/>
-                <ProgressBar x:Name="Progress_Bar_Window"  Margin="10,0,10,0" Value="57" Orientation="Horizontal" Height="25" VerticalAlignment="Top" Background="#FF30302D">
+                <TextBlock x:Name="Wait_Text"  Text="Please Wait..." Margin="61,86,61,-6" Foreground="White" FontSize="24" TextAlignment="Center"/>
+                <ProgressBar x:Name="Progress_Bar_Window"  Margin="10,21,10,0" Value="57" Orientation="Horizontal" Height="25" VerticalAlignment="Top" Background="#FF30302D">
                     <ProgressBar.Foreground>
                         <LinearGradientBrush EndPoint="1,0">
                             <GradientStop Color="#FF32F39F" Offset="0"/>
@@ -539,8 +538,8 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
                         </LinearGradientBrush>
                     </ProgressBar.Foreground>
                 </ProgressBar>
-                <Label x:Name="Status_Label" Content="Currently Downloading:" Height="27" Width="106" VerticalAlignment="Top" FontSize="9" BorderBrush="{x:Null}" Margin="194,0,0,0" Background="{x:Null}" HorizontalAlignment="Left" Padding="0,0,0,0"/>
-                <Label x:Name="Current_File_Label" Content="" Height="26" Width="370" VerticalAlignment="Top" FontSize="10" BorderBrush="{x:Null}" BorderThickness="0,0,0,0" Background="{x:Null}" Margin="0,5,0,0" Padding="0,0,0,0"/>
+                <Label x:Name="Status_Label" Content="Currently Downloading:" Height="27" VerticalAlignment="Top" FontSize="9" BorderBrush="{x:Null}" Margin="156,11,156,0" Background="{x:Null}" HorizontalAlignment="Stretch" Padding="0,0,0,0" HorizontalContentAlignment="Center"/>
+                <Label x:Name="Current_File_Label" Content="" Height="26" FontSize="10" BorderBrush="{x:Null}" BorderThickness="0,0,0,0" Background="{x:Null}" Margin="43,0,43,0" Padding="0,0,0,0" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
 
             </hc:SimpleStackPanel>
         </hc:SimplePanel>

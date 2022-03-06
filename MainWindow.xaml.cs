@@ -2229,9 +2229,9 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
             completed_flag = 0;
             Read_Latest_Release("https://api.github.com/repos/R2Northstar/Northstar/releases/latest");
-                Current_File_Label.Content = "Nortstar Latest";
-                Status_Label.Content = "Currently Downloading:";
-
+                Current_File_Label.Content = "+Northstar Latest Version";
+                Status_Label.Content = GetTextResource("CURRENTLY_DOWNLOADING");
+                Wait_Text.Text = GetTextResource("PLEASE_WAIT");
                 //  Is file downloading yet?
                 Loading_Panel.Visibility = Visibility.Visible;
                 Progress_Bar_Window.Value = 0;
@@ -2806,7 +2806,8 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             Unpack_To_Location(@"C:\ProgramData\VTOL_DATA\Releases\NorthStar_Release.zip", Current_Install_Folder);
             Install_NS.IsEnabled = true;
             Loading_Panel.Visibility = Visibility.Hidden;
-            Status_Label.Content = "Currently Downloading:";
+            Wait_Text.Text = GetTextResource("PLEASE_WAIT");
+            Status_Label.Content = (GetTextResource("CURRENTLY_DOWNLOADING"));
             Progress_Bar_Window.Value = 0;
             Current_File_Label.Content = "";
         }
@@ -2817,7 +2818,8 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             Send_Info_Notif(GetTextResource("NOTIF_INFO_DOWNLOAD_COMPLETE"));
             Unpack_To_Location_Custom(Current_Install_Folder + @"\NS_Downloaded_Mods\MOD.zip", Current_Install_Folder + @"\R2Northstar\mods");
             Loading_Panel.Visibility = Visibility.Hidden;
-            Status_Label.Content = "Currently Installing:";
+            Status_Label.Content = (GetTextResource("CURRENTLY_INSTALLING"));
+            Wait_Text.Text = GetTextResource("PLEASE_WAIT");
 
             Progress_Bar_Window.Value = 0;
             Current_File_Label.Content = "";
