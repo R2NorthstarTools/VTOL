@@ -2555,65 +2555,72 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
             try
             {
-                List<string> Inactive = Dsiabled_ListBox.Items.OfType<string>().ToList();
-                List<string> Active = Enabled_ListBox.Items.OfType<string>().ToList();
-
-                foreach (var val in Inactive)
+                if (Directory.Exists(Current_Install_Folder + @"\R2Northstar\mods\"))
                 {
-                    if (val != null)
+                    List<string> Inactive = Dsiabled_ListBox.Items.OfType<string>().ToList();
+                    List<string> Active = Enabled_ListBox.Items.OfType<string>().ToList();
+
+                    foreach (var val in Inactive)
                     {
-                      //Console.WriteLine(val);
-                        System.IO.DirectoryInfo rootDirs = new DirectoryInfo(Current_Install_Folder + @"\R2Northstar\mods\" + val);
-
-                        if (!IsDirectoryEmpty(rootDirs))
+                        if (val != null)
                         {
-                            if (Directory.Exists(Current_Install_Folder + @"\R2Northstar\mods\" + val + @"\Locked_Folder"))
+                            //Console.WriteLine(val);
+                            System.IO.DirectoryInfo rootDirs = new DirectoryInfo(Current_Install_Folder + @"\R2Northstar\mods\" + val);
+
+                            if (!IsDirectoryEmpty(rootDirs))
                             {
-                                MoveFiles(Current_Install_Folder + @"\R2Northstar\mods\" + val, Current_Install_Folder + @"\R2Northstar\mods\" + val + @"\Locked_Folder");
+                                if (Directory.Exists(Current_Install_Folder + @"\R2Northstar\mods\" + val + @"\Locked_Folder"))
+                                {
+                                    MoveFiles(Current_Install_Folder + @"\R2Northstar\mods\" + val, Current_Install_Folder + @"\R2Northstar\mods\" + val + @"\Locked_Folder");
 
 
-                            }
-                            else
-                            {
+                                }
+                                else
+                                {
 
-                                Directory.CreateDirectory(Current_Install_Folder + @"\R2Northstar\mods\" + val + @"\Locked_Folder");
-                                MoveFiles(Current_Install_Folder + @"\R2Northstar\mods\" + val, Current_Install_Folder + @"\R2Northstar\mods\" + val + @"\Locked_Folder");
-                                Apply_Btn.BorderBrush = Brushes.Transparent;
+                                    Directory.CreateDirectory(Current_Install_Folder + @"\R2Northstar\mods\" + val + @"\Locked_Folder");
+                                    MoveFiles(Current_Install_Folder + @"\R2Northstar\mods\" + val, Current_Install_Folder + @"\R2Northstar\mods\" + val + @"\Locked_Folder");
+                                    Apply_Btn.BorderBrush = Brushes.Transparent;
 
+                                }
                             }
                         }
+
                     }
-
-                }
-                foreach (var val in Active)
-                {
-                    if (val != null)
+                    foreach (var val in Active)
                     {
-                      //  Console.WriteLine(Current_Install_Folder + @"\R2Northstar\mods\" + val);
-                        System.IO.DirectoryInfo rootDirs = new DirectoryInfo(Current_Install_Folder + @"\R2Northstar\mods\" + val);
-
-                        if (!IsDirectoryEmpty(rootDirs))
+                        if (val != null)
                         {
-                            if (Directory.Exists(Current_Install_Folder + @"\R2Northstar\mods\" + val + @"\Locked_Folder"))
+                            //  Console.WriteLine(Current_Install_Folder + @"\R2Northstar\mods\" + val);
+                            System.IO.DirectoryInfo rootDirs = new DirectoryInfo(Current_Install_Folder + @"\R2Northstar\mods\" + val);
+
+                            if (!IsDirectoryEmpty(rootDirs))
                             {
+                                if (Directory.Exists(Current_Install_Folder + @"\R2Northstar\mods\" + val + @"\Locked_Folder"))
+                                {
 
-                                MoveFiles(Current_Install_Folder + @"\R2Northstar\mods\" + val + @"\Locked_Folder", Current_Install_Folder + @"\R2Northstar\mods\" + val);
-                                Directory.Delete(Current_Install_Folder + @"\R2Northstar\mods\" + val + @"\Locked_Folder", true);
-                                Apply_Btn.BorderBrush = Brushes.Transparent;
+                                    MoveFiles(Current_Install_Folder + @"\R2Northstar\mods\" + val + @"\Locked_Folder", Current_Install_Folder + @"\R2Northstar\mods\" + val);
+                                    Directory.Delete(Current_Install_Folder + @"\R2Northstar\mods\" + val + @"\Locked_Folder", true);
+                                    Apply_Btn.BorderBrush = Brushes.Transparent;
 
-                            }
-                            else
-                            {
+                                }
+                                else
+                                {
 
-                                //What happens if theres no folder???
+                                    //What happens if theres no folder???
 
+                                }
                             }
                         }
+
                     }
 
+                    Send_Success_Notif(GetTextResource("NOTIF_SUCCESS_MODS_MOVED_SUCCESS"));
                 }
-
-                Send_Success_Notif(GetTextResource("NOTIF_SUCCESS_MODS_MOVED_SUCCESS"));
+                else
+                {
+                    Send_Error_Notif(GetTextResource("NOTIF_ERROR_NS_BAD_INTEGRITY"));
+                }
             }
             catch (Exception ex)
             {
@@ -2845,7 +2852,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
 
 
-            //Auto_Install_And_verify();
+            Auto_Install_And_verify();
 
         }
 
