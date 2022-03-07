@@ -167,9 +167,9 @@ namespace VTOL
                 Console.WriteLine("* 3-letter Win32 API Name: {0}", ci.ThreeLetterWindowsLanguageName);
                 */
 
-             
-                //BG_panel_Main.BlurApply(40, new TimeSpan(0, 0, 1), TimeSpan.Zero);
 
+                //BG_panel_Main.BlurApply(40, new TimeSpan(0, 0, 1), TimeSpan.Zero);
+               
                 DataContext = this;
                 Animation_Start_Northstar = false;
                 Animation_Start_Vanilla = false;
@@ -193,7 +193,10 @@ namespace VTOL
                 Badge.Visibility = Visibility.Collapsed;
                 GC.Collect();
                 this.VTOL.Title = String.Format("VTOL {0}", version);
-               
+             //   if (File.Exists(@"C:\ProgramData\VTOL_DATA\VARS\First_Time.txt"))
+             //   {
+             //      (Read_From_TextFile_OneLine(@"C:\ProgramData\VTOL_DATA\VARS\First_Time.txt").Trim());
+              //  }
                 if (File.Exists(@"C:\ProgramData\VTOL_DATA\VARS\Language.txt"))
                 {
                   ChangeLanguageTo(Read_From_TextFile_OneLine(@"C:\ProgramData\VTOL_DATA\VARS\Language.txt").Trim());

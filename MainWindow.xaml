@@ -91,7 +91,6 @@
         </Grid.ColumnDefinitions>
 
 
-
         <hc:SimplePanel x:Name="Main_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Visible" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2" >
 
             <hc:SimplePanel x:Name="BG_panel_Main" Margin="38,50,37,238" Background="#FF101010"  hc:BorderElement.CornerRadius="15">
@@ -526,7 +525,7 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
 
 
         </hc:ComboBox>
-        <hc:SimplePanel x:Name="Loading_Panel" Grid.ColumnSpan="4" Margin="4,0,-4,-4" Grid.RowSpan="3" Visibility="Visible" >
+        <hc:SimplePanel x:Name="Loading_Panel" Grid.ColumnSpan="4" Margin="4,0,-4,-4" Grid.RowSpan="3" Visibility="Hidden" >
             <hc:SimplePanel Background="Black" Grid.ColumnSpan="4" Margin="4,0,-4,-4" Grid.RowSpan="3" Opacity="0.745" Visibility="Visible"/>
             <hc:SimpleStackPanel Margin="402,193,306,241" Background="Black">
                 <TextBlock x:Name="Wait_Text"  Text="Please Wait..." Margin="61,86,61,-6" Foreground="White" FontSize="24" TextAlignment="Center"/>
@@ -544,7 +543,13 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
             </hc:SimpleStackPanel>
         </hc:SimplePanel>
 
-
+       <!-- <hc:StepBar>
+            <hc:StepBarItem Content="Register" Margin="248,12,-307,355"/>
+            <hc:StepBarItem Content="BasicInfo"/>
+            <hc:StepBarItem Content="UploadFile"/>
+            <hc:StepBarItem Content="Complete"/>
+        </hc:StepBar>
+-->
 
     </Grid>
 
