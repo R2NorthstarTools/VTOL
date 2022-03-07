@@ -160,10 +160,10 @@
     <system:String x:Key="NOTIF_WARN_SUGGEST_REINSTALL_NS">Bitte Northstar neu installieren um dieses Problem zu beheben</system:String>
     <system:String x:Key="BADGE_NEW_UPDATE_AVAILABLE">Neue Version verfügbar</system:String>
     <system:String x:Key="TEST_THIS_HURTS_MY_BRAIN">Sch- eibenkleister! Mein Hirn!?</system:String> <!-- Original "AAAAAAAAAAAAAAAAAAAAAA" -->
-	<system:String x:Key="UPDATE_REPAIR_NS">Update/Reparatur Northstar</system:String>
-	<system:String x:Key="INSTALL_NS">Northstar installieren</system:String>
-		<system:String x:Key="OPEN_BROWSER">Aktuellen Mod-Ordner öffnen</system:String>
-		<system:String x:Key="PLEASE_WAIT">BITTE WARTEN...</system:String>
-		<system:String x:Key="CURRENTLY_INSTALLING">Derzeitige Installation:</system:String>
-		<system:String x:Key="CURRENTLY_DOWNLOADING">Derzeitiges Herunterladen:</system:String>
+    <system:String x:Key="UPDATE_REPAIR_NS">Update/Reparatur Northstar</system:String>
+    <system:String x:Key="INSTALL_NS">Northstar installieren</system:String>
+    <system:String x:Key="OPEN_BROWSER">Aktuellen Mod-Ordner öffnen</system:String>
+    <system:String x:Key="PLEASE_WAIT">BITTE WARTEN...</system:String>
+    <system:String x:Key="CURRENTLY_INSTALLING">Derzeitige Installation:</system:String>
+    <system:String x:Key="CURRENTLY_DOWNLOADING">Derzeitiges Herunterladen:</system:String>
 </ResourceDictionary>
