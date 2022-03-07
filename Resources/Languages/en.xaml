@@ -165,4 +165,5 @@
     <system:String x:Key="PLEASE_WAIT">PLEASE WAIT...</system:String>
     <system:String x:Key="CURRENTLY_INSTALLING">Currently Installing:</system:String>
     <system:String x:Key="CURRENTLY_DOWNLOADING">Currently Downloading:</system:String>
+    <system:String x:Key="DOWNLOADING_NORTHSTAR_LATEST_RELEAST_TEXT">+Northstar Latest Version</system:String>
 </ResourceDictionary>
