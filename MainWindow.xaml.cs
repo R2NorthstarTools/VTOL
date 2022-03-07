@@ -1546,18 +1546,18 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                     {
                      //   Current_File_Label.Content = Target_Zip;
 
-                        using (Zipi.ZipFile zip = Zipi.ZipFile.Read(Target_Zip))
-                        {
+                   //     using (Zipi.ZipFile zip = Zipi.ZipFile.Read(Target_Zip))
+                    //    {
                             // initial setup before extraction
-                            zip.ExtractProgress += zipProgress;
+                    //        zip.ExtractProgress += zipProgress;
                             // actual extraction process
-                            zip.ExtractAll(Destination, Zipi.ExtractExistingFileAction.OverwriteSilently);
+                      //      zip.ExtractAll(Destination, Zipi.ExtractExistingFileAction.OverwriteSilently);
                             // since the boolean below is in the same "thread" the extraction must 
                             // complete for the boolean to be set to true
-                        }
+                     //   }
                       //  Loading_Panel.Visibility = Visibility.Hidden;
 
-                        // ZipFile.ExtractToDirectory(Target_Zip,Destination);
+                         ZipFile.ExtractToDirectory(Target_Zip,Destination);
                         //dialog.Close();
                         Send_Success_Notif("\nUnpacking Complete!\n");
                         if (Clean_Thunderstore == true)
