@@ -710,26 +710,26 @@ namespace VTOL
             Paragraph paragraph = new Paragraph();
 
 
-            string Text = @"-This Application Installs The Northstar Launcher Created by BobTheBob and, installs the countless Mods Authored by the many Titanfall2 Modder’s.
+            string Text = @"-This Application Installs The Northstar Launcher Created by BobTheBob and can install the countless Mods Authored by the many Titanfall2 Modders.
 Current Features:
 *Updating Northstar Installations
-*Installation of the Northstar Launcher By pulling the latest Json of the Northstar repo to access the download.
+*Installation of the Northstar Launcher by pulling the latest Json of the Northstar repo to access the download.
 *Verifying a Titanfall 2 Northstar install
 *Viewing Mods in the Mod List
-*Toggling Mods On and off in the Northstar Client
+*Toggling Mods On and Off in the Northstar Client
 *Downloading Mods from a Remote repo
 *Downloading Mods from a Local Zip Download
-*The ability to launch the Northstar Exe from the base.
-*Install Skins From a Zip
-*Launch The Dedicated Northsatar Server Client
-*Browse and Install Mods From the Thunderstore Mod Repo
-*Configure a Dedicated Server From Start To Finish in the Application.
+*Launching the Northstar Exe from the base.
+*Installing Skins From a Zip
+*Launching the Dedicated Northstar Server
+*Browsing and Installing Mods from the Thunderstore Mod Repo
+*Configuring a Dedicated Server From Start To Finish in the Application.
 
--Please Do suggest any new features and/or Improvements Through the Git issue tracker, or by sending me a personal Message.
-Thank you again to all you Pilots, Hope we Wreak havoc on the Frontier for years to come.
-More Instructions at this link - https://github.com/BigSpice/VTOL/blob/master/README.md
+-Please do suggest any new features and/or improvements through the Git issue tracker, or by sending me a personal message.
+Thank you again to all you Pilots, Hope we wreak havoc on the Frontier for years to come.
+More Instructions at this link: https://github.com/BigSpice/VTOL/blob/master/README.md
 
-Gif image used on Northstar is from @Smurfson.
+Gif image used in Northstar is by @Smurfson.
 
 Big Thanks to - 
 @Ralley#3354
