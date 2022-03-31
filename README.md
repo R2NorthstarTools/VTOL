@@ -11,7 +11,7 @@ Users on the latest release:
 ## This is a launcher for the [Titanfall 2 Northstar Client](https://northstar.tf)
 
 
-![VTOL_Showcase_Trim](https://user-images.githubusercontent.com/23240514/152448826-0a92b6d8-3cce-4107-911c-0a1480ad8a8e.gif)<br /><br /><br />
+![VTOL_Showcase_Trim](https://user-images.githubusercontent.com/23240514/157264628-43601f3e-1066-42ce-8564-e2554bd5799f.gif)<br /><br /><br />
 
 ## Features:
 
