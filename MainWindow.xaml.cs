@@ -524,6 +524,7 @@ namespace VTOL
 
         private void Test_List_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+           
             /*
             if (Test_List.SelectedItem != null)
             {
@@ -533,7 +534,35 @@ namespace VTOL
             }
             */
         }
+        public T FindDescendant<T>(DependencyObject obj) where T : DependencyObject
+    {
+        // Check if this object is the specified type
+        if (obj is T)
+            return obj as T;
 
+        // Check for children
+        int childrenCount = VisualTreeHelper.GetChildrenCount(obj);
+        if (childrenCount < 1)
+            return null;
+
+        // First check all the children
+        for (int i = 0; i < childrenCount; i++)
+        {
+            DependencyObject child = VisualTreeHelper.GetChild(obj, i);
+            if (child is T)
+                return child as T;
+        }
+
+        // Then check the childrens children
+        for (int i = 0; i < childrenCount; i++)
+        {
+            DependencyObject child = FindDescendant<T>(VisualTreeHelper.GetChild(obj, i));
+            if (child != null && child is T)
+                return child as T;
+        }
+
+        return null;
+    }
 
         class Button
         {
@@ -1523,6 +1552,8 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             //   else if (e.EventType == ZipProgressEventType.Saving_Completed)
             // this.progressbar1.Value = 100;
         }
+       
+        
         private void Unpack_To_Location_Custom(string Target_Zip, string Destination, bool Clean_Thunderstore = false, bool clean_normal = false)
         {
             //ToDo Check if url or zip location

@@ -197,7 +197,7 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
 
 
 
-        <hc:SimplePanel x:Name="Mod_Browse_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
+        <hc:SimplePanel x:Name="Mod_Browse_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Visible" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
             <hc:SimplePanel Margin="10,10,10,10" Background="#FF101010">
                 <ListBox SelectedItem="{Binding Selected_Item}" x:Name="Test_List" Margin="44,50,44,0" SelectionChanged="Test_List_SelectionChanged" RequestBringIntoView="Test_List_RequestBringIntoView" Height="475" VerticalAlignment="Top" ScrollViewer.CanContentScroll="False" Visibility="Visible">
 
@@ -525,6 +525,8 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
 
 
         </hc:ComboBox>
+        <Label Content="Language"  Foreground="White" Margin="0,4,0,0" Grid.Row="2" VerticalAlignment="Top" Height="22" Width="66" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0,0,0,0"/>
+
         <hc:SimplePanel x:Name="Loading_Panel" Grid.ColumnSpan="4" Margin="4,0,-4,-4" Grid.RowSpan="3" Visibility="Hidden" >
             <hc:SimplePanel Background="Black" Grid.ColumnSpan="4" Margin="4,0,-4,-4" Grid.RowSpan="3" Opacity="0.745" Visibility="Visible"/>
             <hc:SimpleStackPanel Margin="402,193,306,241" Background="Black">
@@ -543,7 +545,7 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
             </hc:SimpleStackPanel>
         </hc:SimplePanel>
 
-       <!-- <hc:StepBar>
+        <!-- <hc:StepBar>
             <hc:StepBarItem Content="Register" Margin="248,12,-307,355"/>
             <hc:StepBarItem Content="BasicInfo"/>
             <hc:StepBarItem Content="UploadFile"/>
