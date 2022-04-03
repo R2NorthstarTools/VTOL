@@ -169,7 +169,7 @@ namespace VTOL
         public int pid;
         string Skin_Path = "";
         string Skin_Temp_Loc = "";
-
+        bool Finished_Init = false;
         public Thunderstore_V1 Thunderstore_;
         Updater Update;
         public bool Animation_Start_Northstar { get; set; }
@@ -186,6 +186,7 @@ namespace VTOL
 
             try
             {
+
                 /*Ref Code To see The ISO name for Lang
                 Console.WriteLine("Default Language Info:");
                 Console.WriteLine("* Name: {0}", ci.Name);
@@ -198,7 +199,7 @@ namespace VTOL
 
 
                 //BG_panel_Main.BlurApply(40, new TimeSpan(0, 0, 1), TimeSpan.Zero);
-               
+
                 DataContext = this;
                 Animation_Start_Northstar = false;
                 Animation_Start_Vanilla = false;
@@ -221,7 +222,7 @@ namespace VTOL
                 Install_Skin_Bttn.IsEnabled = false;
                 Badge.Visibility = Visibility.Collapsed;
                 Server_Indicator.Fill = Brushes.Red;
-
+                Sections_Tabs.SelectedItem = 0;
                 GC.Collect();
                 this.VTOL.Title = String.Format("VTOL {0}", version);
              //   if (File.Exists(@"C:\ProgramData\VTOL_DATA\VARS\First_Time.txt"))
@@ -547,53 +548,55 @@ namespace VTOL
             Server_Indicator.Fill = Brushes.LimeGreen;
             return pingable;
         }
-        async  Task  Thunderstore_Parse( )
-
-
+        async  Task  Thunderstore_Parse(bool hard_refresh=true,string Filter_Type = "None")
         {
 
             try
             {
+                GC.Collect();
+
                 this.Dispatcher.Invoke(() =>
                 {
                     itemsList.Clear();
-                Test_List.ItemsSource = null;
-                Test_List.Items.Clear();
-                /*
-                Uri uri = new Uri("https://valheim.thunderstore.io/package/");
-                string json;
+                   // Test_List.ItemsSource = null;
+                   // Test_List.Items.Clear();
+                    if (hard_refresh == true)
+                    {
+                        Update = new Updater("https://gtfo.thunderstore.io/api/v1/package/");
+                        Update.Download_Cutom_JSON(); 
+                        GC.Collect();
 
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
-                request.UserAgent = "GithubUpdater";
-                request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
-                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
-                using (Stream stream = response.GetResponseStream())
-                using (StreamReader reader = new StreamReader(stream))
-                {
-                    json =  reader.ReadToEnd();
-                }
-                Thunderstore_ = Thunderstore.FromJson(json);
-                Send_Info_Notif(Thunderstore_.results.ToString());
-              */
+                        Test_List.ItemsSource = LoadListViewData(Filter_Type);
+                        Test_List.Items.Refresh();
+                        Finished_Init = true;
+                    }
+                    else
+                    {
+                        GC.Collect();
 
+                        Test_List.ItemsSource = LoadListViewData(Filter_Type);
+                        Test_List.Items.Refresh();
+                        GC.Collect();
 
+                    }
+                    // LoadListViewData();
 
+                    //Test_List.ItemsSource = null;
+                    //Test_List.ItemsSource = Update.Thunderstore.results;
 
-                Update = new Updater("https://gtfo.thunderstore.io/api/v1/package/");
-                Update.Download_Cutom_JSON();
+                    Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow;
 
-                // LoadListViewData();
-
-                //Test_List.ItemsSource = null;
-                //Test_List.ItemsSource = Update.Thunderstore.results;
-                Test_List.ItemsSource = LoadListViewData();
                 });
+
+
             }
             catch (Exception ex)
             {
                 Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_ERROR_OCCURRED"));
                 Write_To_Log(ex.ToString());
+                Console.WriteLine(ex.ToString());
             }
+
         }
 
         private void Test_List_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -704,106 +707,167 @@ namespace VTOL
         }
 
 
-        private ArrayList LoadListViewData()
+        private ArrayList LoadListViewData(string Filter_Type="None")
         {
-            /*
-             * 
-             * 
-             * 
-             * 
-             * 
-             * 
-             * 
-             * 
-             * 
-             * 
-             * ADDDDDDDDDDD DOWNLOAD PROGRES!!!!!!!!!!!!!!
-             * 
-             * 
-             * 
-             * 
-             * 
-             * 
-             * 
-             * 
-             * 
-             */
-            // var myValue = ((Button)sender).Tag;
-            string ICON = "";
-            List<string> lst = new List<string> { };
-            List<string> Icons = new List<string> { };
-            List<string> Description = new List<string> { };
-            List<string> File_Size_ = new List<string> { };
-            List<int> Downloads = new List<int> { };
-
-            string Tags = "";
-            string downloads = "";
-            string download_url = "";
-            string Descrtiption = "";
-            string FileSize = "";
-
-            Icons.Clear();
-            Description.Clear();
-            lst.Clear();
-            File_Size_.Clear();
-
-            foreach (var item in Update.Thunderstore)
+            try
             {
 
-                int rating = item.RatingScore;
+                // var myValue = ((Button)sender).Tag;
+                string ICON = "";
+               // List<string> lst = new List<string> { };
+              //  List<string> Icons = new List<string> { };
+               // List<string> Description = new List<string> { };
+               // List<string> File_Size_ = new List<string> { };
+                List<int> Downloads = new List<int> { };
 
-                //Tag = item.Categories;
-                Tags = String.Join(" , ", item.Categories);
+                string Tags = "";
+                string downloads = "";
+                string download_url = "";
+                string Descrtiption = "";
+                string FileSize = "";
+               
+                //Icons.Clear();
+               // Description.Clear();
+               // lst.Clear();
+              //  File_Size_.Clear();
 
-                foreach (var items in item.versions)
+                foreach (var item in Update.Thunderstore)
                 {
 
-                    GC.Collect();
+                    int rating = item.RatingScore;
 
-                    lst.Add(items.DownloadUrl);
-                    Icons.Add(items.Icon);
-                    Description.Add(items.Description);
-                    File_Size_.Add(items.FileSize.ToString());
-                    Downloads.Add(Convert.ToInt32(items.Downloads));
+                    //Tag = item.Categories;
+                    Tags = String.Join(" , ", item.Categories);
 
-                    //   ICON = items.Icon;
 
+                    List<versions> versions = item.versions;
+                    if (Filter_Type == "None")
+                    {
+                        foreach (var items in item.versions)
+
+
+                        {
+                            Downloads.Add(Convert.ToInt32(items.Downloads));
+                        }
+                        downloads = (Downloads.Sum()).ToString();
+
+                        GC.Collect();
+
+
+                        download_url = versions.Last().DownloadUrl;
+                        ICON =  versions.Last().Icon;
+                        FileSize = versions.Last().FileSize.ToString();
+                        Descrtiption =  versions.Last().Description;
+                        Downloads.Clear();
+                        GC.Collect();
+
+
+                        if (int.TryParse(FileSize, out int value))
+                        {
+                            FileSize = Convert_To_Size(value);
+                        }
+                       
+                        itemsList.Add(new Button { Name = item.Name, Icon = ICON, date_created = item.DateCreated.ToString(), description = Descrtiption, owner=item.Owner, Rating = rating, download_url = download_url +"|"+item.FullName.ToString(), Webpage  = item.PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads });
+                        Mirror_Item_List.Add(item.Name);
+
+                    }
+                    else if (Tags.Contains(Filter_Type))
+                    {
+
+                        foreach (var items in item.versions)
+
+
+                        {
+                            Downloads.Add(Convert.ToInt32(items.Downloads));
+
+                            /*
+                            if (Tags.Contains("Skins"))
+                            {
+                                Send_Fatal_Notif(items.DownloadUrl + "\n" +items.Description+"\n"+items.FileSize.ToString()+"\n"+Convert.ToInt32(items.Downloads));
+                                lst.Add(items.DownloadUrl);
+                                Icons.Add(items.Icon);
+                                Description.Add(items.Description);
+                                File_Size_.Add(items.FileSize.ToString());
+                                Downloads.Add(Convert.ToInt32(items.Downloads));
+                            }
+
+
+                            GC.Collect();
+
+                            if (Tags.Contains("Skins"))
+                            {
+
+                                lst.Add(items.DownloadUrl);
+                                 Icons.Add(items.Icon);
+                                 Description.Add(items.Description);
+                                  File_Size_.Add(items.FileSize.ToString());
+                                   Downloads.Add(Convert.ToInt32(items.Downloads));
+
+
+                            }
+
+                            lst.Add(items.DownloadUrl);
+                              Icons.Add(items.Icon);
+                             Description.Add(items.Description);
+                              File_Size_.Add(items.FileSize.ToString());
+                              Downloads.Add(Convert.ToInt32(items.Downloads));
+                             */
+                            //   ICON = items.Icon;
+
+                        }
+
+                        //  lst.Sort();
+                        //  Icons.Sort();
+                        //   File_Size_.Sort();
+                        //  Description.Sort();
+                        GC.Collect();
+                        /*
+                        download_url = (lst.Last());
+                        ICON = (Icons.Last());
+                        FileSize = (File_Size_.Last());
+                        Descrtiption = (Description.Last());
+                        */
+                        downloads = (Downloads.Sum()).ToString();
+
+                        GC.Collect();
+
+
+                        download_url = versions.Last().DownloadUrl;
+                        ICON =  versions.Last().Icon;
+                        FileSize = versions.Last().FileSize.ToString();
+                        Descrtiption =  versions.Last().Description;
+
+                        //   Description.Clear();
+                        //  File_Size_.Clear();
+                        //   lst.Clear();
+                        //   Icons.Clear();
+                        Downloads.Clear();
+                        GC.Collect();
+
+
+                        if (int.TryParse(FileSize, out int value))
+                        {
+                            FileSize = Convert_To_Size(value);
+                        }
+                        //   foreach (object o in lst)
+                        //     {
+                        //       MessageBox.Show(o.ToString());
+                        //  }
+
+                        //itemsList.Add(new Button {  Name = item.full_name.ToString() , Icon = item.latest.icon,date_created = item.date_created.ToString(), description = item.latest.description, owner=item.owner, Rating = rating});
+                        itemsList.Add(new Button { Name = item.Name, Icon = ICON, date_created = item.DateCreated.ToString(), description = Descrtiption, owner=item.Owner, Rating = rating, download_url = download_url +"|"+item.FullName.ToString(), Webpage  = item.PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads });
+                        Mirror_Item_List.Add(item.Name);
+                    }
+                    // itemsList.Add(item.full_name.ToString());
                 }
-                lst.Sort();
-                Icons.Sort();
-                File_Size_.Sort();
-                Description.Sort();
-
-                download_url = (lst.Last());
-                ICON = (Icons.Last());
-                FileSize = (File_Size_.Last());
-                Descrtiption = (Description.Last());
-                downloads = (Downloads.Sum()).ToString();
-
-                Description.Clear();
-                File_Size_.Clear();
-                lst.Clear();
-                Icons.Clear();
-                Downloads.Clear();
-
-
-                if (int.TryParse(FileSize, out int value))
-                {
-                    FileSize = Convert_To_Size(value);
-                }
-                //   foreach (object o in lst)
-                //     {
-                //       MessageBox.Show(o.ToString());
-                //  }
-
-                //itemsList.Add(new Button {  Name = item.full_name.ToString() , Icon = item.latest.icon,date_created = item.date_created.ToString(), description = item.latest.description, owner=item.owner, Rating = rating});
-                itemsList.Add(new Button { Name = item.Name, Icon = ICON, date_created = item.DateCreated.ToString(), description = Descrtiption, owner=item.Owner, Rating = rating, download_url = download_url +"|"+item.FullName.ToString(), Webpage  = item.PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads });
-                Mirror_Item_List.Add(item.Name);
-
-                // itemsList.Add(item.full_name.ToString());
+            }
+            catch (Exception ex)
+            {
+                Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_ERROR_OCCURRED"));
+                Write_To_Log(ex.ToString());
+                Console.WriteLine(ex.ToString());
             }
 
-  
             return itemsList;
 
         }
@@ -3140,7 +3204,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                     if (ZipHasFile(".dds", Skin_Temp_Loc))
                     {
                         Send_Success_Notif(GetTextResource("NOTIF_SUCCESS_COMPATIBLE_SKIN_FOUND"));
-                        Compat_Indicator.Fill = Brushes.Green;
+                        Compat_Indicator.Fill = Brushes.LimeGreen;
                         Install_Skin_Bttn.IsEnabled = true;
                         //   var directory = new DirectoryInfo(root);
                         // var myFile = (from f in directory.GetFiles()orderby f.LastWriteTime descending select f).First();
@@ -3824,32 +3888,45 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
             try
             {
-                Thread thread = new Thread(delegate ()
+                Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
+
+                if (Sections_Tabs.SelectedIndex == 0) {
+                    Thread thread = new Thread(delegate ()
+                    {
+                        Thunderstore_Parse(true);
+                    });
+                    thread.IsBackground = true;
+                    thread.Start();
+                }
+                    else
                 {
-                    Thunderstore_Parse();
-                });
-                thread.IsBackground = true;
-                thread.Start();
+                   
+                       Check_Tabs(true);
+                   
+                    }
+               
+              
+
             }
             catch (Exception ex)
             {
                 Send_Fatal_Notif("Fatal error\n");
                 Write_To_Log(ex.Message);
             }
-            
-              
-                /*
-                Dispatcher.BeginInvoke(new Action(() =>
-                {
-                    Thunderstore_Parse();
-                }), DispatcherPriority.Background);
-             
-               */
+
+
+            /*
+            Dispatcher.BeginInvoke(new Action(() =>
+            {
+                Thunderstore_Parse();
+            }), DispatcherPriority.Background);
+
+           */
 
 
 
-            
-           
+
+
 
 
         }
@@ -5272,7 +5349,7 @@ return Arg_List;
                             if (ZipHasFile(".dds", Skin_Temp_Loc))
                             {
                                 Send_Success_Notif(GetTextResource("NOTIF_SUCCESS_COMPATIBLE_SKIN_FOUND"));
-                                Compat_Indicator.Fill = Brushes.Green;
+                                Compat_Indicator.Fill = Brushes.LimeGreen;
                                 Install_Skin_Bttn.IsEnabled = true;
                                 //   var directory = new DirectoryInfo(root);
                                 // var myFile = (from f in directory.GetFiles()orderby f.LastWriteTime descending select f).First();
@@ -6067,6 +6144,56 @@ return Arg_List;
         {
             Language_Selection.BorderBrush = Brushes.Black;
 
+        }
+        async void Check_Tabs(bool hard_reset = false)
+        {
+            Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
+
+            //   Send_Success_Notif(Convert.ToString((Sections_Tabs.SelectedItem as TabItem).Header));
+            if (Finished_Init == false)
+            {
+
+                Sections_Tabs.SelectedItem = 0;
+            }
+            else
+            {
+                switch (Convert.ToString((Sections_Tabs.SelectedItem as TabItem).Header))
+                {
+                    case "All":
+                        Thunderstore_Parse(hard_reset, "None");
+
+                        break;
+                    case "Skins":
+                        Thunderstore_Parse(hard_reset, "Skins");
+
+                        break;
+                    case "Menu Mods":
+                        Thunderstore_Parse(hard_reset, "Custom Menus");
+
+                        break;
+                    case "Server Mods":
+                        Thunderstore_Parse(hard_reset, "Server-side");
+
+                        break;
+                    case "Client Mods":
+                        Thunderstore_Parse(hard_reset, "Client-side");
+
+                        break;
+                    default:
+                        Thunderstore_Parse(hard_reset, "None");
+
+                        break;
+
+
+                }
+            }
+            Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow;
+
+        }
+
+        private void Sections_Tabs_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Check_Tabs(false);
         }
     }
     }
