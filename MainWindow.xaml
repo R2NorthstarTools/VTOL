@@ -93,7 +93,8 @@
 
         <hc:SimplePanel x:Name="Main_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Visible" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2" >
 
-            <hc:SimplePanel x:Name="BG_panel_Main" Margin="38,50,37,238" Background="#FF101010"  hc:BorderElement.CornerRadius="15">
+            <hc:SimplePanel x:Name="BG_panel_Main" Margin="38,50,37,238" Background="#FF101010"  hc:BorderElement.CornerRadius="15" Height="345">
+                <Ellipse x:Name="Server_Indicator" Grid.Column="1" Margin="0,18,20,0" Fill="White" Height="24" VerticalAlignment="Top" HorizontalAlignment="Right" Width="25"/>
 
                 <hc:Badge x:Name="Badge" Value="2" Text="New" Margin="60,227,60,9" Background="#FFFF0C0C" BorderBrush="White"  />
                 <Button x:Name="Install_NS"  Height="50" Margin="60,242,60,0" VerticalAlignment="Top" BorderBrush="White" Background="#FF2C4C4C" Click="Install_NS_Click" HorizontalAlignment="Stretch"/>
@@ -115,6 +116,7 @@
                 </Button>
                 <hc:TextBox x:Name="Install_NS_EXE_Textbox" Height="32" TextWrapping="Wrap" VerticalAlignment="Top" Margin="60,171,0,0" Cursor="IBeam" UndoLimit="101" IsReadOnly="True" Background="White" BorderBrush="{x:Null}" HorizontalAlignment="Left" Width="710" SelectionBrush="{x:Null}"/>
                 <hc:TextBox x:Name="Titanfall2_Directory_TextBox" HorizontalAlignment="Left" Height="32" TextWrapping="Wrap" VerticalAlignment="Top" Width="710" Margin="60,72,0,0" Cursor="IBeam" IsReadOnly="True" Background="White" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" Foreground="Black"/>
+                <Label Content="+Northstar Status" Height="16" HorizontalAlignment="Right" Margin="0,22,48,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="11" Padding="0,0,0,0" Width="91"/>
             </hc:SimplePanel>
 
 
@@ -127,7 +129,7 @@
                     <BitmapImage x:Name="Bitmap1" UriSource="\Resources\TF2_Vanilla_promo.gif"/>
                 </hc:GifImage.Source>
             </hc:GifImage>
-            <hc:GifImage x:Name="Gif_Image_Northstar" Height="203" VerticalAlignment="Top" Margin="38,409,37,0" Stretch="Fill" Visibility="Hidden" HorizontalAlignment="Right" Width="935" Panel.ZIndex="3" gif:AnimationBehavior.AutoStart="False" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+            <hc:GifImage x:Name="Gif_Image_Northstar" Height="203" VerticalAlignment="Top" Margin="38,409,37,0" Stretch="Fill" Visibility="Hidden" HorizontalAlignment="Right" Width="930" Panel.ZIndex="3" gif:AnimationBehavior.AutoStart="False" ScrollViewer.VerticalScrollBarVisibility="Disabled">
                 <hc:GifImage.Source>
                     <BitmapImage x:Name="Bitmap2" UriSource="\Resources\NorthStar_Smurfson.gif"/>
                 </hc:GifImage.Source>
@@ -197,19 +199,80 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
 
 
 
-        <hc:SimplePanel x:Name="Mod_Browse_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Visible" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
+        <hc:SimplePanel x:Name="Mod_Browse_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
             <hc:SimplePanel Margin="10,10,10,10" Background="#FF101010">
-                <ListBox SelectedItem="{Binding Selected_Item}" x:Name="Test_List" Margin="44,50,44,0" SelectionChanged="Test_List_SelectionChanged" RequestBringIntoView="Test_List_RequestBringIntoView" Height="475" VerticalAlignment="Top" ScrollViewer.CanContentScroll="False" Visibility="Visible">
+                <TabControl Margin="36,55,36,48" Style="{StaticResource TabControlInLine}" BorderBrush="{x:Null}" Foreground="{x:Null}" Background="{x:Null}" Padding="0,0,0,0" Width="900">
+                    <TabItem Header="All">
+                        <TabItem.BorderBrush>
+                            <LinearGradientBrush EndPoint="1,0">
+                                <GradientStop Color="#FF326CF3"/>
+                                <GradientStop Color="#FF02FFB4" Offset="1"/>
+                            </LinearGradientBrush>
+                        </TabItem.BorderBrush>
+                    </TabItem>
+                    <TabItem Header="Skins">
+                        <TabItem.BorderBrush>
+                            <LinearGradientBrush EndPoint="1,0">
+                                <GradientStop Color="#FF326CF3"/>
+                                <GradientStop Color="#FF02FFB4" Offset="1"/>
+                            </LinearGradientBrush>
+                        </TabItem.BorderBrush>
+                    </TabItem>
+                    <TabItem Header="Client Mods">
+                        <TabItem.BorderBrush>
+                            <LinearGradientBrush EndPoint="1,0">
+                                <GradientStop Color="#FF326CF3"/>
+                                <GradientStop Color="#FF02FFB4" Offset="1"/>
+                            </LinearGradientBrush>
+                        </TabItem.BorderBrush>
+                    </TabItem>
+                    <TabItem Header="Server Mods">
+                        <TabItem.BorderBrush>
+                            <LinearGradientBrush EndPoint="0,1" StartPoint="1,0">
+                                <GradientStop Color="#FF326CF3"/>
+                                <GradientStop Color="#FF02FFB4" Offset="1"/>
+                            </LinearGradientBrush>
+                        </TabItem.BorderBrush>
+                    </TabItem>
+                    <TabItem x:Name="Menu_Tab" Header="Menu Mods" >
+                        <TabItem.BorderBrush>
+                            <LinearGradientBrush EndPoint="0,1" SpreadMethod="Pad" StartPoint="1,0">
+                                <GradientStop Color="#FF326CF3"/>
+                                <GradientStop Color="#FF02FFB4" Offset="1"/>
+                            </LinearGradientBrush>
+                        </TabItem.BorderBrush>
+                    </TabItem>
+                </TabControl>
+                <ListBox SelectedItem="{Binding Selected_Item}" x:Name="Test_List" Margin="0,87,0,49" SelectionChanged="Test_List_SelectionChanged" RequestBringIntoView="Test_List_RequestBringIntoView" ScrollViewer.CanContentScroll="False" Visibility="Visible" Width="902" BorderBrush="{x:Null}" Padding="1,1,1,1" HorizontalAlignment="Center">
+                    <ListBox.Resources>
+                        <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="Transparent" />
 
+                    </ListBox.Resources>
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
+
+                            <Setter Property="IsSelected" Value="{Binding Content.IsSelected, Mode=TwoWay, RelativeSource={RelativeSource Self}}"/>
+                            <Setter Property="IsTabStop" Value="False" />
+
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ListBoxItem">
+                                        <ContentPresenter/>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+
+
                             <Style.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
                                     <Setter Property="IsSelected" Value="True"/>
                                 </Trigger>
                                 <Trigger Property="IsMouseOver" Value="False">
                                     <Setter Property="IsSelected" Value="False"/>
+                                    <Setter Property="Foreground" Value="Transparent"/>
+
                                 </Trigger>
+
                             </Style.Triggers>
                         </Style>
                     </ListBox.ItemContainerStyle>
@@ -256,10 +319,11 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
 
 
                 <Label Content="{DynamicResource UI_TITLE_THUNDERSTORE}" Height="44" Width="190" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Margin="0,2,0,0"/>
+                <Button x:Name="Load" Content="{DynamicResource UI_BUTTON_THUNDERSTORE_REFRESH}" Width="642" Click="Load_Click" Margin="0,0,0,9" VerticalAlignment="Bottom" Background="#FF2C4C4C" BorderBrush="{x:Null}" Padding="0,0,0,0" Height="30"/>
+
             </hc:SimplePanel>
 
-            <Button x:Name="Load" Content="{DynamicResource UI_BUTTON_THUNDERSTORE_REFRESH}" Height="39" Width="580" Click="Load_Click" Margin="0,551,0,0" VerticalAlignment="Top" Background="#FF2C4C4C" BorderBrush="{x:Null}"/>
-            <hc:CircleProgressBar  x:Name="Mod_Progress_BAR" Margin="0,16,16,0"  Foreground="White" Width="43" BorderBrush="{x:Null}" HorizontalAlignment="Right" Height="43" VerticalAlignment="Top" Background="#FF2C4C4C" Value="-4" ArcThickness="2" ShowText="False" />
+            <hc:CircleProgressBar  x:Name="Mod_Progress_BAR" Margin="0,12,14,0"  Foreground="White" Width="43" BorderBrush="{x:Null}" HorizontalAlignment="Right" Height="43" VerticalAlignment="Top" Background="#FF2C4C4C" Value="-4" ArcThickness="2" ShowText="False" />
 
         </hc:SimplePanel>
 
@@ -545,6 +609,17 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
             </hc:SimpleStackPanel>
         </hc:SimplePanel>
 
+
+        <hc:SimplePanel x:Name="Exploit_Warning" Grid.ColumnSpan="4" Margin="4,0,-4,-4" Grid.RowSpan="3" Visibility="Hidden" >
+            <hc:SimplePanel Background="Black" Grid.ColumnSpan="4" Margin="4,0,-4,-4" Grid.RowSpan="3" Opacity="0.745" Visibility="Visible"/>
+            <hc:SimpleStackPanel Margin="153,116,97,192" Width="950" Height="430">
+                <hc:SimpleStackPanel.Background>
+                    <ImageBrush ImageSource="/Resources/BG_Test.png"/>
+                </hc:SimpleStackPanel.Background>
+                <CheckBox Content="Do Not Show Again" HorizontalAlignment="Right" Height="40" Width="150" Margin="0,380,790,0" VerticalAlignment="Top"/>
+
+            </hc:SimpleStackPanel>
+        </hc:SimplePanel>
         <!-- <hc:StepBar>
             <hc:StepBarItem Content="Register" Margin="248,12,-307,355"/>
             <hc:StepBarItem Content="BasicInfo"/>

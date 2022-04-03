@@ -7,8 +7,8 @@
     <UseWPF>true</UseWPF>
     <ApplicationIcon>Resources\32x32.ico</ApplicationIcon>
     <PackageIcon>Northstar-512.png</PackageIcon>
-    <AssemblyVersion>1.2.1</AssemblyVersion>
-    <FileVersion>1.2.1</FileVersion>
+    <AssemblyVersion>1.2.2</AssemblyVersion>
+    <FileVersion>1.2.2</FileVersion>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <PackageTags>Mod_Manager;Installer;VTOL</PackageTags>
     <DebugType>embedded</DebugType>
@@ -35,6 +35,8 @@
     <None Remove="Resources\BG.jpg" />
     <None Remove="Resources\BG_Drag_Drop.gif" />
     <None Remove="Resources\BG_Panels.png" />
+    <None Remove="Resources\BG_SMALL.png" />
+    <None Remove="Resources\BG_Test.png" />
     <None Remove="Resources\Disable_Img.png" />
     <None Remove="Resources\download_icon.png" />
     <None Remove="Resources\Enable_Image.png" />
@@ -237,9 +239,12 @@
     <Resource Include="Resources\Northstar512-maskable.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\NorthStar_Smurfson.gif">
+    <Content Include="Resources\BG_SMALL.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\NorthStar_Smurfson.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    </Content>
     <Resource Include="Resources\NO_TEXTURE.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -264,9 +269,9 @@
     <Resource Include="Resources\Test_Args_1.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\TF2_Vanilla_promo.gif">
+    <Content Include="Resources\TF2_Vanilla_promo.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    </Content>
     <Resource Include="Resources\Update_ICON.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -282,6 +287,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="VTOL_Hover.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\BG_Test.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>

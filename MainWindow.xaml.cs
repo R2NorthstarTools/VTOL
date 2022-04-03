@@ -35,6 +35,8 @@ using System.Runtime.InteropServices;
 using System.Globalization;
 using System.Windows.Threading;
 using Zipi = Ionic.Zip;
+using System.Net.NetworkInformation;
+
 //****TODO*****//
 
 //Migrate Release Parse to the New Updater Sys
@@ -45,7 +47,33 @@ using Zipi = Ionic.Zip;
 //**************//
 namespace VTOL
 {
-
+    public enum IPStatus
+    {
+        Unknown = -1, // 0xFFFFFFFF
+        Success = 0,
+        DestinationNetworkUnreachable = 11002, // 0x00002AFA
+        DestinationHostUnreachable = 11003, // 0x00002AFB
+        DestinationProhibited = 11004, // 0x00002AFC
+        DestinationProtocolUnreachable = 11004, // 0x00002AFC
+        DestinationPortUnreachable = 11005, // 0x00002AFD
+        NoResources = 11006, // 0x00002AFE
+        BadOption = 11007, // 0x00002AFF
+        HardwareError = 11008, // 0x00002B00
+        PacketTooBig = 11009, // 0x00002B01
+        TimedOut = 11010, // 0x00002B02
+        BadRoute = 11012, // 0x00002B04
+        TtlExpired = 11013, // 0x00002B05
+        TtlReassemblyTimeExceeded = 11014, // 0x00002B06
+        ParameterProblem = 11015, // 0x00002B07
+        SourceQuench = 11016, // 0x00002B08
+        BadDestination = 11018, // 0x00002B0A
+        DestinationUnreachable = 11040, // 0x00002B20
+        TimeExceeded = 11041, // 0x00002B21
+        BadHeader = 11042, // 0x00002B22
+        UnrecognizedNextHeader = 11043, // 0x00002B23
+        IcmpError = 11044, // 0x00002B24
+        DestinationScopeMismatch = 11045, // 0x00002B25
+    }
     public static class ExtensionMethods
     {
         private static readonly Action EmptyDelegate = delegate { };
@@ -61,6 +89,7 @@ namespace VTOL
 
     public class Server_Template_Selector : DataTemplateSelector
     {
+
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
             FrameworkElement element = container as FrameworkElement;
@@ -104,7 +133,7 @@ namespace VTOL
    
     public partial class MainWindow : Window
     {
-       
+
         BitmapImage Vanilla = new BitmapImage(new Uri(@"/Resources/TF2_Vanilla_promo.gif", UriKind.Relative));
         BitmapImage Northstar = new BitmapImage(new Uri(@"/Resources/Northstar_Smurfson.gif", UriKind.Relative));
         static System.Collections.Specialized.StringCollection log = new System.Collections.Specialized.StringCollection();
@@ -134,7 +163,7 @@ namespace VTOL
         private static readonly Action EmptyDelegate = delegate { };
         int Progress_Tracker;
         HandyControl.Controls.Dialog Diag;
-
+        private bool Check_Server_Ping=true;
 
         int completed_flag;
         public int pid;
@@ -191,6 +220,8 @@ namespace VTOL
                 string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
                 Install_Skin_Bttn.IsEnabled = false;
                 Badge.Visibility = Visibility.Collapsed;
+                Server_Indicator.Fill = Brushes.Red;
+
                 GC.Collect();
                 this.VTOL.Title = String.Format("VTOL {0}", version);
              //   if (File.Exists(@"C:\ProgramData\VTOL_DATA\VARS\First_Time.txt"))
@@ -212,7 +243,7 @@ namespace VTOL
                 Select_Main();
                 getProcessorInfo();
                 string[] arguments = Environment.GetCommandLineArgs();
-
+                
                Console.WriteLine("GetCommandLineArgs: {0}", string.Join(", ", arguments));
 
                 if (do_not_overwrite_Ns_file==true)
@@ -371,7 +402,16 @@ namespace VTOL
 
 
             }
-
+            PingHost("Northstar.tf");
+            Thread thread = new Thread(async () =>
+            {
+                while (Check_Server_Ping)
+                {
+                    await Task.Delay(TimeSpan.FromMinutes(20));
+                    //Ping Server process
+                    PingHost("Northstar.tf");
+                }
+            });
             // Create Image Element
 
             //set image source
@@ -431,6 +471,9 @@ namespace VTOL
                         Language_Selection.SelectedIndex = 4;
 
                         break;
+                    default:
+                        Language_Selection.SelectedIndex = 0;
+                        break;
 
                 }
                 saveAsyncFile(LanguageCode, @"C:\ProgramData\VTOL_DATA\VARS\Language.txt", true, false);
@@ -476,14 +519,44 @@ namespace VTOL
             HandyControl.Controls.Growl.ClearGlobal();
 
         }
+        public  bool PingHost(string nameOrAddress)
+        {
+            Server_Indicator.Fill = Brushes.Red;
 
-       async  Task  Thunderstore_Parse()
+            bool pingable = false;
+            Ping pinger = null;
+
+            try
+            {
+                pinger = new Ping();
+                PingReply reply = pinger.Send(nameOrAddress);
+                pingable = reply.Status == System.Net.NetworkInformation.IPStatus.Success;
+            }
+            catch (PingException)
+            {
+                return false;
+                // Discard PingExceptions and return false;
+            }
+            finally
+            {
+                if (pinger != null)
+                {
+                    pinger.Dispose();
+                }
+            }
+            Server_Indicator.Fill = Brushes.LimeGreen;
+            return pingable;
+        }
+        async  Task  Thunderstore_Parse( )
 
 
         {
+
             try
             {
-                itemsList.Clear();
+                this.Dispatcher.Invoke(() =>
+                {
+                    itemsList.Clear();
                 Test_List.ItemsSource = null;
                 Test_List.Items.Clear();
                 /*
@@ -514,6 +587,7 @@ namespace VTOL
                 //Test_List.ItemsSource = null;
                 //Test_List.ItemsSource = Update.Thunderstore.results;
                 Test_List.ItemsSource = LoadListViewData();
+                });
             }
             catch (Exception ex)
             {
@@ -2886,7 +2960,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             Auto_Install_And_verify();
 
         }
-
+       
         private void Titanfall_2_Btn_MouseEnter(object sender, MouseEventArgs e)
         {
 
@@ -3743,19 +3817,39 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
         {
             Write_To_Log("", true);
         }
+       
     
         private async void Load_Click(object sender, RoutedEventArgs e)
         {
-            
+
             try
             {
-                Dispatcher.BeginInvoke(
-        new ThreadStart(() => Thunderstore_Parse()));
+                Thread thread = new Thread(delegate ()
+                {
+                    Thunderstore_Parse();
+                });
+                thread.IsBackground = true;
+                thread.Start();
             }
-            finally
+            catch (Exception ex)
             {
-               
+                Send_Fatal_Notif("Fatal error\n");
+                Write_To_Log(ex.Message);
             }
+            
+              
+                /*
+                Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    Thunderstore_Parse();
+                }), DispatcherPriority.Background);
+             
+               */
+
+
+
+            
+           
 
 
         }
