@@ -243,12 +243,15 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
                         </TabItem.BorderBrush>
                     </TabItem>
                 </TabControl>
-                <ListBox SelectedItem="{Binding Selected_Item}" x:Name="Test_List" Margin="0,87,0,49" SelectionChanged="Test_List_SelectionChanged" RequestBringIntoView="Test_List_RequestBringIntoView" ScrollViewer.CanContentScroll="False" Visibility="Visible" Width="902" BorderBrush="{x:Null}" Padding="1,1,1,1" HorizontalAlignment="Center" VirtualizingStackPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling">
-                    <ListBox.Resources>
+
+
+
+                <ListView SelectedItem="{Binding Selected_Item}" x:Name="Test_List" Margin="0,87,0,49" SelectionChanged="Test_List_SelectionChanged" RequestBringIntoView="Test_List_RequestBringIntoView" ScrollViewer.CanContentScroll="True" Visibility="Visible" Width="902" BorderBrush="{x:Null}" Padding="1,1,1,1" HorizontalAlignment="Center" VirtualizingStackPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling" IsTextSearchEnabled="False" Background="#FF1C1C1C" IsSynchronizedWithCurrentItem="True">
+                    <ListView.Resources>
                         <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="Transparent" />
 
-                    </ListBox.Resources>
-                    <ListBox.ItemContainerStyle>
+                    </ListView.Resources>
+                    <ListView.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
 
                             <Setter Property="IsSelected" Value="{Binding Content.IsSelected, Mode=TwoWay, RelativeSource={RelativeSource Self}}"/>
@@ -275,42 +278,41 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
 
                             </Style.Triggers>
                         </Style>
-                    </ListBox.ItemContainerStyle>
-                    <ListBox.ItemTemplate>
+                    </ListView.ItemContainerStyle>
+                    <ListView.ItemTemplate>
                         <DataTemplate>
 
-                            <Button Margin="0,0,0,0" VerticalAlignment="Center" Width="886" Height="151" Padding="0,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left">
+                            <Button Margin="0,0,0,0" VerticalAlignment="Center" Width="886" Height="151" Padding="0,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Focusable="False">
                                 <Grid Height="151" Width="885" HorizontalAlignment="Stretch" VerticalAlignment="Center" Background="{x:Null}">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="111*"/>
                                         <RowDefinition Height="38*"/>
                                         <RowDefinition Height="2*"/>
                                     </Grid.RowDefinitions>
-                                    <Image Source="{Binding Icon}" Margin="0,0,792,22" Height="84" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="88"/>
-                                    <TextBlock TextWrapping="Wrap" Text="{Binding description}" VerticalAlignment="Top" FontSize="11" Margin="99,64,0,0" Height="28" HorizontalAlignment="Left" Width="510" FontWeight="Bold" FontStyle="Italic"/>
-                                    <TextBlock  Text="{Binding Name}"  FontSize="16" Margin="98,0,0,86" Height="19" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="604" />
-                                    <TextBlock TextWrapping="Wrap" Text="{Binding owner}" Margin="186,0,0,67" Height="15" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="284" FontSize="11"/>
-                                    <TextBlock TextWrapping="Wrap" Text="{Binding date_created}" FontSize="10" Margin="117,3,0,0" HorizontalAlignment="Left" Width="561" Height="14" VerticalAlignment="Top" Grid.Row="1"/>
+                                    <Image Source="{Binding Icon}" Margin="0,0,792,22" Height="84" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="88" IsHitTestVisible="False"/>
+                                    <TextBlock TextWrapping="Wrap" Text="{Binding description}" VerticalAlignment="Top" FontSize="11" Margin="99,64,0,0" Height="28" HorizontalAlignment="Left" Width="510" FontWeight="Bold" FontStyle="Italic" IsHitTestVisible="False"/>
+                                    <TextBlock  Text="{Binding Name}"  FontSize="16" Margin="98,0,0,86" Height="19" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="604" IsHitTestVisible="False" />
+                                    <TextBlock TextWrapping="Wrap" Text="{Binding owner}" Margin="186,0,0,67" Height="15" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="284" FontSize="11" IsHitTestVisible="False"/>
+                                    <TextBlock TextWrapping="Wrap" Text="{Binding date_created}" FontSize="10" Margin="117,3,0,0" HorizontalAlignment="Left" Width="561" Height="14" VerticalAlignment="Top" Grid.Row="1" IsHitTestVisible="False"/>
                                     <Label Content="{DynamicResource UI_TEXT_THUNDERSTORE_AUTHOR}" Height="14" Width="82" HorizontalAlignment="Left" Margin="99,30,0,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="9" HorizontalContentAlignment="Left"/>
                                     <Label Content="{DynamicResource UI_TEXT_THUNDERSTORE_PUBLISH_DATE}" Height="14" Width="107" HorizontalAlignment="Left" Margin="5,3,0,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="9" Grid.Row="1" HorizontalContentAlignment="Left"/>
-                                    <Button Content="{DynamicResource UI_BUTTON_THUNDERSTORE_INSTALL}"  HorizontalAlignment="Left" Margin="722,15,0,0" VerticalAlignment="Top" Background="#FF2C4C4C" BorderBrush="{x:Null}" Height="53" Width="146" Click="Download_Install" Tag="{Binding download_url}" Padding="0,0,0,0"  />
+                                    <Button Content="{DynamicResource UI_BUTTON_THUNDERSTORE_INSTALL}"  HorizontalAlignment="Left" Margin="722,15,0,0" VerticalAlignment="Top" Background="#FF2C4C4C" BorderBrush="{x:Null}" Height="53" Width="146" Click="Download_Install" Tag="{Binding download_url}" Padding="0,0,0,0" Focusable="True"  />
                                     <Button Content="{DynamicResource UI_BUTTON_THUNDERSTORE_GOTO_WEBPAGE}" HorizontalAlignment="Left" Margin="722,73,0,0" Tag ="{Binding Webpage}" VerticalAlignment="Top" Background="#FF2C4C4C" BorderBrush="{x:Null}" Height="22" Width="146" Click="Open_Package_Webpage" Padding="0,0,0,0"/>
-                                    <Label Content="{DynamicResource UI_TEXT_THUNDERSTORE_MOD_DESC}" Height="14" Width="83" HorizontalAlignment="Left" Margin="98,0,0,0" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="9" FontStyle="Normal" FontWeight="Normal" HorizontalContentAlignment="Left"/>
-                                    <Label Content="{DynamicResource UI_TEXT_THUNDERSTORE_FILE_SIZE}" Height="14" HorizontalAlignment="Left" Margin="5,19,0,0" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="9" Grid.Row="1" VerticalAlignment="Top" HorizontalContentAlignment="Center"/>
-                                    <TextBlock TextWrapping="Wrap" Text="{Binding File_Size}" FontSize="10" Margin="93,19,0,0" HorizontalAlignment="Left" Width="257" Height="14" VerticalAlignment="Top" Grid.Row="1"/>
-                                    <hc:Badge Margin="737,97,97,10" BorderBrush="{x:Null}" Maximum="9000" BadgeMargin="0,0,0,0" Grid.RowSpan="2" Value="{Binding Rating}" Foreground="#FFF9D900" FontSize="11" />
-                                    <Image Margin="738,109,112,10" Source="/Resources/heart.png" RenderTransformOrigin="0.471,0.217" Grid.RowSpan="2"/>
-                                    <hc:Badge Margin="803,97,31,10" BorderBrush="{x:Null}"  Value="{Binding Downloads}" Maximum="9000" BadgeMargin="0,0,0,0" Grid.RowSpan="2"  Foreground="#FF4EFF48" FontSize="11" RenderTransformOrigin="0,0" Text="" />
-                                    <Image Margin="804,109,46,10" Source="/Resources/download_icon.png"  Grid.RowSpan="2"/>
-                                    <Label Content="{DynamicResource UI_TEXT_THUNDERSTORE_TAGS}" Height="14" HorizontalAlignment="Left" Margin="5,97,0,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="9" HorizontalContentAlignment="Left"/>
-                                    <TextBlock TextWrapping="Wrap" Text="{Binding Tag}" FontSize="11" Margin="76,97,0,0" HorizontalAlignment="Left" Width="559" Height="14" VerticalAlignment="Top" FontWeight="Bold" FontStyle="Italic" Foreground="#FFFFF0C6"/>
+                                    <Label Content="{DynamicResource UI_TEXT_THUNDERSTORE_MOD_DESC}" Height="14" Width="83" HorizontalAlignment="Left" Margin="98,0,0,0" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="9" FontStyle="Normal" FontWeight="Normal" HorizontalContentAlignment="Left" IsHitTestVisible="False"/>
+                                    <Label Content="{DynamicResource UI_TEXT_THUNDERSTORE_FILE_SIZE}" Height="14" HorizontalAlignment="Left" Margin="5,19,0,0" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="9" Grid.Row="1" VerticalAlignment="Top" HorizontalContentAlignment="Center" IsHitTestVisible="False"/>
+                                    <TextBlock TextWrapping="Wrap" Text="{Binding File_Size}" FontSize="10" Margin="93,19,0,0" HorizontalAlignment="Left" Width="257" Height="14" VerticalAlignment="Top" Grid.Row="1" IsHitTestVisible="False"/>
+                                    <hc:Badge Margin="737,97,97,10" BorderBrush="{x:Null}" Maximum="9000" BadgeMargin="0,0,0,0" Grid.RowSpan="2" Value="{Binding Rating}" Foreground="#FFF9D900" FontSize="11" IsHitTestVisible="False" />
+                                    <Image Margin="738,109,112,10" Source="/Resources/heart.png" RenderTransformOrigin="0.471,0.217" Grid.RowSpan="2" IsHitTestVisible="False"/>
+                                    <hc:Badge Margin="803,97,31,10" BorderBrush="{x:Null}"  Value="{Binding Downloads}" Maximum="9000" BadgeMargin="0,0,0,0" Grid.RowSpan="2"  Foreground="#FF4EFF48" FontSize="11" RenderTransformOrigin="0,0" Text="" IsHitTestVisible="False" />
+                                    <Image Margin="804,109,46,10" Source="/Resources/download_icon.png"  Grid.RowSpan="2" IsHitTestVisible="False"/>
+                                    <Label Content="{DynamicResource UI_TEXT_THUNDERSTORE_TAGS}" Height="14" HorizontalAlignment="Left" Margin="5,97,0,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="9" HorizontalContentAlignment="Left" IsHitTestVisible="False"/>
+                                    <TextBlock TextWrapping="Wrap" Text="{Binding Tag}" FontSize="11" Margin="76,97,0,0" HorizontalAlignment="Left" Width="559" Height="14" VerticalAlignment="Top" FontWeight="Bold" FontStyle="Italic" Foreground="#FFFFF0C6" IsHitTestVisible="False"/>
 
                                 </Grid>
                             </Button>
                         </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-
+                    </ListView.ItemTemplate>
+                </ListView>
 
 
 
@@ -463,7 +465,7 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
 
         </hc:SimplePanel>
 
-       
+
         <hc:SimplePanel x:Name="About_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
             <RichTextBox x:Name="About_BOX" Margin="35,69,45.5,0" Background="#FF101010" Height="524" VerticalAlignment="Top" BorderBrush="#FF101010" SelectionTextBrush="{x:Null}" SelectionBrush="#FF101010" CaretBrush="#FF101010" AutomationProperties.HelpText="Log Area">
                 <FlowDocument>
