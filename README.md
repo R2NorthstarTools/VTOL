@@ -29,10 +29,9 @@ Users on the latest release:
 
 * [Thunderstore](https://northstar.thunderstore.io) Mod Browser
 
+* Create custom servers using this application to fine tune setups.
 
 ### Work In Progress
-
-* Create custom servers using this application to fine tune setups.
 
 * Manage dedicated [Northstar](https://northstar.tf) servers.
 
