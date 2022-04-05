@@ -74,7 +74,7 @@ namespace VTOL
         BadHeader = 11042, // 0x00002B22
         UnrecognizedNextHeader = 11043, // 0x00002B23
         IcmpError = 11044, // 0x00002B24
-        DestinationScopeMismatch = 11045, // 0x00002B25
+        DestinationScopeMismatch = 11045, // 0x00002B25 A?
     }
     public static class ExtensionMethods
     {
