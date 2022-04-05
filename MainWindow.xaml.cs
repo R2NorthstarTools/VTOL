@@ -36,6 +36,8 @@ using System.Globalization;
 using System.Windows.Threading;
 using Zipi = Ionic.Zip;
 using System.Net.NetworkInformation;
+using Microsoft.Win32;
+using System.Timers;
 
 //****TODO*****//
 
@@ -177,16 +179,20 @@ namespace VTOL
         public string Ns_dedi_File = "";
         public string Convar_File = "";
         bool Started_Selection = false;
+        bool Origin_Client_Running =false;
+
         public MainWindow()
         {
             InitializeComponent();
             Application.Current.MainWindow.Closing += new CancelEventHandler(MainWindow_Closing);
             do_not_overwrite_Ns_file = Properties.Settings.Default.Ns_Startup;
             do_not_overwrite_Ns_file_Dedi = Properties.Settings.Default.Ns_Dedi;
+         //  Test_List.ItemsSource = itemsList;
+           
 
             try
             {
-
+             
                 /*Ref Code To see The ISO name for Lang
                 Console.WriteLine("Default Language Info:");
                 Console.WriteLine("* Name: {0}", ci.Name);
@@ -405,24 +411,49 @@ namespace VTOL
 
 
             }
-            PingHost("Northstar.tf");
-            Thread thread = new Thread(async () =>
-            {
-                while (Check_Server_Ping)
-                {
-                    await Task.Delay(TimeSpan.FromMinutes(20));
-                    //Ping Server process
-                    PingHost("Northstar.tf");
-                }
-            });
-            // Create Image Element
+            Origin_Client_Running = Check_Process_Running("OriginClientService");
 
-            //set image source
-            //   Gif_Image.UriSource = new Uri(@"/Resources/TF2_Vanilla_promo.gif");
+            PingHost("Northstar.tf");
+          //  System.Timers.Timer aTimer = new System.Timers.Timer(5000); //2 minutes in milliseconds
+           // aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
+          //  aTimer.Start();
+            GC.Collect();
+
+
+
 
         }
+        private void OnTimedEvent(object source, ElapsedEventArgs e)
+        {
+           PingHost("Northstar.tf");
+            Origin_Client_Running = Check_Process_Running("OriginClientService");
+            Indicator_Panel.Refresh();
+            GC.Collect();
 
-      
+        }
+         public bool Check_Process_Running(string ProcessName)
+        {
+
+            Process[] pname = Process.GetProcessesByName(ProcessName);
+            if (pname.Length == 0)
+            {
+                Indicator_Origin_Client.Visibility = Visibility.Visible;
+                Origin_Client_Status.Fill = Brushes.Red;
+
+                return false;
+            }
+            else
+            {
+                Indicator_Origin_Client.Visibility = Visibility.Hidden;
+                Origin_Client_Status.Fill = Brushes.LimeGreen;
+
+                return true;
+            }
+            return false;
+            Indicator_Origin_Client.Visibility = Visibility.Visible;
+            Origin_Client_Status.Fill = Brushes.Red;
+        }
+
         //This function is used to get string content from Resource file.
         public string GetTextResource(string ResourceName)
         {
@@ -524,21 +555,56 @@ namespace VTOL
             HandyControl.Controls.Growl.ClearGlobal();
 
         }
-        public bool PingHost(string nameOrAddress)
+        public static bool CheckForInternetConnection()
         {
-            Server_Indicator.Fill = Brushes.Red;
-
+            try
+            {
+                using (var client = new WebClient())
+                using (var stream = client.OpenRead("http://www.google.com"))
+                {
+                    
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public bool PingHost(string nameOrAddress) 
+        {
+           // Server_Indicator.Fill = Brushes.Red;
+          //  Indicator_Server_Conn.Visibility = Visibility.Visible;
             bool pingable = false;
             Ping pinger = null;
 
             try
             {
-                pinger = new Ping();
-                PingReply reply = pinger.Send(nameOrAddress);
-                pingable = reply.Status == System.Net.NetworkInformation.IPStatus.Success;
+                if (CheckForInternetConnection() == true)
+                {
+                    pinger = new Ping();
+                    PingReply reply = pinger.Send(nameOrAddress);
+                    pingable = reply.Status == System.Net.NetworkInformation.IPStatus.Success;
+                    Server_Indicator.Fill = Brushes.LimeGreen;
+                    Indicator_Server_Conn.Visibility = Visibility.Hidden;
+                    Server_poptip.Visibility = Visibility.Hidden;
+                }
+                else
+                {
+                     Server_Indicator.Fill = Brushes.Red;
+                      Indicator_Server_Conn.Visibility = Visibility.Visible;
+                    Server_poptip.Content = "The Device Is offline!";
+                    return false;
+
+
+                }
             }
             catch (PingException)
             {
+                Server_Indicator.Fill = Brushes.Red;
+                Indicator_Server_Conn.Visibility = Visibility.Visible;
+                Server_poptip.Content = "The Northstar Servers are offline!";
+
                 return false;
                 // Discard PingExceptions and return false;
             }
@@ -549,12 +615,11 @@ namespace VTOL
                     pinger.Dispose();
                 }
             }
-            Server_Indicator.Fill = Brushes.LimeGreen;
             return pingable;
         }
         async Task Thunderstore_Parse(bool hard_refresh = true, string Filter_Type = "None")
         {
-
+           
             try
             {
                 GC.Collect();
@@ -568,16 +633,17 @@ namespace VTOL
                     {
                         Update = new Updater("https://gtfo.thunderstore.io/api/v1/package/");
                         Update.Download_Cutom_JSON();
-                        GC.Collect();
+                        //  LoadListViewData(Filter_Type);
 
                         Test_List.ItemsSource = LoadListViewData(Filter_Type);
+
                         Test_List.Items.Refresh();
                         Finished_Init = true;
                     }
                     else
                     {
                         GC.Collect();
-
+                      //  LoadListViewData(Filter_Type);
                         Test_List.ItemsSource = LoadListViewData(Filter_Type);
                         Test_List.Items.Refresh();
                         GC.Collect();
@@ -717,7 +783,7 @@ namespace VTOL
         {
             try
             {
-
+                itemsList.Clear();
                 // var myValue = ((Button)sender).Tag;
                 string ICON = "";
                 // List<string> lst = new List<string> { };
@@ -979,6 +1045,10 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             Mod_Browse.IsSelected = false;
             Log.IsSelected = false;
             Update_Tab.IsSelected = false;
+
+            Origin_Client_Running = Check_Process_Running("OriginClientService");
+
+           // PingHost("Northstar.tf");
 
         }
         void Select_Mods()
@@ -3087,10 +3157,8 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
         private void Check_Btn_Click(object sender, RoutedEventArgs e)
         {
-
-
-
-            Auto_Install_And_verify();
+            
+              Auto_Install_And_verify();
 
         }
 
@@ -6276,6 +6344,116 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
 
                 Check_Tabs(false);
+            }
+        }
+
+        private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+           
+        }
+      
+        public static class InstalledApplications
+        {
+            public static string GetApplictionInstallPath(string nameOfAppToFind)
+            {
+                string installedPath;
+                string keyName;
+
+                // search in: CurrentUser
+                keyName = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
+                installedPath = ExistsInSubKey(Registry.CurrentUser, keyName, "DisplayName", nameOfAppToFind);
+                if (!string.IsNullOrEmpty(installedPath))
+                {
+                    return installedPath;
+                }
+
+                // search in: LocalMachine_32
+                keyName = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
+                installedPath = ExistsInSubKey(Registry.LocalMachine, keyName, "DisplayName", nameOfAppToFind);
+                if (!string.IsNullOrEmpty(installedPath))
+                {
+                    return installedPath;
+                }
+
+                // search in: LocalMachine_64
+                keyName = @"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall";
+                installedPath = ExistsInSubKey(Registry.LocalMachine, keyName, "DisplayName", nameOfAppToFind);
+                if (!string.IsNullOrEmpty(installedPath))
+                {
+                    return installedPath;
+                }
+
+                return string.Empty;
+            }
+
+            private static string ExistsInSubKey(RegistryKey root, string subKeyName, string attributeName, string nameOfAppToFind)
+            {
+                RegistryKey subkey;
+                string displayName;
+
+                using (RegistryKey key = root.OpenSubKey(subKeyName))
+                {
+                    if (key != null)
+                    {
+                        foreach (string kn in key.GetSubKeyNames())
+                        {
+                            using (subkey = key.OpenSubKey(kn))
+                            {
+                                displayName = subkey.GetValue(attributeName) as string;
+                                if (nameOfAppToFind.Equals(displayName, StringComparison.OrdinalIgnoreCase) == true)
+                                {
+                                    return subkey.GetValue("InstallLocation") as string;
+                                }
+                            }
+                        }
+                    }
+                }
+                return string.Empty;
+            }
+        }
+       
+        private void Label_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+
+            string location = InstalledApplications.GetApplictionInstallPath("Origin") + @"\Origin.exe";
+            if (File.Exists(location))
+            {
+                Send_Success_Notif("Starting Origin Client Service!");
+                Indicator_Origin_Client.Visibility = Visibility.Hidden;
+
+
+                ProcessStartInfo procStartInfo = new ProcessStartInfo();
+                Process process = new Process();
+                procStartInfo.FileName = location;
+                procStartInfo.WorkingDirectory = System.IO.Path.GetDirectoryName(NSExe);
+                ;
+
+                // procStartInfo.Arguments = args;
+
+                process.StartInfo = procStartInfo;
+
+                process.Start();
+                int id = process.Id;
+                pid = id;
+                Process tempProc = Process.GetProcessById(id);
+                // this.Visible = false;
+                // Thread.Sleep(5000);
+                // tempProc.WaitForExit();
+                // this.Visible = true;
+                Origin_Client_Status.Fill = Brushes.LimeGreen;
+
+                // Process process = Process.Start(NSExe, Arg_Box.Text);
+                process.Close();
+
+
+            }
+            else
+            {
+                Origin_Client_Status.Fill = Brushes.Red;
+                Indicator_Origin_Client.Visibility = Visibility.Visible;
+
+                Send_Warning_Notif("Could not Find Origin Install, Please Start Manually");
+
             }
         }
     }

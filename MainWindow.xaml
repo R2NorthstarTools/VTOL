@@ -94,7 +94,7 @@
         <hc:SimplePanel x:Name="Main_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Visible" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2" >
 
             <hc:SimplePanel x:Name="BG_panel_Main" Margin="38,50,37,238" Background="#FF101010"  hc:BorderElement.CornerRadius="15" Height="345">
-                <Ellipse x:Name="Server_Indicator" Grid.Column="1" Margin="0,18,20,0" Fill="White" Height="24" VerticalAlignment="Top" HorizontalAlignment="Right" Width="25"/>
+
 
                 <hc:Badge x:Name="Badge" Value="2" Text="New" Margin="60,227,60,9" Background="#FFFF0C0C" BorderBrush="White"  />
                 <Button x:Name="Install_NS"  Height="50" Margin="60,242,60,0" VerticalAlignment="Top" BorderBrush="White" Background="#FF2C4C4C" Click="Install_NS_Click" HorizontalAlignment="Stretch"/>
@@ -104,19 +104,44 @@
                 <Label Content="{DynamicResource UI_TEXT_MAIN_NS_EXEC_DIR}" Height="50" Margin="61,121,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" AutomationProperties.HelpText="{DynamicResource TIP_YOUR_NS_INST_DIR}" RenderTransformOrigin="0.5,0.5" Foreground="White"/>
                 <Label Content="{DynamicResource UI_TEXT_MAIN_TF2_EXEC_DIR}" Height="45" Margin="61,22,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Foreground="White"/>
                 <Button x:Name="Check_Btn" Content="{DynamicResource UI_BUTTON_MAIN_CHECK}" Height="32" HorizontalAlignment="Stretch" Margin="775,171,60,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Background="#FF2C4C4C" Click="Check_Btn_Click">
-                    <hc:AdornerElement.Instance>
+                    <hc:Poptip.Instance>
                         <hc:Poptip Content="{DynamicResource TIP_VERIFY_NS_INSTALL}" PlacementType="TopLeft"/>
-                    </hc:AdornerElement.Instance>
+                    </hc:Poptip.Instance>
                 </Button>
 
                 <Button x:Name="Browse_Titanfall_2" Content="{DynamicResource UI_BUTTON_MAIN_BROWSE}" Height="32" HorizontalAlignment="Stretch" Margin="775,72,60,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Background="#FF2C4C4C" Click="Browse_Titanfall_2_Click" Padding="0,6,0,6">
-                    <hc:AdornerElement.Instance>
+                    <hc:Poptip.Instance>
                         <hc:Poptip Content="{DynamicResource TIP_MANUAL_SELECT_GAME_DIR}" PlacementType="TopLeft"/>
-                    </hc:AdornerElement.Instance>
+                    </hc:Poptip.Instance>
                 </Button>
                 <hc:TextBox x:Name="Install_NS_EXE_Textbox" Height="32" TextWrapping="Wrap" VerticalAlignment="Top" Margin="60,171,0,0" Cursor="IBeam" UndoLimit="101" IsReadOnly="True" Background="White" BorderBrush="{x:Null}" HorizontalAlignment="Left" Width="710" SelectionBrush="{x:Null}"/>
                 <hc:TextBox x:Name="Titanfall2_Directory_TextBox" HorizontalAlignment="Left" Height="32" TextWrapping="Wrap" VerticalAlignment="Top" Width="710" Margin="60,72,0,0" Cursor="IBeam" IsReadOnly="True" Background="White" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" Foreground="Black"/>
-                <Label Content="+Northstar Status" Height="16" HorizontalAlignment="Right" Margin="0,22,48,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="11" Padding="0,0,0,0" Width="91"/>
+                <hc:SimplePanel Margin="559,10,60,291">
+                    <Border x:Name="Indicator_Panel" BorderBrush="#FF2D2D2D" BorderThickness="1"/>
+
+                    <Ellipse x:Name="Server_Indicator" Grid.Column="1" Margin="110,0,0,0" Fill="#FF94FF00" Height="24" VerticalAlignment="Center" HorizontalAlignment="Left" Width="25"/>
+                    <Label Content="+Northstar Status" Height="20" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0,0,0,0" Width="96" Margin="10,0,0,0">
+                        <hc:Poptip.Instance>
+                            <hc:Poptip x:Name="Server_poptip" Content="" PlacementType="Bottom" Foreground="White"/>
+                        </hc:Poptip.Instance>
+
+                    </Label>
+                    <hc:Badge x:Name="Indicator_Server_Conn" Content="" Height="13" Padding="3.9,-1,4,0" Margin="118,16,0,16" BorderBrush="White" Background="#FFFFD200" Text="Click To Start" BadgeMargin="7,-7,-3,2" RenderTransformOrigin="1,1" FontSize="16" Status="Processing" BorderThickness="1,1,1,1" SnapsToDevicePixels="True" HorizontalAlignment="Left" Width="17"/>
+
+                    <hc:SimplePanel Margin="134,8,10,8" MouseDown="Label_MouseDown"  >
+
+                        <Ellipse x:Name="Origin_Client_Status" Margin="0,2,8,2" Fill="#FF7DFF00" Width="25" HorizontalAlignment="Right"/>
+                        <Label HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0,0,0,0"  Content="Origin Client Status" Margin="13,4,0,4" VerticalAlignment="Stretch" Width="109"/>
+                        <hc:Badge x:Name="Indicator_Origin_Client" Content="" Height="13" Padding="3.9,-1,4,0" Margin="0,7,8,8" BorderBrush="White" Background="#FFFFD200" Text="Click To Start" BadgeMargin="7,-7,-3,2" RenderTransformOrigin="1,1" FontSize="16" Status="Processing" BorderThickness="1,1,1,1" SnapsToDevicePixels="True" HorizontalAlignment="Right" Width="17" Visibility="Hidden"/>
+                        <hc:Poptip.Instance>
+                            <hc:Poptip Content="Click Me To Start The Origin Service" PlacementType="Bottom" Foreground="White"/>
+                        </hc:Poptip.Instance>
+
+                    </hc:SimplePanel>
+
+                </hc:SimplePanel>
+
+
             </hc:SimplePanel>
 
 
@@ -199,7 +224,7 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
 
 
 
-        <hc:SimplePanel x:Name="Mod_Browse_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Visible" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
+        <hc:SimplePanel x:Name="Mod_Browse_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
             <hc:SimplePanel Margin="10,10,10,10" Background="#FF101010">
                 <TabControl x:Name="Sections_Tabs" Margin="36,55,36,48" Style="{StaticResource TabControlInLine}" BorderBrush="{x:Null}" Foreground="{x:Null}" Background="{x:Null}" Padding="0,0,0,0" Width="900" SelectionChanged="Sections_Tabs_SelectionChanged">
                     <TabItem Header="All">
@@ -246,7 +271,7 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
 
 
 
-                <ListView SelectedItem="{Binding Selected_Item}" x:Name="Test_List" Margin="0,87,0,49" SelectionChanged="Test_List_SelectionChanged" RequestBringIntoView="Test_List_RequestBringIntoView" ScrollViewer.CanContentScroll="True" Visibility="Visible" Width="902" BorderBrush="{x:Null}" Padding="1,1,1,1" HorizontalAlignment="Center" VirtualizingStackPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling" IsTextSearchEnabled="False" Background="#FF1C1C1C" IsSynchronizedWithCurrentItem="True">
+                <ListView SelectedItem="{Binding Selected_Item}" x:Name="Test_List" Margin="0,87,0,49" SelectionChanged="Test_List_SelectionChanged" RequestBringIntoView="Test_List_RequestBringIntoView" ScrollViewer.CanContentScroll="True" Visibility="Visible" Width="902" BorderBrush="{x:Null}" Padding="1,1,1,1" HorizontalAlignment="Center" VirtualizingStackPanel.IsVirtualizing="True"  IsTextSearchEnabled="False" Background="#FF1C1C1C" IsSynchronizedWithCurrentItem="False" MaxHeight="9000" >
                     <ListView.Resources>
                         <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="Transparent" />
 
@@ -282,8 +307,8 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
                     <ListView.ItemTemplate>
                         <DataTemplate>
 
-                            <Button Margin="0,0,0,0" VerticalAlignment="Center" Width="886" Height="151" Padding="0,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Focusable="False">
-                                <Grid Height="151" Width="885" HorizontalAlignment="Stretch" VerticalAlignment="Center" Background="{x:Null}">
+                            <Button Margin="0,0,0,0" VerticalAlignment="Center" Width="886" Height="151" Padding="0,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}"  Focusable="False" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                                <Grid Height="151" Width="885" HorizontalAlignment="Stretch" VerticalAlignment="Center" Background="{x:Null}" ScrollViewer.VerticalScrollBarVisibility="Disabled">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="111*"/>
                                         <RowDefinition Height="38*"/>
@@ -301,12 +326,12 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
                                     <Label Content="{DynamicResource UI_TEXT_THUNDERSTORE_MOD_DESC}" Height="14" Width="83" HorizontalAlignment="Left" Margin="98,0,0,0" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="9" FontStyle="Normal" FontWeight="Normal" HorizontalContentAlignment="Left" IsHitTestVisible="False"/>
                                     <Label Content="{DynamicResource UI_TEXT_THUNDERSTORE_FILE_SIZE}" Height="14" HorizontalAlignment="Left" Margin="5,19,0,0" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="9" Grid.Row="1" VerticalAlignment="Top" HorizontalContentAlignment="Center" IsHitTestVisible="False"/>
                                     <TextBlock TextWrapping="Wrap" Text="{Binding File_Size}" FontSize="10" Margin="93,19,0,0" HorizontalAlignment="Left" Width="257" Height="14" VerticalAlignment="Top" Grid.Row="1" IsHitTestVisible="False"/>
-                                    <hc:Badge Margin="737,97,97,10" BorderBrush="{x:Null}" Maximum="9000" BadgeMargin="0,0,0,0" Grid.RowSpan="2" Value="{Binding Rating}" Foreground="#FFF9D900" FontSize="11" IsHitTestVisible="False" />
-                                    <Image Margin="738,109,112,10" Source="/Resources/heart.png" RenderTransformOrigin="0.471,0.217" Grid.RowSpan="2" IsHitTestVisible="False"/>
-                                    <hc:Badge Margin="803,97,31,10" BorderBrush="{x:Null}"  Value="{Binding Downloads}" Maximum="9000" BadgeMargin="0,0,0,0" Grid.RowSpan="2"  Foreground="#FF4EFF48" FontSize="11" RenderTransformOrigin="0,0" Text="" IsHitTestVisible="False" />
-                                    <Image Margin="804,109,46,10" Source="/Resources/download_icon.png"  Grid.RowSpan="2" IsHitTestVisible="False"/>
-                                    <Label Content="{DynamicResource UI_TEXT_THUNDERSTORE_TAGS}" Height="14" HorizontalAlignment="Left" Margin="5,97,0,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="9" HorizontalContentAlignment="Left" IsHitTestVisible="False"/>
-                                    <TextBlock TextWrapping="Wrap" Text="{Binding Tag}" FontSize="11" Margin="76,97,0,0" HorizontalAlignment="Left" Width="559" Height="14" VerticalAlignment="Top" FontWeight="Bold" FontStyle="Italic" Foreground="#FFFFF0C6" IsHitTestVisible="False"/>
+                                    <hc:Badge Margin="737,97,97,10" BorderBrush="{x:Null}" Maximum="9000" BadgeMargin="0,0,0,0" Grid.RowSpan="2" Value="{Binding Rating}" Foreground="#FFF9D900" FontSize="11" IsHitTestVisible="False" ScrollViewer.VerticalScrollBarVisibility="Disabled" />
+                                    <Image Margin="738,109,112,10" Source="/Resources/heart.png" RenderTransformOrigin="0.471,0.217" Grid.RowSpan="2" IsHitTestVisible="False" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
+                                    <hc:Badge Margin="803,97,31,10" BorderBrush="{x:Null}"  Value="{Binding Downloads}" Maximum="9000" BadgeMargin="0,0,0,0" Grid.RowSpan="2"  Foreground="#FF4EFF48" FontSize="11" RenderTransformOrigin="0,0" Text="" IsHitTestVisible="False" ScrollViewer.VerticalScrollBarVisibility="Disabled" />
+                                    <Image Margin="804,109,46,10" Source="/Resources/download_icon.png"  Grid.RowSpan="2" IsHitTestVisible="False" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
+                                    <Label Content="{DynamicResource UI_TEXT_THUNDERSTORE_TAGS}" Height="14" HorizontalAlignment="Left" Margin="5,97,0,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="9" HorizontalContentAlignment="Left" IsHitTestVisible="False" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
+                                    <TextBlock TextWrapping="Wrap" Text="{Binding Tag}" FontSize="11" Margin="76,97,0,0" HorizontalAlignment="Left" Width="559" Height="14" VerticalAlignment="Top" FontWeight="Bold" FontStyle="Italic" Foreground="#FFFFF0C6" IsHitTestVisible="False" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
 
                                 </Grid>
                             </Button>
