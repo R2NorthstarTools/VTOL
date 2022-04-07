@@ -187,12 +187,15 @@ namespace VTOL
             Application.Current.MainWindow.Closing += new CancelEventHandler(MainWindow_Closing);
             do_not_overwrite_Ns_file = Properties.Settings.Default.Ns_Startup;
             do_not_overwrite_Ns_file_Dedi = Properties.Settings.Default.Ns_Dedi;
-         //  Test_List.ItemsSource = itemsList;
-           
+
+            //  Test_List.ItemsSource = itemsList;
+
 
             try
             {
-             
+                InstalledApplications.GetInstalledApps();
+                        //      MessageBox.Show(InstalledApplications.GetApplictionInstallPath("Titanfall2 "));
+
                 /*Ref Code To see The ISO name for Lang
                 Console.WriteLine("Default Language Info:");
                 Console.WriteLine("* Name: {0}", ci.Name);
@@ -292,7 +295,7 @@ namespace VTOL
                 Write_To_Log("Could Not Verify Dir" + Current_Install_Folder);
                 Write_To_Log(e.StackTrace);
 
-                HandyControl.Controls.Growl.ErrorGlobal("\nVTOL tried to check for an existing config (cfg), please manually select it.");
+               // HandyControl.Controls.Growl.ErrorGlobal("\nVTOL tried to check for an existing config (cfg), please manually select it.");
                 //log.AppendText("\nThe Launcher Tried to Auto Check For an existing CFG, please use the manual Check to search.");
 
 
@@ -382,10 +385,9 @@ namespace VTOL
                         Send_Warning_Notif(GetTextResource("NOTIF_WARN_AUTOCHECK_CFG"));
                     }
                 }
-
-
                 else
                 {
+                    Current_Install_Folder = InstalledApplications.GetApplictionInstallPath("Titanfall2");
                     Send_Warning_Notif(GetTextResource("NOTIF_WARN_AUTOCHECK_CFG"));
 
 
@@ -833,7 +835,10 @@ namespace VTOL
 
                 foreach (var item in Update.Thunderstore)
                 {
-
+                    if(item.FullName == "northstar-Northstar")
+                    {
+                        continue;
+                    }
                     int rating = item.RatingScore;
 
                     //Tag = item.Categories;
@@ -852,7 +857,6 @@ namespace VTOL
                         downloads = (Downloads.Sum()).ToString();
 
                         GC.Collect();
-
 
                         download_url = versions.Last().DownloadUrl;
                         ICON =  versions.Last().Icon;
@@ -6352,7 +6356,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
            
         }
       
-        public static class InstalledApplications
+        public  class InstalledApplications
         {
             public static string GetApplictionInstallPath(string nameOfAppToFind)
             {
@@ -6385,7 +6389,51 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
                 return string.Empty;
             }
+           
+            public static void GetInstalledApps()
 
+            {
+                string x = "";
+                string appPATH = @"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall";
+                using (RegistryKey rk = Registry.LocalMachine.OpenSubKey(appPATH))
+                {
+                    foreach (string skName in rk.GetSubKeyNames())
+                    {
+                        using (RegistryKey sk = rk.OpenSubKey(skName))
+                        {
+                            try
+                            {
+
+                                //Get App Name
+                                var displayName = sk.GetValue("DisplayName");
+                                //Get App Size
+                                var size = sk.GetValue("EstimatedSize");
+
+                                string item;
+                                if (displayName != null)
+                                {
+                                    if (size != null)
+                                        item = displayName.ToString();
+                                    else
+                                    {
+                                        item = displayName.ToString();
+                                        if (item.Contains(""))
+                                            x = x+ displayName.ToString() + "\n";
+                                           // MessageBox.Show(displayName.ToString());
+
+                                    }
+
+                                }
+                            }
+                            catch (Exception ex)
+                            { }
+                        }
+                    }
+                    File.WriteAllText(@"C:\VTOL\ALLApps.txt",x);
+                }
+
+            }
+          
             private static string ExistsInSubKey(RegistryKey root, string subKeyName, string attributeName, string nameOfAppToFind)
             {
                 RegistryKey subkey;
@@ -6411,8 +6459,8 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 return string.Empty;
             }
         }
-       
-        private void Label_MouseDown(object sender, MouseButtonEventArgs e)
+
+        async void Run_Origin()
         {
 
             string location = InstalledApplications.GetApplictionInstallPath("Origin") + @"\Origin.exe";
@@ -6440,12 +6488,27 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 // Thread.Sleep(5000);
                 // tempProc.WaitForExit();
                 // this.Visible = true;
-                Origin_Client_Status.Fill = Brushes.LimeGreen;
+
 
                 // Process process = Process.Start(NSExe, Arg_Box.Text);
                 process.Close();
 
+                Origin_Client_Running = Check_Process_Running("OriginClientService");
+                while (!Origin_Client_Running)
+                {
 
+
+                    Origin_Client_Running = Check_Process_Running("OriginClientService");
+
+                    Thread.Sleep(1000);
+                }
+                if (Origin_Client_Running == true)
+                {
+                    Origin_Client_Status.Fill = Brushes.LimeGreen;
+                    Indicator_Origin_Client.Visibility = Visibility.Hidden;
+
+
+                }
             }
             else
             {
@@ -6455,6 +6518,25 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 Send_Warning_Notif("Could not Find Origin Install, Please Start Manually");
 
             }
+
+        }
+   
+        
+        private void Label_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Task.Run(() =>
+            {
+                Application.Current.Dispatcher.Invoke(DispatcherPriority.Background, new Action(() =>
+                {
+                    Run_Origin();
+
+                     }));
+            });
+
+        }
+        void worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            Run_Origin();
         }
     }
 }
