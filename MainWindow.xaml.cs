@@ -156,7 +156,7 @@ namespace VTOL
         List<string> Mod_List = new List<string>();
         bool do_not_overwrite_Ns_file = true;
         bool do_not_overwrite_Ns_file_Dedi = true;
-        ArrayList itemsList = new ArrayList();
+        List<object> itemsList = new List<object>();
         ArrayList Mirror_Item_List = new ArrayList();
         public IEnumerable<string> Phrases { get; private set; }
         public List<string> Game_Modes_List = new List<string>();
@@ -180,6 +180,7 @@ namespace VTOL
         public string Convar_File = "";
         bool Started_Selection = false;
         bool Origin_Client_Running =false;
+        ObservableCollection<Button> Items_ = new ObservableCollection<Button>();
 
         public MainWindow()
         {
@@ -193,8 +194,9 @@ namespace VTOL
 
             try
             {
-                InstalledApplications.GetInstalledApps();
-                        //      MessageBox.Show(InstalledApplications.GetApplictionInstallPath("Titanfall2 "));
+               // InstalledApplications.GetInstalledApps();
+                //      MessageBox.Show(InstalledApplications.GetApplictionInstallPath("Titanfall2 "));
+              //  _Item_Filter = CollectionViewSource.GetDefaultView(itemsList);
 
                 /*Ref Code To see The ISO name for Lang
                 Console.WriteLine("Default Language Info:");
@@ -510,6 +512,7 @@ namespace VTOL
 
                         break;
                     default:
+                        LanguageCode="en";
                         Language_Selection.SelectedIndex = 0;
                         break;
 
@@ -626,40 +629,35 @@ namespace VTOL
             {
                 GC.Collect();
 
-                this.Dispatcher.Invoke(() =>
-                {
-                    itemsList.Clear();
-                    // Test_List.ItemsSource = null;
-                    // Test_List.Items.Clear();
+               // this.Dispatcher.Invoke(() =>
+               // {
+                   // itemsList.Clear();
+                  
                     if (hard_refresh == true)
                     {
                         Update = new Updater("https://gtfo.thunderstore.io/api/v1/package/");
                         Update.Download_Cutom_JSON();
-                        //  LoadListViewData(Filter_Type);
-
+                       // LoadListViewData(Filter_Type);
                         Test_List.ItemsSource = LoadListViewData(Filter_Type);
-
-                        Test_List.Items.Refresh();
+                        //   Test_List.ItemsSource = Items_;
+                        //this.DataContext = itemsList;
+                      //  Test_List.Items.Refresh();
                         Finished_Init = true;
                     }
                     else
                     {
-                        GC.Collect();
-                      //  LoadListViewData(Filter_Type);
+                       // LoadListViewData(Filter_Type);
+
                         Test_List.ItemsSource = LoadListViewData(Filter_Type);
-                        Test_List.Items.Refresh();
-                        GC.Collect();
+                        //  Test_List.ItemsSource = Items_;
+
+                         //Test_List.Items.Refresh();
 
                     }
-                    // LoadListViewData();
-
-                    //Test_List.ItemsSource = null;
-                    //Test_List.ItemsSource = Update.Thunderstore.results;
-                   // CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(Test_List.ItemsSource);
-                   // view.Filter = UserFilter;
+                   
                     Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow;
 
-                });
+             //   });
 
 
             }
@@ -781,7 +779,7 @@ namespace VTOL
         }
 
 
-        private ArrayList LoadListViewData(string Filter_Type = "None")
+        private List<object> LoadListViewData(string Filter_Type = "None")
         {
             try
             {
@@ -835,7 +833,9 @@ namespace VTOL
 
                 foreach (var item in Update.Thunderstore)
                 {
-                    if(item.FullName == "northstar-Northstar")
+                    for (int i = 0; i < Update.Thunderstore.Length; i++)
+                    {
+                        if (item.FullName == "northstar-Northstar")
                     {
                         continue;
                     }
@@ -870,6 +870,7 @@ namespace VTOL
                         {
                             FileSize = Convert_To_Size(value);
                         }
+                      //  Items_.Add(new Button { Name = item.Name, Icon = ICON, date_created = item.DateCreated.ToString(), description = Descrtiption, owner=item.Owner, Rating = rating, download_url = download_url +"|"+item.FullName.ToString(), Webpage  = item.PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads });
 
                         itemsList.Add(new Button { Name = item.Name, Icon = ICON, date_created = item.DateCreated.ToString(), description = Descrtiption, owner=item.Owner, Rating = rating, download_url = download_url +"|"+item.FullName.ToString(), Webpage  = item.PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads });
                         Mirror_Item_List.Add(item.Name);
@@ -3161,11 +3162,12 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
         private void Check_Btn_Click(object sender, RoutedEventArgs e)
         {
-            
-              Auto_Install_And_verify();
+
+          
+            //Auto_Install_And_verify();
 
         }
-
+        
         private void Titanfall_2_Btn_MouseEnter(object sender, MouseEventArgs e)
         {
 
@@ -4041,17 +4043,25 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 {
                     // Thread thread = new Thread(delegate ()
                     // {
-                    Check_Tabs(true);
+                    Dispatcher.Invoke(new Action(() => {
+                        Check_Tabs(true);
+                        }));
                     // });
                     //thread.IsBackground = true;
                     // thread.Start();
                 }
                 else
                 {
-
-                    Check_Tabs(false);
-
-                }
+                    BackgroundWorker doMacBk;
+                    doMacBk = new BackgroundWorker();
+                    doMacBk.DoWork += (o, arg) =>
+                    {
+                        Application.Current.Dispatcher.Invoke(new Action(() =>
+                        {
+                            Check_Tabs(false);
+                    }));
+                };
+            }
 
 
 
@@ -6520,24 +6530,32 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             }
 
         }
-   
+        private ICollectionView _Item_Filter;
+
+        public class Collection
+        {
+            public Collection()
+            {
+           //     DataContext = new MainWindow();
+            }
+        }
+       
         
         private void Label_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            Task.Run(() =>
+            BackgroundWorker doMacBk;
+            doMacBk = new BackgroundWorker();
+            doMacBk.DoWork += (o, arg) =>
             {
-                Application.Current.Dispatcher.Invoke(DispatcherPriority.Background, new Action(() =>
+                Application.Current.Dispatcher.Invoke(new Action(() =>
                 {
                     Run_Origin();
 
-                     }));
-            });
-
+                }));
+            };
+                  
         }
-        void worker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            Run_Origin();
-        }
+     
     }
 }
 
