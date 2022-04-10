@@ -176,10 +176,10 @@
 
 
 
-        <hc:SimplePanel x:Name="Mod_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
+        <hc:SimplePanel x:Name="Mod_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Visible" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
             <Grid HorizontalAlignment="Stretch" DockPanel.Dock="Top" Height="Auto"
 AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Background="Transparent" DragLeave="Mod_Panel_DragLeave" DragOver="Mod_Panel_DragOver" >
-                <hc:SimplePanel Margin="30,209,30,10" Background="#FF101010">
+                <hc:SimplePanel x:Name="Context_Menu_Mod_Mngs" Margin="30,209,30,10" Background="#FF101010">
                     <hc:SimplePanel.ContextMenu>
 
                         <ContextMenu>
@@ -188,11 +188,15 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
                                     <Image Source="/Resources/Folder_Browse_Icon.png" />
                                 </MenuItem.Icon>
                             </MenuItem>
-
+                            <MenuItem x:Name="Delete_Menu_Context" Header="Delete" Click="Delete_Menu_Context_Click" Visibility="Visible" IsEnabled="True">
+                                <MenuItem.Icon>
+                                    <Image Source="/Resources/Folder_Browse_Icon.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
                         </ContextMenu>
                     </hc:SimplePanel.ContextMenu>
-                    <ListBox x:Name="Dsiabled_ListBox"  Margin="30,60,0,60" BorderBrush="#FF545454" Width="371" HorizontalAlignment="Left" Background="#FF333333" PreviewMouseRightButtonDown="Dsiabled_ListBox_PreviewMouseRightButtonDown"/>
-                    <ListBox x:Name="Enabled_ListBox"  Margin="550,60,30,60" BorderBrush="#FF545454" Background="#FF333333"/>
+                    <ListBox x:Name="Dsiabled_ListBox"  Margin="30,60,0,60" BorderBrush="#FF545454" Width="371" HorizontalAlignment="Left" Background="#FF333333" PreviewMouseRightButtonDown="MOD_PreviewMouseRightButtonDown"/>
+                    <ListBox x:Name="Enabled_ListBox"  Margin="550,60,30,60" BorderBrush="#FF545454" Background="#FF333333" PreviewMouseRightButtonDown="MOD_PreviewMouseRightButtonDown"/>
                     <Button x:Name="Enable_Mod" Content="" Height="51" Width="56" Margin="0,110,0,0" VerticalAlignment="Top" Background="{StaticResource Enable_Button}" BorderBrush="{x:Null}" Click="Enable_Mod_Click"/>
                     <Button x:Name="Disable_Mod" Content="" Height="51" Width="56" Margin="0,212,0,0" VerticalAlignment="Top" Background="{StaticResource Disable_Button}" BorderBrush="{x:Null}" Click="Disable_Mod_Click"/>
                     <Button x:Name="Apply_Btn" Content="{DynamicResource UI_BUTTON_MODS_APPLY}" Width="890" Margin="0,0,0,13" VerticalAlignment="Bottom" Background="#FF2C4C4C" BorderBrush="{x:Null}" Height="30" Click="Apply_Btn_Click"/>
@@ -223,7 +227,7 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
 
 
 
-        <hc:SimplePanel x:Name="Mod_Browse_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Visible" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
+        <hc:SimplePanel x:Name="Mod_Browse_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
             <hc:SimplePanel Margin="10,10,10,10" Background="#FF101010">
                 <TabControl x:Name="Sections_Tabs" Margin="36,55,36,48" Style="{StaticResource TabControlInLine}" BorderBrush="{x:Null}" Foreground="{x:Null}" Background="{x:Null}" Padding="0,0,0,0" Width="900" SelectionChanged="Sections_Tabs_SelectionChanged">
                     <TabItem Header="All">

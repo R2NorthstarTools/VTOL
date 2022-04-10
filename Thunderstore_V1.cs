@@ -5,11 +5,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+//using Utf8Json;
+//using Newtonsoft.Json;
+//using Json.Net;
 
 namespace VTOL
 {
     public partial class Thunderstore_V1
     {
+       
         [JsonPropertyName("name")]
         public string Name { get; set; }
 
@@ -103,9 +107,12 @@ namespace VTOL
 
         public static Thunderstore_V1[] FromJson(string json)
         {
-            return JsonSerializer.Deserialize<Thunderstore_V1[]>(json);
-        }
 
+
+           return JsonSerializer.Deserialize<Thunderstore_V1[]>(json);
+
+           // return JsonSerializer.Deserialize<Thunderstore_V1[]>(json);
+        }
 
 
 

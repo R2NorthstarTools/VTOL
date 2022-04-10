@@ -38,7 +38,7 @@ using Zipi = Ionic.Zip;
 using System.Net.NetworkInformation;
 using Microsoft.Win32;
 using System.Timers;
-
+using Utf8Json;
 //****TODO*****//
 
 //Migrate Release Parse to the New Updater Sys
@@ -88,7 +88,100 @@ namespace VTOL
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     /// 
+    public class Model : INotifyPropertyChanged
+    {
+        public string Tag;
+        public string Name;
+        public string Icon;
+        public string owner;
+        public string description;
+        public string download_url;
+        public string Webpage;
+        public string date_created;
+        public int Rating;
+        public string File_Size;
+        public string Downloads;
 
+        public string Tag_
+        {
+
+            get {  return Tag; }
+            set { Tag = value; NotifyPropertyChanged("Tag"); }
+        }
+        public string Name_
+        {
+
+            get { return Name; }
+            set { Name = value; NotifyPropertyChanged("Name"); }
+        }
+        public string Icon_
+        {
+
+            get { return Icon; }
+            set { Icon = value; NotifyPropertyChanged("Icon"); }
+        }
+        public string owner_
+        {
+
+            get { return owner; }
+            set { owner = value; NotifyPropertyChanged("owner"); }
+        }
+        public string description_
+        {
+
+            get { return description; }
+            set { description = value; NotifyPropertyChanged("description"); }
+        }
+        public string download_url_
+        {
+
+            get { return download_url; }
+            set { download_url = value; NotifyPropertyChanged("download_url"); }
+        }
+        public string Webpage_
+        {
+
+            get { return Webpage; }
+            set { Webpage = value; NotifyPropertyChanged("Webpage"); }
+        }
+       
+        public string date_created_
+        {
+
+            get { return date_created; }
+            set { date_created = value; NotifyPropertyChanged("date_created"); }
+        }
+        public int Rating_
+        {
+
+            get { return Rating; }
+            set { Rating = value; NotifyPropertyChanged("Rating"); }
+        }
+        public string File_Size_
+        {
+
+            get { return File_Size; }
+            set { File_Size = value; NotifyPropertyChanged("Name"); }
+        }
+        public string Downloads_
+        {
+
+            get { return Downloads; }
+            set { Downloads = value; NotifyPropertyChanged("Downloads"); }
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void NotifyPropertyChanged(string Property)
+        {
+
+            if (PropertyChanged != null)
+            {
+
+                PropertyChanged(this, new PropertyChangedEventArgs(Property));
+                PropertyChanged(this, new PropertyChangedEventArgs("DisplayMember"));
+            }
+        }
+
+    }
     public class Server_Template_Selector : DataTemplateSelector
     {
 
@@ -132,6 +225,7 @@ namespace VTOL
 
 
     }
+    
 
     public partial class MainWindow : Window
     {
@@ -157,7 +251,6 @@ namespace VTOL
         bool do_not_overwrite_Ns_file = true;
         bool do_not_overwrite_Ns_file_Dedi = true;
         List<object> itemsList = new List<object>();
-        ArrayList Mirror_Item_List = new ArrayList();
         public IEnumerable<string> Phrases { get; private set; }
         public List<string> Game_Modes_List = new List<string>();
         public List<string> Game_MAP_List = new List<string>();
@@ -166,7 +259,6 @@ namespace VTOL
         int Progress_Tracker;
         HandyControl.Controls.Dialog Diag;
         private bool Check_Server_Ping = true;
-
         int completed_flag;
         public int pid;
         string Skin_Path = "";
@@ -180,8 +272,8 @@ namespace VTOL
         public string Convar_File = "";
         bool Started_Selection = false;
         bool Origin_Client_Running =false;
-        ObservableCollection<Button> Items_ = new ObservableCollection<Button>();
-
+        ObservableCollection<Model> Items_ = new ObservableCollection<Model>();
+        private Model ViewModel;
         public MainWindow()
         {
             InitializeComponent();
@@ -427,6 +519,8 @@ namespace VTOL
 
 
         }
+
+   
         private void OnTimedEvent(object source, ElapsedEventArgs e)
         {
            PingHost("Northstar.tf");
@@ -622,6 +716,18 @@ namespace VTOL
             }
             return pingable;
         }
+        private static void Delete_empty_Folders(string startLocation)
+        {
+            foreach (var directory in Directory.GetDirectories(startLocation))
+            {
+                Delete_empty_Folders(directory);
+                if (Directory.GetFiles(directory).Length == 0 &&
+                    Directory.GetDirectories(directory).Length == 0)
+                {
+                    Directory.Delete(directory, false);
+                }
+            }
+        }
         async Task Thunderstore_Parse(bool hard_refresh = true, string Filter_Type = "None")
         {
            
@@ -638,10 +744,10 @@ namespace VTOL
                         Update = new Updater("https://gtfo.thunderstore.io/api/v1/package/");
                         Update.Download_Cutom_JSON();
                        // LoadListViewData(Filter_Type);
-                        Test_List.ItemsSource = LoadListViewData(Filter_Type);
-                        //   Test_List.ItemsSource = Items_;
+                       //Test_List.ItemsSource = LoadListViewData(Filter_Type);
+                        //   Test_List.ItemsSource = _Items_;
                         //this.DataContext = itemsList;
-                      //  Test_List.Items.Refresh();
+                        Test_List.Items.Refresh();
                         Finished_Init = true;
                     }
                     else
@@ -651,7 +757,7 @@ namespace VTOL
                         Test_List.ItemsSource = LoadListViewData(Filter_Type);
                         //  Test_List.ItemsSource = Items_;
 
-                         //Test_List.Items.Refresh();
+                         Test_List.Items.Refresh();
 
                     }
                    
@@ -830,25 +936,29 @@ namespace VTOL
                 // Description.Clear();
                 // lst.Clear();
                 //  File_Size_.Clear();
+                //List<object> MainList = Update.Thunderstore;
 
                 foreach (var item in Update.Thunderstore)
                 {
-                    for (int i = 0; i < Update.Thunderstore.Length; i++)
-                    {
+                 //  for (List item = Update.Thunderstore.ToList()<VTOL.Thunderstore_>; int i = 0; i < Update.Thunderstore.Length; i++)
+                 //  {
                         if (item.FullName == "northstar-Northstar")
                     {
                         continue;
                     }
                     int rating = item.RatingScore;
+                   
+                        Tags = String.Join(" , ", item.Categories);
 
+                   
                     //Tag = item.Categories;
-                    Tags = String.Join(" , ", item.Categories);
 
 
                     List<versions> versions = item.versions;
-                    if (Filter_Type == "None")
+                    if (Filter_Type == "None" )
                     {
-                        foreach (var items in item.versions)
+
+                        foreach (var items in versions)
 
 
                         {
@@ -870,10 +980,9 @@ namespace VTOL
                         {
                             FileSize = Convert_To_Size(value);
                         }
-                      //  Items_.Add(new Button { Name = item.Name, Icon = ICON, date_created = item.DateCreated.ToString(), description = Descrtiption, owner=item.Owner, Rating = rating, download_url = download_url +"|"+item.FullName.ToString(), Webpage  = item.PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads });
+                      //  Items_.Add(new Model { Name = item.Name, Icon = ICON, date_created = item.DateCreated.ToString(), description = Descrtiption, owner=item.Owner, Rating = rating, download_url = download_url +"|"+item.FullName.ToString(), Webpage  = item.PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads });
 
                         itemsList.Add(new Button { Name = item.Name, Icon = ICON, date_created = item.DateCreated.ToString(), description = Descrtiption, owner=item.Owner, Rating = rating, download_url = download_url +"|"+item.FullName.ToString(), Webpage  = item.PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads });
-                        Mirror_Item_List.Add(item.Name);
 
                     }
                     else if (Tags.Contains(Filter_Type) && !Tags.Contains(Exclude_String))
@@ -961,7 +1070,6 @@ namespace VTOL
 
                         //itemsList.Add(new Button {  Name = item.full_name.ToString() , Icon = item.latest.icon,date_created = item.date_created.ToString(), description = item.latest.description, owner=item.owner, Rating = rating});
                         itemsList.Add(new Button { Name = item.Name, Icon = ICON, date_created = item.DateCreated.ToString(), description = Descrtiption, owner=item.Owner, Rating = rating, download_url = download_url +"|"+item.FullName.ToString(), Webpage  = item.PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads });
-                        Mirror_Item_List.Add(item.Name);
                     }
                     // itemsList.Add(item.full_name.ToString());
                 }
@@ -969,7 +1077,9 @@ namespace VTOL
             catch (Exception ex)
             {
                 Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_ERROR_OCCURRED"));
-                Write_To_Log(ex.ToString());
+                Write_To_Log(ex.StackTrace);
+               
+
                 Console.WriteLine(ex.ToString());
             }
 
@@ -2169,10 +2279,23 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
                 if (e.Message == "Sequence contains no elements")
                 {
+                    System.IO.DirectoryInfo Dir = new DirectoryInfo(outt);
+
                     Console.WriteLine("Empty Folder at - "+ outt);
+                    if (IsDirectoryEmpty(Dir))
+                  {
+                        Directory.Delete(outt, true);
+                    }
+                 //   Delete_empty_Folders(outt);
                 }
                 else
                 {
+                    System.IO.DirectoryInfo Dir = new DirectoryInfo(outt);
+
+                    if (IsDirectoryEmpty(Dir))
+                    {
+                        Directory.Delete(outt, true);
+                    }
                     Write_To_Log(e.StackTrace);
 
                     Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
@@ -2462,9 +2585,11 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                 {
                                     if (IsDirectoryEmpty(dirInfo))
                                     {
-                                       // Send_Info_Notif(GetTextResource("NOTIF_INFO_NO_INACTIVE_MODS"));
+                                        Directory.Delete(dirInfo.FullName, true);
+
+                                        // Send_Info_Notif(GetTextResource("NOTIF_INFO_NO_INACTIVE_MODS"));
                                     }
-                                    if (Template_traverse(dirInfo, "Locked_Folder") == true)
+                                    else if (Template_traverse(dirInfo, "Locked_Folder") == true)
                                     {
 
                                         //   Console.WriteLine("Inactive - " + dirInfo.Name);
@@ -2511,11 +2636,10 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             }
             catch (Exception ex)
             {
-                Send_Info_Notif("Found!");
                 if (ex.Message == "Sequence contains no elements")
                 {
                    Send_Info_Notif(GetTextResource("NOTIF_INFO_NO_MODS_FOUND"));
-
+                   
                 }
                 else
                 {
@@ -4307,13 +4431,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            Mirror_Item_List.Reverse();
-            foreach (string element in Mirror_Item_List)
-            {
-
-
-                Send_Info_Notif(element);
-            }// CollectionViewSource.GetDefaultView(Test_List.ItemsSource).Refresh();
+           
 
         }
 
@@ -6555,7 +6673,32 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             };
                   
         }
-     
+
+        private void Delete_Menu_Context_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void MOD_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+
+            if (this.Dsiabled_ListBox.SelectedItem != null || this.Enabled_ListBox.SelectedItem != null)
+            {
+                Delete_Menu_Context.IsHitTestVisible = true;
+                Delete_Menu_Context.Foreground = Brushes.White;
+            }
+            else
+            {
+                Delete_Menu_Context.IsHitTestVisible = false;
+                Delete_Menu_Context.Foreground = Brushes.Gray;
+
+
+            }
+            Context_Menu_Mod_Mngs.ContextMenu.Items.Refresh();
+
+            Delete_Menu_Context.Refresh();
+
+        }
     }
 }
 

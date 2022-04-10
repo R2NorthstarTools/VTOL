@@ -1,10 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Reflection;
-using System.Threading.Tasks;
+using Utf8Json;
 
+//using System.Text.Json;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 namespace VTOL
 {
     public class Updater : IDisposable
@@ -159,29 +164,89 @@ namespace VTOL
 
                 json = reader.ReadToEnd();
             }
+            MessageBox.Show("AAAAAAAA");
             Thunderstore = Thunderstore_V1.FromJson(json);
             repository = Repository.FromJson(json);
         }
         public void Download_Cutom_JSON()
         {
+            try
+            {
+                
+                DateTime DateTimeProperty = new DateTime();
+                string save = @"C:\ProgramData\VTOL_DATA\VARS";
+
+
+               
+                    
+
+               
+                if (File.Exists(Directory.GetFiles(save).Where(f => f.Contains("Thunder")).SingleOrDefault()))
+                {
+                    string x = (Directory.GetFiles(save).Where(f => f.Contains("Thunder")).SingleOrDefault());
+                  //  MessageBox.Show(x);
+                    if (x == @"C:\ProgramData\VTOL_DATA\VARS\Thunderstore"+DateTimeProperty.Hour+".json")
+                    {
+
+                        using (StreamReader r = new StreamReader(x))
+                        {
+                           // MessageBox.Show("sd");
+                            string json = r.ReadToEnd();
+                            Thunderstore = Thunderstore_V1.FromJson(json);
+                        }
+
+
+                    }
+                    else
+                    {
+                        string address = "https://northstar.thunderstore.io/api/v1/package/";
 
 
 
-            string address = "https://northstar.thunderstore.io/api/v1/package/";
-         
-           
 
-            
-            WebClient client = new WebClient();
-            Uri uri1 = new Uri(address);
-            
-            client.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)");
-            Stream data = client.OpenRead(address);
-           
-            StreamReader reader = new StreamReader(data);
-            string s = reader.ReadToEnd();
-            Thunderstore = Thunderstore_V1.FromJson(s);
-            
+                        WebClient client = new WebClient();
+                        Uri uri1 = new Uri(address);
+
+                        client.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)");
+                        Stream data = client.OpenRead(address);
+
+                        StreamReader reader = new StreamReader(data);
+                        // string json = JsonSerializer.Serialize(data);
+
+                        string s = reader.ReadToEnd();
+                        File.WriteAllText(@"C:\ProgramData\VTOL_DATA\VARS\Thunderstore"+DateTimeProperty.Hour+".json", s);
+
+                        Thunderstore = Thunderstore_V1.FromJson(s);
+
+                    }
+
+                }
+                else
+                {
+                    string address = "https://northstar.thunderstore.io/api/v1/package/";
+
+
+
+
+                    WebClient client = new WebClient();
+                    Uri uri1 = new Uri(address);
+
+                    client.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)");
+                    Stream data = client.OpenRead(address);
+
+                    StreamReader reader = new StreamReader(data);
+                   // string json = JsonSerializer.Serialize(data);
+
+                    string s = reader.ReadToEnd();
+                    File.WriteAllText(@"C:\ProgramData\VTOL_DATA\VARS\Thunderstore"+DateTimeProperty.Hour+".json", s);
+
+                    Thunderstore = Thunderstore_V1.FromJson(s);
+                }
+            }
+            catch (Exception ex)
+            {
+               // MessageBox.Show(ex.ToString());
+            }
         }
         /// <summary>
         /// Gets the the repository, then checks if there is a new version available.
