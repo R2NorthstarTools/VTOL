@@ -190,16 +190,20 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
                             </MenuItem>
                             <MenuItem x:Name="Delete_Menu_Context" Header="Delete" Click="Delete_Menu_Context_Click" Visibility="Visible" IsEnabled="True">
                                 <MenuItem.Icon>
-                                    <Image Source="/Resources/Folder_Browse_Icon.png" />
+                                    <Image Source="/Resources/Delete_Icon.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem x:Name="SortMenu" Header="Sort" Visibility="Visible" IsEnabled="True" Click="SortMenu_Click">
+                                <MenuItem.Icon>
+                                    <Image x:Name="Sort_Img_Source" Source="/Resources/Sort_Off.png" />
                                 </MenuItem.Icon>
                             </MenuItem>
                         </ContextMenu>
                     </hc:SimplePanel.ContextMenu>
-                    <ListBox x:Name="Dsiabled_ListBox"  Margin="30,60,0,60" BorderBrush="#FF545454" Width="371" HorizontalAlignment="Left" Background="#FF333333" PreviewMouseRightButtonDown="MOD_PreviewMouseRightButtonDown"/>
-                    <ListBox x:Name="Enabled_ListBox"  Margin="550,60,30,60" BorderBrush="#FF545454" Background="#FF333333" PreviewMouseRightButtonDown="MOD_PreviewMouseRightButtonDown"/>
+                    <ListBox x:Name="Dsiabled_ListBox"  Margin="30,60,0,30" BorderBrush="#FF545454" Width="371" HorizontalAlignment="Left" Background="#FF333333" PreviewMouseRightButtonDown="MOD_PreviewMouseRightButtonDown" LostFocus="Dsiabled_ListBox_LostFocus" MouseLeave="Dsiabled_ListBox_MouseLeave" AllowDrop="False" IsTextSearchEnabled="False" IsSynchronizedWithCurrentItem="True" TargetUpdated="Dsiabled_ListBox_TargetUpdated" PreviewMouseMove="Dsiabled_ListBox_PreviewMouseMove" ManipulationCompleted="Dsiabled_ListBox_ManipulationCompleted"/>
+                    <ListBox x:Name="Enabled_ListBox"  Margin="550,60,30,30" BorderBrush="#FF545454" Background="#FF333333" PreviewMouseRightButtonDown="MOD_PreviewMouseRightButtonDown" MouseLeave="Enabled_ListBox_MouseLeave" IsTextSearchEnabled="False" AllowDrop="False" LostFocus="Enabled_ListBox_LostFocus" PreviewMouseMove="Enabled_ListBox_PreviewMouseMove"/>
                     <Button x:Name="Enable_Mod" Content="" Height="51" Width="56" Margin="0,110,0,0" VerticalAlignment="Top" Background="{StaticResource Enable_Button}" BorderBrush="{x:Null}" Click="Enable_Mod_Click"/>
                     <Button x:Name="Disable_Mod" Content="" Height="51" Width="56" Margin="0,212,0,0" VerticalAlignment="Top" Background="{StaticResource Disable_Button}" BorderBrush="{x:Null}" Click="Disable_Mod_Click"/>
-                    <Button x:Name="Apply_Btn" Content="{DynamicResource UI_BUTTON_MODS_APPLY}" Width="890" Margin="0,0,0,13" VerticalAlignment="Bottom" Background="#FF2C4C4C" BorderBrush="{x:Null}" Height="30" Click="Apply_Btn_Click"/>
                     <Label Content="{DynamicResource UI_TITLE_MODS}" Height="44" Width="190" Margin="0,-201,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi"/>
 
                 </hc:SimplePanel>
@@ -519,11 +523,17 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
 
 
         <hc:SideMenu x:Name="Navigation_Menu" BorderThickness="1" Width="200" HorizontalAlignment="Center" SelectionChanged="SideMenu_SelectionChanged" Grid.RowSpan="3" Background="#FF101010" Margin="0,0,0,-1" SideBrush="Cyan" BorderBrush="{x:Null}">
+
+
             <hc:Interaction.Triggers>
                 <hc:EventTrigger EventName="SelectionChanged">
                     <hc:EventToCommand Command="{Binding SwitchItemCmd}" PassEventArgsToCommand="True" />
                 </hc:EventTrigger>
             </hc:Interaction.Triggers>
+            <hc:SideMenuItem x:Name="Profile" Header=""  Margin="4,0,0,0" Background="#FF101010">
+                <hc:ComboBox></hc:ComboBox>
+
+            </hc:SideMenuItem>
             <hc:SideMenuItem x:Name="Main" Header="{DynamicResource UI_SIDEMENU_TITLE_MAIN}" Selected="SideMenuItem_Selected" Margin="4,0,0,0" Background="#FF101010">
                 <hc:SideMenuItem.Icon>
                     <Image Source="/Resources/home.png" Width="24" Height="24"/>
@@ -567,6 +577,7 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
                 </hc:SideMenuItem.Icon>
             </hc:SideMenuItem>
         </hc:SideMenu>
+       
         <hc:ComboBox x:Name="Language_Selection" Margin="10,31,10,0" Grid.Row="2" Background="#FF2C4C4C" BorderBrush="Black" Height="32" VerticalAlignment="Top" SelectionChanged="Language_Selection_SelectionChanged" MouseEnter="Language_Selection_MouseEnter" MouseLeave="Language_Selection_MouseLeave" Foreground="White" >
             <ComboBoxItem x:Name="English">
                 <StackPanel Orientation="Horizontal">

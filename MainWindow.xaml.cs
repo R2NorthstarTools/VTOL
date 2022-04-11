@@ -39,6 +39,7 @@ using System.Net.NetworkInformation;
 using Microsoft.Win32;
 using System.Timers;
 using Utf8Json;
+using HandyControl.Data;
 //****TODO*****//
 
 //Migrate Release Parse to the New Updater Sys
@@ -271,6 +272,7 @@ namespace VTOL
         public string Ns_dedi_File = "";
         public string Convar_File = "";
         bool Started_Selection = false;
+        public bool Sort_Lists;
         bool Origin_Client_Running =false;
         ObservableCollection<Model> Items_ = new ObservableCollection<Model>();
         private Model ViewModel;
@@ -280,7 +282,7 @@ namespace VTOL
             Application.Current.MainWindow.Closing += new CancelEventHandler(MainWindow_Closing);
             do_not_overwrite_Ns_file = Properties.Settings.Default.Ns_Startup;
             do_not_overwrite_Ns_file_Dedi = Properties.Settings.Default.Ns_Dedi;
-
+            Sort_Lists = Properties.Settings.Default.Sort_Mods;
             //  Test_List.ItemsSource = itemsList;
 
 
@@ -3005,19 +3007,17 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                             {
                                 if (Directory.Exists(Current_Install_Folder + @"\R2Northstar\mods\" + val + @"\Locked_Folder"))
                                 {
-                                    
-                                    MoveFiles(Current_Install_Folder + @"\R2Northstar\mods\" + val, Current_Install_Folder + @"\R2Northstar\mods\" + val + @"\Locked_Folder");
-                                    Apply_Btn.BorderBrush = Brushes.Transparent;
-
+                                   
+                                        MoveFiles(Current_Install_Folder + @"\R2Northstar\mods\" + val, Current_Install_Folder + @"\R2Northstar\mods\" + val + @"\Locked_Folder");
+                                   
 
                                 }
                                 else
                                 {
-
+                               
                                     Directory.CreateDirectory(Current_Install_Folder + @"\R2Northstar\mods\" + val + @"\Locked_Folder");
                                     MoveFiles(Current_Install_Folder + @"\R2Northstar\mods\" + val, Current_Install_Folder + @"\R2Northstar\mods\" + val + @"\Locked_Folder");
-                                    Apply_Btn.BorderBrush = Brushes.Transparent;
-
+                                   
                                 }
                             }
                         }
@@ -3029,23 +3029,24 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                         {
                             //  Console.WriteLine(Current_Install_Folder + @"\R2Northstar\mods\" + val);
                             System.IO.DirectoryInfo rootDirs = new DirectoryInfo(Current_Install_Folder + @"\R2Northstar\mods\" + val);
+                            System.IO.DirectoryInfo Locked = new DirectoryInfo(Current_Install_Folder + @"\R2Northstar\mods\" + val + @"\Locked_Folder");
 
                             if (!IsDirectoryEmpty(rootDirs))
                             {
-                                if (Directory.Exists(Current_Install_Folder + @"\R2Northstar\mods\" + val + @"\Locked_Folder"))
+                                if (Directory.Exists(Locked.FullName))
                                 {
+                                    if (!IsDirectoryEmpty(Locked))
+                                    {
 
-                                    MoveFiles(Current_Install_Folder + @"\R2Northstar\mods\" + val + @"\Locked_Folder", Current_Install_Folder + @"\R2Northstar\mods\" + val);
-                                    Directory.Delete(Current_Install_Folder + @"\R2Northstar\mods\" + val + @"\Locked_Folder", true);
-                                    Apply_Btn.BorderBrush = Brushes.Transparent;
+                                        Directory.Delete(Locked.FullName);
+                                        Call_Mods_From_Folder();
+
+                                    }
+                                    MoveFiles(Locked.FullName, rootDirs.FullName);
+                                    Directory.Delete(Locked.FullName, true);
 
                                 }
-                                else
-                                {
-                                    break;
-                                    //What happens if theres no folder???
-
-                                }
+                                
                             }
                         }
 
@@ -3851,33 +3852,29 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
         private void Enable_Mod_Click(object sender, RoutedEventArgs e)
         {
-            if (Dsiabled_ListBox.SelectedIndex == 0)
-            {
-                Send_Warning_Notif(GetTextResource("NOTIF_WARN_NO_MODS_IN_LIST"));
-            }
+           
             Move_List_box_Inactive_To_Active(Dsiabled_ListBox);
-
+            Move_Mods();
+            Call_Mods_From_Folder();
         }
 
         private void Disable_Mod_Click(object sender, RoutedEventArgs e)
         {
-            if (Enabled_ListBox.SelectedIndex == 0)
-            {
-                Send_Warning_Notif(GetTextResource("NOTIF_WARN_NO_MODS_IN_LIST"));
-            }
+           
             Move_List_box_Active_To_Inactive(Enabled_ListBox);
+            Move_Mods();
+            Call_Mods_From_Folder();
 
         }
 
         private void Apply_Btn_Click(object sender, RoutedEventArgs e)
         {
             Move_Mods();
-
+            Call_Mods_From_Folder();
         }
 
         private void Browse_For_Mod_zip_Btn_Click(object sender, RoutedEventArgs e)
         {
-            Apply_Btn.BorderBrush = Brushes.Red;
             try
             {
                 var File = new Ookii.Dialogs.Wpf.VistaOpenFileDialog();
@@ -6557,7 +6554,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                             { }
                         }
                     }
-                    File.WriteAllText(@"C:\VTOL\ALLApps.txt",x);
+                    //File.WriteAllText(@"C:\VTOL\ALLApps.txt",x);
                 }
 
             }
@@ -6602,7 +6599,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 Process process = new Process();
                 procStartInfo.FileName = location;
                 procStartInfo.WorkingDirectory = System.IO.Path.GetDirectoryName(NSExe);
-                ;
+                
 
                 // procStartInfo.Arguments = args;
 
@@ -6673,20 +6670,99 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             };
                   
         }
+        private string Find_Folder(string searchQuery , string folderPath)
+        {
+            searchQuery = "*" + searchQuery + "*";
 
+            var directory = new DirectoryInfo(folderPath);
+
+            var directories = directory.GetDirectories(searchQuery, SearchOption.AllDirectories);
+            return directories[0].ToString();
+        }
         private void Delete_Menu_Context_Click(object sender, RoutedEventArgs e)
         {
+            Dsiabled_ListBox.Items.IsLiveSorting = true;
+            if (Dsiabled_ListBox.SelectedItem != null && Dsiabled_ListBox.IsMouseOver == true && Enabled_ListBox.IsMouseOver == false)
+            {
+                string Mod = (Dsiabled_ListBox.SelectedItem.ToString());
+                string FolderDir = Find_Folder(Mod, Current_Install_Folder + @"\R2Northstar\mods");
+                if (Directory.Exists(FolderDir))
+                {
+                    System.Windows.MessageBoxResult result = HandyControl.Controls.MessageBox.Show(new MessageBoxInfo { Message = "Are You Sure You Want To Delete The Mod - " + Mod + " ?", Caption = "WARNING!", Button = MessageBoxButton.YesNo, IconBrushKey = ResourceToken.AccentBrush, IconKey = ResourceToken.AskGeometry, StyleKey = "MessageBoxCustom" });
+                    if (result == System.Windows.MessageBoxResult.Yes)
+                    {
+                        Directory.Delete(FolderDir, true);
 
+                        if (!Directory.Exists(FolderDir))
+                        {
+                            Send_Success_Notif("Successfully Deleted - "+Mod);
+                            Call_Mods_From_Folder();
+
+                        }
+                        else
+                        {
+                            Send_Error_Notif("Could not Delete! - "+Mod);
+                            Call_Mods_From_Folder();
+
+                        }
+
+                    }
+
+                }
+
+            }
+            else if (Enabled_ListBox.SelectedItem != null && Dsiabled_ListBox.IsMouseOver == false && Enabled_ListBox.IsMouseOver == true)
+            {
+                string Mod = (Enabled_ListBox.SelectedItem.ToString());
+                string FolderDir = Find_Folder(Mod, Current_Install_Folder + @"\R2Northstar\mods");
+               if (Directory.Exists(FolderDir))
+                {
+                   System.Windows.MessageBoxResult result =  HandyControl.Controls.MessageBox.Show(new MessageBoxInfo { Message = "Are You Sure You Want To Delete The Mod - " + Mod + " ?", Caption = "WARNING!" , Button = MessageBoxButton.YesNo, IconBrushKey = ResourceToken.AccentBrush, IconKey = ResourceToken.AskGeometry, StyleKey = "MessageBoxCustom" });
+                    if (result == System.Windows.MessageBoxResult.Yes)
+                    {
+                        Directory.Delete(FolderDir, true);
+
+                        if (!Directory.Exists(FolderDir))
+                        {
+                            Send_Success_Notif("Successfully Deleted - "+Mod);
+                            Call_Mods_From_Folder();
+
+                        }
+                        else
+                        {
+                            Send_Error_Notif("Could not Delete! - "+Mod);
+                            Call_Mods_From_Folder();
+
+                        }
+
+                    }
+                   
+                }
+
+
+
+                
+            }
         }
 
         private void MOD_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
+           
+            //  Current_Install_Folder + @"\R2Northstar\mods";
+            Delete_Menu_Context.IsHitTestVisible = false;
+            Delete_Menu_Context.Foreground = Brushes.Gray;
 
-            if (this.Dsiabled_ListBox.SelectedItem != null || this.Enabled_ListBox.SelectedItem != null)
-            {
-                Delete_Menu_Context.IsHitTestVisible = true;
-                Delete_Menu_Context.Foreground = Brushes.White;
-            }
+            if (Dsiabled_ListBox.SelectedItem != null && Dsiabled_ListBox.IsMouseOver == true && Enabled_ListBox.IsMouseOver == false)
+                {
+                    Delete_Menu_Context.IsHitTestVisible = true;
+                    Delete_Menu_Context.Foreground = Brushes.White;
+                }
+                else if (Enabled_ListBox.SelectedItem != null && Dsiabled_ListBox.IsMouseOver == false && Enabled_ListBox.IsMouseOver == true)
+                {
+                    Delete_Menu_Context.IsHitTestVisible = true;
+                    Delete_Menu_Context.Foreground = Brushes.White;
+                }
+          
             else
             {
                 Delete_Menu_Context.IsHitTestVisible = false;
@@ -6698,6 +6774,84 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
             Delete_Menu_Context.Refresh();
 
+        }
+
+        private void Dsiabled_ListBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+          
+        }
+
+        private void Dsiabled_ListBox_MouseLeave(object sender, MouseEventArgs e)
+        {
+            //  Dsiabled_ListBox.SelectedItem= null;
+            
+
+        }
+
+        private void Enabled_ListBox_MouseLeave(object sender, MouseEventArgs e)
+        {
+          
+        }
+
+        private void Enabled_ListBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+        }
+
+        
+
+        private void Dsiabled_ListBox_TargetUpdated(object sender, DataTransferEventArgs e)
+        {
+
+        }
+
+        private void Enabled_ListBox_PreviewMouseMove(object sender, MouseEventArgs e)
+        {
+            if (Dsiabled_ListBox.SelectedItem != null)
+            {
+                Dsiabled_ListBox.UnselectAll();
+                Dsiabled_ListBox.SelectedValue = null;
+
+
+            }
+        }
+
+        private void Dsiabled_ListBox_PreviewMouseMove(object sender, MouseEventArgs e)
+        {
+            if (Enabled_ListBox.SelectedItem != null)
+            {
+                Enabled_ListBox.SelectedValue = null;
+                Enabled_ListBox.UnselectAll();
+
+            }
+        }
+
+        private void Dsiabled_ListBox_ManipulationCompleted(object sender, ManipulationCompletedEventArgs e)
+        {
+        }
+
+        private void SortMenu_Click(object sender, RoutedEventArgs e)
+        {
+            if(Sort_Lists == true)
+            {
+                Sort_Img_Source.Source = new BitmapImage(new Uri(@"/Resources/Sort_Off.png", UriKind.Relative));
+                Sort_Lists = false;
+                Enabled_ListBox.Items.IsLiveSorting = false;
+                Properties.Settings.Default.Sort_Mods = false;
+                Properties.Settings.Default.Save();
+                Call_Mods_From_Folder();
+
+            }
+            else
+            {
+                Sort_Img_Source.Source = new BitmapImage(new Uri(@"/Resources/Sort_On.png", UriKind.Relative));
+                Enabled_ListBox.Items.IsLiveSorting = true;
+
+                Sort_Lists = true;
+                Properties.Settings.Default.Sort_Mods = true;
+                Properties.Settings.Default.Save();
+                Call_Mods_From_Folder();
+
+            }
         }
     }
 }

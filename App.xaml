@@ -6,14 +6,18 @@
              xmlns:hc="https://handyorg.github.io/handycontrol">
     <Application.Resources>
         <ResourceDictionary>
+            <LinearGradientBrush x:Key="Gradient_Brush" EndPoint="1,0">
+                <GradientStop  Color="#FF326CF3"/>
+                <GradientStop Color="#FF02FFB4" Offset="1"/>
+            </LinearGradientBrush>
             <Style x:Key="MessageBoxCustom" TargetType="hc:MessageBox" BasedOn="{StaticResource {x:Type hc:MessageBox}}">
-                <Setter Property="NonClientAreaBackground" Value="#262e2f"/>
+                <Setter Property="NonClientAreaBackground" Value="{DynamicResource Gradient_Brush}"/>
                 <Setter Property="OtherButtonHoverBackground" Value="#888580"/>
                 <Setter Property="OtherButtonForeground" Value="White"/>
                 <Setter Property="OtherButtonHoverForeground" Value="White"/>
                 <Setter Property="NonClientAreaForeground" Value="White"/>
-                <Setter Property="CloseButtonForeground" Value="White"/>
-            </Style>
+                <Setter Property="CloseButtonForeground" Value="Black"/>
+            </Style> 
             <ResourceDictionary.MergedDictionaries>
                 <hc:ThemeResources  RequestedTheme="Dark"/>
                 <hc:Theme/>

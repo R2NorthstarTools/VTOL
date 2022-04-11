@@ -37,6 +37,7 @@
     <None Remove="Resources\BG_Panels.png" />
     <None Remove="Resources\BG_SMALL.png" />
     <None Remove="Resources\BG_Test.png" />
+    <None Remove="Resources\Delete_Icon.png" />
     <None Remove="Resources\Disable_Img.png" />
     <None Remove="Resources\download_icon.png" />
     <None Remove="Resources\Enable_Image.png" />
@@ -72,6 +73,8 @@
     <None Remove="Resources\Search_Icon.png" />
     <None Remove="Resources\Server_ICON.png" />
     <None Remove="Resources\Sheet.png" />
+    <None Remove="Resources\Sort_Off.png" />
+    <None Remove="Resources\Sort_On.png" />
     <None Remove="Resources\space-invaders-gif-6.gif" />
     <None Remove="Resources\target.png" />
     <None Remove="Resources\Test_Args_1.json" />
@@ -244,8 +247,17 @@
     <Content Include="Resources\BG_SMALL.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Delete_Icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\NorthStar_Smurfson.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Sort_Off.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Sort_On.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Resource Include="Resources\NO_TEXTURE.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
