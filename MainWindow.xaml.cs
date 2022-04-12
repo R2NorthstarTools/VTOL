@@ -90,7 +90,7 @@ namespace VTOL
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     /// 
-    public class Model : INotifyPropertyChanged
+    public class Button : INotifyPropertyChanged
     {
         public string Tag;
         public string Name;
@@ -275,8 +275,7 @@ namespace VTOL
         bool Started_Selection = false;
         public bool Sort_Lists;
         bool Origin_Client_Running = false;
-        ObservableCollection<Model> Items_ = new ObservableCollection<Model>();
-        private Model ViewModel;
+      
         List<object> Temp = new List<object> { };
         bool Warn_Close_EA;
 
@@ -766,51 +765,33 @@ namespace VTOL
                     Update = new Updater("https://gtfo.thunderstore.io/api/v1/package/");
                     Update.Download_Cutom_JSON();
                     // LoadListViewData(Filter_Type);
-                    BackgroundWorker doMacBk;
-                    doMacBk = new BackgroundWorker();
-                    doMacBk.DoWork += (o, arg) =>
-                    {
-                        Application.Current.Dispatcher.Invoke(new Action(() =>
-                        {
-                            MessageBox.Show("Adsad");
+                   
+                        
 
-                            Test_List.Items.Clear();
                             Test_List.ItemsSource = null;
-                            MessageBox.Show("Adsad");
                             Test_List.ItemsSource =  LoadListViewData(Filter_Type);
-                            MessageBox.Show("v");
 
                             Finished_Init = true;
 
-                        }));
-                    };
+                     
                     //   Test_List.ItemsSource = _Items_;
                     //this.DataContext = itemsList;
-                    // Test_List.Items.Refresh();
+                     Test_List.Items.Refresh();
                 }
                 else
                 {
                     // LoadListViewData(Filter_Type);
-                    BackgroundWorker doMacBk;
-                    doMacBk = new BackgroundWorker();
-                    doMacBk.DoWork += (o, arg) =>
-                    {
-                        Application.Current.Dispatcher.Invoke(new Action(() =>
-                        {
-                            Test_List.Items.Clear();
+                  
+                       
                             Test_List.ItemsSource = null;
-                            MessageBox.Show("Adsad");
 
                             Test_List.ItemsSource = LoadListViewData(Filter_Type);
-                            MessageBox.Show("v");
 
-                            Test_List.Items.Refresh();
-                        }));
-                    };
+                     
 
                     //  Test_List.ItemsSource = Items_;
 
-                    // Test_List.Items.Refresh();
+                     Test_List.Items.Refresh();
 
                 }
 
@@ -887,7 +868,7 @@ namespace VTOL
             public string Downloads { get; set; }
 
         }
-        class Button
+       public class Button 
         {
             public string Tag { get; set; }
             public string Name { get; set; }
@@ -3366,7 +3347,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
         {
 
 
-            //Auto_Install_And_verify();
+            Auto_Install_And_verify();
 
         }
 

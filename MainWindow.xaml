@@ -102,7 +102,7 @@
 
 
                 <Label Content="{DynamicResource UI_TEXT_MAIN_NS_EXEC_DIR}" Height="50" Margin="61,121,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" AutomationProperties.HelpText="{DynamicResource TIP_YOUR_NS_INST_DIR}" RenderTransformOrigin="0.5,0.5" Foreground="White"/>
-                <Label Content="{DynamicResource UI_TEXT_MAIN_TF2_EXEC_DIR}" Height="45" Margin="61,22,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Foreground="White"/>
+                <Label Content="{DynamicResource UI_TEXT_MAIN_TF2_EXEC_DIR}" Height="45" Margin="59,22,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Foreground="White"/>
                 <Button x:Name="Check_Btn" Content="{DynamicResource UI_BUTTON_MAIN_CHECK}" Height="32" HorizontalAlignment="Stretch" Margin="775,171,60,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Background="#FF2C4C4C" Click="Check_Btn_Click">
                     <hc:Poptip.Instance>
                         <hc:Poptip Content="{DynamicResource TIP_VERIFY_NS_INSTALL}" PlacementType="TopLeft"/>
@@ -535,10 +535,7 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
                     <hc:EventToCommand Command="{Binding SwitchItemCmd}" PassEventArgsToCommand="True" />
                 </hc:EventTrigger>
             </hc:Interaction.Triggers>
-            <hc:SideMenuItem x:Name="Profile" Header=""  Margin="4,0,0,0" Background="#FF101010">
-                <hc:ComboBox></hc:ComboBox>
 
-            </hc:SideMenuItem>
             <hc:SideMenuItem x:Name="Main" Header="{DynamicResource UI_SIDEMENU_TITLE_MAIN}" Selected="SideMenuItem_Selected" Margin="4,0,0,0" Background="#FF101010">
                 <hc:SideMenuItem.Icon>
                     <Image Source="/Resources/home.png" Width="24" Height="24"/>
