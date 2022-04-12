@@ -275,7 +275,7 @@ namespace VTOL
         bool Started_Selection = false;
         public bool Sort_Lists;
         bool Origin_Client_Running = false;
-      
+
         List<object> Temp = new List<object> { };
         bool Warn_Close_EA;
 
@@ -765,33 +765,33 @@ namespace VTOL
                     Update = new Updater("https://gtfo.thunderstore.io/api/v1/package/");
                     Update.Download_Cutom_JSON();
                     // LoadListViewData(Filter_Type);
-                   
-                        
 
-                            Test_List.ItemsSource = null;
-                            Test_List.ItemsSource =  LoadListViewData(Filter_Type);
 
-                            Finished_Init = true;
 
-                     
+                    Test_List.ItemsSource = null;
+                    Test_List.ItemsSource =  LoadListViewData(Filter_Type);
+
+                    Finished_Init = true;
+
+
                     //   Test_List.ItemsSource = _Items_;
                     //this.DataContext = itemsList;
-                     Test_List.Items.Refresh();
+                    Test_List.Items.Refresh();
                 }
                 else
                 {
                     // LoadListViewData(Filter_Type);
-                  
-                       
-                            Test_List.ItemsSource = null;
 
-                            Test_List.ItemsSource = LoadListViewData(Filter_Type);
 
-                     
+                    Test_List.ItemsSource = null;
+
+                    Test_List.ItemsSource = LoadListViewData(Filter_Type);
+
+
 
                     //  Test_List.ItemsSource = Items_;
 
-                     Test_List.Items.Refresh();
+                    Test_List.Items.Refresh();
 
                 }
 
@@ -868,7 +868,7 @@ namespace VTOL
             public string Downloads { get; set; }
 
         }
-       public class Button 
+        public class Button
         {
             public string Tag { get; set; }
             public string Name { get; set; }
@@ -6615,7 +6615,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                             {
 
 
-                               
+
 
 
                             }
@@ -6675,11 +6675,11 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                         "Link2EA",
                         "EALocalHostSvc",
                         "EAGEP"};
-                       
-                            for (int i = 0; i<runingProcess.Length; i++)
+
+                        for (int i = 0; i<runingProcess.Length; i++)
                         {
                             foreach (var x in origin)
-                            {   
+                            {
                                 // compare equivalent process by their name
 
                                 if (runingProcess[i].ProcessName==x)
@@ -6696,7 +6696,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                 }
                             }
 
-                             
+
                         }
                         Thread.Sleep(3000);
 
@@ -6731,7 +6731,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
 
 
-                
+
                 string location = InstalledApplications.GetApplictionInstallPath("Origin") + @"\Origin.exe";
                 if (File.Exists(location))
                 {
@@ -6787,7 +6787,8 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                     Send_Warning_Notif("Could not Find EA Origin Install, Please Start Manually, Or Repair your installation!.");
 
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
 
                 Write_To_Log(ex.StackTrace.ToString());

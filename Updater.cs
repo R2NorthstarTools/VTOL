@@ -19,7 +19,7 @@ namespace VTOL
     public class Updater : IDisposable
     {
         public String Force_Version = "";
-        public bool Force_Version_ =false;
+        public bool Force_Version_ = false;
         /// <summary>
         /// Called when there is a update available
         /// </summary>
@@ -59,7 +59,7 @@ namespace VTOL
         /// The github repository name.
         /// </summary>
         public string GithubRepositoryName;
-               /// <summary>
+        /// <summary>
         /// The current state of the Updater
         /// </summary>
         public UpdaterState State { get; private set; }
@@ -72,7 +72,7 @@ namespace VTOL
         private WebClient client;
         private string downloadedAssetPath;
         private readonly string originalInstallPath;
-       public string json = "";
+        public string json = "";
 
         private readonly string backupFileName = "GithubUpdaterBackup.backup";
 
@@ -161,7 +161,7 @@ namespace VTOL
             request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
             using (Stream stream = response.GetResponseStream())
-             
+
             using (StreamReader reader = new StreamReader(stream))
             {
                 System.Windows.Forms.MessageBox.Show(reader.ReadToEnd());
@@ -172,23 +172,23 @@ namespace VTOL
             Thunderstore = Thunderstore_V1.FromJson(json);
             repository = Repository.FromJson(json);
         }
-        public  void Download_Cutom_JSON()
+        public void Download_Cutom_JSON()
         {
             try
             {
-                
+
                 DateTime DateTimeProperty = new DateTime();
                 string save = @"C:\ProgramData\VTOL_DATA\VARS";
 
 
-               
-                    
 
-               
+
+
+
                 if (File.Exists(Directory.GetFiles(save).Where(f => f.Contains("Thunder")).SingleOrDefault()))
                 {
                     string x = (Directory.GetFiles(save).Where(f => f.Contains("Thunder")).SingleOrDefault());
-                  //  MessageBox.Show(x);
+                    //  MessageBox.Show(x);
                     if (x == @"C:\ProgramData\VTOL_DATA\VARS\Thunderstore"+DateTimeProperty.ToShortDateString+".json")
                     {
 
@@ -205,7 +205,7 @@ namespace VTOL
                     else
                     {
                         List<string> Delete = Directory.GetFiles(save).Where(f => f.Contains("Thunder")).ToList();
-                        foreach(string F in Delete)
+                        foreach (string F in Delete)
                         {
                             Directory.Delete(F, true);
                         }
@@ -246,10 +246,10 @@ namespace VTOL
                     Uri uri1 = new Uri(address);
                     using (var webClient = new System.Net.WebClient())
                     {
-                       webClient.DownloadFile(uri1, @"C:\ProgramData\VTOL_DATA\VARS\Thunderstore"+DateTimeProperty.Date.ToShortDateString+".json");
+                        webClient.DownloadFile(uri1, @"C:\ProgramData\VTOL_DATA\VARS\Thunderstore"+DateTimeProperty.Date.ToShortDateString+".json");
                         // Now parse with JSON.Net
                     }
-                   
+
                     string x = (Directory.GetFiles(save).Where(f => f.Contains("Thunder")).SingleOrDefault());
 
                     using (StreamReader Reader = new StreamReader(x))
@@ -258,17 +258,6 @@ namespace VTOL
                         Thunderstore = Thunderstore_V1.FromJson(json);
 
                     }
-                    // string json = JsonSerializer.Serialize(data);
-                    // MessageBox.Show("HAHa");
-
-                    //  string s = reader.ReadToEnd();
-
-                    // using (StreamReader streamReader = new StreamReader(json))
-
-                    //  File.WriteAllText(@"C:\ProgramData\VTOL_DATA\VARS\Thunderstore"+DateTimeProperty.Hour+".json", s);
-
-                    // Thunderstore = Thunderstore_V1.FromJson(s);
-                    MessageBox.Show("HAHa");
 
                 }
             }
@@ -329,19 +318,19 @@ namespace VTOL
                 throw new NullReferenceException("Could not retrieve Repository");
 
             State = UpdaterState.CheckingForUpdate;
-            if(Force_Version_ == true)
+            if (Force_Version_ == true)
             {
 
-                 currentVersion = Version_.ConvertToVersion(Force_Version);
-                 newestVersion = Version_.ConvertToVersion(repository.TagName);
+                currentVersion = Version_.ConvertToVersion(Force_Version);
+                newestVersion = Version_.ConvertToVersion(repository.TagName);
             }
             else
             {
-                 currentVersion = Version_.ConvertToVersion(Assembly.GetEntryAssembly().GetName().Version.ToString());
-                 newestVersion = Version_.ConvertToVersion(repository.TagName);
+                currentVersion = Version_.ConvertToVersion(Assembly.GetEntryAssembly().GetName().Version.ToString());
+                newestVersion = Version_.ConvertToVersion(repository.TagName);
 
             }
-           
+
 
             if (currentVersion < newestVersion)
             {
