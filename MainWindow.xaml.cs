@@ -276,6 +276,7 @@ namespace VTOL
         bool Origin_Client_Running =false;
         ObservableCollection<Model> Items_ = new ObservableCollection<Model>();
         private Model ViewModel;
+       
         public MainWindow()
         {
             InitializeComponent();
@@ -284,7 +285,6 @@ namespace VTOL
             do_not_overwrite_Ns_file_Dedi = Properties.Settings.Default.Ns_Dedi;
             Sort_Lists = Properties.Settings.Default.Sort_Mods;
             //  Test_List.ItemsSource = itemsList;
-
 
             try
             {
@@ -746,7 +746,7 @@ namespace VTOL
                         Update = new Updater("https://gtfo.thunderstore.io/api/v1/package/");
                         Update.Download_Cutom_JSON();
                        // LoadListViewData(Filter_Type);
-                       //Test_List.ItemsSource = LoadListViewData(Filter_Type);
+                       Test_List.ItemsSource = LoadListViewData(Filter_Type);
                         //   Test_List.ItemsSource = _Items_;
                         //this.DataContext = itemsList;
                         Test_List.Items.Refresh();
@@ -899,6 +899,7 @@ namespace VTOL
                 // List<string> Description = new List<string> { };
                 // List<string> File_Size_ = new List<string> { };
                 List<int> Downloads = new List<int> { };
+                List<object> Temp = new List<object> { };
 
                 string Tags = "";
                 string downloads = "";
@@ -957,6 +958,7 @@ namespace VTOL
 
 
                     List<versions> versions = item.versions;
+                    
                     if (Filter_Type == "None" )
                     {
 
@@ -982,11 +984,23 @@ namespace VTOL
                         {
                             FileSize = Convert_To_Size(value);
                         }
-                      //  Items_.Add(new Model { Name = item.Name, Icon = ICON, date_created = item.DateCreated.ToString(), description = Descrtiption, owner=item.Owner, Rating = rating, download_url = download_url +"|"+item.FullName.ToString(), Webpage  = item.PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads });
+                        //  Items_.Add(new Model { Name = item.Name, Icon = ICON, date_created = item.DateCreated.ToString(), description = Descrtiption, owner=item.Owner, Rating = rating, download_url = download_url +"|"+item.FullName.ToString(), Webpage  = item.PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads });
+                        if (Test_List.Items.Count > 0)
+                        {
 
+                            Temp = itemsList;
+                            if(Temp == itemsList)
+                            {
+
+
+                            }
+
+                        }
                         itemsList.Add(new Button { Name = item.Name, Icon = ICON, date_created = item.DateCreated.ToString(), description = Descrtiption, owner=item.Owner, Rating = rating, download_url = download_url +"|"+item.FullName.ToString(), Webpage  = item.PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads });
 
                     }
+                    //                    else if (Tags.Contains(Filter_Type) && !Tags.Contains(Exclude_String))
+
                     else if (Tags.Contains(Filter_Type) && !Tags.Contains(Exclude_String))
                     {
 
@@ -1073,6 +1087,7 @@ namespace VTOL
                         //itemsList.Add(new Button {  Name = item.full_name.ToString() , Icon = item.latest.icon,date_created = item.date_created.ToString(), description = item.latest.description, owner=item.owner, Rating = rating});
                         itemsList.Add(new Button { Name = item.Name, Icon = ICON, date_created = item.DateCreated.ToString(), description = Descrtiption, owner=item.Owner, Rating = rating, download_url = download_url +"|"+item.FullName.ToString(), Webpage  = item.PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads });
                     }
+                   
                     // itemsList.Add(item.full_name.ToString());
                 }
             }

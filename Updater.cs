@@ -214,7 +214,7 @@ namespace VTOL
                         // string json = JsonSerializer.Serialize(data);
 
                         string s = reader.ReadToEnd();
-                        File.WriteAllText(@"C:\ProgramData\VTOL_DATA\VARS\Thunderstore"+DateTimeProperty.Hour+".json", s);
+                       // File.WriteAllText(@"C:\ProgramData\VTOL_DATA\VARS\Thunderstore"+DateTimeProperty.Hour+".json", s);
 
                         Thunderstore = Thunderstore_V1.FromJson(s);
 
