@@ -176,7 +176,7 @@
 
 
 
-        <hc:SimplePanel x:Name="Mod_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Visible" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
+        <hc:SimplePanel x:Name="Mod_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
             <Grid HorizontalAlignment="Stretch" DockPanel.Dock="Top" Height="Auto"
 AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Background="Transparent" DragLeave="Mod_Panel_DragLeave" DragOver="Mod_Panel_DragOver" >
                 <hc:SimplePanel x:Name="Context_Menu_Mod_Mngs" Margin="30,209,30,10" Background="#FF101010">
@@ -275,6 +275,7 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
                         </TabItem.BorderBrush>
                     </TabItem>
                 </TabControl>
+
                 <ListBox ItemsSource="{Binding itemsList}" x:Name="Test_List" Margin="0,87,0,49" SelectionChanged="Test_List_SelectionChanged" RequestBringIntoView="Test_List_RequestBringIntoView" ScrollViewer.CanContentScroll="False" Visibility="Visible" Width="902" BorderBrush="{x:Null}" Padding="1,0,1,0" HorizontalAlignment="Center" VirtualizingPanel.IsVirtualizing="False" VirtualizingPanel.VirtualizationMode="Recycling"  IsTextSearchEnabled="False" Background="#FF1C1C1C" IsSynchronizedWithCurrentItem="False" MaxHeight="9000" AutomationProperties.IsOffscreenBehavior="Offscreen" >
                     <ListBox.Resources>
                         <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="Transparent" />
@@ -344,7 +345,11 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
 
 
 
-
+                <hc:SimplePanel x:Name="IsLoading_Panel" Margin="38,87,38,49" Background="#FF3A3A3A" Opacity="0.44" Width="914" >
+                    <hc:SimplePanel HorizontalAlignment="Left" Width="902" Height="476" VerticalAlignment="Center">
+                        <hc:LoadingCircle Height="40" Margin="430,0,431,218" VerticalAlignment="Bottom" />
+                    </hc:SimplePanel>
+                </hc:SimplePanel>
 
 
 
@@ -577,7 +582,7 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
                 </hc:SideMenuItem.Icon>
             </hc:SideMenuItem>
         </hc:SideMenu>
-       
+
         <hc:ComboBox x:Name="Language_Selection" Margin="10,31,10,0" Grid.Row="2" Background="#FF2C4C4C" BorderBrush="Black" Height="32" VerticalAlignment="Top" SelectionChanged="Language_Selection_SelectionChanged" MouseEnter="Language_Selection_MouseEnter" MouseLeave="Language_Selection_MouseLeave" Foreground="White" >
             <ComboBoxItem x:Name="English">
                 <StackPanel Orientation="Horizontal">

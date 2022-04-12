@@ -10,6 +10,10 @@ using Utf8Json;
 //using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Newtonsoft.Json;
+using Windows.Web.Http;
+using System.Windows.Documents;
+
 namespace VTOL
 {
     public class Updater : IDisposable
@@ -168,7 +172,7 @@ namespace VTOL
             Thunderstore = Thunderstore_V1.FromJson(json);
             repository = Repository.FromJson(json);
         }
-        public void Download_Cutom_JSON()
+        public  void Download_Cutom_JSON()
         {
             try
             {
@@ -185,38 +189,44 @@ namespace VTOL
                 {
                     string x = (Directory.GetFiles(save).Where(f => f.Contains("Thunder")).SingleOrDefault());
                   //  MessageBox.Show(x);
-                    if (x == @"C:\ProgramData\VTOL_DATA\VARS\Thunderstore"+DateTimeProperty.Hour+".json")
+                    if (x == @"C:\ProgramData\VTOL_DATA\VARS\Thunderstore"+DateTimeProperty.ToShortDateString+".json")
                     {
 
-                        using (StreamReader r = new StreamReader(x))
+
+                        using (StreamReader reader = new StreamReader(@"C:\ProgramData\VTOL_DATA\VARS\Thunderstore"+DateTimeProperty.ToShortDateString+".json"))
                         {
-                           // MessageBox.Show("sd");
-                            string json = r.ReadToEnd();
+                            string json = reader.ReadToEnd();
                             Thunderstore = Thunderstore_V1.FromJson(json);
+
                         }
 
 
                     }
                     else
                     {
+                        List<string> Delete = Directory.GetFiles(save).Where(f => f.Contains("Thunder")).ToList();
+                        foreach(string F in Delete)
+                        {
+                            Directory.Delete(F, true);
+                        }
                         string address = "https://northstar.thunderstore.io/api/v1/package/";
-
-
-
-
-                        WebClient client = new WebClient();
+                        /*
+                         WebClient client = new WebClient();
+                         Uri uri1 = new Uri(address);
+                         client.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)");
+                         Stream data = client.OpenRead(address);
+                         StreamReader reader = new StreamReader(data);
+                         string s = reader.ReadToEnd();
+                         */
                         Uri uri1 = new Uri(address);
-
-                        client.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)");
-                        Stream data = client.OpenRead(address);
-
-                        StreamReader reader = new StreamReader(data);
-                        // string json = JsonSerializer.Serialize(data);
-
-                        string s = reader.ReadToEnd();
-                       // File.WriteAllText(@"C:\ProgramData\VTOL_DATA\VARS\Thunderstore"+DateTimeProperty.Hour+".json", s);
-
-                        Thunderstore = Thunderstore_V1.FromJson(s);
+                        using (var webClient = new System.Net.WebClient())
+                        {
+                            webClient.DownloadFile(uri1, @"C:\ProgramData\VTOL_DATA\VARS\Thunderstore"+DateTimeProperty.Date.ToShortDateString+".json");
+                            // Now parse with JSON.Net
+                        }
+                        string A = (Directory.GetFiles(save).Where(f => f.Contains("Thunder")).SingleOrDefault());
+                        Thunderstore = Thunderstore_V1.FromJson(A);
+                        File.WriteAllText(@"C:\ProgramData\VTOL_DATA\VARS\Thunderstore"+DateTimeProperty.ToShortDateString+".json", A);
 
                     }
 
@@ -225,27 +235,46 @@ namespace VTOL
                 {
                     string address = "https://northstar.thunderstore.io/api/v1/package/";
 
-
-
-
+                    /*
                     WebClient client = new WebClient();
                     Uri uri1 = new Uri(address);
-
                     client.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)");
                     Stream data = client.OpenRead(address);
-
                     StreamReader reader = new StreamReader(data);
-                   // string json = JsonSerializer.Serialize(data);
-
                     string s = reader.ReadToEnd();
-                    File.WriteAllText(@"C:\ProgramData\VTOL_DATA\VARS\Thunderstore"+DateTimeProperty.Hour+".json", s);
+                     */
+                    Uri uri1 = new Uri(address);
+                    using (var webClient = new System.Net.WebClient())
+                    {
+                       webClient.DownloadFile(uri1, @"C:\ProgramData\VTOL_DATA\VARS\Thunderstore"+DateTimeProperty.Date.ToShortDateString+".json");
+                        // Now parse with JSON.Net
+                    }
+                   
+                    string x = (Directory.GetFiles(save).Where(f => f.Contains("Thunder")).SingleOrDefault());
 
-                    Thunderstore = Thunderstore_V1.FromJson(s);
+                    using (StreamReader Reader = new StreamReader(x))
+                    {
+                        string json = Reader.ReadToEnd();
+                        Thunderstore = Thunderstore_V1.FromJson(json);
+
+                    }
+                    // string json = JsonSerializer.Serialize(data);
+                    // MessageBox.Show("HAHa");
+
+                    //  string s = reader.ReadToEnd();
+
+                    // using (StreamReader streamReader = new StreamReader(json))
+
+                    //  File.WriteAllText(@"C:\ProgramData\VTOL_DATA\VARS\Thunderstore"+DateTimeProperty.Hour+".json", s);
+
+                    // Thunderstore = Thunderstore_V1.FromJson(s);
+                    MessageBox.Show("HAHa");
+
                 }
             }
             catch (Exception ex)
             {
-               // MessageBox.Show(ex.ToString());
+                MessageBox.Show(ex.ToString());
             }
         }
         /// <summary>

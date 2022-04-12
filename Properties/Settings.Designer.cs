@@ -94,5 +94,17 @@ namespace VTOL.Properties {
                 this["Sort_Mods"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Warning_Close_EA {
+            get {
+                return ((bool)(this["Warning_Close_EA"]));
+            }
+            set {
+                this["Warning_Close_EA"] = value;
+            }
+        }
     }
 }

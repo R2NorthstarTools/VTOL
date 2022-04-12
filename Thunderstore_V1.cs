@@ -109,9 +109,9 @@ namespace VTOL
         {
 
 
-           return JsonSerializer.Deserialize<Thunderstore_V1[]>(json);
+           //return JsonConvert.DeserializeObject<Thunderstore_V1[]>(json);
 
-           // return JsonSerializer.Deserialize<Thunderstore_V1[]>(json);
+            return JsonSerializer.Deserialize<Thunderstore_V1[]>(json);
         }
 
 

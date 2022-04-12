@@ -40,6 +40,7 @@ using Microsoft.Win32;
 using System.Timers;
 using Utf8Json;
 using HandyControl.Data;
+using System.Security.Principal;
 //****TODO*****//
 
 //Migrate Release Parse to the New Updater Sys
@@ -106,7 +107,7 @@ namespace VTOL
         public string Tag_
         {
 
-            get {  return Tag; }
+            get { return Tag; }
             set { Tag = value; NotifyPropertyChanged("Tag"); }
         }
         public string Name_
@@ -145,7 +146,7 @@ namespace VTOL
             get { return Webpage; }
             set { Webpage = value; NotifyPropertyChanged("Webpage"); }
         }
-       
+
         public string date_created_
         {
 
@@ -226,7 +227,7 @@ namespace VTOL
 
 
     }
-    
+
 
     public partial class MainWindow : Window
     {
@@ -273,10 +274,12 @@ namespace VTOL
         public string Convar_File = "";
         bool Started_Selection = false;
         public bool Sort_Lists;
-        bool Origin_Client_Running =false;
+        bool Origin_Client_Running = false;
         ObservableCollection<Model> Items_ = new ObservableCollection<Model>();
         private Model ViewModel;
-       
+        List<object> Temp = new List<object> { };
+        bool Warn_Close_EA;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -284,13 +287,14 @@ namespace VTOL
             do_not_overwrite_Ns_file = Properties.Settings.Default.Ns_Startup;
             do_not_overwrite_Ns_file_Dedi = Properties.Settings.Default.Ns_Dedi;
             Sort_Lists = Properties.Settings.Default.Sort_Mods;
+            Warn_Close_EA = Properties.Settings.Default.Warning_Close_EA;
             //  Test_List.ItemsSource = itemsList;
 
             try
             {
-               // InstalledApplications.GetInstalledApps();
+                // InstalledApplications.GetInstalledApps();
                 //      MessageBox.Show(InstalledApplications.GetApplictionInstallPath("Titanfall2 "));
-              //  _Item_Filter = CollectionViewSource.GetDefaultView(itemsList);
+                //  _Item_Filter = CollectionViewSource.GetDefaultView(itemsList);
 
                 /*Ref Code To see The ISO name for Lang
                 Console.WriteLine("Default Language Info:");
@@ -328,9 +332,10 @@ namespace VTOL
                 Badge.Visibility = Visibility.Collapsed;
                 Server_Indicator.Fill = Brushes.Red;
                 Sections_Tabs.SelectedItem = 0;
+                IsLoading_Panel.Visibility = Visibility.Hidden;
                 GC.Collect();
 
-                
+
                 this.VTOL.Title = String.Format("VTOL {0}", version);
                 //   if (File.Exists(@"C:\ProgramData\VTOL_DATA\VARS\First_Time.txt"))
                 //   {
@@ -391,7 +396,7 @@ namespace VTOL
                 Write_To_Log("Could Not Verify Dir" + Current_Install_Folder);
                 Write_To_Log(e.StackTrace);
 
-               // HandyControl.Controls.Growl.ErrorGlobal("\nVTOL tried to check for an existing config (cfg), please manually select it.");
+                // HandyControl.Controls.Growl.ErrorGlobal("\nVTOL tried to check for an existing config (cfg), please manually select it.");
                 //log.AppendText("\nThe Launcher Tried to Auto Check For an existing CFG, please use the manual Check to search.");
 
 
@@ -512,9 +517,9 @@ namespace VTOL
             Origin_Client_Running = Check_Process_Running("OriginClientService");
 
             PingHost("Northstar.tf");
-          //  System.Timers.Timer aTimer = new System.Timers.Timer(5000); //2 minutes in milliseconds
-           // aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
-          //  aTimer.Start();
+            //  System.Timers.Timer aTimer = new System.Timers.Timer(5000); //2 minutes in milliseconds
+            // aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
+            //  aTimer.Start();
             GC.Collect();
 
 
@@ -522,36 +527,43 @@ namespace VTOL
 
         }
 
-   
+
         private void OnTimedEvent(object source, ElapsedEventArgs e)
         {
-           PingHost("Northstar.tf");
+            PingHost("Northstar.tf");
             Origin_Client_Running = Check_Process_Running("OriginClientService");
             Indicator_Panel.Refresh();
             GC.Collect();
 
         }
-         public bool Check_Process_Running(string ProcessName)
+        public bool Check_Process_Running(string ProcessName, bool generic = false)
         {
 
             Process[] pname = Process.GetProcessesByName(ProcessName);
             if (pname.Length == 0)
             {
-                Indicator_Origin_Client.Visibility = Visibility.Visible;
-                Origin_Client_Status.Fill = Brushes.Red;
-
+                if (generic == false)
+                {
+                    Indicator_Origin_Client.Visibility = Visibility.Visible;
+                    Origin_Client_Status.Fill = Brushes.Red;
+                }
                 return false;
             }
             else
             {
-                Indicator_Origin_Client.Visibility = Visibility.Hidden;
-                Origin_Client_Status.Fill = Brushes.LimeGreen;
-
+                if (generic == false)
+                {
+                    Indicator_Origin_Client.Visibility = Visibility.Hidden;
+                    Origin_Client_Status.Fill = Brushes.LimeGreen;
+                }
                 return true;
             }
             return false;
-            Indicator_Origin_Client.Visibility = Visibility.Visible;
-            Origin_Client_Status.Fill = Brushes.Red;
+            if (generic == false)
+            {
+                Indicator_Origin_Client.Visibility = Visibility.Visible;
+                Origin_Client_Status.Fill = Brushes.Red;
+            }
         }
 
         //This function is used to get string content from Resource file.
@@ -656,6 +668,13 @@ namespace VTOL
             HandyControl.Controls.Growl.ClearGlobal();
 
         }
+        protected void MainWindow_Closed(object sender, EventArgs args)
+        {
+
+            App.Current.Shutdown();
+
+
+        }
         public static bool CheckForInternetConnection()
         {
             try
@@ -663,7 +682,7 @@ namespace VTOL
                 using (var client = new WebClient())
                 using (var stream = client.OpenRead("http://www.google.com"))
                 {
-                    
+
                     return true;
                 }
             }
@@ -672,10 +691,10 @@ namespace VTOL
                 return false;
             }
         }
-        public bool PingHost(string nameOrAddress) 
+        public bool PingHost(string nameOrAddress)
         {
-           // Server_Indicator.Fill = Brushes.Red;
-          //  Indicator_Server_Conn.Visibility = Visibility.Visible;
+            // Server_Indicator.Fill = Brushes.Red;
+            //  Indicator_Server_Conn.Visibility = Visibility.Visible;
             bool pingable = false;
             Ping pinger = null;
 
@@ -692,8 +711,8 @@ namespace VTOL
                 }
                 else
                 {
-                     Server_Indicator.Fill = Brushes.Red;
-                      Indicator_Server_Conn.Visibility = Visibility.Visible;
+                    Server_Indicator.Fill = Brushes.Red;
+                    Indicator_Server_Conn.Visibility = Visibility.Visible;
                     Server_poptip.Content = "The Device Is offline!";
                     return false;
 
@@ -732,45 +751,79 @@ namespace VTOL
         }
         async Task Thunderstore_Parse(bool hard_refresh = true, string Filter_Type = "None")
         {
-           
+
             try
             {
                 GC.Collect();
+                IsLoading_Panel.Visibility = Visibility.Visible;
 
-               // this.Dispatcher.Invoke(() =>
-               // {
-                   // itemsList.Clear();
-                  
-                    if (hard_refresh == true)
+                // this.Dispatcher.Invoke(() =>
+                // {
+                // itemsList.Clear();
+
+                if (hard_refresh == true)
+                {
+                    Update = new Updater("https://gtfo.thunderstore.io/api/v1/package/");
+                    Update.Download_Cutom_JSON();
+                    // LoadListViewData(Filter_Type);
+                    BackgroundWorker doMacBk;
+                    doMacBk = new BackgroundWorker();
+                    doMacBk.DoWork += (o, arg) =>
                     {
-                        Update = new Updater("https://gtfo.thunderstore.io/api/v1/package/");
-                        Update.Download_Cutom_JSON();
-                       // LoadListViewData(Filter_Type);
-                       Test_List.ItemsSource = LoadListViewData(Filter_Type);
-                        //   Test_List.ItemsSource = _Items_;
-                        //this.DataContext = itemsList;
-                        Test_List.Items.Refresh();
-                        Finished_Init = true;
-                    }
-                    else
+                        Application.Current.Dispatcher.Invoke(new Action(() =>
+                        {
+                            MessageBox.Show("Adsad");
+
+                            Test_List.Items.Clear();
+                            Test_List.ItemsSource = null;
+                            MessageBox.Show("Adsad");
+                            Test_List.ItemsSource =  LoadListViewData(Filter_Type);
+                            MessageBox.Show("v");
+
+                            Finished_Init = true;
+
+                        }));
+                    };
+                    //   Test_List.ItemsSource = _Items_;
+                    //this.DataContext = itemsList;
+                    // Test_List.Items.Refresh();
+                }
+                else
+                {
+                    // LoadListViewData(Filter_Type);
+                    BackgroundWorker doMacBk;
+                    doMacBk = new BackgroundWorker();
+                    doMacBk.DoWork += (o, arg) =>
                     {
-                       // LoadListViewData(Filter_Type);
+                        Application.Current.Dispatcher.Invoke(new Action(() =>
+                        {
+                            Test_List.Items.Clear();
+                            Test_List.ItemsSource = null;
+                            MessageBox.Show("Adsad");
 
-                        Test_List.ItemsSource = LoadListViewData(Filter_Type);
-                        //  Test_List.ItemsSource = Items_;
+                            Test_List.ItemsSource = LoadListViewData(Filter_Type);
+                            MessageBox.Show("v");
 
-                         Test_List.Items.Refresh();
+                            Test_List.Items.Refresh();
+                        }));
+                    };
 
-                    }
-                   
-                    Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow;
+                    //  Test_List.ItemsSource = Items_;
 
-             //   });
+                    // Test_List.Items.Refresh();
+
+                }
+
+                Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow;
+
+                //   });
 
 
             }
             catch (Exception ex)
             {
+                Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow;
+
                 Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_ERROR_OCCURRED"));
                 Write_To_Log(ex.ToString());
                 Console.WriteLine(ex.ToString());
@@ -819,7 +872,21 @@ namespace VTOL
 
             return null;
         }
+        class LIST_JSON
+        {
+            public string Tag { get; set; }
+            public string Name { get; set; }
+            public string Icon { get; set; }
+            public string owner { get; set; }
+            public string description { get; set; }
+            public string download_url { get; set; }
+            public string Webpage { get; set; }
+            public string date_created { get; set; }
+            public int Rating { get; set; }
+            public string File_Size { get; set; }
+            public string Downloads { get; set; }
 
+        }
         class Button
         {
             public string Tag { get; set; }
@@ -889,6 +956,7 @@ namespace VTOL
 
         private List<object> LoadListViewData(string Filter_Type = "None")
         {
+
             try
             {
                 itemsList.Clear();
@@ -943,23 +1011,23 @@ namespace VTOL
 
                 foreach (var item in Update.Thunderstore)
                 {
-                 //  for (List item = Update.Thunderstore.ToList()<VTOL.Thunderstore_>; int i = 0; i < Update.Thunderstore.Length; i++)
-                 //  {
-                        if (item.FullName == "northstar-Northstar")
+                    //  for (List item = Update.Thunderstore.ToList()<VTOL.Thunderstore_>; int i = 0; i < Update.Thunderstore.Length; i++)
+                    //  {
+                    if (item.FullName == "northstar-Northstar")
                     {
                         continue;
                     }
                     int rating = item.RatingScore;
-                   
-                        Tags = String.Join(" , ", item.Categories);
 
-                   
+                    Tags = String.Join(" , ", item.Categories);
+
+
                     //Tag = item.Categories;
 
 
                     List<versions> versions = item.versions;
-                    
-                    if (Filter_Type == "None" )
+
+                    if (Filter_Type == "None")
                     {
 
                         foreach (var items in versions)
@@ -989,7 +1057,7 @@ namespace VTOL
                         {
 
                             Temp = itemsList;
-                            if(Temp == itemsList)
+                            if (Temp == itemsList)
                             {
 
 
@@ -1020,22 +1088,15 @@ namespace VTOL
                                 File_Size_.Add(items.FileSize.ToString());
                                 Downloads.Add(Convert.ToInt32(items.Downloads));
                             }
-
-
                             GC.Collect();
-
                             if (Tags.Contains("Skins"))
                             {
-
                                 lst.Add(items.DownloadUrl);
                                  Icons.Add(items.Icon);
                                  Description.Add(items.Description);
                                   File_Size_.Add(items.FileSize.ToString());
                                    Downloads.Add(Convert.ToInt32(items.Downloads));
-
-
                             }
-
                             lst.Add(items.DownloadUrl);
                               Icons.Add(items.Icon);
                              Description.Add(items.Description);
@@ -1087,7 +1148,7 @@ namespace VTOL
                         //itemsList.Add(new Button {  Name = item.full_name.ToString() , Icon = item.latest.icon,date_created = item.date_created.ToString(), description = item.latest.description, owner=item.owner, Rating = rating});
                         itemsList.Add(new Button { Name = item.Name, Icon = ICON, date_created = item.DateCreated.ToString(), description = Descrtiption, owner=item.Owner, Rating = rating, download_url = download_url +"|"+item.FullName.ToString(), Webpage  = item.PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads });
                     }
-                   
+
                     // itemsList.Add(item.full_name.ToString());
                 }
             }
@@ -1095,12 +1156,13 @@ namespace VTOL
             {
                 Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_ERROR_OCCURRED"));
                 Write_To_Log(ex.StackTrace);
-               
+
 
                 Console.WriteLine(ex.ToString());
             }
 
             return itemsList;
+
 
         }
         async Task Set_About()
@@ -1180,7 +1242,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
             Origin_Client_Running = Check_Process_Running("OriginClientService");
 
-           // PingHost("Northstar.tf");
+            // PingHost("Northstar.tf");
 
         }
         void Select_Mods()
@@ -1215,7 +1277,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
                 if (ex.Message == "Sequence contains no elements")
                 {
-                 //   Send_Info_Notif(GetTextResource("NOTIF_INFO_NO_MODS_FOUND"));
+                    //   Send_Info_Notif(GetTextResource("NOTIF_INFO_NO_MODS_FOUND"));
 
                 }
             }
@@ -2300,10 +2362,10 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
                     Console.WriteLine("Empty Folder at - "+ outt);
                     if (IsDirectoryEmpty(Dir))
-                  {
+                    {
                         Directory.Delete(outt, true);
                     }
-                 //   Delete_empty_Folders(outt);
+                    //   Delete_empty_Folders(outt);
                 }
                 else
                 {
@@ -2655,8 +2717,8 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             {
                 if (ex.Message == "Sequence contains no elements")
                 {
-                   Send_Info_Notif(GetTextResource("NOTIF_INFO_NO_MODS_FOUND"));
-                   
+                    Send_Info_Notif(GetTextResource("NOTIF_INFO_NO_MODS_FOUND"));
+
                 }
                 else
                 {
@@ -3005,8 +3067,8 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
             try
             {
-               
-                    if (Directory.Exists(Current_Install_Folder + @"\R2Northstar\mods\"))
+
+                if (Directory.Exists(Current_Install_Folder + @"\R2Northstar\mods\"))
                 {
                     List<string> Inactive = Dsiabled_ListBox.Items.OfType<string>().ToList();
                     List<string> Active = Enabled_ListBox.Items.OfType<string>().ToList();
@@ -3022,17 +3084,17 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                             {
                                 if (Directory.Exists(Current_Install_Folder + @"\R2Northstar\mods\" + val + @"\Locked_Folder"))
                                 {
-                                   
-                                        MoveFiles(Current_Install_Folder + @"\R2Northstar\mods\" + val, Current_Install_Folder + @"\R2Northstar\mods\" + val + @"\Locked_Folder");
-                                   
+
+                                    MoveFiles(Current_Install_Folder + @"\R2Northstar\mods\" + val, Current_Install_Folder + @"\R2Northstar\mods\" + val + @"\Locked_Folder");
+
 
                                 }
                                 else
                                 {
-                               
+
                                     Directory.CreateDirectory(Current_Install_Folder + @"\R2Northstar\mods\" + val + @"\Locked_Folder");
                                     MoveFiles(Current_Install_Folder + @"\R2Northstar\mods\" + val, Current_Install_Folder + @"\R2Northstar\mods\" + val + @"\Locked_Folder");
-                                   
+
                                 }
                             }
                         }
@@ -3061,7 +3123,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                     Directory.Delete(Locked.FullName, true);
 
                                 }
-                                
+
                             }
                         }
 
@@ -3077,7 +3139,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             catch (Exception ex)
             {
                 Write_To_Log(ex.StackTrace);
-                
+
                 Send_Warning_Notif(GetTextResource("NOTIF_WARN_CHECK_MOD_AT") + Current_Install_Folder + @"\R2Northstar\mods\");
                 // Log_Box.AppendText(ex.StackTrace);
 
@@ -3303,11 +3365,11 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
         private void Check_Btn_Click(object sender, RoutedEventArgs e)
         {
 
-          
+
             //Auto_Install_And_verify();
 
         }
-        
+
         private void Titanfall_2_Btn_MouseEnter(object sender, MouseEventArgs e)
         {
 
@@ -3867,7 +3929,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
         private void Enable_Mod_Click(object sender, RoutedEventArgs e)
         {
-           
+
             Move_List_box_Inactive_To_Active(Dsiabled_ListBox);
             Move_Mods();
             Call_Mods_From_Folder();
@@ -3875,7 +3937,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
         private void Disable_Mod_Click(object sender, RoutedEventArgs e)
         {
-           
+
             Move_List_box_Active_To_Inactive(Enabled_ListBox);
             Move_Mods();
             Call_Mods_From_Folder();
@@ -3926,7 +3988,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
                 if (ex.Message == "Sequence contains no elements")
                 {
-                      Send_Info_Notif(GetTextResource("NOTIF_INFO_NO_MODS_FOUND"));
+                    Send_Info_Notif(GetTextResource("NOTIF_INFO_NO_MODS_FOUND"));
 
                 }
                 Send_Error_Notif(GetTextResource("NOTIF_ERROR_FILE_PATH_ISSUE_REBROWSE"));
@@ -4179,9 +4241,10 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 {
                     // Thread thread = new Thread(delegate ()
                     // {
-                    Dispatcher.Invoke(new Action(() => {
+                    Dispatcher.Invoke(new Action(() =>
+                    {
                         Check_Tabs(true);
-                        }));
+                    }));
                     // });
                     //thread.IsBackground = true;
                     // thread.Start();
@@ -4195,9 +4258,9 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                         Application.Current.Dispatcher.Invoke(new Action(() =>
                         {
                             Check_Tabs(false);
-                    }));
-                };
-            }
+                        }));
+                    };
+                }
 
 
 
@@ -4443,7 +4506,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-           
+
 
         }
 
@@ -6442,6 +6505,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
         void Check_Tabs(bool hard_reset = false)
         {
             Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
+            IsLoading_Panel.Visibility = Visibility.Visible;
 
             //   Send_Success_Notif(Convert.ToString((Sections_Tabs.SelectedItem as TabItem).Header));
 
@@ -6477,6 +6541,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             }
 
             Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow;
+            IsLoading_Panel.Visibility = Visibility.Hidden;
 
         }
 
@@ -6493,10 +6558,10 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
         private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
-           
+
         }
-      
-        public  class InstalledApplications
+
+        public class InstalledApplications
         {
             public static string GetApplictionInstallPath(string nameOfAppToFind)
             {
@@ -6529,7 +6594,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
                 return string.Empty;
             }
-           
+
             public static void GetInstalledApps()
 
             {
@@ -6559,21 +6624,27 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                         item = displayName.ToString();
                                         if (item.Contains(""))
                                             x = x+ displayName.ToString() + "\n";
-                                           // MessageBox.Show(displayName.ToString());
+                                        // MessageBox.Show(displayName.ToString());
 
                                     }
 
                                 }
                             }
                             catch (Exception ex)
-                            { }
+                            {
+
+
+                               
+
+
+                            }
                         }
                     }
                     //File.WriteAllText(@"C:\VTOL\ALLApps.txt",x);
                 }
 
             }
-          
+
             private static string ExistsInSubKey(RegistryKey root, string subKeyName, string attributeName, string nameOfAppToFind)
             {
                 RegistryKey subkey;
@@ -6599,64 +6670,147 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 return string.Empty;
             }
         }
-
+        public static bool IsAdministrator()
+        {
+            var identity = WindowsIdentity.GetCurrent();
+            var principal = new WindowsPrincipal(identity);
+            return principal.IsInRole(WindowsBuiltInRole.Administrator);
+        }
         async void Run_Origin()
         {
-
-            string location = InstalledApplications.GetApplictionInstallPath("Origin") + @"\Origin.exe";
-            if (File.Exists(location))
+            try
             {
-                Send_Success_Notif("Starting Origin Client Service!");
-                Indicator_Origin_Client.Visibility = Visibility.Hidden;
-
-
-                ProcessStartInfo procStartInfo = new ProcessStartInfo();
-                Process process = new Process();
-                procStartInfo.FileName = location;
-                procStartInfo.WorkingDirectory = System.IO.Path.GetDirectoryName(NSExe);
-                
-
-                // procStartInfo.Arguments = args;
-
-                process.StartInfo = procStartInfo;
-
-                process.Start();
-                int id = process.Id;
-                pid = id;
-                Process tempProc = Process.GetProcessById(id);
-                // this.Visible = false;
-                // Thread.Sleep(5000);
-                // tempProc.WaitForExit();
-                // this.Visible = true;
-
-
-                // Process process = Process.Start(NSExe, Arg_Box.Text);
-                process.Close();
-
-                Origin_Client_Running = Check_Process_Running("OriginClientService");
-                while (!Origin_Client_Running)
+                if (Check_Process_Running("EABackgroundService", true) == true)
                 {
+                    if (1 == 1)
+                    {
+                        Process[] runingProcess = Process.GetProcesses();
+                        string[] origin = {
+                        "QtWebEngineProcess",
+                        "OriginLegacyCompatibility",
+                        "EADesktop",
+                        "EABackgroundService",
+                        "EALauncher",
+                        "Link2EA",
+                        "EALocalHostSvc",
+                        "EAGEP"};
+                       
+                            for (int i = 0; i<runingProcess.Length; i++)
+                        {
+                            foreach (var x in origin)
+                            {   
+                                // compare equivalent process by their name
 
+                                if (runingProcess[i].ProcessName==x)
+                                {
+                                    try
+                                    {
+                                        //kill running process
+                                        runingProcess[i].Kill();
+                                    }
+                                    catch
+                                    {
+                                        continue;
+                                    }
+                                }
+                            }
 
-                    Origin_Client_Running = Check_Process_Running("OriginClientService");
+                             
+                        }
+                        Thread.Sleep(3000);
 
-                    Thread.Sleep(1000);
+                    }
+                    else
+                    {
+                        System.Windows.MessageBoxResult result = HandyControl.Controls.MessageBox.Show(new MessageBoxInfo { Message = "Not Running In Administrator Mode. Would you like to eleveate the application?", Caption = "ERROR!", Button = MessageBoxButton.YesNo, IconBrushKey = ResourceToken.AccentBrush, IconKey = ResourceToken.AskGeometry, StyleKey = "MessageBoxCustom" });
+                        if (result == System.Windows.MessageBoxResult.Yes)
+                        {
+                            if (File.Exists((System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().CodeBase).Replace(@"file:\", "")).Trim() + @"\VTOL.exe"))
+                            {
+                                // this.Close();
+
+                                ProcessStartInfo info = new ProcessStartInfo((System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().CodeBase).Replace(@"file:\", "")).Trim() + @"\VTOL.exe");
+                                info.UseShellExecute = true;
+                                info.Verb = "runas";
+                                Process.Start(info);
+                                App.Current.Shutdown();
+
+                            }
+                        }
+                        else
+                        {
+                            return;
+                        }
+                    }
                 }
-                if (Origin_Client_Running == true)
+
+
+
+
+
+
+
+                
+                string location = InstalledApplications.GetApplictionInstallPath("Origin") + @"\Origin.exe";
+                if (File.Exists(location))
                 {
-                    Origin_Client_Status.Fill = Brushes.LimeGreen;
+                    Send_Success_Notif("Starting Origin Client Service!");
                     Indicator_Origin_Client.Visibility = Visibility.Hidden;
 
 
+                    ProcessStartInfo procStartInfo = new ProcessStartInfo();
+                    Process process = new Process();
+                    procStartInfo.FileName = location;
+                    procStartInfo.WorkingDirectory = System.IO.Path.GetDirectoryName(NSExe);
+
+
+                    // procStartInfo.Arguments = args;
+
+                    process.StartInfo = procStartInfo;
+
+                    process.Start();
+                    int id = process.Id;
+                    pid = id;
+                    Process tempProc = Process.GetProcessById(id);
+                    // this.Visible = false;
+                    // Thread.Sleep(5000);
+                    // tempProc.WaitForExit();
+                    // this.Visible = true;
+
+
+                    // Process process = Process.Start(NSExe, Arg_Box.Text);
+                    process.Close();
+
+                    Origin_Client_Running = Check_Process_Running("OriginClientService");
+                    while (!Origin_Client_Running)
+                    {
+
+
+                        Origin_Client_Running = Check_Process_Running("OriginClientService");
+
+                        Thread.Sleep(1000);
+                    }
+                    if (Origin_Client_Running == true)
+                    {
+                        Origin_Client_Status.Fill = Brushes.LimeGreen;
+                        Indicator_Origin_Client.Visibility = Visibility.Hidden;
+
+
+                    }
                 }
-            }
-            else
+                else
+                {
+                    Origin_Client_Status.Fill = Brushes.Red;
+                    Indicator_Origin_Client.Visibility = Visibility.Visible;
+
+                    Send_Warning_Notif("Could not Find EA Origin Install, Please Start Manually, Or Repair your installation!.");
+
+                }
+            }catch(Exception ex)
             {
-                Origin_Client_Status.Fill = Brushes.Red;
-                Indicator_Origin_Client.Visibility = Visibility.Visible;
 
-                Send_Warning_Notif("Could not Find Origin Install, Please Start Manually");
-
+                Write_To_Log(ex.StackTrace.ToString());
+                Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
             }
 
         }
@@ -6666,26 +6820,59 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
         {
             public Collection()
             {
-           //     DataContext = new MainWindow();
+                //     DataContext = new MainWindow();
             }
         }
-       
-        
+
+
         private void Label_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            BackgroundWorker doMacBk;
-            doMacBk = new BackgroundWorker();
-            doMacBk.DoWork += (o, arg) =>
+            try
             {
-                Application.Current.Dispatcher.Invoke(new Action(() =>
+
+                if (Warn_Close_EA == true)
+                {
+                    if (Check_Process_Running("EABackgroundService", true) == true)
+                    {
+                        System.Windows.MessageBoxResult result = HandyControl.Controls.MessageBox.Show(new MessageBoxInfo { Message = "Clicking YES Means that the EA Client that the application has detected active, will be Closed Immediately!. Please exit any associated Processes Before proceeding.!", Caption = "WARNING!", Button = MessageBoxButton.YesNo, IconBrushKey = ResourceToken.AccentBrush, IconKey = ResourceToken.AskGeometry, StyleKey = "MessageBoxCustom" });
+                        if (result == System.Windows.MessageBoxResult.Yes)
+                        {
+                            //Properties.Settings.Default.Warning_Close_EA = false;
+                            // Properties.Settings.Default.Save();
+                            //Warn_Close_EA = Properties.Settings.Default.Warning_Close_EA;
+
+                            Run_Origin();
+
+                        }
+                        else
+                        {
+                            return;
+                        }
+
+
+                    }
+                    else
+                    {
+                        Run_Origin();
+
+                    }
+
+                }
+                else
                 {
                     Run_Origin();
 
-                }));
-            };
-                  
+                }
+            }
+            catch (Exception ex)
+            {
+                Write_To_Log(ex.StackTrace.ToString());
+                Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
+
+            }
+
         }
-        private string Find_Folder(string searchQuery , string folderPath)
+        private string Find_Folder(string searchQuery, string folderPath)
         {
             searchQuery = "*" + searchQuery + "*";
 
@@ -6696,88 +6883,97 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
         }
         private void Delete_Menu_Context_Click(object sender, RoutedEventArgs e)
         {
-            Dsiabled_ListBox.Items.IsLiveSorting = true;
-            if (Dsiabled_ListBox.SelectedItem != null && Dsiabled_ListBox.IsMouseOver == true && Enabled_ListBox.IsMouseOver == false)
+            try
             {
-                string Mod = (Dsiabled_ListBox.SelectedItem.ToString());
-                string FolderDir = Find_Folder(Mod, Current_Install_Folder + @"\R2Northstar\mods");
-                if (Directory.Exists(FolderDir))
+                Dsiabled_ListBox.Items.IsLiveSorting = true;
+                if (Dsiabled_ListBox.SelectedItem != null && Dsiabled_ListBox.IsMouseOver == true && Enabled_ListBox.IsMouseOver == false)
                 {
-                    System.Windows.MessageBoxResult result = HandyControl.Controls.MessageBox.Show(new MessageBoxInfo { Message = "Are You Sure You Want To Delete The Mod - " + Mod + " ?", Caption = "WARNING!", Button = MessageBoxButton.YesNo, IconBrushKey = ResourceToken.AccentBrush, IconKey = ResourceToken.AskGeometry, StyleKey = "MessageBoxCustom" });
-                    if (result == System.Windows.MessageBoxResult.Yes)
+                    string Mod = (Dsiabled_ListBox.SelectedItem.ToString());
+                    string FolderDir = Find_Folder(Mod, Current_Install_Folder + @"\R2Northstar\mods");
+                    if (Directory.Exists(FolderDir))
                     {
-                        Directory.Delete(FolderDir, true);
-
-                        if (!Directory.Exists(FolderDir))
+                        System.Windows.MessageBoxResult result = HandyControl.Controls.MessageBox.Show(new MessageBoxInfo { Message = "Are You Sure You Want To Delete The Mod - " + Mod + " ?", Caption = "WARNING!", Button = MessageBoxButton.YesNo, IconBrushKey = ResourceToken.AccentBrush, IconKey = ResourceToken.AskGeometry, StyleKey = "MessageBoxCustom" });
+                        if (result == System.Windows.MessageBoxResult.Yes)
                         {
-                            Send_Success_Notif("Successfully Deleted - "+Mod);
-                            Call_Mods_From_Folder();
+                            Directory.Delete(FolderDir, true);
 
-                        }
-                        else
-                        {
-                            Send_Error_Notif("Could not Delete! - "+Mod);
-                            Call_Mods_From_Folder();
+                            if (!Directory.Exists(FolderDir))
+                            {
+                                Send_Success_Notif("Successfully Deleted - "+Mod);
+                                Call_Mods_From_Folder();
+
+                            }
+                            else
+                            {
+                                Send_Error_Notif("Could not Delete! - "+Mod);
+                                Call_Mods_From_Folder();
+
+                            }
 
                         }
 
                     }
 
                 }
+                else if (Enabled_ListBox.SelectedItem != null && Dsiabled_ListBox.IsMouseOver == false && Enabled_ListBox.IsMouseOver == true)
+                {
+                    string Mod = (Enabled_ListBox.SelectedItem.ToString());
+                    string FolderDir = Find_Folder(Mod, Current_Install_Folder + @"\R2Northstar\mods");
+                    if (Directory.Exists(FolderDir))
+                    {
+                        System.Windows.MessageBoxResult result = HandyControl.Controls.MessageBox.Show(new MessageBoxInfo { Message = "Are You Sure You Want To Delete The Mod - " + Mod + " ?", Caption = "WARNING!", Button = MessageBoxButton.YesNo, IconBrushKey = ResourceToken.AccentBrush, IconKey = ResourceToken.AskGeometry, StyleKey = "MessageBoxCustom" });
+                        if (result == System.Windows.MessageBoxResult.Yes)
+                        {
+                            Directory.Delete(FolderDir, true);
 
+                            if (!Directory.Exists(FolderDir))
+                            {
+                                Send_Success_Notif("Successfully Deleted - "+Mod);
+                                Call_Mods_From_Folder();
+
+                            }
+                            else
+                            {
+                                Send_Error_Notif("Could not Delete! - "+Mod);
+                                Call_Mods_From_Folder();
+
+                            }
+
+                        }
+
+                    }
+
+
+
+
+                }
             }
-            else if (Enabled_ListBox.SelectedItem != null && Dsiabled_ListBox.IsMouseOver == false && Enabled_ListBox.IsMouseOver == true)
+            catch (Exception ex)
             {
-                string Mod = (Enabled_ListBox.SelectedItem.ToString());
-                string FolderDir = Find_Folder(Mod, Current_Install_Folder + @"\R2Northstar\mods");
-               if (Directory.Exists(FolderDir))
-                {
-                   System.Windows.MessageBoxResult result =  HandyControl.Controls.MessageBox.Show(new MessageBoxInfo { Message = "Are You Sure You Want To Delete The Mod - " + Mod + " ?", Caption = "WARNING!" , Button = MessageBoxButton.YesNo, IconBrushKey = ResourceToken.AccentBrush, IconKey = ResourceToken.AskGeometry, StyleKey = "MessageBoxCustom" });
-                    if (result == System.Windows.MessageBoxResult.Yes)
-                    {
-                        Directory.Delete(FolderDir, true);
+                Write_To_Log(ex.StackTrace.ToString());
+                Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
 
-                        if (!Directory.Exists(FolderDir))
-                        {
-                            Send_Success_Notif("Successfully Deleted - "+Mod);
-                            Call_Mods_From_Folder();
-
-                        }
-                        else
-                        {
-                            Send_Error_Notif("Could not Delete! - "+Mod);
-                            Call_Mods_From_Folder();
-
-                        }
-
-                    }
-                   
-                }
-
-
-
-                
             }
         }
 
         private void MOD_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
-           
+
             //  Current_Install_Folder + @"\R2Northstar\mods";
             Delete_Menu_Context.IsHitTestVisible = false;
             Delete_Menu_Context.Foreground = Brushes.Gray;
 
             if (Dsiabled_ListBox.SelectedItem != null && Dsiabled_ListBox.IsMouseOver == true && Enabled_ListBox.IsMouseOver == false)
-                {
-                    Delete_Menu_Context.IsHitTestVisible = true;
-                    Delete_Menu_Context.Foreground = Brushes.White;
-                }
-                else if (Enabled_ListBox.SelectedItem != null && Dsiabled_ListBox.IsMouseOver == false && Enabled_ListBox.IsMouseOver == true)
-                {
-                    Delete_Menu_Context.IsHitTestVisible = true;
-                    Delete_Menu_Context.Foreground = Brushes.White;
-                }
-          
+            {
+                Delete_Menu_Context.IsHitTestVisible = true;
+                Delete_Menu_Context.Foreground = Brushes.White;
+            }
+            else if (Enabled_ListBox.SelectedItem != null && Dsiabled_ListBox.IsMouseOver == false && Enabled_ListBox.IsMouseOver == true)
+            {
+                Delete_Menu_Context.IsHitTestVisible = true;
+                Delete_Menu_Context.Foreground = Brushes.White;
+            }
+
             else
             {
                 Delete_Menu_Context.IsHitTestVisible = false;
@@ -6793,26 +6989,26 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
         private void Dsiabled_ListBox_LostFocus(object sender, RoutedEventArgs e)
         {
-          
+
         }
 
         private void Dsiabled_ListBox_MouseLeave(object sender, MouseEventArgs e)
         {
             //  Dsiabled_ListBox.SelectedItem= null;
-            
+
 
         }
 
         private void Enabled_ListBox_MouseLeave(object sender, MouseEventArgs e)
         {
-          
+
         }
 
         private void Enabled_ListBox_LostFocus(object sender, RoutedEventArgs e)
         {
         }
 
-        
+
 
         private void Dsiabled_ListBox_TargetUpdated(object sender, DataTransferEventArgs e)
         {
@@ -6846,13 +7042,15 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
         private void SortMenu_Click(object sender, RoutedEventArgs e)
         {
-            if(Sort_Lists == true)
+            if (Sort_Lists == true)
             {
                 Sort_Img_Source.Source = new BitmapImage(new Uri(@"/Resources/Sort_Off.png", UriKind.Relative));
                 Sort_Lists = false;
                 Enabled_ListBox.Items.IsLiveSorting = false;
                 Properties.Settings.Default.Sort_Mods = false;
                 Properties.Settings.Default.Save();
+                Sort_Lists = Properties.Settings.Default.Sort_Mods;
+
                 Call_Mods_From_Folder();
 
             }
@@ -6864,6 +7062,8 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 Sort_Lists = true;
                 Properties.Settings.Default.Sort_Mods = true;
                 Properties.Settings.Default.Save();
+                Sort_Lists = Properties.Settings.Default.Sort_Mods;
+
                 Call_Mods_From_Folder();
 
             }
