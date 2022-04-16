@@ -614,8 +614,12 @@ namespace VTOL
                         Language_Selection.SelectedIndex = 3;
 
                         break;
-                    case "cn":
+                    case "ja":
                         Language_Selection.SelectedIndex = 4;
+
+                        break;
+                    case "cn":
+                        Language_Selection.SelectedIndex = 5;
 
                         break;
                     default:
@@ -6446,14 +6450,14 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             {
                 ChangeLanguageTo("it");
 
-            }
-            /*
+            }       
            if (Japanese.IsSelected == true)
            {
 
-               ChangeLanguageTo("en");
+               ChangeLanguageTo("ja");
 
            }
+           /*
            if (Portugese.IsSelected == true)
            {
                ChangeLanguageTo("en");

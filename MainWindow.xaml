@@ -605,13 +605,13 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
                     <TextBlock Foreground="White"> Italian</TextBlock>
                 </StackPanel>
             </ComboBoxItem>
-            <!-- <ComboBoxItem x:Name="Japanese">
+            <ComboBoxItem x:Name="Japanese">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/Resources/Language_Icons/jp.png" />
                     <TextBlock Foreground="White"> Japanese</TextBlock>
                 </StackPanel>
             </ComboBoxItem>
-            <ComboBoxItem x:Name="Portugese">
+            <!-- <ComboBoxItem x:Name="Portugese">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/Resources/Language_Icons/pt.png" />
                     <TextBlock Foreground="White"> Portugese</TextBlock>
