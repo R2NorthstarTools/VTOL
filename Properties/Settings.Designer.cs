@@ -106,5 +106,17 @@ namespace VTOL.Properties {
                 this["Warning_Close_EA"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Profile_Path {
+            get {
+                return ((string)(this["Profile_Path"]));
+            }
+            set {
+                this["Profile_Path"] = value;
+            }
+        }
     }
 }

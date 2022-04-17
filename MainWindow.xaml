@@ -231,7 +231,7 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
 
 
 
-        <hc:SimplePanel x:Name="Mod_Browse_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
+        <hc:SimplePanel x:Name="Mod_Browse_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Visible" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
             <hc:SimplePanel Margin="10,10,10,10" Background="#FF101010">
                 <TabControl x:Name="Sections_Tabs" Margin="36,55,36,48" Style="{StaticResource TabControlInLine}" BorderBrush="{x:Null}" Foreground="{x:Null}" Background="{x:Null}" Padding="0,0,0,0" Width="900" SelectionChanged="Sections_Tabs_SelectionChanged">
                     <TabItem Header="All">
@@ -451,15 +451,18 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
                     <Label Content="{DynamicResource UI_TEXT_SERVER_CONF_NS_CONVAR_PATH}" Width="282" Margin="0,18,0,0" VerticalAlignment="Stretch" FontWeight="Normal" Background="{x:Null}" BorderBrush="{x:Null}" />
 
                     <hc:TextBox x:Name="Dedicated_Convar_ARGS" Width="438" Background="White" Height="30" VerticalAlignment="Bottom" IsReadOnly="True" IsUndoEnabled="False" Foreground="Black" />
-                    <Button x:Name="Load_Bt" Height="36" Width="950" Margin="0,72,0,0" VerticalAlignment="Top" Background="#FF2C4C4C" Content="{DynamicResource UI_BUTTON_SERVER_CONF_LOAD_FILES}" Click="Load_Bt_" BorderBrush="{x:Null}" />
+                    <Button x:Name="Load_Bt" Height="36" Width="950" Margin="0,26,0,0" VerticalAlignment="Top" Background="#FF2C4C4C" Content="{DynamicResource UI_BUTTON_SERVER_CONF_LOAD_FILES}" Click="Load_Bt_" BorderBrush="{x:Null}" />
+                    <Button x:Name="Import_Server_Config" Height="36" Width="418" Margin="0,9,0,0" VerticalAlignment="Top" Background="#FF2C4C4C" Content="Import Server Config" BorderBrush="{x:Null}" Click="Import_Server_Config_Click" />
 
                     <Label Height="58" Width="329" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,36,0,0" Content="{DynamicResource UI_TEXT_SERVER_CONF_STARTUP_ARGUMENTS}" FontSize="36" FontFamily="Bahnschrift SemiLight" Background="{x:Null}" BorderBrush="{x:Null}" />
                     <ListBox x:Name="Startup_Arguments_UI_List" Margin="0,-4,0,-322" Background="#FF101010" BorderBrush="{x:Null}" ItemTemplateSelector="{StaticResource Server_Template_Selector}" PreviewMouseWheel="S" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="False">
                     </ListBox>
                     <Label Height="58" Width="329" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,357,0,0" Content="{DynamicResource UI_TEXT_SERVER_CONF_CONVAR_ARGUMENTS}" FontSize="36" FontFamily="Bahnschrift SemiLight" Background="{x:Null}" BorderBrush="{x:Null}" />
                     <ListBox x:Name="Convar_Arguments_UI_List" Background="#FF101010" BorderBrush="{x:Null}" ItemTemplateSelector="{StaticResource Server_Template_Selector}" Height="1448" VerticalAlignment="Top" PreviewMouseWheel="Convar_Arguments_UI_List_PreviewMouseWheel" ScrollViewer.CanContentScroll="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
-                    <Button Content="{DynamicResource UI_BUTTON_SERVER_CONF_LAUNCH_DEDICATED}" Height="60" Width="950" Click="Dedicated_Btn_Click" BorderBrush="White" Background="#FF2C4C4C" Margin="0,54,0,0" VerticalAlignment="Top" />
 
+                    <Button Content="{DynamicResource UI_BUTTON_SERVER_CONF_LAUNCH_DEDICATED}" Height="60" Width="950" Click="Dedicated_Btn_Click" BorderBrush="White" Background="#FF2C4C4C" Margin="0,20,0,0" VerticalAlignment="Top" />
+
+                    <Button x:Name="Export_Server_Config" Height="42" Width="418" Margin="0,20,0,0" VerticalAlignment="Top" Background="#FF2C4C4C" Content="Export Server Config" BorderBrush="{x:Null}" Click="Export_Server_Config_Click" />
 
 
                 </hc:SimpleStackPanel>
@@ -489,17 +492,18 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
         </hc:SimplePanel>
 
 
-        <hc:SimplePanel x:Name="Updates_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
+        <hc:SimplePanel x:Name="Updates_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Visible" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
+            <hc:ScrollViewer>
+                <Grid Height="1457">
+                    <Label Content="{DynamicResource UI_TITLE_UPDATES}" Width="190" Margin="0,18,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Height="44" Padding="10,3,10,3"/>
+                    <Image Height="380" VerticalAlignment="Top" Margin="0,67,0,0" Source="/Resources/bestboy.png" HorizontalAlignment="Center" Width="380"/>
+                    <Button x:Name="Check_For_Updates" Content="{DynamicResource UI_TEXT_UPDATE_CHECK}" Height="47" HorizontalAlignment="Left" Margin="315,490,0,0" VerticalAlignment="Top" Background="#FF2C4C4C" BorderBrush="{x:Null}" Click="Check_For_Updates_Click" FontSize="14" Width="170"/>
+                    <Button x:Name="Config_Updates" Content="{DynamicResource UI_TEXT_UPDATE_CONFIGURE}" Height="47" HorizontalAlignment="Left" Margin="525,490,0,0" VerticalAlignment="Top" Background="#FF2C4C4C" BorderBrush="{x:Null}" Click="Config_Updates_Click" FontSize="14" Width="170"/>
+                    <Label Content="Settings" Width="190" Margin="0,565,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Height="44" Padding="10,3,10,3"/>
 
-            <Label Content="{DynamicResource UI_TITLE_UPDATES}" Width="190" Margin="0,32,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Height="44" Padding="10,3,10,3"/>
-            <hc:SimplePanel Margin="175,59,175,39">
-
-                <Image Height="380" VerticalAlignment="Top" Margin="140,25,0,0" Source="/Resources/bestboy.png" HorizontalAlignment="Left" Width="380"/>
-                <Button x:Name="Check_For_Updates" Content="{DynamicResource UI_TEXT_UPDATE_CHECK}" Height="47" HorizontalAlignment="Left" Margin="140,428,0,0" VerticalAlignment="Top" Background="#FF2C4C4C" BorderBrush="{x:Null}" Click="Check_For_Updates_Click" FontSize="14" Width="170"/>
-                <Button x:Name="Config_Updates" Content="{DynamicResource UI_TEXT_UPDATE_CONFIGURE}" Height="47" HorizontalAlignment="Left" Margin="350,428,0,0" VerticalAlignment="Top" Background="#FF2C4C4C" BorderBrush="{x:Null}" Click="Config_Updates_Click" FontSize="14" Width="170"/>
-
-            </hc:SimplePanel>
-
+                    <hc:PropertyGrid SelectedObject="{Binding DemoModel}" Margin="129,618,129,270"/>
+                </Grid>
+            </hc:ScrollViewer>
         </hc:SimplePanel>
 
 

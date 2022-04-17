@@ -296,13 +296,13 @@ namespace VTOL
                 //  _Item_Filter = CollectionViewSource.GetDefaultView(itemsList);
 
                 /*Ref Code To see The ISO name for Lang
-                Console.WriteLine("Default Language Info:");
-                Console.WriteLine("* Name: {0}", ci.Name);
-                Console.WriteLine("* Display Name: {0}", ci.DisplayName);
-                Console.WriteLine("* English Name: {0}", ci.EnglishName);
-                Console.WriteLine("* 2-letter ISO Name: {0}", ci.TwoLetterISOLanguageName);
-                Console.WriteLine("* 3-letter ISO Name: {0}", ci.ThreeLetterISOLanguageName);
-                Console.WriteLine("* 3-letter Win32 API Name: {0}", ci.ThreeLetterWindowsLanguageName);
+                //Console.WriteLine("Default Language Info:");
+                //Console.WriteLine("* Name: {0}", ci.Name);
+                //Console.WriteLine("* Display Name: {0}", ci.DisplayName);
+                //Console.WriteLine("* English Name: {0}", ci.EnglishName);
+                //Console.WriteLine("* 2-letter ISO Name: {0}", ci.TwoLetterISOLanguageName);
+                //Console.WriteLine("* 3-letter ISO Name: {0}", ci.ThreeLetterISOLanguageName);
+                //Console.WriteLine("* 3-letter Win32 API Name: {0}", ci.ThreeLetterWindowsLanguageName);
                 */
 
 
@@ -356,7 +356,7 @@ namespace VTOL
                 getProcessorInfo();
                 string[] arguments = Environment.GetCommandLineArgs();
 
-                Console.WriteLine("GetCommandLineArgs: {0}", string.Join(", ", arguments));
+                //Console.WriteLine("GetCommandLineArgs: {0}", string.Join(", ", arguments));
 
                 if (do_not_overwrite_Ns_file==true)
                 {
@@ -764,13 +764,13 @@ namespace VTOL
                 {
                     Update = new Updater("https://gtfo.thunderstore.io/api/v1/package/");
                     Update.Download_Cutom_JSON();
-                    // LoadListViewData(Filter_Type);
+                   //  LoadListViewData(Filter_Type);
 
 
 
                     Test_List.ItemsSource = null;
-                    Test_List.ItemsSource =  LoadListViewData(Filter_Type);
-
+                    Test_List.ItemsSource = LoadListViewData(Filter_Type);
+                  
                     Finished_Init = true;
 
 
@@ -807,7 +807,7 @@ namespace VTOL
 
                 Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_ERROR_OCCURRED"));
                 Write_To_Log(ex.ToString());
-                Console.WriteLine(ex.ToString());
+                //Console.WriteLine(ex.ToString());
             }
 
         }
@@ -937,7 +937,7 @@ namespace VTOL
 
         private List<object> LoadListViewData(string Filter_Type = "None")
         {
-
+            
             try
             {
                 itemsList.Clear();
@@ -989,161 +989,163 @@ namespace VTOL
                 // lst.Clear();
                 //  File_Size_.Clear();
                 //List<object> MainList = Update.Thunderstore;
+                if (Update.Thunderstore.Length > 0)
+                {                   // MessageBox.Show("Lol");
+                   
 
-                foreach (var item in Update.Thunderstore)
-                {
-                    //  for (List item = Update.Thunderstore.ToList()<VTOL.Thunderstore_>; int i = 0; i < Update.Thunderstore.Length; i++)
-                    //  {
-                    if (item.FullName == "northstar-Northstar")
-                    {
-                        continue;
-                    }
-                    int rating = item.RatingScore;
+                    for (var i = 0; i < Update.Thunderstore.Length; i++) {
 
-                    Tags = String.Join(" , ", item.Categories);
-
-
-                    //Tag = item.Categories;
-
-
-                    List<versions> versions = item.versions;
-
-                    if (Filter_Type == "None")
-                    {
-
-                        foreach (var items in versions)
-
-
+                        //  for (List item = Update.Thunderstore.ToList()<VTOL.Thunderstore_>; int i = 0; i < Update.Thunderstore.Length; i++)
+                        //  {
+                        if (Update.Thunderstore[i].FullName == "northstar-Northstar")
                         {
-                            Downloads.Add(Convert.ToInt32(items.Downloads));
+                            continue;
                         }
-                        downloads = (Downloads.Sum()).ToString();
+                        int rating = Update.Thunderstore[i].RatingScore;
 
-                        GC.Collect();
-
-                        download_url = versions.Last().DownloadUrl;
-                        ICON =  versions.Last().Icon;
-                        FileSize = versions.Last().FileSize.ToString();
-                        Descrtiption =  versions.Last().Description;
-                        Downloads.Clear();
-                        GC.Collect();
+                        Tags = String.Join(" , ", Update.Thunderstore[i].Categories);
+                      
+                        //Tag = item.Categories;
 
 
-                        if (int.TryParse(FileSize, out int value))
+                        List<versions> versions = Update.Thunderstore[i].versions;
+
+                        if (Filter_Type == "None")
                         {
-                            FileSize = Convert_To_Size(value);
-                        }
-                        //  Items_.Add(new Model { Name = item.Name, Icon = ICON, date_created = item.DateCreated.ToString(), description = Descrtiption, owner=item.Owner, Rating = rating, download_url = download_url +"|"+item.FullName.ToString(), Webpage  = item.PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads });
-                        if (Test_List.Items.Count > 0)
-                        {
+                            foreach (var items in Update.Thunderstore[i].versions)
 
-                            Temp = itemsList;
-                            if (Temp == itemsList)
+
                             {
-
-
-                            }
-
-                        }
-                        itemsList.Add(new Button { Name = item.Name, Icon = ICON, date_created = item.DateCreated.ToString(), description = Descrtiption, owner=item.Owner, Rating = rating, download_url = download_url +"|"+item.FullName.ToString(), Webpage  = item.PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads });
-
-                    }
-                    //                    else if (Tags.Contains(Filter_Type) && !Tags.Contains(Exclude_String))
-
-                    else if (Tags.Contains(Filter_Type) && !Tags.Contains(Exclude_String))
-                    {
-
-                        foreach (var items in item.versions)
-
-
-                        {
-                            Downloads.Add(Convert.ToInt32(items.Downloads));
-
-                            /*
-                            if (Tags.Contains("Skins"))
-                            {
-                                Send_Fatal_Notif(items.DownloadUrl + "\n" +items.Description+"\n"+items.FileSize.ToString()+"\n"+Convert.ToInt32(items.Downloads));
-                                lst.Add(items.DownloadUrl);
-                                Icons.Add(items.Icon);
-                                Description.Add(items.Description);
-                                File_Size_.Add(items.FileSize.ToString());
                                 Downloads.Add(Convert.ToInt32(items.Downloads));
                             }
+                            downloads = (Downloads.Sum()).ToString();
+
                             GC.Collect();
-                            if (Tags.Contains("Skins"))
+
+                            download_url = versions.Last().DownloadUrl;
+                            ICON =  versions.Last().Icon;
+                            FileSize = versions.Last().FileSize.ToString();
+                            Descrtiption =  versions.Last().Description;
+                            Downloads.Clear();
+                            GC.Collect();
+
+
+                            if (int.TryParse(FileSize, out int value))
                             {
+                                FileSize = Convert_To_Size(value);
+                            }
+                            if (Test_List.Items.Count > 0)
+                            {
+
+                                Temp = itemsList;
+                                if (Temp == itemsList)
+                                {
+
+
+                                }
+
+                            }
+                            itemsList.Add(new Button { Name = Update.Thunderstore[i].Name, Icon = ICON, date_created = Update.Thunderstore[i].DateCreated.ToString(), description = Descrtiption, owner=Update.Thunderstore[i].Owner, Rating = rating, download_url = download_url +"|"+Update.Thunderstore[i].FullName.ToString(), Webpage  = Update.Thunderstore[i].PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads });
+
+                            //      itemsList.Add(new Button { Name = item.Name, Icon = ICON, date_created = item.DateCreated.ToString(), description = Descrtiption, owner=item.Owner, Rating = rating, download_url = download_url +"|"+item.FullName.ToString(), Webpage  = item.PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads });
+
+                        }
+                        //                    else if (Tags.Contains(Filter_Type) && !Tags.Contains(Exclude_String))
+
+                        else if (Tags.Contains(Filter_Type) && !Tags.Contains(Exclude_String))
+                        {
+
+                            foreach (var items in Update.Thunderstore[i].versions)
+
+
+                            {
+                                Downloads.Add(Convert.ToInt32(items.Downloads));
+
+                                /*
+                                if (Tags.Contains("Skins"))
+                                {
+                                    Send_Fatal_Notif(items.DownloadUrl + "\n" +items.Description+"\n"+items.FileSize.ToString()+"\n"+Convert.ToInt32(items.Downloads));
+                                    lst.Add(items.DownloadUrl);
+                                    Icons.Add(items.Icon);
+                                    Description.Add(items.Description);
+                                    File_Size_.Add(items.FileSize.ToString());
+                                    Downloads.Add(Convert.ToInt32(items.Downloads));
+                                }
+                                GC.Collect();
+                                if (Tags.Contains("Skins"))
+                                {
+                                    lst.Add(items.DownloadUrl);
+                                     Icons.Add(items.Icon);
+                                     Description.Add(items.Description);
+                                      File_Size_.Add(items.FileSize.ToString());
+                                       Downloads.Add(Convert.ToInt32(items.Downloads));
+                                }
                                 lst.Add(items.DownloadUrl);
-                                 Icons.Add(items.Icon);
+                                  Icons.Add(items.Icon);
                                  Description.Add(items.Description);
                                   File_Size_.Add(items.FileSize.ToString());
-                                   Downloads.Add(Convert.ToInt32(items.Downloads));
+                                  Downloads.Add(Convert.ToInt32(items.Downloads));
+                                 */
+                                //   ICON = items.Icon;
+
                             }
-                            lst.Add(items.DownloadUrl);
-                              Icons.Add(items.Icon);
-                             Description.Add(items.Description);
-                              File_Size_.Add(items.FileSize.ToString());
-                              Downloads.Add(Convert.ToInt32(items.Downloads));
-                             */
-                            //   ICON = items.Icon;
 
+                            //  lst.Sort();
+                            //  Icons.Sort();
+                            //   File_Size_.Sort();
+                            //  Description.Sort();
+                            GC.Collect();
+                            /*
+                            download_url = (lst.Last());
+                            ICON = (Icons.Last());
+                            FileSize = (File_Size_.Last());
+                            Descrtiption = (Description.Last());
+                            */
+                            downloads = (Downloads.Sum()).ToString();
+
+
+
+                            download_url = versions.Last().DownloadUrl;
+                            ICON =  versions.Last().Icon;
+                            FileSize = versions.Last().FileSize.ToString();
+                            Descrtiption =  versions.Last().Description;
+
+                            //   Description.Clear();
+                            //  File_Size_.Clear();
+                            //   lst.Clear();
+                            //   Icons.Clear();
+                            Downloads.Clear();
+                            GC.Collect();
+
+
+                            if (int.TryParse(FileSize, out int value))
+                            {
+                                FileSize = Convert_To_Size(value);
+                            }
+                            //   foreach (object o in lst)
+                            //     {
+                            //       MessageBox.Show(o.ToString());
+                            //  }
+
+                            //itemsList.Add(new Button {  Name = item.full_name.ToString() , Icon = item.latest.icon,date_created = item.date_created.ToString(), description = item.latest.description, owner=item.owner, Rating = rating});
+                            itemsList.Add(new Button { Name = Update.Thunderstore[i].Name, Icon = ICON, date_created = Update.Thunderstore[i].DateCreated.ToString(), description = Descrtiption, owner=Update.Thunderstore[i].Owner, Rating = rating, download_url = download_url +"|"+Update.Thunderstore[i].FullName.ToString(), Webpage  = Update.Thunderstore[i].PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads });
                         }
 
-                        //  lst.Sort();
-                        //  Icons.Sort();
-                        //   File_Size_.Sort();
-                        //  Description.Sort();
-                        GC.Collect();
-                        /*
-                        download_url = (lst.Last());
-                        ICON = (Icons.Last());
-                        FileSize = (File_Size_.Last());
-                        Descrtiption = (Description.Last());
-                        */
-                        downloads = (Downloads.Sum()).ToString();
-
-                        GC.Collect();
-
-
-                        download_url = versions.Last().DownloadUrl;
-                        ICON =  versions.Last().Icon;
-                        FileSize = versions.Last().FileSize.ToString();
-                        Descrtiption =  versions.Last().Description;
-
-                        //   Description.Clear();
-                        //  File_Size_.Clear();
-                        //   lst.Clear();
-                        //   Icons.Clear();
-                        Downloads.Clear();
-                        GC.Collect();
-
-
-                        if (int.TryParse(FileSize, out int value))
-                        {
-                            FileSize = Convert_To_Size(value);
-                        }
-                        //   foreach (object o in lst)
-                        //     {
-                        //       MessageBox.Show(o.ToString());
-                        //  }
-
-                        //itemsList.Add(new Button {  Name = item.full_name.ToString() , Icon = item.latest.icon,date_created = item.date_created.ToString(), description = item.latest.description, owner=item.owner, Rating = rating});
-                        itemsList.Add(new Button { Name = item.Name, Icon = ICON, date_created = item.DateCreated.ToString(), description = Descrtiption, owner=item.Owner, Rating = rating, download_url = download_url +"|"+item.FullName.ToString(), Webpage  = item.PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads });
+                        // itemsList.Add(item.full_name.ToString());
                     }
-
-                    // itemsList.Add(item.full_name.ToString());
                 }
+               
             }
             catch (Exception ex)
             {
+                MessageBox.Show(ex.StackTrace);
+
                 Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_ERROR_OCCURRED"));
-                Write_To_Log(ex.StackTrace);
+                Write_To_Log(ex.InnerException.ToString());
 
-
-                Console.WriteLine(ex.ToString());
+                //Console.WriteLine(ex.ToString());
             }
-
             return itemsList;
-
 
         }
         async Task Set_About()
@@ -1487,17 +1489,17 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             {
                 DirectoryInfo hdDirectoryInWhichToSearch = new DirectoryInfo(@rootDir);
                 FileInfo[] filesInDir = hdDirectoryInWhichToSearch.GetFiles("*" + Filename + "*.*");
-                // Console.WriteLine(rootDir);
-                // Console.WriteLine(Filename);
+                // //Console.WriteLine(rootDir);
+                // //Console.WriteLine(Filename);
 
                 foreach (FileInfo foundFile in filesInDir)
                 {
                     if (foundFile.Name.Equals(Filename))
                     {
-                        Console.WriteLine("Found");
+                        ////Console.WriteLine("Found");
 
                         string fullName = foundFile.FullName;
-                        Console.WriteLine(fullName);
+                        //////Console.WriteLine(fullName);
                         return fullName;
 
 
@@ -1535,10 +1537,10 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 {
                     WalkDirectoryTree(rootDirs, Search);
 
-                    Console.WriteLine("Files with restricted access:");
+                    ////Console.WriteLine("Files with restricted access:");
                     foreach (string s in log)
                     {
-                        Console.WriteLine(s);
+                        ////Console.WriteLine(s);
                     }
 
                 }
@@ -1577,12 +1579,12 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             // TODO: Null parm checks
             if (l1.Intersect(l2).Any())
             {
-                Console.WriteLine("matched");
+                ////Console.WriteLine("matched");
                 return true;
             }
             else
             {
-                Console.WriteLine("not matched");
+                ////Console.WriteLine("not matched");
                 return false;
             }
         }
@@ -1628,27 +1630,27 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
                 };
                 List<string> current = new List<string>();
-                Console.WriteLine("Baseline");
+                ////Console.WriteLine("Baseline");
 
                 foreach (var Folder in FolderDir)
                 {
                     string s = Folder.ToString().Substring(Folder.ToString().LastIndexOf("Titanfall2"));
-                    Console.WriteLine(s);
+                    ////Console.WriteLine(s);
 
                     current.Add(s);
 
                     //saveAsyncFile(s, @"C:\temp\NormalFolderStructure");
 
                 }
-                Console.WriteLine("current");
+                ////Console.WriteLine("current");
 
                 foreach (var Folder in current)
                 {
 
-                    Console.WriteLine(Folder.ToString());
+                    ////Console.WriteLine(Folder.ToString());
 
                 }
-                Console.WriteLine(Baseline.SequenceEqual(current));
+                ////Console.WriteLine(Baseline.SequenceEqual(current));
 
                 if (ListCheck(Baseline, current) == true)
                 {
@@ -1733,7 +1735,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 foreach (string line in lines)
                 {
                     // Use a tab to indent each line of the file.
-                    Console.WriteLine("\t" + line);
+                    ////Console.WriteLine("\t" + line);
                 }
             }
             catch (System.IO.FileNotFoundException e)
@@ -2004,7 +2006,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                         Directory.CreateDirectory(Destination);
                     }
                     string fileExt = System.IO.Path.GetExtension(Target_Zip);
-                    Console.WriteLine("It only works if i have this line :(");
+                    ////Console.WriteLine("It only works if i have this line :(");
 
                     if (fileExt == ".zip")
                     {
@@ -2307,8 +2309,8 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                     outt = dirInfo.FullName;
                     if (dirInfo.Name.Contains(Search))
                     {
-                        // Console.WriteLine("Found Folder");
-                        Console.WriteLine(dirInfo.FullName);
+                        // ////Console.WriteLine("Found Folder");
+                        ////Console.WriteLine(dirInfo.FullName);
                         return true;
 
                     }
@@ -2319,19 +2321,19 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                     else
                     {
 
-                        Console.WriteLine("Trying again at " + dirInfo);
+                        ////Console.WriteLine("Trying again at " + dirInfo);
 
                     }
                     if (dirInfo == null)
                     {
-                        Console.WriteLine(dirInfo.FullName + "This is not a valid Folder????!");
+                        ////Console.WriteLine(dirInfo.FullName + "This is not a valid Folder????!");
                         continue;
 
                     }
                     // Resursive call for each subdirectory.
                 }
 
-                Console.WriteLine("\nCould not Find the Install at " + root + " - Continuing Traversal");
+                ////Console.WriteLine("\nCould not Find the Install at " + root + " - Continuing Traversal");
 
             }
             catch (Exception e)
@@ -2341,7 +2343,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 {
                     System.IO.DirectoryInfo Dir = new DirectoryInfo(outt);
 
-                    Console.WriteLine("Empty Folder at - "+ outt);
+                    ////Console.WriteLine("Empty Folder at - "+ outt);
                     if (IsDirectoryEmpty(Dir))
                     {
                         Directory.Delete(outt, true);
@@ -2387,7 +2389,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
             //catch (System.IO.DirectoryNotFoundException e)
             //{
-            //    Console.WriteLine(e.Message);
+            //    //Console.WriteLine(e.Message);
             //}
             try
             {
@@ -2399,9 +2401,9 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 //        {
                 //            if (fi.Name.Contains(Search))
                 //            {
-                //                Console.WriteLine("Found File");
-                //                Console.WriteLine(fi.FullName);
-                //                Console.WriteLine(fi.Directory);
+                //                //Console.WriteLine("Found File");
+                //                //Console.WriteLine(fi.FullName);
+                //                //Console.WriteLine(fi.Directory);
 
                 //                Found_Install_Folder = true;
                 //                Found_Install = true; 
@@ -2409,7 +2411,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 //            }
                 //            else
                 //            {
-                //                Console.WriteLine("Trying again 2");
+                //                //Console.WriteLine("Trying again 2");
                 //                WalkDirectoryTree(root, Search, FolderMode);
 
                 //            }
@@ -2428,8 +2430,8 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 {
                     if (dirInfo.Name.Contains(Search))
                     {
-                        // Console.WriteLine("Found Folder");
-                        //  Console.WriteLine(dirInfo.FullName);
+                        // //Console.WriteLine("Found Folder");
+                        //  //Console.WriteLine(dirInfo.FullName);
                         Found_Install_Folder = true;
                         Current_Install_Folder = (dirInfo.FullName);
                         break;
@@ -2443,7 +2445,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                     else
                     {
 
-                        Console.WriteLine("Trying again at " + dirInfo);
+                        //////Console.WriteLine("Trying again at " + dirInfo);
                         if (deep_Chk == true)
                         {
                             WalkDirectoryTree(dirInfo, Search);
@@ -2452,7 +2454,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                     }
                     if (dirInfo == null)
                     {
-                        Console.WriteLine(dirInfo.FullName + "This is not a valid Folder????!");
+                        ////Console.WriteLine(dirInfo.FullName + "This is not a valid Folder????!");
                         continue;
 
                     }
@@ -2511,7 +2513,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
         private void DownloadProgressCallback4(object sender, DownloadProgressChangedEventArgs e)
         {
             // Displays the operation identifier, and the transfer progress.
-            //Console.WriteLine("{0}    downloaded {1} of {2} bytes. {3} % complete...", (string)e.UserState, e.BytesReceived,e.TotalBytesToReceive,e.ProgressPercentage);
+            //////Console.WriteLine("{0}    downloaded {1} of {2} bytes. {3} % complete...", (string)e.UserState, e.BytesReceived,e.TotalBytesToReceive,e.ProgressPercentage);
 
             Mod_Progress_BAR.Value = e.ProgressPercentage;
         }
@@ -2599,7 +2601,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 Dsiabled_ListBox.ItemsSource = null;
                 Mod_Directory_List_Active.Clear();
                 Mod_Directory_List_InActive.Clear();
-                //   Console.WriteLine("In Mods!");
+                //   ////Console.WriteLine("In Mods!");
                 if (Current_Install_Folder == null || Current_Install_Folder == "" || !Directory.Exists(Current_Install_Folder))
                 {
                     HandyControl.Controls.Growl.AskGlobal("Could Not find That Install Location !!!, please renavigate to the Correct Install Path!", isConfirmed =>
@@ -2652,13 +2654,13 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                     else if (Template_traverse(dirInfo, "Locked_Folder") == true)
                                     {
 
-                                        //   Console.WriteLine("Inactive - " + dirInfo.Name);
+                                        //   ////Console.WriteLine("Inactive - " + dirInfo.Name);
                                         Mod_Directory_List_InActive.Add(dirInfo.Name);
                                         //  Log_Box.AppendText(dirInfo.Name);
                                     }
                                     else
                                     {
-                                        // Console.WriteLine("Active - " + dirInfo.Name);
+                                        // ////Console.WriteLine("Active - " + dirInfo.Name);
 
                                         Mod_Directory_List_Active.Add(dirInfo.Name);
                                         //  Log_Box.AppendText(dirInfo.Name);
@@ -2832,12 +2834,12 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             if (Directory.Exists(path + @"\Disable_Corner"))
             {
 
-                //   Console.WriteLine(path + "    This Mod is Disabled");
+                //   ////Console.WriteLine(path + "    This Mod is Disabled");
 
             }
             else
             {
-                // Console.WriteLine(path + "    This Mod is Enabled");
+                // ////Console.WriteLine(path + "    This Mod is Enabled");
 
 
 
@@ -3058,7 +3060,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                     {
                         if (val != null)
                         {
-                            //Console.WriteLine(val);
+                            //////Console.WriteLine(val);
                             System.IO.DirectoryInfo rootDirs = new DirectoryInfo(Current_Install_Folder + @"\R2Northstar\mods\" + val);
 
                             if (!IsDirectoryEmpty(rootDirs))
@@ -3085,7 +3087,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                     {
                         if (val != null)
                         {
-                            //  Console.WriteLine(Current_Install_Folder + @"\R2Northstar\mods\" + val);
+                            //  ////Console.WriteLine(Current_Install_Folder + @"\R2Northstar\mods\" + val);
                             System.IO.DirectoryInfo rootDirs = new DirectoryInfo(Current_Install_Folder + @"\R2Northstar\mods\" + val);
                             System.IO.DirectoryInfo Locked = new DirectoryInfo(Current_Install_Folder + @"\R2Northstar\mods\" + val + @"\Locked_Folder");
 
@@ -3138,7 +3140,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 // string FolderName = file.Split(Path.DirectorySeparatorChar).Last();
                 string lastFolderName = new DirectoryInfo(System.IO.Path.GetDirectoryName(file)).FullName;
 
-                //Console.WriteLine(lastFolderName);
+                //////Console.WriteLine(lastFolderName);
                 files.Add(file);
             }
             foreach (var subDir in Directory.EnumerateDirectories(root))
@@ -3449,7 +3451,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             else
             {
 
-                Console.WriteLine("Err, File not found");
+                ////Console.WriteLine("Err, File not found");
 
 
             }
@@ -3560,7 +3562,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
                     try
                     {
-                        //  Console.WriteLine(Skin_Temp_Loc);
+                        //  ////Console.WriteLine(Skin_Temp_Loc);
                         String Thumbnail = Current_Install_Folder + @"\Thumbnails\";
                         if (Directory.Exists(Thumbnail))
                         {
@@ -3576,7 +3578,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                 if (File.Exists(firstOrDefault_Col))
                                 {
                                     String col = Thumbnail + Path.GetFileName(firstOrDefault_Col) + ".png";
-                                    //  Console.WriteLine(firstOrDefault_Col);
+                                    //  ////Console.WriteLine(firstOrDefault_Col);
                                     if (File.Exists(col))
                                     {
 
@@ -3590,7 +3592,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                     }
                                     else
                                     {
-                                        //Console.WriteLine(col);
+                                        //////Console.WriteLine(col);
                                         DDSImage img_1 = new DDSImage(firstOrDefault_Col);
 
                                         img_1.Save(col);
@@ -3630,7 +3632,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                     if (File.Exists(firstOrDefault_ilm + ".png"))
                                     {
 
-                                        Console.WriteLine(firstOrDefault_ilm);
+                                        ////Console.WriteLine(firstOrDefault_ilm);
                                         // Image Image_2 = new Bitmap(Thumbnail+Path.GetFileName(firstOrDefault_ilm)+".png");
                                         BitmapImage bitmap = new BitmapImage();
                                         bitmap.BeginInit();
@@ -3685,7 +3687,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                             {
                                 if (File.Exists(firstOrDefault_Col))
                                 {
-                                    //  Console.WriteLine(firstOrDefault_Col);
+                                    //  ////Console.WriteLine(firstOrDefault_Col);
                                     if (File.Exists(firstOrDefault_Col + ".png"))
                                     {
 
@@ -3737,7 +3739,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                     if (File.Exists(firstOrDefault_ilm + ".png"))
                                     {
 
-                                        //   Console.WriteLine(firstOrDefault_ilm);
+                                        //   ////Console.WriteLine(firstOrDefault_ilm);
                                         //    Image Image_2 = new Bitmap(Thumbnail+Path.GetFileName(firstOrDefault_ilm)+".png");
                                         BitmapImage bitmap = new BitmapImage();
                                         bitmap.BeginInit();
@@ -3817,7 +3819,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                     }
                     else
                     {
-                        //  Console.WriteLine(path);
+                        //  ////Console.WriteLine(path);
                         Current_Install_Folder = path;
                         Found_Install_Folder = true;
                         Titanfall2_Directory_TextBox.Background = Brushes.White;
@@ -3902,7 +3904,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             else
             {
 
-                //   Console.WriteLine("Err, File not found");
+                //   ////Console.WriteLine("Err, File not found");
 
 
             }
@@ -3953,8 +3955,8 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                     {
                         string FolderName = path.Split(Path.DirectorySeparatorChar).Last();
                         Browse_For_MOD.Text = path;
-                        //  Console.WriteLine(path);
-                        //  Console.WriteLine("The Folder Name is-" + FolderName + "\n\n");
+                        //  ////Console.WriteLine(path);
+                        //  ////Console.WriteLine("The Folder Name is-" + FolderName + "\n\n");
                         Unpack_To_Location_Custom(path, Current_Install_Folder + @"\R2Northstar\mods");
                         Call_Mods_From_Folder();
 
@@ -3988,15 +3990,14 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             List<string> FileList = new List<string>();
             FindSkinFiles(Skin_Path, FileList, ".dds");
 
-            foreach (var i in FileList)
-                Console.WriteLine(i);
+            
 
             var matchingvalues = FileList.FirstOrDefault(stringToCheck => stringToCheck.Contains(""));
             // for (int i = 0; i < FileList.Count; i++)
             //   {
             //       if (FileList[i].Contains("col")) // (you use the word "contains". either equals or indexof might be appropriate)
             //       {
-            //  Console.WriteLine(i);
+            //  //Console.WriteLine(i);
             //      }
             //    }
             int DDSFolderExist = 0;
@@ -4066,7 +4067,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
 
 
-                Console.WriteLine("Files deleted successfully");
+                //Console.WriteLine("Files deleted successfully");
                 GC.Collect();
                 Install_Skin_Bttn.IsEnabled = false;
 
@@ -4293,7 +4294,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 }
                 else
                 {
-                    Console.WriteLine("Err, File not found ns_startup_args_dedi");
+                    //Console.WriteLine("Err, File not found ns_startup_args_dedi");
 
                 }
 
@@ -4353,7 +4354,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             }
             else
             {
-                Console.WriteLine("Err, File not found");
+                //Console.WriteLine("Err, File not found");
 
             }
 
@@ -4397,7 +4398,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             else
             {
 
-                Console.WriteLine("Err, File not found");
+                //Console.WriteLine("Err, File not found");
 
 
             }
@@ -4941,9 +4942,9 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
                 for (int i = 0; i<intake.Length; i++)
                 {
-                    Console.WriteLine(String.Format(" array[{0}] = {1}", i, intake[i]));
+                    //Console.WriteLine(String.Format(" array[{0}] = {1}", i, intake[i]));
                 }
-                Console.WriteLine("\n\n\n");
+                //Console.WriteLine("\n\n\n");
                 //   Send_Warning_Notif(intake[Array.FindIndex(intake, element => element.Contains(Convar_Name))].ToString());
 
                 if (Array.Exists(intake, element => element.StartsWith(Convar_Name)))
@@ -5075,7 +5076,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 }
                 for (int j = 0; j<intermid.Length; j++)
                 {
-                    // Console.WriteLine("array[{0}] = {1}", j, intermid[j]);
+                    // //Console.WriteLine("array[{0}] = {1}", j, intermid[j]);
 
                 }
                 if (Array.Exists(intermid, element => element.StartsWith(var_Name)))
@@ -5567,8 +5568,8 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                         {
                             string FolderName = path.Split(Path.DirectorySeparatorChar).Last();
                             Browse_For_MOD.Text = path;
-                            //Console.WriteLine(path);
-                            //     Console.WriteLine("The Folder Name is-" + FolderName + "\n\n");
+                            ////Console.WriteLine(path);
+                            //     //Console.WriteLine("The Folder Name is-" + FolderName + "\n\n");
                             Send_Success_Notif(GetTextResource("NOTIF_SUCCESS_RECEIVED_DASH") + file);
 
                             Unpack_To_Location_Custom(path, Current_Install_Folder + @"\R2Northstar\mods");
@@ -5715,7 +5716,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                         }
 
 
-                        Console.WriteLine(Skin_Temp_Loc);
+                        //Console.WriteLine(Skin_Temp_Loc);
                         String Thumbnail = Current_Install_Folder + @"\Thumbnails\";
                         if (Directory.Exists(Thumbnail))
                         {
@@ -5731,7 +5732,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                 if (File.Exists(firstOrDefault_Col))
                                 {
                                     String col = Thumbnail + Path.GetFileName(firstOrDefault_Col) + ".png";
-                                    Console.WriteLine(firstOrDefault_Col);
+                                    //Console.WriteLine(firstOrDefault_Col);
                                     if (File.Exists(col))
                                     {
 
@@ -5745,7 +5746,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                     }
                                     else
                                     {
-                                        Console.WriteLine(col);
+                                        //Console.WriteLine(col);
                                         DDSImage img_1 = new DDSImage(firstOrDefault_Col);
 
                                         img_1.Save(col);
@@ -5785,7 +5786,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                     if (File.Exists(firstOrDefault_ilm + ".png"))
                                     {
 
-                                        Console.WriteLine(firstOrDefault_ilm);
+                                        //Console.WriteLine(firstOrDefault_ilm);
                                         // Image Image_2 = new Bitmap(Thumbnail+Path.GetFileName(firstOrDefault_ilm)+".png");
                                         BitmapImage bitmap = new BitmapImage();
                                         bitmap.BeginInit();
@@ -5840,7 +5841,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                             {
                                 if (File.Exists(firstOrDefault_Col))
                                 {
-                                    Console.WriteLine(firstOrDefault_Col);
+                                    //Console.WriteLine(firstOrDefault_Col);
                                     if (File.Exists(firstOrDefault_Col + ".png"))
                                     {
 
@@ -5892,7 +5893,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                     if (File.Exists(firstOrDefault_ilm + ".png"))
                                     {
 
-                                        Console.WriteLine(firstOrDefault_ilm);
+                                        //Console.WriteLine(firstOrDefault_ilm);
                                         //    Image Image_2 = new Bitmap(Thumbnail+Path.GetFileName(firstOrDefault_ilm)+".png");
                                         BitmapImage bitmap = new BitmapImage();
                                         bitmap.BeginInit();
@@ -7049,6 +7050,16 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 Call_Mods_From_Folder();
 
             }
+        }
+
+        private void Export_Server_Config_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Import_Server_Config_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

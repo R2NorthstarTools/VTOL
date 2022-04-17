@@ -185,54 +185,7 @@ namespace VTOL
 
 
 
-                if (File.Exists(Directory.GetFiles(save).Where(f => f.Contains("Thunder")).SingleOrDefault()))
-                {
-                    string x = (Directory.GetFiles(save).Where(f => f.Contains("Thunder")).SingleOrDefault());
-                    //  MessageBox.Show(x);
-                    if (x == @"C:\ProgramData\VTOL_DATA\VARS\Thunderstore"+DateTimeProperty.ToShortDateString+".json")
-                    {
-
-
-                        using (StreamReader reader = new StreamReader(@"C:\ProgramData\VTOL_DATA\VARS\Thunderstore"+DateTimeProperty.ToShortDateString+".json"))
-                        {
-                            string json = reader.ReadToEnd();
-                            Thunderstore = Thunderstore_V1.FromJson(json);
-
-                        }
-
-
-                    }
-                    else
-                    {
-                        List<string> Delete = Directory.GetFiles(save).Where(f => f.Contains("Thunder")).ToList();
-                        foreach (string F in Delete)
-                        {
-                            Directory.Delete(F, true);
-                        }
-                        string address = "https://northstar.thunderstore.io/api/v1/package/";
-                        /*
-                         WebClient client = new WebClient();
-                         Uri uri1 = new Uri(address);
-                         client.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)");
-                         Stream data = client.OpenRead(address);
-                         StreamReader reader = new StreamReader(data);
-                         string s = reader.ReadToEnd();
-                         */
-                        Uri uri1 = new Uri(address);
-                        using (var webClient = new System.Net.WebClient())
-                        {
-                            webClient.DownloadFile(uri1, @"C:\ProgramData\VTOL_DATA\VARS\Thunderstore"+DateTimeProperty.Date.ToShortDateString+".json");
-                            // Now parse with JSON.Net
-                        }
-                        string A = (Directory.GetFiles(save).Where(f => f.Contains("Thunder")).SingleOrDefault());
-                        Thunderstore = Thunderstore_V1.FromJson(A);
-                        File.WriteAllText(@"C:\ProgramData\VTOL_DATA\VARS\Thunderstore"+DateTimeProperty.ToShortDateString+".json", A);
-
-                    }
-
-                }
-                else
-                {
+               
                     string address = "https://northstar.thunderstore.io/api/v1/package/";
 
                     /*
@@ -246,24 +199,26 @@ namespace VTOL
                     Uri uri1 = new Uri(address);
                     using (var webClient = new System.Net.WebClient())
                     {
-                        webClient.DownloadFile(uri1, @"C:\ProgramData\VTOL_DATA\VARS\Thunderstore"+DateTimeProperty.Date.ToShortDateString+".json");
+                        webClient.DownloadFile(uri1, @"C:\ProgramData\VTOL_DATA\VARS\Thunderstore.json");
                         // Now parse with JSON.Net
                     }
 
                     string x = (Directory.GetFiles(save).Where(f => f.Contains("Thunder")).SingleOrDefault());
 
-                    using (StreamReader Reader = new StreamReader(x))
-                    {
-                        string json = Reader.ReadToEnd();
+                // //  using (StreamReader Reader = new StreamReader(x))
+                //  {
+                string json = System.IO.File.ReadAllText(x);
                         Thunderstore = Thunderstore_V1.FromJson(json);
 
-                    }
-
+                  //  }
+                   
+                if (File.Exists(x))
+                {
+                    File.Delete(x);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
             }
         }
         /// <summary>
