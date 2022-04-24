@@ -41,6 +41,9 @@ using System.Timers;
 using Utf8Json;
 using HandyControl.Data;
 using System.Security.Principal;
+using CefSharp;
+using CefSharp.Wpf;
+
 //****TODO*****//
 
 //Migrate Release Parse to the New Updater Sys
@@ -278,6 +281,7 @@ namespace VTOL
 
         List<object> Temp = new List<object> { };
         bool Warn_Close_EA;
+        ObservableCollection<object> OjectList = new ObservableCollection<object>();
 
         public MainWindow()
         {
@@ -287,6 +291,7 @@ namespace VTOL
             do_not_overwrite_Ns_file_Dedi = Properties.Settings.Default.Ns_Dedi;
             Sort_Lists = Properties.Settings.Default.Sort_Mods;
             Warn_Close_EA = Properties.Settings.Default.Warning_Close_EA;
+
             //  Test_List.ItemsSource = itemsList;
 
             try
@@ -304,10 +309,11 @@ namespace VTOL
                 //Console.WriteLine("* 3-letter ISO Name: {0}", ci.ThreeLetterISOLanguageName);
                 //Console.WriteLine("* 3-letter Win32 API Name: {0}", ci.ThreeLetterWindowsLanguageName);
                 */
-
-
                 //BG_panel_Main.BlurApply(40, new TimeSpan(0, 0, 1), TimeSpan.Zero);
+                Web_Browser.AddressChanged += Web_Browser_AddressChanged;
+                Web_Browser.JavascriptMessageReceived += OnBrowserJavascriptMessageReceived;
 
+                // Web_Browser.JavascriptMessageReceived += Web_Browser_JavascriptMessageReceived();
                 DataContext = this;
                 Animation_Start_Northstar = false;
                 Animation_Start_Vanilla = false;
@@ -330,8 +336,8 @@ namespace VTOL
                 Install_Skin_Bttn.IsEnabled = false;
                 Badge.Visibility = Visibility.Collapsed;
                 Server_Indicator.Fill = Brushes.Red;
-                Sections_Tabs.SelectedItem = 0;
-                IsLoading_Panel.Visibility = Visibility.Hidden;
+                // Sections_Tabs.SelectedItem = 0;
+                //IsLoading_Panel.Visibility = Visibility.Hidden;
                 GC.Collect();
 
 
@@ -525,6 +531,7 @@ namespace VTOL
 
 
         }
+
 
 
         private void OnTimedEvent(object source, ElapsedEventArgs e)
@@ -754,7 +761,7 @@ namespace VTOL
             try
             {
                 GC.Collect();
-                IsLoading_Panel.Visibility = Visibility.Visible;
+                //IsLoading_Panel.Visibility = Visibility.Visible;
 
                 // this.Dispatcher.Invoke(() =>
                 // {
@@ -764,34 +771,39 @@ namespace VTOL
                 {
                     Update = new Updater("https://gtfo.thunderstore.io/api/v1/package/");
                     Update.Download_Cutom_JSON();
-                   //  LoadListViewData(Filter_Type);
+                    //  LoadListViewData(Filter_Type);
 
 
 
-                    Test_List.ItemsSource = null;
-                    Test_List.ItemsSource = LoadListViewData(Filter_Type);
-                  
+                    // Test_List.ItemsSource = null;
+
+                    // ICollectionView view = CollectionViewSource.GetDefaultView(LoadListViewData(Filter_Type));
+                    //  view.GroupDescriptions.Add(new PropertyGroupDescription("Pinned"));
+                    // view.SortDescriptions.Add(new SortDescription("Country", ListSortDirection.Ascending));
+                    //   Test_List.ItemsSource = view;
+                    //   Test_List.ItemsSource = LoadListViewData(Filter_Type);
+
                     Finished_Init = true;
 
 
                     //   Test_List.ItemsSource = _Items_;
                     //this.DataContext = itemsList;
-                    Test_List.Items.Refresh();
+                    // Test_List.Items.Refresh();
                 }
                 else
                 {
                     // LoadListViewData(Filter_Type);
 
 
-                    Test_List.ItemsSource = null;
+                    //   Test_List.ItemsSource = null;
 
-                    Test_List.ItemsSource = LoadListViewData(Filter_Type);
+                    //  Test_List.ItemsSource = LoadListViewData(Filter_Type);
 
 
 
                     //  Test_List.ItemsSource = Items_;
 
-                    Test_List.Items.Refresh();
+                    // Test_List.Items.Refresh();
 
                 }
 
@@ -937,7 +949,7 @@ namespace VTOL
 
         private List<object> LoadListViewData(string Filter_Type = "None")
         {
-            
+
             try
             {
                 itemsList.Clear();
@@ -991,9 +1003,10 @@ namespace VTOL
                 //List<object> MainList = Update.Thunderstore;
                 if (Update.Thunderstore.Length > 0)
                 {                   // MessageBox.Show("Lol");
-                   
 
-                    for (var i = 0; i < Update.Thunderstore.Length; i++) {
+
+                    for (var i = 0; i < Update.Thunderstore.Length; i++)
+                    {
 
                         //  for (List item = Update.Thunderstore.ToList()<VTOL.Thunderstore_>; int i = 0; i < Update.Thunderstore.Length; i++)
                         //  {
@@ -1004,7 +1017,7 @@ namespace VTOL
                         int rating = Update.Thunderstore[i].RatingScore;
 
                         Tags = String.Join(" , ", Update.Thunderstore[i].Categories);
-                      
+
                         //Tag = item.Categories;
 
 
@@ -1034,17 +1047,8 @@ namespace VTOL
                             {
                                 FileSize = Convert_To_Size(value);
                             }
-                            if (Test_List.Items.Count > 0)
-                            {
-
-                                Temp = itemsList;
-                                if (Temp == itemsList)
-                                {
 
 
-                                }
-
-                            }
                             itemsList.Add(new Button { Name = Update.Thunderstore[i].Name, Icon = ICON, date_created = Update.Thunderstore[i].DateCreated.ToString(), description = Descrtiption, owner=Update.Thunderstore[i].Owner, Rating = rating, download_url = download_url +"|"+Update.Thunderstore[i].FullName.ToString(), Webpage  = Update.Thunderstore[i].PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads });
 
                             //      itemsList.Add(new Button { Name = item.Name, Icon = ICON, date_created = item.DateCreated.ToString(), description = Descrtiption, owner=item.Owner, Rating = rating, download_url = download_url +"|"+item.FullName.ToString(), Webpage  = item.PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads });
@@ -1134,7 +1138,7 @@ namespace VTOL
                         // itemsList.Add(item.full_name.ToString());
                     }
                 }
-               
+
             }
             catch (Exception ex)
             {
@@ -1318,7 +1322,6 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             Dedicated_Server_Panel.Visibility = Visibility.Hidden;
             Log_Panel.Visibility = Visibility.Hidden;
             Updates_Panel.Visibility = Visibility.Hidden;
-
             Skins.IsSelected = false;
             Main.IsSelected = false;
             About.IsSelected = false;
@@ -3990,7 +3993,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             List<string> FileList = new List<string>();
             FindSkinFiles(Skin_Path, FileList, ".dds");
 
-            
+
 
             var matchingvalues = FileList.FirstOrDefault(stringToCheck => stringToCheck.Contains(""));
             // for (int i = 0; i < FileList.Count; i++)
@@ -6487,43 +6490,43 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
         void Check_Tabs(bool hard_reset = false)
         {
             Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
-            IsLoading_Panel.Visibility = Visibility.Visible;
+            //IsLoading_Panel.Visibility = Visibility.Visible;
 
             //   Send_Success_Notif(Convert.ToString((Sections_Tabs.SelectedItem as TabItem).Header));
 
 
-            switch (Convert.ToString((Sections_Tabs.SelectedItem as TabItem).Header))
-            {
-                case "All":
-                    Thunderstore_Parse(hard_reset, "None");
+            //switch (Convert.ToString((Sections_Tabs.SelectedItem as TabItem).Header))
+            //{
+            //    case "All":
+            //        Thunderstore_Parse(hard_reset, "None");
 
-                    break;
-                case "Skins":
-                    Thunderstore_Parse(hard_reset, "Skins");
+            //        break;
+            //    case "Skins":
+            //        Thunderstore_Parse(hard_reset, "Skins");
 
-                    break;
-                case "Menu Mods":
-                    Thunderstore_Parse(hard_reset, "Custom Menus");
+            //        break;
+            //    case "Menu Mods":
+            //        Thunderstore_Parse(hard_reset, "Custom Menus");
 
-                    break;
-                case "Server Mods":
-                    Thunderstore_Parse(hard_reset, "Server-side");
+            //        break;
+            //    case "Server Mods":
+            //        Thunderstore_Parse(hard_reset, "Server-side");
 
-                    break;
-                case "Client Mods":
-                    Thunderstore_Parse(hard_reset, "Client-side");
+            //        break;
+            //    case "Client Mods":
+            //        Thunderstore_Parse(hard_reset, "Client-side");
 
-                    break;
-                default:
-                    Thunderstore_Parse(hard_reset, "None");
+            //        break;
+            //    default:
+            //        Thunderstore_Parse(hard_reset, "None");
 
-                    break;
+            //        break;
 
 
-            }
+            //}
 
             Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow;
-            IsLoading_Panel.Visibility = Visibility.Hidden;
+            //IsLoading_Panel.Visibility = Visibility.Hidden;
 
         }
 
@@ -7059,8 +7062,65 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
         private void Import_Server_Config_Click(object sender, RoutedEventArgs e)
         {
+        }
+        private void Browser_AddressChanged(object sender, AddressChangedEventArgs e)
+        {
 
         }
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+
+
+
+        private void OnBrowserJavascriptMessageReceived(object sender, JavascriptMessageReceivedEventArgs e)
+        {
+            var windowSelection = (string)e.Message;
+            MessageBox.Show(windowSelection);
+            //DO SOMETHING WITH THIS MESSAGE
+            //This event is called on a CEF Thread, to access your UI thread
+            //use Control.BeginInvoke/Dispatcher.BeginInvoke
+        }
+        private void Web_Browser_AddressChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+          //   MessageBox.Show( CefRequestHandler.VersionNumberString);
+            // Send_Info_Notif(e.ToString());
+            if (Web_Browser.Address.Contains("northstar"))
+            {
+                //   Web_Browser.Back();
+                // MessageBox.Show(Web_Browser.Address.ToString());
+
+            }
+        }
+
+
+    }
+    public class CefRequestHandler : CefSharp.Handler.RequestHandler
+    {
+        public static readonly string VersionNumberString = String.Format("Chromium: {0}, CEF: {1}, CefSharp: {2}",
+            Cef.ChromiumVersion, Cef.CefVersion, Cef.CefSharpVersion);
+
+        protected override bool OnBeforeBrowse(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, bool userGesture, bool isRedirect)
+        {
+            return false;
+        }
+        protected override IResourceRequestHandler GetResourceRequestHandler(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, bool isNavigation, bool isDownload, string requestInitiator, ref bool disableDefaultHandling)
+        {
+            //NOTE: In most cases you examine the request.Url and only handle requests you are interested in
+            if (request.Url.ToLower().StartsWith("https://cefsharp.example")
+                || request.Url.ToLower().StartsWith("ror2mm:")
+                || request.Url.ToLower().StartsWith("https://googlechrome.github.io/samples/service-worker/"))
+            {
+                // return new CefRequestHandler();
+                MessageBox.Show("XX");
+            }
+
+            return null;
+        }
+        //bool OnProtocolExecution(IWebBrowser browserControl, IBrowser browser, string Url);
+
     }
 }
 

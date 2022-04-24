@@ -190,9 +190,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="CefSharp.Wpf" Version="100.0.230" />
+    <PackageReference Include="CefSharp.Wpf.NETCore" Version="100.0.230" />
     <PackageReference Include="DotNetZip" Version="1.16.0" />
     <PackageReference Include="HandyControls" Version="3.3.11" />
     <PackageReference Include="Json.Net" Version="1.0.33" />
+    <PackageReference Include="MSBuild.Microsoft.VisualStudio.Web.targets" Version="14.0.0.3" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Octokit" Version="0.50.0" />
     <PackageReference Include="Ookii.Dialogs.Wpf" Version="5.0.1" />

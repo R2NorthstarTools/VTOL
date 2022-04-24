@@ -168,7 +168,6 @@ namespace VTOL
 
                 json = reader.ReadToEnd();
             }
-            MessageBox.Show("AAAAAAAA");
             Thunderstore = Thunderstore_V1.FromJson(json);
             repository = Repository.FromJson(json);
         }
