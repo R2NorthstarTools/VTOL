@@ -38,7 +38,6 @@ using Zipi = Ionic.Zip;
 using System.Net.NetworkInformation;
 using Microsoft.Win32;
 using System.Timers;
-using Utf8Json;
 using HandyControl.Data;
 using System.Security.Principal;
 using CefSharp;
@@ -310,6 +309,31 @@ namespace VTOL
                 //Console.WriteLine("* 3-letter Win32 API Name: {0}", ci.ThreeLetterWindowsLanguageName);
                 */
                 //BG_panel_Main.BlurApply(40, new TimeSpan(0, 0, 1), TimeSpan.Zero);
+
+
+
+
+
+
+
+
+
+                DataGridSettings.SelectedObject = new PropertyGridDemoModel
+                {
+                    URL = "TestString",
+                    Start_On_Top = true,
+                   
+                };
+
+
+
+
+
+
+
+
+
+
                 Web_Browser.AddressChanged += Web_Browser_AddressChanged;
                 Web_Browser.JavascriptMessageReceived += OnBrowserJavascriptMessageReceived;
 
@@ -653,6 +677,27 @@ namespace VTOL
                 Write_To_Log(ex.ToString() + "\n" + ex.Message);
             }
         }
+
+
+        public class PropertyGridDemoModel
+        {
+            [Category("Repository Settings")]
+            public string URL { get; set; }
+            [Category("Launch Settings")]
+            public bool Start_On_Top { get; set; }
+           
+        }
+
+
+        public enum Gender
+        {
+            Male,
+            Female
+        }
+
+
+
+
         public void LIST_CLICK(object sender, RoutedEventArgs e)
         {
 
@@ -6350,8 +6395,18 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
         private void Load_Bt_(object sender, RoutedEventArgs e)
         {
+
+            if (File.Exists(Current_Install_Folder + @"\VTOL_Dedicated_Workspace\autoexec_ns_server.cfg"))
+            {
+                File.Delete(Current_Install_Folder + @"\VTOL_Dedicated_Workspace\autoexec_ns_server.cfg");
+            }
+            if (File.Exists(Current_Install_Folder + @"\VTOL_Dedicated_Workspace\autoexec_ns_server.cfg"))
+            {
+                File.Delete(Current_Install_Folder + @"\VTOL_Dedicated_Workspace\autoexec_ns_server.cfg");
+            }
             if (Directory.Exists(Current_Install_Folder))
             {
+                
                 Convar_File = GetFile(Current_Install_Folder, "autoexec_ns_server.cfg").First();
                 Ns_dedi_File = GetFile(Current_Install_Folder, "ns_startup_args_dedi.txt").First();
             }
@@ -7054,14 +7109,301 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
             }
         }
+        private string _filePath;
 
-        private void Export_Server_Config_Click(object sender, RoutedEventArgs e)
+        public void ZIP_LIST(List<string> filesToZip, string sZipFileName, bool deleteExistingZip = true)
         {
+            if (filesToZip.Count > 0)
+            {
+                if (File.Exists(filesToZip[0]))
+                {
+
+                    // Get the first file in the list so we can get the root directory
+                    string strRootDirectory = Path.GetDirectoryName(filesToZip[0]);
+
+                    // Set up a temporary directory to save the files to (that we will eventually zip up)
+                    DirectoryInfo dirTemp = Directory.CreateDirectory(strRootDirectory + "/" + DateTime.Now.ToString("yyyyMMddhhmmss"));
+
+                    // Copy all files to the temporary directory
+                    foreach (string strFilePath in filesToZip)
+                    {
+                        if (!File.Exists(strFilePath))
+                            
+                        {
+                            Send_Error_Notif("Failed!");
+                            Write_To_Log("file does not exist" + Ns_dedi_File + "   " + Convar_File);
+
+                            return;
+                           // throw new Exception(string.Format("File {0} does not exist", strFilePath));
+                        }
+                        string strDestinationFilePath = Path.Combine(dirTemp.FullName, Path.GetFileName(strFilePath));
+                        File.Copy(strFilePath, strDestinationFilePath);
+                    }
+
+                    // Create the zip file using the temporary directory
+                    if (!sZipFileName.EndsWith(".zip")) { sZipFileName += ".zip"; }
+                    string strZipPath = Path.Combine(strRootDirectory, sZipFileName);
+                    if (deleteExistingZip == true && File.Exists(strZipPath)) { File.Delete(strZipPath); }
+                    ZipFile.CreateFromDirectory(dirTemp.FullName, strZipPath, CompressionLevel.Fastest, false);
+
+                    // Delete the temporary directory
+                    dirTemp.Delete(true);
+
+                    _filePath = strZipPath;
+                }
+                else
+                {
+                    Send_Error_Notif("Failed!");
+                    Write_To_Log("file does not exist" + Ns_dedi_File + "   " + Convar_File);
+                    return;
+                }
+            }
+            else
+            {
+                Send_Error_Notif("You must specify at least one file to zip.");
+                return;
+            }
+        }
+    
+    private void Export_Server_Config_Click(object sender, RoutedEventArgs e)
+        {
+            if (Directory.Exists(Current_Install_Folder + "/VTOL_Dedicated_Workspace"))
+            {
+                if (File.Exists(Ns_dedi_File) && File.Exists(Convar_File))
+                {
+                    List<string> files = new List<string>();
+                    files.Add(Ns_dedi_File);
+                    files.Add(Convar_File);
+
+                    ZIP_LIST(files, Current_Install_Folder + @"\VTOL_Dedicated_Workspace/Exported_Config.zip", true);
+
+                    Send_Success_Notif("Exported to " + Current_Install_Folder + @"\VTOL_Dedicated_Workspace/Exported_Config.zip"+ " Sucessfully!");
+                    
+
+              
+            }
+                else
+                {
+                    Send_Error_Notif(GetTextResource("NOTIF_ERROR_SUGGEST_REBROWSE"));
+                    return;
+                }
+            }
+            else
+            {
+                Directory.CreateDirectory(Current_Install_Folder + @"\VTOL_Dedicated_Workspace");
+
+                if (File.Exists(Ns_dedi_File) && File.Exists(Convar_File))
+                {
+                    List<string> files = new List<string>();
+                    files.Add(Path.GetDirectoryName(Ns_dedi_File).ToString());
+                    files.Add(Path.GetDirectoryName(Convar_File).ToString());
+
+                    ZIP_LIST(files, Current_Install_Folder + @"\VTOL_Dedicated_Workspace/Exported_Config.zip", true);
+                    Send_Success_Notif("Exported to " + Current_Install_Folder + @"\VTOL_Dedicated_Workspace/Exported_Config.zip"+ " Sucessfully!");
+
+
+
+
+
+                }
+                else
+                {
+                    Send_Error_Notif("Load Your Files First!");
+                    Send_Error_Notif(GetTextResource("NOTIF_ERROR_SUGGEST_REBROWSE"));
+                    return;
+                }
+
+            }
 
         }
 
         private void Import_Server_Config_Click(object sender, RoutedEventArgs e)
         {
+            string zipPath = null;
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Zip files (*.zip)|*.zip|All files (*.*)|*.*";
+            openFileDialog.RestoreDirectory = true;
+            if (openFileDialog.ShowDialog() == true)
+            {
+                zipPath = openFileDialog.FileName;
+
+
+            }
+            if (Directory.Exists(Current_Install_Folder + @"\VTOL_Dedicated_Workspace"))
+            {
+               string extractPath = Path.GetFullPath(Current_Install_Folder + @"\VTOL_Dedicated_Workspace");
+                if (File.Exists(Current_Install_Folder + @"\VTOL_Dedicated_Workspace\autoexec_ns_server.cfg"))
+                {
+                    File.Delete(Current_Install_Folder + @"\VTOL_Dedicated_Workspace\autoexec_ns_server.cfg");
+                }
+                if (File.Exists(Current_Install_Folder + @"\VTOL_Dedicated_Workspace\autoexec_ns_server.cfg"))
+                {
+                    File.Delete(Current_Install_Folder + @"\VTOL_Dedicated_Workspace\autoexec_ns_server.cfg");
+                }
+
+                if (!extractPath.EndsWith(Path.DirectorySeparatorChar.ToString(), StringComparison.Ordinal))
+                extractPath += Path.DirectorySeparatorChar;
+
+                
+
+
+
+
+
+                if (zipPath != null)
+                {
+
+                    using (ZipArchive archive = ZipFile.OpenRead(zipPath))
+                    {
+                        foreach (ZipArchiveEntry entry in archive.Entries)
+                        {
+                            if (entry.FullName.EndsWith(".cfg", StringComparison.OrdinalIgnoreCase) || entry.FullName.EndsWith(".txt", StringComparison.OrdinalIgnoreCase))
+                            {
+                                // Gets the full path to ensure that relative segments are removed.
+                                string destinationPath = Path.GetFullPath(Path.Combine(extractPath, entry.FullName));
+
+                                // Ordinal match is safest, case-sensitive volumes can be mounted within volumes that
+                                // are case-insensitive.
+                                if (destinationPath.StartsWith(extractPath, StringComparison.Ordinal))
+                                {
+                                   string f = Find_Folder("Northstar.CustomServers", Current_Install_Folder).ToString();
+
+                                    if (Directory.Exists(f))
+                                    {
+                                        string c = GetFile(f, "autoexec_ns_server.cfg").First();
+
+                                        if (entry.FullName.EndsWith(".cfg"))
+                                        {
+                                            entry.ExtractToFile(c, true);
+
+
+                                        }
+
+                                    }
+                                    if(File.Exists(GetFile(Current_Install_Folder, "ns_startup_args_dedi.txt").First()))
+                                    {
+                                        string d = GetFile(Current_Install_Folder, "ns_startup_args_dedi.txt").First();
+
+                                        if (entry.FullName.EndsWith(".txt"))
+                                        {
+                                            entry.ExtractToFile(d, true);
+
+                                        }
+
+
+                                    }
+
+                                }
+                            }
+                            else
+                            {
+
+                                Send_Error_Notif("Error! Cannot see valid Server config files in the zip!");
+                                return;
+                            }
+                        }
+                    }
+                }
+                Convar_File = GetFile(Current_Install_Folder, "autoexec_ns_server.cfg").First();
+                Ns_dedi_File = GetFile(Current_Install_Folder, "ns_startup_args_dedi.txt").First();
+                // HandyControl.Controls.MessageBox.Show(new MessageBoxInfo { Message = "Please Select the Northstar Dedicated Import as well.", Caption = "PROMPT!", Button = MessageBoxButton.OK, IconBrushKey = ResourceToken.AccentBrush, IconKey = ResourceToken.AskGeometry, StyleKey = "MessageBoxCustom" });
+            }
+            else
+            {
+                Directory.CreateDirectory(Current_Install_Folder + @"\VTOL_Dedicated_Workspace");
+                string extractPath = Path.GetFullPath(Current_Install_Folder + @"\VTOL_Dedicated_Workspace");
+
+
+
+                if (!extractPath.EndsWith(Path.DirectorySeparatorChar.ToString(), StringComparison.Ordinal))
+                    extractPath += Path.DirectorySeparatorChar;
+
+
+
+
+
+                if (zipPath != null)
+                {
+
+
+                    using (ZipArchive archive = ZipFile.OpenRead(zipPath))
+                    {
+                        foreach (ZipArchiveEntry entry in archive.Entries)
+                        {
+                            if (entry.FullName.EndsWith(".cfg", StringComparison.OrdinalIgnoreCase) || entry.FullName.EndsWith(".txt", StringComparison.OrdinalIgnoreCase))
+                            {
+                                // Gets the full path to ensure that relative segments are removed.
+                                string destinationPath = Path.GetFullPath(Path.Combine(extractPath, entry.FullName));
+
+                                // Ordinal match is safest, case-sensitive volumes can be mounted within volumes that
+                                // are case-insensitive.
+                                if (destinationPath.StartsWith(extractPath, StringComparison.Ordinal))
+                                {
+                                    string f = Find_Folder("Northstar.CustomServers", Current_Install_Folder).ToString();
+
+                                    if (Directory.Exists(f))
+                                    {
+                                        string c = GetFile(f, "autoexec_ns_server.cfg").First();
+
+                                        if (entry.FullName.EndsWith(".cfg"))
+                                        {
+                                            entry.ExtractToFile(c, true);
+
+
+                                        }
+
+                                    }
+                                    if (File.Exists(GetFile(Current_Install_Folder, "ns_startup_args_dedi.txt").First()))
+                                    {
+                                        string d = GetFile(Current_Install_Folder, "ns_startup_args_dedi.txt").First();
+
+                                        if (entry.FullName.EndsWith(".txt"))
+                                        {
+                                            entry.ExtractToFile(d, true);
+
+                                        }
+
+
+                                    }
+
+                                }
+                            }
+                            else
+                            {
+
+                                Send_Error_Notif("Error! Cannot see valid Server config files in the zip!");
+                                return;
+                            }
+                        }
+                    }
+                }
+                // HandyControl.Controls.MessageBox.Show(new MessageBoxInfo { Message = "Please Select the Northstar Dedicated Import as well.", Caption = "PROMPT!", Button = MessageBoxButton.OK, IconBrushKey = ResourceToken.AccentBrush, IconKey = ResourceToken.AskGeometry, StyleKey = "MessageBoxCustom" });
+                Convar_File = GetFile(Current_Install_Folder, "autoexec_ns_server.cfg").First();
+                Ns_dedi_File = GetFile(Current_Install_Folder, "ns_startup_args_dedi.txt").First();
+
+
+
+
+
+
+            }
+            if (File.Exists(Ns_dedi_File) && File.Exists(Convar_File))
+            {
+                Startup_Arguments_UI_List.ItemsSource = Load_Args();
+                Convar_Arguments_UI_List.ItemsSource = Convar_Args();
+                Started_Selection = false;
+
+                Load_Bt.Content = "Reload Arguments";
+                Check_Args();
+
+                Send_Success_Notif("Imported and Applied!");
+            }
+            else
+            {
+                Send_Error_Notif(GetTextResource("NOTIF_ERROR_SUGGEST_REBROWSE"));
+                return;
+            }
+
         }
         private void Browser_AddressChanged(object sender, AddressChangedEventArgs e)
         {

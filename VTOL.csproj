@@ -203,7 +203,6 @@
     <PackageReference Include="Prism.Wpf" Version="8.1.97" />
     <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="1.0.0-beta0005" />
     <PackageReference Include="System.Management" Version="6.0.0" />
-    <PackageReference Include="Utf8Json" Version="1.3.7" />
     <PackageReference Include="XamlAnimatedGif" Version="2.0.2" />
   </ItemGroup>
 

@@ -233,7 +233,7 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
 
 
 
-        <hc:SimplePanel x:Name="Mod_Browse_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Visible" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
+        <hc:SimplePanel x:Name="Mod_Browse_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
             <hc:SimplePanel Margin="36,72,36,10" Background="#FF101010">
                 <Border Grid.Row="1" BorderBrush="Gray" BorderThickness="0,1">
 
@@ -303,7 +303,7 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
 
 
 
-        <hc:SimplePanel x:Name="Dedicated_Server_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+        <hc:SimplePanel x:Name="Dedicated_Server_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Visible" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2" ScrollViewer.VerticalScrollBarVisibility="Disabled">
 
             <hc:ScrollViewer x:Name="Scoller"  Margin="10,10,10,10" PanningMode="VerticalOnly">
                 <hc:SimpleStackPanel Margin="10,10,10,10" Height="2716" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Cursor="">
@@ -380,7 +380,7 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
         </hc:SimplePanel>
 
 
-        <hc:SimplePanel x:Name="Updates_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Visible" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2" d:IsHidden="True">
+        <hc:SimplePanel x:Name="Updates_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
             <hc:ScrollViewer>
                 <Grid Height="1457">
                     <Label Content="{DynamicResource UI_TITLE_UPDATES}" Width="190" Margin="0,18,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Height="44" Padding="10,3,10,3"/>
@@ -389,7 +389,7 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
                     <Button x:Name="Config_Updates" Content="{DynamicResource UI_TEXT_UPDATE_CONFIGURE}" Height="47" HorizontalAlignment="Left" Margin="525,490,0,0" VerticalAlignment="Top" Background="#FF2C4C4C" BorderBrush="{x:Null}" Click="Config_Updates_Click" FontSize="14" Width="170"/>
                     <Label Content="Settings" Width="190" Margin="0,565,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Height="44" Padding="10,3,10,3"/>
 
-                    <hc:PropertyGrid SelectedObject="{Binding DemoModel}" Margin="129,618,129,270"/>
+                    <hc:PropertyGrid x:Name="DataGridSettings" SelectedObject="{Binding DemoModel}" Margin="129,618,129,270"/>
                 </Grid>
             </hc:ScrollViewer>
         </hc:SimplePanel>
@@ -460,7 +460,7 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
                     <Image Source="/Resources/LOG_ICON.png" Width="24" Height="24"/>
                 </hc:SideMenuItem.Icon>
             </hc:SideMenuItem>
-            <hc:SideMenuItem x:Name="Update_Tab" Header="{DynamicResource UI_SIDEMENU_TITLE_UPDATES}" Margin="4,0,0,0" Background="#FF101010">
+            <hc:SideMenuItem x:Name="Update_Tab" Header= "{DynamicResource UI_SIDEMENU_TITLE_UPDATES}" Margin="4,0,0,0" Background="#FF101010">
                 <hc:SideMenuItem.Icon>
                     <Image Source="/Resources/Update_ICON.png" Width="24" Height="24"/>
                 </hc:SideMenuItem.Icon>
