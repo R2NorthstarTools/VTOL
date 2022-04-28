@@ -334,8 +334,7 @@ namespace VTOL
 
 
 
-                Web_Browser.AddressChanged += Web_Browser_AddressChanged;
-                Web_Browser.JavascriptMessageReceived += OnBrowserJavascriptMessageReceived;
+           
 
                 // Web_Browser.JavascriptMessageReceived += Web_Browser_JavascriptMessageReceived();
                 DataContext = this;
@@ -595,7 +594,50 @@ namespace VTOL
                 Origin_Client_Status.Fill = Brushes.Red;
             }
         }
+        void call_TS_MODS()
+        {
 
+            try
+            {
+
+                if (Finished_Init == false)
+                {
+                    Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
+
+                    // Thread thread = new Thread(delegate ()
+                    // {
+                    Dispatcher.Invoke(new Action(() =>
+                    {
+                        Check_Tabs(true);
+                    }));
+                    // });
+                    //thread.IsBackground = true;
+                    // thread.Start();
+                }
+                
+                else
+                {
+
+                    BackgroundWorker doMacBk;
+                    doMacBk = new BackgroundWorker();
+                    doMacBk.DoWork += (o, arg) =>
+                    {
+                        Application.Current.Dispatcher.Invoke(new Action(() =>
+                        {
+                            Check_Tabs(false);
+                        }));
+                    };
+                }
+                
+
+
+            }
+            catch (Exception ex)
+            {
+                Send_Fatal_Notif("Fatal error\n");
+                Write_To_Log(ex.Message);
+            }
+        }
         //This function is used to get string content from Resource file.
         public string GetTextResource(string ResourceName)
         {
@@ -826,14 +868,14 @@ namespace VTOL
                     //  view.GroupDescriptions.Add(new PropertyGroupDescription("Pinned"));
                     // view.SortDescriptions.Add(new SortDescription("Country", ListSortDirection.Ascending));
                     //   Test_List.ItemsSource = view;
-                    //   Test_List.ItemsSource = LoadListViewData(Filter_Type);
+                      Test_List.ItemsSource = LoadListViewData(Filter_Type);
 
                     Finished_Init = true;
 
 
                     //   Test_List.ItemsSource = _Items_;
                     //this.DataContext = itemsList;
-                    // Test_List.Items.Refresh();
+                     Test_List.Items.Refresh();
                 }
                 else
                 {
@@ -842,13 +884,13 @@ namespace VTOL
 
                     //   Test_List.ItemsSource = null;
 
-                    //  Test_List.ItemsSource = LoadListViewData(Filter_Type);
+                     Test_List.ItemsSource = LoadListViewData(Filter_Type);
 
 
 
                     //  Test_List.ItemsSource = Items_;
 
-                    // Test_List.Items.Refresh();
+                    Test_List.Items.Refresh();
 
                 }
 
@@ -1028,6 +1070,10 @@ namespace VTOL
                         break;
                     case "Server Mods":
                         Exclude_String = "Client Mods";
+
+                        break;
+                    case "DDS-Skins":
+                        Exclude_String = "DDS";
 
                         break;
                     case "Client Mods":
@@ -1375,7 +1421,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             Mod_Browse.IsSelected = true;
             Update_Tab.IsSelected = false;
             Log.IsSelected = false;
-
+            call_TS_MODS();
         }
         void Select_Server()
         {
@@ -4263,43 +4309,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
         private async void Load_Click(object sender, RoutedEventArgs e)
         {
 
-            try
-            {
-                Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
-
-                if (Finished_Init == false)
-                {
-                    // Thread thread = new Thread(delegate ()
-                    // {
-                    Dispatcher.Invoke(new Action(() =>
-                    {
-                        Check_Tabs(true);
-                    }));
-                    // });
-                    //thread.IsBackground = true;
-                    // thread.Start();
-                }
-                else
-                {
-                    BackgroundWorker doMacBk;
-                    doMacBk = new BackgroundWorker();
-                    doMacBk.DoWork += (o, arg) =>
-                    {
-                        Application.Current.Dispatcher.Invoke(new Action(() =>
-                        {
-                            Check_Tabs(false);
-                        }));
-                    };
-                }
-
-
-
-            }
-            catch (Exception ex)
-            {
-                Send_Fatal_Notif("Fatal error\n");
-                Write_To_Log(ex.Message);
-            }
+            
 
 
             /*
@@ -6547,38 +6557,42 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
             //IsLoading_Panel.Visibility = Visibility.Visible;
 
-            //   Send_Success_Notif(Convert.ToString((Sections_Tabs.SelectedItem as TabItem).Header));
+            Send_Success_Notif(Convert.ToString((Sections_Tabs.SelectedItem as TabItem).Header));
 
 
-            //switch (Convert.ToString((Sections_Tabs.SelectedItem as TabItem).Header))
-            //{
-            //    case "All":
-            //        Thunderstore_Parse(hard_reset, "None");
+            switch (Convert.ToString((Sections_Tabs.SelectedItem as TabItem).Header))
+            {
+                case "All":
+                    Thunderstore_Parse(hard_reset, "None");
 
-            //        break;
-            //    case "Skins":
-            //        Thunderstore_Parse(hard_reset, "Skins");
+                    break;
+                case "Skins":
+                    Thunderstore_Parse(hard_reset, "Skins");
 
-            //        break;
-            //    case "Menu Mods":
-            //        Thunderstore_Parse(hard_reset, "Custom Menus");
+                    break;
+                case "Menu Mods":
+                    Thunderstore_Parse(hard_reset, "Custom Menus");
 
-            //        break;
-            //    case "Server Mods":
-            //        Thunderstore_Parse(hard_reset, "Server-side");
+                    break;
+                case "DDS Skins":
+                    Thunderstore_Parse(hard_reset, "DDS-Skins");
 
-            //        break;
-            //    case "Client Mods":
-            //        Thunderstore_Parse(hard_reset, "Client-side");
+                    break;
+                case "Server Mods":
+                    Thunderstore_Parse(hard_reset, "Server-side");
 
-            //        break;
-            //    default:
-            //        Thunderstore_Parse(hard_reset, "None");
+                    break;
+                case "Client Mods":
+                    Thunderstore_Parse(hard_reset, "Client-side");
 
-            //        break;
+                    break;
+                default:
+                    Thunderstore_Parse(hard_reset, "None");
+
+                    break;
 
 
-            //}
+            }
 
             Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow;
             //IsLoading_Panel.Visibility = Visibility.Hidden;
@@ -7425,17 +7439,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             //This event is called on a CEF Thread, to access your UI thread
             //use Control.BeginInvoke/Dispatcher.BeginInvoke
         }
-        private void Web_Browser_AddressChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-          //   MessageBox.Show( CefRequestHandler.VersionNumberString);
-            // Send_Info_Notif(e.ToString());
-            if (Web_Browser.Address.Contains("northstar"))
-            {
-                //   Web_Browser.Back();
-                // MessageBox.Show(Web_Browser.Address.ToString());
-
-            }
-        }
+       
 
 
     }

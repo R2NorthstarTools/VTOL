@@ -233,13 +233,124 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
 
 
 
-        <hc:SimplePanel x:Name="Mod_Browse_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
-            <hc:SimplePanel Margin="36,72,36,10" Background="#FF101010">
-                <Border Grid.Row="1" BorderBrush="Gray" BorderThickness="0,1">
+        <hc:SimplePanel x:Name="Mod_Browse_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Visible" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
+            <hc:SimplePanel Margin="10,10,10,10" Background="#FF101010">
+                <TabControl x:Name="Sections_Tabs" Margin="36,55,36,48"  BorderBrush="{x:Null}" Foreground="{x:Null}" Background="{x:Null}" Padding="0,0,0,0" Width="900" SelectionChanged="Sections_Tabs_SelectionChanged">
+                    <TabItem Header="Client Mods" Width="150">
+                        <TabItem.BorderBrush>
+                            <LinearGradientBrush EndPoint="1,0">
+                                <GradientStop Color="#FF326CF3"/>
+                                <GradientStop Color="#FF02FFB4" Offset="1"/>
+                            </LinearGradientBrush>
+                        </TabItem.BorderBrush>
+                    </TabItem>
+                    <TabItem Header="Skins" Width="150">
+                        <TabItem.BorderBrush>
+                            <LinearGradientBrush EndPoint="1,0">
+                                <GradientStop Color="#FF326CF3"/>
+                                <GradientStop Color="#FF02FFB4" Offset="1"/>
+                            </LinearGradientBrush>
+                        </TabItem.BorderBrush>
+                    </TabItem>
+                    <TabItem Header="DDS Skins" Width="150">
+                        <TabItem.BorderBrush>
+                            <LinearGradientBrush EndPoint="1,0">
+                                <GradientStop Color="#FF326CF3"/>
+                                <GradientStop Color="#FF02FFB4" Offset="1"/>
+                            </LinearGradientBrush>
+                        </TabItem.BorderBrush>
+                    </TabItem>
+                    <TabItem Header="Server Mods" Width="150">
+                        <TabItem.BorderBrush>
+                            <LinearGradientBrush EndPoint="0,1" StartPoint="1,0">
+                                <GradientStop Color="#FF326CF3"/>
+                                <GradientStop Color="#FF02FFB4" Offset="1"/>
+                            </LinearGradientBrush>
+                        </TabItem.BorderBrush>
+                    </TabItem>
+                    <TabItem x:Name="Menu_Tab" Header="Menu Mods" Width="150" >
+                        <TabItem.BorderBrush>
+                            <LinearGradientBrush EndPoint="0,1" SpreadMethod="Pad" StartPoint="1,0">
+                                <GradientStop Color="#FF326CF3"/>
+                                <GradientStop Color="#FF02FFB4" Offset="1"/>
+                            </LinearGradientBrush>
+                        </TabItem.BorderBrush>
+                    </TabItem>
+                    <TabItem Header="All" Width="150">
+                        <TabItem.BorderBrush>
+                            <LinearGradientBrush EndPoint="1,0">
+                                <GradientStop Color="#FF326CF3"/>
+                                <GradientStop Color="#FF02FFB4" Offset="1"/>
+                            </LinearGradientBrush>
+                        </TabItem.BorderBrush>
+                    </TabItem>
+                </TabControl>
+                <ListBox ItemsSource="{Binding itemsList}" x:Name="Test_List" Margin="0,87,0,49" SelectionChanged="Test_List_SelectionChanged" RequestBringIntoView="Test_List_RequestBringIntoView" ScrollViewer.CanContentScroll="False" Visibility="Visible" Width="902" BorderBrush="{x:Null}" Padding="1,0,1,0" HorizontalAlignment="Center" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Standard"  IsTextSearchEnabled="False" Background="#FF1C1C1C" IsSynchronizedWithCurrentItem="False" MaxHeight="9000" AutomationProperties.IsOffscreenBehavior="Offscreen" >
+                    <ListBox.Resources>
+                        <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="Transparent" />
 
-                    <wpf:ChromiumWebBrowser x:Name="Web_Browser" Address="https://northstar.thunderstore.io" AddressChanged="Web_Browser_AddressChanged" />
+                    </ListBox.Resources>
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
 
-                </Border>
+                            <Setter Property="IsTabStop" Value="False" />
+
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ListBoxItem">
+                                        <ContentPresenter/>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+
+
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="IsSelected" Value="True"/>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="False">
+                                    <Setter Property="IsSelected" Value="False"/>
+                                    <Setter Property="Foreground" Value="Transparent"/>
+
+                                </Trigger>
+
+                            </Style.Triggers>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+
+                            <Button Margin="0,0,0,0" VerticalAlignment="Center" Width="886" Height="151" Padding="0,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}"  Focusable="False" ScrollViewer.VerticalScrollBarVisibility="Disabled" AutomationProperties.IsOffscreenBehavior="Offscreen">
+                                <Grid Height="151" Width="885" HorizontalAlignment="Stretch" VerticalAlignment="Center" Background="{x:Null}" ScrollViewer.VerticalScrollBarVisibility="Disabled" VirtualizingPanel.IsVirtualizing="True">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="111*"/>
+                                        <RowDefinition Height="38*"/>
+                                        <RowDefinition Height="2*"/>
+                                    </Grid.RowDefinitions>
+                                    <Image Source="{Binding Icon}" Margin="0,0,792,22" Height="84" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="88" IsHitTestVisible="False"/>
+                                    <TextBlock TextWrapping="Wrap" Text="{Binding description}" VerticalAlignment="Top" FontSize="11" Margin="99,64,0,0" Height="28" HorizontalAlignment="Left" Width="510" FontWeight="Bold" FontStyle="Italic" IsHitTestVisible="False"/>
+                                    <TextBlock  Text="{Binding Name}"  FontSize="16" Margin="98,0,0,86" Height="19" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="604" IsHitTestVisible="False" />
+                                    <TextBlock TextWrapping="Wrap" Text="{Binding owner}" Margin="186,0,0,67" Height="15" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="284" FontSize="11" IsHitTestVisible="False"/>
+                                    <TextBlock TextWrapping="Wrap" Text="{Binding date_created}" FontSize="10" Margin="117,3,0,0" HorizontalAlignment="Left" Width="561" Height="14" VerticalAlignment="Top" Grid.Row="1" IsHitTestVisible="False"/>
+                                    <Label Content="{DynamicResource UI_TEXT_THUNDERSTORE_AUTHOR}" Height="14" Width="82" HorizontalAlignment="Left" Margin="99,30,0,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="9" HorizontalContentAlignment="Left"/>
+                                    <Label Content="{DynamicResource UI_TEXT_THUNDERSTORE_PUBLISH_DATE}" Height="14" Width="107" HorizontalAlignment="Left" Margin="5,3,0,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="9" Grid.Row="1" HorizontalContentAlignment="Left"/>
+                                    <Button Content="{DynamicResource UI_BUTTON_THUNDERSTORE_INSTALL}"  HorizontalAlignment="Left" Margin="722,15,0,0" VerticalAlignment="Top" Background="#FF2C4C4C" BorderBrush="{x:Null}" Height="53" Width="146" Click="Download_Install" Tag="{Binding download_url}" Padding="0,0,0,0" Focusable="True"  />
+                                    <Button Content="{DynamicResource UI_BUTTON_THUNDERSTORE_GOTO_WEBPAGE}" HorizontalAlignment="Left" Margin="722,73,0,0" Tag ="{Binding Webpage}" VerticalAlignment="Top" Background="#FF2C4C4C" BorderBrush="{x:Null}" Height="22" Width="146" Click="Open_Package_Webpage" Padding="0,0,0,0"/>
+                                    <Label Content="{DynamicResource UI_TEXT_THUNDERSTORE_MOD_DESC}" Height="14" Width="83" HorizontalAlignment="Left" Margin="98,0,0,0" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="9" FontStyle="Normal" FontWeight="Normal" HorizontalContentAlignment="Left" IsHitTestVisible="False"/>
+                                    <Label Content="{DynamicResource UI_TEXT_THUNDERSTORE_FILE_SIZE}" Height="14" HorizontalAlignment="Left" Margin="5,19,0,0" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="9" Grid.Row="1" VerticalAlignment="Top" HorizontalContentAlignment="Center" IsHitTestVisible="False"/>
+                                    <TextBlock TextWrapping="Wrap" Text="{Binding File_Size}" FontSize="10" Margin="93,19,0,0" HorizontalAlignment="Left" Width="257" Height="14" VerticalAlignment="Top" Grid.Row="1" IsHitTestVisible="False"/>
+                                    <hc:Badge Margin="737,97,97,10" BorderBrush="{x:Null}" Maximum="9000" BadgeMargin="0,0,0,0" Grid.RowSpan="2" Value="{Binding Rating}" Foreground="#FFF9D900" FontSize="11" IsHitTestVisible="False" ScrollViewer.VerticalScrollBarVisibility="Disabled" />
+                                    <Image Margin="738,109,112,10" Source="/Resources/heart.png" RenderTransformOrigin="0.471,0.217" Grid.RowSpan="2" IsHitTestVisible="False" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
+                                    <hc:Badge Margin="803,97,31,10" BorderBrush="{x:Null}"  Value="{Binding Downloads}" Maximum="9000" BadgeMargin="0,0,0,0" Grid.RowSpan="2"  Foreground="#FF4EFF48" FontSize="11" RenderTransformOrigin="0,0" Text="" IsHitTestVisible="False" ScrollViewer.VerticalScrollBarVisibility="Disabled" />
+                                    <Image Margin="804,109,46,10" Source="/Resources/download_icon.png"  Grid.RowSpan="2" IsHitTestVisible="False" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
+                                    <Label Content="{DynamicResource UI_TEXT_THUNDERSTORE_TAGS}" Height="14" HorizontalAlignment="Left" Margin="5,97,0,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="9" HorizontalContentAlignment="Left" IsHitTestVisible="False" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
+                                    <TextBlock TextWrapping="Wrap" Text="{Binding Tag}" FontSize="11" Margin="76,97,0,0" HorizontalAlignment="Left" Width="559" Height="14" VerticalAlignment="Top" FontWeight="Bold" FontStyle="Italic" Foreground="#FFFFF0C6" IsHitTestVisible="False" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
+
+                                </Grid>
+                            </Button>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
 
 
 
@@ -247,6 +358,11 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
 
 
 
+
+
+
+
+                <Label Content="{DynamicResource UI_TITLE_THUNDERSTORE}" Height="44" Width="190" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Margin="0,2,0,0"/>
 
             </hc:SimplePanel>
 
@@ -263,36 +379,44 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
 
 
         <hc:SimplePanel x:Name="skins_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
-            <Grid HorizontalAlignment="Stretch" DockPanel.Dock="Top" Height="Auto" AllowDrop="True" Drop="skins_Panel_Drop" DragEnter="skins_Panel_DragEnter" Background="Transparent" DragLeave="skins_Panel_DragLeave"  >
-                <hc:SimplePanel Margin="30,59,30,444">
+            <hc:ScrollViewer x:Name="Skin_Scroller"  Margin="10,10,10,10" PanningMode="VerticalOnly" VerticalScrollBarVisibility="Visible">
 
-                    <Border BorderThickness="1" Background="#FF101010" Height="129" VerticalAlignment="Bottom" >
-                    </Border>
-                    <hc:TextBox x:Name="Skin_Path_Box" TextWrapping="Wrap" Margin="35,0,0,26" SelectionTextBrush="Black" Background="White" BorderBrush="{x:Null}" Height="32" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="780" Foreground="Black"/>
-                    <Button x:Name="Browse_For_Skin" Content="{DynamicResource UI_BUTTON_SKINS_BROWSE}" HorizontalAlignment="Left" BorderBrush="{x:Null}" Margin="820,0,0,27" VerticalAlignment="Bottom" Background="#FF1E4C51" Height="32" Width="100" BorderThickness="1,1,1,1" Padding="6,6,10,6" Click="Browse_For_Skin_Click"/>
-                    <Label x:Name="Locate_LBL" Content="{DynamicResource UI_TEXT_SKINS_LOCATE_ZIP}" Margin="35,0,0,63" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Foreground="White" FontFamily="Gadugi" FontWeight="Normal" VerticalAlignment="Bottom" Padding="0,0,0,0" MinWidth="8" Height="22"/>
+                <Grid HorizontalAlignment="Stretch" DockPanel.Dock="Top" Height="Auto" AllowDrop="True" Drop="skins_Panel_Drop" DragEnter="skins_Panel_DragEnter" Background="Transparent" DragLeave="skins_Panel_DragLeave"  >
+                    <hc:SimplePanel Margin="30,59,30,444">
 
-                </hc:SimplePanel>
-                <hc:SimplePanel Margin="30,209,30,10" Background="#FF101010">
+                        <Border BorderThickness="1" Background="#FF101010" Height="129" VerticalAlignment="Bottom" >
+                        </Border>
+                        <hc:TextBox x:Name="Skin_Path_Box" TextWrapping="Wrap" Margin="0,0,115,26" SelectionTextBrush="Black" Background="White" BorderBrush="{x:Null}" Height="32" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="780" Foreground="Black"/>
+                        <Button x:Name="Browse_For_Skin" Content="{DynamicResource UI_BUTTON_SKINS_BROWSE}" HorizontalAlignment="Right" BorderBrush="{x:Null}" Margin="0,0,10,27" VerticalAlignment="Bottom" Background="#FF1E4C51" Height="32" Width="100" BorderThickness="1,1,1,1" Padding="6,6,10,6" Click="Browse_For_Skin_Click"/>
+                        <Label x:Name="Locate_LBL" Content="{DynamicResource UI_TEXT_SKINS_LOCATE_ZIP}" Margin="35,0,0,63" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Foreground="White" FontFamily="Gadugi" FontWeight="Normal" VerticalAlignment="Bottom" Padding="0,0,0,0" MinWidth="8" Height="22"/>
 
-                    <Label Content="{DynamicResource UI_TEXT_SKINS_COMPATIBILITY}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontFamily="Gadugi" FontWeight="Normal" VerticalAlignment="Top" Width="110" Margin="420,6,420,0" Height="44" HorizontalAlignment="Stretch"/>
+                    </hc:SimplePanel>
+                    <hc:SimplePanel Margin="30,209,30,10" Background="#FF101010">
 
-                    <Ellipse x:Name="Compat_Indicator" Grid.Column="1" Margin="452,50,0,0" Fill="White" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left" Width="50"/>
+                        <Label Content="{DynamicResource UI_TEXT_SKINS_COMPATIBILITY}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontFamily="Gadugi" FontWeight="Normal" VerticalAlignment="Top" Width="110" Margin="0,6,400,0" Height="44" HorizontalAlignment="Right"/>
+
+                        <Ellipse x:Name="Compat_Indicator" Grid.Column="1" Margin="0,50,428,0" Fill="White" Height="50" VerticalAlignment="Top" HorizontalAlignment="Right" Width="50"/>
 
 
-                    <Label Content="{DynamicResource UI_TEXT_SKINS_DIFFUSE}" Margin="177,311,0,0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontFamily="Gadugi" FontWeight="Normal" VerticalAlignment="Top" Height="28" Width="110" HorizontalAlignment="Left"/>
-                    <Label Content="{DynamicResource UI_TEXT_SKINS_GLOW}" Margin="663,311,0,0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontFamily="Gadugi" FontWeight="Normal" VerticalAlignment="Top" Height="27" Width="110" HorizontalAlignment="Left"/>
-                    <Image x:Name="Diffuse_IMG" HorizontalAlignment="Left" Height="256" VerticalAlignment="Top" Width="256" Margin="104,56,0,0" Source="/Resources/NO_TEXTURE.png"/>
-                    <Image x:Name="Glow_IMG" Height="256" VerticalAlignment="Top" Margin="590,56,104,0" Source="/Resources/NO_TEXTURE.png"/>
-                    <Button x:Name="Install_Skin_Bttn" Content="{DynamicResource UI_BUTTON_SKINS_INSTALL}" Width="366" Margin="0,351,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Background="#FF2C4C4C" Height="30" Click="Install_Skin_Bttn_Click"/>
-                </hc:SimplePanel>
-                <Label Content="{DynamicResource UI_TITLE_SKINS}" Height="44" Width="190" Margin="0,10,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi"/>
-                <hc:GifImage x:Name="Drag_Drop_Overlay_Skins" Opacity="0.95" Visibility="Hidden" >
-                    <hc:GifImage.Source>
-                        <BitmapImage  UriSource="\Resources\BG_Drag_Drop.gif"/>
-                    </hc:GifImage.Source>
-                </hc:GifImage>
-            </Grid>
+                        <Label Content="{DynamicResource UI_TEXT_SKINS_DIFFUSE}" Margin="0,311,643,0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontFamily="Gadugi" FontWeight="Normal" VerticalAlignment="Top" Height="28" Width="110" HorizontalAlignment="Right"/>
+                        <Label Content="{DynamicResource UI_TEXT_SKINS_GLOW}" Margin="0,311,157,0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontFamily="Gadugi" FontWeight="Normal" VerticalAlignment="Top" Height="27" Width="110" HorizontalAlignment="Right"/>
+                        <Image x:Name="Diffuse_IMG" HorizontalAlignment="Right" Height="256" VerticalAlignment="Top" Width="256" Margin="0,56,570,0" Source="/Resources/NO_TEXTURE.png"/>
+                        <Image x:Name="Glow_IMG" Height="256" VerticalAlignment="Top" Margin="0,56,104,0" Source="/Resources/NO_TEXTURE.png" HorizontalAlignment="Right" Width="256"/>
+                        <Button x:Name="Install_Skin_Bttn" Content="{DynamicResource UI_BUTTON_SKINS_INSTALL}" Width="366" Margin="0,351,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Background="#FF2C4C4C" Height="30" Click="Install_Skin_Bttn_Click"/>
+                    </hc:SimplePanel>
+                    <Label Content="{DynamicResource UI_TITLE_SKINS}" Height="44" Width="190" Margin="0,10,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi"/>
+                    <hc:GifImage x:Name="Drag_Drop_Overlay_Skins" Opacity="0.95" Visibility="Hidden" >
+                        <hc:GifImage.Source>
+                            <BitmapImage  UriSource="\Resources\BG_Drag_Drop.gif"/>
+                        </hc:GifImage.Source>
+                    </hc:GifImage>
+                    <hc:SimplePanel Margin="30,59,30,444">
+
+
+                    </hc:SimplePanel>
+                </Grid>
+
+            </hc:ScrollViewer>
         </hc:SimplePanel>
 
 
@@ -303,9 +427,9 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
 
 
 
-        <hc:SimplePanel x:Name="Dedicated_Server_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Visible" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+        <hc:SimplePanel x:Name="Dedicated_Server_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2" ScrollViewer.VerticalScrollBarVisibility="Disabled">
 
-            <hc:ScrollViewer x:Name="Scoller"  Margin="10,10,10,10" PanningMode="VerticalOnly">
+            <hc:ScrollViewer x:Name="Scoller"  Margin="10,10,10,10" PanningMode="VerticalOnly" VerticalScrollBarVisibility="Visible">
                 <hc:SimpleStackPanel Margin="10,10,10,10" Height="2716" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Cursor="">
                     <hc:SimpleStackPanel.ContextMenu>
 
@@ -381,7 +505,7 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
 
 
         <hc:SimplePanel x:Name="Updates_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
-            <hc:ScrollViewer>
+            <hc:ScrollViewer VerticalScrollBarVisibility="Visible">
                 <Grid Height="1457">
                     <Label Content="{DynamicResource UI_TITLE_UPDATES}" Width="190" Margin="0,18,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Height="44" Padding="10,3,10,3"/>
                     <Image Height="380" VerticalAlignment="Top" Margin="0,67,0,0" Source="/Resources/bestboy.png" HorizontalAlignment="Center" Width="380"/>
