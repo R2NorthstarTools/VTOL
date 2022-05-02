@@ -153,12 +153,12 @@
             <Image x:Name="Banner_Image" Margin="38,409,37,0" Width="935" Height="203" Source="Resources/Banner_normal.jpg" Stretch="UniformToFill"  />
             <hc:GifImage x:Name="Gif_Image_Vanilla" Height="203" VerticalAlignment="Top" Margin="38,409,37,0" Stretch="Fill" Visibility="Hidden" Panel.ZIndex="3" IsHitTestVisible="False" gif:AnimationBehavior.AutoStart="False" ScrollViewer.VerticalScrollBarVisibility="Disabled">
                 <hc:GifImage.Source>
-                    <BitmapImage x:Name="Bitmap1" UriSource="\Resources\TF2_Vanilla_promo.gif"/>
+                    <BitmapImage x:Name="Bitmap1" UriSource="\Resources\TF2_Vanilla_promo.gif" CacheOption="OnLoad"/>
                 </hc:GifImage.Source>
             </hc:GifImage>
             <hc:GifImage x:Name="Gif_Image_Northstar" Height="203" VerticalAlignment="Top" Margin="38,409,37,0" Stretch="Fill" Visibility="Hidden" HorizontalAlignment="Right" Width="930" Panel.ZIndex="3" gif:AnimationBehavior.AutoStart="False" ScrollViewer.VerticalScrollBarVisibility="Disabled">
                 <hc:GifImage.Source>
-                    <BitmapImage x:Name="Bitmap2" UriSource="\Resources\NorthStar_Smurfson.gif"/>
+                    <BitmapImage x:Name="Bitmap2" UriSource="\Resources\NorthStar_Smurfson.gif" CacheOption="OnLoad"/>
                 </hc:GifImage.Source>
             </hc:GifImage>
             <Label Content="{DynamicResource UI_TITLE_MAIN}" Height="44" Width="190" Margin="0,6,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi"/>
@@ -233,7 +233,7 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
 
 
 
-        <hc:SimplePanel x:Name="Mod_Browse_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Visible" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
+        <hc:SimplePanel x:Name="Mod_Browse_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
             <hc:SimplePanel Margin="10,10,10,10" Background="#FF101010">
                 <TabControl x:Name="Sections_Tabs" Margin="36,55,36,48"  BorderBrush="{x:Null}" Foreground="{x:Null}" Background="{x:Null}" Padding="0,0,0,0" Width="900" SelectionChanged="Sections_Tabs_SelectionChanged">
                     <TabItem Header="Client Mods" Width="150">
@@ -507,13 +507,19 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
         <hc:SimplePanel x:Name="Updates_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
             <hc:ScrollViewer VerticalScrollBarVisibility="Visible">
                 <Grid Height="1457">
-                    <Label Content="{DynamicResource UI_TITLE_UPDATES}" Width="190" Margin="0,18,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Height="44" Padding="10,3,10,3"/>
-                    <Image Height="380" VerticalAlignment="Top" Margin="0,67,0,0" Source="/Resources/bestboy.png" HorizontalAlignment="Center" Width="380"/>
-                    <Button x:Name="Check_For_Updates" Content="{DynamicResource UI_TEXT_UPDATE_CHECK}" Height="47" HorizontalAlignment="Left" Margin="315,490,0,0" VerticalAlignment="Top" Background="#FF2C4C4C" BorderBrush="{x:Null}" Click="Check_For_Updates_Click" FontSize="14" Width="170"/>
-                    <Button x:Name="Config_Updates" Content="{DynamicResource UI_TEXT_UPDATE_CONFIGURE}" Height="47" HorizontalAlignment="Left" Margin="525,490,0,0" VerticalAlignment="Top" Background="#FF2C4C4C" BorderBrush="{x:Null}" Click="Config_Updates_Click" FontSize="14" Width="170"/>
-                    <Label Content="Settings" Width="190" Margin="0,565,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Height="44" Padding="10,3,10,3"/>
+                    <Label Content="{DynamicResource UI_TITLE_UPDATES}" Width="190" Margin="0,32,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Height="44" Padding="10,3,10,3"/>
+                    <hc:SimplePanel Margin="175,59,175,39">
 
-                    <hc:PropertyGrid x:Name="DataGridSettings" SelectedObject="{Binding DemoModel}" Margin="129,618,129,270"/>
+                        <Image Height="380" VerticalAlignment="Top" Margin="140,25,0,0" Source="/Resources/bestboy.png" HorizontalAlignment="Left" Width="380"/>
+                        <Button x:Name="Check_For_Updates" Content="{DynamicResource UI_TEXT_UPDATE_CHECK}" Height="47" HorizontalAlignment="Left" Margin="140,428,0,0" VerticalAlignment="Top" Background="#FF2C4C4C" BorderBrush="{x:Null}" Click="Check_For_Updates_Click" FontSize="14" Width="170"/>
+                        <Button x:Name="Config_Updates" Content="{DynamicResource UI_TEXT_UPDATE_CONFIGURE}" Height="47" HorizontalAlignment="Left" Margin="350,428,0,0" VerticalAlignment="Top" Background="#FF2C4C4C" BorderBrush="{x:Null}" Click="Config_Updates_Click" FontSize="14" Width="170"/>
+
+                    </hc:SimplePanel>
+                    <Label Content="Settings" Width="190" Margin="0,608,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Height="44" Padding="10,3,10,3"/>
+
+                    <TextBox x:Name="Repo_URl" HorizontalAlignment="Center" Margin="0,717,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="528" Background="White" Foreground="Black" SelectionTextBrush="Black" ManipulationCompleted="TextBox_ManipulationCompleted" KeyDown="TextBox_KeyDown" CaretBrush="Black"/>
+                    <Label  Content="Current Repository URL" HorizontalAlignment="Left" Margin="235,690,0,0" VerticalAlignment="Top" Width="139" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}"/>
+                    <!--<hc:PropertyGrid x:Name="DataGridSettings" SelectedObject="{Binding SelectedEmployee}" Margin="129,618,129,270" SelectedObjectChanged="DataGridSettings_SelectedObjectChanged" TargetUpdated="DataGridSettings_TargetUpdated" DataContextChanged="DataGridSettings_DataContextChanged"/>-->
                 </Grid>
             </hc:ScrollViewer>
         </hc:SimplePanel>
@@ -669,23 +675,13 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
         </hc:SimplePanel>
 
 
-        <hc:SimplePanel x:Name="Exploit_Warning" Grid.ColumnSpan="4" Margin="4,0,-4,-4" Grid.RowSpan="3" Visibility="Hidden" >
-            <hc:SimplePanel Background="Black" Grid.ColumnSpan="4" Margin="4,0,-4,-4" Grid.RowSpan="3" Opacity="0.745" Visibility="Visible"/>
-            <hc:SimpleStackPanel Margin="153,116,97,192" Width="950" Height="430">
-                <hc:SimpleStackPanel.Background>
-                    <ImageBrush ImageSource="/Resources/BG_Test.png"/>
-                </hc:SimpleStackPanel.Background>
-                <CheckBox Content="Do Not Show Again" HorizontalAlignment="Right" Height="40" Width="150" Margin="0,380,790,0" VerticalAlignment="Top"/>
+       
+        <!--<hc:StepBar x:Name="Step" Grid.ColumnSpan="4" Margin="-3,0,-4,-1" Grid.RowSpan="3" d:IsLocked="True">
+            <hc:StepBarItem Content="Locate Titanfall 2" Margin="76,6,65,645"/>
+            <hc:StepBarItem Content="Install NS" Margin="14,12,6,-12"/>
+            <hc:StepBarItem Content="Launch Title" Margin="10,8,10,-8"/>
 
-            </hc:SimpleStackPanel>
-        </hc:SimplePanel>
-        <!-- <hc:StepBar>
-            <hc:StepBarItem Content="Register" Margin="248,12,-307,355"/>
-            <hc:StepBarItem Content="BasicInfo"/>
-            <hc:StepBarItem Content="UploadFile"/>
-            <hc:StepBarItem Content="Complete"/>
-        </hc:StepBar>
--->
+        </hc:StepBar> -->
 
     </Grid>
 

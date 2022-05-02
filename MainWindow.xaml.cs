@@ -262,6 +262,7 @@ namespace VTOL
         private static readonly Action EmptyDelegate = delegate { };
         int Progress_Tracker;
         HandyControl.Controls.Dialog Diag;
+        public string Current_REPO_URL;
         private bool Check_Server_Ping = true;
         int completed_flag;
         public int pid;
@@ -277,7 +278,7 @@ namespace VTOL
         bool Started_Selection = false;
         public bool Sort_Lists;
         bool Origin_Client_Running = false;
-
+        string xff = "";
         List<object> Temp = new List<object> { };
         bool Warn_Close_EA;
         ObservableCollection<object> OjectList = new ObservableCollection<object>();
@@ -290,7 +291,7 @@ namespace VTOL
             do_not_overwrite_Ns_file_Dedi = Properties.Settings.Default.Ns_Dedi;
             Sort_Lists = Properties.Settings.Default.Sort_Mods;
             Warn_Close_EA = Properties.Settings.Default.Warning_Close_EA;
-
+            Current_REPO_URL = Properties.Settings.Default.Current_REPO_URL;
             //  Test_List.ItemsSource = itemsList;
 
             try
@@ -318,23 +319,10 @@ namespace VTOL
 
 
 
-                DataGridSettings.SelectedObject = new PropertyGridDemoModel
-                {
-                    URL = "TestString",
-                    Start_On_Top = true,
-                   
-                };
 
 
 
 
-
-
-
-
-
-
-           
 
                 // Web_Browser.JavascriptMessageReceived += Web_Browser_JavascriptMessageReceived();
                 DataContext = this;
@@ -614,7 +602,7 @@ namespace VTOL
                     //thread.IsBackground = true;
                     // thread.Start();
                 }
-                
+
                 else
                 {
 
@@ -628,7 +616,7 @@ namespace VTOL
                         }));
                     };
                 }
-                
+
 
 
             }
@@ -724,17 +712,28 @@ namespace VTOL
         public class PropertyGridDemoModel
         {
             [Category("Repository Settings")]
-            public string URL { get; set; }
+            public string Repository_URL { get; set; }
             [Category("Launch Settings")]
             public bool Start_On_Top { get; set; }
-           
+            [Category("App Settings")]
+            public Times Duration_of_popups { get; set; }
+
+            public string GetRepo()
+            {
+                return Repository_URL;
+
+            }
+            public void SetRepo(string newurl)
+            {
+                Repository_URL = newurl;
+            }
         }
 
 
-        public enum Gender
+        public enum Times
         {
-            Male,
-            Female
+            Short,
+            Long
         }
 
 
@@ -868,14 +867,14 @@ namespace VTOL
                     //  view.GroupDescriptions.Add(new PropertyGroupDescription("Pinned"));
                     // view.SortDescriptions.Add(new SortDescription("Country", ListSortDirection.Ascending));
                     //   Test_List.ItemsSource = view;
-                      Test_List.ItemsSource = LoadListViewData(Filter_Type);
+                    Test_List.ItemsSource = LoadListViewData(Filter_Type);
 
                     Finished_Init = true;
 
 
                     //   Test_List.ItemsSource = _Items_;
                     //this.DataContext = itemsList;
-                     Test_List.Items.Refresh();
+                    Test_List.Items.Refresh();
                 }
                 else
                 {
@@ -884,7 +883,7 @@ namespace VTOL
 
                     //   Test_List.ItemsSource = null;
 
-                     Test_List.ItemsSource = LoadListViewData(Filter_Type);
+                    Test_List.ItemsSource = LoadListViewData(Filter_Type);
 
 
 
@@ -1468,6 +1467,8 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
         }
         void Select_Update()
         {
+
+            Repo_URl.Text = Current_REPO_URL;
             Mod_Panel.Visibility = Visibility.Hidden;
             skins_Panel.Visibility = Visibility.Hidden;
             Main_Panel.Visibility = Visibility.Hidden;
@@ -1878,7 +1879,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
             }
         }
-        private void Read_Latest_Release(string address, string json_name = "temp.json", bool Parse = true, bool Log_Msgs = true)
+        private  async void Read_Latest_Release(string address, string json_name = "temp.json", bool Parse = true, bool Log_Msgs = true)
         {
             if (address != null)
             {
@@ -1968,7 +1969,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
 
         }
-        private void Parse_Release(string json_name = "temp.json")
+        private async void Parse_Release(string json_name = "temp.json")
         {
             if (File.Exists(@"C:\ProgramData\VTOL_DATA\temp\" + json_name))
             {
@@ -2090,7 +2091,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
             try
             {
-                //  Loading_Panel.Visibility = Visibility.Visible;
+              //    Loading_Panel.Visibility = Visibility.Visible;
 
                 string Dir_Final = "";
                 if (File.Exists(Target_Zip))
@@ -2810,19 +2811,20 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
 
         }
-        void Install_NS_METHOD()
+       async void Install_NS_METHOD()
         {
             try
             {
+                Loading_Panel.Visibility = Visibility.Visible;
+                Progress_Bar_Window.Value = 0;
 
                 completed_flag = 0;
-                Read_Latest_Release("https://api.github.com/repos/R2Northstar/Northstar/releases/latest");
+                PropertyGridDemoModel Git = new PropertyGridDemoModel();
+                Read_Latest_Release(Current_REPO_URL);
                 Current_File_Label.Content = GetTextResource("DOWNLOADING_NORTHSTAR_LATEST_RELEAST_TEXT");
                 Status_Label.Content = GetTextResource("CURRENTLY_DOWNLOADING");
                 Wait_Text.Text = GetTextResource("PLEASE_WAIT");
                 //  Is file downloading yet?
-                Loading_Panel.Visibility = Visibility.Visible;
-                Progress_Bar_Window.Value = 0;
                 if (webClient != null)
                     return;
                 webClient = new WebClient();
@@ -2914,7 +2916,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             catch (Exception ex)
             {
 
-                Write_To_Log(ex.StackTrace);
+                Write_To_Log(ex.Message + "\n" + ex.StackTrace + "\n"+ ex.InnerException);
                 Install_NS.IsEnabled = true;
                 Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
                 Loading_Panel.Visibility = Visibility.Hidden;
@@ -4309,7 +4311,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
         private async void Load_Click(object sender, RoutedEventArgs e)
         {
 
-            
+
 
 
             /*
@@ -6416,7 +6418,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             }
             if (Directory.Exists(Current_Install_Folder))
             {
-                
+
                 Convar_File = GetFile(Current_Install_Folder, "autoexec_ns_server.cfg").First();
                 Ns_dedi_File = GetFile(Current_Install_Folder, "ns_startup_args_dedi.txt").First();
             }
@@ -6557,7 +6559,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
             //IsLoading_Panel.Visibility = Visibility.Visible;
 
-            Send_Success_Notif(Convert.ToString((Sections_Tabs.SelectedItem as TabItem).Header));
+            //Send_Success_Notif(Convert.ToString((Sections_Tabs.SelectedItem as TabItem).Header));
 
 
             switch (Convert.ToString((Sections_Tabs.SelectedItem as TabItem).Header))
@@ -6588,6 +6590,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                     break;
                 default:
                     Thunderstore_Parse(hard_reset, "None");
+                    Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow;
 
                     break;
 
@@ -7142,13 +7145,13 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                     foreach (string strFilePath in filesToZip)
                     {
                         if (!File.Exists(strFilePath))
-                            
+
                         {
                             Send_Error_Notif("Failed!");
                             Write_To_Log("file does not exist" + Ns_dedi_File + "   " + Convar_File);
 
                             return;
-                           // throw new Exception(string.Format("File {0} does not exist", strFilePath));
+                            // throw new Exception(string.Format("File {0} does not exist", strFilePath));
                         }
                         string strDestinationFilePath = Path.Combine(dirTemp.FullName, Path.GetFileName(strFilePath));
                         File.Copy(strFilePath, strDestinationFilePath);
@@ -7178,8 +7181,8 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 return;
             }
         }
-    
-    private void Export_Server_Config_Click(object sender, RoutedEventArgs e)
+
+        private void Export_Server_Config_Click(object sender, RoutedEventArgs e)
         {
             if (Directory.Exists(Current_Install_Folder + "/VTOL_Dedicated_Workspace"))
             {
@@ -7192,10 +7195,10 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                     ZIP_LIST(files, Current_Install_Folder + @"\VTOL_Dedicated_Workspace/Exported_Config.zip", true);
 
                     Send_Success_Notif("Exported to " + Current_Install_Folder + @"\VTOL_Dedicated_Workspace/Exported_Config.zip"+ " Sucessfully!");
-                    
 
-              
-            }
+
+
+                }
                 else
                 {
                     Send_Error_Notif(GetTextResource("NOTIF_ERROR_SUGGEST_REBROWSE"));
@@ -7245,7 +7248,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             }
             if (Directory.Exists(Current_Install_Folder + @"\VTOL_Dedicated_Workspace"))
             {
-               string extractPath = Path.GetFullPath(Current_Install_Folder + @"\VTOL_Dedicated_Workspace");
+                string extractPath = Path.GetFullPath(Current_Install_Folder + @"\VTOL_Dedicated_Workspace");
                 if (File.Exists(Current_Install_Folder + @"\VTOL_Dedicated_Workspace\autoexec_ns_server.cfg"))
                 {
                     File.Delete(Current_Install_Folder + @"\VTOL_Dedicated_Workspace\autoexec_ns_server.cfg");
@@ -7256,9 +7259,9 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 }
 
                 if (!extractPath.EndsWith(Path.DirectorySeparatorChar.ToString(), StringComparison.Ordinal))
-                extractPath += Path.DirectorySeparatorChar;
+                    extractPath += Path.DirectorySeparatorChar;
 
-                
+
 
 
 
@@ -7280,7 +7283,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                 // are case-insensitive.
                                 if (destinationPath.StartsWith(extractPath, StringComparison.Ordinal))
                                 {
-                                   string f = Find_Folder("Northstar.CustomServers", Current_Install_Folder).ToString();
+                                    string f = Find_Folder("Northstar.CustomServers", Current_Install_Folder).ToString();
 
                                     if (Directory.Exists(f))
                                     {
@@ -7294,7 +7297,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                         }
 
                                     }
-                                    if(File.Exists(GetFile(Current_Install_Folder, "ns_startup_args_dedi.txt").First()))
+                                    if (File.Exists(GetFile(Current_Install_Folder, "ns_startup_args_dedi.txt").First()))
                                     {
                                         string d = GetFile(Current_Install_Folder, "ns_startup_args_dedi.txt").First();
 
@@ -7439,34 +7442,55 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             //This event is called on a CEF Thread, to access your UI thread
             //use Control.BeginInvoke/Dispatcher.BeginInvoke
         }
-       
 
-
-    }
-    public class CefRequestHandler : CefSharp.Handler.RequestHandler
-    {
-        public static readonly string VersionNumberString = String.Format("Chromium: {0}, CEF: {1}, CefSharp: {2}",
-            Cef.ChromiumVersion, Cef.CefVersion, Cef.CefSharpVersion);
-
-        protected override bool OnBeforeBrowse(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, bool userGesture, bool isRedirect)
+        private void DataGridSettings_SourceUpdated(object sender, DataTransferEventArgs e)
         {
-            return false;
+
         }
-        protected override IResourceRequestHandler GetResourceRequestHandler(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, bool isNavigation, bool isDownload, string requestInitiator, ref bool disableDefaultHandling)
+        public class ViewModel
         {
-            //NOTE: In most cases you examine the request.Url and only handle requests you are interested in
-            if (request.Url.ToLower().StartsWith("https://cefsharp.example")
-                || request.Url.ToLower().StartsWith("ror2mm:")
-                || request.Url.ToLower().StartsWith("https://googlechrome.github.io/samples/service-worker/"))
+            public object SelectedEmployee { get; set; }
+            public ViewModel()
             {
-                // return new CefRequestHandler();
-                MessageBox.Show("XX");
+                SelectedEmployee = new PropertyGridDemoModel()
+                {
+                    Repository_URL = "pps",
+                    Start_On_Top = true,
+                    Duration_of_popups  = Times.Short,
+                };
             }
-
-            return null;
         }
-        //bool OnProtocolExecution(IWebBrowser browserControl, IBrowser browser, string Url);
+        private void DataGridSettings_SelectedObjectChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+        }
 
+        private void DataGridSettings_TargetUpdated(object sender, DataTransferEventArgs e)
+        {
+
+        }
+
+        private void DataGridSettings_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            MessageBox.Show("A");
+
+        }
+
+        private void TextBox_ManipulationCompleted(object sender, ManipulationCompletedEventArgs e)
+        {
+
+        }
+
+        private void TextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                Send_Success_Notif("Changed Repo URL From " + Current_REPO_URL + " -To- "+ Repo_URl.Text.ToString());
+                Current_REPO_URL = Repo_URl.Text.ToString();
+                Properties.Settings.Default.Current_REPO_URL =Repo_URl.Text.ToString();
+                Properties.Settings.Default.Save();
+            }
+        }
     }
+
 }
 

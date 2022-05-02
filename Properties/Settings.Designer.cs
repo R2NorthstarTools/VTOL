@@ -118,5 +118,17 @@ namespace VTOL.Properties {
                 this["Profile_Path"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://api.github.com/repos/R2Northstar/Northstar/releases/latest")]
+        public string Current_REPO_URL {
+            get {
+                return ((string)(this["Current_REPO_URL"]));
+            }
+            set {
+                this["Current_REPO_URL"] = value;
+            }
+        }
     }
 }

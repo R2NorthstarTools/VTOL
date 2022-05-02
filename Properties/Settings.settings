@@ -26,5 +26,8 @@
     <Setting Name="Profile_Path" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="Current_REPO_URL" Type="System.String" Scope="User">
+      <Value Profile="(Default)">https://api.github.com/repos/R2Northstar/Northstar/releases/latest</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
