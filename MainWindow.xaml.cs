@@ -1939,17 +1939,68 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
         }
         private string Parse_Custom_Release(string json_name = "temp.json")
         {
-
-            if (File.Exists(@"C:\ProgramData\VTOL_DATA\temp\" + json_name))
+            try
             {
-                var myJsonString = File.ReadAllText(@"C:\ProgramData\VTOL_DATA\temp\" + json_name);
-                var myJObject = JObject.Parse(myJsonString);
+                if (File.Exists(@"C:\ProgramData\VTOL_DATA\temp\" + json_name))
+                {
+                    var myJsonString = File.ReadAllText(@"C:\ProgramData\VTOL_DATA\temp\" + json_name);
+                    var myJObject = JObject.Parse(myJsonString);
 
-                string out_ = myJObject.SelectToken("assets.browser_download_url").Value<string>();
-                Properties.Settings.Default.Version = myJObject.SelectToken("tag_name").Value<string>();
-                Properties.Settings.Default.Save();
+                    string out_ = myJObject.SelectToken("assets.browser_download_url").Value<string>();
+                    Properties.Settings.Default.Version = myJObject.SelectToken("tag_name").Value<string>();
+                    Properties.Settings.Default.Save();
 
-                Send_Info_Notif(GetTextResource("NOTIF_INFO_RELEASE_PARSED") + out_);
+                    Send_Info_Notif(GetTextResource("NOTIF_INFO_RELEASE_PARSED") + out_);
+                    if (Directory.Exists(@"C:\ProgramData\VTOL_DATA\temp\" + json_name))
+                    {
+                        if (File.Exists(@"C:\ProgramData\VTOL_DATA\temp\" + json_name))
+                        {
+                            File.Delete(@"C:\ProgramData\VTOL_DATA\temp\" + json_name);
+                        }
+                    }
+                    return out_;
+
+                }
+                else
+                {
+                    Send_Error_Notif(GetTextResource("NOTIF_ERROR_RELEASE_NOT_FOUND"));
+
+                    return null;
+                }
+            }
+            catch (Exception e)
+            {
+                Write_To_Log(e.StackTrace);
+                return null;
+
+            }
+
+        }
+        private async void Parse_Release(string json_name = "temp.json")
+        {
+            try
+            {
+                if (File.Exists(@"C:\ProgramData\VTOL_DATA\temp\" + json_name))
+                {
+
+                    var myJsonString = File.ReadAllText(@"C:\ProgramData\VTOL_DATA\temp\" + json_name);
+                    var myJObject = JObject.Parse(myJsonString);
+
+
+                    current_Northstar_version_Url = myJObject.SelectToken("assets.browser_download_url").Value<string>();
+                    Properties.Settings.Default.Version = myJObject.SelectToken("tag_name").Value<string>();
+                    Properties.Settings.Default.Save();
+
+                    Send_Info_Notif(GetTextResource("NOTIF_INFO_RELEASE_PARSED") + current_Northstar_version_Url);
+
+                }
+                else
+                {
+                    Send_Error_Notif(GetTextResource("NOTIF_ERROR_RELEASE_NOT_FOUND"));
+
+
+                }
+
                 if (Directory.Exists(@"C:\ProgramData\VTOL_DATA\temp\" + json_name))
                 {
                     if (File.Exists(@"C:\ProgramData\VTOL_DATA\temp\" + json_name))
@@ -1957,46 +2008,12 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                         File.Delete(@"C:\ProgramData\VTOL_DATA\temp\" + json_name);
                     }
                 }
-                return out_;
-
             }
-            else
+            catch (Exception e)
             {
-                Send_Error_Notif(GetTextResource("NOTIF_ERROR_RELEASE_NOT_FOUND"));
+                Write_To_Log(e.StackTrace);
+                return;
 
-                return null;
-            }
-
-
-        }
-        private async void Parse_Release(string json_name = "temp.json")
-        {
-            if (File.Exists(@"C:\ProgramData\VTOL_DATA\temp\" + json_name))
-            {
-                var myJsonString = File.ReadAllText(@"C:\ProgramData\VTOL_DATA\temp\" + json_name);
-                var myJObject = JObject.Parse(myJsonString);
-
-
-                current_Northstar_version_Url = myJObject.SelectToken("assets.browser_download_url").Value<string>();
-                Properties.Settings.Default.Version = myJObject.SelectToken("tag_name").Value<string>();
-                Properties.Settings.Default.Save();
-
-                Send_Info_Notif(GetTextResource("NOTIF_INFO_RELEASE_PARSED") + current_Northstar_version_Url);
-
-            }
-            else
-            {
-                Send_Error_Notif(GetTextResource("NOTIF_ERROR_RELEASE_NOT_FOUND"));
-
-
-            }
-
-            if (Directory.Exists(@"C:\ProgramData\VTOL_DATA\temp\" + json_name))
-            {
-                if (File.Exists(@"C:\ProgramData\VTOL_DATA\temp\" + json_name))
-                {
-                    File.Delete(@"C:\ProgramData\VTOL_DATA\temp\" + json_name);
-                }
             }
         }
         private void DirectoryCopy(
@@ -2815,10 +2832,21 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
         {
             try
             {
+
                 Loading_Panel.Visibility = Visibility.Visible;
                 Progress_Bar_Window.Value = 0;
-
-                completed_flag = 0;
+                if (Directory.Exists(Current_Install_Folder + @"\TempCopyFolder"))
+                {
+                    try
+                    {
+                        Directory.Delete(Current_Install_Folder + @"\TempCopyFolder", true);
+                    }
+                    catch (Exception e)
+                    {
+                        Write_To_Log("Err on temp folder delete.");
+                    }
+                }
+                    completed_flag = 0;
                 PropertyGridDemoModel Git = new PropertyGridDemoModel();
                 Read_Latest_Release(Current_REPO_URL);
                 Current_File_Label.Content = GetTextResource("DOWNLOADING_NORTHSTAR_LATEST_RELEAST_TEXT");
@@ -3407,7 +3435,10 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
             webClient = null;
             Send_Info_Notif(GetTextResource("NOTIF_INFO_DOWNLOAD_COMPLETE"));
-            Unpack_To_Location(@"C:\ProgramData\VTOL_DATA\Releases\NorthStar_Release.zip", Current_Install_Folder);
+            if (File.Exists(@"C:\ProgramData\VTOL_DATA\Releases\NorthStar_Release.zip"))
+            {
+                Unpack_To_Location(@"C:\ProgramData\VTOL_DATA\Releases\NorthStar_Release.zip", Current_Install_Folder);
+            }
             Install_NS.IsEnabled = true;
             Loading_Panel.Visibility = Visibility.Hidden;
             Wait_Text.Text = GetTextResource("PLEASE_WAIT");
