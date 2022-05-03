@@ -164,10 +164,10 @@
             <Label Content="{DynamicResource UI_TITLE_MAIN}" Height="44" Width="190" Margin="0,6,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi"/>
         </hc:SimplePanel>
         <hc:SimplePanel Background="Black" HorizontalAlignment="Left" Width="1010" Grid.Column="1" VerticalAlignment="Top" ScrollViewer.CanContentScroll="True" Grid.IsSharedSizeScope="True" ClipToBounds="True" Height="104" Grid.Row="1" Margin="0,212,0,0" Grid.RowSpan="2" Grid.ColumnSpan="3">
-            <Button x:Name="Titanfall_2_Btn" Content="{DynamicResource UI_BUTTON_MAIN_LAUNCH_TF2}" Height="54" Width="430" Background="#FF2C4C4C" BorderThickness="1,1,1,1" BorderBrush="{x:Null}" HorizontalAlignment="Left" Margin="35,0,0,0" MouseEnter="Titanfall_2_Btn_MouseEnter" Click="Titanfall_2_Btn_Click" >
+            <Button x:Name="Titanfall_2_Btn" Content="{DynamicResource UI_BUTTON_MAIN_LAUNCH_TF2}" Height="54" Width="430" Background="#FF2C4C4C" BorderThickness="1,1,1,1" BorderBrush="{x:Null}" HorizontalAlignment="Left" Margin="35,0,0,0" MouseEnter="Titanfall_2_Btn_MouseEnter" Click="Titanfall_2_Btn_Click">
 
             </Button>
-            <Button x:Name="Northstar_Btn" Content="{DynamicResource UI_BUTTON_MAIN_LAUNCH_NS}" Height="54" Background="#FF2C4C4C" BorderThickness="1,1,1,1" BorderBrush="#FF02FFB4" HorizontalAlignment="Stretch" Margin="524,0,35,0" MouseEnter="Northstar_Btn_MouseEnter" Click="Northstar_Btn_Click" Width="430"  />
+            <Button x:Name="Northstar_Btn" Content="{DynamicResource UI_BUTTON_MAIN_LAUNCH_NS}" Height="54" Background="#FF2C4C4C" BorderThickness="1,1,1,1" BorderBrush="#FF02FFB4" HorizontalAlignment="Stretch" Margin="524,0,35,0" MouseEnter="Northstar_Btn_MouseEnter" Click="Northstar_Btn_Click" Width="430" hc:IconElement.Geometry="{StaticResource GithubGeometry}" />
         </hc:SimplePanel>
 
 

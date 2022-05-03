@@ -65,6 +65,7 @@
     <None Remove="Resources\LOG_ICON.png" />
     <None Remove="Resources\main-menu.png" />
     <None Remove="Resources\Northstar512-maskable.ico" />
+    <None Remove="Resources\northstar_icon_ZfV_icon.ico" />
     <None Remove="Resources\NorthStar_Smurfson.gif" />
     <None Remove="Resources\NO_TEXTURE.png" />
     <None Remove="Resources\NO_TEXTURE.png" />
@@ -78,6 +79,7 @@
     <None Remove="Resources\target.png" />
     <None Remove="Resources\Test_Args_1.json" />
     <None Remove="Resources\TF2_Vanilla_promo.gif" />
+    <None Remove="Resources\Titanfall2_101.ico" />
     <None Remove="Resources\Update_ICON.png" />
     <None Remove="Resources\VTOL_Hover.ico" />
     <None Remove="Resources\VTOL_Hover.png" />
@@ -254,6 +256,9 @@
     <Resource Include="Resources\Delete_Icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\northstar_icon_ZfV_icon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\NorthStar_Smurfson.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -288,6 +293,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\TF2_Vanilla_promo.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Titanfall2_101.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Update_ICON.png">
