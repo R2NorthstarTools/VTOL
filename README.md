@@ -18,7 +18,7 @@ Total Users Since First Release:
     
 ![GitHub release (Total)](https://img.shields.io/github/downloads/BigSpice/VTOL/total?style=flat-square)
  
- <h2 align="center" ><a href="https://northstar.tf">This is a launcher for the [Titanfall 2 Northstar Client] </a></h2>
+ <h2 align="center" ><a href="https://northstar.tf">This is a Manager for the [Titanfall 2 Northstar Client] </a></h2>
 
 
 <p align="center">
