@@ -1,12 +1,13 @@
 # VTOL
-
+[![Download Banner](https://user-images.githubusercontent.com/23240514/166419664-53e775d8-fe0d-4508-be5c-1361de70725e.png)]("https://github.com/BigSpice/VTOL/releases/latest/download/VTOL_Installer.msi)
+<!---
 <a href="https://github.com/BigSpice/VTOL/releases/latest/download/VTOL_Installer.msi">
 <span>Click me to download!<span>
 <p align="center">
     <img src="https://user-images.githubusercontent.com/45333346/155147598-71510387-7b83-4dea-a1b8-b322888d8a3e.png" />
 </p>
 <a>
-
+--->
 Users on the latest release:
 
 ![GitHub release (latest by date)](https://img.shields.io/github/downloads/BigSpice/VTOL/latest/total?style=flat-square)
@@ -20,7 +21,7 @@ Total Users Since First Release:
 ## This is a launcher for the [Titanfall 2 Northstar Client](https://northstar.tf)
 
 
-![VTOL_Showcase_Trim](https://user-images.githubusercontent.com/23240514/157264628-43601f3e-1066-42ce-8564-e2554bd5799f.gif)<br /><br /><br />
+<!---![VTOL_Showcase_Trim](https://user-images.githubusercontent.com/23240514/157264628-43601f3e-1066-42ce-8564-e2554bd5799f.gif)<br /><br /><br />--->
 
 ## Features:
 
