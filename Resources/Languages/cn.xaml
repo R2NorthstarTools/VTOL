@@ -3,7 +3,7 @@
     xmlns:system="clr-namespace:System;assembly=mscorlib">
     <system:String x:Key="UI_SIDEMENU_TITLE_MAIN">主页</system:String>
     <system:String x:Key="UI_SIDEMENU_TITLE_MODS">模组</system:String>
-    <system:String x:Key="UI_SIDEMENU_TITLE_THUNDERSTORE">浏览模组</system:String>
+    <system:String x:Key="UI_SIDEMENU_TITLE_THUNDERSTORE">Thunderstore</system:String>
     <system:String x:Key="UI_SIDEMENU_TITLE_SKINS">皮肤</system:String>
     <system:String x:Key="UI_SIDEMENU_TITLE_SERVER_CONF">独立服务器</system:String>
     <system:String x:Key="UI_SIDEMENU_TITLE_LOG">日志</system:String>

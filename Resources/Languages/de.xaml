@@ -3,7 +3,7 @@
     xmlns:system="clr-namespace:System;assembly=mscorlib">
     <system:String x:Key="UI_SIDEMENU_TITLE_MAIN">Startseite</system:String>
     <system:String x:Key="UI_SIDEMENU_TITLE_MODS">Mods</system:String>
-    <system:String x:Key="UI_SIDEMENU_TITLE_THUNDERSTORE">Mod Browser</system:String>
+    <system:String x:Key="UI_SIDEMENU_TITLE_THUNDERSTORE">Thundersore</system:String>
     <system:String x:Key="UI_SIDEMENU_TITLE_SKINS">Skins</system:String>
     <system:String x:Key="UI_SIDEMENU_TITLE_SERVER_CONF">Dedizierter Server</system:String>
     <system:String x:Key="UI_SIDEMENU_TITLE_LOG">Log</system:String>

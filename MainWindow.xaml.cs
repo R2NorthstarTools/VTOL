@@ -2596,7 +2596,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             }
 
         }
-        private void parse_git_to_zip(string address)
+        private void parse_git_to_zip(string address, bool skin = false)
         {
 
             Mod_Progress_BAR.Value = 0;
