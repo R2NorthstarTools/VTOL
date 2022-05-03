@@ -42,6 +42,7 @@ using HandyControl.Data;
 using System.Security.Principal;
 using CefSharp;
 using CefSharp.Wpf;
+using Newtonsoft.Json;
 
 //****TODO*****//
 
@@ -475,24 +476,33 @@ namespace VTOL
                         Send_Info_Notif(GetTextResource("NOTIF_INFO_FOUND_INSTALL_PATH") + Current_Install_Folder + "\n");
                         if (Directory.Exists(Current_Install_Folder))
                         {
-
-                            NSExe = Get_And_Set_Filepaths(Current_Install_Folder, "NorthstarLauncher.exe");
-                            Check_Integrity_Of_NSINSTALL();
-                            if (NS_Installed == true)
+                            try
                             {
 
+                                NSExe = Get_And_Set_Filepaths(Current_Install_Folder, "NorthstarLauncher.exe");
+                                Check_Integrity_Of_NSINSTALL();
+                                if (NS_Installed == true)
+                                {
 
-                                Install_NS.Content = GetTextResource("UPDATE_REPAIR_NS");
+
+                                    Install_NS.Content = GetTextResource("UPDATE_REPAIR_NS");
+                                }
+                                else
+                                {
+
+                                    Install_NS.Content = GetTextResource("INSTALL_NS");
+
+
+                                }
                             }
-                            else
+                            catch (Exception ef)
                             {
-
-                                Install_NS.Content = GetTextResource("INSTALL_NS");
-
+                                Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_ERROR_OCCURRED"));
+                                Write_To_Log(ef.StackTrace);
 
                             }
 
-                        }
+        }
 
 
                     }
@@ -1404,6 +1414,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
         }
         async Task Select_Mod_Browse()
         {
+
             Mod_Panel.Visibility = Visibility.Hidden;
             skins_Panel.Visibility = Visibility.Hidden;
             Main_Panel.Visibility = Visibility.Hidden;
@@ -2192,7 +2203,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                     if (Directory.Exists(firstFolder))
                                     {
                                         Dir_Final = Destinfo.Parent.FullName + @"\" + diArr[0].Name;
-                                        if ((Destinfo.Parent.FullName + @"\" + diArr[0].Name).Contains("keyvalues") || (Destinfo.Parent.FullName + @"\" + diArr[0].Name).Contains("vpk") || (Destinfo.Parent.FullName + @"\" + diArr[0].Name).Contains("materials") || (Destinfo.Parent.FullName + @"\" + diArr[0].Name).Contains("resource") || (Destinfo.Parent.FullName + @"\" + diArr[0].Name).Contains("scripts"))
+                                        if ((Destinfo.Parent.FullName + @"\" + diArr[0].Name).Contains("keyvalues") || (Destinfo.Parent.FullName + @"\" + diArr[0].Name).Contains("vpk") || (Destinfo.Parent.FullName + @"\" + diArr[0].Name).Contains("materials") || (Destinfo.Parent.FullName + @"\" + diArr[0].Name).Contains("resource") || (Destinfo.Parent.FullName + @"\" + diArr[0].Name).Contains("scripts")|| (Destinfo.Parent.FullName + @"\" + diArr[0].Name).Contains("models"))
                                         {
                                             Send_Error_Notif(GetTextResource("NOTIF_ERROR_MOD_INCOMPATIBLE"));
                                             Send_Warning_Notif(GetTextResource("NOTIF_WARN_SUGGEST_DISABLE_MOD"));
@@ -2710,7 +2721,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             try
             {
                 Enabled_ListBox.ItemsSource = null;
-                Dsiabled_ListBox.ItemsSource = null;
+                Disabled_ListBox.ItemsSource = null;
                 Mod_Directory_List_Active.Clear();
                 Mod_Directory_List_InActive.Clear();
                 //   ////Console.WriteLine("In Mods!");
@@ -2763,19 +2774,30 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
                                         // Send_Info_Notif(GetTextResource("NOTIF_INFO_NO_INACTIVE_MODS"));
                                     }
-                                    else if (Template_traverse(dirInfo, "Locked_Folder") == true)
+                                    else if (Template_traverse(dirInfo, "Locked_Folder") == true )
                                     {
-
+                                        //&& !IsDirectoryEmpty(new DirectoryInfo(dirInfo+@"\Locked_Folder"))
                                         //   ////Console.WriteLine("Inactive - " + dirInfo.Name);
                                         Mod_Directory_List_InActive.Add(dirInfo.Name);
                                         //  Log_Box.AppendText(dirInfo.Name);
+
+                                        if (Directory.Exists(dirInfo+@"\Locked_Folder") && IsDirectoryEmpty(new DirectoryInfo(dirInfo+@"\Locked_Folder")))
+                                        {
+
+                                           // if (IsDirectoryEmpty(new DirectoryInfo(dirInfo+@"\Locked_Folder")))
+                                          //  {
+
+                                               Directory.Delete(dirInfo+@"\Locked_Folder");
+
+                                         //   }
+                                        }
                                     }
                                     else
                                     {
                                         // ////Console.WriteLine("Active - " + dirInfo.Name);
 
                                         Mod_Directory_List_Active.Add(dirInfo.Name);
-                                        //  Log_Box.AppendText(dirInfo.Name);
+                                       
 
                                     }
                                 }
@@ -3045,8 +3067,8 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
         private void ApplyDataBinding()
         {
-            Dsiabled_ListBox.ItemsSource = null;
-            Dsiabled_ListBox.ItemsSource = Mod_Directory_List_InActive.ToArray();
+            Disabled_ListBox.ItemsSource = null;
+            Disabled_ListBox.ItemsSource = Mod_Directory_List_InActive.ToArray();
 
             Enabled_ListBox.ItemsSource = null;
             Enabled_ListBox.ItemsSource = Mod_Directory_List_Active.ToArray();
@@ -3055,12 +3077,15 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
         {
             try
             {
-                string selected = null;
+                string Modname = "";
+               
+                    string selected = null;
                 if (Inactive.Items.Count != 0)
                 {
 
                     if (Inactive.SelectedValue != null || Inactive.SelectedValue != "")
                     {
+                        Modname = Inactive.SelectedValue.ToString();
                         selected = Inactive.SelectedValue.ToString();
                         int index = Inactive.SelectedIndex;
                         if (Mod_Directory_List_Active != null && Mod_Directory_List_InActive != null)
@@ -3160,15 +3185,23 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
         private static void MoveFiles(string sourceDir, string targetDir)
         {
             System.IO.DirectoryInfo Targ = new DirectoryInfo(targetDir);
-            if (IsDirectoryEmpty(Targ) == false)
+            System.IO.DirectoryInfo src = new DirectoryInfo(sourceDir);
+
+            if (!IsDirectoryEmpty(Targ))
             {
-                IEnumerable<FileInfo> files = Directory.GetFiles(sourceDir).Select(f => new FileInfo(f));
-                foreach (var file in files)
+                if (!IsDirectoryEmpty(src))
                 {
-                    File.Move(file.FullName, Path.Combine(targetDir, file.Name));
+                    IEnumerable<FileInfo> files = Directory.GetFiles(sourceDir).Select(f => new FileInfo(f));
+                    foreach (var file in files)
+                    {
+                        File.Move(file.FullName, Path.Combine(targetDir, file.Name), true);
+                    }
+
                 }
+                
             }
         }
+
         public void Move_Mods()
         {
 
@@ -3177,7 +3210,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
                 if (Directory.Exists(Current_Install_Folder + @"\R2Northstar\mods\"))
                 {
-                    List<string> Inactive = Dsiabled_ListBox.Items.OfType<string>().ToList();
+                    List<string> Inactive = Disabled_ListBox.Items.OfType<string>().ToList();
                     List<string> Active = Enabled_ListBox.Items.OfType<string>().ToList();
 
                     foreach (var val in Inactive)
@@ -3192,15 +3225,35 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                 if (Directory.Exists(Current_Install_Folder + @"\R2Northstar\mods\" + val + @"\Locked_Folder"))
                                 {
 
-                                    MoveFiles(Current_Install_Folder + @"\R2Northstar\mods\" + val, Current_Install_Folder + @"\R2Northstar\mods\" + val + @"\Locked_Folder");
+                                   // MoveFiles(Current_Install_Folder + @"\R2Northstar\mods\" + val, Current_Install_Folder + @"\R2Northstar\mods\" + val + @"\Locked_Folder");
+                                   if(File.Exists(Current_Install_Folder + @"\R2Northstar\mods\" + val+@"\mod.json"))
+                                    {
+                                        File.Move(Current_Install_Folder + @"\R2Northstar\mods\" + val+@"\mod.json", Current_Install_Folder + @"\R2Northstar\mods\" + val + @"\Locked_Folder"+@"\mod.json", true);
 
+
+                                    }
+                                    else
+                                    {
+                                        MoveFiles(Current_Install_Folder + @"\R2Northstar\mods\" + val, Current_Install_Folder + @"\R2Northstar\mods\" + val + @"\Locked_Folder");
+
+                                    }
 
                                 }
                                 else
                                 {
 
                                     Directory.CreateDirectory(Current_Install_Folder + @"\R2Northstar\mods\" + val + @"\Locked_Folder");
-                                    MoveFiles(Current_Install_Folder + @"\R2Northstar\mods\" + val, Current_Install_Folder + @"\R2Northstar\mods\" + val + @"\Locked_Folder");
+                                    if (File.Exists(Current_Install_Folder + @"\R2Northstar\mods\" + val+@"\mod.json"))
+                                    {
+                                        File.Move(Current_Install_Folder + @"\R2Northstar\mods\" + val+@"\mod.json", Current_Install_Folder + @"\R2Northstar\mods\" + val + @"\Locked_Folder"+@"\mod.json", true);
+
+
+                                    }
+                                    else
+                                    {
+                                        MoveFiles(Current_Install_Folder + @"\R2Northstar\mods\" + val, Current_Install_Folder + @"\R2Northstar\mods\" + val + @"\Locked_Folder");
+
+                                    }
 
                                 }
                             }
@@ -3219,7 +3272,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                             {
                                 if (Directory.Exists(Locked.FullName))
                                 {
-                                    if (!IsDirectoryEmpty(Locked))
+                                    if (IsDirectoryEmpty(Locked))
                                     {
 
                                         Directory.Delete(Locked.FullName);
@@ -3245,6 +3298,8 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             }
             catch (Exception ex)
             {
+                Write_To_Log(ex.Message);
+
                 Write_To_Log(ex.StackTrace);
 
                 Send_Warning_Notif(GetTextResource("NOTIF_WARN_CHECK_MOD_AT") + Current_Install_Folder + @"\R2Northstar\mods\");
@@ -4040,7 +4095,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
         private void Enable_Mod_Click(object sender, RoutedEventArgs e)
         {
 
-            Move_List_box_Inactive_To_Active(Dsiabled_ListBox);
+            Move_List_box_Inactive_To_Active(Disabled_ListBox);
             Move_Mods();
             Call_Mods_From_Folder();
         }
@@ -5627,7 +5682,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
         }
 
-        private void Dsiabled_ListBox_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        private void Disabled_ListBox_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
             //            Send_Error_Notif("right click");
 
@@ -6478,10 +6533,48 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
         {
             try
             {
-                if (Directory.Exists(Current_Install_Folder + @"\R2Northstar\mods\"))
+                string Mod = null;
+                if (Disabled_ListBox.SelectedItem != null && Disabled_ListBox.IsMouseOver == true && Enabled_ListBox.IsMouseOver == false)
                 {
-                    Process.Start("explorer.exe", Current_Install_Folder + @"\R2Northstar\mods\");
+                     Mod = (Disabled_ListBox.SelectedItem.ToString());
+
+                }else if(Enabled_ListBox.SelectedItem != null && Disabled_ListBox.IsMouseOver == false && Enabled_ListBox.IsMouseOver == true){
+                    Mod = (Enabled_ListBox.SelectedItem.ToString());
+
+
                 }
+                else
+                {
+                    Mod = null;
+                }
+                if(Mod != null)
+                {
+
+                    if (Directory.Exists(Current_Install_Folder + @"\R2Northstar\mods\" + Mod))
+                    {
+                        Process.Start("explorer.exe", Current_Install_Folder + @"\R2Northstar\mods\"+Mod);
+                    }
+                    else
+                    {
+                        
+                            Process.Start("explorer.exe", Current_Install_Folder + @"\R2Northstar\mods\");
+                        
+                    }
+                }
+                else
+                {
+
+                    if (Directory.Exists(Current_Install_Folder + @"\R2Northstar\mods\" ))
+                    {
+                        Process.Start("explorer.exe", Current_Install_Folder + @"\R2Northstar\mods\");
+                    }
+                    else
+                    {
+                        return;
+                    }
+
+                }
+               
             }
 
             catch (Exception ex)
@@ -6974,10 +7067,10 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
         {
             try
             {
-                Dsiabled_ListBox.Items.IsLiveSorting = true;
-                if (Dsiabled_ListBox.SelectedItem != null && Dsiabled_ListBox.IsMouseOver == true && Enabled_ListBox.IsMouseOver == false)
+                Disabled_ListBox.Items.IsLiveSorting = true;
+                if (Disabled_ListBox.SelectedItem != null && Disabled_ListBox.IsMouseOver == true && Enabled_ListBox.IsMouseOver == false)
                 {
-                    string Mod = (Dsiabled_ListBox.SelectedItem.ToString());
+                    string Mod = (Disabled_ListBox.SelectedItem.ToString());
                     string FolderDir = Find_Folder(Mod, Current_Install_Folder + @"\R2Northstar\mods");
                     if (Directory.Exists(FolderDir))
                     {
@@ -7004,7 +7097,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                     }
 
                 }
-                else if (Enabled_ListBox.SelectedItem != null && Dsiabled_ListBox.IsMouseOver == false && Enabled_ListBox.IsMouseOver == true)
+                else if (Enabled_ListBox.SelectedItem != null && Disabled_ListBox.IsMouseOver == false && Enabled_ListBox.IsMouseOver == true)
                 {
                     string Mod = (Enabled_ListBox.SelectedItem.ToString());
                     string FolderDir = Find_Folder(Mod, Current_Install_Folder + @"\R2Northstar\mods");
@@ -7052,12 +7145,12 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             Delete_Menu_Context.IsHitTestVisible = false;
             Delete_Menu_Context.Foreground = Brushes.Gray;
 
-            if (Dsiabled_ListBox.SelectedItem != null && Dsiabled_ListBox.IsMouseOver == true && Enabled_ListBox.IsMouseOver == false)
+            if (Disabled_ListBox.SelectedItem != null && Disabled_ListBox.IsMouseOver == true && Enabled_ListBox.IsMouseOver == false)
             {
                 Delete_Menu_Context.IsHitTestVisible = true;
                 Delete_Menu_Context.Foreground = Brushes.White;
             }
-            else if (Enabled_ListBox.SelectedItem != null && Dsiabled_ListBox.IsMouseOver == false && Enabled_ListBox.IsMouseOver == true)
+            else if (Enabled_ListBox.SelectedItem != null && Disabled_ListBox.IsMouseOver == false && Enabled_ListBox.IsMouseOver == true)
             {
                 Delete_Menu_Context.IsHitTestVisible = true;
                 Delete_Menu_Context.Foreground = Brushes.White;
@@ -7076,14 +7169,14 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
         }
 
-        private void Dsiabled_ListBox_LostFocus(object sender, RoutedEventArgs e)
+        private void Disabled_ListBox_LostFocus(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void Dsiabled_ListBox_MouseLeave(object sender, MouseEventArgs e)
+        private void Disabled_ListBox_MouseLeave(object sender, MouseEventArgs e)
         {
-            //  Dsiabled_ListBox.SelectedItem= null;
+            //  Disabled_ListBox.SelectedItem= null;
 
 
         }
@@ -7099,23 +7192,23 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
 
 
-        private void Dsiabled_ListBox_TargetUpdated(object sender, DataTransferEventArgs e)
+        private void Disabled_ListBox_TargetUpdated(object sender, DataTransferEventArgs e)
         {
 
         }
 
         private void Enabled_ListBox_PreviewMouseMove(object sender, MouseEventArgs e)
         {
-            if (Dsiabled_ListBox.SelectedItem != null)
+            if (Disabled_ListBox.SelectedItem != null)
             {
-                Dsiabled_ListBox.UnselectAll();
-                Dsiabled_ListBox.SelectedValue = null;
+                Disabled_ListBox.UnselectAll();
+                Disabled_ListBox.SelectedValue = null;
 
 
             }
         }
 
-        private void Dsiabled_ListBox_PreviewMouseMove(object sender, MouseEventArgs e)
+        private void Disabled_ListBox_PreviewMouseMove(object sender, MouseEventArgs e)
         {
             if (Enabled_ListBox.SelectedItem != null)
             {
@@ -7125,7 +7218,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             }
         }
 
-        private void Dsiabled_ListBox_ManipulationCompleted(object sender, ManipulationCompletedEventArgs e)
+        private void Disabled_ListBox_ManipulationCompleted(object sender, ManipulationCompletedEventArgs e)
         {
         }
 
@@ -7158,6 +7251,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             }
         }
         private string _filePath;
+        private string mod_In_Working_Action_name;
 
         public void ZIP_LIST(List<string> filesToZip, string sZipFileName, bool deleteExistingZip = true)
         {
@@ -7519,6 +7613,81 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 Current_REPO_URL = Repo_URl.Text.ToString();
                 Properties.Settings.Default.Current_REPO_URL =Repo_URl.Text.ToString();
                 Properties.Settings.Default.Save();
+            }
+        }
+
+        private void Info_Click(object sender, RoutedEventArgs e)
+        {
+
+            try
+            {
+                if (Disabled_ListBox.SelectedItem != null && Disabled_ListBox.IsMouseOver == true && Enabled_ListBox.IsMouseOver == false)
+                {
+                    string Mod = (Disabled_ListBox.SelectedItem.ToString());
+                    string FolderDir = Find_Folder(Mod, Current_Install_Folder + @"\R2Northstar\mods");
+                    if (Directory.Exists(FolderDir))
+                    {
+
+                       
+                        if (Directory.Exists(FolderDir))
+                        {
+                            string mod_Json = FindFirstFile(FolderDir, "mod.json");
+
+                            if (mod_Json != null && IsValidPath(mod_Json) && File.Exists(mod_Json))
+                            {
+                                var myJsonString = File.ReadAllText(mod_Json);
+                                var myJObject = JObject.Parse(myJsonString);
+
+                                string Output = "Name:" + myJObject.SelectToken("Name").Value<string>() + "\n" + "Description:" + myJObject.SelectToken("Description").Value<string>() + "Version:" + myJObject.SelectToken("Version").Value<string>();
+
+                                System.Windows.MessageBoxResult result = HandyControl.Controls.MessageBox.Show(new MessageBoxInfo { Message = Output, Caption = "INFO", Button = MessageBoxButton.OK, IconBrushKey = ResourceToken.AccentBrush, IconKey = ResourceToken.AskGeometry, StyleKey = "MessageBoxCustom" });
+
+                            }
+
+
+                        }
+
+
+                    }
+
+                }
+                else if (Enabled_ListBox.SelectedItem != null && Disabled_ListBox.IsMouseOver == false && Enabled_ListBox.IsMouseOver == true)
+                {
+
+                    string Mod = (Enabled_ListBox.SelectedItem.ToString());
+                    string FolderDir = Find_Folder(Mod, Current_Install_Folder + @"\R2Northstar\mods");
+                    if (Directory.Exists(FolderDir))
+                    {
+
+
+                        if (Directory.Exists(FolderDir))
+                        {
+                            string mod_Json = FindFirstFile(FolderDir, "mod.json");
+
+                            if (mod_Json != null && IsValidPath(mod_Json) && File.Exists(mod_Json))
+                            {
+                                var myJsonString = File.ReadAllText(mod_Json);
+                                var myJObject = JObject.Parse(myJsonString);
+                                string Output = "Name: " + myJObject.SelectToken("Name").Value<string>() + "\n" + "Description: "  + myJObject.SelectToken("Description").Value<string>() + "\n"+ "Version: " + myJObject.SelectToken("Version").Value<string>();
+
+                                System.Windows.MessageBoxResult result = HandyControl.Controls.MessageBox.Show(new MessageBoxInfo { Message = Output, Caption = "INFO", Button = MessageBoxButton.OK, IconBrushKey = ResourceToken.AccentBrush, IconKey = ResourceToken.AskGeometry, StyleKey = "MessageBoxCustom" });
+
+                            }
+
+
+                        }
+
+
+                    }
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Write_To_Log(ex.StackTrace.ToString());
+                Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
+
             }
         }
     }

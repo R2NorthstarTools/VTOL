@@ -47,6 +47,7 @@
     <None Remove="Resources\ICON_64.ico" />
     <None Remove="Resources\ICON_64.png" />
     <None Remove="Resources\info.png" />
+    <None Remove="Resources\infobw.png" />
     <None Remove="Resources\InkedNorthstar-512_LI.jpg" />
     <None Remove="Resources\internet.png" />
     <None Remove="Resources\Language_Icons\cn.png" />
@@ -109,6 +110,9 @@
     </Resource>
     <Resource Include="Resources\Folder_Browse_Icon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\infobw.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\InkedNorthstar-512_LI.jpg" />
     <Resource Include="Resources\Language_Icons\cn.png">

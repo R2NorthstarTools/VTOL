@@ -200,9 +200,14 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
                                     <Image x:Name="Sort_Img_Source" Source="/Resources/Sort_Off.png" />
                                 </MenuItem.Icon>
                             </MenuItem>
+                            <MenuItem x:Name="Info" Header="Info" Visibility="Visible" IsEnabled="True" Click="Info_Click">
+                                <MenuItem.Icon>
+                                    <Image x:Name="Info_Img" Source="/Resources/infobw.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
                         </ContextMenu>
                     </hc:SimplePanel.ContextMenu>
-                    <ListBox x:Name="Dsiabled_ListBox"  Margin="30,60,0,30" BorderBrush="#FF545454" Width="371" HorizontalAlignment="Left" Background="#FF333333" PreviewMouseRightButtonDown="MOD_PreviewMouseRightButtonDown" LostFocus="Dsiabled_ListBox_LostFocus" MouseLeave="Dsiabled_ListBox_MouseLeave" AllowDrop="False" IsTextSearchEnabled="False" IsSynchronizedWithCurrentItem="True" TargetUpdated="Dsiabled_ListBox_TargetUpdated" PreviewMouseMove="Dsiabled_ListBox_PreviewMouseMove" ManipulationCompleted="Dsiabled_ListBox_ManipulationCompleted"/>
+                    <ListBox x:Name="Disabled_ListBox"  Margin="30,60,0,30" BorderBrush="#FF545454" Width="371" HorizontalAlignment="Left" Background="#FF333333" PreviewMouseRightButtonDown="MOD_PreviewMouseRightButtonDown" LostFocus="Disabled_ListBox_LostFocus" MouseLeave="Disabled_ListBox_MouseLeave" AllowDrop="False" IsTextSearchEnabled="False" IsSynchronizedWithCurrentItem="True" TargetUpdated="Disabled_ListBox_TargetUpdated" PreviewMouseMove="Disabled_ListBox_PreviewMouseMove" ManipulationCompleted="Disabled_ListBox_ManipulationCompleted"/>
                     <ListBox x:Name="Enabled_ListBox"  Margin="550,60,30,30" BorderBrush="#FF545454" Background="#FF333333" PreviewMouseRightButtonDown="MOD_PreviewMouseRightButtonDown" MouseLeave="Enabled_ListBox_MouseLeave" IsTextSearchEnabled="False" AllowDrop="False" LostFocus="Enabled_ListBox_LostFocus" PreviewMouseMove="Enabled_ListBox_PreviewMouseMove"/>
                     <Button x:Name="Enable_Mod" Content="" Height="51" Width="56" Margin="0,110,0,0" VerticalAlignment="Top" Background="{StaticResource Enable_Button}" BorderBrush="{x:Null}" Click="Enable_Mod_Click"/>
                     <Button x:Name="Disable_Mod" Content="" Height="51" Width="56" Margin="0,212,0,0" VerticalAlignment="Top" Background="{StaticResource Disable_Button}" BorderBrush="{x:Null}" Click="Disable_Mod_Click"/>
