@@ -1,6 +1,6 @@
 # VTOL
 
-<a href="https://github.com/BigSpice/VTOL/releases/latest/download/VTOL_Installer1.2.1.msi">
+<a href="https://github.com/BigSpice/VTOL/releases/latest/download/VTOL_Installer.msi">
 <span>Click me to download!<span>
 <p align="center">
     <img src="https://user-images.githubusercontent.com/45333346/155147598-71510387-7b83-4dea-a1b8-b322888d8a3e.png" />
