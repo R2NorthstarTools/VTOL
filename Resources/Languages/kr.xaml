@@ -21,6 +21,8 @@
     <system:String x:Key="UI_BUTTON_MAIN_BROWSE">찾기</system:String>
     <system:String x:Key="UI_BUTTON_MAIN_LAUNCH_TF2">원본 타이탄폴2 실행</system:String>
     <system:String x:Key="UI_BUTTON_MAIN_LAUNCH_NS">노스스타 실행</system:String>
+    <system:String x:Key="UI_TEXT_MAIN_NORTHSTAR_STATUS">노스스타 연결 상태</system:String>
+    <system:String x:Key="UI_TEXT_MAIN_ORIGIN_STATUS">오리진 연결 상태</system:String>
     <system:String x:Key="TIP_VERIFY_NS_INSTALL">노스스타 설치 점검</system:String>
     <system:String x:Key="TIP_MANUAL_SELECT_GAME_DIR">설치 폴더 수동 설정</system:String>
     <system:String x:Key="TIP_YOUR_NS_INST_DIR">노스스타 설치 폴더</system:String>

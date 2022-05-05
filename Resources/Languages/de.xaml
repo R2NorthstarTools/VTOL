@@ -22,6 +22,8 @@
     <system:String x:Key="UI_BUTTON_MAIN_BRdedizierterOWSE">Druchsuchen</system:String>
     <system:String x:Key="UI_BUTTON_MAIN_LAUNCH_TF2">Launch Vanilla Titanfall 2</system:String>
     <system:String x:Key="UI_BUTTON_MAIN_LAUNCH_NS">Launch +NorthStar</system:String>
+    <system:String x:Key="UI_TEXT_MAIN_NORTHSTAR_STATUS">+Northstar Status</system:String>
+    <system:String x:Key="UI_TEXT_MAIN_ORIGIN_STATUS">Origin Client Status</system:String>
     <system:String x:Key="TIP_VERIFY_NS_INSTALL">Verifizieren von deiner +Northstar installation</system:String>
     <system:String x:Key="TIP_MANUAL_SELECT_GAME_DIR">Setze manuell den Installationspfad</system:String>
     <system:String x:Key="TIP_YOUR_NS_INST_DIR">Dein NorthStar Installationspfad</system:String>

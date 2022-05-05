@@ -21,6 +21,8 @@
     <system:String x:Key="UI_BUTTON_MAIN_BROWSE">浏览</system:String>
     <system:String x:Key="UI_BUTTON_MAIN_LAUNCH_TF2">启动《泰坦陨落2》</system:String>
     <system:String x:Key="UI_BUTTON_MAIN_LAUNCH_NS">启动 Northstar</system:String>
+    <system:String x:Key="UI_TEXT_MAIN_NORTHSTAR_STATUS">+Northstar Status</system:String>
+    <system:String x:Key="UI_TEXT_MAIN_ORIGIN_STATUS">Origin Client Status</system:String>
     <system:String x:Key="TIP_VERIFY_NS_INSTALL">验证 Northstar 文件完整性</system:String>
     <system:String x:Key="TIP_MANUAL_SELECT_GAME_DIR">手动选择安装位置</system:String>
     <system:String x:Key="TIP_YOUR_NS_INST_DIR">Northstar 安装目录</system:String>

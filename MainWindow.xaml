@@ -123,7 +123,7 @@
                     <Border x:Name="Indicator_Panel" BorderBrush="#FF2D2D2D" BorderThickness="1"/>
 
                     <Ellipse x:Name="Server_Indicator" Grid.Column="1" Margin="110,0,0,0" Fill="#FF94FF00" Height="24" VerticalAlignment="Center" HorizontalAlignment="Left" Width="25"/>
-                    <Label Content="+Northstar Status" Height="20" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0,0,0,0" Width="96" Margin="10,0,0,0">
+                    <Label Content="{DynamicResource UI_TEXT_MAIN_NORTHSTAR_STATUS}" Height="20" HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0,0,0,0" Width="96" Margin="10,0,0,0">
                         <hc:Poptip.Instance>
                             <hc:Poptip x:Name="Server_poptip" Content="" PlacementType="Bottom" Foreground="White"/>
                         </hc:Poptip.Instance>
@@ -134,7 +134,7 @@
                     <hc:SimplePanel Margin="134,8,10,8" MouseDown="Label_MouseDown"  >
 
                         <Ellipse x:Name="Origin_Client_Status" Margin="0,2,8,2" Fill="#FF7DFF00" Width="25" HorizontalAlignment="Right"/>
-                        <Label HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0,0,0,0"  Content="Origin Client Status" Margin="13,4,0,4" VerticalAlignment="Stretch" Width="109"/>
+                        <Label HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0,0,0,0"  Content="{DynamicResource UI_TEXT_MAIN_ORIGIN_STATUS}" Margin="13,4,0,4" VerticalAlignment="Stretch" Width="109"/>
                         <hc:Badge x:Name="Indicator_Origin_Client" Content="" Height="13" Padding="3.9,-1,4,0" Margin="0,7,8,8" BorderBrush="White" Background="#FFFFD200" Text="Click To Start" BadgeMargin="7,-7,-3,2" RenderTransformOrigin="1,1" FontSize="16" Status="Processing" BorderThickness="1,1,1,1" SnapsToDevicePixels="True" HorizontalAlignment="Right" Width="17" Visibility="Hidden"/>
                         <hc:Poptip.Instance>
                             <hc:Poptip Content="Click Me To Start The Origin Service" PlacementType="Bottom" Foreground="White"/>
