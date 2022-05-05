@@ -134,8 +134,8 @@
     <system:String x:Key="NOTIF_SUCCESS_GROUP_CVAR_HAS_BEEN_FOUND_VALUE">] Has been Found in the File.The value is now [</system:String>
     <system:String x:Key="NOTIF_SUCCESS_GROUP_VAR_THE_VARIABLE">The Varible</system:String>
     <system:String x:Key="NOTIF_SUCCESS_GROUP_VAR_HAS_BEEN_FOUND_VALUE">Has been Found in the File.The value is now</system:String>
-    <system:String x:Key="NOTIF_SUCCESS_INSTALLED">Installed!</system:String>
-    <system:String x:Key="NOTIF_SUCCESS_INSTALLED_DASH">Installed -</system:String>
+    <system:String x:Key="NOTIF_SUCCESS_INSTALLED">설치완료!</system:String>
+    <system:String x:Key="NOTIF_SUCCESS_INSTALLED_DASH">설치완료 -</system:String>
     <system:String x:Key="NOTIF_SUCCESS_INTEGRITY_VERIFIED">Integrity Verified!</system:String>
     <system:String x:Key="NOTIF_SUCCESS_MODS_MOVED_SUCCESS">Mods Moved Successfully!</system:String>
     <system:String x:Key="NOTIF_SUCCESS_RECEIVED_DASH">Recieved -</system:String>
@@ -159,7 +159,7 @@
     <system:String x:Key="NOTIF_WARN_NO_MODS_IN_LIST">No Mods in List</system:String>
     <system:String x:Key="NOTIF_WARN_PORT_TOO_lONG">Port is larger Than Required</system:String>
     <system:String x:Key="NOTIF_WARN_SUGGEST_DISABLE_MOD">If the mod is enabled please disable it immediately!</system:String>
-    <system:String x:Key="NOTIF_WARN_SUGGEST_REINSTALL_NS">Please install Northstar again To Try Remedy This Error</system:String>
+    <system:String x:Key="NOTIF_WARN_SUGGEST_REINSTALL_NS">문제를 해결하기 위해 노스스타를 다시 설치해주세요.</system:String>
     <system:String x:Key="BADGE_NEW_UPDATE_AVAILABLE">새로운 버전 사용가능</system:String>
     <system:String x:Key="UPDATE_REPAIR_NS">노스스타 설치/복구</system:String>
     <system:String x:Key="INSTALL_NS">노스스타 설치</system:String>
