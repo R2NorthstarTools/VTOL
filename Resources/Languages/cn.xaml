@@ -59,6 +59,8 @@
     <system:String x:Key="UI_TEXT_SERVER_CONF_NS_CONVAR_PATH">Northstar 引擎参数文件目录</system:String>
     <system:String x:Key="UI_TEXT_SERVER_CONF_STARTUP_ARGUMENTS">启动选项</system:String>
     <system:String x:Key="UI_TEXT_SERVER_CONF_CONVAR_ARGUMENTS">引擎参数</system:String>
+    <system:String x:Key="UI_TEXT_SERVER_CONF_IMPORT_SERVER_CONFIG">Import Server Config</system:String>
+    <system:String x:Key="UI_TEXT_SERVER_CONF_EXPORT_SERVER_CONFIG">Export Server Config</system:String>
     <system:String x:Key="UI_BUTTON_SERVER_CONF_LAUNCH_DEDICATED">启动 Northstar 独立服务器</system:String>
     <system:String x:Key="UI_BUTTON_SERVER_CONF_LOAD_FILES">读取文件</system:String>
     <system:String x:Key="UI_BUTTON_SERVER_CONF_LAUNCH_ADVANCED_CLIENT">启动 Northstar 客户端(高级)</system:String>

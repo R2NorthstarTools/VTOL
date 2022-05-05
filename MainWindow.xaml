@@ -479,7 +479,7 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
 
                     <hc:TextBox x:Name="Dedicated_Convar_ARGS" Width="438" Background="White" Height="30" VerticalAlignment="Bottom" IsReadOnly="True" IsUndoEnabled="False" Foreground="Black" />
                     <Button x:Name="Load_Bt" Height="36" Width="950" Margin="0,26,0,0" VerticalAlignment="Top" Background="#FF2C4C4C" Content="{DynamicResource UI_BUTTON_SERVER_CONF_LOAD_FILES}" Click="Load_Bt_" BorderBrush="{x:Null}" />
-                    <Button x:Name="Import_Server_Config" Height="36" Width="418" Margin="0,9,0,0" VerticalAlignment="Top" Background="#FF2C4C4C" Content="Import Server Config" BorderBrush="{x:Null}" Click="Import_Server_Config_Click" />
+                    <Button x:Name="Import_Server_Config" Height="36" Width="418" Margin="0,9,0,0" VerticalAlignment="Top" Background="#FF2C4C4C" Content="{DynamicResource UI_TEXT_SERVER_CONF_IMPORT_SERVER_CONFIG}" BorderBrush="{x:Null}" Click="Import_Server_Config_Click" />
 
                     <Label Height="58" Width="329" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,36,0,0" Content="{DynamicResource UI_TEXT_SERVER_CONF_STARTUP_ARGUMENTS}" FontSize="36" FontFamily="Bahnschrift SemiLight" Background="{x:Null}" BorderBrush="{x:Null}" />
                     <ListBox x:Name="Startup_Arguments_UI_List" Margin="0,-4,0,-322" Background="#FF101010" BorderBrush="{x:Null}" ItemTemplateSelector="{StaticResource Server_Template_Selector}" PreviewMouseWheel="S" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="False">
@@ -489,7 +489,7 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
 
                     <Button Content="{DynamicResource UI_BUTTON_SERVER_CONF_LAUNCH_DEDICATED}" Height="60" Width="950" Click="Dedicated_Btn_Click" BorderBrush="White" Background="#FF2C4C4C" Margin="0,20,0,0" VerticalAlignment="Top" />
 
-                    <Button x:Name="Export_Server_Config" Height="42" Width="418" Margin="0,20,0,0" VerticalAlignment="Top" Background="#FF2C4C4C" Content="Export Server Config" BorderBrush="{x:Null}" Click="Export_Server_Config_Click" />
+                    <Button x:Name="Export_Server_Config" Height="42" Width="418" Margin="0,20,0,0" VerticalAlignment="Top" Background="#FF2C4C4C" Content="{DynamicResource UI_TEXT_SERVER_CONF_EXPORT_SERVER_CONFIG}" BorderBrush="{x:Null}" Click="Export_Server_Config_Click" />
 
 
                 </hc:SimpleStackPanel>

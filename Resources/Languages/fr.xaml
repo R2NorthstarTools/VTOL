@@ -59,6 +59,8 @@
     <system:String x:Key="UI_TEXT_SERVER_CONF_NS_CONVAR_PATH">+NS Convar_ Path</system:String>
     <system:String x:Key="UI_TEXT_SERVER_CONF_STARTUP_ARGUMENTS">Arguments au démarrage</system:String>
     <system:String x:Key="UI_TEXT_SERVER_CONF_CONVAR_ARGUMENTS">Variables de configuration</system:String>
+    <system:String x:Key="UI_TEXT_SERVER_CONF_IMPORT_SERVER_CONFIG">Import Server Config</system:String>
+    <system:String x:Key="UI_TEXT_SERVER_CONF_EXPORT_SERVER_CONFIG">Export Server Config</system:String>
     <system:String x:Key="UI_BUTTON_SERVER_CONF_LAUNCH_DEDICATED">Lancer le client dédié Northstar</system:String>
     <system:String x:Key="UI_BUTTON_SERVER_CONF_LOAD_FILES">Charger les fichiers</system:String>
     <system:String x:Key="UI_BUTTON_SERVER_CONF_LAUNCH_ADVANCED_CLIENT">Lancer Northstar (avancé)</system:String>
