@@ -41,7 +41,7 @@
     <system:String x:Key="UI_TEXT_THUNDERSTORE_TAGS">태그:</system:String>
     <system:String x:Key="UI_BUTTON_THUNDERSTORE_REFRESH">새로고침</system:String>
     <system:String x:Key="UI_TEXT_SKINS_LOCATE_ZIP">스킨 Zip 위치</system:String>
-    <system:String x:Key="UI_TEXT_SKINS_COMPATIBILITY">Compatible?</system:String>
+    <system:String x:Key="UI_TEXT_SKINS_COMPATIBILITY">호환 여부?</system:String>
     <system:String x:Key="UI_TEXT_SKINS_DIFFUSE">Diffuse</system:String>
     <system:String x:Key="UI_TEXT_SKINS_GLOW">Glow</system:String>
     <system:String x:Key="UI_BUTTON_SKINS_INSTALL">스킨 설치</system:String>
@@ -158,12 +158,12 @@
     <system:String x:Key="NOTIF_WARN_PORT_TOO_lONG">Port is larger Than Required</system:String>
     <system:String x:Key="NOTIF_WARN_SUGGEST_DISABLE_MOD">If the mod is enabled please disable it immediately!</system:String>
     <system:String x:Key="NOTIF_WARN_SUGGEST_REINSTALL_NS">Please install Northstar again To Try Remedy This Error</system:String>
-    <system:String x:Key="BADGE_NEW_UPDATE_AVAILABLE">New Version Available</system:String>
-    <system:String x:Key="UPDATE_REPAIR_NS">Update/Repair Northstar</system:String>
+    <system:String x:Key="BADGE_NEW_UPDATE_AVAILABLE">새로운 버전 사용가능</system:String>
+    <system:String x:Key="UPDATE_REPAIR_NS">노스스타 설치/복구</system:String>
     <system:String x:Key="INSTALL_NS">노스스타 설치</system:String>
-    <system:String x:Key="OPEN_BROWSER">Open Current Mod Folder</system:String>
+    <system:String x:Key="OPEN_BROWSER">모드 폴더 열기</system:String>
     <system:String x:Key="PLEASE_WAIT">PLEASE WAIT...</system:String>
-    <system:String x:Key="CURRENTLY_INSTALLING">Currently Installing:</system:String>
-    <system:String x:Key="CURRENTLY_DOWNLOADING">Currently Downloading:</system:String>
-    <system:String x:Key="DOWNLOADING_NORTHSTAR_LATEST_RELEAST_TEXT">+Northstar Latest Version</system:String>
+    <system:String x:Key="CURRENTLY_INSTALLING">설치중:</system:String>
+    <system:String x:Key="CURRENTLY_DOWNLOADING">다운로드중:</system:String>
+    <system:String x:Key="DOWNLOADING_NORTHSTAR_LATEST_RELEAST_TEXT">노스스타 최신 버전</system:String>
 </ResourceDictionary>
