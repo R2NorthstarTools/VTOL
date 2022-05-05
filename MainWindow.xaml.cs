@@ -3280,7 +3280,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
                                     }
                                     MoveFiles(Locked.FullName, rootDirs.FullName);
-                                    Directory.Delete(Locked.FullName, true);
+                                    Directory.Delete(Locked.FullName);
 
                                 }
 
