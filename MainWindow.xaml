@@ -669,7 +669,7 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
             <ComboBoxItem x:Name="Korean">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/Resources/Language_Icons/kr.png" />
-                    <TextBlock Foreground="White"> Chinese</TextBlock>
+                    <TextBlock Foreground="White"> Korean</TextBlock>
                 </StackPanel>
             </ComboBoxItem>
 
