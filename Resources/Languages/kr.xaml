@@ -48,7 +48,7 @@
     <system:String x:Key="UI_TEXT_SKINS_GLOW">Glow</system:String>
     <system:String x:Key="UI_BUTTON_SKINS_INSTALL">스킨 설치</system:String>
     <system:String x:Key="UI_BUTTON_SKINS_BROWSE">찾기</system:String>
-    <system:String x:Key="UI_TEXT_SERVER_CONF_CHEAT_SHEET">Open R2 Northstar Wiki Cheat Sheet</system:String>
+    <system:String x:Key="UI_TEXT_SERVER_CONF_CHEAT_SHEET">R2 노스스타 위키 표 열기</system:String>
     <system:String x:Key="UI_TEXT_SERVER_CONF_NO_OVERWRITE_DEDI_ARGS">DO NOT Overwrite &quot;[ns startup args dedi.txt] and [autoexec_ns_server.cfg] &quot;</system:String>
     <system:String x:Key="UI_TEXT_SERVER_CONF_NO_OVERWRITE_CLIENT_ARGS">DO NOT Overwrite &quot;ns startup args.txt&quot;</system:String>
     <system:String x:Key="UI_TEXT_SERVER_CONF_STARTUP_ARGS_DEDI">Startup Arguments Northstar Dedicated Client</system:String>
