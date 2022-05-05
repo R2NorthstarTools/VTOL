@@ -26,7 +26,7 @@
     <system:String x:Key="TIP_VERIFY_NS_INSTALL">노스스타 설치 점검</system:String>
     <system:String x:Key="TIP_MANUAL_SELECT_GAME_DIR">설치 폴더 수동 설정</system:String>
     <system:String x:Key="TIP_YOUR_NS_INST_DIR">노스스타 설치 폴더</system:String>
-    <system:String x:Key="UI_TEXT_MAIN_NS_EXEC_DIR">노스스타 Exe 폴더</system:String>
+    <system:String x:Key="UI_TEXT_MAIN_NS_EXEC_DIR">노스스타 EXE 폴더</system:String>
     <system:String x:Key="UI_TEXT_MAIN_TF2_EXEC_DIR">타이탄폴2 설치 폴더</system:String>
     <system:String x:Key="UI_BUTTON_MODS_BROWSE">찾기</system:String>
     <system:String x:Key="UI_BUTTON_MODS_APPLY">적용</system:String>
