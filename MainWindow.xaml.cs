@@ -661,9 +661,7 @@ namespace VTOL
 
                 ResourceDictionary dict = new ResourceDictionary();
 
-                dict.Source = new Uri(@"Resources\Languages\"+ LanguageCode + ".xaml", UriKind.Relative);
-
-                this.Resources.MergedDictionaries.Add(dict);
+               
                 //  this.Resources.MergedDictionaries[0] = dict;
 
                 switch (LanguageCode)
@@ -671,23 +669,33 @@ namespace VTOL
 
                     case "en":
                         Language_Selection.SelectedIndex = 0;
+                        dict.Source = new Uri(@"Resources\Languages\"+ LanguageCode + ".xaml", UriKind.Relative);
 
+                        this.Resources.MergedDictionaries.Add(dict);
                         break;
                     case "fr":
                         Language_Selection.SelectedIndex = 1;
+                        dict.Source = new Uri(@"Resources\Languages\"+ LanguageCode + ".xaml", UriKind.Relative);
 
+                        this.Resources.MergedDictionaries.Add(dict);
                         break;
                     case "de":
                         Language_Selection.SelectedIndex = 2;
+                        dict.Source = new Uri(@"Resources\Languages\"+ LanguageCode + ".xaml", UriKind.Relative);
 
+                        this.Resources.MergedDictionaries.Add(dict);
                         break;
                     case "it":
                         Language_Selection.SelectedIndex = 3;
+                        dict.Source = new Uri(@"Resources\Languages\"+ LanguageCode + ".xaml", UriKind.Relative);
 
+                        this.Resources.MergedDictionaries.Add(dict);
                         break;
                     case "cn":
                         Language_Selection.SelectedIndex = 4;
+                        dict.Source = new Uri(@"Resources\Languages\"+ LanguageCode + ".xaml", UriKind.Relative);
 
+                        this.Resources.MergedDictionaries.Add(dict);
                         break;
                     case "kr":
                         Language_Selection.SelectedIndex = 5;
@@ -696,6 +704,9 @@ namespace VTOL
                     default:
                         LanguageCode="en";
                         Language_Selection.SelectedIndex = 0;
+                        dict.Source = new Uri(@"Resources\Languages\"+ LanguageCode + ".xaml", UriKind.Relative);
+
+                        this.Resources.MergedDictionaries.Add(dict);
                         break;
 
                 }
