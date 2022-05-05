@@ -56,6 +56,7 @@
     <None Remove="Resources\Language_Icons\gb.png" />
     <None Remove="Resources\Language_Icons\it.png" />
     <None Remove="Resources\Language_Icons\jp.png" />
+    <None Remove="Resources\Language_Icons\kr.png" />
     <None Remove="Resources\Language_Icons\pt.png" />
     <None Remove="Resources\Language_Icons\ru.png" />
     <None Remove="Resources\Language_Icons\us.png" />
@@ -135,6 +136,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Language_Icons\jp.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Language_Icons\kr.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Language_Icons\pt.png">
