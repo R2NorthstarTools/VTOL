@@ -689,6 +689,10 @@ namespace VTOL
                         Language_Selection.SelectedIndex = 4;
 
                         break;
+                    case "kr":
+                        Language_Selection.SelectedIndex = 5;
+
+                        break;
                     default:
                         LanguageCode="en";
                         Language_Selection.SelectedIndex = 0;
@@ -6664,6 +6668,10 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             {
                 ChangeLanguageTo("cn");
 
+            }
+            if (Korean.IsSelected == true)
+            {
+                ChangeLanguageTo("kr");
             }
 
         }
