@@ -21,6 +21,8 @@
     <system:String x:Key="UI_BUTTON_MAIN_BROWSE">Browse</system:String>
     <system:String x:Key="UI_BUTTON_MAIN_LAUNCH_TF2">Launch Vanilla Titanfall 2</system:String>
     <system:String x:Key="UI_BUTTON_MAIN_LAUNCH_NS">Launch +NorthStar</system:String>
+    <system:String x:Key="UI_TEXT_MAIN_NORTHSTAR_STATUS">+Northstar Status</system:String>
+    <system:String x:Key="UI_TEXT_MAIN_ORIGIN_STATUS">Origin Client Status</system:String>
     <system:String x:Key="TIP_VERIFY_NS_INSTALL">Verifies The +Northstar Install</system:String>
     <system:String x:Key="TIP_MANUAL_SELECT_GAME_DIR">Manually Set the Install Location</system:String>
     <system:String x:Key="TIP_YOUR_NS_INST_DIR">Your NorthStar Install Location</system:String>
@@ -57,6 +59,8 @@
     <system:String x:Key="UI_TEXT_SERVER_CONF_NS_CONVAR_PATH">+NS Convar_ Path</system:String>
     <system:String x:Key="UI_TEXT_SERVER_CONF_STARTUP_ARGUMENTS">Startup Arguments</system:String>
     <system:String x:Key="UI_TEXT_SERVER_CONF_CONVAR_ARGUMENTS">Convar Arguments</system:String>
+    <system:String x:Key="UI_TEXT_SERVER_CONF_IMPORT_SERVER_CONFIG">Import Server Config</system:String>
+    <system:String x:Key="UI_TEXT_SERVER_CONF_EXPORT_SERVER_CONFIG">Export Server Config</system:String>
     <system:String x:Key="UI_BUTTON_SERVER_CONF_LAUNCH_DEDICATED">Launch Dedicated Northstar Client</system:String>
     <system:String x:Key="UI_BUTTON_SERVER_CONF_LOAD_FILES">Load Files</system:String>
     <system:String x:Key="UI_BUTTON_SERVER_CONF_LAUNCH_ADVANCED_CLIENT">Launch Northstar Advanced</system:String>

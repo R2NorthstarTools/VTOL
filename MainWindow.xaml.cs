@@ -689,6 +689,10 @@ namespace VTOL
                         Language_Selection.SelectedIndex = 4;
 
                         break;
+                    case "kr":
+                        Language_Selection.SelectedIndex = 5;
+
+                        break;
                     default:
                         LanguageCode="en";
                         Language_Selection.SelectedIndex = 0;
@@ -6665,6 +6669,10 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 ChangeLanguageTo("cn");
 
             }
+            if (Korean.IsSelected == true)
+            {
+                ChangeLanguageTo("kr");
+            }
 
         }
 
@@ -7365,12 +7373,14 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Zip files (*.zip)|*.zip|All files (*.*)|*.*";
             openFileDialog.RestoreDirectory = true;
+
             if (openFileDialog.ShowDialog() == true)
             {
                 zipPath = openFileDialog.FileName;
-
-
+            } else {
+                return;
             }
+
             if (Directory.Exists(Current_Install_Folder + @"\VTOL_Dedicated_Workspace"))
             {
                 string extractPath = Path.GetFullPath(Current_Install_Folder + @"\VTOL_Dedicated_Workspace");

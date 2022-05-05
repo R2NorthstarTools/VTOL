@@ -1,21 +1,36 @@
 # VTOL
+[![Download Banner](https://user-images.githubusercontent.com/23240514/166419664-53e775d8-fe0d-4508-be5c-1361de70725e.png)](https://github.com/BigSpice/VTOL/releases/latest/download/VTOL_Installer.msi)
 
-<a href="https://github.com/BigSpice/VTOL/releases/latest/download/VTOL_Installer1.2.1.msi">
+
+<!---
+<a href="https://github.com/BigSpice/VTOL/releases/latest/download/VTOL_Installer.msi">
 <span>Click me to download!<span>
 <p align="center">
     <img src="https://user-images.githubusercontent.com/45333346/155147598-71510387-7b83-4dea-a1b8-b322888d8a3e.png" />
 </p>
 <a>
-
+--->
 Users on the latest release:
 
 ![GitHub release (latest by date)](https://img.shields.io/github/downloads/BigSpice/VTOL/latest/total?style=flat-square)
 
+Total Users Since First Release:
+    
+![GitHub release (Total)](https://img.shields.io/github/downloads/BigSpice/VTOL/total?style=flat-square)
+ 
+ <h2 align="center" ><a href="https://northstar.tf">This is a Manager for the [Titanfall 2 Northstar Client] </a></h2>
 
-## This is a launcher for the [Titanfall 2 Northstar Client](https://northstar.tf)
+
+<p align="center">
+ <a href="https://northstar.tf">
+  <img src="https://user-images.githubusercontent.com/23240514/166421617-9bd58fee-e1ff-4924-b4aa-9ecad7e31516.png" alt="Northstar Logo Here">
+ </a>
+</p>
 
 
-![VTOL_Showcase_Trim](https://user-images.githubusercontent.com/23240514/157264628-43601f3e-1066-42ce-8564-e2554bd5799f.gif)<br /><br /><br />
+<!---![image](https://user-images.githubusercontent.com/23240514/166421159-59079ea5-2a6e-4a6e-83cf-6fe8534753fe.png)--->
+
+<!---![VTOL_Showcase_Trim](https://user-images.githubusercontent.com/23240514/157264628-43601f3e-1066-42ce-8564-e2554bd5799f.gif)<br /><br /><br />--->
 
 ## Features:
 
@@ -35,8 +50,6 @@ Users on the latest release:
 
 * Create custom servers using this application to fine tune setups.
 
-### Work In Progress
-
 * Manage dedicated [Northstar](https://northstar.tf) servers.
 
 ### Contribute
@@ -46,11 +59,11 @@ Users on the latest release:
 * Install this application by downloading and running the latest [release from here](https://github.com/BigSpice/VTOL/releases)
    * ``Download the .msi package``
 
-![image](https://user-images.githubusercontent.com/23240514/150025911-aacaf334-cc33-4239-94d7-512cfb84fe49.png)
+![image](https://user-images.githubusercontent.com/23240514/166421076-ef637226-a61b-4904-9fae-88f1298d4051.png)
 
 * You can preferably enable the automatic-updater module in the ``Update`` section
 
-![image](https://user-images.githubusercontent.com/23240514/152447226-88662295-b7a9-4fd5-a958-dfc5ce59bd9c.png)
+![image](https://user-images.githubusercontent.com/23240514/166421008-d7fd3498-0bf0-449a-a7a5-b88c3d5be8ab.png)
 
 ### Configuration
 
@@ -84,22 +97,18 @@ _If an outdated version is detected, this will update it, if the installed versi
 ### Thunderstore Mod Browser
 
 _[Thunderstore](https://northstar.thunderstore.io) Support released as of version 1.1.7_
-![image](https://user-images.githubusercontent.com/23240514/153077819-5cd04c1c-f280-453e-9d07-ecc08e8934e1.png)
-
-Click ``Refresh`` to refresh the list of mods featured on Thunderstore.
-
-![image](https://user-images.githubusercontent.com/23240514/152448128-cdc1fa9e-df7b-4022-8247-48b355e53d65.png)
+![image](https://user-images.githubusercontent.com/23240514/166420773-b1e79cb3-7e6a-47f7-94d5-99258cd761fa.png)
 
 If you wish to, you can also navigate to the mod's thunderstore site to download the mod manually using the ``Go To Webpage`` button.
 
-![image](https://user-images.githubusercontent.com/23240514/152448103-037443e3-8ffc-47e0-9ea2-1926a1e06457.png)
+![image](https://user-images.githubusercontent.com/23240514/166420788-ad403cd9-d435-49b9-8d41-168d028f06f8.png)
 
 
 
 ## Installing Mods
 
 * You can see a list of all installed and disabled mods in the ``Mods`` section:
-![image](https://user-images.githubusercontent.com/23240514/152446534-9109f141-c98c-4046-b023-7451b4796d3e.png)
+![image](https://user-images.githubusercontent.com/23240514/166420846-75c3abbd-4e24-4f2d-bfde-2a23ef11b74d.png)
 
 * If you have a .zip file of the mod you want to install, you simply need to browse to the .zip file and   select it. It'll be installed in the same way.
 
@@ -108,7 +117,6 @@ If you wish to, you can also navigate to the mod's thunderstore site to download
 ![image](https://user-images.githubusercontent.com/23240514/152447411-2f7b1f99-a558-4885-bd11-f45952d6a04b.png)
 ![image](https://user-images.githubusercontent.com/23240514/152447434-f2996352-9237-46f0-aa07-2c2e3181ea21.png)
 ![image](https://user-images.githubusercontent.com/23240514/152447448-24d51ad1-da48-44d2-b1d6-c864767cd230.png)
-* **ALWAYS CLICK ``APPLY`` AFTER ENABLING OR DISABLING MODS!**
 
 ## Installing Skins 
 
@@ -147,15 +155,6 @@ Skin Textures will be previewed in the following way
 * If you wish to update or repair your installation, simply click the "Update/Repair" button.
 
 ![image](https://user-images.githubusercontent.com/23240514/152447727-332cc754-fb71-4552-ab3f-f206390cede1.png)
-
-
-## Advanced
-
-Currently, there are 4 advanced options. \*All are used for server management and advanced launching **only.**
-
-![image](https://user-images.githubusercontent.com/23240514/152447755-5b1fdb1d-d9e5-4418-a5b1-22eaf86f172d.png)
-
-All settings persist between sessions.
 
 
 # Troubleshooting
