@@ -592,7 +592,7 @@ namespace VTOL
                 Origin_Client_Status.Fill = Brushes.Red;
             }
         }
-        void call_TS_MODS()
+      async void call_TS_MODS()
         {
 
             try
@@ -699,7 +699,9 @@ namespace VTOL
                         break;
                     case "kr":
                         Language_Selection.SelectedIndex = 5;
+                        dict.Source = new Uri(@"Resources\Languages\"+ LanguageCode + ".xaml", UriKind.Relative);
 
+                        this.Resources.MergedDictionaries.Add(dict);
                         break;
                     default:
                         LanguageCode="en";
@@ -710,7 +712,6 @@ namespace VTOL
                         break;
 
                 }
-                saveAsyncFile(LanguageCode, @"C:\ProgramData\VTOL_DATA\VARS\Language.txt", true, false);
                 if (NS_Installed == true)
                 {
 
@@ -725,6 +726,9 @@ namespace VTOL
 
                 }
                 Badge.Text = GetTextResource("BADGE_NEW_UPDATE_AVAILABLE");
+
+                saveAsyncFile(LanguageCode, @"C:\ProgramData\VTOL_DATA\VARS\Language.txt", true, false);
+
             }
             catch (Exception ex)
             {
@@ -1332,6 +1336,8 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             Dedicated_Server_Panel.Visibility = Visibility.Hidden;
             Log_Panel.Visibility = Visibility.Hidden;
             Updates_Panel.Visibility = Visibility.Hidden;
+            Theme_Panel.Visibility = Visibility.Hidden;
+
 
             Skins.IsSelected = false;
             Main.IsSelected = true;
@@ -1357,6 +1363,8 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             Dedicated_Server_Panel.Visibility = Visibility.Hidden;
             Log_Panel.Visibility = Visibility.Hidden;
             Updates_Panel.Visibility = Visibility.Hidden;
+            Theme_Panel.Visibility = Visibility.Hidden;
+
 
             Skins.IsSelected = false;
             Main.IsSelected = false;
@@ -1394,6 +1402,8 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             Dedicated_Server_Panel.Visibility = Visibility.Hidden;
             Log_Panel.Visibility = Visibility.Hidden;
             Updates_Panel.Visibility = Visibility.Hidden;
+            Theme_Panel.Visibility = Visibility.Hidden;
+
 
             Skins.IsSelected = true;
             Main.IsSelected = false;
@@ -1416,6 +1426,8 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             Dedicated_Server_Panel.Visibility = Visibility.Hidden;
             Log_Panel.Visibility = Visibility.Hidden;
             Updates_Panel.Visibility = Visibility.Hidden;
+            Theme_Panel.Visibility = Visibility.Hidden;
+
 
             Skins.IsSelected = false;
             Main.IsSelected = false;
@@ -1427,7 +1439,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             Update_Tab.IsSelected = false;
 
         }
-        async Task Select_Mod_Browse()
+        async void Select_Mod_Browse()
         {
 
             Mod_Panel.Visibility = Visibility.Hidden;
@@ -1438,6 +1450,8 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             Dedicated_Server_Panel.Visibility = Visibility.Hidden;
             Log_Panel.Visibility = Visibility.Hidden;
             Updates_Panel.Visibility = Visibility.Hidden;
+            Theme_Panel.Visibility = Visibility.Hidden;
+
             Skins.IsSelected = false;
             Main.IsSelected = false;
             About.IsSelected = false;
@@ -1458,6 +1472,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             Dedicated_Server_Panel.Visibility = Visibility.Visible;
             Log_Panel.Visibility = Visibility.Hidden;
             Updates_Panel.Visibility = Visibility.Hidden;
+            Theme_Panel.Visibility = Visibility.Hidden;
 
             Skins.IsSelected = false;
             Main.IsSelected = false;
@@ -1480,6 +1495,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             Dedicated_Server_Panel.Visibility = Visibility.Hidden;
             Log_Panel.Visibility = Visibility.Visible;
             Updates_Panel.Visibility = Visibility.Hidden;
+            Theme_Panel.Visibility = Visibility.Hidden;
 
             Skins.IsSelected = false;
             Main.IsSelected = false;
@@ -1503,6 +1519,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             Dedicated_Server_Panel.Visibility = Visibility.Hidden;
             Log_Panel.Visibility = Visibility.Hidden;
             Updates_Panel.Visibility = Visibility.Visible;
+            Theme_Panel.Visibility = Visibility.Hidden;
 
             Skins.IsSelected = false;
             Main.IsSelected = false;
@@ -1512,6 +1529,30 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             Mod_Browse.IsSelected = false;
             Log.IsSelected = false;
             Update_Tab.IsSelected = true;
+        }
+        void Select_Themes()
+        {
+
+            Repo_URl.Text = Current_REPO_URL;
+            Mod_Panel.Visibility = Visibility.Hidden;
+            skins_Panel.Visibility = Visibility.Hidden;
+            Main_Panel.Visibility = Visibility.Hidden;
+            About_Panel.Visibility = Visibility.Hidden;
+            Mod_Browse_Panel.Visibility = Visibility.Hidden;
+            Dedicated_Server_Panel.Visibility = Visibility.Hidden;
+            Log_Panel.Visibility = Visibility.Hidden;
+            Updates_Panel.Visibility = Visibility.Hidden;
+            Theme_Panel.Visibility = Visibility.Visible;
+
+            Skins.IsSelected = false;
+            Main.IsSelected = false;
+            About.IsSelected = false;
+            Mods.IsSelected = false;
+            Server_Configuration.IsSelected = false;
+            Mod_Browse.IsSelected = false;
+            Log.IsSelected = false;
+            Update_Tab.IsSelected = false;
+            Themes.IsSelected = true;
         }
         private void SideMenu_SelectionChanged(object sender, HandyControl.Data.FunctionEventArgs<object> e)
         {
@@ -1560,7 +1601,11 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
             }
 
+            if (Themes.IsSelected == true)
+            {
+                Select_Themes();
 
+            }
         }
 
 
@@ -4323,7 +4368,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             }
             return "";
         }
-        public void getProcessorInfo()
+        public async void getProcessorInfo()
         {
             Write_To_Log("\nDisplaying Processor Name And System Info....");
             RegistryKey processor_name = Registry.LocalMachine.OpenSubKey(@"Hardware\Description\System\CentralProcessor\0", RegistryKeyPermissionCheck.ReadSubTree);   //This registry entry contains entry for processor info.

@@ -558,6 +558,10 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
         </hc:SimplePanel>
 
 
+        <hc:SimplePanel x:Name="Theme_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
+           
+            <Label Content="Themes" Width="190" Margin="0,8,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Height="44" Padding="10,3,10,3"/>
+        </hc:SimplePanel>
 
 
 
@@ -603,7 +607,7 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
                     <Image Source="/Resources/Server_ICON.png" Width="24" Height="24"/>
                 </hc:SideMenuItem.Icon>
             </hc:SideMenuItem>
-            <hc:SideMenuItem x:Name="Log" Header="{DynamicResource UI_SIDEMENU_TITLE_LOG}" Background="#FF101010">
+            <hc:SideMenuItem x:Name="Log" Header="{DynamicResource UI_SIDEMENU_TITLE_LOG}" Background="#FF101010" Margin="4,0,0,0">
 
                 <hc:SideMenuItem.Icon>
                     <Image Source="/Resources/LOG_ICON.png" Width="24" Height="24"/>
@@ -617,6 +621,11 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
             <hc:SideMenuItem x:Name="About" Header="{DynamicResource UI_SIDEMENU_TITLE_ABOUT}" Margin="4,0,0,0" Background="#FF101010">
                 <hc:SideMenuItem.Icon>
                     <Image Source="/Resources/info.png" Width="24" Height="24"/>
+                </hc:SideMenuItem.Icon>
+            </hc:SideMenuItem>
+            <hc:SideMenuItem x:Name="Themes" Header="Themes" Margin="4,0,0,0" Background="#FF101010">
+                <hc:SideMenuItem.Icon>
+                    <Image Source="/Resources/themes.png" Width="24" Height="24"/>
                 </hc:SideMenuItem.Icon>
             </hc:SideMenuItem>
         </hc:SideMenu>

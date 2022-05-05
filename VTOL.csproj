@@ -82,6 +82,7 @@
     <None Remove="Resources\Test_Args_1.json" />
     <None Remove="Resources\TF2_Vanilla_promo.gif" />
     <None Remove="Resources\TF_ICON.png" />
+    <None Remove="Resources\themes.png" />
     <None Remove="Resources\Titanfall2_101.ico" />
     <None Remove="Resources\Update_ICON.png" />
     <None Remove="Resources\VTOL_Hover.ico" />
@@ -305,6 +306,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\TF_ICON.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\themes.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Titanfall2_101.ico">
