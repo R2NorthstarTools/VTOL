@@ -7,8 +7,8 @@
     <UseWPF>true</UseWPF>
     <ApplicationIcon>Resources\Northstar-512.ico</ApplicationIcon>
     <PackageIcon>Northstar-512.png</PackageIcon>
-    <AssemblyVersion>1.2.2</AssemblyVersion>
-    <FileVersion>1.2.2</FileVersion>
+    <AssemblyVersion>1.2.3</AssemblyVersion>
+    <FileVersion>1.2.3</FileVersion>
     <PackageTags>Mod_Manager;Installer;VTOL</PackageTags>
     <DebugType>embedded</DebugType>
     <Platforms>AnyCPU;x64;x86</Platforms>
@@ -202,7 +202,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="CefSharp.Wpf.NETCore" Version="100.0.230" />
     <PackageReference Include="DotNetZip" Version="1.16.0" />
     <PackageReference Include="HandyControls" Version="3.3.11" />
     <PackageReference Include="Json.Net" Version="1.0.33" />

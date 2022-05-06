@@ -40,8 +40,7 @@ using Microsoft.Win32;
 using System.Timers;
 using HandyControl.Data;
 using System.Security.Principal;
-using CefSharp;
-using CefSharp.Wpf;
+
 using Newtonsoft.Json;
 
 //****TODO*****//
@@ -2146,7 +2145,11 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             //Copy all the files & Replaces any files with the same name
             foreach (string newPath in Directory.GetFiles(sourcePath, "*.*", SearchOption.AllDirectories))
             {
-                File.Copy(newPath, newPath.Replace(sourcePath, targetPath), true);
+                if(!File.Exists(targetPath))
+                    {
+                                       File.Copy(newPath, newPath.Replace(sourcePath, targetPath), true);
+                    
+                    }
             }
         }
 
@@ -2182,7 +2185,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
               //    Loading_Panel.Visibility = Visibility.Visible;
 
                 string Dir_Final = "";
-                if (File.Exists(Target_Zip))
+                if (File.Exists(Target_Zip) )
                 {
                     if (!Directory.Exists(Destination))
                     {
@@ -2206,7 +2209,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                         //   }
                         //  Loading_Panel.Visibility = Visibility.Hidden;
 
-                        ZipFile.ExtractToDirectory(Target_Zip, Destination);
+                        ZipFile.ExtractToDirectory(Target_Zip, Destination,true);
                         //dialog.Close();
                         Send_Success_Notif("\nUnpacking Complete!\n");
                         if (Clean_Thunderstore == true)
@@ -2214,7 +2217,6 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
                             try
                             {
-
 
 
                                 // Check if file exists with its full path    
@@ -2244,7 +2246,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
 
 
-                                string searchQuery3 = "*" + "mods" + "*";
+                                string searchQuery3 = "*" + "mod" + "*";
                                 string folderName = Destination;
 
                                 var directory = new DirectoryInfo(folderName);
@@ -2263,7 +2265,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                     if (Directory.Exists(firstFolder))
                                     {
                                         Dir_Final = Destinfo.Parent.FullName + @"\" + diArr[0].Name;
-                                        if ((Destinfo.Parent.FullName + @"\" + diArr[0].Name).Contains("keyvalues") || (Destinfo.Parent.FullName + @"\" + diArr[0].Name).Contains("vpk") || (Destinfo.Parent.FullName + @"\" + diArr[0].Name).Contains("materials") || (Destinfo.Parent.FullName + @"\" + diArr[0].Name).Contains("resource") || (Destinfo.Parent.FullName + @"\" + diArr[0].Name).Contains("scripts")|| (Destinfo.Parent.FullName + @"\" + diArr[0].Name).Contains("models"))
+                                        if ((Destinfo.Parent.FullName + @"\" + diArr[0].Name).Contains("keyvalues") || (Destinfo.Parent.FullName + @"\" + diArr[0].Name).Contains("vpk") || (Destinfo.Parent.FullName + @"\" + diArr[0].Name).Contains("materials"))
                                         {
                                             Send_Error_Notif(GetTextResource("NOTIF_ERROR_MOD_INCOMPATIBLE"));
                                             Send_Warning_Notif(GetTextResource("NOTIF_WARN_SUGGEST_DISABLE_MOD"));
@@ -2288,7 +2290,9 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                     //   DirectoryCopy(d.Parent.FullName,Destination, true);
 
                                 }
+                               
                                 Directory.Delete(Destination, true);
+
                                 if (Dir_Final == "")
                                 {
 
@@ -2312,11 +2316,45 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                             catch (IOException ioExp)
                             {
                                 Write_To_Log(ioExp.Message);
+                                Write_To_Log(ioExp.StackTrace);
+
                                 Send_Warning_Notif(GetTextResource("NOTIF_WARN_ISSUE_DETECTED"));
 
                             }
 
 
+                        }
+                        else
+                        {
+
+                            string fileExts = System.IO.Path.GetExtension(Target_Zip);
+
+                            if (fileExts == ".zip")
+                            {
+                                if (clean_normal == true)
+                                {
+                                    //TODO
+                                    //    string folderName = Destination;
+
+                                    //    var directory = new DirectoryInfo(folderName);
+                                    //   var Destinfo = new DirectoryInfo(Destination);
+                                    MessageBox.Show("nORMAL0");
+                                    ZipFile.ExtractToDirectory(Target_Zip, Destination, true);
+
+                                }
+                                else
+                                {
+                                    ZipFile.ExtractToDirectory(Target_Zip, Destination, true);
+                                    // Send_Success_Notif("\nUnpacking Complete!\n");
+                                }
+                            }
+                            else
+                            {
+                                //Main_Window.SelectedTab = Main;
+                                Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_OBJ_NOT_ZIP"));
+
+
+                            }
                         }
                     }
                     else
@@ -2331,37 +2369,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
 
                 }
-                else if (File.Exists(Target_Zip) && !Directory.Exists(Destination))
-                {
-                    Directory.CreateDirectory(Destination);
-                    string fileExt = System.IO.Path.GetExtension(Target_Zip);
-
-                    if (fileExt == ".zip")
-                    {
-                        if (clean_normal == true)
-                        {
-                            //TODO
-                            //    string folderName = Destination;
-
-                            //    var directory = new DirectoryInfo(folderName);
-                            //   var Destinfo = new DirectoryInfo(Destination);
-                            ZipFile.ExtractToDirectory(Target_Zip, Destination, true);
-
-                        }
-                        else
-                        {
-                            ZipFile.ExtractToDirectory(Target_Zip, Destination, true);
-                            // Send_Success_Notif("\nUnpacking Complete!\n");
-                        }
-                    }
-                    else
-                    {
-                        //Main_Window.SelectedTab = Main;
-                        Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_OBJ_NOT_ZIP"));
-
-
-                    }
-                }
+              
                 else
                 {
                     if (!File.Exists(Target_Zip))
@@ -2380,7 +2388,9 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             catch (Exception ex)
             {
 
-                Write_To_Log(ex.ToString());
+                Write_To_Log(ex.Message);
+                Write_To_Log(ex.StackTrace);
+
                 Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
 
             }
@@ -7613,10 +7623,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             }
 
         }
-        private void Browser_AddressChanged(object sender, AddressChangedEventArgs e)
-        {
-
-        }
+        
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
 
@@ -7624,15 +7631,6 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
 
 
-
-        private void OnBrowserJavascriptMessageReceived(object sender, JavascriptMessageReceivedEventArgs e)
-        {
-            var windowSelection = (string)e.Message;
-            MessageBox.Show(windowSelection);
-            //DO SOMETHING WITH THIS MESSAGE
-            //This event is called on a CEF Thread, to access your UI thread
-            //use Control.BeginInvoke/Dispatcher.BeginInvoke
-        }
 
         private void DataGridSettings_SourceUpdated(object sender, DataTransferEventArgs e)
         {
