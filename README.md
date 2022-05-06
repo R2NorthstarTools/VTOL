@@ -14,7 +14,7 @@ Users on the latest release:
 
 ![GitHub release (latest by date)](https://img.shields.io/github/downloads/BigSpice/VTOL/latest/total?style=flat-square)
 
-Total Users Since First Release:
+Total Downloads Since First Release:
     
 ![GitHub release (Total)](https://img.shields.io/github/downloads/BigSpice/VTOL/total?style=flat-square)
  
