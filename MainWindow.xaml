@@ -64,7 +64,7 @@
         </DataTemplate>
         <local:Server_Template_Selector x:Key="Server_Template_Selector" />
     </Window.Resources>
-   
+
 
     <Grid Visibility="Visible" >
 
@@ -94,7 +94,7 @@
             <ColumnDefinition Width="339*"/>
             <ColumnDefinition Width="573*"/>
         </Grid.ColumnDefinitions>
-      
+
 
         <hc:SimplePanel x:Name="Main_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Visible" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2" >
 
@@ -250,7 +250,7 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
 
 
 
-        <hc:SimplePanel x:Name="Mod_Browse_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
+        <hc:SimplePanel x:Name="Mod_Browse_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Visible" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
             <hc:SimplePanel Margin="10,10,10,10" Background="#FF101010">
                 <TabControl x:Name="Sections_Tabs" Margin="36,55,36,48"  BorderBrush="{x:Null}" Foreground="{x:Null}" Background="{x:Null}" Padding="0,0,0,0" Width="900" SelectionChanged="Sections_Tabs_SelectionChanged">
                     <TabItem Header="Client Mods" Width="150">
@@ -346,7 +346,7 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
                                     </Grid.RowDefinitions>
                                     <Image Source="{Binding Icon}" Margin="0,0,792,22" Height="84" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="88" IsHitTestVisible="False"/>
                                     <TextBlock TextWrapping="Wrap" Text="{Binding description}" VerticalAlignment="Top" FontSize="11" Margin="99,64,0,0" Height="28" HorizontalAlignment="Left" Width="510" FontWeight="Bold" FontStyle="Italic" IsHitTestVisible="False"/>
-                                    <TextBlock  Text="{Binding Name}"  FontSize="16" Margin="98,0,0,86" Height="19" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="604" IsHitTestVisible="False" />
+                                    <TextBlock  Text="{Binding Name}"  FontSize="16" Margin="98,0,0,83" Height="23" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="604" IsHitTestVisible="False" />
                                     <TextBlock TextWrapping="Wrap" Text="{Binding owner}" Margin="186,0,0,67" Height="15" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="284" FontSize="11" IsHitTestVisible="False"/>
                                     <TextBlock TextWrapping="Wrap" Text="{Binding date_created}" FontSize="10" Margin="117,3,0,0" HorizontalAlignment="Left" Width="561" Height="14" VerticalAlignment="Top" Grid.Row="1" IsHitTestVisible="False"/>
                                     <Label Content="{DynamicResource UI_TEXT_THUNDERSTORE_AUTHOR}" Height="14" Width="82" HorizontalAlignment="Left" Margin="99,30,0,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="9" HorizontalContentAlignment="Left"/>
@@ -365,17 +365,17 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
 
                                 </Grid>
                             </Button>
+
+
+
+
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
 
 
 
-
-
-
-
-
+             
 
 
 
@@ -558,7 +558,7 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
 
 
         <hc:SimplePanel x:Name="Theme_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
-           
+
             <Label Content="Themes" Width="190" Margin="0,8,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Height="44" Padding="10,3,10,3"/>
         </hc:SimplePanel>
 
@@ -708,7 +708,7 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
         </hc:SimplePanel>
 
 
-       
+
         <!--<hc:StepBar x:Name="Step" Grid.ColumnSpan="4" Margin="-3,0,-4,-1" Grid.RowSpan="3" d:IsLocked="True">
             <hc:StepBarItem Content="Locate Titanfall 2" Margin="76,6,65,645"/>
             <hc:StepBarItem Content="Install NS" Margin="14,12,6,-12"/>

@@ -2218,7 +2218,6 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                             try
                             {
 
-
                                 // Check if file exists with its full path    
                                 if (File.Exists(Path.Combine(Destination, "icon.png")))
                                 {
@@ -2265,7 +2264,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                     if (Directory.Exists(firstFolder))
                                     {
                                         Dir_Final = Destinfo.Parent.FullName + @"\" + diArr[0].Name;
-                                        if ((Destinfo.Parent.FullName + @"\" + diArr[0].Name).Contains("keyvalues") || (Destinfo.Parent.FullName + @"\" + diArr[0].Name).Contains("vpk") || (Destinfo.Parent.FullName + @"\" + diArr[0].Name).Contains("materials"))
+                                        if ((Destinfo.Parent.FullName + @"\" + diArr[0].Name).Contains("keyvalues") || (Destinfo.Parent.FullName + @"\" + diArr[0].Name).Contains("vpk") || (Destinfo.Parent.FullName + @"\" + diArr[0].Name).Contains("materials") || (Destinfo.Parent.FullName + @"\" + diArr[0].Name).Contains("materials"))
                                         {
                                             Send_Error_Notif(GetTextResource("NOTIF_ERROR_MOD_INCOMPATIBLE"));
                                             Send_Warning_Notif(GetTextResource("NOTIF_WARN_SUGGEST_DISABLE_MOD"));
@@ -2333,12 +2332,15 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                             {
                                 if (clean_normal == true)
                                 {
+                                    if (!Directory.Exists(Destination))
+                                    {
+                                        Directory.CreateDirectory(Destination);
+                                    }
                                     //TODO
                                     //    string folderName = Destination;
 
                                     //    var directory = new DirectoryInfo(folderName);
                                     //   var Destinfo = new DirectoryInfo(Destination);
-                                    MessageBox.Show("nORMAL0");
                                     ZipFile.ExtractToDirectory(Target_Zip, Destination, true);
 
                                 }
@@ -2372,6 +2374,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
               
                 else
                 {
+                  
                     if (!File.Exists(Target_Zip))
                     {
                         Send_Error_Notif(GetTextResource("NOTIF_ERROR_ZIP_NOT_EXIST"));
@@ -3041,7 +3044,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
                 Loading_Panel.Visibility = Visibility.Hidden;
 
-
+                return;
             }
         }
         private void CheckIfModenabled(string path)
@@ -6563,38 +6566,51 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
         private void Load_Bt_(object sender, RoutedEventArgs e)
         {
-
-            if (File.Exists(Current_Install_Folder + @"\VTOL_Dedicated_Workspace\autoexec_ns_server.cfg"))
-            {
-                File.Delete(Current_Install_Folder + @"\VTOL_Dedicated_Workspace\autoexec_ns_server.cfg");
-            }
-            if (File.Exists(Current_Install_Folder + @"\VTOL_Dedicated_Workspace\autoexec_ns_server.cfg"))
-            {
-                File.Delete(Current_Install_Folder + @"\VTOL_Dedicated_Workspace\autoexec_ns_server.cfg");
-            }
-            if (Directory.Exists(Current_Install_Folder))
+            try
             {
 
-                Convar_File = GetFile(Current_Install_Folder, "autoexec_ns_server.cfg").First();
-                Ns_dedi_File = GetFile(Current_Install_Folder, "ns_startup_args_dedi.txt").First();
+
+                if (File.Exists(Current_Install_Folder + @"\VTOL_Dedicated_Workspace\autoexec_ns_server.cfg"))
+                {
+                    File.Delete(Current_Install_Folder + @"\VTOL_Dedicated_Workspace\autoexec_ns_server.cfg");
+                }
+                if (File.Exists(Current_Install_Folder + @"\VTOL_Dedicated_Workspace\autoexec_ns_server.cfg"))
+                {
+                    File.Delete(Current_Install_Folder + @"\VTOL_Dedicated_Workspace\autoexec_ns_server.cfg");
+                }
+                if (Directory.Exists(Current_Install_Folder))
+                {
+
+                    Convar_File = GetFile(Current_Install_Folder, "autoexec_ns_server.cfg").First();
+                    Ns_dedi_File = GetFile(Current_Install_Folder, "ns_startup_args_dedi.txt").First();
+                }
+                if (File.Exists(Ns_dedi_File) && File.Exists(Convar_File))
+                {
+                    Startup_Arguments_UI_List.ItemsSource = Load_Args();
+                    Convar_Arguments_UI_List.ItemsSource = Convar_Args();
+                    Started_Selection = false;
+
+                    Load_Bt.Content = "Reload Arguments";
+                    Check_Args();
+
+
+                }
+                else
+                {
+                    Send_Error_Notif(GetTextResource("NOTIF_ERROR_SUGGEST_REBROWSE"));
+                    return;
+                }
+
             }
-            if (File.Exists(Ns_dedi_File) && File.Exists(Convar_File))
+            catch (Exception ex)
             {
-                Startup_Arguments_UI_List.ItemsSource = Load_Args();
-                Convar_Arguments_UI_List.ItemsSource = Convar_Args();
-                Started_Selection = false;
 
-                Load_Bt.Content = "Reload Arguments";
-                Check_Args();
+                Write_To_Log(ex.Message);
+                Write_To_Log(ex.StackTrace);
 
+                Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
 
             }
-            else
-            {
-                Send_Error_Notif(GetTextResource("NOTIF_ERROR_SUGGEST_REBROWSE"));
-                return;
-            }
-
 
 
         }
