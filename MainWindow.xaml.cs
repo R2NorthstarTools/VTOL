@@ -2953,63 +2953,83 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 webClient = new WebClient();
                 webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(Completed);
                 string x = "";
-                if (File.Exists(Current_Install_Folder + @"\ns_startup_args_dedi.txt") && File.Exists(Current_Install_Folder + @"\ns_startup_args.txt") && File.Exists(GetFile(Current_Install_Folder, "autoexec_ns_server.cfg").First()))
+                if (Current_Install_Folder != null || Current_Install_Folder != "")
                 {
-                    x = GetFile(Current_Install_Folder, "autoexec_ns_server.cfg").First();
-
-                    if (do_not_overwrite_Ns_file_Dedi == true)
+                    if (File.Exists(Current_Install_Folder + @"\ns_startup_args_dedi.txt") && File.Exists(Current_Install_Folder + @"\ns_startup_args.txt") && File.Exists(GetFile(Current_Install_Folder, "autoexec_ns_server.cfg").First()))
                     {
-                        if (Directory.Exists(Current_Install_Folder + @"\TempCopyFolder"))
+                        x = GetFile(Current_Install_Folder, "autoexec_ns_server.cfg").First();
+                        /*
+                        if (do_not_overwrite_Ns_file_Dedi == true)
                         {
-                            Send_Info_Notif(GetTextResource("NOTIF_INFO_BACKING_UP_ARG_FILES"));
-                            System.IO.File.Copy(Current_Install_Folder + @"\ns_startup_args.txt", Current_Install_Folder + @"\TempCopyFolder\ns_startup_args.txt", true);
-                            System.IO.File.Copy(x, Current_Install_Folder + @"\TempCopyFolder\autoexec_ns_server.cfg", true);
+                            if (Directory.Exists(Current_Install_Folder + @"\TempCopyFolder"))
+                            {
+                                Send_Info_Notif(GetTextResource("NOTIF_INFO_BACKING_UP_ARG_FILES"));
+                                System.IO.File.Copy(Current_Install_Folder + @"\ns_startup_args.txt", Current_Install_Folder + @"\TempCopyFolder\ns_startup_args.txt", true);
+                                System.IO.File.Copy(x, Current_Install_Folder + @"\TempCopyFolder\autoexec_ns_server.cfg", true);
 
-                            System.IO.File.Copy(Current_Install_Folder + @"\ns_startup_args_dedi.txt", Current_Install_Folder + @"\TempCopyFolder\ns_startup_args_dedi.txt", true);
+                                System.IO.File.Copy(Current_Install_Folder + @"\ns_startup_args_dedi.txt", Current_Install_Folder + @"\TempCopyFolder\ns_startup_args_dedi.txt", true);
+                            }
+                            else
+                            {
+
+                                Send_Info_Notif(GetTextResource("NOTIF_INFO_CREATING_DIRECTORY_AND_BACKUP_ARGS"));
+                                System.IO.Directory.CreateDirectory(Current_Install_Folder + @"\TempCopyFolder");
+                                System.IO.File.Copy(x, Current_Install_Folder + @"\TempCopyFolder\autoexec_ns_server.cfg", true);
+
+                                System.IO.File.Copy(Current_Install_Folder + @"\ns_startup_args.txt", Current_Install_Folder + @"\TempCopyFolder\ns_startup_args.txt", true);
+                                System.IO.File.Copy(Current_Install_Folder + @"\ns_startup_args_dedi.txt", Current_Install_Folder + @"\TempCopyFolder\ns_startup_args_dedi.txt", true);
+
+                            }
+                        }
+                        */
+                        if (do_not_overwrite_Ns_file == true)
+                        {
+                            if (Directory.Exists(Current_Install_Folder + @"\TempCopyFolder"))
+                            {
+                                Send_Info_Notif(GetTextResource("NOTIF_INFO_BACKING_UP_ARG_FILES"));
+
+                                System.IO.File.Copy(Current_Install_Folder + @"\ns_startup_args.txt", Current_Install_Folder + @"\TempCopyFolder\ns_startup_args.txt", true);
+
+                                System.IO.File.Copy(Current_Install_Folder + @"\ns_startup_args_dedi.txt", Current_Install_Folder + @"\TempCopyFolder\ns_startup_args_dedi.txt", true);
+                            }
+                            else
+                            {
+
+                                Send_Info_Notif(GetTextResource("NOTIF_INFO_CREATING_DIRECTORY_AND_BACKUP_ARGS"));
+                                System.IO.Directory.CreateDirectory(Current_Install_Folder + @"\TempCopyFolder");
+
+                                System.IO.File.Copy(Current_Install_Folder + @"\ns_startup_args.txt", Current_Install_Folder + @"\TempCopyFolder\ns_startup_args.txt", true);
+                                System.IO.File.Copy(Current_Install_Folder + @"\ns_startup_args_dedi.txt", Current_Install_Folder + @"\TempCopyFolder\ns_startup_args_dedi.txt", true);
+
+                            }
+                            Directory.CreateDirectory(@"C:\ProgramData\VTOL_DATA\Releases\");
+                            webClient.DownloadFileAsync(new Uri(current_Northstar_version_Url), @"C:\ProgramData\VTOL_DATA\Releases\Northstar_Release.zip");
+                            webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadProgressCallback_Progress_Window);
+
+                            Send_Warning_Notif(GetTextResource("NOTIF_WARN_INSTALL_START"));
+
+
+
                         }
                         else
                         {
 
-                            Send_Info_Notif(GetTextResource("NOTIF_INFO_CREATING_DIRECTORY_AND_BACKUP_ARGS"));
-                            System.IO.Directory.CreateDirectory(Current_Install_Folder + @"\TempCopyFolder");
-                            System.IO.File.Copy(x, Current_Install_Folder + @"\TempCopyFolder\autoexec_ns_server.cfg", true);
+                            Directory.CreateDirectory(@"C:\ProgramData\VTOL_DATA\Releases\");
+                            webClient.DownloadFileAsync(new Uri(current_Northstar_version_Url), @"C:\ProgramData\VTOL_DATA\Releases\Northstar_Release.zip");
+                            webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadProgressCallback_Progress_Window);
 
-                            System.IO.File.Copy(Current_Install_Folder + @"\ns_startup_args.txt", Current_Install_Folder + @"\TempCopyFolder\ns_startup_args.txt", true);
-                            System.IO.File.Copy(Current_Install_Folder + @"\ns_startup_args_dedi.txt", Current_Install_Folder + @"\TempCopyFolder\ns_startup_args_dedi.txt", true);
+                            Send_Warning_Notif(GetTextResource("NOTIF_WARN_INSTALL_START"));
 
-                        }
-                    }
-                    if (do_not_overwrite_Ns_file == true)
-                    {
-                        if (Directory.Exists(Current_Install_Folder + @"\TempCopyFolder"))
-                        {
-                            Send_Info_Notif(GetTextResource("NOTIF_INFO_BACKING_UP_ARG_FILES"));
 
-                            System.IO.File.Copy(Current_Install_Folder + @"\ns_startup_args.txt", Current_Install_Folder + @"\TempCopyFolder\ns_startup_args.txt", true);
-
-                            System.IO.File.Copy(Current_Install_Folder + @"\ns_startup_args_dedi.txt", Current_Install_Folder + @"\TempCopyFolder\ns_startup_args_dedi.txt", true);
-                        }
-                        else
-                        {
-
-                            Send_Info_Notif(GetTextResource("NOTIF_INFO_CREATING_DIRECTORY_AND_BACKUP_ARGS"));
-                            System.IO.Directory.CreateDirectory(Current_Install_Folder + @"\TempCopyFolder");
-
-                            System.IO.File.Copy(Current_Install_Folder + @"\ns_startup_args.txt", Current_Install_Folder + @"\TempCopyFolder\ns_startup_args.txt", true);
-                            System.IO.File.Copy(Current_Install_Folder + @"\ns_startup_args_dedi.txt", Current_Install_Folder + @"\TempCopyFolder\ns_startup_args_dedi.txt", true);
 
                         }
-                        Directory.CreateDirectory(@"C:\ProgramData\VTOL_DATA\Releases\");
-                        webClient.DownloadFileAsync(new Uri(current_Northstar_version_Url), @"C:\ProgramData\VTOL_DATA\Releases\Northstar_Release.zip");
-                        webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadProgressCallback_Progress_Window);
-
-                        Send_Warning_Notif(GetTextResource("NOTIF_WARN_INSTALL_START"));
 
 
 
                     }
                     else
                     {
+                        Send_Error_Notif(GetTextResource("NOTIF_ERROR_CANNOT_FIND_NS_AND_DEDI_ARG"));
 
                         Directory.CreateDirectory(@"C:\ProgramData\VTOL_DATA\Releases\");
                         webClient.DownloadFileAsync(new Uri(current_Northstar_version_Url), @"C:\ProgramData\VTOL_DATA\Releases\Northstar_Release.zip");
@@ -3017,28 +3037,20 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
                         Send_Warning_Notif(GetTextResource("NOTIF_WARN_INSTALL_START"));
 
-
-
                     }
-
-
-
                 }
-                else
+              
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message == "Sequence contains no elements")
                 {
-                    Send_Error_Notif(GetTextResource("NOTIF_ERROR_CANNOT_FIND_NS_AND_DEDI_ARG"));
-
                     Directory.CreateDirectory(@"C:\ProgramData\VTOL_DATA\Releases\");
                     webClient.DownloadFileAsync(new Uri(current_Northstar_version_Url), @"C:\ProgramData\VTOL_DATA\Releases\Northstar_Release.zip");
                     webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadProgressCallback_Progress_Window);
 
                     Send_Warning_Notif(GetTextResource("NOTIF_WARN_INSTALL_START"));
-
                 }
-            }
-            catch (Exception ex)
-            {
-
                 Write_To_Log(ex.Message + "\n" + ex.StackTrace + "\n"+ ex.InnerException);
                 Install_NS.IsEnabled = true;
                 Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
@@ -4970,7 +4982,21 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
             try
             {
-                files.AddRange(Directory.GetFiles(directory, Search, SearchOption.AllDirectories));
+                if (Directory.Exists(directory))
+                {
+                    files.AddRange(Directory.GetFiles(directory, Search, SearchOption.AllDirectories));
+                    if(files.Count >= 1)
+                    {
+                        return files;
+
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+               
+
             }
             catch (Exception ex)
             {
@@ -4978,8 +5004,8 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 Write_To_Log(ex.StackTrace);
 
             }
+            return null;
 
-            return files;
         }
         void Write_convar_To_File(string Convar_Name, string Convar_Value, string Description, bool add_quotation = false, string File_Root = null)
         {
@@ -6574,30 +6600,38 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 {
                     File.Delete(Current_Install_Folder + @"\VTOL_Dedicated_Workspace\autoexec_ns_server.cfg");
                 }
-                if (File.Exists(Current_Install_Folder + @"\VTOL_Dedicated_Workspace\autoexec_ns_server.cfg"))
-                {
-                    File.Delete(Current_Install_Folder + @"\VTOL_Dedicated_Workspace\autoexec_ns_server.cfg");
-                }
+             
                 if (Directory.Exists(Current_Install_Folder))
                 {
 
                     Convar_File = GetFile(Current_Install_Folder, "autoexec_ns_server.cfg").First();
                     Ns_dedi_File = GetFile(Current_Install_Folder, "ns_startup_args_dedi.txt").First();
                 }
-                if (File.Exists(Ns_dedi_File) && File.Exists(Convar_File))
+                if (Convar_File != null || Ns_dedi_File != null)
                 {
-                    Startup_Arguments_UI_List.ItemsSource = Load_Args();
-                    Convar_Arguments_UI_List.ItemsSource = Convar_Args();
-                    Started_Selection = false;
+                    if (File.Exists(Ns_dedi_File) && File.Exists(Convar_File))
+                    {
+                        Startup_Arguments_UI_List.ItemsSource = Load_Args();
+                        Convar_Arguments_UI_List.ItemsSource = Convar_Args();
+                        Started_Selection = false;
 
-                    Load_Bt.Content = "Reload Arguments";
-                    Check_Args();
+                        Load_Bt.Content = "Reload Arguments";
+                        Check_Args();
 
 
+                    }
+                    else
+                    {
+                        Send_Error_Notif(GetTextResource("NOTIF_ERROR_SUGGEST_REBROWSE"));
+
+                        return;
+                    }
                 }
                 else
                 {
                     Send_Error_Notif(GetTextResource("NOTIF_ERROR_SUGGEST_REBROWSE"));
+                    Send_Error_Notif("Could Not Find Dedicated arg Files!");
+
                     return;
                 }
 
@@ -7470,11 +7504,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 {
                     File.Delete(Current_Install_Folder + @"\VTOL_Dedicated_Workspace\autoexec_ns_server.cfg");
                 }
-                if (File.Exists(Current_Install_Folder + @"\VTOL_Dedicated_Workspace\autoexec_ns_server.cfg"))
-                {
-                    File.Delete(Current_Install_Folder + @"\VTOL_Dedicated_Workspace\autoexec_ns_server.cfg");
-                }
-
+                
                 if (!extractPath.EndsWith(Path.DirectorySeparatorChar.ToString(), StringComparison.Ordinal))
                     extractPath += Path.DirectorySeparatorChar;
 
