@@ -175,7 +175,6 @@ namespace VTOL
             try
             {
 
-                DateTime DateTimeProperty = new DateTime();
                 string save = @"C:\ProgramData\VTOL_DATA\VARS";
 
 
