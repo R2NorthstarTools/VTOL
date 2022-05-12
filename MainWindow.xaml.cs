@@ -260,11 +260,7 @@ namespace VTOL
         public List<string> Game_MAP_List = new List<string>();
         public List<string> Game_WEAPON_List = new List<string>();
         private static readonly Action EmptyDelegate = delegate { };
-        int Progress_Tracker;
-        HandyControl.Controls.Dialog Diag;
         public string Current_REPO_URL;
-        private bool Check_Server_Ping = true;
-        int completed_flag;
         public int pid;
         string Skin_Path = "";
         string Skin_Temp_Loc = "";
@@ -278,10 +274,10 @@ namespace VTOL
         bool Started_Selection = false;
         public bool Sort_Lists;
         bool Origin_Client_Running = false;
-        string xff = "";
         List<object> Temp = new List<object> { };
         bool Warn_Close_EA;
         ObservableCollection<object> OjectList = new ObservableCollection<object>();
+        int completed_flag;
 
         public MainWindow()
         {
@@ -596,34 +592,43 @@ namespace VTOL
 
             try
             {
-
-                if (Finished_Init == false)
+                if (Found_Install_Folder == true)
                 {
-                    Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
-
-                    // Thread thread = new Thread(delegate ()
-                    // {
-                    Dispatcher.Invoke(new Action(() =>
+                    if (Finished_Init == false)
                     {
-                        Check_Tabs(true);
-                    }));
-                    // });
-                    //thread.IsBackground = true;
-                    // thread.Start();
-                }
+                        Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
 
+                        // Thread thread = new Thread(delegate ()
+                        // {
+                        Dispatcher.Invoke(new Action(() =>
+                        {
+                            Check_Tabs(true);
+                        }));
+                        // });
+                        //thread.IsBackground = true;
+                        // thread.Start();
+                    }
+
+                    else
+                    {
+
+                        BackgroundWorker doMacBk;
+                        doMacBk = new BackgroundWorker();
+                        doMacBk.DoWork += (o, arg) =>
+                        {
+                            Application.Current.Dispatcher.Invoke(new Action(() =>
+                            {
+                                Check_Tabs(false);
+                            }));
+                        };
+                    }
+                }
                 else
                 {
 
-                    BackgroundWorker doMacBk;
-                    doMacBk = new BackgroundWorker();
-                    doMacBk.DoWork += (o, arg) =>
-                    {
-                        Application.Current.Dispatcher.Invoke(new Action(() =>
-                        {
-                            Check_Tabs(false);
-                        }));
-                    };
+                    Select_Main();
+                    Send_Error_Notif(GetTextResource("NOTIF_ERROR_NS_BAD_INTEGRITY"));
+
                 }
 
 
@@ -795,16 +800,14 @@ namespace VTOL
 
 
         }
+        [DllImport("wininet.dll")]
+        private extern static bool InternetGetConnectedState(out int Description, int ReservedValue);
         public static bool CheckForInternetConnection()
         {
             try
             {
-                using (var client = new WebClient())
-                using (var stream = client.OpenRead("http://www.google.com"))
-                {
-
-                    return true;
-                }
+                int Desc;
+                return InternetGetConnectedState(out Desc, 0);
             }
             catch
             {
@@ -1066,6 +1069,7 @@ namespace VTOL
 
             try
             {
+                
                 itemsList.Clear();
                 // var myValue = ((Button)sender).Tag;
                 string ICON = "";
@@ -6818,12 +6822,27 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
         private void Sections_Tabs_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Finished_Init == true)
+            
+            if (Found_Install_Folder  ==true)
             {
 
 
 
-                Check_Tabs(false);
+                if (Finished_Init == true)
+                {
+
+
+
+
+                    Check_Tabs(false);
+                }
+            }
+            else
+            {
+
+                Select_Main();
+                Send_Error_Notif(GetTextResource("NOTIF_ERROR_NS_BAD_INTEGRITY"));
+
             }
         }
 
@@ -7086,7 +7105,6 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             }
 
         }
-        private ICollectionView _Item_Filter;
 
         public class Collection
         {
@@ -7341,7 +7359,6 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             }
         }
         private string _filePath;
-        private string mod_In_Working_Action_name;
 
         public void ZIP_LIST(List<string> filesToZip, string sZipFileName, bool deleteExistingZip = true)
         {
