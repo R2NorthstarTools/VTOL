@@ -288,6 +288,7 @@ namespace VTOL
             Sort_Lists = Properties.Settings.Default.Sort_Mods;
             Warn_Close_EA = Properties.Settings.Default.Warning_Close_EA;
             Current_REPO_URL = Properties.Settings.Default.Current_REPO_URL;
+
             //  Test_List.ItemsSource = itemsList;
 
             try
@@ -343,6 +344,7 @@ namespace VTOL
                 Install_Skin_Bttn.IsEnabled = false;
                 Badge.Visibility = Visibility.Collapsed;
                 Server_Indicator.Fill = Brushes.Red;
+                Log_Indicator.Background = Brushes.Transparent;
                 // Sections_Tabs.SelectedItem = 0;
                 //IsLoading_Panel.Visibility = Visibility.Hidden;
                 GC.Collect();
@@ -406,7 +408,7 @@ namespace VTOL
             catch (System.IO.DirectoryNotFoundException e)
             {
                 Write_To_Log("Could Not Verify Dir" + Current_Install_Folder);
-                Write_To_Log(e.StackTrace);
+                Write_To_Log(ErrorManager(e));
 
                 // HandyControl.Controls.Growl.ErrorGlobal("\nVTOL tried to check for an existing config (cfg), please manually select it.");
                 //log.AppendText("\nThe Launcher Tried to Auto Check For an existing CFG, please use the manual Check to search.");
@@ -430,7 +432,7 @@ namespace VTOL
                     }
                     catch (Exception ef)
                     {
-                        Write_To_Log(ef.StackTrace);
+                        Write_To_Log(ErrorManager(ef));
 
                         Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_CONTACT"));
                     }
@@ -449,7 +451,7 @@ namespace VTOL
                     catch (Exception ef)
                     {
                         Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_CONTACT"));
-                        Write_To_Log(ef.StackTrace);
+                        Write_To_Log(ErrorManager(ef));
 
                     }
 
@@ -493,11 +495,11 @@ namespace VTOL
                             catch (Exception ef)
                             {
                                 Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_ERROR_OCCURRED"));
-                                Write_To_Log(ef.StackTrace);
+                                Write_To_Log(ErrorManager(ef));
 
                             }
 
-        }
+                        }
 
 
                     }
@@ -519,7 +521,7 @@ namespace VTOL
             {
                 Write_To_Log("Could Not Verify Dir" + Current_Install_Folder);
                 Send_Warning_Notif(GetTextResource("NOTIF_WARN_AUTOCHECK_CFG"));
-                Write_To_Log(e.StackTrace);
+                Write_To_Log(ErrorManager(e));
 
 
 
@@ -637,7 +639,7 @@ namespace VTOL
             catch (Exception ex)
             {
                 Send_Fatal_Notif("Fatal error\n");
-                Write_To_Log(ex.Message);
+                Write_To_Log(ErrorManager(ex));
             }
         }
         //This function is used to get string content from Resource file.
@@ -737,7 +739,7 @@ namespace VTOL
             catch (Exception ex)
             {
                 Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_ERROR_OCCURRED"));
-                Write_To_Log(ex.ToString() + "\n" + ex.Message);
+                Write_To_Log(ErrorManager(ex));
             }
         }
 
@@ -791,11 +793,12 @@ namespace VTOL
         void MainWindow_Closing(object sender, CancelEventArgs e)
         {
             HandyControl.Controls.Growl.ClearGlobal();
+            save_Log();
+
 
         }
         protected void MainWindow_Closed(object sender, EventArgs args)
         {
-
             App.Current.Shutdown();
 
 
@@ -935,7 +938,7 @@ namespace VTOL
                 Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow;
 
                 Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_ERROR_OCCURRED"));
-                Write_To_Log(ex.ToString());
+                Write_To_Log(ErrorManager(ex));
                 //Console.WriteLine(ex.ToString());
             }
 
@@ -1031,8 +1034,7 @@ namespace VTOL
                 Mod_Progress_BAR.Value = 0;
                 Mod_Progress_BAR.ShowText = false;
                 Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_ERROR_OCCURRED"));
-                Write_To_Log(ex.ToString());
-                Write_To_Log(ex.Message);
+                Write_To_Log(ErrorManager(ex));
 
             }
         }
@@ -1267,7 +1269,7 @@ namespace VTOL
                 MessageBox.Show(ex.StackTrace);
 
                 Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_ERROR_OCCURRED"));
-                Write_To_Log(ex.InnerException.ToString());
+                Write_To_Log(ErrorManager(ex));
 
                 //Console.WriteLine(ex.ToString());
             }
@@ -1508,6 +1510,8 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             Mod_Browse.IsSelected = false;
             Log.IsSelected = true;
             Update_Tab.IsSelected = false;
+            Log_Indicator.Background = Brushes.Transparent;
+            LOG_BOX.ScrollToEnd();
 
         }
         void Select_Update()
@@ -1688,6 +1692,8 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
 
                 Write_To_Log("The process failed: " + e.ToString());
+                Write_To_Log(ErrorManager(e));
+
             }
 
 
@@ -1882,7 +1888,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             catch (System.IO.FileNotFoundException e)
             {
                 Send_Error_Notif(GetTextResource("NOTIF_ERROR_CANNOT_FIND") + Filepath);
-                Write_To_Log(e.StackTrace);
+                Write_To_Log(ErrorManager(e));
 
 
             }
@@ -1910,7 +1916,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             catch (System.IO.FileNotFoundException e)
             {
                 Send_Error_Notif(GetTextResource("NOTIF_ERROR_CANNOT_FIND") + Filepath);
-                Write_To_Log(e.StackTrace);
+                Write_To_Log(ErrorManager(e));
 
 
             }
@@ -2044,7 +2050,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             }
             catch (Exception e)
             {
-                Write_To_Log(e.StackTrace);
+                Write_To_Log(ErrorManager(e));
                 return null;
 
             }
@@ -2085,7 +2091,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             }
             catch (Exception e)
             {
-                Write_To_Log(e.StackTrace);
+                Write_To_Log(ErrorManager(e));
                 return;
 
             }
@@ -2318,8 +2324,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                             }
                             catch (IOException ioExp)
                             {
-                                Write_To_Log(ioExp.Message);
-                                Write_To_Log(ioExp.StackTrace);
+                                Write_To_Log(ErrorManager(ioExp));
 
                                 Send_Warning_Notif(GetTextResource("NOTIF_WARN_ISSUE_DETECTED"));
 
@@ -2395,8 +2400,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             catch (Exception ex)
             {
 
-                Write_To_Log(ex.Message);
-                Write_To_Log(ex.StackTrace);
+                Write_To_Log(ErrorManager(ex));
 
                 Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
 
@@ -2558,7 +2562,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                     {
                         Directory.Delete(outt, true);
                     }
-                    Write_To_Log(e.StackTrace);
+                    Write_To_Log(ErrorManager(e));
 
                     Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
                 }
@@ -2666,7 +2670,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             }
             catch (NullReferenceException e)
             {
-                Write_To_Log(e.Message);
+                Write_To_Log(ErrorManager(e));
                 Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
 
 
@@ -2787,12 +2791,38 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             {
                 isValid = false;
                 Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
-                Write_To_Log(ex.StackTrace);
+                Write_To_Log(ErrorManager(ex));
             }
 
             return isValid;
         }
-        void Call_Mods_From_Folder()
+
+        private string ErrorManager(Exception ex, bool CrashProgram = false)
+        {
+            string stack = ex.StackTrace;
+            string source = ex.Source;
+            string message = ex.Message;
+            string LF = Environment.NewLine;
+
+            string Error = $"A crash happened at {DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss.ff", CultureInfo.InvariantCulture)}{LF}" +
+                           $"This is what crashed: {source}{LF}" +
+                           $"This is the error message : {LF}{message}{LF + LF}" +
+                           $"These are the last instructions executed before the crash : {LF}{stack}{LF + LF}";
+
+            if (ex.InnerException != null)
+            {
+                Error += $"Inner Exception : {LF}{ex.InnerException.Message}";
+            }
+
+            if (CrashProgram)
+            {
+                throw new Exception(Error);
+            }
+            Log_Indicator.Background = Brushes.Red;
+
+            return Error.Trim();
+        }
+            void Call_Mods_From_Folder()
         {
             bool install_Prompt = false;
             try
@@ -2916,7 +2946,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 }
                 else
                 {
-                    Write_To_Log(ex.StackTrace);
+                    Write_To_Log(ErrorManager(ex));
                     Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
 
                 }
@@ -2943,6 +2973,8 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                     catch (Exception e)
                     {
                         Write_To_Log("Err on temp folder delete.");
+                        Write_To_Log(ErrorManager(e));
+
                     }
                 }
                     completed_flag = 0;
@@ -3055,7 +3087,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
                     Send_Warning_Notif(GetTextResource("NOTIF_WARN_INSTALL_START"));
                 }
-                Write_To_Log(ex.Message + "\n" + ex.StackTrace + "\n"+ ex.InnerException);
+                Write_To_Log(ErrorManager(ex));
                 Install_NS.IsEnabled = true;
                 Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
                 Loading_Panel.Visibility = Visibility.Hidden;
@@ -3208,7 +3240,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             catch (NullReferenceException ex)
             {
 
-                Write_To_Log(ex.StackTrace);
+                Write_To_Log(ErrorManager(ex));
                 Send_Warning_Notif(GetTextResource("NOTIF_WARN_CANNOT_MOVE_MOD"));
                 return;
             }
@@ -3264,7 +3296,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             catch (NullReferenceException ex)
             {
 
-                Write_To_Log(ex.StackTrace);
+                Write_To_Log(ErrorManager(ex));
                 Send_Warning_Notif(GetTextResource("NOTIF_WARN_CANNOT_MOVE_MOD"));
                 return;
             }
@@ -3387,9 +3419,8 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             }
             catch (Exception ex)
             {
-                Write_To_Log(ex.Message);
 
-                Write_To_Log(ex.StackTrace);
+                Write_To_Log(ErrorManager(ex));
 
                 Send_Warning_Notif(GetTextResource("NOTIF_WARN_CHECK_MOD_AT") + Current_Install_Folder + @"\R2Northstar\mods\");
                 // Log_Box.AppendText(ex.StackTrace);
@@ -3420,7 +3451,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 catch (UnauthorizedAccessException ex)
                 {
                     Send_Warning_Notif(GetTextResource("NOTIF_WARN_NO_ACCESS_TO_DIRECTORY"));
-                    Write_To_Log(ex.StackTrace);
+                    Write_To_Log(ErrorManager(ex));
 
                 }
             }
@@ -3505,7 +3536,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             {
                 Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
 
-                Write_To_Log(ex.Message);
+                Write_To_Log(ErrorManager(ex));
             }
         }
         public static bool ZipHasFile(string Search, string zipFullPath)
@@ -3672,7 +3703,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             catch (Exception ex)
             {
                 Send_Warning_Notif(GetTextResource("NOTIF_WARN_SUGGEST_REINSTALL_NS"));
-                Write_To_Log(ex.ToString());
+                Write_To_Log(ErrorManager(ex));
             }
 
 
@@ -3752,7 +3783,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 {
                     Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
 
-                    Write_To_Log(ef.StackTrace.ToString());
+                    Write_To_Log(ErrorManager(ef));
                 }
 
 
@@ -3779,7 +3810,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 {
                     Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
 
-                    Write_To_Log(ef.ToString());
+                    Write_To_Log(ErrorManager(ef));
                 }
 
             }
@@ -4061,7 +4092,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                         Diffuse_IMG.Source = bitmap;
 
                         Glow_IMG.Source = bitmap;
-                        Write_To_Log(ex.StackTrace);
+                        Write_To_Log(ErrorManager(ex));
                         Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
 
                     }
@@ -4111,7 +4142,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             {
 
                 Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_FILE_PATH_ISSUE_REBROWSE"));
-                Write_To_Log(ex.Message);
+                Write_To_Log(ErrorManager(ex));
             }
         }
 
@@ -4246,7 +4277,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
                 }
                 Send_Error_Notif(GetTextResource("NOTIF_ERROR_FILE_PATH_ISSUE_REBROWSE"));
-                Write_To_Log(ex.StackTrace);
+                Write_To_Log(ErrorManager(ex));
             }
         }
 
@@ -4347,7 +4378,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             }
             catch (Exception ef)
             {
-                Write_To_Log(ef.StackTrace);
+                Write_To_Log(ErrorManager(ef));
 
                 Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
             }
@@ -4437,7 +4468,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 LOG_BOX.Document.Blocks.Add(paragraph);
             }
         }
-        private void Save_LOG_Click(object sender, RoutedEventArgs e)
+        void save_Log()
         {
             string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
             string date = DateTime.Now.ToString("yyyy-MM-dd");
@@ -4475,6 +4506,12 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 Send_Success_Notif(GetTextResource("NOTIF_SUCCESS_SAVED_TO") + @"C:\ProgramData\VTOL_DATA\Logs");
 
             }
+
+
+        }
+        private void Save_LOG_Click(object sender, RoutedEventArgs e)
+        {
+            save_Log();
         }
 
         private void Clear_LOG_Click(object sender, RoutedEventArgs e)
@@ -4707,7 +4744,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 }
                 catch (Exception ex)
                 {
-                    Write_To_Log(ex.Message);
+                    Write_To_Log(ErrorManager(ex));
 
                 }
                 Process process = Process.Start(updaterModulePath, "/configure");
@@ -4752,7 +4789,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             {
 
                 Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_AUTO_SAVE_FAILED"));
-                Write_To_Log(ex.Message);
+                Write_To_Log(ErrorManager(ex));
             }
         }
 
@@ -4782,7 +4819,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             {
 
                 Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_AUTO_SAVE_FAILED"));
-                Write_To_Log(ex.Message);
+                Write_To_Log(ErrorManager(ex));
             }
         }
         private void Validate_Combo_Box(object sender, SelectionChangedEventArgs e)
@@ -4895,7 +4932,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             catch (Exception ex)
             {
 
-                Write_To_Log(ex.StackTrace);
+                Write_To_Log(ErrorManager(ex));
                 Send_Error_Notif(GetTextResource("NOTIF_ERROR_FATAL"));
 
 
@@ -4934,7 +4971,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             catch (Exception ex)
             {
 
-                Write_To_Log(ex.StackTrace);
+                Write_To_Log(ErrorManager(ex));
                 Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
 
 
@@ -4964,7 +5001,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             catch (Exception ex)
             {
 
-                Write_To_Log(ex.StackTrace);
+                Write_To_Log(ErrorManager(ex));
                 Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
 
 
@@ -5004,8 +5041,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             }
             catch (Exception ex)
             {
-                Send_Warning_Notif(ex.Message);
-                Write_To_Log(ex.StackTrace);
+                Write_To_Log(ErrorManager(ex));
 
             }
             return null;
@@ -5131,7 +5167,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             catch (Exception ex)
             {
                 Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_USING_SERVER_SETUP_SYS"));
-                Write_To_Log(ex.Message);
+                Write_To_Log(ErrorManager(ex));
 
 
             }
@@ -5216,7 +5252,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             catch (Exception ex)
             {
                 Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_USING_SERVER_SETUP_SYS"));
-                Write_To_Log(ex.Message);
+                Write_To_Log(ErrorManager(ex));
 
 
             }
@@ -5277,7 +5313,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             catch (Exception ex)
             {
                 Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_USING_SERVER_SETUP_SYS"));
-                Write_To_Log(ex.Message);
+                Write_To_Log(ErrorManager(ex));
 
 
             }
@@ -5397,7 +5433,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             catch (Exception ex)
             {
                 Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_USING_SERVER_SETUP_SYS"));
-                Write_To_Log(ex.Message);
+                Write_To_Log(ErrorManager(ex));
 
 
             }
@@ -5669,7 +5705,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             catch (Exception ex)
             {
                 Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_WRITING_INPUT_FAILED"));
-                Write_To_Log(ex.Message);
+                Write_To_Log(ErrorManager(ex));
 
             }
         }
@@ -5834,7 +5870,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                     Drag_Drop_Overlay_Skins.Visibility = Visibility.Hidden;
 
                     Send_Error_Notif(GetTextResource("NOTIF_ERROR_FILE_PATH_ISSUE_REBROWSE"));
-                    Write_To_Log(ex.Message);
+                    Write_To_Log(ErrorManager(ex));
                 }
             }
             Drag_Drop_Overlay.Visibility = Visibility.Hidden;
@@ -5881,7 +5917,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 {
                     Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
 
-                    Write_To_Log(ef.StackTrace.ToString());
+                    Write_To_Log(ErrorManager(ef));
                 }
 
 
@@ -5908,7 +5944,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 {
                     Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
 
-                    Write_To_Log(ef.ToString());
+                    Write_To_Log(ErrorManager(ef));
                 }
 
             }
@@ -6200,7 +6236,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 Diffuse_IMG.Source = bitmap;
 
                 Glow_IMG.Source = bitmap;
-                Write_To_Log(ex.StackTrace);
+                Write_To_Log(ErrorManager(ex));
                 Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
                 Drag_Drop_Overlay_Skins.Visibility = Visibility.Hidden;
 
@@ -6536,7 +6572,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             catch (Exception ex)
             {
 
-                Write_To_Log(ex.Message);
+                Write_To_Log(ErrorManager(ex));
                 Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
 
             }
@@ -6643,8 +6679,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             catch (Exception ex)
             {
 
-                Write_To_Log(ex.Message);
-                Write_To_Log(ex.StackTrace);
+                Write_To_Log(ErrorManager(ex));
 
                 Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
 
@@ -6704,7 +6739,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             catch (Exception ex)
             {
 
-                Write_To_Log(ex.Message);
+                Write_To_Log(ErrorManager(ex));
                 Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
 
             }
@@ -6727,7 +6762,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             catch (Exception ex)
             {
 
-                Write_To_Log(ex.Message);
+                Write_To_Log(ErrorManager(ex));
                 Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
 
             }
@@ -7134,7 +7169,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             catch (Exception ex)
             {
 
-                Write_To_Log(ex.StackTrace.ToString());
+                Write_To_Log(ErrorManager(ex));
                 Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
             }
 
@@ -7190,7 +7225,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             }
             catch (Exception ex)
             {
-                Write_To_Log(ex.StackTrace.ToString());
+                Write_To_Log(ErrorManager(ex));
                 Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
 
             }
@@ -7274,7 +7309,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             }
             catch (Exception ex)
             {
-                Write_To_Log(ex.StackTrace.ToString());
+                Write_To_Log(ErrorManager(ex));
                 Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
 
             }
@@ -7812,7 +7847,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             }
             catch (Exception ex)
             {
-                Write_To_Log(ex.StackTrace.ToString());
+                Write_To_Log(ErrorManager(ex));
                 Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
 
             }

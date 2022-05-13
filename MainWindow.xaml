@@ -75,9 +75,11 @@
             <ImageBrush x:Key="NO_Texture" ImageSource="/Resources/NO_TEXTURE.png" Stretch="UniformToFill"/>
             <ImageBrush x:Key="BG_PANELS" ImageSource="/Resources/BG.jpg" Stretch="UniformToFill"/>
             <ImageBrush x:Key="NS_ICON" ImageSource="/Resources/northstar_icon_ZfV_icon.ico" Stretch="UniformToFill"/>
-            <SolidColorBrush x:Key="Button_BG" Color="#FF2C4C4C" />
+            <SolidColorBrush x:Key="Button_BG" Color="#FFEC6E04" />
             <SolidColorBrush x:Key="Button_HOVER" Color="#FF2C4C4C" />
             <SolidColorBrush x:Key="WINDOW" Color="#FF101010" />
+           <!-- <SolidColorBrush x:Key="WINDOW" Color="#FF101010" /> -->
+            <!-- <SolidColorBrush x:Key="Button_HOVER" Color="#FF2C4C4C" /> -->
 
         </Grid.Resources>
 
@@ -108,7 +110,7 @@
 
                 <Label Content="{DynamicResource UI_TEXT_MAIN_NS_EXEC_DIR}" Height="50" Margin="61,121,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" AutomationProperties.HelpText="{DynamicResource TIP_YOUR_NS_INST_DIR}" RenderTransformOrigin="0.5,0.5" Foreground="White"/>
                 <Label Content="{DynamicResource UI_TEXT_MAIN_TF2_EXEC_DIR}" Height="45" Margin="59,22,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Foreground="White"/>
-                <Button x:Name="Check_Btn" Content="{DynamicResource UI_BUTTON_MAIN_CHECK}" Height="32" HorizontalAlignment="Stretch" Margin="775,171,60,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Background="#FF2C4C4C" Click="Check_Btn_Click">
+                <Button x:Name="Check_Btn" Content="{DynamicResource UI_BUTTON_MAIN_CHECK}" Height="32" HorizontalAlignment="Stretch" Margin="775,171,60,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Background="{StaticResource Button_BG}" Click="Check_Btn_Click">
                     <hc:Poptip.Instance>
                         <hc:Poptip Content="{DynamicResource TIP_VERIFY_NS_INSTALL}" PlacementType="TopLeft"/>
                     </hc:Poptip.Instance>
@@ -404,7 +406,7 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
                         <Border BorderThickness="1" Background="#FF101010" Height="129" VerticalAlignment="Bottom" >
                         </Border>
                         <hc:TextBox x:Name="Skin_Path_Box" TextWrapping="Wrap" Margin="0,0,115,26" SelectionTextBrush="Black" Background="White" BorderBrush="{x:Null}" Height="32" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="780" Foreground="Black"/>
-                        <Button x:Name="Browse_For_Skin" Content="{DynamicResource UI_BUTTON_SKINS_BROWSE}" HorizontalAlignment="Right" BorderBrush="{x:Null}" Margin="0,0,10,27" VerticalAlignment="Bottom" Background="#FF1E4C51" Height="32" Width="100" BorderThickness="1,1,1,1" Padding="6,6,10,6" Click="Browse_For_Skin_Click"/>
+                        <Button x:Name="Browse_For_Skin" Content="{DynamicResource UI_BUTTON_SKINS_BROWSE}" HorizontalAlignment="Right" BorderBrush="{x:Null}" Margin="0,0,10,27" VerticalAlignment="Bottom" Background="{StaticResource Button_BG}" Height="32" Width="100" BorderThickness="1,1,1,1" Padding="6,6,10,6" Click="Browse_For_Skin_Click"/>
                         <Label x:Name="Locate_LBL" Content="{DynamicResource UI_TEXT_SKINS_LOCATE_ZIP}" Margin="35,0,0,63" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Foreground="White" FontFamily="Gadugi" FontWeight="Normal" VerticalAlignment="Bottom" Padding="0,0,0,0" MinWidth="8" Height="22"/>
 
                     </hc:SimplePanel>
@@ -480,8 +482,8 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
                     <Label Content="{DynamicResource UI_TEXT_SERVER_CONF_NS_CONVAR_PATH}" Width="282" Margin="0,18,0,0" VerticalAlignment="Stretch" FontWeight="Normal" Background="{x:Null}" BorderBrush="{x:Null}" />
 
                     <hc:TextBox x:Name="Dedicated_Convar_ARGS" Width="438" Background="White" Height="30" VerticalAlignment="Bottom" IsReadOnly="True" IsUndoEnabled="False" Foreground="Black" />
-                    <Button x:Name="Load_Bt" Height="36" Width="950" Margin="0,26,0,0" VerticalAlignment="Top" Background="#FF2C4C4C" Content="{DynamicResource UI_BUTTON_SERVER_CONF_LOAD_FILES}" Click="Load_Bt_" BorderBrush="{x:Null}" />
-                    <Button x:Name="Import_Server_Config" Height="36" Width="418" Margin="0,9,0,0" VerticalAlignment="Top" Background="#FF2C4C4C" Content="Import Server Config" BorderBrush="{x:Null}" Click="Import_Server_Config_Click" />
+                    <Button x:Name="Load_Bt" Height="36" Width="950" Margin="0,26,0,0" VerticalAlignment="Top" Background="{StaticResource Button_BG}" Content="{DynamicResource UI_BUTTON_SERVER_CONF_LOAD_FILES}" Click="Load_Bt_" BorderBrush="{x:Null}" />
+                    <Button x:Name="Import_Server_Config" Height="36" Width="418" Margin="0,9,0,0" VerticalAlignment="Top" Background="{StaticResource Button_BG}" Content="Import Server Config" BorderBrush="{x:Null}" Click="Import_Server_Config_Click" />
 
                     <Label Height="58" Width="329" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,36,0,0" Content="{DynamicResource UI_TEXT_SERVER_CONF_STARTUP_ARGUMENTS}" FontSize="36" FontFamily="Bahnschrift SemiLight" Background="{x:Null}" BorderBrush="{x:Null}" />
                     <ListBox x:Name="Startup_Arguments_UI_List" Margin="0,-4,0,-322" Background="#FF101010" BorderBrush="{x:Null}" ItemTemplateSelector="{StaticResource Server_Template_Selector}" PreviewMouseWheel="S" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="False">
@@ -491,7 +493,7 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
 
                     <Button Content="{DynamicResource UI_BUTTON_SERVER_CONF_LAUNCH_DEDICATED}" Height="60" Width="950" Click="Dedicated_Btn_Click" BorderBrush="White" Background=  "{StaticResource Button_BG}" Margin="0,20,0,0" VerticalAlignment="Top" />
 
-                    <Button x:Name="Export_Server_Config" Height="42" Width="418" Margin="0,20,0,0" VerticalAlignment="Top" Background="#FF2C4C4C" Content="Export Server Config" BorderBrush="{x:Null}" Click="Export_Server_Config_Click" />
+                    <Button x:Name="Export_Server_Config" Height="42" Width="418" Margin="0,20,0,0" VerticalAlignment="Top" Background="{StaticResource Button_BG}" Content="Export Server Config" BorderBrush="{x:Null}" Click="Export_Server_Config_Click" />
 
 
                 </hc:SimpleStackPanel>
@@ -504,7 +506,7 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
         </hc:SimplePanel>
 
 
-        <hc:SimplePanel x:Name="Log_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
+        <hc:SimplePanel x:Name="Log_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Visible" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
             <RichTextBox x:Name="LOG_BOX" Margin="32,69,32,0" Background="#FF101010" Height="395" VerticalAlignment="Top" BorderBrush="#FF101010" SelectionTextBrush="{x:Null}" SelectionBrush="#FF101010" CaretBrush="#FF101010" AutomationProperties.HelpText="Log Area">
                 <FlowDocument>
                     <Paragraph>
@@ -599,17 +601,22 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
                 <hc:SideMenuItem.Icon>
                     <Image Source="/Resources/target.png" Width="24" Height="24"/>
                 </hc:SideMenuItem.Icon>
-
             </hc:SideMenuItem>
             <hc:SideMenuItem x:Name="Server_Configuration" Header="{DynamicResource UI_SIDEMENU_TITLE_SERVER_CONF}" Margin="4,0,0,0" Background="#FF101010">
                 <hc:SideMenuItem.Icon>
-                    <Image Source="/Resources/Server_ICON.png" Width="24" Height="24"/>
+
+                        <Image Source="/Resources/Server_ICON.png" Width="24" Height="24"/>
+
                 </hc:SideMenuItem.Icon>
             </hc:SideMenuItem>
             <hc:SideMenuItem x:Name="Log" Header="{DynamicResource UI_SIDEMENU_TITLE_LOG}" Background="#FF101010" Margin="4,0,0,0">
 
                 <hc:SideMenuItem.Icon>
-                    <Image Source="/Resources/LOG_ICON.png" Width="24" Height="24"/>
+                    <hc:Badge x:Name="Log_Indicator" BadgeMargin="0,-7,-6,0" Status="Processing" Background="Red" BorderBrush="{x:Null}">
+
+                        <Image Source="/Resources/LOG_ICON.png" Width="24" Height="24"/>
+                    </hc:Badge>
+
                 </hc:SideMenuItem.Icon>
             </hc:SideMenuItem>
             <hc:SideMenuItem x:Name="Update_Tab" Header= "{DynamicResource UI_SIDEMENU_TITLE_UPDATES}" Margin="4,0,0,0" Background="#FF101010">

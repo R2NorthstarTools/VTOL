@@ -130,5 +130,17 @@ namespace VTOL.Properties {
                 this["Current_REPO_URL"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Sort_Mods_By_Date {
+            get {
+                return ((bool)(this["Sort_Mods_By_Date"]));
+            }
+            set {
+                this["Sort_Mods_By_Date"] = value;
+            }
+        }
     }
 }
