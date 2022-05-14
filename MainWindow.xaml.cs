@@ -105,7 +105,7 @@ namespace VTOL
         public int Rating;
         public string File_Size;
         public string Downloads;
-
+       
         public string Tag_
         {
 
@@ -276,10 +276,24 @@ namespace VTOL
         bool Origin_Client_Running = false;
         List<object> Temp = new List<object> { };
         bool Warn_Close_EA;
+        SolidColorBrush Accent_Color = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF4C4C4C");
+        SolidColorBrush Border_Color = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF4C4C4C");
+
         ObservableCollection<object> OjectList = new ObservableCollection<object>();
         int completed_flag;
+        public class Colors_Set
+        {
+            public SolidColorBrush Accent_Color;
 
-        public MainWindow()
+            public SolidColorBrush Accent_Color_
+            {
+
+                get { return Accent_Color; }
+                set { Accent_Color = value; }
+            }
+        }
+
+            public MainWindow()
         {
             InitializeComponent();
             Application.Current.MainWindow.Closing += new CancelEventHandler(MainWindow_Closing);
@@ -372,7 +386,44 @@ namespace VTOL
                 string[] arguments = Environment.GetCommandLineArgs();
 
                 //Console.WriteLine("GetCommandLineArgs: {0}", string.Join(", ", arguments));
+                if (File.Exists(@"C:\ProgramData\VTOL_DATA\VARS\Theme.txt"))
+                {
+                   
 
+                    string[] lines = System.IO.File.ReadAllLines(@"C:\ProgramData\VTOL_DATA\VARS\Theme.txt");
+                    foreach(string l in lines)
+                    {
+                        l.Trim();
+                    }
+
+                    if (lines.Length > 0)
+                    {
+                        lines = lines.ToArray();
+
+                        if (isValidHexaCode(lines[0].Trim()))
+                        {
+
+                            Accent_Color = (SolidColorBrush)new BrushConverter().ConvertFrom(lines[0]);
+                            ColorPicker_Accent.SelectedBrush = Accent_Color;
+
+                            Colors_Set Colors_Set = new Colors_Set { Accent_Color = Accent_Color };
+                            this.DataContext = Colors_Set;
+
+                        }
+                        if (lines.Length >= 2)
+                        {
+                            if (isValidHexaCode(lines[1].Trim()))
+                            {
+
+                                Border_Color = (SolidColorBrush)new BrushConverter().ConvertFrom(lines[1]);
+                                ColorPicker_Border.SelectedBrush = Border_Color;
+
+
+                            }
+                        }
+
+                    }
+                }
                 if (do_not_overwrite_Ns_file==true)
                 {
                     Ns_Args.IsChecked = true;
@@ -550,7 +601,22 @@ namespace VTOL
 
         }
 
+        static bool isValidHexaCode(string str)
+        {
+            if (str[0] != '#')
+                return false;
 
+            if (!(str.Length < 4 || str.Length >= 7))
+                return false;
+
+            for (int i = 1; i < str.Length; i++)
+                if (!((str[i] >= '0' && str[i] <= 9)
+                    || (str[i] >= 'a' && str[i] <= 'f')
+                    || (str[i] >= 'A' || str[i] <= 'F')))
+                    return false;
+
+            return true;
+        }
 
         private void OnTimedEvent(object source, ElapsedEventArgs e)
         {
@@ -582,12 +648,7 @@ namespace VTOL
                 }
                 return true;
             }
-            return false;
-            if (generic == false)
-            {
-                Indicator_Origin_Client.Visibility = Visibility.Visible;
-                Origin_Client_Status.Fill = Brushes.Red;
-            }
+           
         }
       async void call_TS_MODS()
         {
@@ -5198,7 +5259,6 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
         {
             try
             {
-                var pattern = @"(?=[+-])";
 
                 string RootFolder = "";
                 if (File_Root != null)
@@ -5222,7 +5282,6 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                     RootFolder  = GetFile(Current_Install_Folder, "autoexec_ns_server.cfg").First();
                 }
                 string[] intake = File.ReadAllLines(RootFolder);
-                string[] intermid = null;
 
 
                 for (int i = 0; i<intake.Length; i++)
@@ -6995,7 +7054,6 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
 
 
-
                             }
                         }
                     }
@@ -7041,8 +7099,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             {
                 if (Check_Process_Running("EABackgroundService", true) == true)
                 {
-                    if (1 == 1)
-                    {
+                   
                         Process[] runingProcess = Process.GetProcesses();
                         string[] origin = {
                         "QtWebEngineProcess",
@@ -7101,7 +7158,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                             return;
                         }
                     }
-                }
+                
 
 
 
@@ -7849,6 +7906,67 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             {
                 Write_To_Log(ErrorManager(ex));
                 Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
+
+            }
+        }
+
+        private void ColorPicker_Accent_Confirmed(object sender, FunctionEventArgs<Color> e)
+        {
+            if (File.Exists(@"C:\ProgramData\VTOL_DATA\VARS\Theme.txt"))
+            {
+
+                string[] lines = System.IO.File.ReadAllLines(@"C:\ProgramData\VTOL_DATA\VARS\Theme.txt");
+                if (lines.Length > 0)
+                {
+                    lines = lines.ToArray();
+                    lines[0] = ColorPicker_Accent.SelectedBrush.Color.ToString().Trim();
+                   // var newLines = new string[] { ColorPicker_Accent.SelectedBrush.Color.ToString().Trim() };
+
+
+                    System.IO.File.WriteAllLines(@"C:\ProgramData\VTOL_DATA\VARS\Theme.txt", lines);
+
+                }
+                //  System.IO.File.WriteAllLines(@"C:\ProgramData\VTOL_DATA\VARS\Theme.txt", newLines);
+
+
+                //  inputFile.WriteLine(ColorPicker_Border.SelectedBrush.Color.ToString().Trim().Take(1));
+
+
+                //  saveAsyncFile(ColorPicker_Border.SelectedBrush.Color.ToString().Trim(), @"C:\ProgramData\VTOL_DATA\VARS\Theme.txt", false, true);
+            }
+            else
+            {
+                saveAsyncFile(ColorPicker_Accent.SelectedBrush.Color.ToString().Trim(), @"C:\ProgramData\VTOL_DATA\VARS\Theme.txt", false, false);
+
+            }
+        }
+
+        private void ColorPicker_Border_Confirmed(object sender, FunctionEventArgs<Color> e)
+        {
+            if (File.Exists(@"C:\ProgramData\VTOL_DATA\VARS\Theme.txt")) {
+               
+                    string[] lines = System.IO.File.ReadAllLines(@"C:\ProgramData\VTOL_DATA\VARS\Theme.txt");
+                if (lines.Length > 0)
+                {
+                    lines = lines.ToArray();
+                    var newLines = new string[] { lines[0] , ColorPicker_Border.SelectedBrush.Color.ToString().Trim() };
+                   
+                     
+
+                      System.IO.File.WriteAllLines(@"C:\ProgramData\VTOL_DATA\VARS\Theme.txt", newLines);
+
+                }
+                //  System.IO.File.WriteAllLines(@"C:\ProgramData\VTOL_DATA\VARS\Theme.txt", newLines);
+
+
+                //  inputFile.WriteLine(ColorPicker_Border.SelectedBrush.Color.ToString().Trim().Take(1));
+
+
+                //  saveAsyncFile(ColorPicker_Border.SelectedBrush.Color.ToString().Trim(), @"C:\ProgramData\VTOL_DATA\VARS\Theme.txt", false, true);
+            }
+            else
+            {
+                saveAsyncFile("#FFFFFF\n"+ColorPicker_Border.SelectedBrush.Color.ToString().Trim(), @"C:\ProgramData\VTOL_DATA\VARS\Theme.txt", false, false);
 
             }
         }

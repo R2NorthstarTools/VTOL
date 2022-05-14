@@ -66,7 +66,7 @@
     </Window.Resources>
 
 
-    <Grid Visibility="Visible" >
+    <Grid x:Name="Grid_resources" Visibility="Visible" >
 
         <Grid.Resources>
             <ImageBrush x:Key="Enable_Button" ImageSource="/Resources/Enable_Image.png" Stretch="UniformToFill"/>
@@ -75,11 +75,12 @@
             <ImageBrush x:Key="NO_Texture" ImageSource="/Resources/NO_TEXTURE.png" Stretch="UniformToFill"/>
             <ImageBrush x:Key="BG_PANELS" ImageSource="/Resources/BG.jpg" Stretch="UniformToFill"/>
             <ImageBrush x:Key="NS_ICON" ImageSource="/Resources/northstar_icon_ZfV_icon.ico" Stretch="UniformToFill"/>
-            <SolidColorBrush x:Key="Button_BG" Color="#FFEC6E04" />
+            <SolidColorBrush x:Name="Button_BG_Color" x:Key="Button_BG" Color="{Binding Accent_Color,Mode = OneWay}" />
             <SolidColorBrush x:Key="Button_HOVER" Color="#FF2C4C4C" />
             <SolidColorBrush x:Key="WINDOW" Color="#FF101010" />
-           <!-- <SolidColorBrush x:Key="WINDOW" Color="#FF101010" /> -->
+            <!-- <SolidColorBrush x:Key="WINDOW" Color="#FF101010" /> -->
             <!-- <SolidColorBrush x:Key="Button_HOVER" Color="#FF2C4C4C" /> -->
+            <!-- <SolidColorBrush x:Key="Button_BG" Color="#FFEC6E04" /> -->
 
         </Grid.Resources>
 
@@ -377,7 +378,7 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
 
 
 
-             
+
 
 
 
@@ -559,9 +560,17 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
         </hc:SimplePanel>
 
 
-        <hc:SimplePanel x:Name="Theme_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
+        <hc:SimplePanel x:Name="Theme_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Visible" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
+            <Label Content="Themes" Width="190" Margin="0,16,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Height="44" Padding="10,3,10,3"/>
 
-            <Label Content="Themes" Width="190" Margin="0,8,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Height="44" Padding="10,3,10,3"/>
+            <hc:SimplePanel Margin="30,65,30,55" Background="#FF101010">
+
+                <hc:ColorPicker Name="ColorPicker_Accent" Margin="126,88,0,58" Background="#FF6F6F6F" Confirmed="ColorPicker_Accent_Confirmed" HorizontalAlignment="Left" Width="230"/>
+                <Label Content="Accent Color" Width="190" Margin="146,39,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Height="44" Padding="10,3,10,3" HorizontalAlignment="Left"/>
+                <hc:ColorPicker x:Name="ColorPicker_Border" Margin="0,86,138,60" Background="#FF6F6F6F" Confirmed="ColorPicker_Border_Confirmed" HorizontalAlignment="Right" Width="230"/>
+                <Label Content="Border Color" Width="190" Margin="602,39,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Height="44" Padding="10,3,10,3" HorizontalAlignment="Left"/>
+            </hc:SimplePanel>
+
         </hc:SimplePanel>
 
 
@@ -605,7 +614,7 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
             <hc:SideMenuItem x:Name="Server_Configuration" Header="{DynamicResource UI_SIDEMENU_TITLE_SERVER_CONF}" Margin="4,0,0,0" Background="#FF101010">
                 <hc:SideMenuItem.Icon>
 
-                        <Image Source="/Resources/Server_ICON.png" Width="24" Height="24"/>
+                    <Image Source="/Resources/Server_ICON.png" Width="24" Height="24"/>
 
                 </hc:SideMenuItem.Icon>
             </hc:SideMenuItem>
