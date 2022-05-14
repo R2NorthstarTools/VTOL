@@ -563,12 +563,19 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
         <hc:SimplePanel x:Name="Theme_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Visible" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
             <Label Content="Themes" Width="190" Margin="0,16,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Height="44" Padding="10,3,10,3"/>
 
-            <hc:SimplePanel Margin="30,65,30,55" Background="#FF101010">
+            <hc:SimplePanel Margin="30,65,30,10" Background="#FF101010">
+                <hc:ScrollViewer VerticalScrollBarVisibility="Visible" Margin="0,0,0,-395">
+                    <Grid>
+                        <hc:ColorPicker Name="ColorPicker_Accent" Margin="134,72,0,368" Background="#FF6F6F6F" Confirmed="ColorPicker_Accent_Confirmed" HorizontalAlignment="Left" Width="230"/>
+                        <Label Content="Accent Color" Width="190" Margin="154,23,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Height="44" Padding="10,3,10,3" HorizontalAlignment="Left"/>
+                        <hc:ColorPicker x:Name="ColorPicker_Border" Margin="0,70,130,368" Background="#FF6F6F6F" Confirmed="ColorPicker_Border_Confirmed" HorizontalAlignment="Right" Width="230"/>
+                        <Label Content="Border Color" Width="190" Margin="610,23,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Height="44" Padding="10,3,10,3" HorizontalAlignment="Left"/>
 
-                <hc:ColorPicker Name="ColorPicker_Accent" Margin="126,88,0,58" Background="#FF6F6F6F" Confirmed="ColorPicker_Accent_Confirmed" HorizontalAlignment="Left" Width="230"/>
-                <Label Content="Accent Color" Width="190" Margin="146,39,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Height="44" Padding="10,3,10,3" HorizontalAlignment="Left"/>
-                <hc:ColorPicker x:Name="ColorPicker_Border" Margin="0,86,138,60" Background="#FF6F6F6F" Confirmed="ColorPicker_Border_Confirmed" HorizontalAlignment="Right" Width="230"/>
-                <Label Content="Border Color" Width="190" Margin="602,39,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Height="44" Padding="10,3,10,3" HorizontalAlignment="Left"/>
+
+                        <hc:ImageViewer  Width="600" Height="330" ImageSource="/Resources/BG.jpg" Margin="177,549,173,73"/>
+                        <Label Content="BackGround Image Viewer" Width="460" Margin="0,494,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Height="44" Padding="10,3,10,3"/>
+                    </Grid>
+                </hc:ScrollViewer>
             </hc:SimplePanel>
 
         </hc:SimplePanel>

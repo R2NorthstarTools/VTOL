@@ -7924,6 +7924,8 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
 
                     System.IO.File.WriteAllLines(@"C:\ProgramData\VTOL_DATA\VARS\Theme.txt", lines);
+                    Accent_Color = (SolidColorBrush)new BrushConverter().ConvertFrom(ColorPicker_Accent.SelectedBrush.Color.ToString().Trim());
+
 
                 }
                 //  System.IO.File.WriteAllLines(@"C:\ProgramData\VTOL_DATA\VARS\Theme.txt", newLines);
@@ -7943,18 +7945,19 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
         private void ColorPicker_Border_Confirmed(object sender, FunctionEventArgs<Color> e)
         {
-            if (File.Exists(@"C:\ProgramData\VTOL_DATA\VARS\Theme.txt")) {
-               
-                    string[] lines = System.IO.File.ReadAllLines(@"C:\ProgramData\VTOL_DATA\VARS\Theme.txt");
+            if (File.Exists(@"C:\ProgramData\VTOL_DATA\VARS\Theme.txt"))
+            {
+
+                string[] lines = System.IO.File.ReadAllLines(@"C:\ProgramData\VTOL_DATA\VARS\Theme.txt");
                 if (lines.Length > 0)
                 {
                     lines = lines.ToArray();
-                    var newLines = new string[] { lines[0] , ColorPicker_Border.SelectedBrush.Color.ToString().Trim() };
-                   
-                     
+                    var newLines = new string[] { lines[0], ColorPicker_Border.SelectedBrush.Color.ToString().Trim() };
 
-                      System.IO.File.WriteAllLines(@"C:\ProgramData\VTOL_DATA\VARS\Theme.txt", newLines);
 
+
+                    System.IO.File.WriteAllLines(@"C:\ProgramData\VTOL_DATA\VARS\Theme.txt", newLines);
+                    Border_Color = (SolidColorBrush)new BrushConverter().ConvertFrom(ColorPicker_Border.SelectedBrush.Color.ToString().Trim());
                 }
                 //  System.IO.File.WriteAllLines(@"C:\ProgramData\VTOL_DATA\VARS\Theme.txt", newLines);
 
@@ -7966,8 +7969,12 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             }
             else
             {
-                saveAsyncFile("#FFFFFF\n"+ColorPicker_Border.SelectedBrush.Color.ToString().Trim(), @"C:\ProgramData\VTOL_DATA\VARS\Theme.txt", false, false);
-
+                if (Accent_Color != null)
+                {
+                    if (isValidHexaCode(Accent_Color.ToString())) { 
+                        saveAsyncFile(Accent_Color + "\n" + ColorPicker_Border.SelectedBrush.Color.ToString().Trim(), @"C:\ProgramData\VTOL_DATA\VARS\Theme.txt", false, false);
+                }
+            }
             }
         }
     }
