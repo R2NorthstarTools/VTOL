@@ -42,6 +42,7 @@ using HandyControl.Data;
 using System.Security.Principal;
 
 using Newtonsoft.Json;
+using System.Windows.Media.Effects;
 
 //****TODO*****//
 
@@ -79,6 +80,33 @@ namespace VTOL
         UnrecognizedNextHeader = 11043, // 0x00002B23
         IcmpError = 11044, // 0x00002B24
         DestinationScopeMismatch = 11045, // 0x00002B25 A?
+    }
+    class ChangeColorEffect : ShaderEffect
+    {
+        private const string _kshaderAsBase64 = @"AAP///7/HwBDVEFCHAAAAE8AAAAAA///AQAAABwAAAAAAQAASAAAADAAAAADAAAAAQACADgAAAAAAAAAaW5wdXQAq6sEAAwAAQABAAEAAAAAAAAAcHNfM18wAE1pY3Jvc29mdCAoUikgSExTTCBTaGFkZXIgQ29tcGlsZXIgMTAuMQCrUQAABQAAD6AAAIA/AAAAAAAAAAAAAAAAHwAAAgUAAIAAAAOQHwAAAgAAAJAACA+gQgAAAwAAD4AAAOSQAAjkoAEAAAIACAuAAADkgAEAAAIACASAAAAAoP//AAA=";
+        private static readonly PixelShader _shader;
+
+        static ChangeColorEffect()
+        {
+            _shader = new PixelShader();
+            _shader.SetStreamSource(new MemoryStream(Convert.FromBase64String(_kshaderAsBase64)));
+        }
+
+        public ChangeColorEffect()
+        {
+            PixelShader = _shader;
+            UpdateShaderValue(InputProperty);
+        }
+
+        public Brush Input
+        {
+            get { return (Brush)GetValue(InputProperty); }
+            set { SetValue(InputProperty, value); }
+        }
+
+        public static readonly DependencyProperty InputProperty =
+            ShaderEffect.RegisterPixelShaderSamplerProperty("Input", typeof(ChangeColorEffect), 0);
+
     }
     public static class ExtensionMethods
     {
@@ -331,7 +359,7 @@ namespace VTOL
 
 
 
-
+                this.Resources["Button_BG"] = new SolidColorBrush(Colors.LightGray);
 
 
 
@@ -3142,16 +3170,22 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             {
                 if (ex.Message == "Sequence contains no elements")
                 {
-                    Directory.CreateDirectory(@"C:\ProgramData\VTOL_DATA\Releases\");
-                    webClient.DownloadFileAsync(new Uri(current_Northstar_version_Url), @"C:\ProgramData\VTOL_DATA\Releases\Northstar_Release.zip");
-                    webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadProgressCallback_Progress_Window);
+                    //   Directory.CreateDirectory(@"C:\ProgramData\VTOL_DATA\Releases\");
+                    //   webClient.DownloadFileAsync(new Uri(current_Northstar_version_Url), @"C:\ProgramData\VTOL_DATA\Releases\Northstar_Release.zip");
+                    //   webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadProgressCallback_Progress_Window);
 
-                    Send_Warning_Notif(GetTextResource("NOTIF_WARN_INSTALL_START"));
+                    //    Send_Warning_Notif(GetTextResource("NOTIF_WARN_INSTALL_START"));
                 }
-                Write_To_Log(ErrorManager(ex));
-                Install_NS.IsEnabled = true;
-                Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
-                Loading_Panel.Visibility = Visibility.Hidden;
+                else
+                {
+                    Write_To_Log(ErrorManager(ex));
+                    Install_NS.IsEnabled = true;
+                    Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
+                    Loading_Panel.Visibility = Visibility.Hidden;
+
+
+
+                }
 
                 return;
             }
@@ -3711,6 +3745,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
         private void Check_Btn_Click(object sender, RoutedEventArgs e)
         {
 
+            this.Resources["Button_BG"] = new SolidColorBrush(Colors.Blue);
 
             Auto_Install_And_verify();
 

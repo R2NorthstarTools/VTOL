@@ -14,7 +14,11 @@
         mc:Ignorable="d"
         Title="VTOL" Height="750" Width="1200" UseLayoutRounding="True" ResizeMode="CanMinimize" Icon="/Resources/Northstar-512.png" Background="Black" WindowStyle="SingleBorderWindow">
     <Window.Resources>
+        <SolidColorBrush x:Name="Button_BG" x:Key="Button_BG" Color="#FF2C4C4C" />
+        <SolidColorBrush x:Key="Button_HOVER" Color="#FF2C4C4C" />
+        <SolidColorBrush x:Key="WINDOW" Color="#FF101010" />
 
+        
         <DataTemplate x:Key="NormalBox">
             <Grid Width="970" Background="{x:Null}" HorizontalAlignment="Center" Margin="0,0,0,3" Height="58">
                 <Label HorizontalAlignment="Stretch" Height="38" Margin="30,0,505,0" Background=  "#FF2C4C4C" Foreground="White" Content="{Binding Name}" FontSize="16" ToolTip="{Binding Description}" BorderBrush="{x:Null}"/>
@@ -75,9 +79,7 @@
             <ImageBrush x:Key="NO_Texture" ImageSource="/Resources/NO_TEXTURE.png" Stretch="UniformToFill"/>
             <ImageBrush x:Key="BG_PANELS" ImageSource="/Resources/BG.jpg" Stretch="UniformToFill"/>
             <ImageBrush x:Key="NS_ICON" ImageSource="/Resources/northstar_icon_ZfV_icon.ico" Stretch="UniformToFill"/>
-            <SolidColorBrush x:Name="Button_BG_Color" x:Key="Button_BG" Color="{Binding Accent_Color,Mode = OneWay}" />
-            <SolidColorBrush x:Key="Button_HOVER" Color="#FF2C4C4C" />
-            <SolidColorBrush x:Key="WINDOW" Color="#FF101010" />
+      
             <!-- <SolidColorBrush x:Key="WINDOW" Color="#FF101010" /> -->
             <!-- <SolidColorBrush x:Key="Button_HOVER" Color="#FF2C4C4C" /> -->
             <!-- <SolidColorBrush x:Key="Button_BG" Color="#FFEC6E04" /> -->
@@ -177,7 +179,7 @@
                     <TextBlock Text="{DynamicResource UI_BUTTON_MAIN_LAUNCH_TF2}" VerticalAlignment="Center" />
                 </StackPanel>
             </Button>
-            <Button x:Name="Northstar_Btn" Height="54" Background=  "{StaticResource Button_BG}" BorderThickness="1,1,1,1" BorderBrush="#FF02FFB4" HorizontalAlignment="Stretch" Margin="524,0,35,0" MouseEnter="Northstar_Btn_MouseEnter" Click="Northstar_Btn_Click" Width="430">
+            <Button x:Name="Northstar_Btn" Height="54" Background=  "{DynamicResource Button_BG}" BorderThickness="1,1,1,1" BorderBrush="#FF02FFB4" HorizontalAlignment="Stretch" Margin="524,0,35,0" MouseEnter="Northstar_Btn_MouseEnter" Click="Northstar_Btn_Click" Width="430">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="Resources/NS_ICON.png" Width="24" Height="24"/>
                     <TextBlock Text="{DynamicResource UI_BUTTON_MAIN_LAUNCH_NS}" VerticalAlignment="Center" />
@@ -224,7 +226,7 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
                     </hc:SimplePanel.ContextMenu>
                     <ListBox x:Name="Disabled_ListBox"  Margin="30,60,0,30" BorderBrush="#FF545454" Width="371" HorizontalAlignment="Left" Background="#FF333333" PreviewMouseRightButtonDown="MOD_PreviewMouseRightButtonDown" LostFocus="Disabled_ListBox_LostFocus" MouseLeave="Disabled_ListBox_MouseLeave" AllowDrop="False" IsTextSearchEnabled="False" IsSynchronizedWithCurrentItem="True" TargetUpdated="Disabled_ListBox_TargetUpdated" PreviewMouseMove="Disabled_ListBox_PreviewMouseMove" ManipulationCompleted="Disabled_ListBox_ManipulationCompleted"/>
                     <ListBox x:Name="Enabled_ListBox"  Margin="550,60,30,30" BorderBrush="#FF545454" Background="#FF333333" PreviewMouseRightButtonDown="MOD_PreviewMouseRightButtonDown" MouseLeave="Enabled_ListBox_MouseLeave" IsTextSearchEnabled="False" AllowDrop="False" LostFocus="Enabled_ListBox_LostFocus" PreviewMouseMove="Enabled_ListBox_PreviewMouseMove"/>
-                    <Button x:Name="Enable_Mod" Content="" Height="51" Width="56" Margin="0,110,0,0" VerticalAlignment="Top" Background="{StaticResource Enable_Button}" BorderBrush="{x:Null}" Click="Enable_Mod_Click"/>
+                    <Button x:Name="Enable_Mod" Content="" Height="51" Width="56" Margin="0,110,0,0" VerticalAlignment="Top" Background="{DynamicResource Enable_Button}" BorderBrush="{x:Null}" Click="Enable_Mod_Click"/>
                     <Button x:Name="Disable_Mod" Content="" Height="51" Width="56" Margin="0,212,0,0" VerticalAlignment="Top" Background="{StaticResource Disable_Button}" BorderBrush="{x:Null}" Click="Disable_Mod_Click"/>
                     <Label Content="{DynamicResource UI_TITLE_MODS}" Height="44" Width="190" Margin="0,-201,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi"/>
 
@@ -507,7 +509,7 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
         </hc:SimplePanel>
 
 
-        <hc:SimplePanel x:Name="Log_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Visible" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
+        <hc:SimplePanel x:Name="Log_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
             <RichTextBox x:Name="LOG_BOX" Margin="32,69,32,0" Background="#FF101010" Height="395" VerticalAlignment="Top" BorderBrush="#FF101010" SelectionTextBrush="{x:Null}" SelectionBrush="#FF101010" CaretBrush="#FF101010" AutomationProperties.HelpText="Log Area">
                 <FlowDocument>
                     <Paragraph>
@@ -560,23 +562,26 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
         </hc:SimplePanel>
 
 
-        <hc:SimplePanel x:Name="Theme_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Visible" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
-            <Label Content="Themes" Width="190" Margin="0,16,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Height="44" Padding="10,3,10,3"/>
+        <hc:SimplePanel x:Name="Theme_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
+            <hc:ScrollViewer VerticalScrollBarVisibility="Visible">
+                <Grid Height="1250">
 
-            <hc:SimplePanel Margin="30,65,30,10" Background="#FF101010">
-                <hc:ScrollViewer VerticalScrollBarVisibility="Visible" Margin="0,0,0,-395">
-                    <Grid>
-                        <hc:ColorPicker Name="ColorPicker_Accent" Margin="134,72,0,368" Background="#FF6F6F6F" Confirmed="ColorPicker_Accent_Confirmed" HorizontalAlignment="Left" Width="230"/>
-                        <Label Content="Accent Color" Width="190" Margin="154,23,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Height="44" Padding="10,3,10,3" HorizontalAlignment="Left"/>
-                        <hc:ColorPicker x:Name="ColorPicker_Border" Margin="0,70,130,368" Background="#FF6F6F6F" Confirmed="ColorPicker_Border_Confirmed" HorizontalAlignment="Right" Width="230"/>
-                        <Label Content="Border Color" Width="190" Margin="610,23,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Height="44" Padding="10,3,10,3" HorizontalAlignment="Left"/>
+                    <Label Content="Themes" Width="190" Margin="411,23,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Height="44" Padding="10,3,10,3" HorizontalAlignment="Left"/>
+
+                    <hc:ColorPicker Name="ColorPicker_Accent" Margin="140,142,0,534" Background="#FF6F6F6F" Confirmed="ColorPicker_Accent_Confirmed" HorizontalAlignment="Left" Width="230"/>
+                    <Label Content="Accent Color" Width="190" Margin="160,93,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Height="44" Padding="10,3,10,3" HorizontalAlignment="Left"/>
+                    <hc:ColorPicker x:Name="ColorPicker_Border" Margin="0,140,136,533" Background="#FF6F6F6F" Confirmed="ColorPicker_Border_Confirmed" HorizontalAlignment="Right" Width="230"/>
+                    <Label Content="Border Color" Margin="0,91,157,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Height="44" Padding="10,3,10,3" HorizontalAlignment="Right" Width="190"/>
 
 
-                        <hc:ImageViewer  Width="600" Height="330" ImageSource="/Resources/BG.jpg" Margin="177,549,173,73"/>
-                        <Label Content="BackGround Image Viewer" Width="460" Margin="0,494,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Height="44" Padding="10,3,10,3"/>
-                    </Grid>
-                </hc:ScrollViewer>
-            </hc:SimplePanel>
+                    <hc:ImageViewer  Width="600" Height="330" ImageSource="/Resources/BG.jpg" Margin="207,730,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Label Content="BackGround Image Viewer" Width="460" Margin="0,569,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Height="44" Padding="10,3,10,3"/>
+
+                    <TextBox x:Name="Get_Current_BG_Image" Margin="243,1059,239,161" TextWrapping="Wrap" Text="TextBox" Background="White" Foreground="Black" SelectionTextBrush="Black" ManipulationCompleted="TextBox_ManipulationCompleted" KeyDown="TextBox_KeyDown" CaretBrush="Black"/>
+                    <Label  Content="Current Background Image" HorizontalAlignment="Right" Margin="0,1024,640,208" VerticalAlignment="Stretch" Width="139" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}"/>
+
+                </Grid>
+            </hc:ScrollViewer>
 
         </hc:SimplePanel>
 
@@ -599,7 +604,8 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
 
             <hc:SideMenuItem x:Name="Main" Header="{DynamicResource UI_SIDEMENU_TITLE_MAIN}" Selected="SideMenuItem_Selected" Margin="4,0,0,0" Background="#FF101010">
                 <hc:SideMenuItem.Icon>
-                    <Image Source="/Resources/home.png" Width="24" Height="24"/>
+                    <Image Source="/Resources/home.png" Width="24" Height="24"  />
+                    
                 </hc:SideMenuItem.Icon>
 
             </hc:SideMenuItem>
@@ -621,7 +627,11 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
             <hc:SideMenuItem x:Name="Server_Configuration" Header="{DynamicResource UI_SIDEMENU_TITLE_SERVER_CONF}" Margin="4,0,0,0" Background="#FF101010">
                 <hc:SideMenuItem.Icon>
 
-                    <Image Source="/Resources/Server_ICON.png" Width="24" Height="24"/>
+                    <Image Source="/Resources/Server_ICON.png" Width="24" Height="24">
+                        <Image.Effect>
+                            <local:ChangeColorEffect/>
+                        </Image.Effect>
+                    </Image>
 
                 </hc:SideMenuItem.Icon>
             </hc:SideMenuItem>
