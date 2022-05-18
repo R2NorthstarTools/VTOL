@@ -626,12 +626,9 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
             </hc:SideMenuItem>
             <hc:SideMenuItem x:Name="Server_Configuration" Header="{DynamicResource UI_SIDEMENU_TITLE_SERVER_CONF}" Margin="4,0,0,0" Background="#FF101010">
                 <hc:SideMenuItem.Icon>
-
-                    <Image Source="/Resources/Server_ICON.png" Width="24" Height="24">
-                        <Image.Effect>
-                            <local:ChangeColorEffect/>
-                        </Image.Effect>
-                    </Image>
+                    <Canvas  Width="28" Height="28">
+                        <Path Fill="{DynamicResource Button_BG}" Data="M14.811 0.308l12.876 12.876q0.345 0.345 0.345 0.816t-0.345 0.816l-12.876 12.876q-0.345 0.345-0.58 0.236t-0.236-0.58v-26.694q0-0.471 0.236-0.58t0.58 0.236zM4.71 26.767v-25.534q0-0.471 0.345-0.816t0.816-0.345h4.643q0.471 0 0.816 0.345t0.345 0.816v25.534q0 0.471-0.345 0.816t-0.816 0.345h-4.643q-0.471 0-0.816-0.345t-0.345-0.816z" />
+                    </Canvas>
 
                 </hc:SideMenuItem.Icon>
             </hc:SideMenuItem>

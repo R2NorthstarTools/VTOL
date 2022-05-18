@@ -80,6 +80,7 @@
     <None Remove="Resources\space-invaders-gif-6.gif" />
     <None Remove="Resources\target.png" />
     <None Remove="Resources\Test_Args_1.json" />
+    <None Remove="Resources\Test_Transparent.png" />
     <None Remove="Resources\TF2_Vanilla_promo.gif" />
     <None Remove="Resources\TF_ICON.png" />
     <None Remove="Resources\themes.png" />
@@ -300,6 +301,9 @@
     </Resource>
     <Resource Include="Resources\Test_Args_1.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Test_Transparent.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\TF2_Vanilla_promo.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
