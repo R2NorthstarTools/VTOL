@@ -524,7 +524,7 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
         </hc:SimplePanel>
 
 
-        <hc:SimplePanel x:Name="Updates_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
+        <hc:SimplePanel x:Name="Updates_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Visible" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
             <hc:ScrollViewer VerticalScrollBarVisibility="Visible">
                 <Grid Height="1457">
                     <Label Content="{DynamicResource UI_TITLE_UPDATES}" Width="190" Margin="0,32,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Height="44" Padding="10,3,10,3"/>
@@ -539,6 +539,12 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
 
                     <TextBox x:Name="Repo_URl" HorizontalAlignment="Center" Margin="0,717,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="528" Background="White" Foreground="Black" SelectionTextBrush="Black" ManipulationCompleted="TextBox_ManipulationCompleted" KeyDown="TextBox_KeyDown" CaretBrush="Black"/>
                     <Label  Content="Current Repository URL" HorizontalAlignment="Left" Margin="235,690,0,0" VerticalAlignment="Top" Width="139" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}"/>
+
+                    <TextBox x:Name="AuthorBox" HorizontalAlignment="Left" Margin="241,842,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="245" Background="White" Foreground="Black" SelectionTextBrush="Black" ManipulationCompleted="TextBox_ManipulationCompleted" KeyDown="TextBox_KeyDown" CaretBrush="Black"/>
+                    <Label  Content="Author" HorizontalAlignment="Left" Margin="299,819,0,0" VerticalAlignment="Top" Width="140" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}"/>
+                    <TextBox x:Name="RepoBox" HorizontalAlignment="Left" Margin="524,842,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="245" Background="White" Foreground="Black" SelectionTextBrush="Black" ManipulationCompleted="TextBox_ManipulationCompleted" KeyDown="TextBox_KeyDown" CaretBrush="Black"/>
+                    <Label  Content="Repo" HorizontalAlignment="Left" Margin="579,819,0,0" VerticalAlignment="Top" Width="140" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}"/>
+                    <Label x:Name="Main_Working_GIT_Directory"  Content="Main Working GIT Directory" Margin="0,783,0,0" VerticalAlignment="Top" Width="256" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="14" FontWeight="Bold"/>
                     <!--<hc:PropertyGrid x:Name="DataGridSettings" SelectedObject="{Binding SelectedEmployee}" Margin="129,618,129,270" SelectedObjectChanged="DataGridSettings_SelectedObjectChanged" TargetUpdated="DataGridSettings_TargetUpdated" DataContextChanged="DataGridSettings_DataContextChanged"/>-->
                 </Grid>
             </hc:ScrollViewer>
@@ -560,7 +566,7 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
         </hc:SimplePanel>
 
 
-        <hc:SimplePanel x:Name="Theme_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Visible" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
+        <hc:SimplePanel x:Name="Theme_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
             <Label Content="Themes" Width="190" Margin="0,16,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Height="44" Padding="10,3,10,3"/>
 
             <hc:SimplePanel Margin="30,65,30,10" Background="#FF101010">
