@@ -32,5 +32,14 @@
     <Setting Name="Sort_Mods_By_Date" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="Author" Type="System.String" Scope="User">
+      <Value Profile="(Default)">R2Northstar</Value>
+    </Setting>
+    <Setting Name="Repo" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Northstar</Value>
+    </Setting>
+    <Setting Name="MasterServer_URL" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Northstar.tf</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

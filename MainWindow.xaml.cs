@@ -81,33 +81,7 @@ namespace VTOL
         IcmpError = 11044, // 0x00002B24
         DestinationScopeMismatch = 11045, // 0x00002B25 A?
     }
-    class ChangeColorEffect : ShaderEffect
-    {
-        private const string _kshaderAsBase64 = @"AAP///7/HwBDVEFCHAAAAE8AAAAAA///AQAAABwAAAAAAQAASAAAADAAAAADAAAAAQACADgAAAAAAAAAaW5wdXQAq6sEAAwAAQABAAEAAAAAAAAAcHNfM18wAE1pY3Jvc29mdCAoUikgSExTTCBTaGFkZXIgQ29tcGlsZXIgMTAuMQCrUQAABQAAD6AAAIA/AAAAAAAAAAAAAAAAHwAAAgUAAIAAAAOQHwAAAgAAAJAACA+gQgAAAwAAD4AAAOSQAAjkoAEAAAIACAuAAADkgAEAAAIACASAAAAAoP//AAA=";
-        private static readonly PixelShader _shader;
-
-        static ChangeColorEffect()
-        {
-            _shader = new PixelShader();
-            _shader.SetStreamSource(new MemoryStream(Convert.FromBase64String(_kshaderAsBase64)));
-        }
-
-        public ChangeColorEffect()
-        {
-            PixelShader = _shader;
-            UpdateShaderValue(InputProperty);
-        }
-
-        public Brush Input
-        {
-            get { return (Brush)GetValue(InputProperty); }
-            set { SetValue(InputProperty, value); }
-        }
-
-        public static readonly DependencyProperty InputProperty =
-            ShaderEffect.RegisterPixelShaderSamplerProperty("Input", typeof(ChangeColorEffect), 0);
-
-    }
+    
     public static class ExtensionMethods
     {
         private static readonly Action EmptyDelegate = delegate { };
@@ -289,6 +263,10 @@ namespace VTOL
         public List<string> Game_WEAPON_List = new List<string>();
         private static readonly Action EmptyDelegate = delegate { };
         public string Current_REPO_URL;
+        public string Author_Used;
+        public string Repo_Used;
+        public string MasterServer_URL;
+
         public int pid;
         string Skin_Path = "";
         string Skin_Temp_Loc = "";
@@ -330,7 +308,9 @@ namespace VTOL
             Sort_Lists = Properties.Settings.Default.Sort_Mods;
             Warn_Close_EA = Properties.Settings.Default.Warning_Close_EA;
             Current_REPO_URL = Properties.Settings.Default.Current_REPO_URL;
-
+            Author_Used = Properties.Settings.Default.Author;
+            Repo_Used = Properties.Settings.Default.Repo;
+            MasterServer_URL = Properties.Settings.Default.MasterServer_URL;
             //  Test_List.ItemsSource = itemsList;
 
             try
@@ -406,6 +386,27 @@ namespace VTOL
                     CultureInfo ci = CultureInfo.InstalledUICulture;
                     ChangeLanguageTo(ci.TwoLetterISOLanguageName);//do this here so there will be UI  texts showing up
                     Write_To_Log("\nLanguage Detected was - " + ci.TwoLetterISOLanguageName);
+                }
+
+                if (File.Exists(@"C:\ProgramData\VTOL_DATA\VARS\AUTHOR.txt"))
+                {
+                    Author_Used = Read_From_TextFile_OneLine(@"C:\ProgramData\VTOL_DATA\VARS\AUTHOR.txt").Trim();
+
+                }
+                if (File.Exists(@"C:\ProgramData\VTOL_DATA\VARS\REPO.txt"))
+                {
+                    Repo_Used = Read_From_TextFile_OneLine(@"C:\ProgramData\VTOL_DATA\VARS\REPO.txt").Trim();
+
+                }
+                if (File.Exists(@"C:\ProgramData\VTOL_DATA\VARS\REPO_URL.txt"))
+                {
+                    Current_REPO_URL = Read_From_TextFile_OneLine(@"C:\ProgramData\VTOL_DATA\VARS\REPO_URL.txt").Trim();
+
+                }
+                if (File.Exists(@"C:\ProgramData\VTOL_DATA\VARS\MASTER_SERVERURL.txt"))
+                {
+                    MasterServer_URL = Read_From_TextFile_OneLine(@"C:\ProgramData\VTOL_DATA\VARS\MASTER_SERVERURL.txt").Trim();
+
                 }
                 Check_For_New_Northstar_Install();
                 Set_About();
@@ -1607,6 +1608,9 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
         {
 
             Repo_URl.Text = Current_REPO_URL;
+            AuthorBox.Text = Author_Used;
+            RepoBox.Text = Repo_Used;
+            Master_ServerBox.Text = MasterServer_URL;
             Mod_Panel.Visibility = Visibility.Hidden;
             skins_Panel.Visibility = Visibility.Hidden;
             Main_Panel.Visibility = Visibility.Hidden;
@@ -3745,7 +3749,6 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
         private void Check_Btn_Click(object sender, RoutedEventArgs e)
         {
 
-            this.Resources["Button_BG"] = new SolidColorBrush(Colors.Blue);
 
             Auto_Install_And_verify();
 
@@ -3779,7 +3782,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             try
             {
 
-                Updater Update = new Updater("R2Northstar", "Northstar");
+                Updater Update = new Updater(Author_Used, Repo_Used);
                 Update.Force_Version = Properties.Settings.Default.Version;
                 Update.Force_Version_ = true;
                 if (Update.CheckForUpdate())
@@ -7867,6 +7870,8 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 Current_REPO_URL = Repo_URl.Text.ToString();
                 Properties.Settings.Default.Current_REPO_URL =Repo_URl.Text.ToString();
                 Properties.Settings.Default.Save();
+                saveAsyncFile(Repo_Used, @"C:\ProgramData\VTOL_DATA\VARS\REPO_URL.txt", false, false);
+
             }
         }
 
@@ -7959,7 +7964,10 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
 
                     System.IO.File.WriteAllLines(@"C:\ProgramData\VTOL_DATA\VARS\Theme.txt", lines);
-                    Accent_Color = (SolidColorBrush)new BrushConverter().ConvertFrom(ColorPicker_Accent.SelectedBrush.Color.ToString().Trim());
+                    Accent_Color = (SolidColorBrush)new BrushConverter().ConvertFrom(ColorPicker_Accent.SelectedBrush.Color.ToString());
+                    Send_Success_Notif("Saved The Color And Applied!");
+
+                    this.Resources["Button_BG"] = (SolidColorBrush)new BrushConverter().ConvertFrom(ColorPicker_Accent.SelectedBrush.Color.ToString());
 
 
                 }
@@ -7973,8 +7981,17 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             }
             else
             {
-                saveAsyncFile(ColorPicker_Accent.SelectedBrush.Color.ToString().Trim(), @"C:\ProgramData\VTOL_DATA\VARS\Theme.txt", false, false);
+                if (Accent_Color != null)
+                {
+                    if (isValidHexaCode(Accent_Color.ToString()))
+                    {
+                        this.Resources["Button_BG"] = (SolidColorBrush)new BrushConverter().ConvertFrom(ColorPicker_Accent.SelectedBrush.Color.ToString());
+                        Send_Info_Notif(ColorPicker_Accent.SelectedBrush.Color.ToString().Trim());
+                        saveAsyncFile(ColorPicker_Accent.SelectedBrush.Color.ToString().Trim(), @"C:\ProgramData\VTOL_DATA\VARS\Theme.txt", false, false);
+                        Send_Success_Notif("Saved The Color And Applied!");
 
+                    }
+                }
             }
         }
 
@@ -7993,6 +8010,9 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
                     System.IO.File.WriteAllLines(@"C:\ProgramData\VTOL_DATA\VARS\Theme.txt", newLines);
                     Border_Color = (SolidColorBrush)new BrushConverter().ConvertFrom(ColorPicker_Border.SelectedBrush.Color.ToString().Trim());
+                    Send_Success_Notif("Saved The Color And Applied!");
+
+
                 }
                 //  System.IO.File.WriteAllLines(@"C:\ProgramData\VTOL_DATA\VARS\Theme.txt", newLines);
 
@@ -8004,12 +8024,60 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             }
             else
             {
-                if (Accent_Color != null)
+                if (Border_Color != null)
                 {
-                    if (isValidHexaCode(Accent_Color.ToString())) { 
+                    if (isValidHexaCode(Border_Color.ToString())) { 
                         saveAsyncFile(Accent_Color + "\n" + ColorPicker_Border.SelectedBrush.Color.ToString().Trim(), @"C:\ProgramData\VTOL_DATA\VARS\Theme.txt", false, false);
+
+                        Send_Success_Notif("Saved The Color And Applied!");
+
+                    }
                 }
             }
+        }
+
+        private void AuthorBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                Send_Success_Notif("Changed Author URL From " + Author_Used + " -To- " + AuthorBox.Text.ToString());
+                Author_Used = AuthorBox.Text.ToString();
+                Properties.Settings.Default.Author = AuthorBox.Text.ToString();
+                Properties.Settings.Default.Save();
+                saveAsyncFile(Repo_Used, @"C:\ProgramData\VTOL_DATA\VARS\AUTHOR.txt", false, false);
+
+            }
+        }
+
+        private void Grid_KeyDown(object sender, KeyEventArgs e)
+        {
+           
+        }
+
+        private void Master_ServerBox_KeyDown(object sender, KeyEventArgs e)
+        {
+
+            if (e.Key == Key.Enter)
+            {
+                Send_Success_Notif("Changed Repo URL From " + MasterServer_URL + " -To- " + Master_ServerBox.Text.ToString());
+                MasterServer_URL = Master_ServerBox.Text.ToString();
+                Properties.Settings.Default.Repo = Master_ServerBox.Text.ToString();
+                Properties.Settings.Default.Save();
+                saveAsyncFile(Repo_Used, @"C:\ProgramData\VTOL_DATA\VARS\MASTER_SERVERURL.txt", false, false);
+
+            }
+        }
+
+        private void RepoBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                Send_Success_Notif("Changed Repo URL From " + Repo_Used + " -To- " + RepoBox.Text.ToString());
+                Repo_Used = RepoBox.Text.ToString();
+                Properties.Settings.Default.Repo = RepoBox.Text.ToString();
+                Properties.Settings.Default.Save();
+                saveAsyncFile(Repo_Used, @"C:\ProgramData\VTOL_DATA\VARS\REPO.txt", false, false);
+
             }
         }
     }
