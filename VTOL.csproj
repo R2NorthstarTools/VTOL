@@ -70,6 +70,7 @@
     <None Remove="Resources\NorthStar_Smurfson.gif" />
     <None Remove="Resources\NO_TEXTURE.png" />
     <None Remove="Resources\NO_TEXTURE.png" />
+    <None Remove="Resources\NSCN_ICON.png" />
     <None Remove="Resources\NS_ICON.png" />
     <None Remove="Resources\Panel_Var_2.png" />
     <None Remove="Resources\Search_Icon.png" />
@@ -267,6 +268,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\NorthStar_Smurfson.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\NSCN_ICON.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\NS_ICON.png">
