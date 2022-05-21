@@ -433,10 +433,11 @@ namespace VTOL
                         {
 
                             Accent_Color = (SolidColorBrush)new BrushConverter().ConvertFrom(lines[0]);
-                            ColorPicker_Accent.SelectedBrush = Accent_Color;
+                            ColorPicker_Accent.SelectedBrush = (SolidColorBrush)new BrushConverter().ConvertFrom(lines[0]);
 
                             Colors_Set Colors_Set = new Colors_Set { Accent_Color = Accent_Color };
                             this.DataContext = Colors_Set;
+                            this.Resources["Button_BG"] = (SolidColorBrush)new BrushConverter().ConvertFrom(ColorPicker_Accent.SelectedBrush.Color.ToString());
 
                         }
                         if (lines.Length >= 2)
@@ -445,7 +446,7 @@ namespace VTOL
                             {
 
                                 Border_Color = (SolidColorBrush)new BrushConverter().ConvertFrom(lines[1]);
-                                ColorPicker_Border.SelectedBrush = Border_Color;
+                                ColorPicker_Border.SelectedBrush = (SolidColorBrush)new BrushConverter().ConvertFrom(lines[1]);
 
 
                             }
@@ -2048,7 +2049,6 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 await File.WriteAllTextAsync(Filename, string.Empty);
 
                 await File.WriteAllTextAsync(Filename, Text);
-
 
             }
         }
@@ -3781,7 +3781,6 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
         {
             try
             {
-
                 Updater Update = new Updater(Author_Used, Repo_Used);
                 Update.Force_Version = Properties.Settings.Default.Version;
                 Update.Force_Version_ = true;
@@ -8063,7 +8062,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 MasterServer_URL = Master_ServerBox.Text.ToString();
                 Properties.Settings.Default.Repo = Master_ServerBox.Text.ToString();
                 Properties.Settings.Default.Save();
-                saveAsyncFile(Repo_Used, @"C:\ProgramData\VTOL_DATA\VARS\MASTER_SERVERURL.txt", false, false);
+                saveAsyncFile(MasterServer_URL, @"C:\ProgramData\VTOL_DATA\VARS\MASTER_SERVERURL.txt", false, false);
 
             }
         }
