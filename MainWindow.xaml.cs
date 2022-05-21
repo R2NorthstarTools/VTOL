@@ -2206,7 +2206,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 throw new DirectoryNotFoundException(
                     "Source directory does not exist or could not be found: "
                     + sourceDirName);
-            }
+            } 
 
             // If the destination directory does not exist, create it.
             if (!Directory.Exists(destDirName))
@@ -2542,8 +2542,10 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                             Send_Info_Notif(GetTextResource("NOTIF_INFO_RESTORING_FILES"));
                             if (Directory.Exists(Current_Install_Folder + @"\TempCopyFolder\"))
                             {
-                                System.IO.File.Copy(Current_Install_Folder + @"\TempCopyFolder\ns_startup_args.txt", Current_Install_Folder + @"\ns_startup_args.txt", true);
-
+                                if (Directory.Exists(Current_Install_Folder + @"\TempCopyFolder\ns_startup_args.txt"))
+                                {
+                                    System.IO.File.Copy(Current_Install_Folder + @"\TempCopyFolder\ns_startup_args.txt", Current_Install_Folder + @"\ns_startup_args.txt", true);
+                                }
                                 Send_Info_Notif(GetTextResource("NOTIF_INFO_CLEANING_RESIDUAL"));
 
                             }
@@ -2555,10 +2557,15 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                             Send_Info_Notif(GetTextResource("NOTIF_INFO_RESTORING_FILES"));
                             if (Directory.Exists(Current_Install_Folder + @"\TempCopyFolder\"))
                             {
-                                System.IO.File.Copy(Current_Install_Folder + @"\TempCopyFolder\autoexec_ns_server.cfg", Current_Install_Folder + @"\R2Northstar\mods\Northstar.CustomServers\mod\cfg\autoexec_ns_server.cfg", true);
-
-                                System.IO.File.Copy(Current_Install_Folder + @"\TempCopyFolder\ns_startup_args_dedi.txt", Current_Install_Folder + @"\ns_startup_args_dedi.txt", true);
-                                Send_Info_Notif(GetTextResource("NOTIF_INFO_CLEANING_RESIDUAL"));
+                                if (Directory.Exists(Current_Install_Folder + @"\TempCopyFolder\autoexec_ns_server.cfg"))
+                                {
+                                    System.IO.File.Copy(Current_Install_Folder + @"\TempCopyFolder\autoexec_ns_server.cfg", Current_Install_Folder + @"\R2Northstar\mods\Northstar.CustomServers\mod\cfg\autoexec_ns_server.cfg", true);
+                                }
+                                if (Directory.Exists(Current_Install_Folder + @"\TempCopyFolder\ns_startup_args_dedi.txt"))
+                                {
+                                    System.IO.File.Copy(Current_Install_Folder + @"\TempCopyFolder\ns_startup_args_dedi.txt", Current_Install_Folder + @"\ns_startup_args_dedi.txt", true);
+                                }
+                                    Send_Info_Notif(GetTextResource("NOTIF_INFO_CLEANING_RESIDUAL"));
 
                             }
 
@@ -3121,20 +3128,28 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                             if (Directory.Exists(Current_Install_Folder + @"\TempCopyFolder"))
                             {
                                 Send_Info_Notif(GetTextResource("NOTIF_INFO_BACKING_UP_ARG_FILES"));
-
-                                System.IO.File.Copy(Current_Install_Folder + @"\ns_startup_args.txt", Current_Install_Folder + @"\TempCopyFolder\ns_startup_args.txt", true);
-
-                                System.IO.File.Copy(Current_Install_Folder + @"\ns_startup_args_dedi.txt", Current_Install_Folder + @"\TempCopyFolder\ns_startup_args_dedi.txt", true);
+                                if (Directory.Exists(Current_Install_Folder + @"\ns_startup_args.txt"))
+                                {
+                                    System.IO.File.Copy(Current_Install_Folder + @"\ns_startup_args.txt", Current_Install_Folder + @"\TempCopyFolder\ns_startup_args.txt", true);
+                                }
+                                if (Directory.Exists(Current_Install_Folder + @"\ns_startup_args_dedi.txt"))
+                                {
+                                    System.IO.File.Copy(Current_Install_Folder + @"\ns_startup_args_dedi.txt", Current_Install_Folder + @"\TempCopyFolder\ns_startup_args_dedi.txt", true);
+                                }
                             }
                             else
                             {
 
                                 Send_Info_Notif(GetTextResource("NOTIF_INFO_CREATING_DIRECTORY_AND_BACKUP_ARGS"));
                                 System.IO.Directory.CreateDirectory(Current_Install_Folder + @"\TempCopyFolder");
-
-                                System.IO.File.Copy(Current_Install_Folder + @"\ns_startup_args.txt", Current_Install_Folder + @"\TempCopyFolder\ns_startup_args.txt", true);
-                                System.IO.File.Copy(Current_Install_Folder + @"\ns_startup_args_dedi.txt", Current_Install_Folder + @"\TempCopyFolder\ns_startup_args_dedi.txt", true);
-
+                                if (Directory.Exists(Current_Install_Folder + @"\ns_startup_args.txt"))
+                                {
+                                    System.IO.File.Copy(Current_Install_Folder + @"\ns_startup_args.txt", Current_Install_Folder + @"\TempCopyFolder\ns_startup_args.txt", true);
+                                }
+                                if (Directory.Exists(Current_Install_Folder + @"\ns_startup_args_dedi.txt"))
+                                {
+                                    System.IO.File.Copy(Current_Install_Folder + @"\ns_startup_args_dedi.txt", Current_Install_Folder + @"\TempCopyFolder\ns_startup_args_dedi.txt", true);
+                                }
                             }
                             Directory.CreateDirectory(@"C:\ProgramData\VTOL_DATA\Releases\");
                             webClient.DownloadFileAsync(new Uri(current_Northstar_version_Url), @"C:\ProgramData\VTOL_DATA\Releases\Northstar_Release.zip");
@@ -7833,19 +7848,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
         {
 
         }
-        public class ViewModel
-        {
-            public object SelectedEmployee { get; set; }
-            public ViewModel()
-            {
-                SelectedEmployee = new PropertyGridDemoModel()
-                {
-                    Repository_URL = "pps",
-                    Start_On_Top = true,
-                    Duration_of_popups  = Times.Short,
-                };
-            }
-        }
+       
         private void DataGridSettings_SelectedObjectChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
         }
