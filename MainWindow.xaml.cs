@@ -1254,10 +1254,17 @@ namespace VTOL
                 Send_Info_Notif(GetTextResource("NOTIF_INFO_DOWNLOAD_START"));
                 var objname = ((System.Windows.Controls.Button)sender).Tag.ToString();
                 string[] words = objname.Split("|");
-                // Send_Success_Notif(words[0]);
                 LAST_INSTALLED_MOD = (words[1]);
+                if (words[2].Contains("DDS"))
+                {
+                     parse_git_to_zip(words[0],true);
 
-                parse_git_to_zip(words[0]);
+
+                }
+                else
+                {
+                     parse_git_to_zip(words[0]);
+                }
             }
             catch (Exception ex)
             {
@@ -1403,7 +1410,7 @@ namespace VTOL
                             }
 
 
-                            itemsList.Add(new Button { Name = Update.Thunderstore[i].Name, Icon = ICON, date_created = Update.Thunderstore[i].DateCreated.ToString(), description = Descrtiption, owner=Update.Thunderstore[i].Owner, Rating = rating, download_url = download_url +"|"+Update.Thunderstore[i].FullName.ToString(), Webpage  = Update.Thunderstore[i].PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads });
+                            itemsList.Add(new Button { Name = Update.Thunderstore[i].Name, Icon = ICON, date_created = Update.Thunderstore[i].DateCreated.ToString(), description = Descrtiption, owner=Update.Thunderstore[i].Owner, Rating = rating, download_url = download_url +"|"+Update.Thunderstore[i].FullName.ToString() + "|" + Tags, Webpage  = Update.Thunderstore[i].PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads });
 
                             //      itemsList.Add(new Button { Name = item.Name, Icon = ICON, date_created = item.DateCreated.ToString(), description = Descrtiption, owner=item.Owner, Rating = rating, download_url = download_url +"|"+item.FullName.ToString(), Webpage  = item.PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads });
 
@@ -1486,7 +1493,7 @@ namespace VTOL
                             //  }
 
                             //itemsList.Add(new Button {  Name = item.full_name.ToString() , Icon = item.latest.icon,date_created = item.date_created.ToString(), description = item.latest.description, owner=item.owner, Rating = rating});
-                            itemsList.Add(new Button { Name = Update.Thunderstore[i].Name, Icon = ICON, date_created = Update.Thunderstore[i].DateCreated.ToString(), description = Descrtiption, owner=Update.Thunderstore[i].Owner, Rating = rating, download_url = download_url +"|"+Update.Thunderstore[i].FullName.ToString(), Webpage  = Update.Thunderstore[i].PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads });
+                            itemsList.Add(new Button { Name = Update.Thunderstore[i].Name, Icon = ICON, date_created = Update.Thunderstore[i].DateCreated.ToString(), description = Descrtiption, owner=Update.Thunderstore[i].Owner, Rating = rating, download_url = download_url +"|"+Update.Thunderstore[i].FullName.ToString() + "|" + Tags, Webpage  = Update.Thunderstore[i].PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads });
                         }
 
                         // itemsList.Add(item.full_name.ToString());
@@ -2417,7 +2424,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
         }
 
 
-        private void Unpack_To_Location_Custom(string Target_Zip, string Destination, bool Clean_Thunderstore = false, bool clean_normal = false)
+        private void Unpack_To_Location_Custom(string Target_Zip, string Destination, bool Clean_Thunderstore = false, bool clean_normal = false,bool Skin_Install = false)
         {
             //ToDo Check if url or zip location
             //add drag and drop
@@ -2454,7 +2461,52 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                         ZipFile.ExtractToDirectory(Target_Zip, Destination,true);
                         //dialog.Close();
                         Send_Success_Notif("\nUnpacking Complete!\n");
-                        if (Clean_Thunderstore == true)
+                        if (Skin_Install == true)
+                        {
+
+                          
+                                string searchQuery3 = "*" + ".zip" + "*";
+                            string folderName = Destination;
+
+                            var directory = new DirectoryInfo(folderName);
+                            var Destinfo = new DirectoryInfo(Destination);
+
+
+                            var Script = directory.GetDirectories(searchQuery3, SearchOption.AllDirectories);
+                            foreach (var d in Script)
+                            {
+                                DirectoryInfo di = new DirectoryInfo(d.FullName);
+                                DirectoryInfo[] diArr = di.GetDirectories();
+
+                                MessageBox.Show(diArr[0].FullName);
+
+                            }
+
+                            // Check if file exists with its full path    
+                            /*  if (File.Exists(Path.Combine(Destination, "icon.png")))
+                                  {
+                                      // If file found, delete it    
+                                      File.Delete(Path.Combine(Destination, "icon.png"));
+                                  }
+                                  else { Send_Warning_Notif(GetTextResource("NOTIF_WARN_CLEANUP_FILES_NOT_FOUND")); }
+                                  if (File.Exists(Path.Combine(Destination, "manifest.json")))
+                                  {
+                                      // If file found, delete it    
+                                      File.Delete(Path.Combine(Destination, "manifest.json"));
+                                  }
+                                  else { Send_Warning_Notif(GetTextResource("NOTIF_WARN_CLEANUP_FILES_NOT_FOUND")); }
+
+                                  if (File.Exists(Path.Combine(Destination, "README.md")))
+                                  {
+                                      // If file found, delete it    
+                                      File.Delete(Path.Combine(Destination, "README.md"));
+                                  }
+                                  else { Send_Warning_Notif(GetTextResource("NOTIF_WARN_CLEANUP_FILES_NOT_FOUND")); }
+
+                              */
+
+                        }
+                        else if (Clean_Thunderstore == true)
                         {
 
                             try
@@ -2925,7 +2977,16 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             if (webClient != null)
                 return;
             webClient = new WebClient();
-            webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(Completed_Mod_Browser);
+            if (skin == true)
+            {
+                webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(Completed_Mod_Browser_Skins);
+
+                
+            }
+            else
+            {
+                webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(Completed_Mod_Browser);
+            }
             if (Directory.Exists(Current_Install_Folder + @"\NS_Downloaded_Mods"))
             {
 
@@ -3897,9 +3958,19 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             Mod_Progress_BAR.ShowText = false;
 
 
-            Unpack_To_Location_Custom(Current_Install_Folder+ @"\NS_Downloaded_Mods\"+LAST_INSTALLED_MOD+".zip", Current_Install_Folder+ @"\R2Northstar\mods\"+LAST_INSTALLED_MOD, true);
+            Unpack_To_Location_Custom(Current_Install_Folder + @"\NS_Downloaded_Mods\" + LAST_INSTALLED_MOD + ".zip", Current_Install_Folder + @"\R2Northstar\mods\" + LAST_INSTALLED_MOD, true);
         }
+        private void Completed_Mod_Browser_Skins(object sender, AsyncCompletedEventArgs e)
+        {
 
+            webClient = null;
+            Send_Info_Notif(GetTextResource("NOTIF_INFO_DOWNLOAD_COMPLETE"));
+            Mod_Progress_BAR.Value = 0;
+            Mod_Progress_BAR.ShowText = false;
+
+
+            Unpack_To_Location_Custom(Current_Install_Folder + @"\NS_Downloaded_Mods\" + LAST_INSTALLED_MOD + ".zip", Current_Install_Folder + @"\R2Northstar\mods\" + LAST_INSTALLED_MOD, true, false, true);
+        }
         private void Check_Btn_Click(object sender, RoutedEventArgs e)
         {
 
