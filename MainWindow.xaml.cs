@@ -344,7 +344,7 @@ namespace VTOL
         public string Repo_Used;
         public string MasterServer_URL;
         public string MasterServer_URL_CN = "nscn.wolf109909.top";
-        public string Current_REPO_URL_CN = "http://127.0.0.1/version/query";
+        public string Current_REPO_URL_CN = "https://nscn.wolf109909.top/version/query";
 
         public int pid;
         string Skin_Path = "";
@@ -464,7 +464,15 @@ namespace VTOL
                 else
                 {
                     CultureInfo ci = CultureInfo.InstalledUICulture;
-                    ChangeLanguageTo(ci.TwoLetterISOLanguageName);//do this here so there will be UI  texts showing up
+                    if (ci.TwoLetterISOLanguageName == "zh")
+                    {
+                        ChangeLanguageTo("cn");
+                    }
+                    else // this is due to we misused cn and zh. zh is the actual languageName and cn is what we have in file.
+                    {
+                        ChangeLanguageTo(ci.TwoLetterISOLanguageName);
+                    }
+                    
                     Write_To_Log("\nLanguage Detected was - " + ci.TwoLetterISOLanguageName);
                 }
 
