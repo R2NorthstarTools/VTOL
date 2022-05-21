@@ -282,8 +282,8 @@ namespace VTOL
         bool Origin_Client_Running = false;
         List<object> Temp = new List<object> { };
         bool Warn_Close_EA;
-        SolidColorBrush Accent_Color = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF4C4C4C");
-        SolidColorBrush Border_Color = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF4C4C4C");
+        SolidColorBrush Accent_Color = (SolidColorBrush)new BrushConverter().ConvertFrom("#2C4C4C");
+        SolidColorBrush Border_Color = (SolidColorBrush)new BrushConverter().ConvertFrom("#2C4C4C");
 
         ObservableCollection<object> OjectList = new ObservableCollection<object>();
         int completed_flag;
@@ -453,6 +453,12 @@ namespace VTOL
                         }
 
                     }
+                }
+                else
+                {
+                    this.Resources["Button_BG"] = Accent_Color;
+
+
                 }
                 if (do_not_overwrite_Ns_file==true)
                 {
