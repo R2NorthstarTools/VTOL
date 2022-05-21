@@ -1639,8 +1639,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
         }
         void Select_Themes()
         {
-
-            Repo_URl.Text = Current_REPO_URL;
+;
             Mod_Panel.Visibility = Visibility.Hidden;
             skins_Panel.Visibility = Visibility.Hidden;
             Main_Panel.Visibility = Visibility.Hidden;
@@ -7875,7 +7874,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 Current_REPO_URL = Repo_URl.Text.ToString();
                 Properties.Settings.Default.Current_REPO_URL =Repo_URl.Text.ToString();
                 Properties.Settings.Default.Save();
-                saveAsyncFile(Repo_Used, @"C:\ProgramData\VTOL_DATA\VARS\REPO_URL.txt", false, false);
+                saveAsyncFile(Current_REPO_URL, @"C:\ProgramData\VTOL_DATA\VARS\REPO_URL.txt", false, false);
 
             }
         }
