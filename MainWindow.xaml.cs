@@ -8048,7 +8048,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 Author_Used = AuthorBox.Text.ToString();
                 Properties.Settings.Default.Author = AuthorBox.Text.ToString();
                 Properties.Settings.Default.Save();
-                saveAsyncFile(Repo_Used, @"C:\ProgramData\VTOL_DATA\VARS\AUTHOR.txt", false, false);
+                saveAsyncFile(Author_Used, @"C:\ProgramData\VTOL_DATA\VARS\AUTHOR.txt", false, false);
 
             }
         }
