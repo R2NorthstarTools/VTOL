@@ -464,7 +464,15 @@ namespace VTOL
                 else
                 {
                     CultureInfo ci = CultureInfo.InstalledUICulture;
-                    ChangeLanguageTo(ci.TwoLetterISOLanguageName);//do this here so there will be UI  texts showing up
+                    if (ci.TwoLetterISOLanguageName == "zh")
+                    {
+                        ChangeLanguageTo("cn");
+                    }
+                    else // this is due to we misused cn and zh. zh is the actual languageName and cn is what we have in file.
+                    {
+                        ChangeLanguageTo(ci.TwoLetterISOLanguageName);
+                    }
+                    
                     Write_To_Log("\nLanguage Detected was - " + ci.TwoLetterISOLanguageName);
                 }
 
