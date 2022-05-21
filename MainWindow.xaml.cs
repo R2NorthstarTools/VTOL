@@ -7627,6 +7627,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
         private void SortMenu_Click(object sender, RoutedEventArgs e)
         {
+            try { 
             if (Sort_Lists == true)
             {
                 Sort_Img_Source.Source = new BitmapImage(new Uri(@"/Resources/Sort_Off.png", UriKind.Relative));
@@ -7653,6 +7654,13 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
             }
         }
+            catch (Exception ex)
+            {
+                Write_To_Log(ErrorManager(ex));
+        Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
+
+            }
+}
         private string _filePath;
 
         public void ZIP_LIST(List<string> filesToZip, string sZipFileName, bool deleteExistingZip = true)
@@ -7711,6 +7719,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
         private void Export_Server_Config_Click(object sender, RoutedEventArgs e)
         {
+            try { 
             if (Directory.Exists(Current_Install_Folder + "/VTOL_Dedicated_Workspace"))
             {
                 if (File.Exists(Ns_dedi_File) && File.Exists(Convar_File))
@@ -7758,11 +7767,18 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 }
 
             }
-
         }
+            catch (Exception ex)
+            {
+                Write_To_Log(ErrorManager(ex));
+        Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
+
+            }
+}
 
         private void Import_Server_Config_Click(object sender, RoutedEventArgs e)
         {
+            try { 
             string zipPath = null;
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Zip files (*.zip)|*.zip|All files (*.*)|*.*";
@@ -7945,8 +7961,14 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 Send_Error_Notif(GetTextResource("NOTIF_ERROR_SUGGEST_REBROWSE"));
                 return;
             }
-
         }
+            catch (Exception ex)
+            {
+                Write_To_Log(ErrorManager(ex));
+        Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
+
+            }
+}
         
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
@@ -8071,6 +8093,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
         private void ColorPicker_Accent_Confirmed(object sender, FunctionEventArgs<Color> e)
         {
+            try { 
            // Color color = (Color)ColorConverter.ConvertFromString(ColorPicker_Accent.SelectedBrush.Color.ToString());
          //   Send_Info_Notif(color.GetBrightness().ToString());
             if (File.Exists(@"C:\ProgramData\VTOL_DATA\VARS\Theme.txt"))
@@ -8115,9 +8138,18 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 }
             }
         }
+            catch (Exception ex)
+            {
+                Write_To_Log(ErrorManager(ex));
+        Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
+
+            }
+
+}
 
         private void ColorPicker_Border_Confirmed(object sender, FunctionEventArgs<Color> e)
         {
+            try { 
             if (File.Exists(@"C:\ProgramData\VTOL_DATA\VARS\Theme.txt"))
             {
 
@@ -8155,7 +8187,15 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                     }
                 }
             }
+
         }
+            catch (Exception ex)
+            {
+                Write_To_Log(ErrorManager(ex));
+        Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
+
+            }
+}
 
         private void AuthorBox_KeyDown(object sender, KeyEventArgs e)
         {
