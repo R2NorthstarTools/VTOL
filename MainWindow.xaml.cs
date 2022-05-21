@@ -343,6 +343,8 @@ namespace VTOL
         public string Author_Used;
         public string Repo_Used;
         public string MasterServer_URL;
+        public string MasterServer_URL_CN = "nscn.wolf109909.top";
+        public string Current_REPO_URL_CN = "http://127.0.0.1/version/query";
 
         public int pid;
         string Skin_Path = "";
@@ -384,10 +386,11 @@ namespace VTOL
             do_not_overwrite_Ns_file_Dedi = Properties.Settings.Default.Ns_Dedi;
             Sort_Lists = Properties.Settings.Default.Sort_Mods;
             Warn_Close_EA = Properties.Settings.Default.Warning_Close_EA;
-            Current_REPO_URL = Properties.Settings.Default.Current_REPO_URL;
             Author_Used = Properties.Settings.Default.Author;
             Repo_Used = Properties.Settings.Default.Repo;
             MasterServer_URL = Properties.Settings.Default.MasterServer_URL;
+            Current_REPO_URL = Properties.Settings.Default.Current_REPO_URL;
+
             //  Test_List.ItemsSource = itemsList;
 
             try
@@ -852,34 +855,50 @@ namespace VTOL
                         dict.Source = new Uri(@"Resources\Languages\"+ LanguageCode + ".xaml", UriKind.Relative);
                         this.Resources["Northstar_Icon"] = new BitmapImage(new Uri(@"\Resources\NS_ICON.png", UriKind.Relative));
                         this.Resources.MergedDictionaries.Add(dict);
+                        MasterServer_URL = Properties.Settings.Default.MasterServer_URL;
+                        Current_REPO_URL = Properties.Settings.Default.Current_REPO_URL;
+                        Master_ServerBox.Text = MasterServer_URL;
+                        Repo_URl.Text = Current_REPO_URL;
                         break;
                     case "fr":
                         Language_Selection.SelectedIndex = 1;
                         dict.Source = new Uri(@"Resources\Languages\"+ LanguageCode + ".xaml", UriKind.Relative);
                         this.Resources["Northstar_Icon"] = new BitmapImage(new Uri(@"\Resources\NS_ICON.png", UriKind.Relative));
-
+                        MasterServer_URL = Properties.Settings.Default.MasterServer_URL;
+                        Current_REPO_URL = Properties.Settings.Default.Current_REPO_URL;
+                        Master_ServerBox.Text = MasterServer_URL;
+                        Repo_URl.Text = Current_REPO_URL;
                         this.Resources.MergedDictionaries.Add(dict);
                         break;
                     case "de":
                         Language_Selection.SelectedIndex = 2;
                         dict.Source = new Uri(@"Resources\Languages\"+ LanguageCode + ".xaml", UriKind.Relative);
                         this.Resources["Northstar_Icon"] = new BitmapImage(new Uri(@"\Resources\NS_ICON.png", UriKind.Relative));
-
+                        MasterServer_URL = Properties.Settings.Default.MasterServer_URL;
+                        Current_REPO_URL = Properties.Settings.Default.Current_REPO_URL;
+                        Master_ServerBox.Text = MasterServer_URL;
+                        Repo_URl.Text = Current_REPO_URL;
                         this.Resources.MergedDictionaries.Add(dict);
                         break;
                     case "it":
                         Language_Selection.SelectedIndex = 3;
                         dict.Source = new Uri(@"Resources\Languages\"+ LanguageCode + ".xaml", UriKind.Relative);
                         this.Resources["Northstar_Icon"] = new BitmapImage(new Uri(@"\Resources\NS_ICON.png", UriKind.Relative));
-
+                        MasterServer_URL = Properties.Settings.Default.MasterServer_URL;
+                        Current_REPO_URL = Properties.Settings.Default.Current_REPO_URL;
+                        Master_ServerBox.Text = MasterServer_URL;
+                        Repo_URl.Text = Current_REPO_URL;
                         this.Resources.MergedDictionaries.Add(dict);
                         break;
                     case "cn":
                         Language_Selection.SelectedIndex = 4;
                         dict.Source = new Uri(@"Resources\Languages\"+ LanguageCode + ".xaml", UriKind.Relative);
                         this.Resources["Northstar_Icon"] = new BitmapImage(new Uri(@"\Resources\NSCN_ICON.png", UriKind.Relative));
-
                         this.Resources.MergedDictionaries.Add(dict);
+                        MasterServer_URL = MasterServer_URL_CN;
+                        Current_REPO_URL = Current_REPO_URL_CN;
+                        Master_ServerBox.Text = MasterServer_URL_CN;
+                        Repo_URl.Text = Current_REPO_URL_CN;
                         //this.Resources["Northstar_Icon"] = @"Resources/NSCN_ICON.png";
 
                         break;
@@ -887,16 +906,22 @@ namespace VTOL
                         Language_Selection.SelectedIndex = 5;
                         dict.Source = new Uri(@"Resources\Languages\"+ LanguageCode + ".xaml", UriKind.Relative);
                         this.Resources["Northstar_Icon"] = new BitmapImage(new Uri(@"\Resources\NS_ICON.png", UriKind.Relative));
-
+                        MasterServer_URL = Properties.Settings.Default.MasterServer_URL;
+                        Current_REPO_URL = Properties.Settings.Default.Current_REPO_URL;
                         this.Resources.MergedDictionaries.Add(dict);
+                        Master_ServerBox.Text = MasterServer_URL;
+                        Repo_URl.Text = Current_REPO_URL;
                         break;
                     default:
                         LanguageCode="en";
                         Language_Selection.SelectedIndex = 0;
                         dict.Source = new Uri(@"Resources\Languages\"+ LanguageCode + ".xaml", UriKind.Relative);
                         this.Resources["Northstar_Icon"] = new BitmapImage(new Uri(@"\Resources\NS_ICON.png", UriKind.Relative));
-
+                        MasterServer_URL = Properties.Settings.Default.MasterServer_URL;
+                        Current_REPO_URL = Properties.Settings.Default.Current_REPO_URL;
                         this.Resources.MergedDictionaries.Add(dict);
+                        Master_ServerBox.Text = MasterServer_URL;
+                        Repo_URl.Text = Current_REPO_URL;
                         break;
 
                 }
@@ -1699,10 +1724,11 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
         void Select_Update()
         {
 
-            Repo_URl.Text = Current_REPO_URL;
             AuthorBox.Text = Author_Used;
             RepoBox.Text = Repo_Used;
             Master_ServerBox.Text = MasterServer_URL;
+            Repo_URl.Text = Current_REPO_URL;
+
             Mod_Panel.Visibility = Visibility.Hidden;
             skins_Panel.Visibility = Visibility.Hidden;
             Main_Panel.Visibility = Visibility.Hidden;
@@ -7028,7 +7054,6 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             if (Korean.IsSelected == true)
             {
                 ChangeLanguageTo("kr");
-                this.Resources["Northstar_Icon"] = @"Resources/NS_ICON.png";
 
             }
 
