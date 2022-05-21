@@ -18,7 +18,7 @@
         <SolidColorBrush x:Key="Button_HOVER" Color="#FF2C4C4C" />
         <SolidColorBrush x:Key="WINDOW" Color="#FF101010" />
 
-        
+
         <DataTemplate x:Key="NormalBox">
             <Grid Width="970" Background="{x:Null}" HorizontalAlignment="Center" Margin="0,0,0,3" Height="58">
                 <Label HorizontalAlignment="Stretch" Height="38" Margin="30,0,505,0" Background=  "#FF2C4C4C" Foreground="White" Content="{Binding Name}" FontSize="16" ToolTip="{Binding Description}" BorderBrush="{x:Null}"/>
@@ -79,7 +79,7 @@
             <ImageBrush x:Key="NO_Texture" ImageSource="/Resources/NO_TEXTURE.png" Stretch="UniformToFill"/>
             <ImageBrush x:Key="BG_PANELS" ImageSource="/Resources/BG.jpg" Stretch="UniformToFill"/>
             <ImageBrush x:Key="NS_ICON" ImageSource="/Resources/northstar_icon_ZfV_icon.ico" Stretch="UniformToFill"/>
-      
+
             <!-- <SolidColorBrush x:Key="WINDOW" Color="#FF101010" /> -->
             <!-- <SolidColorBrush x:Key="Button_HOVER" Color="#FF2C4C4C" /> -->
             <!-- <SolidColorBrush x:Key="Button_BG" Color="#FFEC6E04" /> -->
@@ -107,19 +107,19 @@
 
 
                 <hc:Badge x:Name="Badge" Value="2" Text="New" Margin="60,227,60,9" Background="#FFFF0C0C" BorderBrush="White"  />
-                <Button x:Name="Install_NS"  Height="50" Margin="60,242,60,0" VerticalAlignment="Top" BorderBrush="White" Background="{StaticResource Button_BG}" Click="Install_NS_Click" HorizontalAlignment="Stretch"/>
+                <Button x:Name="Install_NS"  Height="50" Margin="60,242,60,0" VerticalAlignment="Top" BorderBrush="White" Background="{DynamicResource Button_BG}" Click="Install_NS_Click" HorizontalAlignment="Stretch"/>
 
 
 
                 <Label Content="{DynamicResource UI_TEXT_MAIN_NS_EXEC_DIR}" Height="50" Margin="61,121,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" AutomationProperties.HelpText="{DynamicResource TIP_YOUR_NS_INST_DIR}" RenderTransformOrigin="0.5,0.5" Foreground="White"/>
                 <Label Content="{DynamicResource UI_TEXT_MAIN_TF2_EXEC_DIR}" Height="45" Margin="59,22,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Foreground="White"/>
-                <Button x:Name="Check_Btn" Content="{DynamicResource UI_BUTTON_MAIN_CHECK}" Height="32" HorizontalAlignment="Stretch" Margin="775,171,60,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Background="{StaticResource Button_BG}" Click="Check_Btn_Click">
+                <Button x:Name="Check_Btn" Content="{DynamicResource UI_BUTTON_MAIN_CHECK}" Height="32" HorizontalAlignment="Stretch" Margin="775,171,60,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Background="{DynamicResource Button_BG}" Click="Check_Btn_Click">
                     <hc:Poptip.Instance>
                         <hc:Poptip Content="{DynamicResource TIP_VERIFY_NS_INSTALL}" PlacementType="TopLeft"/>
                     </hc:Poptip.Instance>
                 </Button>
 
-                <Button x:Name="Browse_Titanfall_2" Content="{DynamicResource UI_BUTTON_MAIN_BROWSE}" Height="32" HorizontalAlignment="Stretch" Margin="775,72,60,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Background=  "{StaticResource Button_BG}" Click="Browse_Titanfall_2_Click" Padding="0,6,0,6">
+                <Button x:Name="Browse_Titanfall_2" Content="{DynamicResource UI_BUTTON_MAIN_BROWSE}" Height="32" HorizontalAlignment="Stretch" Margin="775,72,60,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Background=  "{DynamicResource Button_BG}" Click="Browse_Titanfall_2_Click" Padding="0,6,0,6">
                     <hc:Poptip.Instance>
                         <hc:Poptip Content="{DynamicResource TIP_MANUAL_SELECT_GAME_DIR}" PlacementType="TopLeft"/>
                     </hc:Poptip.Instance>
@@ -172,7 +172,7 @@
             <Label Content="{DynamicResource UI_TITLE_MAIN}" Height="44" Width="190" Margin="0,6,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi"/>
         </hc:SimplePanel>
         <hc:SimplePanel Background="Black" HorizontalAlignment="Left" Width="1010" Grid.Column="1" VerticalAlignment="Top" ScrollViewer.CanContentScroll="True" Grid.IsSharedSizeScope="True" ClipToBounds="True" Height="104" Grid.Row="1" Margin="0,212,0,0" Grid.RowSpan="2" Grid.ColumnSpan="3">
-            <Button x:Name="Titanfall_2_Btn"  Height="54" Width="430" Background=  "{StaticResource Button_BG}" BorderThickness="1,1,1,1" BorderBrush="{x:Null}" HorizontalAlignment="Left" Margin="35,0,0,0" MouseEnter="Titanfall_2_Btn_MouseEnter" Click="Titanfall_2_Btn_Click"  >
+            <Button x:Name="Titanfall_2_Btn"  Height="54" Width="430" Background=  "{DynamicResource Button_BG}" BorderThickness="1,1,1,1" BorderBrush="{x:Null}" HorizontalAlignment="Left" Margin="35,0,0,0" MouseEnter="Titanfall_2_Btn_MouseEnter" Click="Titanfall_2_Btn_Click"  >
                 <StackPanel Orientation="Horizontal">
                     <Image Source="Resources/TF_ICON.png" Width="24" Height="24"/>
 
@@ -236,7 +236,7 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
                         <Label Content="{DynamicResource UI_TEXT_MODS_BROWSE_LOCAL_ZIP}" Margin="34,37,0,0" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Foreground="White" FontFamily="Gadugi" FontWeight="Normal" VerticalAlignment="Top" Padding="0,0,0,0" ScrollViewer.VerticalScrollBarVisibility="Disabled" UseLayoutRounding="True"  Height="26" MinWidth="9"/>
                     </Border>
                     <hc:TextBox x:Name="Browse_For_MOD" TextWrapping="Wrap" Margin="35,0,0,26" SelectionTextBrush="Black" Background="White" BorderBrush="{x:Null}" Height="32" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="780" TextChanged="Browse_For_MOD_TextChanged" Foreground="Black"/>
-                    <Button x:Name="Browse_For_Mod_zip_Btn" Content="{DynamicResource UI_BUTTON_MODS_BROWSE}" HorizontalAlignment="Left" BorderBrush="{x:Null}" Margin="820,0,0,27" VerticalAlignment="Bottom" Background=  "{StaticResource Button_BG}" Height="32" Width="100" BorderThickness="1,1,1,1" Padding="6,6,10,6" Click="Browse_For_Mod_zip_Btn_Click"/>
+                    <Button x:Name="Browse_For_Mod_zip_Btn" Content="{DynamicResource UI_BUTTON_MODS_BROWSE}" HorizontalAlignment="Left" BorderBrush="{x:Null}" Margin="820,0,0,27" VerticalAlignment="Bottom" Background=  "{DynamicResource Button_BG}" Height="32" Width="100" BorderThickness="1,1,1,1" Padding="6,6,10,6" Click="Browse_For_Mod_zip_Btn_Click"/>
 
                 </hc:SimplePanel>
                 <Label Content="{DynamicResource UI_TEXT_MODS}" Height="44" Width="190" Margin="0,10,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Visibility="Hidden"/>
@@ -356,8 +356,8 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
                                     <TextBlock TextWrapping="Wrap" Text="{Binding date_created}" FontSize="10" Margin="117,3,0,0" HorizontalAlignment="Left" Width="561" Height="14" VerticalAlignment="Top" Grid.Row="1" IsHitTestVisible="False"/>
                                     <Label Content="{DynamicResource UI_TEXT_THUNDERSTORE_AUTHOR}" Height="14" Width="82" HorizontalAlignment="Left" Margin="99,30,0,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="9" HorizontalContentAlignment="Left"/>
                                     <Label Content="{DynamicResource UI_TEXT_THUNDERSTORE_PUBLISH_DATE}" Height="14" Width="107" HorizontalAlignment="Left" Margin="5,3,0,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="9" Grid.Row="1" HorizontalContentAlignment="Left"/>
-                                    <Button Content="{DynamicResource UI_BUTTON_THUNDERSTORE_INSTALL}"  HorizontalAlignment="Left" Margin="722,15,0,0" VerticalAlignment="Top" Background=  "{StaticResource Button_BG}" BorderBrush="{x:Null}" Height="53" Width="146" Click="Download_Install" Tag="{Binding download_url}" Padding="0,0,0,0" Focusable="True"  />
-                                    <Button Content="{DynamicResource UI_BUTTON_THUNDERSTORE_GOTO_WEBPAGE}" HorizontalAlignment="Left" Margin="722,73,0,0" Tag ="{Binding Webpage}" VerticalAlignment="Top" Background=  "{StaticResource Button_BG}" BorderBrush="{x:Null}" Height="22" Width="146" Click="Open_Package_Webpage" Padding="0,0,0,0"/>
+                                    <Button Content="{DynamicResource UI_BUTTON_THUNDERSTORE_INSTALL}"  HorizontalAlignment="Left" Margin="722,15,0,0" VerticalAlignment="Top" Background=  "{DynamicResource Button_BG}" BorderBrush="{x:Null}" Height="53" Width="146" Click="Download_Install" Tag="{Binding download_url}" Padding="0,0,0,0" Focusable="True"  />
+                                    <Button Content="{DynamicResource UI_BUTTON_THUNDERSTORE_GOTO_WEBPAGE}" HorizontalAlignment="Left" Margin="722,73,0,0" Tag ="{Binding Webpage}" VerticalAlignment="Top" Background=  "{DynamicResource Button_BG}" BorderBrush="{x:Null}" Height="22" Width="146" Click="Open_Package_Webpage" Padding="0,0,0,0"/>
                                     <Label Content="{DynamicResource UI_TEXT_THUNDERSTORE_MOD_DESC}" Height="14" Width="83" HorizontalAlignment="Left" Margin="98,0,0,0" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="9" FontStyle="Normal" FontWeight="Normal" HorizontalContentAlignment="Left" IsHitTestVisible="False"/>
                                     <Label Content="{DynamicResource UI_TEXT_THUNDERSTORE_FILE_SIZE}" Height="14" HorizontalAlignment="Left" Margin="5,19,0,0" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="9" Grid.Row="1" VerticalAlignment="Top" HorizontalContentAlignment="Center" IsHitTestVisible="False"/>
                                     <TextBlock TextWrapping="Wrap" Text="{Binding File_Size}" FontSize="10" Margin="93,19,0,0" HorizontalAlignment="Left" Width="257" Height="14" VerticalAlignment="Top" Grid.Row="1" IsHitTestVisible="False"/>
@@ -388,7 +388,7 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
 
             </hc:SimplePanel>
 
-            <hc:CircleProgressBar  x:Name="Mod_Progress_BAR" Margin="0,12,14,0"  Foreground="White" Width="43" BorderBrush="{x:Null}" HorizontalAlignment="Right" Height="43" VerticalAlignment="Top" Background=  "{StaticResource Button_BG}" Value="-4" ArcThickness="2" ShowText="False" />
+            <hc:CircleProgressBar  x:Name="Mod_Progress_BAR" Margin="0,12,14,0"  Foreground="White" Width="43" BorderBrush="{x:Null}" HorizontalAlignment="Right" Height="43" VerticalAlignment="Top" Background=  "{DynamicResource Button_BG}" Value="-4" ArcThickness="2" ShowText="False" />
 
         </hc:SimplePanel>
 
@@ -409,7 +409,7 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
                         <Border BorderThickness="1" Background="#FF101010" Height="129" VerticalAlignment="Bottom" >
                         </Border>
                         <hc:TextBox x:Name="Skin_Path_Box" TextWrapping="Wrap" Margin="0,0,115,26" SelectionTextBrush="Black" Background="White" BorderBrush="{x:Null}" Height="32" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="780" Foreground="Black"/>
-                        <Button x:Name="Browse_For_Skin" Content="{DynamicResource UI_BUTTON_SKINS_BROWSE}" HorizontalAlignment="Right" BorderBrush="{x:Null}" Margin="0,0,10,27" VerticalAlignment="Bottom" Background="{StaticResource Button_BG}" Height="32" Width="100" BorderThickness="1,1,1,1" Padding="6,6,10,6" Click="Browse_For_Skin_Click"/>
+                        <Button x:Name="Browse_For_Skin" Content="{DynamicResource UI_BUTTON_SKINS_BROWSE}" HorizontalAlignment="Right" BorderBrush="{x:Null}" Margin="0,0,10,27" VerticalAlignment="Bottom" Background="{DynamicResource Button_BG}" Height="32" Width="100" BorderThickness="1,1,1,1" Padding="6,6,10,6" Click="Browse_For_Skin_Click"/>
                         <Label x:Name="Locate_LBL" Content="{DynamicResource UI_TEXT_SKINS_LOCATE_ZIP}" Margin="35,0,0,63" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Foreground="White" FontFamily="Gadugi" FontWeight="Normal" VerticalAlignment="Bottom" Padding="0,0,0,0" MinWidth="8" Height="22"/>
 
                     </hc:SimplePanel>
@@ -424,7 +424,7 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
                         <Label Content="{DynamicResource UI_TEXT_SKINS_GLOW}" Margin="0,311,157,0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontFamily="Gadugi" FontWeight="Normal" VerticalAlignment="Top" Height="27" Width="110" HorizontalAlignment="Right"/>
                         <Image x:Name="Diffuse_IMG" HorizontalAlignment="Right" Height="256" VerticalAlignment="Top" Width="256" Margin="0,56,570,0" Source="/Resources/NO_TEXTURE.png"/>
                         <Image x:Name="Glow_IMG" Height="256" VerticalAlignment="Top" Margin="0,56,104,0" Source="/Resources/NO_TEXTURE.png" HorizontalAlignment="Right" Width="256"/>
-                        <Button x:Name="Install_Skin_Bttn" Content="{DynamicResource UI_BUTTON_SKINS_INSTALL}" Width="366" Margin="0,351,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Background=  "{StaticResource Button_BG}" Height="30" Click="Install_Skin_Bttn_Click"/>
+                        <Button x:Name="Install_Skin_Bttn" Content="{DynamicResource UI_BUTTON_SKINS_INSTALL}" Width="366" Margin="0,351,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Background=  "{DynamicResource Button_BG}" Height="30" Click="Install_Skin_Bttn_Click"/>
                     </hc:SimplePanel>
                     <Label Content="{DynamicResource UI_TITLE_SKINS}" Height="44" Width="190" Margin="0,10,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi"/>
                     <hc:GifImage x:Name="Drag_Drop_Overlay_Skins" Opacity="0.95" Visibility="Hidden" >
@@ -485,8 +485,8 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
                     <Label Content="{DynamicResource UI_TEXT_SERVER_CONF_NS_CONVAR_PATH}" Width="282" Margin="0,18,0,0" VerticalAlignment="Stretch" FontWeight="Normal" Background="{x:Null}" BorderBrush="{x:Null}" />
 
                     <hc:TextBox x:Name="Dedicated_Convar_ARGS" Width="438" Background="White" Height="30" VerticalAlignment="Bottom" IsReadOnly="True" IsUndoEnabled="False" Foreground="Black" />
-                    <Button x:Name="Load_Bt" Height="36" Width="950" Margin="0,26,0,0" VerticalAlignment="Top" Background="{StaticResource Button_BG}" Content="{DynamicResource UI_BUTTON_SERVER_CONF_LOAD_FILES}" Click="Load_Bt_" BorderBrush="{x:Null}" />
-                    <Button x:Name="Import_Server_Config" Height="36" Width="418" Margin="0,9,0,0" VerticalAlignment="Top" Background="{StaticResource Button_BG}" Content="Import Server Config" BorderBrush="{x:Null}" Click="Import_Server_Config_Click" />
+                    <Button x:Name="Load_Bt" Height="36" Width="950" Margin="0,26,0,0" VerticalAlignment="Top" Background="{DynamicResource Button_BG}" Content="{DynamicResource UI_BUTTON_SERVER_CONF_LOAD_FILES}" Click="Load_Bt_" BorderBrush="{x:Null}" />
+                    <Button x:Name="Import_Server_Config" Height="36" Width="418" Margin="0,9,0,0" VerticalAlignment="Top" Background="{DynamicResource Button_BG}" Content="Import Server Config" BorderBrush="{x:Null}" Click="Import_Server_Config_Click" />
 
                     <Label Height="58" Width="329" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,36,0,0" Content="{DynamicResource UI_TEXT_SERVER_CONF_STARTUP_ARGUMENTS}" FontSize="36" FontFamily="Bahnschrift SemiLight" Background="{x:Null}" BorderBrush="{x:Null}" />
                     <ListBox x:Name="Startup_Arguments_UI_List" Margin="0,-4,0,-322" Background="#FF101010" BorderBrush="{x:Null}" ItemTemplateSelector="{StaticResource Server_Template_Selector}" PreviewMouseWheel="S" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="False">
@@ -494,9 +494,9 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
                     <Label Height="58" Width="329" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,357,0,0" Content="{DynamicResource UI_TEXT_SERVER_CONF_CONVAR_ARGUMENTS}" FontSize="36" FontFamily="Bahnschrift SemiLight" Background="{x:Null}" BorderBrush="{x:Null}" />
                     <ListBox x:Name="Convar_Arguments_UI_List" Background="#FF101010" BorderBrush="{x:Null}" ItemTemplateSelector="{StaticResource Server_Template_Selector}" Height="1448" VerticalAlignment="Top" PreviewMouseWheel="Convar_Arguments_UI_List_PreviewMouseWheel" ScrollViewer.CanContentScroll="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
 
-                    <Button Content="{DynamicResource UI_BUTTON_SERVER_CONF_LAUNCH_DEDICATED}" Height="60" Width="950" Click="Dedicated_Btn_Click" BorderBrush="White" Background=  "{StaticResource Button_BG}" Margin="0,20,0,0" VerticalAlignment="Top" />
+                    <Button Content="{DynamicResource UI_BUTTON_SERVER_CONF_LAUNCH_DEDICATED}" Height="60" Width="950" Click="Dedicated_Btn_Click" BorderBrush="White" Background=  "{DynamicResource Button_BG}" Margin="0,20,0,0" VerticalAlignment="Top" />
 
-                    <Button x:Name="Export_Server_Config" Height="42" Width="418" Margin="0,20,0,0" VerticalAlignment="Top" Background="{StaticResource Button_BG}" Content="Export Server Config" BorderBrush="{x:Null}" Click="Export_Server_Config_Click" />
+                    <Button x:Name="Export_Server_Config" Height="42" Width="418" Margin="0,20,0,0" VerticalAlignment="Top" Background="{DynamicResource Button_BG}" Content="Export Server Config" BorderBrush="{x:Null}" Click="Export_Server_Config_Click" />
 
 
                 </hc:SimpleStackPanel>
@@ -526,15 +526,15 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
         </hc:SimplePanel>
 
 
-        <hc:SimplePanel x:Name="Updates_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Visible" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
+        <hc:SimplePanel x:Name="Updates_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
             <hc:ScrollViewer VerticalScrollBarVisibility="Visible">
-                <Grid Height="1457">
+                <Grid Height="1457" KeyDown="Grid_KeyDown">
                     <Label Content="{DynamicResource UI_TITLE_UPDATES}" Width="190" Margin="0,32,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Height="44" Padding="10,3,10,3"/>
                     <hc:SimplePanel Margin="175,59,175,39">
 
                         <Image Height="380" VerticalAlignment="Top" Margin="140,25,0,0" Source="/Resources/bestboy.png" HorizontalAlignment="Left" Width="380"/>
-                        <Button x:Name="Check_For_Updates" Content="{DynamicResource UI_TEXT_UPDATE_CHECK}" Height="47" HorizontalAlignment="Left" Margin="140,428,0,0" VerticalAlignment="Top" Background=  "{StaticResource Button_BG}" BorderBrush="{x:Null}" Click="Check_For_Updates_Click" FontSize="14" Width="170"/>
-                        <Button x:Name="Config_Updates" Content="{DynamicResource UI_TEXT_UPDATE_CONFIGURE}" Height="47" HorizontalAlignment="Left" Margin="350,428,0,0" VerticalAlignment="Top" Background=  "{StaticResource Button_BG}" BorderBrush="{x:Null}" Click="Config_Updates_Click" FontSize="14" Width="170"/>
+                        <Button x:Name="Check_For_Updates" Content="{DynamicResource UI_TEXT_UPDATE_CHECK}" Height="47" HorizontalAlignment="Left" Margin="140,428,0,0" VerticalAlignment="Top" Background=  "{DynamicResource Button_BG}" BorderBrush="{x:Null}" Click="Check_For_Updates_Click" FontSize="14" Width="170"/>
+                        <Button x:Name="Config_Updates" Content="{DynamicResource UI_TEXT_UPDATE_CONFIGURE}" Height="47" HorizontalAlignment="Left" Margin="350,428,0,0" VerticalAlignment="Top" Background=  "{DynamicResource Button_BG}" BorderBrush="{x:Null}" Click="Config_Updates_Click" FontSize="14" Width="170"/>
 
                     </hc:SimplePanel>
                     <Label Content="Settings" Width="190" Margin="0,608,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Height="44" Padding="10,3,10,3"/>
@@ -542,11 +542,13 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
                     <TextBox x:Name="Repo_URl" HorizontalAlignment="Center" Margin="0,717,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="528" Background="White" Foreground="Black" SelectionTextBrush="Black" ManipulationCompleted="TextBox_ManipulationCompleted" KeyDown="TextBox_KeyDown" CaretBrush="Black"/>
                     <Label  Content="Current Repository URL" HorizontalAlignment="Left" Margin="235,690,0,0" VerticalAlignment="Top" Width="139" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}"/>
 
-                    <TextBox x:Name="AuthorBox" HorizontalAlignment="Left" Margin="241,842,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="245" Background="White" Foreground="Black" SelectionTextBrush="Black" ManipulationCompleted="TextBox_ManipulationCompleted" KeyDown="TextBox_KeyDown" CaretBrush="Black"/>
+                    <TextBox x:Name="AuthorBox" HorizontalAlignment="Left" Margin="235,842,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="245" Background="White" Foreground="Black" SelectionTextBrush="Black" KeyDown="AuthorBox_KeyDown" CaretBrush="Black"/>
                     <Label  Content="Author" HorizontalAlignment="Left" Margin="299,819,0,0" VerticalAlignment="Top" Width="140" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}"/>
-                    <TextBox x:Name="RepoBox" HorizontalAlignment="Left" Margin="524,842,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="245" Background="White" Foreground="Black" SelectionTextBrush="Black" ManipulationCompleted="TextBox_ManipulationCompleted" KeyDown="TextBox_KeyDown" CaretBrush="Black"/>
+                    <TextBox x:Name="RepoBox" HorizontalAlignment="Left" Margin="518,842,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="245" Background="White" Foreground="Black" SelectionTextBrush="Black" CaretBrush="Black" KeyDown="RepoBox_KeyDown"/>
                     <Label  Content="Repo" HorizontalAlignment="Left" Margin="579,819,0,0" VerticalAlignment="Top" Width="140" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}"/>
                     <Label x:Name="Main_Working_GIT_Directory"  Content="Main Working GIT Directory" Margin="0,783,0,0" VerticalAlignment="Top" Width="256" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="14" FontWeight="Bold"/>
+                    <TextBox x:Name="Master_ServerBox" HorizontalAlignment="Center" Margin="0,958,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="528" Background="White" Foreground="Black" SelectionTextBrush="Black" KeyDown="Master_ServerBox_KeyDown" CaretBrush="Black"/>
+                    <Label  Content="Master Server Used" HorizontalAlignment="Left" Margin="232,939,0,0" VerticalAlignment="Top" Width="129" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}"/>
                     <!--<hc:PropertyGrid x:Name="DataGridSettings" SelectedObject="{Binding SelectedEmployee}" Margin="129,618,129,270" SelectedObjectChanged="DataGridSettings_SelectedObjectChanged" TargetUpdated="DataGridSettings_TargetUpdated" DataContextChanged="DataGridSettings_DataContextChanged"/>-->
                 </Grid>
             </hc:ScrollViewer>
@@ -580,12 +582,12 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
                     <Label Content="Border Color" Margin="0,91,157,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Height="44" Padding="10,3,10,3" HorizontalAlignment="Right" Width="190"/>
 
 
-                    <hc:ImageViewer  Width="600" Height="330" ImageSource="/Resources/BG.jpg" Margin="207,730,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                  <!--  <hc:ImageViewer  Width="600" Height="330" ImageSource="/Resources/BG.jpg" Margin="207,730,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                     <Label Content="BackGround Image Viewer" Width="460" Margin="0,569,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Height="44" Padding="10,3,10,3"/>
 
                     <TextBox x:Name="Get_Current_BG_Image" Margin="243,1059,239,161" TextWrapping="Wrap" Text="TextBox" Background="White" Foreground="Black" SelectionTextBrush="Black" ManipulationCompleted="TextBox_ManipulationCompleted" KeyDown="TextBox_KeyDown" CaretBrush="Black"/>
                     <Label  Content="Current Background Image" HorizontalAlignment="Right" Margin="0,1024,640,208" VerticalAlignment="Stretch" Width="139" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}"/>
-
+-->
                 </Grid>
             </hc:ScrollViewer>
 
@@ -858,7 +860,7 @@ AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter" Backgroun
             </hc:SideMenuItem>
         </hc:SideMenu>
 
-        <hc:ComboBox x:Name="Language_Selection" Margin="10,31,10,0" Grid.Row="2" Background=  "{StaticResource Button_BG}" BorderBrush="Black" Height="32" VerticalAlignment="Top" SelectionChanged="Language_Selection_SelectionChanged" MouseEnter="Language_Selection_MouseEnter" MouseLeave="Language_Selection_MouseLeave" Foreground="White" >
+        <hc:ComboBox x:Name="Language_Selection" Margin="10,31,10,0" Grid.Row="2" Background=  "{DynamicResource Button_BG}" BorderBrush="Black" Height="32" VerticalAlignment="Top" SelectionChanged="Language_Selection_SelectionChanged" MouseEnter="Language_Selection_MouseEnter" MouseLeave="Language_Selection_MouseLeave" Foreground="White" >
             <ComboBoxItem x:Name="English">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/Resources/Language_Icons/us.png" />
