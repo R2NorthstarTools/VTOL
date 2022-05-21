@@ -706,7 +706,7 @@ namespace VTOL
             }
             Origin_Client_Running = Check_Process_Running("OriginClientService");
 
-            PingHost("Northstar.tf");
+            PingHost(MasterServer_URL);
             //  System.Timers.Timer aTimer = new System.Timers.Timer(5000); //2 minutes in milliseconds
             // aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
             //  aTimer.Start();
@@ -736,7 +736,7 @@ namespace VTOL
 
         private void OnTimedEvent(object source, ElapsedEventArgs e)
         {
-            PingHost("Northstar.tf");
+            PingHost(MasterServer_URL);
             Origin_Client_Running = Check_Process_Running("OriginClientService");
             Indicator_Panel.Refresh();
             GC.Collect();
@@ -859,6 +859,8 @@ namespace VTOL
                         Current_REPO_URL = Properties.Settings.Default.Current_REPO_URL;
                         Master_ServerBox.Text = MasterServer_URL;
                         Repo_URl.Text = Current_REPO_URL;
+                        saveAsyncFile(MasterServer_URL, @"C:\ProgramData\VTOL_DATA\VARS\MASTER_SERVERURL.txt", false, false);
+                        saveAsyncFile(Current_REPO_URL, @"C:\ProgramData\VTOL_DATA\VARS\REPO_URL.txt", false, false);
                         break;
                     case "fr":
                         Language_Selection.SelectedIndex = 1;
@@ -869,6 +871,8 @@ namespace VTOL
                         Master_ServerBox.Text = MasterServer_URL;
                         Repo_URl.Text = Current_REPO_URL;
                         this.Resources.MergedDictionaries.Add(dict);
+                        saveAsyncFile(MasterServer_URL, @"C:\ProgramData\VTOL_DATA\VARS\MASTER_SERVERURL.txt", false, false);
+                        saveAsyncFile(Current_REPO_URL, @"C:\ProgramData\VTOL_DATA\VARS\REPO_URL.txt", false, false);
                         break;
                     case "de":
                         Language_Selection.SelectedIndex = 2;
@@ -879,6 +883,8 @@ namespace VTOL
                         Master_ServerBox.Text = MasterServer_URL;
                         Repo_URl.Text = Current_REPO_URL;
                         this.Resources.MergedDictionaries.Add(dict);
+                        saveAsyncFile(MasterServer_URL, @"C:\ProgramData\VTOL_DATA\VARS\MASTER_SERVERURL.txt", false, false);
+                        saveAsyncFile(Current_REPO_URL, @"C:\ProgramData\VTOL_DATA\VARS\REPO_URL.txt", false, false);
                         break;
                     case "it":
                         Language_Selection.SelectedIndex = 3;
@@ -889,6 +895,8 @@ namespace VTOL
                         Master_ServerBox.Text = MasterServer_URL;
                         Repo_URl.Text = Current_REPO_URL;
                         this.Resources.MergedDictionaries.Add(dict);
+                        saveAsyncFile(MasterServer_URL, @"C:\ProgramData\VTOL_DATA\VARS\MASTER_SERVERURL.txt", false, false);
+                        saveAsyncFile(Current_REPO_URL, @"C:\ProgramData\VTOL_DATA\VARS\REPO_URL.txt", false, false);
                         break;
                     case "cn":
                         Language_Selection.SelectedIndex = 4;
@@ -899,6 +907,9 @@ namespace VTOL
                         Current_REPO_URL = Current_REPO_URL_CN;
                         Master_ServerBox.Text = MasterServer_URL_CN;
                         Repo_URl.Text = Current_REPO_URL_CN;
+                        saveAsyncFile(MasterServer_URL_CN, @"C:\ProgramData\VTOL_DATA\VARS\MASTER_SERVERURL.txt", false, false);
+                        saveAsyncFile(Current_REPO_URL_CN, @"C:\ProgramData\VTOL_DATA\VARS\REPO_URL.txt", false, false);
+
                         //this.Resources["Northstar_Icon"] = @"Resources/NSCN_ICON.png";
 
                         break;
@@ -911,6 +922,8 @@ namespace VTOL
                         this.Resources.MergedDictionaries.Add(dict);
                         Master_ServerBox.Text = MasterServer_URL;
                         Repo_URl.Text = Current_REPO_URL;
+                        saveAsyncFile(MasterServer_URL, @"C:\ProgramData\VTOL_DATA\VARS\MASTER_SERVERURL.txt", false, false);
+                        saveAsyncFile(Current_REPO_URL, @"C:\ProgramData\VTOL_DATA\VARS\REPO_URL.txt", false, false);
                         break;
                     default:
                         LanguageCode="en";
@@ -922,6 +935,8 @@ namespace VTOL
                         this.Resources.MergedDictionaries.Add(dict);
                         Master_ServerBox.Text = MasterServer_URL;
                         Repo_URl.Text = Current_REPO_URL;
+                        saveAsyncFile(MasterServer_URL, @"C:\ProgramData\VTOL_DATA\VARS\MASTER_SERVERURL.txt", false, false);
+                        saveAsyncFile(Current_REPO_URL, @"C:\ProgramData\VTOL_DATA\VARS\REPO_URL.txt", false, false);
                         break;
 
                 }
@@ -8111,17 +8126,11 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                     Accent_Color = (SolidColorBrush)new BrushConverter().ConvertFrom(ColorPicker_Accent.SelectedBrush.Color.ToString());
                     Send_Success_Notif("Saved The Color And Applied!");
 
-                   // this.Resources["Button_BG"] = (SolidColorBrush)new BrushConverter().ConvertFrom(ColorPicker_Accent.SelectedBrush.Color.ToString());
+                    this.Resources["Button_BG"] = (SolidColorBrush)new BrushConverter().ConvertFrom(ColorPicker_Accent.SelectedBrush.Color.ToString());
 
 
                 }
-                //  System.IO.File.WriteAllLines(@"C:\ProgramData\VTOL_DATA\VARS\Theme.txt", newLines);
-
-
-                //  inputFile.WriteLine(ColorPicker_Border.SelectedBrush.Color.ToString().Trim().Take(1));
-
-
-                //  saveAsyncFile(ColorPicker_Border.SelectedBrush.Color.ToString().Trim(), @"C:\ProgramData\VTOL_DATA\VARS\Theme.txt", false, true);
+             
             }
             else
             {
@@ -8129,7 +8138,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 {
                     if (isValidHexaCode(ColorPicker_Accent.SelectedBrush.Color.ToString()))
                     {
-                        //this.Resources["Button_BG"] = (SolidColorBrush)new BrushConverter().ConvertFrom(ColorPicker_Accent.SelectedBrush.Color.ToString());
+                        this.Resources["Button_BG"] = (SolidColorBrush)new BrushConverter().ConvertFrom(ColorPicker_Accent.SelectedBrush.Color.ToString());
                         Send_Info_Notif(ColorPicker_Accent.SelectedBrush.Color.ToString().Trim());
                         saveAsyncFile(ColorPicker_Accent.SelectedBrush.Color.ToString().Trim(), @"C:\ProgramData\VTOL_DATA\VARS\Theme.txt", false, false);
                         Send_Success_Notif("Saved The Color And Applied!");
@@ -8167,13 +8176,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
 
                 }
-                //  System.IO.File.WriteAllLines(@"C:\ProgramData\VTOL_DATA\VARS\Theme.txt", newLines);
-
-
-                //  inputFile.WriteLine(ColorPicker_Border.SelectedBrush.Color.ToString().Trim().Take(1));
-
-
-                //  saveAsyncFile(ColorPicker_Border.SelectedBrush.Color.ToString().Trim(), @"C:\ProgramData\VTOL_DATA\VARS\Theme.txt", false, true);
+             
             }
             else
             {
