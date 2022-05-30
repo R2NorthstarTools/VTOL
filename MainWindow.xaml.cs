@@ -2339,45 +2339,49 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
         {
             DirectoryInfo dir = new DirectoryInfo(sourceDirName);
             DirectoryInfo[] dirs = dir.GetDirectories();
-
+            copySubDirs = true;
             // If the source directory does not exist, throw an exception.
             if (!dir.Exists)
             {
                 throw new DirectoryNotFoundException(
                     "Source directory does not exist or could not be found: "
                     + sourceDirName);
-            } 
-
-            // If the destination directory does not exist, create it.
-            if (!Directory.Exists(destDirName))
-            {
-                Directory.CreateDirectory(destDirName);
+                return;
             }
-
-
-            // Get the file contents of the directory to copy.
-            FileInfo[] files = dir.GetFiles();
-
-            foreach (FileInfo file in files)
-            {
-                // Create the path to the new copy of the file.
-                string temppath = Path.Combine(destDirName, file.Name);
-
-                // Copy the file.
-                file.CopyTo(temppath, false);
-            }
-
-            // If copySubDirs is true, copy the subdirectories.
-            if (copySubDirs)
+            else
             {
 
-                foreach (DirectoryInfo subdir in dirs)
+                // If the destination directory does not exist, create it.
+                if (!Directory.Exists(destDirName))
                 {
-                    // Create the subdirectory.
-                    string temppath = Path.Combine(destDirName, subdir.Name);
+                    Directory.CreateDirectory(destDirName);
+                }
 
-                    // Copy the subdirectories.
-                    DirectoryCopy(subdir.FullName, temppath, copySubDirs);
+
+                // Get the file contents of the directory to copy.
+                FileInfo[] files = dir.GetFiles();
+
+                foreach (FileInfo file in files)
+                {
+                    // Create the path to the new copy of the file.
+                    string temppath = Path.Combine(destDirName, file.Name);
+
+                    // Copy the file.
+                    file.CopyTo(temppath, true);
+                }
+
+                // If copySubDirs is true, copy the subdirectories.
+                if (copySubDirs)
+                {
+
+                    foreach (DirectoryInfo subdir in dirs)
+                    {
+                        // Create the subdirectory.
+                        string temppath = Path.Combine(destDirName, subdir.Name);
+
+                        // Copy the subdirectories.
+                        DirectoryCopy(subdir.FullName, temppath, copySubDirs);
+                    }
                 }
             }
         }
@@ -2430,238 +2434,242 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
             try
             {
-              //    Loading_Panel.Visibility = Visibility.Visible;
+                //    Loading_Panel.Visibility = Visibility.Visible;
 
-                string Dir_Final = "";
-                if (File.Exists(Target_Zip) )
+                string Dir_Final = null;
+                if (File.Exists(Target_Zip))
                 {
                     if (!Directory.Exists(Destination))
                     {
                         Directory.CreateDirectory(Destination);
                     }
-                    string fileExt = System.IO.Path.GetExtension(Target_Zip);
-                    ////Console.WriteLine("It only works if i have this line :(");
-
-                    if (fileExt == ".zip")
+                    if (Directory.Exists(Destination))
                     {
-                        //   Current_File_Label.Content = Target_Zip;
 
-                        //     using (Zipi.ZipFile zip = Zipi.ZipFile.Read(Target_Zip))
-                        //    {
-                        // initial setup before extraction
-                        //        zip.ExtractProgress += zipProgress;
-                        // actual extraction process
-                        //      zip.ExtractAll(Destination, Zipi.ExtractExistingFileAction.OverwriteSilently);
-                        // since the boolean below is in the same "thread" the extraction must 
-                        // complete for the boolean to be set to true
-                        //   }
-                        //  Loading_Panel.Visibility = Visibility.Hidden;
 
-                        ZipFile.ExtractToDirectory(Target_Zip, Destination,true);
-                        //dialog.Close();
-                        Send_Success_Notif("\nUnpacking Complete!\n");
-                       
-                        if (Clean_Thunderstore == true)
+                        string fileExt = System.IO.Path.GetExtension(Target_Zip);
+                        ////Console.WriteLine("It only works if i have this line :(");
+
+                        if (fileExt == ".zip")
                         {
+                            //   Current_File_Label.Content = Target_Zip;
 
-                            try
+                            //     using (Zipi.ZipFile zip = Zipi.ZipFile.Read(Target_Zip))
+                            //    {
+                            // initial setup before extraction
+                            //        zip.ExtractProgress += zipProgress;
+                            // actual extraction process
+                            //      zip.ExtractAll(Destination, Zipi.ExtractExistingFileAction.OverwriteSilently);
+                            // since the boolean below is in the same "thread" the extraction must 
+                            // complete for the boolean to be set to true
+                            //   }
+                            //  Loading_Panel.Visibility = Visibility.Hidden;
+
+                            ZipFile.ExtractToDirectory(Target_Zip, Destination, true);
+                            //dialog.Close();
+                            Send_Success_Notif("\nUnpacking Complete!\n");
+
+                            if (Clean_Thunderstore == true)
                             {
 
-                                // Check if file exists with its full path    
-                                if (File.Exists(Path.Combine(Destination, "icon.png")))
+                                try
                                 {
-                                    // If file found, delete it    
-                                    File.Delete(Path.Combine(Destination, "icon.png"));
-                                }
-                                else { Send_Warning_Notif(GetTextResource("NOTIF_WARN_CLEANUP_FILES_NOT_FOUND")); }
-                                if (File.Exists(Path.Combine(Destination, "manifest.json")))
-                                {
-                                    // If file found, delete it    
-                                    File.Delete(Path.Combine(Destination, "manifest.json"));
-                                }
-                                else { Send_Warning_Notif(GetTextResource("NOTIF_WARN_CLEANUP_FILES_NOT_FOUND")); }
 
-                                if (File.Exists(Path.Combine(Destination, "README.md")))
-                                {
-                                    // If file found, delete it    
-                                    File.Delete(Path.Combine(Destination, "README.md"));
-                                }
-                                else { Send_Warning_Notif(GetTextResource("NOTIF_WARN_CLEANUP_FILES_NOT_FOUND")); }
-
-
-
-
-
-
-
-                                string searchQuery3 = "*" + "mod" + "*";
-                                string folderName = Destination;
-
-                                var directory = new DirectoryInfo(folderName);
-                                var Destinfo = new DirectoryInfo(Destination);
-
-
-                                var Script = directory.GetDirectories(searchQuery3, SearchOption.AllDirectories);
-
-
-                                foreach (var d in Script)
-                                {
-                                    DirectoryInfo di = new DirectoryInfo(d.FullName);
-                                    DirectoryInfo[] diArr = di.GetDirectories();
-                                    string firstFolder = diArr[0].FullName;
-
-                                    if (Directory.Exists(firstFolder))
+                                    // Check if file exists with its full path    
+                                    if (File.Exists(Path.Combine(Destination, "icon.png")))
                                     {
-                                        Dir_Final = Destinfo.Parent.FullName + @"\" + diArr[0].Name;
-                                        if ((Destinfo.Parent.FullName + @"\" + diArr[0].Name).Contains("keyvalues") || (Destinfo.Parent.FullName + @"\" + diArr[0].Name).Contains("vpk") || (Destinfo.Parent.FullName + @"\" + diArr[0].Name).Contains("materials") || (Destinfo.Parent.FullName + @"\" + diArr[0].Name).Contains("materials"))
+                                        // If file found, delete it    
+                                        File.Delete(Path.Combine(Destination, "icon.png"));
+                                    }
+                                    else { Send_Warning_Notif(GetTextResource("NOTIF_WARN_CLEANUP_FILES_NOT_FOUND")); }
+                                    if (File.Exists(Path.Combine(Destination, "manifest.json")))
+                                    {
+                                        // If file found, delete it    
+                                        File.Delete(Path.Combine(Destination, "manifest.json"));
+                                    }
+                                    else { Send_Warning_Notif(GetTextResource("NOTIF_WARN_CLEANUP_FILES_NOT_FOUND")); }
+
+                                    if (File.Exists(Path.Combine(Destination, "README.md")))
+                                    {
+                                        // If file found, delete it    
+                                        File.Delete(Path.Combine(Destination, "README.md"));
+                                    }
+                                    else { Send_Warning_Notif(GetTextResource("NOTIF_WARN_CLEANUP_FILES_NOT_FOUND")); }
+
+
+
+
+
+
+
+                                    string searchQuery3 = "*" + "mod" + "*";
+                                    string folderName = Destination;
+
+                                    var directory = new DirectoryInfo(folderName);
+                                    var Destinfo = new DirectoryInfo(Destination);
+
+
+                                    var Script = directory.GetDirectories(searchQuery3, SearchOption.AllDirectories);
+
+
+                                    foreach (var d in Script)
+                                    {
+                                        DirectoryInfo di = new DirectoryInfo(d.FullName);
+                                        DirectoryInfo[] diArr = di.GetDirectories();
+                                        string firstFolder = diArr[0].FullName;
+
+                                        if (Directory.Exists(firstFolder))
+                                        {
+                                            Dir_Final = Destinfo.Parent.FullName + @"\" + diArr[0].Name;
+                                            if ((Destinfo.Parent.FullName + @"\" + diArr[0].Name).Contains("keyvalues") || (Destinfo.Parent.FullName + @"\" + diArr[0].Name).Contains("vpk") || (Destinfo.Parent.FullName + @"\" + diArr[0].Name).Contains("materials"))
+                                            {
+                                                Send_Error_Notif(GetTextResource("NOTIF_ERROR_MOD_INCOMPATIBLE"));
+                                                Send_Warning_Notif(GetTextResource("NOTIF_WARN_SUGGEST_DISABLE_MOD"));
+                                                if (Directory.Exists(Current_Install_Folder + @"\NS_Downloaded_Mods"))
+                                                {
+                                                    Directory.Delete(Current_Install_Folder + @"\NS_Downloaded_Mods", true);
+                                                }
+                                                return;
+                                            }
+                                            else
+                                            {
+                                                CopyFilesRecursively(firstFolder, Destinfo.Parent.FullName + @"\" + diArr[0].Name);
+                                                // MessageBox.Show(Destinfo.Parent.FullName + @"\" + diArr[0].Name);
+                                                if (Skin_Install == true)
+                                                {
+
+
+
+                                                    var ext = new List<string> { "zip" };
+                                                    var myFiles = Directory.EnumerateFiles(Destinfo.Parent.FullName + @"\" + diArr[0].Name, "*.*", SearchOption.AllDirectories).Where(s => ext.Contains(Path.GetExtension(s).TrimStart('.').ToLowerInvariant()));
+
+                                                    //  var Script2 = Directorys.GetDirectories(searchQuery4, SearchOption.AllDirectories);
+
+                                                    foreach (string x in myFiles)
+                                                    {
+
+
+                                                        Skin_Install_Tree(true, x);
+                                                    }
+
+
+
+
+
+                                                }
+
+                                            }
+                                        }
+                                        if (Directory.Exists(Destinfo.Parent.FullName + @"\" + diArr[0].Name + @"\" + "Locked_Folder"))
+                                        {
+                                            Directory.Delete(Destinfo.Parent.FullName + @"\" + diArr[0].Name + @"\" + "Locked_Folder", true);
+
+                                        }
+
+
+
+                                        //   DirectoryCopy(d.Parent.FullName,Destination, true);
+
+                                    }
+
+                                    Directory.Delete(Destination, true);
+
+                                    if (Dir_Final == null)
+                                    {
+                                        if (Skin_Install == false)
                                         {
                                             Send_Error_Notif(GetTextResource("NOTIF_ERROR_MOD_INCOMPATIBLE"));
                                             Send_Warning_Notif(GetTextResource("NOTIF_WARN_SUGGEST_DISABLE_MOD"));
-                                            if (Directory.Exists(Current_Install_Folder + @"\NS_Downloaded_Mods"))
-                                            {
-                                                Directory.Delete(Current_Install_Folder + @"\NS_Downloaded_Mods", true);
-                                            }
-                                            return;
                                         }
-                                        else
+                                        return;
+                                    }
+                                    else
+                                    {
+                                        if (Skin_Install == false)
                                         {
-                                            CopyFilesRecursively(firstFolder, Destinfo.Parent.FullName + @"\" + diArr[0].Name);
-                                            // MessageBox.Show(Destinfo.Parent.FullName + @"\" + diArr[0].Name);
-                                            if (Skin_Install == true)
-                                            {
-
-
-
-                                                var ext = new List<string> { "zip" };
-                                                var myFiles = Directory.EnumerateFiles(Destinfo.Parent.FullName + @"\" + diArr[0].Name, "*.*", SearchOption.AllDirectories).Where(s => ext.Contains(Path.GetExtension(s).TrimStart('.').ToLowerInvariant()));
-
-                                                //  var Script2 = Directorys.GetDirectories(searchQuery4, SearchOption.AllDirectories);
-
-                                                foreach (string x in myFiles)
-                                                {
-                                                   
-
-                                                    MessageBox.Show(x);
-                                                    Skin_Install_Tree(true, x);
-                                                }
-
-                                               
-
-
-
-                                            }
-
+                                            Send_Info_Notif(GetTextResource("NOTIF_INFO_GROUP_UNPACK_UNPACKED") + "  " + Path.GetFileName(Target_Zip) + "  " + GetTextResource("NOTIF_INFO_GROUP_UNPACK_TO") + "  " + Dir_Final);
+                                            Send_Success_Notif(GetTextResource("NOTIF_SUCCESS_INSTALLED_DASH") + LAST_INSTALLED_MOD);
                                         }
                                     }
-                                    if (Directory.Exists(Destinfo.Parent.FullName + @"\" + diArr[0].Name + @"\" + "Locked_Folder"))
+                                    if (Directory.Exists(Current_Install_Folder + @"\NS_Downloaded_Mods"))
                                     {
-                                        Directory.Delete(Destinfo.Parent.FullName + @"\" + diArr[0].Name + @"\" + "Locked_Folder", true);
-
+                                        Directory.Delete(Current_Install_Folder + @"\NS_Downloaded_Mods", true);
                                     }
-                                    
-                                  
-                                     
-                                    //   DirectoryCopy(d.Parent.FullName,Destination, true);
 
                                 }
-
-                                Directory.Delete(Destination, true);
-
-                                if (Dir_Final == "")
+                                catch (IOException ioExp)
                                 {
-                                    if (Skin_Install == false)
-                                    {
-                                        Send_Error_Notif(GetTextResource("NOTIF_ERROR_MOD_INCOMPATIBLE"));
-                                        Send_Warning_Notif(GetTextResource("NOTIF_WARN_SUGGEST_DISABLE_MOD"));
-                                    }
-                                    return;
-                                }
-                                else
-                                {
-                                    if (Skin_Install == false)
-                                    {
-                                        Send_Info_Notif(GetTextResource("NOTIF_INFO_GROUP_UNPACK_UNPACKED") + "  " + Path.GetFileName(Target_Zip) + "  " + GetTextResource("NOTIF_INFO_GROUP_UNPACK_TO") + "  " + Dir_Final);
-                                        Send_Success_Notif(GetTextResource("NOTIF_SUCCESS_INSTALLED_DASH") + LAST_INSTALLED_MOD);
-                                    }
-                                }
-                                if (Directory.Exists(Current_Install_Folder + @"\NS_Downloaded_Mods"))
-                                {
-                                    Directory.Delete(Current_Install_Folder + @"\NS_Downloaded_Mods", true);
-                                }
+                                    Write_To_Log(ErrorManager(ioExp));
 
-                            }
-                            catch (IOException ioExp)
-                            {
-                                Write_To_Log(ErrorManager(ioExp));
-
-                                Send_Warning_Notif(GetTextResource("NOTIF_WARN_ISSUE_DETECTED"));
-
-                            }
-
-
-                        }
-                        else
-                        {
-
-                            string fileExts = System.IO.Path.GetExtension(Target_Zip);
-
-                            if (fileExts == ".zip")
-                            {
-                                if (clean_normal == true)
-                                {
-                                    if (!Directory.Exists(Destination))
-                                    {
-                                        Directory.CreateDirectory(Destination);
-                                    }
-                                    //TODO
-                                    //    string folderName = Destination;
-
-                                    //    var directory = new DirectoryInfo(folderName);
-                                    //   var Destinfo = new DirectoryInfo(Destination);
-                                    ZipFile.ExtractToDirectory(Target_Zip, Destination, true);
+                                    Send_Warning_Notif(GetTextResource("NOTIF_WARN_ISSUE_DETECTED"));
 
                                 }
-                                else
-                                {
-                                    ZipFile.ExtractToDirectory(Target_Zip, Destination, true);
-                                    // Send_Success_Notif("\nUnpacking Complete!\n");
-                                }
+
+
                             }
                             else
                             {
-                                //Main_Window.SelectedTab = Main;
-                                Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_OBJ_NOT_ZIP"));
+
+                                string fileExts = System.IO.Path.GetExtension(Target_Zip);
+
+                                if (fileExts == ".zip")
+                                {
+                                    if (clean_normal == true)
+                                    {
+                                        if (!Directory.Exists(Destination))
+                                        {
+                                            Directory.CreateDirectory(Destination);
+                                        }
+                                        //TODO
+                                        //    string folderName = Destination;
+
+                                        //    var directory = new DirectoryInfo(folderName);
+                                        //   var Destinfo = new DirectoryInfo(Destination);
+                                        ZipFile.ExtractToDirectory(Target_Zip, Destination, true);
+
+                                    }
+                                    else
+                                    {
+                                        ZipFile.ExtractToDirectory(Target_Zip, Destination, true);
+                                        // Send_Success_Notif("\nUnpacking Complete!\n");
+                                    }
+                                }
+                                else
+                                {
+                                    //Main_Window.SelectedTab = Main;
+                                    Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_OBJ_NOT_ZIP"));
 
 
+                                }
                             }
                         }
+                        else
+                        {
+                            //Main_Window.SelectedTab = Main;
+
+                            Send_Warning_Notif(GetTextResource("NOTIF_ERROR_OBJ_NOT_ZIP"));
+
+
+                        }
+
+
+
                     }
+
                     else
                     {
-                        //Main_Window.SelectedTab = Main;
 
-                        Send_Warning_Notif(GetTextResource("NOTIF_ERROR_OBJ_NOT_ZIP"));
-
-
-                    }
+                        if (!File.Exists(Target_Zip))
+                        {
+                            Send_Error_Notif(GetTextResource("NOTIF_ERROR_ZIP_NOT_EXIST"));
 
 
+                        }
+                        if (!Directory.Exists(Destination))
+                        {
+                            Send_Error_Notif(GetTextResource("NOTIF_ERROR_ZIP_NOT_EXIST_CHECK_PATH"));
 
-                }
-              
-                else
-                {
-                  
-                    if (!File.Exists(Target_Zip))
-                    {
-                        Send_Error_Notif(GetTextResource("NOTIF_ERROR_ZIP_NOT_EXIST"));
-
-
-                    }
-                    if (!Directory.Exists(Destination))
-                    {
-                        Send_Error_Notif(GetTextResource("NOTIF_ERROR_ZIP_NOT_EXIST_CHECK_PATH"));
-
+                        }
                     }
                 }
             }
@@ -2669,7 +2677,6 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             {
 
                 Write_To_Log(ErrorManager(ex));
-
                 Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
 
             }
@@ -3905,7 +3912,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
         }
         private void Completed(object sender, AsyncCompletedEventArgs e)
         {
-
+            try { 
             webClient = null;
             Send_Info_Notif(GetTextResource("NOTIF_INFO_DOWNLOAD_COMPLETE"));
             if (File.Exists(@"C:\ProgramData\VTOL_DATA\Releases\NorthStar_Release.zip"))
@@ -3919,8 +3926,18 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             Progress_Bar_Window.Value = 0;
             Current_File_Label.Content = "";
         }
+
+            catch (Exception ex)
+            {
+
+                Write_To_Log(ErrorManager(ex));
+        Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
+
+            }
+}
         private void Completed_t(object sender, AsyncCompletedEventArgs e)
         {
+            try { 
 
             webClient = null;
             Send_Info_Notif(GetTextResource("NOTIF_INFO_DOWNLOAD_COMPLETE"));
@@ -3933,19 +3950,41 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             Current_File_Label.Content = "";
         }
 
+            catch (Exception ex)
+            {
+
+                Write_To_Log(ErrorManager(ex));
+        Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
+
+            }
+}
+
         private void Completed_Mod_Browser(object sender, AsyncCompletedEventArgs e)
         {
+            try
+            {
 
-            webClient = null;
-            Send_Info_Notif(GetTextResource("NOTIF_INFO_DOWNLOAD_COMPLETE"));
-            Mod_Progress_BAR.Value = 0;
-            Mod_Progress_BAR.ShowText = false;
+                webClient = null;
+                Send_Info_Notif(GetTextResource("NOTIF_INFO_DOWNLOAD_COMPLETE"));
+                Mod_Progress_BAR.Value = 0;
+                Mod_Progress_BAR.ShowText = false;
 
 
-            Unpack_To_Location_Custom(Current_Install_Folder + @"\NS_Downloaded_Mods\" + LAST_INSTALLED_MOD + ".zip", Current_Install_Folder + @"\R2Northstar\mods\" + LAST_INSTALLED_MOD, true);
+                Unpack_To_Location_Custom(Current_Install_Folder + @"\NS_Downloaded_Mods\" + LAST_INSTALLED_MOD + ".zip", Current_Install_Folder + @"\R2Northstar\mods\" + LAST_INSTALLED_MOD, true, false, false);
+
+            }
+
+            catch (Exception ex)
+            {
+
+                Write_To_Log(ErrorManager(ex));
+                Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
+
+            }
         }
         private void Completed_Mod_Browser_Skins(object sender, AsyncCompletedEventArgs e)
         {
+            try { 
 
             webClient = null;
             Send_Info_Notif(GetTextResource("NOTIF_INFO_DOWNLOAD_COMPLETE"));
@@ -3955,13 +3994,30 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
             Unpack_To_Location_Custom(Current_Install_Folder + @"\NS_Downloaded_Mods\" + LAST_INSTALLED_MOD + ".zip", Current_Install_Folder + @"\R2Northstar\mods\" + LAST_INSTALLED_MOD, true, false, true);
         }
+
+            catch (Exception ex)
+            {
+
+                Write_To_Log(ErrorManager(ex));
+        Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
+
+            }
+}
         private void Check_Btn_Click(object sender, RoutedEventArgs e)
         {
 
-
+            try { 
             Auto_Install_And_verify();
-
         }
+
+            catch (Exception ex)
+            {
+
+                Write_To_Log(ErrorManager(ex));
+        Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
+
+            }
+}
 
         private void Titanfall_2_Btn_MouseEnter(object sender, MouseEventArgs e)
         {
