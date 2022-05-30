@@ -1259,7 +1259,6 @@ namespace VTOL
                 {
                      parse_git_to_zip(words[0],true);
 
-
                 }
                 else
                 {
@@ -2461,52 +2460,8 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                         ZipFile.ExtractToDirectory(Target_Zip, Destination,true);
                         //dialog.Close();
                         Send_Success_Notif("\nUnpacking Complete!\n");
-                        if (Skin_Install == true)
-                        {
-
-                          
-                                string searchQuery3 = "*" + ".zip" + "*";
-                            string folderName = Destination;
-
-                            var directory = new DirectoryInfo(folderName);
-                            var Destinfo = new DirectoryInfo(Destination);
-
-
-                            var Script = directory.GetDirectories(searchQuery3, SearchOption.AllDirectories);
-                            foreach (var d in Script)
-                            {
-                                DirectoryInfo di = new DirectoryInfo(d.FullName);
-                                DirectoryInfo[] diArr = di.GetDirectories();
-
-                                MessageBox.Show(diArr[0].FullName);
-
-                            }
-
-                            // Check if file exists with its full path    
-                            /*  if (File.Exists(Path.Combine(Destination, "icon.png")))
-                                  {
-                                      // If file found, delete it    
-                                      File.Delete(Path.Combine(Destination, "icon.png"));
-                                  }
-                                  else { Send_Warning_Notif(GetTextResource("NOTIF_WARN_CLEANUP_FILES_NOT_FOUND")); }
-                                  if (File.Exists(Path.Combine(Destination, "manifest.json")))
-                                  {
-                                      // If file found, delete it    
-                                      File.Delete(Path.Combine(Destination, "manifest.json"));
-                                  }
-                                  else { Send_Warning_Notif(GetTextResource("NOTIF_WARN_CLEANUP_FILES_NOT_FOUND")); }
-
-                                  if (File.Exists(Path.Combine(Destination, "README.md")))
-                                  {
-                                      // If file found, delete it    
-                                      File.Delete(Path.Combine(Destination, "README.md"));
-                                  }
-                                  else { Send_Warning_Notif(GetTextResource("NOTIF_WARN_CLEANUP_FILES_NOT_FOUND")); }
-
-                              */
-
-                        }
-                        else if (Clean_Thunderstore == true)
+                       
+                        if (Clean_Thunderstore == true)
                         {
 
                             try
@@ -2571,7 +2526,30 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                         else
                                         {
                                             CopyFilesRecursively(firstFolder, Destinfo.Parent.FullName + @"\" + diArr[0].Name);
+                                            // MessageBox.Show(Destinfo.Parent.FullName + @"\" + diArr[0].Name);
+                                            if (Skin_Install == true)
+                                            {
 
+
+
+                                                var ext = new List<string> { "zip" };
+                                                var myFiles = Directory.EnumerateFiles(Destinfo.Parent.FullName + @"\" + diArr[0].Name, "*.*", SearchOption.AllDirectories).Where(s => ext.Contains(Path.GetExtension(s).TrimStart('.').ToLowerInvariant()));
+
+                                                //  var Script2 = Directorys.GetDirectories(searchQuery4, SearchOption.AllDirectories);
+
+                                                foreach (string x in myFiles)
+                                                {
+                                                   
+
+                                                    MessageBox.Show(x);
+                                                    Skin_Install_Tree(true, x);
+                                                }
+
+                                               
+
+
+
+                                            }
 
                                         }
                                     }
@@ -2580,25 +2558,31 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                         Directory.Delete(Destinfo.Parent.FullName + @"\" + diArr[0].Name + @"\" + "Locked_Folder", true);
 
                                     }
+                                    
+                                  
+                                     
                                     //   DirectoryCopy(d.Parent.FullName,Destination, true);
 
                                 }
-                               
+
                                 Directory.Delete(Destination, true);
 
                                 if (Dir_Final == "")
                                 {
-
-                                    Send_Error_Notif(GetTextResource("NOTIF_ERROR_MOD_INCOMPATIBLE"));
-                                    Send_Warning_Notif(GetTextResource("NOTIF_WARN_SUGGEST_DISABLE_MOD"));
-
+                                    if (Skin_Install == false)
+                                    {
+                                        Send_Error_Notif(GetTextResource("NOTIF_ERROR_MOD_INCOMPATIBLE"));
+                                        Send_Warning_Notif(GetTextResource("NOTIF_WARN_SUGGEST_DISABLE_MOD"));
+                                    }
                                     return;
                                 }
                                 else
                                 {
-                                    Send_Info_Notif(GetTextResource("NOTIF_INFO_GROUP_UNPACK_UNPACKED") +"  "+ Path.GetFileName(Target_Zip) +"  "+ GetTextResource("NOTIF_INFO_GROUP_UNPACK_TO") + "  "+Dir_Final);
-                                    Send_Success_Notif(GetTextResource("NOTIF_SUCCESS_INSTALLED_DASH") + LAST_INSTALLED_MOD);
-
+                                    if (Skin_Install == false)
+                                    {
+                                        Send_Info_Notif(GetTextResource("NOTIF_INFO_GROUP_UNPACK_UNPACKED") + "  " + Path.GetFileName(Target_Zip) + "  " + GetTextResource("NOTIF_INFO_GROUP_UNPACK_TO") + "  " + Dir_Final);
+                                        Send_Success_Notif(GetTextResource("NOTIF_SUCCESS_INSTALLED_DASH") + LAST_INSTALLED_MOD);
+                                    }
                                 }
                                 if (Directory.Exists(Current_Install_Folder + @"\NS_Downloaded_Mods"))
                                 {
@@ -4082,8 +4066,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             }
 
         }
-
-        private void Browse_For_Skin_Click(object sender, RoutedEventArgs e)
+        public void Skin_Install_Tree(bool external_Skin = false, string external_Skin_Path = "")
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             if (Directory.Exists(Current_Install_Folder + @"\Skins_Unpack_Mod_MNGR"))
@@ -4137,6 +4120,8 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 }
 
             }
+
+            if (external_Skin == false) { 
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Zip files (*.zip)|*.zip|All files (*.*)|*.*";
             openFileDialog.RestoreDirectory = true;
@@ -4326,7 +4311,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                     else
                                     {
                                         DDSImage img_1 = new DDSImage(firstOrDefault_Col);
-                                        img_1.Save(Thumbnail+Path.GetFileName(firstOrDefault_Col)+".png");
+                                        img_1.Save(Thumbnail + Path.GetFileName(firstOrDefault_Col) + ".png");
                                         // Image Image_1 = new Bitmap(Thumbnail+Path.GetFileName(firstOrDefault_Col)+".png");
                                         BitmapImage bitmap = new BitmapImage();
                                         bitmap.BeginInit();
@@ -4376,7 +4361,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                     {
 
                                         DDSImage img_2 = new DDSImage(firstOrDefault_ilm);
-                                        img_2.Save(Thumbnail+Path.GetFileName(firstOrDefault_ilm)+".png");
+                                        img_2.Save(Thumbnail + Path.GetFileName(firstOrDefault_ilm) + ".png");
                                         // Image Image_2 = new Bitmap(Thumbnail+Path.GetFileName(firstOrDefault_ilm)+".png");
                                         BitmapImage bitmap = new BitmapImage();
                                         bitmap.BeginInit();
@@ -4423,6 +4408,296 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 }
 
             }
+        }
+            else if(external_Skin == true){
+
+                Skin_Temp_Loc = external_Skin_Path;
+                if (Skin_Temp_Loc == null || !File.Exists(Skin_Temp_Loc))
+                {
+
+                    Send_Error_Notif(GetTextResource("NOTIF_ERROR_INVALID_ZIP_PATH"));
+                    return;
+
+                }
+                else
+                {
+                    Skin_Path_Box.Text = Skin_Temp_Loc;
+                    // Send_Success_Notif("\nSkin Found!");
+                    if (ZipHasFile(".dds", Skin_Temp_Loc))
+                    {
+                        Send_Success_Notif(GetTextResource("NOTIF_SUCCESS_COMPATIBLE_SKIN_FOUND"));
+                        Compat_Indicator.Fill = Brushes.LimeGreen;
+                        Install_Skin_Bttn.IsEnabled = true;
+                        //   var directory = new DirectoryInfo(root);
+                        // var myFile = (from f in directory.GetFiles()orderby f.LastWriteTime descending select f).First();
+                        if (Directory.Exists(Current_Install_Folder + @"\Skins_Unpack_Mod_MNGR"))
+                        {
+                            Skin_Path = Current_Install_Folder + @"\Skins_Unpack_Mod_MNGR";
+                            ZipFile.ExtractToDirectory(Skin_Temp_Loc, Skin_Path, Encoding.GetEncoding("GBK"), true);
+
+                        }
+                        else
+                        {
+
+                            Directory.CreateDirectory(Current_Install_Folder + @"\Skins_Unpack_Mod_MNGR");
+                            Skin_Path = Current_Install_Folder + @"\Skins_Unpack_Mod_MNGR";
+
+                            ZipFile.ExtractToDirectory(Skin_Temp_Loc, Skin_Path, Encoding.GetEncoding("GBK"));
+
+                        }
+                    }
+                    else
+                    {
+                        Send_Error_Notif(GetTextResource("NOTIF_ERROR_SKIN_INCOMPATIBLE"));
+                        Compat_Indicator.Fill = Brushes.Red;
+                        Install_Skin_Bttn.IsEnabled = false;
+
+                    }
+
+                    try
+                    {
+                        //  ////Console.WriteLine(Skin_Temp_Loc);
+                        String Thumbnail = Current_Install_Folder + @"\Thumbnails\";
+                        if (Directory.Exists(Thumbnail))
+                        {
+                            //DirectoryInfo dir = new DirectoryInfo(Thumbnail);
+                            var Serached = SearchAccessibleFiles(Skin_Path, "col");
+                            var firstOrDefault_Col = Serached.FirstOrDefault();
+                            if (!Serached.Any())
+                            {
+                                throw new InvalidOperationException();
+                            }
+                            else
+                            {
+                                if (File.Exists(firstOrDefault_Col))
+                                {
+                                    String col = Thumbnail + Path.GetFileName(firstOrDefault_Col) + ".png";
+                                    //  ////Console.WriteLine(firstOrDefault_Col);
+                                    if (File.Exists(col))
+                                    {
+
+                                        DDSImage img_1 = new DDSImage(firstOrDefault_Col);
+                                        img_1.Save(Thumbnail + Path.GetFileName(firstOrDefault_Col) + ".png");
+                                        BitmapImage bitmap = new BitmapImage();
+                                        bitmap.BeginInit();
+                                        bitmap.UriSource = new Uri(col);
+                                        bitmap.EndInit();
+                                        Diffuse_IMG.Source = bitmap;
+                                    }
+                                    else
+                                    {
+                                        //////Console.WriteLine(col);
+                                        DDSImage img_1 = new DDSImage(firstOrDefault_Col);
+
+                                        img_1.Save(col);
+
+                                        BitmapImage bitmap = new BitmapImage();
+                                        bitmap.BeginInit();
+                                        bitmap.UriSource = new Uri(col);
+                                        bitmap.EndInit();
+                                        Diffuse_IMG.Source = bitmap;
+
+                                    }
+
+                                }
+                                else
+                                {
+                                    BitmapImage bitmap = new BitmapImage();
+                                    bitmap.BeginInit();
+                                    bitmap.UriSource = new Uri(@"pack://application:,,,/Resources/NO_TEXTURE.png");
+                                    bitmap.EndInit();
+                                    Diffuse_IMG.Source = bitmap;
+
+                                }
+
+
+                            }
+
+                            var Serached_ = SearchAccessibleFiles(Skin_Path, "ilm");
+                            var firstOrDefault_ilm = Serached_.FirstOrDefault();
+                            if (!Serached.Any())
+                            {
+                                throw new InvalidOperationException();
+                            }
+                            else
+                            {
+                                if (File.Exists(firstOrDefault_ilm))
+                                {
+                                    if (File.Exists(firstOrDefault_ilm + ".png"))
+                                    {
+
+                                        ////Console.WriteLine(firstOrDefault_ilm);
+                                        // Image Image_2 = new Bitmap(Thumbnail+Path.GetFileName(firstOrDefault_ilm)+".png");
+                                        BitmapImage bitmap = new BitmapImage();
+                                        bitmap.BeginInit();
+                                        bitmap.UriSource = new Uri(Thumbnail + Path.GetFileName(firstOrDefault_ilm) + ".png");
+                                        bitmap.EndInit();
+                                        Glow_IMG.Source = bitmap;
+                                    }
+                                    else
+                                    {
+
+                                        DDSImage img_2 = new DDSImage(firstOrDefault_ilm);
+                                        img_2.Save(Thumbnail + Path.GetFileName(firstOrDefault_ilm) + ".png");
+
+                                        //Image Image_2 = new Bitmap(Thumbnail+Path.GetFileName(firstOrDefault_ilm)+".png");
+                                        BitmapImage bitmap = new BitmapImage();
+                                        bitmap.BeginInit();
+                                        bitmap.UriSource = new Uri(Thumbnail + Path.GetFileName(firstOrDefault_ilm) + ".png");
+                                        bitmap.EndInit();
+                                        Glow_IMG.Source = bitmap;
+                                    }
+                                }
+                                else
+                                {
+                                    // Image Image_1 = new Bitmap(Directory.GetCurrentDirectory()+@"\No_Texture.jpg");
+                                    BitmapImage bitmap = new BitmapImage();
+                                    bitmap.BeginInit();
+                                    bitmap.UriSource = new Uri(@"pack://application:,,,/Resources/NO_TEXTURE.png");
+                                    bitmap.EndInit();
+                                    Glow_IMG.Source = bitmap;
+                                }
+
+                            }
+
+
+
+
+                        }
+
+                        else
+                        {
+
+                            Directory.CreateDirectory(Thumbnail);
+
+                            //DirectoryInfo dir = new DirectoryInfo(Thumbnail);
+                            var Serached = SearchAccessibleFiles(Skin_Path, "col");
+                            var firstOrDefault_Col = Serached.FirstOrDefault();
+                            if (!Serached.Any())
+                            {
+                                throw new InvalidOperationException();
+                            }
+                            else
+                            {
+                                if (File.Exists(firstOrDefault_Col))
+                                {
+                                    //  ////Console.WriteLine(firstOrDefault_Col);
+                                    if (File.Exists(firstOrDefault_Col + ".png"))
+                                    {
+
+                                        //   Image Image_1 = new Bitmap(Thumbnail+Path.GetFileName(firstOrDefault_Col)+".png");
+                                        BitmapImage bitmap = new BitmapImage();
+                                        bitmap.BeginInit();
+                                        bitmap.UriSource = new Uri(Thumbnail + Path.GetFileName(firstOrDefault_Col) + ".png");
+                                        bitmap.EndInit();
+                                        Diffuse_IMG.Source = bitmap;
+                                    }
+                                    else
+                                    {
+                                        DDSImage img_1 = new DDSImage(firstOrDefault_Col);
+                                        img_1.Save(Thumbnail + Path.GetFileName(firstOrDefault_Col) + ".png");
+                                        // Image Image_1 = new Bitmap(Thumbnail+Path.GetFileName(firstOrDefault_Col)+".png");
+                                        BitmapImage bitmap = new BitmapImage();
+                                        bitmap.BeginInit();
+                                        bitmap.UriSource = new Uri(Thumbnail + Path.GetFileName(firstOrDefault_Col) + ".png");
+                                        bitmap.EndInit();
+                                        Diffuse_IMG.Source = bitmap;
+
+                                    }
+
+                                }
+                                else
+                                {
+                                    // Image Image_1 = new Bitmap(Directory.GetCurrentDirectory()+@"\No_Texture.jpg");
+                                    BitmapImage bitmap = new BitmapImage();
+                                    bitmap.BeginInit();
+                                    bitmap.UriSource = new Uri(@"pack://application:,,,/Resources/NO_TEXTURE.png");
+                                    bitmap.EndInit();
+                                    Diffuse_IMG.Source = bitmap;
+
+                                }
+
+
+                            }
+
+                            var Serached_ = SearchAccessibleFiles(Skin_Path, "ilm");
+                            var firstOrDefault_ilm = Serached_.FirstOrDefault();
+                            if (!Serached.Any())
+                            {
+                                throw new InvalidOperationException();
+                            }
+                            else
+                            {
+                                if (File.Exists(firstOrDefault_ilm))
+                                {
+                                    if (File.Exists(firstOrDefault_ilm + ".png"))
+                                    {
+
+                                        //   ////Console.WriteLine(firstOrDefault_ilm);
+                                        //    Image Image_2 = new Bitmap(Thumbnail+Path.GetFileName(firstOrDefault_ilm)+".png");
+                                        BitmapImage bitmap = new BitmapImage();
+                                        bitmap.BeginInit();
+                                        bitmap.UriSource = new Uri(Thumbnail + Path.GetFileName(firstOrDefault_ilm) + ".png");
+                                        bitmap.EndInit();
+                                        Glow_IMG.Source = bitmap;
+                                    }
+                                    else
+                                    {
+
+                                        DDSImage img_2 = new DDSImage(firstOrDefault_ilm);
+                                        img_2.Save(Thumbnail + Path.GetFileName(firstOrDefault_ilm) + ".png");
+                                        // Image Image_2 = new Bitmap(Thumbnail+Path.GetFileName(firstOrDefault_ilm)+".png");
+                                        BitmapImage bitmap = new BitmapImage();
+                                        bitmap.BeginInit();
+                                        bitmap.UriSource = new Uri(Thumbnail + Path.GetFileName(firstOrDefault_ilm) + ".png");
+                                        bitmap.EndInit();
+                                        Glow_IMG.Source = bitmap;
+                                    }
+                                }
+                                else
+                                {
+                                    //  Image Image_1 = new Bitmap(Directory.GetCurrentDirectory()+@"\No_Texture.jpg");
+                                    BitmapImage bitmap = new BitmapImage();
+                                    bitmap.BeginInit();
+                                    bitmap.UriSource = new Uri(@"pack://application:,,,/Resources/NO_TEXTURE.png");
+                                    bitmap.EndInit();
+                                    Glow_IMG.Source = bitmap;
+
+                                }
+
+                            }
+
+
+
+
+
+                        }
+
+                        //   Import_Skin_Bttn.Enabled=false;
+                    }
+                    catch (Exception ex)
+                    {
+                        BitmapImage bitmap = new BitmapImage();
+                        bitmap.BeginInit();
+                        bitmap.UriSource = new Uri(@"pack://application:,,,/Resources/NO_TEXTURE.png");
+                        bitmap.EndInit();
+                        Diffuse_IMG.Source = bitmap;
+
+                        Glow_IMG.Source = bitmap;
+                        Write_To_Log(ErrorManager(ex));
+                        Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
+
+                    }
+
+                }
+
+            
+        }
+
+        }
+        private void Browse_For_Skin_Click(object sender, RoutedEventArgs e)
+        {
+            Skin_Install_Tree(false,"");
         }
 
         private void Browse_Titanfall_2_Click(object sender, RoutedEventArgs e)
