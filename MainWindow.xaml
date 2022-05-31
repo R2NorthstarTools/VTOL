@@ -309,7 +309,6 @@
                         </TabItem.BorderBrush>
                     </TabItem>
                 </TabControl>
-
                 <ListBox ItemsSource="{Binding itemsList}" x:Name="Test_List" Margin="43,104,43,32" SelectionChanged="Test_List_SelectionChanged" RequestBringIntoView="Test_List_RequestBringIntoView" ScrollViewer.CanContentScroll="False" Visibility="Visible" BorderBrush="#FF232323" Padding="1,0,1,0" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Standard"  IsTextSearchEnabled="False" IsSynchronizedWithCurrentItem="False" MaxHeight="9000" AutomationProperties.IsOffscreenBehavior="Offscreen" MaxWidth="9000" >
                     <ListBox.Resources>
                         <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="Transparent" />
