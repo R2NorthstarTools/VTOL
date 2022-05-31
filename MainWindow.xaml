@@ -257,9 +257,9 @@
 
 
 
-        <hc:SimplePanel x:Name="Mod_Browse_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
+        <hc:SimplePanel x:Name="Mod_Browse_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Visible" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
             <hc:SimplePanel Margin="10,10,10,10" Background="#FF101010">
-                <TabControl x:Name="Sections_Tabs" Margin="36,55,36,48"  BorderBrush="{x:Null}" Foreground="{x:Null}" Background="{x:Null}" Padding="0,0,0,0" Width="900" SelectionChanged="Sections_Tabs_SelectionChanged">
+                <TabControl x:Name="Sections_Tabs" Margin="45,72,45,31"  BorderBrush="{x:Null}" Foreground="{x:Null}" Background="{x:Null}" Padding="0,0,0,0" Width="900" SelectionChanged="Sections_Tabs_SelectionChanged">
                     <TabItem Header="Client Mods" Width="150">
                         <TabItem.BorderBrush>
                             <LinearGradientBrush EndPoint="1,0">
@@ -309,7 +309,7 @@
                         </TabItem.BorderBrush>
                     </TabItem>
                 </TabControl>
-                <ListBox ItemsSource="{Binding itemsList}" x:Name="Test_List" Margin="0,87,0,49" SelectionChanged="Test_List_SelectionChanged" RequestBringIntoView="Test_List_RequestBringIntoView" ScrollViewer.CanContentScroll="False" Visibility="Visible" Width="902" BorderBrush="{x:Null}" Padding="1,0,1,0" HorizontalAlignment="Center" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Standard"  IsTextSearchEnabled="False" Background="#FF1C1C1C" IsSynchronizedWithCurrentItem="False" MaxHeight="9000" AutomationProperties.IsOffscreenBehavior="Offscreen" >
+                <ListBox ItemsSource="{Binding itemsList}" x:Name="Test_List" Margin="44,104,44,32" SelectionChanged="Test_List_SelectionChanged" RequestBringIntoView="Test_List_RequestBringIntoView" ScrollViewer.CanContentScroll="False" Visibility="Visible" BorderBrush="{x:Null}" Padding="1,0,1,0" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Standard"  IsTextSearchEnabled="False" Background="#FF1C1C1C" IsSynchronizedWithCurrentItem="False" MaxHeight="9000" AutomationProperties.IsOffscreenBehavior="Offscreen" >
                     <ListBox.Resources>
                         <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="Transparent" />
 
@@ -387,6 +387,7 @@
 
 
                 <Label Content="{DynamicResource UI_TITLE_THUNDERSTORE}" Height="44" Width="190" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Margin="0,2,0,0"/>
+                <hc:SearchBar x:Name="SearchBar" HorizontalAlignment="Left" Height="0" TextWrapping="Wrap" Text="SearchBar" VerticalAlignment="Top" Width="282" Margin="67,21,0,0" KeyDown="SearchBar_KeyDown"/>
 
             </hc:SimplePanel>
 
