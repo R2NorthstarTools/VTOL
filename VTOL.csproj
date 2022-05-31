@@ -7,8 +7,8 @@
     <UseWPF>true</UseWPF>
     <ApplicationIcon>Resources\Northstar-512.ico</ApplicationIcon>
     <PackageIcon>Northstar-512.png</PackageIcon>
-    <AssemblyVersion>1.2.3</AssemblyVersion>
-    <FileVersion>1.2.3</FileVersion>
+    <AssemblyVersion>1.2.4</AssemblyVersion>
+    <FileVersion>1.2.4</FileVersion>
     <PackageTags>Mod_Manager;Installer;VTOL</PackageTags>
     <DebugType>embedded</DebugType>
     <Platforms>AnyCPU;x64;x86</Platforms>
@@ -65,6 +65,7 @@
     <None Remove="Resources\Lock_WB.png" />
     <None Remove="Resources\LOG_ICON.png" />
     <None Remove="Resources\main-menu.png" />
+    <None Remove="Resources\marvin_face_sad.png" />
     <None Remove="Resources\Northstar512-maskable.ico" />
     <None Remove="Resources\northstar_icon_ZfV_icon.ico" />
     <None Remove="Resources\NorthStar_Smurfson.gif" />
@@ -151,6 +152,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Language_Icons\us.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\marvin_face_sad.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Northstar-512.ico">

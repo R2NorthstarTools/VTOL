@@ -259,7 +259,7 @@
 
         <hc:SimplePanel x:Name="Mod_Browse_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Visible" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
             <hc:SimplePanel Margin="10,10,10,10" Background="#FF101010">
-                <TabControl x:Name="Sections_Tabs" Margin="45,72,45,31"  BorderBrush="{x:Null}" Foreground="{x:Null}" Background="{x:Null}" Padding="0,0,0,0" Width="900" SelectionChanged="Sections_Tabs_SelectionChanged">
+                <TabControl x:Name="Sections_Tabs" Margin="46,72,46,31"  BorderBrush="{x:Null}" Foreground="{x:Null}" Background="{x:Null}" Padding="0,0,0,0" Width="900" SelectionChanged="Sections_Tabs_SelectionChanged">
                     <TabItem Header="Client Mods" Width="150">
                         <TabItem.BorderBrush>
                             <LinearGradientBrush EndPoint="1,0">
@@ -309,11 +309,15 @@
                         </TabItem.BorderBrush>
                     </TabItem>
                 </TabControl>
-                <ListBox ItemsSource="{Binding itemsList}" x:Name="Test_List" Margin="44,104,44,32" SelectionChanged="Test_List_SelectionChanged" RequestBringIntoView="Test_List_RequestBringIntoView" ScrollViewer.CanContentScroll="False" Visibility="Visible" BorderBrush="{x:Null}" Padding="1,0,1,0" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Standard"  IsTextSearchEnabled="False" Background="#FF1C1C1C" IsSynchronizedWithCurrentItem="False" MaxHeight="9000" AutomationProperties.IsOffscreenBehavior="Offscreen" >
+
+                <ListBox ItemsSource="{Binding itemsList}" x:Name="Test_List" Margin="43,104,43,32" SelectionChanged="Test_List_SelectionChanged" RequestBringIntoView="Test_List_RequestBringIntoView" ScrollViewer.CanContentScroll="False" Visibility="Visible" BorderBrush="#FF232323" Padding="1,0,1,0" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Standard"  IsTextSearchEnabled="False" IsSynchronizedWithCurrentItem="False" MaxHeight="9000" AutomationProperties.IsOffscreenBehavior="Offscreen" MaxWidth="9000" >
                     <ListBox.Resources>
                         <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="Transparent" />
-
+                        
                     </ListBox.Resources>
+                    <ListBox.Background>
+                        <ImageBrush ImageSource="/Resources/marvin_face_sad.png" Stretch="Uniform" Opacity="0"/>
+                    </ListBox.Background>
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
 
@@ -331,6 +335,8 @@
                             <Style.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
                                     <Setter Property="IsSelected" Value="True"/>
+                                    <Setter Property="Foreground" Value="Transparent"/>
+
                                 </Trigger>
                                 <Trigger Property="IsMouseOver" Value="False">
                                     <Setter Property="IsSelected" Value="False"/>
@@ -356,16 +362,16 @@
                                     <TextBlock  Text="{Binding Name}"  FontSize="16" Margin="98,0,0,83" Height="23" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="604" IsHitTestVisible="False" />
                                     <TextBlock TextWrapping="Wrap" Text="{Binding owner}" Margin="186,0,0,67" Height="15" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="284" FontSize="11" IsHitTestVisible="False"/>
                                     <TextBlock TextWrapping="Wrap" Text="{Binding date_created}" FontSize="10" Margin="117,3,0,0" HorizontalAlignment="Left" Width="561" Height="14" VerticalAlignment="Top" Grid.Row="1" IsHitTestVisible="False"/>
-                                    <Label Content="{DynamicResource UI_TEXT_THUNDERSTORE_AUTHOR}" Height="14" Width="82" HorizontalAlignment="Left" Margin="99,30,0,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="9" HorizontalContentAlignment="Left"/>
-                                    <Label Content="{DynamicResource UI_TEXT_THUNDERSTORE_PUBLISH_DATE}" Height="14" Width="107" HorizontalAlignment="Left" Margin="5,3,0,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="9" Grid.Row="1" HorizontalContentAlignment="Left"/>
+                                    <Label Content="{DynamicResource UI_TEXT_THUNDERSTORE_AUTHOR}" Height="14" Width="82" HorizontalAlignment="Left" Margin="99,30,0,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="9" HorizontalContentAlignment="Left" IsHitTestVisible="False"/>
+                                    <Label Content="{DynamicResource UI_TEXT_THUNDERSTORE_PUBLISH_DATE}" Height="14" Width="107" HorizontalAlignment="Left" Margin="5,3,0,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="9" Grid.Row="1" HorizontalContentAlignment="Left" IsHitTestVisible="False"/>
                                     <Button Content="{DynamicResource UI_BUTTON_THUNDERSTORE_INSTALL}"  HorizontalAlignment="Left" Margin="722,15,0,0" VerticalAlignment="Top" Background=  "{DynamicResource Button_BG}" BorderBrush="{x:Null}" Height="53" Width="146" Click="Download_Install" Tag="{Binding download_url}" Padding="0,0,0,0" Focusable="True"  />
                                     <Button Content="{DynamicResource UI_BUTTON_THUNDERSTORE_GOTO_WEBPAGE}" HorizontalAlignment="Left" Margin="722,73,0,0" Tag ="{Binding Webpage}" VerticalAlignment="Top" Background=  "{DynamicResource Button_BG}" BorderBrush="{x:Null}" Height="22" Width="146" Click="Open_Package_Webpage" Padding="0,0,0,0"/>
                                     <Label Content="{DynamicResource UI_TEXT_THUNDERSTORE_MOD_DESC}" Height="14" Width="83" HorizontalAlignment="Left" Margin="98,0,0,0" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="9" FontStyle="Normal" FontWeight="Normal" HorizontalContentAlignment="Left" IsHitTestVisible="False"/>
                                     <Label Content="{DynamicResource UI_TEXT_THUNDERSTORE_FILE_SIZE}" Height="14" HorizontalAlignment="Left" Margin="5,19,0,0" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="9" Grid.Row="1" VerticalAlignment="Top" HorizontalContentAlignment="Center" IsHitTestVisible="False"/>
                                     <TextBlock TextWrapping="Wrap" Text="{Binding File_Size}" FontSize="10" Margin="93,19,0,0" HorizontalAlignment="Left" Width="257" Height="14" VerticalAlignment="Top" Grid.Row="1" IsHitTestVisible="False"/>
-                                    <hc:Badge Margin="737,97,97,10" BorderBrush="{x:Null}" Maximum="9000" BadgeMargin="0,0,0,0" Grid.RowSpan="2" Value="{Binding Rating}" Foreground="#FFF9D900" FontSize="11" IsHitTestVisible="False" ScrollViewer.VerticalScrollBarVisibility="Disabled" />
+                                    <hc:Badge Margin="737,97,97,10" BorderBrush="{x:Null}" Maximum="9000" BadgeMargin="0,0,0,0" Grid.RowSpan="2" Value="{Binding Rating}" Foreground="#FFF9D900" FontSize="11" IsHitTestVisible="False" ScrollViewer.VerticalScrollBarVisibility="Disabled" IsTabStop="False" Focusable="False" />
                                     <Image Margin="738,109,112,10" Source="/Resources/heart.png" RenderTransformOrigin="0.471,0.217" Grid.RowSpan="2" IsHitTestVisible="False" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
-                                    <hc:Badge Margin="803,97,31,10" BorderBrush="{x:Null}"  Value="{Binding Downloads}" Maximum="9000" BadgeMargin="0,0,0,0" Grid.RowSpan="2"  Foreground="#FF4EFF48" FontSize="11" RenderTransformOrigin="0,0" Text="" IsHitTestVisible="False" ScrollViewer.VerticalScrollBarVisibility="Disabled" />
+                                    <hc:Badge Margin="803,97,31,10" BorderBrush="{x:Null}"  Value="{Binding Downloads}" Maximum="9000" BadgeMargin="0,0,0,0" Grid.RowSpan="2"  Foreground="#FF4EFF48" FontSize="11" RenderTransformOrigin="0,0" Text="" IsHitTestVisible="False" ScrollViewer.VerticalScrollBarVisibility="Disabled" IsTabStop="False" Focusable="False" />
                                     <Image Margin="804,109,46,10" Source="/Resources/download_icon.png"  Grid.RowSpan="2" IsHitTestVisible="False" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
                                     <Label Content="{DynamicResource UI_TEXT_THUNDERSTORE_TAGS}" Height="14" HorizontalAlignment="Left" Margin="5,97,0,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="9" HorizontalContentAlignment="Left" IsHitTestVisible="False" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
                                     <TextBlock TextWrapping="Wrap" Text="{Binding Tag}" FontSize="11" Margin="76,97,0,0" HorizontalAlignment="Left" Width="559" Height="14" VerticalAlignment="Top" FontWeight="Bold" FontStyle="Italic" Foreground="#FFFFF0C6" IsHitTestVisible="False" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
@@ -386,9 +392,8 @@
 
 
 
-                <Label Content="{DynamicResource UI_TITLE_THUNDERSTORE}" Height="44" Width="190" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Margin="0,2,0,0"/>
-                <hc:SearchBar x:Name="SearchBar" HorizontalAlignment="Left" Height="0" TextWrapping="Wrap" Text="SearchBar" VerticalAlignment="Top" Width="282" Margin="67,21,0,0" KeyDown="SearchBar_KeyDown"/>
-
+                <Label Content="{DynamicResource UI_TITLE_THUNDERSTORE}" Height="44" Width="190" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Margin="0,10,0,0"/>
+                <hc:SearchBar x:Name="SearchBar" HorizontalAlignment="Left" Height="0" TextWrapping="Wrap" Text="SearchBar" VerticalAlignment="Top" Width="282" Margin="46,18,0,0" KeyDown="SearchBar_KeyDown"/>
             </hc:SimplePanel>
 
             <hc:CircleProgressBar  x:Name="Mod_Progress_BAR" Margin="0,12,14,0"  Foreground="White" Width="43" BorderBrush="{x:Null}" HorizontalAlignment="Right" Height="43" VerticalAlignment="Top" Background=  "{DynamicResource Button_BG}" Value="-4" ArcThickness="2" ShowText="False" />
@@ -631,7 +636,6 @@
                             <TranslateTransform X="0" Y="0"/>
                         </Canvas.RenderTransform>
                         <Canvas.Resources/>
-                        <!--Unknown tag: sodipodi:namedview-->
                         <Canvas>
                             <Path  Name="path146" Fill="{DynamicResource Button_BG}" Opacity="1.00">
                                 <Path.Data>
@@ -656,7 +660,6 @@
                             <TranslateTransform X="0" Y="0"/>
                         </Canvas.RenderTransform>
                         <Canvas.Resources/>
-                        <!--Unknown tag: sodipodi:namedview-->
                         <Canvas >
                             <Path  Name="path187" Fill="#FF020404" Opacity="0.06">
                                 <Path.Data>
