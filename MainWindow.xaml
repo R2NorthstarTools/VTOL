@@ -259,7 +259,7 @@
 
         <hc:SimplePanel x:Name="Mod_Browse_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Visible" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
             <hc:SimplePanel Margin="10,10,10,10" Background="#FF101010">
-                <TabControl x:Name="Sections_Tabs" Margin="46,72,46,31"  BorderBrush="{x:Null}" Foreground="{x:Null}" Background="{x:Null}" Padding="0,0,0,0" Width="900" SelectionChanged="Sections_Tabs_SelectionChanged">
+                <TabControl x:Name="Sections_Tabs" Margin="44,72,44,31"  BorderBrush="{x:Null}" Foreground="{x:Null}" Background="{x:Null}" Padding="0,0,0,0" SelectionChanged="Sections_Tabs_SelectionChanged" Width="918">
                     <TabItem Header="Client Mods" Width="150">
                         <TabItem.BorderBrush>
                             <LinearGradientBrush EndPoint="1,0">

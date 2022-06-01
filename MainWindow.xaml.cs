@@ -1022,8 +1022,8 @@ namespace VTOL
         }
         void MainWindow_Closing(object sender, CancelEventArgs e)
         {
-            HandyControl.Controls.Growl.ClearGlobal();
             save_Log();
+            HandyControl.Controls.Growl.ClearGlobal();
 
 
         }
@@ -1119,7 +1119,7 @@ namespace VTOL
                     Update.Download_Cutom_JSON();
                     //  LoadListViewData(Filter_Type);
 
-
+                   
 
                     // Test_List.ItemsSource = null;
 
@@ -1133,7 +1133,7 @@ namespace VTOL
                     NON_UI.Start();
                     NON_UI.Join();
                     Test_List.ItemsSource = List;
-
+                   
                     Finished_Init = true;
 
 
@@ -1425,11 +1425,14 @@ namespace VTOL
                                 {
                                     if (Update.Thunderstore[i].Name.Contains(SearchQuery))
                                     {
+
                                         foreach (var items in Update.Thunderstore[i].versions)
 
 
                                         {
                                             Downloads.Add(Convert.ToInt32(items.Downloads));
+
+
 
                                         }
 
@@ -1456,8 +1459,8 @@ namespace VTOL
                                         }
 
                                         itemsList.Add(new Button { Name = Update.Thunderstore[i].Name, Icon = ICON, date_created = Update.Thunderstore[i].DateCreated.ToString(), description = Descrtiption, owner = Update.Thunderstore[i].Owner, Rating = rating, download_url = download_url + "|" + Update.Thunderstore[i].FullName.ToString() + "|" + Tags, Webpage = Update.Thunderstore[i].PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads });
-
                                         //  return itemsList;
+
 
                                     }
 
@@ -1783,6 +1786,9 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             Update_Tab.IsSelected = false;
             Log.IsSelected = false;
             call_TS_MODS();
+            //   CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(Disabled_ListBox.ItemsSource);
+            Enabled_ListBox.Items.SortDescriptions.Add(new SortDescription("Content", ListSortDirection.Descending));
+            Disabled_ListBox.Refresh();
         }
         void Select_Server()
         {
@@ -3199,10 +3205,16 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             bool install_Prompt = false;
             try
             {
+              
                 Enabled_ListBox.ItemsSource = null;
                 Disabled_ListBox.ItemsSource = null;
                 Mod_Directory_List_Active.Clear();
                 Mod_Directory_List_InActive.Clear();
+
+
+
+
+                
                 //   ////Console.WriteLine("In Mods!");
                 if (Current_Install_Folder == null || Current_Install_Folder == "" || !Directory.Exists(Current_Install_Folder))
                 {
@@ -3576,9 +3588,13 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
         {
             Disabled_ListBox.ItemsSource = null;
             Disabled_ListBox.ItemsSource = Mod_Directory_List_InActive.ToArray();
-
+          
             Enabled_ListBox.ItemsSource = null;
+
             Enabled_ListBox.ItemsSource = Mod_Directory_List_Active.ToArray();
+            Enabled_ListBox.Refresh();
+            Disabled_ListBox.Refresh();
+
         }
         void Move_List_box_Inactive_To_Active(ListBox Inactive)
         {
@@ -7991,7 +8007,6 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
         {
             try
             {
-                Disabled_ListBox.Items.IsLiveSorting = true;
                 if (Disabled_ListBox.SelectedItem != null && Disabled_ListBox.IsMouseOver == true && Enabled_ListBox.IsMouseOver == false)
                 {
                     string Mod = (Disabled_ListBox.SelectedItem.ToString());
