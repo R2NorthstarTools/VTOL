@@ -18,9 +18,21 @@ namespace VTOL
             {
                 case "Titanfall2":
                     ControlPath = GamePath + "\\r2\\paks\\Win64\\";
-                    if (name.Contains("WingmanElite") || name.Contains("R101"))
+                    if (name.Contains("WingmanElite") || name.Contains("R101") || name.Contains("PrimeLegion") || name.Contains("PrimeNorthstar") || name.Contains("PrimeScorch") || name.Contains("PrimeRonin_Default_gls") || name.Contains("PrimeION") || name.Contains("PrimeRonin_Default_nml") || name.Contains("PrimeRonin_Default_spc") || name.Contains("PrimeRonin_Default_cav") || name.Contains("PrimeRonin_Default_ao"))
                     {
                         FileName = "pc_stream(03).starpak";
+                    }
+                    else if (name.Contains("Monarch"))
+                    {
+                        FileName = "pc_stream(07).starpak";
+                    }
+                    else if (name.Contains("PrimeTone") || name.Contains("PrimeRonin_Default_ilm") || name.Contains("PrimeSword"))
+                    {
+                        FileName = "pc_stream(05).starpak";
+                    }
+                    else if (name.Contains("PrimeRonin_Default_col"))
+                    {
+                        FileName = "pc_stream(06).starpak";
                     }
                     else
                     {
@@ -28,7 +40,7 @@ namespace VTOL
                     }
                     break;
                 //Fixed
-               
+
                 default:
                     throw new Exception("Error!");
             }

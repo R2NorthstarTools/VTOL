@@ -3,6 +3,7 @@ using System;
 using System.IO;
 using SixLabors.ImageSharp;
 using Image = SixLabors.ImageSharp.Image;
+using System.Windows.Forms;
 
 namespace VTOL
 {
@@ -23,6 +24,7 @@ namespace VTOL
 
 		public DDSImage(string file)
 		{
+
 			_image = Pfim.Pfim.FromFile(file);
 			Process();
 		}

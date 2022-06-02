@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using VTOL;
 namespace Titanfall2_SkinTool.Titanfall2.PilotData
 {
     class PilotDataControl
@@ -13,13 +13,11 @@ namespace Titanfall2_SkinTool.Titanfall2.PilotData
         public string SeekLength { get; private set; }
         public PilotDataControl(string PilotName, int imagecheck)
         {
-            string s = PilotName;
-            int toname = s.LastIndexOf("\\") + 1;
-            string str = s.Substring(toname, s.Length - toname);
-            toname = str.IndexOf("_");
-            string temp = str.Substring(toname, str.Length - toname);
-            s = str.Replace(temp, "");
-            if (str.Contains("Stim_") || str.Contains("PhaseShift_") || str.Contains("HoloPilot_") || str.Contains("PulseBlade_") || str.Contains("Grapple_") || str.Contains("AWall_") || str.Contains("Cloak_") || str.Contains("Public_"))
+            string[] name = VTOL.MainWindow.GetTextureName(PilotName);
+            string str = name[0];
+            string s = name[1];
+            string temp = name[2];
+            if (str.Contains("Stim_") || str.Contains("PhaseShift_") || str.Contains("HoloPilot_") || str.Contains("PulseBlade_") || str.Contains("Grapple_") || str.Contains("AWall_") || str.Contains("Cloak_") || str.Contains("Pilot_") || str.Contains("Jack_"))
             {
                 switch (s)
                 {
@@ -73,11 +71,17 @@ namespace Titanfall2_SkinTool.Titanfall2.PilotData
                         SeekLength = cloak.SeekLength;
                         break; 
                     //公共部分
-                    case "Public":
+                    case "Pilot":
                         Public_Data.Public PublicData = new Public_Data.Public(temp, imagecheck);
                         Seek = PublicData.Seek;
                         Length = PublicData.Length;
                         SeekLength = PublicData.SeekLength;
+                        break;
+                    case "Jack":
+                        Normal_Pilot.Jack.Jack jack = new Normal_Pilot.Jack.Jack(temp, imagecheck);
+                        Seek = jack.Seek;
+                        Length = jack.Length;
+                        SeekLength = jack.SeekLength;
                         break;
                     default:
                         throw new Exception("BUG!"+"\n"+"Error Pilot Name.");

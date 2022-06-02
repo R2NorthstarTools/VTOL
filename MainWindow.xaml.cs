@@ -442,6 +442,8 @@ namespace VTOL
                 Updates_Panel.Visibility = Visibility.Hidden;
                 Drag_Drop_Overlay.Visibility = Visibility.Hidden;
                 Drag_Drop_Overlay_Skins.Visibility = Visibility.Hidden;
+                Tools_Panel.Visibility = Visibility.Hidden;
+
                 string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
                 Install_Skin_Bttn.IsEnabled = false;
                 Badge.Visibility = Visibility.Collapsed;
@@ -1245,11 +1247,12 @@ namespace VTOL
                 LAST_INSTALLED_MOD = (words[1]);
                 if (words[2].Contains("DDS"))
                 {
-                    parse_git_to_zip(words[0], true);
 
+                     parse_git_to_zip(words[0], true);
                 }
                 else
                 {
+
                     parse_git_to_zip(words[0]);
                 }
             }
@@ -1330,8 +1333,8 @@ namespace VTOL
 
                         break;
                     case "DDS-Skins":
-                        Exclude_String = "DDS";
-
+                        Exclude_String = "Server-side";
+                        Filter_Type = "DDS";
                         break;
                     case "Client Mods":
                         Exclude_String = "Server-side";
@@ -1662,6 +1665,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             Log_Panel.Visibility = Visibility.Hidden;
             Updates_Panel.Visibility = Visibility.Hidden;
             Theme_Panel.Visibility = Visibility.Hidden;
+            Tools_Panel.Visibility = Visibility.Hidden;
 
 
             Skins.IsSelected = false;
@@ -1674,6 +1678,8 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             Update_Tab.IsSelected = false;
 
             Origin_Client_Running = Check_Process_Running("OriginClientService");
+            Tools.IsSelected = false;
+            Themes.IsSelected = false;
 
             // PingHost("Northstar.tf");
 
@@ -1689,6 +1695,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             Log_Panel.Visibility = Visibility.Hidden;
             Updates_Panel.Visibility = Visibility.Hidden;
             Theme_Panel.Visibility = Visibility.Hidden;
+            Tools_Panel.Visibility = Visibility.Hidden;
 
 
             Skins.IsSelected = false;
@@ -1699,6 +1706,8 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             Mod_Browse.IsSelected = false;
             Log.IsSelected = false;
             Update_Tab.IsSelected = false;
+            Tools.IsSelected = false;
+            Themes.IsSelected = false;
 
             try
             {
@@ -1728,6 +1737,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             Log_Panel.Visibility = Visibility.Hidden;
             Updates_Panel.Visibility = Visibility.Hidden;
             Theme_Panel.Visibility = Visibility.Hidden;
+            Tools_Panel.Visibility = Visibility.Hidden;
 
 
             Skins.IsSelected = true;
@@ -1738,6 +1748,8 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             Mod_Browse.IsSelected = false;
             Log.IsSelected = false;
             Update_Tab.IsSelected = false;
+            Tools.IsSelected = false;
+            Themes.IsSelected = false;
 
         }
         void Select_About()
@@ -1752,6 +1764,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             Log_Panel.Visibility = Visibility.Hidden;
             Updates_Panel.Visibility = Visibility.Hidden;
             Theme_Panel.Visibility = Visibility.Hidden;
+            Tools_Panel.Visibility = Visibility.Hidden;
 
 
             Skins.IsSelected = false;
@@ -1762,6 +1775,9 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             Mod_Browse.IsSelected = false;
             Log.IsSelected = false;
             Update_Tab.IsSelected = false;
+            Tools.IsSelected = false;
+            Themes.IsSelected = false;
+
 
         }
         async void Select_Mod_Browse()
@@ -1776,6 +1792,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             Log_Panel.Visibility = Visibility.Hidden;
             Updates_Panel.Visibility = Visibility.Hidden;
             Theme_Panel.Visibility = Visibility.Hidden;
+            Tools_Panel.Visibility = Visibility.Hidden;
 
             Skins.IsSelected = false;
             Main.IsSelected = false;
@@ -1787,8 +1804,11 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             Log.IsSelected = false;
             call_TS_MODS();
             //   CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(Disabled_ListBox.ItemsSource);
-            Enabled_ListBox.Items.SortDescriptions.Add(new SortDescription("Content", ListSortDirection.Descending));
+          //  Enabled_ListBox.Items.SortDescriptions.Add(new SortDescription("Content", ListSortDirection.Descending));
             Disabled_ListBox.Refresh();
+            Tools.IsSelected = false;
+            Themes.IsSelected = false;
+
         }
         void Select_Server()
         {
@@ -1801,6 +1821,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             Log_Panel.Visibility = Visibility.Hidden;
             Updates_Panel.Visibility = Visibility.Hidden;
             Theme_Panel.Visibility = Visibility.Hidden;
+            Tools_Panel.Visibility = Visibility.Hidden;
 
             Skins.IsSelected = false;
             Main.IsSelected = false;
@@ -1810,6 +1831,8 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             Mod_Browse.IsSelected = false;
             Update_Tab.IsSelected = false;
             Log.IsSelected = false;
+            Tools.IsSelected = false;
+            Themes.IsSelected = false;
 
 
         }
@@ -1824,6 +1847,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             Log_Panel.Visibility = Visibility.Visible;
             Updates_Panel.Visibility = Visibility.Hidden;
             Theme_Panel.Visibility = Visibility.Hidden;
+            Tools_Panel.Visibility = Visibility.Hidden;
 
             Skins.IsSelected = false;
             Main.IsSelected = false;
@@ -1835,6 +1859,9 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             Update_Tab.IsSelected = false;
             Log_Indicator.Background = Brushes.Transparent;
             LOG_BOX.ScrollToEnd();
+            Tools.IsSelected = false;
+            Themes.IsSelected = false;
+
 
         }
         void Select_Update()
@@ -1854,6 +1881,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             Log_Panel.Visibility = Visibility.Hidden;
             Updates_Panel.Visibility = Visibility.Visible;
             Theme_Panel.Visibility = Visibility.Hidden;
+            Tools_Panel.Visibility = Visibility.Hidden;
 
             Skins.IsSelected = false;
             Main.IsSelected = false;
@@ -1863,6 +1891,9 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             Mod_Browse.IsSelected = false;
             Log.IsSelected = false;
             Update_Tab.IsSelected = true;
+            Tools.IsSelected = false;
+            Themes.IsSelected = false;
+
         }
         void Select_Themes()
         {
@@ -1876,6 +1907,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             Log_Panel.Visibility = Visibility.Hidden;
             Updates_Panel.Visibility = Visibility.Hidden;
             Theme_Panel.Visibility = Visibility.Visible;
+            Tools_Panel.Visibility = Visibility.Hidden;
 
             Skins.IsSelected = false;
             Main.IsSelected = false;
@@ -1886,6 +1918,33 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             Log.IsSelected = false;
             Update_Tab.IsSelected = false;
             Themes.IsSelected = true;
+            Tools.IsSelected = false;
+
+        }
+        void Select_Tools()
+        {
+            
+            Mod_Panel.Visibility = Visibility.Hidden;
+            skins_Panel.Visibility = Visibility.Hidden;
+            Main_Panel.Visibility = Visibility.Hidden;
+            About_Panel.Visibility = Visibility.Hidden;
+            Mod_Browse_Panel.Visibility = Visibility.Hidden;
+            Dedicated_Server_Panel.Visibility = Visibility.Hidden;
+            Log_Panel.Visibility = Visibility.Hidden;
+            Updates_Panel.Visibility = Visibility.Hidden;
+            Theme_Panel.Visibility = Visibility.Hidden;
+            Tools_Panel.Visibility = Visibility.Visible;
+
+            Skins.IsSelected = false;
+            Main.IsSelected = false;
+            About.IsSelected = false;
+            Mods.IsSelected = false;
+            Server_Configuration.IsSelected = false;
+            Mod_Browse.IsSelected = false;
+            Log.IsSelected = false;
+            Update_Tab.IsSelected = false;
+            Themes.IsSelected = false;
+            Tools.IsSelected = true;
         }
         private void SideMenu_SelectionChanged(object sender, HandyControl.Data.FunctionEventArgs<object> e)
         {
@@ -1937,6 +1996,11 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             if (Themes.IsSelected == true)
             {
                 Select_Themes();
+
+            }
+            if (Tools.IsSelected == true)
+            {
+                Select_Tools();
 
             }
         }
@@ -2486,7 +2550,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             {
                 if (!File.Exists(targetPath))
                 {
-                    File.Copy(newPath, newPath.Replace(sourcePath, targetPath), true);
+                     File.Copy(newPath, newPath.Replace(sourcePath, targetPath), true);
 
                 }
             }
@@ -2604,10 +2668,10 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                         DirectoryInfo di = new DirectoryInfo(d.FullName);
                                         DirectoryInfo[] diArr = di.GetDirectories();
                                         string firstFolder = diArr[0].FullName;
-
                                         if (Directory.Exists(firstFolder))
                                         {
-                                            Dir_Final = Destinfo.Parent.FullName + @"\" + diArr[0].Name;
+
+                                            Dir_Final = firstFolder;
                                             if ((Destinfo.Parent.FullName + @"\" + diArr[0].Name).Contains("keyvalues") || (Destinfo.Parent.FullName + @"\" + diArr[0].Name).Contains("vpk") || (Destinfo.Parent.FullName + @"\" + diArr[0].Name).Contains("materials"))
                                             {
                                                 Send_Error_Notif(GetTextResource("NOTIF_ERROR_MOD_INCOMPATIBLE"));
@@ -2620,21 +2684,19 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                             }
                                             else
                                             {
-                                                CopyFilesRecursively(firstFolder, Destinfo.Parent.FullName + @"\" + diArr[0].Name);
-                                                // MessageBox.Show(Destinfo.Parent.FullName + @"\" + diArr[0].Name);
                                                 if (Skin_Install == true)
                                                 {
 
-
+                                                    
 
                                                     var ext = new List<string> { "zip" };
-                                                    var myFiles = Directory.EnumerateFiles(Destinfo.Parent.FullName + @"\" + diArr[0].Name, "*.*", SearchOption.AllDirectories).Where(s => ext.Contains(Path.GetExtension(s).TrimStart('.').ToLowerInvariant()));
+                                                    var myFiles = Directory.EnumerateFiles(firstFolder + @"\", "*.*", SearchOption.AllDirectories).Where(s => ext.Contains(Path.GetExtension(s).TrimStart('.').ToLowerInvariant()));
 
                                                     //  var Script2 = Directorys.GetDirectories(searchQuery4, SearchOption.AllDirectories);
 
                                                     foreach (string x in myFiles)
                                                     {
-
+                                                        
 
                                                         Skin_Install_Tree(true, x);
                                                     }
@@ -2642,6 +2704,11 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
 
 
+
+                                                }
+                                                else
+                                                {
+                                                     CopyFilesRecursively(firstFolder, Destinfo.Parent.FullName + @"\" + diArr[0].Name);
 
                                                 }
 
@@ -4223,7 +4290,51 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             }
 
         }
-        public void Skin_Install_Tree(bool external_Skin = false, string external_Skin_Path = "")
+        protected virtual bool IsFileLocked(FileInfo file)
+        {
+            FileStream stream = null;
+
+            try
+            {
+                stream = file.Open(FileMode.Open, FileAccess.ReadWrite, FileShare.None);
+            }
+            catch (IOException)
+            {
+                //the file is unavailable because it is:
+                //still being written to
+                //or being processed by another thread
+                //or does not exist (has already been processed)
+                return true;
+            }
+            finally
+            {
+                if (stream != null)
+                    stream.Close();
+            }
+
+            //file is not locked
+            return false;
+        }
+        public void Retry(Action action, int retryCount)
+        {
+            int retries = 0;
+
+            while (retries < retryCount)
+            {
+                try
+                {
+                    action();
+                    return;
+                }
+                catch (Exception e)
+                {
+                    // Try Again
+                    retries++;
+                }
+            }
+        }
+
+        public void Skin_Install_Tree(bool external_Skin = false, string external_Skin_Path = "", bool isTitan = false)
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             if (Directory.Exists(Current_Install_Folder + @"\Skins_Unpack_Mod_MNGR"))
@@ -4239,7 +4350,8 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
                     Glow_IMG.Source = bitmap;
 
-                    Directory.Delete(Current_Install_Folder + @"\Skins_Unpack_Mod_MNGR", true);
+                    Retry(() => Directory.Delete(Current_Install_Folder + @"\Skins_Unpack_Mod_MNGR", true), 3);
+                    
                     GC.Collect();
                 }
                 catch (Exception ef)
@@ -4257,6 +4369,9 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             {
                 try
                 {
+                    Diffuse_IMG.Source = null;
+                    Glow_IMG.Source = null;
+
                     BitmapImage bitmap = new BitmapImage();
                     bitmap.BeginInit();
                     bitmap.UriSource = new Uri(@"pack://application:,,,/Resources/NO_TEXTURE.png");
@@ -4265,12 +4380,14 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
 
                     Glow_IMG.Source = bitmap;
-
-                    Directory.Delete(Current_Install_Folder + @"\Thumbnails", true);
+                    Retry(() => Directory.Delete(Current_Install_Folder + @"\Thumbnails", true), 3);
                     GC.Collect();
                 }
                 catch (Exception ef)
                 {
+                    MessageBox.Show(ef.Message);
+
+                  
                     Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
 
                     Write_To_Log(ErrorManager(ef));
@@ -4443,7 +4560,8 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                             {
 
                                 Directory.CreateDirectory(Thumbnail);
-
+                               
+                                
                                 //DirectoryInfo dir = new DirectoryInfo(Thumbnail);
                                 var Serached = SearchAccessibleFiles(Skin_Path, "col");
                                 var firstOrDefault_Col = Serached.FirstOrDefault();
@@ -4551,6 +4669,18 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                         }
                         catch (Exception ex)
                         {
+                            if (ex.Message.Contains("Specified"))
+                            {
+                                BitmapImage bitmap2 = new BitmapImage();
+                                bitmap2.BeginInit();
+                                bitmap2.UriSource = new Uri(@"pack://application:,,,/Resources/NO_TEXTURE.png");
+                                bitmap2.EndInit();
+                                Diffuse_IMG.Source = bitmap2;
+
+                                Glow_IMG.Source = bitmap2;
+                                Send_Info_Notif("Thumbnail Failed To be Genereated! - Does not impact install.");
+
+                            }
                             BitmapImage bitmap = new BitmapImage();
                             bitmap.BeginInit();
                             bitmap.UriSource = new Uri(@"pack://application:,,,/Resources/NO_TEXTURE.png");
@@ -4856,6 +4986,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
         }
         private void Browse_For_Skin_Click(object sender, RoutedEventArgs e)
         {
+            
             Skin_Install_Tree(false, "");
         }
 
@@ -5037,9 +5168,43 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 Write_To_Log(ErrorManager(ex));
             }
         }
+        public static int GetTextureType(string Name)
+        {
+            if (Name != null && Name.Length == 0)
+            {
+                return 0;
+            }
+            if (Name.Contains("Stim_") || Name.Contains("PhaseShift_") || Name.Contains("HoloPilot_")
+            || Name.Contains("PulseBlade_") || Name.Contains("Grapple_") || Name.Contains("AWall_")
+            || Name.Contains("Cloak_") || Name.Contains("Pilot_"))
+            {
+                return 2;
+            }
+            else if (Name.Contains("Titan_"))
+            {
+                return 3;
+            }
+            else
+            {
+                return 1;
+            }
 
+        }
+        public static string[] GetTextureName(string name)
+        {
+            string[] s = new string[3];
+            int toname = name.LastIndexOf("\\") + 1;
+            string str = name.Substring(toname, name.Length - toname);
+            toname = str.IndexOf("_");
+            string temp = str.Substring(toname, str.Length - toname);
+            s[0] = str;
+            s[1] = str.Replace(temp, "");
+            s[2] = temp;
+            return s;
+        }
         private void Install_Skin_Bttn_Click(object sender, RoutedEventArgs e)
         {
+            try { 
             Skin_Path_Box.Text = "";
             Compat_Indicator.Fill = Brushes.Gray;
 
@@ -5077,7 +5242,38 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 Int64 toseek = 0;
                 int tolength = 0;
                 int totype = 0;
+                switch (GetTextureType(i))
+                {
+                    case 1://Weapon
+                           //Need to recode weapon part
+                       
+                            Titanfall2_SkinTool.Titanfall2.WeaponData.WeaponDataControl wdc = new Titanfall2_SkinTool.Titanfall2.WeaponData.WeaponDataControl(i, imagecheck);
+                            toseek = Convert.ToInt64(wdc.FilePath[0, 1]);
+                            tolength = Convert.ToInt32(wdc.FilePath[0, 2]);
+                            totype = Convert.ToInt32(wdc.FilePath[0, 3]);
+                        
+                        
+                        break;
+                    case 2://Pilot
+                        Titanfall2_SkinTool.Titanfall2.PilotData.PilotDataControl pdc = new Titanfall2_SkinTool.Titanfall2.PilotData.PilotDataControl(i, imagecheck);
+                        toseek = Convert.ToInt64(pdc.Seek);
+                        tolength = Convert.ToInt32(pdc.Length);
+                        totype = Convert.ToInt32(pdc.SeekLength);
+                        break;
+                    case 3://Titan
+                        Titanfall2_SkinTool.Titanfall2.TitanData.TitanDataControl tdc = new Titanfall2_SkinTool.Titanfall2.TitanData.TitanDataControl(i, imagecheck);
+                        toseek = Convert.ToInt64(tdc.Seek);
+                        tolength = Convert.ToInt32(tdc.Length);
+                        totype = Convert.ToInt32(tdc.SeekLength);
+                        break;
+                   
+                    default:
+                        Write_To_Log("Issue With Skin Install!");
 
+                        Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
+                        break;
+                }
+                /*
                 if (IsPilot(i))
                 {
 
@@ -5096,8 +5292,11 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                     totype = Convert.ToInt32(wdc.FilePath[0, 3]);
 
                 }
+                */
 
                 StarpakControl sc = new StarpakControl(i, toseek, tolength, totype, Current_Install_Folder, "Titanfall2", imagecheck, "Replace");
+            
+            
             }
 
             FileList.Clear();
@@ -5112,8 +5311,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             Glow_IMG.Source = bitmap;
 
             Diffuse_IMG.Source = bitmap;
-            try
-            {
+           
                 foreach (FileInfo file in files)
                 {
                     file.Delete();
@@ -7626,7 +7824,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
                     break;
                 case "DDS Skins":
-                    Thunderstore_Parse(hard_reset, "DDS-Skins", Search_, SearchQuery);
+                    Thunderstore_Parse(hard_reset, "DDS", Search_, SearchQuery);
 
                     break;
                 case "Server Mods":
