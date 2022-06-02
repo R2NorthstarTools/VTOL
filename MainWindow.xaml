@@ -259,7 +259,7 @@
 
         <hc:SimplePanel x:Name="Mod_Browse_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Visible" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
             <hc:SimplePanel Margin="10,10,10,10" Background="#FF101010">
-                <TabControl x:Name="Sections_Tabs" Margin="44,72,44,31"  BorderBrush="{x:Null}" Foreground="{x:Null}" Background="{x:Null}" Padding="0,0,0,0" SelectionChanged="Sections_Tabs_SelectionChanged" Width="918">
+                <TabControl x:Name="Sections_Tabs" Margin="44,72,43,31"  BorderBrush="{x:Null}" Foreground="{x:Null}" Background="{x:Null}" Padding="0,0,0,0" SelectionChanged="Sections_Tabs_SelectionChanged">
                     <TabItem Header="Client Mods" Width="150">
                         <TabItem.BorderBrush>
                             <LinearGradientBrush EndPoint="1,0">
@@ -300,7 +300,7 @@
                             </LinearGradientBrush>
                         </TabItem.BorderBrush>
                     </TabItem>
-                    <TabItem Header="All" Width="150">
+                    <TabItem x:Name="All_Tab" Header="All" Margin="0,0,-76,0">
                         <TabItem.BorderBrush>
                             <LinearGradientBrush EndPoint="1,0">
                                 <GradientStop Color="#FF326CF3"/>
@@ -606,9 +606,23 @@
             </hc:ScrollViewer>
 
         </hc:SimplePanel>
-        <hc:SimplePanel x:Name="Tools_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Visible" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
+        <hc:SimplePanel x:Name="Tools_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
+            <hc:ScrollViewer>
+                <Grid Height="975" >
+                    <Label Content="Thunderstore Packager " Width="202" Margin="84,120,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Bold" FontFamily="Gadugi" Height="44" Padding="10,3,10,3" FontSize="16" HorizontalAlignment="Left"/>
+                    <hc:SimplePanel Margin="84,164,84,307" Width="842" Background="#FF101010" >
+                        <TextBox x:Name="Zip_Box" HorizontalAlignment="Center" Margin="0,69,0,0" TextWrapping="Wrap" Text="Zip or Folder" VerticalAlignment="Top" Width="502" Background="White" Foreground="Black" SelectionTextBrush="Black" CaretBrush="Black"/>
+                        <Label  Content="Content" Margin="0,41,0,0" VerticalAlignment="Top" Width="88" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="16"/>
+                        <Button x:Name="Locate_Zip"  Height="24" Margin="0,104,0,0" VerticalAlignment="Top" Background=  "{DynamicResource Button_BG}" BorderBrush="{x:Null}" Width="502" Content="Locate Mod Content" Padding="0,0,0,0"/>
+                        <Image x:Name="Icon_Image" Height="151" VerticalAlignment="Top" Margin="347,148,347,0" Source="/Resources/NO_TEXTURE.png"/>
+                        <Button x:Name="Locate_Icon"  Height="24" Margin="0,310,0,0" VerticalAlignment="Top" Background=  "{DynamicResource Button_BG}" BorderBrush="{x:Null}" Width="220" Content="Locate Icon" Padding="0,0,0,0"/>
 
+                    </hc:SimplePanel>
 
+                </Grid>
+            </hc:ScrollViewer>
+
+            <Label Content="Tools" Width="282" Margin="0,31,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Height="44" Padding="10,3,10,3"/>
         </hc:SimplePanel>
 
 

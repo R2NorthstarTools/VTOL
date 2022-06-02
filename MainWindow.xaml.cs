@@ -1375,12 +1375,15 @@ namespace VTOL
                         List<versions> versions = Update.Thunderstore[i].versions;
                         if (Search_ == true)
                         {
-                            // MessageBox.Show(Update.Thunderstore[i].Name);
-                            if (Tags.Contains(Filter_Type) && !Tags.Contains(Exclude_String))
+
+                            if (Filter_Type != "All" && Filter_Type != "None")
                             {
 
-                                if (Filter_Type != "All")
+                                // MessageBox.Show(Update.Thunderstore[i].Name);
+                                if (Tags.Contains(Filter_Type) && !Tags.Contains(Exclude_String))
                                 {
+
+
                                     //MessageBox.Show(Update.Thunderstore[i].Name);
 
                                     if (Update.Thunderstore[i].Name.Contains(SearchQuery))
@@ -1423,6 +1426,7 @@ namespace VTOL
 
 
                                     }
+                                     }
                                 }
                                 else
                                 {
@@ -1469,7 +1473,7 @@ namespace VTOL
 
 
                                 }
-                            }
+                            
                         }
                         else if (Filter_Type == "None")
                         {
