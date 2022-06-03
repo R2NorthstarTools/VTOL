@@ -1107,7 +1107,7 @@ namespace VTOL
                 }
             }
         }
-        void Thunderstore_Parse(bool hard_refresh = true, string Filter_Type = "None", bool Search_ = false, string SearchQuery = "#")
+       async void Thunderstore_Parse(bool hard_refresh = true, string Filter_Type = "None", bool Search_ = false, string SearchQuery = "#")
         {
 
             try
@@ -1132,6 +1132,8 @@ namespace VTOL
 
                     List<object> List = null;
                     var NON_UI = new Thread(() => { List = LoadListViewData(Filter_Type, Search_, SearchQuery); });
+                    NON_UI.IsBackground = true;
+
                     NON_UI.Start();
                     NON_UI.Join();
                     Test_List.ItemsSource = List;
@@ -1147,8 +1149,11 @@ namespace VTOL
                 {
                     List<object> List = null;
                     var NON_UI = new Thread(() => { List = LoadListViewData(Filter_Type, Search_, SearchQuery); });
+                    NON_UI.IsBackground = true;
+
                     NON_UI.Start();
                     NON_UI.Join();
+
                     Test_List.ItemsSource = List;
 
 
@@ -5439,11 +5444,13 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
     );
             if (Directory.Exists(@"C:\ProgramData\VTOL_DATA\Logs"))
             {
-                if (File.Exists(@"C:\ProgramData\VTOL_DATA\Logs\" + date + "-LOG_MODMANAGER V-" + version))
+                if (File.Exists(@"C:\ProgramData\VTOL_DATA\Logs\" + date + "-LOG_MODMANAGER V-" + version+".txt"))
                 {
-                    string Accurate_Date = DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss");
-                    saveAsyncFile("\n\n" + Accurate_Date + "\n\n", @"C:\ProgramData\VTOL_DATA\Logs\" + date + "-LOG_MODMANAGER V-" + version, true, true);
+                    string Accurate_Date = DateTime.Now.ToString("yyyy/MM/dd/(HH:mm:ss)");
+
+                    saveAsyncFile("\n--------------------------------------"+"\n\n" + Accurate_Date + "\n\n" + "--------------------------------------\n", @"C:\ProgramData\VTOL_DATA\Logs\" + date + "-LOG_MODMANAGER V-" + version, true, true);
                     saveAsyncFile(Log_Box.Text, @"C:\ProgramData\VTOL_DATA\Logs\" + date + "-LOG_MODMANAGER V-" + version, true, true);
+
                     Send_Success_Notif(GetTextResource("NOTIF_SUCCESS_SAVED_TO") + @"C:\ProgramData\VTOL_DATA\Logs");
                 }
                 else
