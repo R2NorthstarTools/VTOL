@@ -366,6 +366,12 @@ namespace VTOL
 
         ObservableCollection<object> OjectList = new ObservableCollection<object>();
         int completed_flag;
+
+        public string Thunderstore_Template_Text =@"#PLACEHOLDER_SKIN_NAME
+
+YOUR DESCRIPTION
+//Example image, remove me before publishing!
+//![Imgur](https://i.imgur.com/hdnNWZQ.jpeg)";
         public class Colors_Set
         {
             public SolidColorBrush Accent_Color;
@@ -1954,6 +1960,12 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             Update_Tab.IsSelected = false;
             Themes.IsSelected = false;
             Tools.IsSelected = true;
+
+            Paragraph paragraph = new Paragraph();                        
+            Description_Box.Document.Blocks.Clear();
+            Run run = new Run(Thunderstore_Template_Text);
+            paragraph.Inlines.Add(run);
+            Description_Box.Document.Blocks.Add(paragraph);
         }
         private void SideMenu_SelectionChanged(object sender, HandyControl.Data.FunctionEventArgs<object> e)
         {
@@ -9018,6 +9030,172 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 }
             }
 
+        }
+        public string Current_Mod_To_Pack;
+        private void Locate_Zip_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Zip files (*.zip)|*.zip|All files (*.*)|*.*";
+            openFileDialog.RestoreDirectory = true;
+            if (openFileDialog.ShowDialog() == true)
+            {
+                Current_Mod_To_Pack = openFileDialog.FileName;
+                if (!File.Exists(Current_Mod_To_Pack))
+                {
+
+                    Send_Error_Notif(GetTextResource("NOTIF_ERROR_INVALID_ZIP_PATH"));
+                    Zip_Box.Background = Brushes.IndianRed;
+
+                    return;
+
+                }
+                else
+                {
+                    if(Path.GetExtension(Current_Mod_To_Pack).Contains("zip")  || Path.GetExtension(Current_Mod_To_Pack).Contains("Zip"))
+                    {
+                        Send_Success_Notif("Valid Zip Found!");
+                        Zip_Box.Text = Current_Mod_To_Pack;
+                        Zip_Box.Background = Brushes.White;
+
+                    }
+                }
+            }
+        }
+        public string Mod_Icon_Path;
+        private void Locate_Icon_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Png files (*.png)|*.png|All files (*.*)|*.*";
+            openFileDialog.RestoreDirectory = true;
+            if (openFileDialog.ShowDialog() == true)
+            {
+                Mod_Icon_Path = openFileDialog.FileName;
+                if (!File.Exists(Mod_Icon_Path))
+                {
+
+                    Send_Error_Notif(GetTextResource("Not A Valid PNG Image!"));
+
+                    return;
+
+                }
+                else
+                {
+                    if (Path.GetExtension(Mod_Icon_Path).Contains("png"))
+                    {
+                        int imgwidth;
+                        int imgheight;
+
+                        using (var image = SixLabors.ImageSharp.Image.Load(Mod_Icon_Path))
+                        {
+                             imgwidth = image.Width;
+                             imgheight = image.Height;
+                        }
+
+                        if(imgwidth == 256 && imgheight == 256)
+                        {
+
+                            Send_Success_Notif("Valid Image Found at - " + Mod_Icon_Path);
+                            BitmapImage Mod_Icon = new BitmapImage();
+                            Mod_Icon.BeginInit();
+
+                            Mod_Icon.UriSource = new Uri(Mod_Icon_Path);
+                            Mod_Icon.EndInit();
+
+                            Icon_Image.Source = Mod_Icon;
+
+                        }
+                        else
+                        {
+                            Send_Warning_Notif("Invalid Image Size!. Must be 256x256!");
+                            BitmapImage bitmap = new BitmapImage();
+                            bitmap.BeginInit();
+                            bitmap.UriSource = new Uri(@"pack://application:,,,/Resources/NO_TEXTURE.png");
+                            bitmap.EndInit();
+                            Icon_Image.Source = bitmap;
+                            return;
+
+                        }
+
+                    }
+                    else
+                    {
+                        Send_Warning_Notif("That was not a proper PNG!");
+                        BitmapImage bitmap = new BitmapImage();
+                        bitmap.BeginInit();
+                        bitmap.UriSource = new Uri(@"pack://application:,,,/Resources/NO_TEXTURE.png");
+                        bitmap.EndInit();
+                        Icon_Image.Source = bitmap;
+                        return;
+                    }
+                }
+            }
+        }
+        public string Current_Output_Dir;
+        private void Output_Button_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Forms.FolderBrowserDialog dialog = new System.Windows.Forms.FolderBrowserDialog();
+            System.Windows.Forms.DialogResult res = dialog.ShowDialog();
+            if (res == System.Windows.Forms.DialogResult.OK)
+            {
+                Current_Output_Dir = dialog.SelectedPath;
+                if (!Directory.Exists(Current_Output_Dir))
+                {
+                    Send_Error_Notif("Not An Output Directory!");
+                    Output_Box.Background = Brushes.IndianRed;
+
+                    return;
+
+                }
+                else
+                {
+                    Output_Box.Text = Current_Output_Dir;
+                    Zip_Box.Background = Brushes.White;
+
+                }
+            }
+        }
+        private void Save_Mod_Click(object sender, RoutedEventArgs e)
+        {
+            if (File.Exists(Current_Mod_To_Pack))
+            {
+                if (File.Exists(Mod_Icon_Path))
+                {
+                    if(Directory.Exists(Current_Output_Dir))
+                    {
+
+
+                    }
+                    else
+                    {
+                        Send_Warning_Notif("No Valid Output Path Found!");
+                        Output_Box.Background = Brushes.IndianRed;
+
+                        return;
+
+                    }
+                }
+                else
+                {
+                    Send_Warning_Notif("No Valid Mod ICON Found!");
+                    BitmapImage bitmap = new BitmapImage();
+                    bitmap.BeginInit();
+                    bitmap.UriSource = new Uri(@"pack://application:,,,/Resources/NO_TEXTURE.png");
+                    bitmap.EndInit();
+                    Icon_Image.Source = bitmap;
+                    return;
+                }
+
+
+            }
+            else
+            {
+                Send_Warning_Notif("No Valid Mod Zip Found!");
+                Output_Box.Background = Brushes.IndianRed;
+
+                return;
+
+
+            }
         }
     }
 
