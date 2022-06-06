@@ -607,7 +607,7 @@
             </hc:ScrollViewer>
 
         </hc:SimplePanel>
-        <hc:SimplePanel x:Name="Tools_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
+        <hc:SimplePanel x:Name="Tools_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Visible" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
 
             <hc:ScrollViewer>
                 <Grid Height="1386" >
@@ -641,11 +641,11 @@
                         <Label Content="Description" Width="86" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Normal" FontFamily="Gadugi" Height="30" Padding="10,3,10,3" Margin="227,921,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                         <Label Content="Mod Dependencies" Width="129" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Normal" FontFamily="Gadugi" Height="30" Padding="10,3,10,3" Margin="228,981,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
 
-                        <TextBox x:Name="Mod_name" HorizontalAlignment="Center" Margin="0,779,0,0" TextWrapping="NoWrap" Text="Name " VerticalAlignment="Top" Width="424" Background="White" Foreground="Black" SelectionTextBrush="Black" CaretBrush="Black" FontSize="11" />
+                        <TextBox x:Name="Mod_name" HorizontalAlignment="Center" Margin="0,779,0,0" TextWrapping="NoWrap" Text="ModName" VerticalAlignment="Top" Width="424" Background="White" Foreground="Black" SelectionTextBrush="Black" CaretBrush="Black" FontSize="11" />
 
-                        <TextBox x:Name="Mod_version_number" HorizontalAlignment="Center" Margin="0,838,0,0" TextWrapping="NoWrap" Text="Version" VerticalAlignment="Top" Width="424" Background="White" Foreground="Black" SelectionTextBrush="Black" CaretBrush="Black" FontSize="11" />
-                        <TextBox x:Name="Mod_website_url" HorizontalAlignment="Center" Margin="0,893,0,0" TextWrapping="NoWrap" Text="Website URL" VerticalAlignment="Top" Width="424" Background="White" Foreground="Black" SelectionTextBrush="Black" CaretBrush="Black" FontSize="11" />
-                        <TextBox x:Name="Mod_description" HorizontalAlignment="Center" Margin="0,951,0,0" TextWrapping="NoWrap" Text="Description" VerticalAlignment="Top" Width="424" Background="White" Foreground="Black" SelectionTextBrush="Black" CaretBrush="Black" FontSize="11" />
+                        <TextBox x:Name="Mod_version_number" HorizontalAlignment="Center" Margin="0,838,0,0" TextWrapping="NoWrap" Text="1.0.0" VerticalAlignment="Top" Width="424" Background="White" Foreground="Black" SelectionTextBrush="Black" CaretBrush="Black" FontSize="11" />
+                        <TextBox x:Name="Mod_website_url" HorizontalAlignment="Center" Margin="0,893,0,0" TextWrapping="NoWrap" Text="Mymodrepo.com" VerticalAlignment="Top" Width="424" Background="White" Foreground="Black" SelectionTextBrush="Black" CaretBrush="Black" FontSize="11" />
+                        <TextBox x:Name="Mod_description" HorizontalAlignment="Center" Margin="0,951,0,0" TextWrapping="NoWrap" Text="Hi!, Im a generated Northstar Mod!" VerticalAlignment="Top" Width="424" Background="White" Foreground="Black" SelectionTextBrush="Black" CaretBrush="Black" FontSize="11" />
                         <TextBox x:Name="Mod_dependencies" HorizontalAlignment="Center" Margin="0,1011,0,0" TextWrapping="NoWrap" Text="Dependencies" VerticalAlignment="Top" Width="424" Background="White" Foreground="Black" SelectionTextBrush="Black" CaretBrush="Black" FontSize="11" />
                         <CheckBox x:Name="Skin_Mod_Pack_Check" Content="Package as a DDS Skin?" HorizontalAlignment="Center" Height="20" Width="149" Margin="0,1108,0,0" VerticalAlignment="Top" Checked="Skin_Mod_Pack_Check_Checked" Unchecked="Skin_Mod_Pack_Check_Unchecked"/>
 

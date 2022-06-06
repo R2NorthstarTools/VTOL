@@ -434,10 +434,8 @@ YOUR DESCRIPTION
 
 
 
-                this.Resources["Button_BG"] = new SolidColorBrush(Colors.LightGray);
 
-
-
+                Mod_dependencies.Text = "northstar-Northstar-" + Properties.Settings.Default.Version.Remove(0, 1);
                 // Web_Browser.JavascriptMessageReceived += Web_Browser_JavascriptMessageReceived();
                 DataContext = this;
                 Animation_Start_Northstar = false;
@@ -8904,7 +8902,6 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                         if (isValidHexaCode(ColorPicker_Accent.SelectedBrush.Color.ToString()))
                         {
                             this.Resources["Button_BG"] = (SolidColorBrush)new BrushConverter().ConvertFrom(ColorPicker_Accent.SelectedBrush.Color.ToString());
-                            Send_Info_Notif(ColorPicker_Accent.SelectedBrush.Color.ToString().Trim());
                             saveAsyncFile(ColorPicker_Accent.SelectedBrush.Color.ToString().Trim(), @"C:\ProgramData\VTOL_DATA\VARS\Theme.txt", false, false);
                             Send_Success_Notif("Saved The Color And Applied!");
 
@@ -9235,16 +9232,26 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             }
             else
             {
+                    string Output = "";
+                    if(Mod_dependencies.Text != null || Mod_dependencies.Text != "" ){
 
-
-
-                string Output = @"{
+                         Output = @"{
+    ""name"": " + '\u0022' + Mod_name.Text.Trim() + '\u0022' + @",
+    ""version_number"":" + '\u0022' + Mod_version_number.Text.Trim() + '\u0022' + @",
+    ""website_url"": " + '\u0022' + Mod_website_url.Text.Trim() + '\u0022' + @",
+    ""description"": " + '\u0022' + Mod_description.Text.Trim() + '\u0022' + @",
+    ""dependencies"": [" + '\u0022' + Mod_dependencies+ '\u0022' + "]" +
+       "\n}";
+                    }
+                    else {
+                         Output = @"{
     ""name"": " + '\u0022' + Mod_name.Text.Trim() + '\u0022' + @",
     ""version_number"":" + '\u0022' + Mod_version_number.Text.Trim() + '\u0022' + @",
     ""website_url"": " + '\u0022' + Mod_website_url.Text.Trim() + '\u0022' + @",
     ""description"": " + '\u0022' + Mod_description.Text.Trim() + '\u0022' + @",
     ""dependencies"": [" + '\u0022' + "northstar-Northstar-" + Properties.Settings.Default.Version.Remove(0, 1) + '\u0022' + "]" +
-        "\n}";
+                "\n}";
+                    }
                 saveAsyncFile(Output, Output_Folder + "/" + "manifest.json", false, false);
 
             }
