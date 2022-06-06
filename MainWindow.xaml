@@ -609,19 +609,19 @@
         <hc:SimplePanel x:Name="Tools_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Visible" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
 
             <hc:ScrollViewer>
-                <Grid Height="1653" >
+                <Grid Height="1386" >
                     <Label Content="Tools" Width="282" Margin="0,31,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Height="44" Padding="10,3,10,3"/>
 
                     <Label Content="Thunderstore Packager " Width="202" Margin="64,120,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Bold" FontFamily="Gadugi" Height="44" Padding="10,3,10,3" FontSize="16" HorizontalAlignment="Left"/>
                     <hc:SimplePanel Margin="64,164,64,19" Background="#FF101010" Width="882" HorizontalAlignment="Center" >
                         <TextBox x:Name="Zip_Box" HorizontalAlignment="Center" Margin="0,69,0,0" TextWrapping="NoWrap" Text="Zip " VerticalAlignment="Top" Width="688" Background="White" Foreground="Black" SelectionTextBrush="Black" CaretBrush="Black" FontSize="11" IsReadOnly="True" IsUndoEnabled="False"/>
                         <Label  Content="Content" Margin="0,37,0,0" VerticalAlignment="Top" Width="88" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="16"/>
-                        <Button x:Name="Locate_Zip"  Height="30" Margin="0,104,0,0" VerticalAlignment="Top" Background=  "{DynamicResource Button_BG}" BorderBrush="{x:Null}" Width="502" Content="Locate Mod Content" Padding="0,0,0,0" Click="Locate_Zip_Click"/>
+                        <Button x:Name="Locate_Zip"  Height="30" Margin="0,116,0,0" VerticalAlignment="Top" Background=  "{DynamicResource Button_BG}" BorderBrush="{x:Null}" Width="502" Content="Locate Mod Content" Padding="0,0,0,0" Click="Locate_Zip_Click"/>
                         <Image x:Name="Icon_Image" Height="252" VerticalAlignment="Top" Margin="313,171,313,0" Source="/Resources/NO_TEXTURE.png" Width="256"/>
-                        <Button x:Name="Locate_Icon"  Height="30" Margin="0,433,0,0" VerticalAlignment="Top" Background=  "{DynamicResource Button_BG}" BorderBrush="{x:Null}" Width="252" Content="Locate Icon" Padding="0,0,0,0" Click="Locate_Icon_Click"/>
-                        <Label Content="Thundersore Page Description" Width="202" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Normal" FontFamily="Gadugi" Height="30" Padding="10,3,10,3" Margin="0,526,0,0" VerticalAlignment="Top"/>
+                        <Button x:Name="Locate_Icon"  Height="30" Margin="0,437,0,0" VerticalAlignment="Top" Background=  "{DynamicResource Button_BG}" BorderBrush="{x:Null}" Width="252" Content="Locate Icon" Padding="0,0,0,0" Click="Locate_Icon_Click"/>
+                        <Label Content="Thundersore Page Description" Width="202" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Normal" FontFamily="Gadugi" Height="30" Padding="10,3,10,3" Margin="0,504,0,0" VerticalAlignment="Top"/>
 
-                        <RichTextBox x:Name="Description_Box" Margin="0,562,0,0" Background="#FF1F1F1F" Height="178" VerticalAlignment="Top" BorderBrush="#FF101010" SelectionTextBrush="{x:Null}" SelectionBrush="#FF101010" CaretBrush="#FF101010" AutomationProperties.HelpText="Log Area" Width="802" HorizontalAlignment="Center" AcceptsTab="True" IsDocumentEnabled="True" IsManipulationEnabled="True">
+                        <RichTextBox x:Name="Description_Box" Margin="0,550,0,0" Background="#FF1F1F1F" Height="190" VerticalAlignment="Top" BorderBrush="#FF101010" SelectionTextBrush="{x:Null}" SelectionBrush="#FF101010" CaretBrush="#FF101010" AutomationProperties.HelpText="Log Area" Width="802" HorizontalAlignment="Center" AcceptsTab="True" IsDocumentEnabled="True" IsManipulationEnabled="True">
                             <FlowDocument>
                                 <Paragraph>
                                     <Run Text="RichTextBox"/>
@@ -630,22 +630,23 @@
 
                             </FlowDocument>
                         </RichTextBox>
-                        <Button x:Name="Output_Button"  Height="30" Margin="604,1287,0,0" VerticalAlignment="Top" Background=  "{DynamicResource Button_BG}" BorderBrush="{x:Null}" Content="Output Directory" Padding="0,0,0,0" HorizontalAlignment="Left" Width="181" Click="Output_Button_Click"/>
-                        <TextBox x:Name="Output_Box" HorizontalAlignment="Right" Margin="0,1287,283,0" TextWrapping="Wrap" Text="Output zip" VerticalAlignment="Top" Width="502" Background="White" Foreground="Black" SelectionTextBrush="Black" CaretBrush="Black"/>
+                        <Button x:Name="Output_Button"  Height="30" Margin="606,1062,0,0" VerticalAlignment="Top" Background=  "{DynamicResource Button_BG}" BorderBrush="{x:Null}" Content="Output Directory" Padding="0,0,0,0" HorizontalAlignment="Left" Width="181" Click="Output_Button_Click"/>
+                        <TextBox x:Name="Output_Box" HorizontalAlignment="Right" Margin="0,1062,281,0" TextWrapping="Wrap" Text="Output zip" VerticalAlignment="Top" Width="502" Background="White" Foreground="Black" SelectionTextBrush="Black" CaretBrush="Black"/>
 
-                        <Button x:Name="Save_Mod"  Height="39" Margin="0,1373,0,0" VerticalAlignment="Top" Background=  "{DynamicResource Button_BG}" BorderBrush="{x:Null}" Width="502" Content="Save As a Thunderstore Mod" Padding="0,0,0,0" Click="Save_Mod_Click"/>
-                        <Label Content="Name" Width="54" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Normal" FontFamily="Gadugi" Height="30" Padding="10,3,10,3" Margin="229,941,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-                        <Label Content="Version" Width="70" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Normal" FontFamily="Gadugi" Height="30" Padding="10,3,10,3" Margin="225,1006,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-                        <Label Content="Webpage" Width="81" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Normal" FontFamily="Gadugi" Height="30" Padding="10,3,10,3" Margin="226,1055,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-                        <Label Content="Description" Width="86" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Normal" FontFamily="Gadugi" Height="30" Padding="10,3,10,3" Margin="227,1113,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-                        <Label Content="Mod Dependencies" Width="129" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Normal" FontFamily="Gadugi" Height="30" Padding="10,3,10,3" Margin="228,1173,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                        <Button x:Name="Save_Mod"  Height="39" Margin="0,1145,0,0" VerticalAlignment="Top" Background=  "{DynamicResource Button_BG}" BorderBrush="{x:Null}" Width="502" Content="Save As a Thunderstore Mod" Padding="0,0,0,0" Click="Save_Mod_Click"/>
+                        <Label Content="Name" Width="54" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Normal" FontFamily="Gadugi" Height="30" Padding="10,3,10,3" Margin="229,749,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                        <Label Content="Version" Width="70" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Normal" FontFamily="Gadugi" Height="30" Padding="10,3,10,3" Margin="225,814,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                        <Label Content="Webpage" Width="81" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Normal" FontFamily="Gadugi" Height="30" Padding="10,3,10,3" Margin="226,863,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                        <Label Content="Description" Width="86" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Normal" FontFamily="Gadugi" Height="30" Padding="10,3,10,3" Margin="227,921,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                        <Label Content="Mod Dependencies" Width="129" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Normal" FontFamily="Gadugi" Height="30" Padding="10,3,10,3" Margin="228,981,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
 
-                        <TextBox x:Name="Mod_name" HorizontalAlignment="Center" Margin="0,971,0,0" TextWrapping="NoWrap" Text="Name " VerticalAlignment="Top" Width="424" Background="White" Foreground="Black" SelectionTextBrush="Black" CaretBrush="Black" FontSize="11" IsReadOnly="True" IsUndoEnabled="False"/>
+                        <TextBox x:Name="Mod_name" HorizontalAlignment="Center" Margin="0,779,0,0" TextWrapping="NoWrap" Text="Name " VerticalAlignment="Top" Width="424" Background="White" Foreground="Black" SelectionTextBrush="Black" CaretBrush="Black" FontSize="11" />
 
-                        <TextBox x:Name="Mod_version_number" HorizontalAlignment="Center" Margin="0,1030,0,0" TextWrapping="NoWrap" Text="Version" VerticalAlignment="Top" Width="424" Background="White" Foreground="Black" SelectionTextBrush="Black" CaretBrush="Black" FontSize="11" IsReadOnly="True" IsUndoEnabled="False"/>
-                        <TextBox x:Name="Mod_website_url" HorizontalAlignment="Center" Margin="0,1085,0,0" TextWrapping="NoWrap" Text="Website URL" VerticalAlignment="Top" Width="424" Background="White" Foreground="Black" SelectionTextBrush="Black" CaretBrush="Black" FontSize="11" IsReadOnly="True" IsUndoEnabled="False"/>
-                        <TextBox x:Name="Mod_description" HorizontalAlignment="Center" Margin="0,1143,0,0" TextWrapping="NoWrap" Text="Description" VerticalAlignment="Top" Width="424" Background="White" Foreground="Black" SelectionTextBrush="Black" CaretBrush="Black" FontSize="11" IsReadOnly="True" IsUndoEnabled="False"/>
-                        <TextBox x:Name="Mod_dependencies" HorizontalAlignment="Center" Margin="0,1203,0,0" TextWrapping="NoWrap" Text="Dependencies" VerticalAlignment="Top" Width="424" Background="White" Foreground="Black" SelectionTextBrush="Black" CaretBrush="Black" FontSize="11" IsReadOnly="True" IsUndoEnabled="False"/>
+                        <TextBox x:Name="Mod_version_number" HorizontalAlignment="Center" Margin="0,838,0,0" TextWrapping="NoWrap" Text="Version" VerticalAlignment="Top" Width="424" Background="White" Foreground="Black" SelectionTextBrush="Black" CaretBrush="Black" FontSize="11" />
+                        <TextBox x:Name="Mod_website_url" HorizontalAlignment="Center" Margin="0,893,0,0" TextWrapping="NoWrap" Text="Website URL" VerticalAlignment="Top" Width="424" Background="White" Foreground="Black" SelectionTextBrush="Black" CaretBrush="Black" FontSize="11" />
+                        <TextBox x:Name="Mod_description" HorizontalAlignment="Center" Margin="0,951,0,0" TextWrapping="NoWrap" Text="Description" VerticalAlignment="Top" Width="424" Background="White" Foreground="Black" SelectionTextBrush="Black" CaretBrush="Black" FontSize="11" />
+                        <TextBox x:Name="Mod_dependencies" HorizontalAlignment="Center" Margin="0,1011,0,0" TextWrapping="NoWrap" Text="Dependencies" VerticalAlignment="Top" Width="424" Background="White" Foreground="Black" SelectionTextBrush="Black" CaretBrush="Black" FontSize="11" />
+                        <CheckBox x:Name="Skin_Mod_Pack_Check" Content="Package as a Skin?" HorizontalAlignment="Center" Height="20" Width="122" Margin="0,1108,0,0" VerticalAlignment="Top" Checked="Skin_Mod_Pack_Check_Checked" Unchecked="Skin_Mod_Pack_Check_Unchecked"/>
 
                     </hc:SimplePanel>
 

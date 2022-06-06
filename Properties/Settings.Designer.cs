@@ -178,5 +178,17 @@ namespace VTOL.Properties {
                 this["MasterServer_URL"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool PackageAsSkin {
+            get {
+                return ((bool)(this["PackageAsSkin"]));
+            }
+            set {
+                this["PackageAsSkin"] = value;
+            }
+        }
     }
 }

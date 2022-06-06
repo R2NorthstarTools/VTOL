@@ -207,8 +207,8 @@ namespace VTOL
                 string json = System.IO.File.ReadAllText(x);
                         Thunderstore = Thunderstore_V1.FromJson(json);
 
-                  //  }
-                   
+                //  }
+
                 if (File.Exists(x))
                 {
                     File.Delete(x);

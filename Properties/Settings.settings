@@ -41,5 +41,8 @@
     <Setting Name="MasterServer_URL" Type="System.String" Scope="User">
       <Value Profile="(Default)">Northstar.tf</Value>
     </Setting>
+    <Setting Name="PackageAsSkin" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
