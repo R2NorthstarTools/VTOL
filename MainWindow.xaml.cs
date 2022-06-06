@@ -2399,6 +2399,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                     }
                     if (Parse == true)
                     {
+                        Thread.Sleep(100);
                         Parse_Release();
                     }
 
@@ -3453,7 +3454,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 completed_flag = 0;
                 PropertyGridDemoModel Git = new PropertyGridDemoModel();
                 Read_Latest_Release(Current_REPO_URL);
-                Current_File_Label.Content = GetTextResource("DOWNLOADING_NORTHSTAR_LATEST_RELEAST_TEXT");
+                Current_File_Label.Content = GetTextResource("DOWNLOADING_NORTHSTAR_LATEST_RELEAST_TEXT") + "-" + Properties.Settings.Default.Version;
                 Status_Label.Content = GetTextResource("CURRENTLY_DOWNLOADING");
                 Wait_Text.Text = GetTextResource("PLEASE_WAIT");
                 //  Is file downloading yet?
@@ -5061,7 +5062,6 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             Badge.Visibility = Visibility.Collapsed;
 
             Install_NS.IsEnabled = false;
-
 
 
 

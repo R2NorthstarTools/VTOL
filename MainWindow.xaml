@@ -201,7 +201,7 @@
 
         <hc:SimplePanel x:Name="Mod_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2" AllowDrop="True" Drop="Mod_Panel_Drop" DragEnter="Mod_Panel_DragEnter"  DragLeave="Mod_Panel_DragLeave" DragOver="Mod_Panel_DragOver" >
             <Grid HorizontalAlignment="Stretch" DockPanel.Dock="Top" Height="Auto" Background="Transparent">
-                <hc:SimplePanel x:Name="Context_Menu_Mod_Mngs" Margin="30,209,30,10" Background="#FF101010">
+                <hc:SimplePanel x:Name="Context_Menu_Mod_Mngs" Margin="30,209,30,10" Background="{DynamicResource Tool_PANELS}">
                     <hc:SimplePanel.ContextMenu>
 
                         <ContextMenu>
@@ -235,7 +235,7 @@
 
                 </hc:SimplePanel>
                 <hc:SimplePanel Margin="30,59,30,444">
-                    <Border BorderThickness="1" Background="#FF101010" Height="129" VerticalAlignment="Bottom" >
+                    <Border BorderThickness="1" Background="{DynamicResource Tool_PANELS}" Height="129" VerticalAlignment="Bottom" >
                         <Label Content="{DynamicResource UI_TEXT_MODS_BROWSE_LOCAL_ZIP}" Margin="34,37,0,0" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Foreground="White" FontFamily="Gadugi" FontWeight="Normal" VerticalAlignment="Top" Padding="0,0,0,0" ScrollViewer.VerticalScrollBarVisibility="Disabled" UseLayoutRounding="True"  Height="26" MinWidth="9"/>
                     </Border>
                     <hc:TextBox x:Name="Browse_For_MOD" TextWrapping="Wrap" Margin="35,0,0,26" SelectionTextBrush="Black" Background="White" BorderBrush="{x:Null}" Height="32" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="780" TextChanged="Browse_For_MOD_TextChanged" Foreground="Black"/>
@@ -259,7 +259,7 @@
 
 
         <hc:SimplePanel x:Name="Mod_Browse_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
-            <hc:SimplePanel Margin="10,10,10,10" Background="#FF101010">
+            <hc:SimplePanel Margin="10,10,10,10" Background="{DynamicResource Tool_PANELS}">
                 <TabControl x:Name="Sections_Tabs" Margin="44,72,43,31"  BorderBrush="{x:Null}" Foreground="{x:Null}" Background="{x:Null}" Padding="0,0,0,0" SelectionChanged="Sections_Tabs_SelectionChanged">
                     <TabItem Header="Client Mods" Width="150">
                         <TabItem.BorderBrush>
@@ -412,14 +412,14 @@
             <Grid HorizontalAlignment="Stretch" DockPanel.Dock="Top" Height="Auto" AllowDrop="True" Drop="skins_Panel_Drop" DragEnter="skins_Panel_DragEnter" Background="Transparent" DragLeave="skins_Panel_DragLeave"  >
                 <hc:SimplePanel Margin="30,59,30,444">
 
-                    <Border BorderThickness="1" Background="#FF101010" Height="129" VerticalAlignment="Bottom" >
+                    <Border BorderThickness="1" Background="{DynamicResource Tool_PANELS}" Height="129" VerticalAlignment="Bottom" >
                     </Border>
                     <hc:TextBox x:Name="Skin_Path_Box" TextWrapping="Wrap" Margin="0,0,115,26" SelectionTextBrush="Black" Background="White" BorderBrush="{x:Null}" Height="32" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="780" Foreground="Black"/>
                     <Button x:Name="Browse_For_Skin" Content="{DynamicResource UI_BUTTON_SKINS_BROWSE}" HorizontalAlignment="Right" BorderBrush="{x:Null}" Margin="0,0,10,27" VerticalAlignment="Bottom" Background="{DynamicResource Button_BG}" Height="32" Width="100" BorderThickness="1,1,1,1" Padding="6,6,10,6" Click="Browse_For_Skin_Click"/>
                     <Label x:Name="Locate_LBL" Content="{DynamicResource UI_TEXT_SKINS_LOCATE_ZIP}" Margin="42,0,0,63" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Foreground="White" FontFamily="Gadugi" FontWeight="Normal" VerticalAlignment="Bottom" Padding="0,0,0,0" MinWidth="8" Height="22"/>
 
                 </hc:SimplePanel>
-                <hc:SimplePanel Margin="30,209,30,10" Background="#FF101010">
+                <hc:SimplePanel Margin="30,209,30,10" Background="{DynamicResource Tool_PANELS}">
 
                     <Label Content="{DynamicResource UI_TEXT_SKINS_COMPATIBILITY}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" FontFamily="Gadugi" FontWeight="Normal" VerticalAlignment="Top" Width="110" Margin="0,6,0,0" Height="44"/>
 
@@ -522,7 +522,7 @@
                     </Paragraph>
                 </FlowDocument>
             </RichTextBox>
-            <hc:SimplePanel Margin="32,495,32,0" Background="#FF101010" Height="104" VerticalAlignment="Top">
+            <hc:SimplePanel Margin="32,495,32,0" Background="{DynamicResource Tool_PANELS}" Height="104" VerticalAlignment="Top">
                 <Button x:Name="Save_LOG" Content="{DynamicResource UI_BUTTON_LOG_SAVE}" Height="36" HorizontalAlignment="Left" Margin="52,34,0,0" Width="338" VerticalAlignment="Top" Background="{DynamicResource Button_BG}" BorderBrush="{DynamicResource Button_Border}" Click="Save_LOG_Click"/>
                 <Button x:Name="Clear_LOG" Content="{DynamicResource UI_BUTTON_LOG_CLEAR}" Height="36" HorizontalAlignment="Stretch" Margin="568,0,40,0" Background="{DynamicResource Button_BG}" Click="Clear_LOG_Click"/>
             </hc:SimplePanel>

@@ -6,7 +6,7 @@
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="Version" Type="System.String" Scope="User">
-      <Value Profile="(Default)">v1.5.1</Value>
+      <Value Profile="(Default)">v1.7.1</Value>
     </Setting>
     <Setting Name="Ns_Dedi" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
