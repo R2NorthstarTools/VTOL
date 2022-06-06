@@ -53,6 +53,11 @@ Total Downloads Since First Release:
 
 * Manage dedicated [Northstar](https://northstar.tf) servers.
 
+* Install Skins From the Thunderstore Mod Browser
+
+* Use the Tools To pack Thunderstore Compatible Mod Packages
+
+
 ### Contribute
 * _Suggestions/bug reports are highly appreciated. Please create a new [issue](https://github.com/BigSpice/VTOL/issues/new) and fill out the fields._
 
