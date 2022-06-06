@@ -208,6 +208,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Aspose.ZIP" Version="22.5.0" />
     <PackageReference Include="DotNetZip" Version="1.16.0" />
     <PackageReference Include="HandyControls" Version="3.3.11" />
     <PackageReference Include="Json.Net" Version="1.0.33" />

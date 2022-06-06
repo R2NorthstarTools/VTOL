@@ -43,6 +43,7 @@ using System.Security.Principal;
 
 using Newtonsoft.Json;
 using System.Windows.Media.Effects;
+using Aspose.Zip;
 
 //****TODO*****//
 
@@ -8771,6 +8772,10 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
         private void TextBox_KeyDown(object sender, KeyEventArgs e)
         {
+            try
+            {
+
+            
             if (e.Key == Key.Enter)
             {
                 Send_Success_Notif("Changed Repo URL From " + Current_REPO_URL + " -To- " + Repo_URl.Text.ToString());
@@ -8779,6 +8784,13 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 Properties.Settings.Default.Save();
                 saveAsyncFile(Current_REPO_URL, @"C:\ProgramData\VTOL_DATA\VARS\REPO_URL.txt", false, false);
 
+            }
+            }
+            catch (Exception ef)
+            {
+                Write_To_Log(ErrorManager(ef));
+
+                Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_CONTACT"));
             }
         }
 
@@ -8956,6 +8968,10 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
         private void AuthorBox_KeyDown(object sender, KeyEventArgs e)
         {
+            try
+            {
+
+            
             if (e.Key == Key.Enter)
             {
                 Send_Success_Notif("Changed Author URL From " + Author_Used + " -To- " + AuthorBox.Text.ToString());
@@ -8964,6 +8980,13 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 Properties.Settings.Default.Save();
                 saveAsyncFile(Author_Used, @"C:\ProgramData\VTOL_DATA\VARS\AUTHOR.txt", false, false);
 
+            }
+            }
+            catch (Exception ef)
+            {
+                Write_To_Log(ErrorManager(ef));
+
+                Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_CONTACT"));
             }
         }
 
@@ -8974,7 +8997,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
         private void Master_ServerBox_KeyDown(object sender, KeyEventArgs e)
         {
-
+            try { 
             if (e.Key == Key.Enter)
             {
                 Send_Success_Notif("Changed Repo URL From " + MasterServer_URL + " -To- " + Master_ServerBox.Text.ToString());
@@ -8985,9 +9008,17 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
             }
         }
+            catch (Exception ef)
+            {
+                Write_To_Log(ErrorManager(ef));
+
+        Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_CONTACT"));
+            }
+}
 
         private void RepoBox_KeyDown(object sender, KeyEventArgs e)
         {
+            try { 
             if (e.Key == Key.Enter)
             {
                 Send_Success_Notif("Changed Repo URL From " + Repo_Used + " -To- " + RepoBox.Text.ToString());
@@ -8997,10 +9028,18 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 saveAsyncFile(Repo_Used, @"C:\ProgramData\VTOL_DATA\VARS\REPO.txt", false, false);
 
             }
+            }
+            catch (Exception ef)
+            {
+                Write_To_Log(ErrorManager(ef));
+
+                Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_CONTACT"));
+            }
         }
 
         private void SearchBar_KeyDown(object sender, KeyEventArgs e)
         {
+            try { 
             if (e.Key == Key.Enter)
             {
                 if (SearchBar.Text != null && SearchBar.Text != "" && SearchBar.Text != " ")
@@ -9033,11 +9072,21 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
                 }
             }
-
         }
+            catch (Exception ef)
+            {
+                Write_To_Log(ErrorManager(ef));
+
+        Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_CONTACT"));
+            }
+}
         public string Current_Mod_To_Pack;
         private void Locate_Zip_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+
+            
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Zip files (*.zip)|*.zip|All files (*.*)|*.*";
             openFileDialog.RestoreDirectory = true;
@@ -9064,10 +9113,19 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                     }
                 }
             }
+
+            }
+            catch (Exception ef)
+            {
+                Write_To_Log(ErrorManager(ef));
+
+                Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_CONTACT"));
+            }
         }
         public string Mod_Icon_Path;
         private void Locate_Icon_Click(object sender, RoutedEventArgs e)
         {
+            try {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Png files (*.png)|*.png|All files (*.*)|*.*";
             openFileDialog.RestoreDirectory = true;
@@ -9133,6 +9191,13 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                     }
                 }
             }
+            }
+            catch (Exception ef)
+            {
+                Write_To_Log(ErrorManager(ef));
+
+                Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_CONTACT"));
+            }
         }
         public string Current_Output_Dir;
         private void Output_Button_Click(object sender, RoutedEventArgs e)
@@ -9153,13 +9218,14 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 else
                 {
                     Output_Box.Text = Current_Output_Dir;
-                    Zip_Box.Background = Brushes.White;
+                    Output_Box.Background = Brushes.White;
 
                 }
             }
         }
         void create_Manifest(string Output_Folder)
         {
+            try { 
             if (Mod_name.Text == null && Mod_name.Text == "" && Mod_version_number.Text == null && Mod_version_number.Text == "" && Mod_website_url.Text == null && Mod_website_url.Text == "" && Mod_description.Text == null && Mod_description.Text == "" && Mod_dependencies.Text == null && Mod_dependencies.Text == "")
             {
                 Send_Warning_Notif("One of the Manifest Inputs are Empty!");
@@ -9181,73 +9247,116 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 saveAsyncFile(Output, Output_Folder + "/" + "manifest.json", false, false);
 
             }
-            //   MessageBox.Show(Properties.Settings.Default.Version.Remove(0,1));
+                //   MessageBox.Show(Properties.Settings.Default.Version.Remove(0,1));
+            }
+            catch (Exception ef)
+            {
+                Write_To_Log(ErrorManager(ef));
 
+                Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_CONTACT"));
+            }
         }
         private void Save_Mod_Click(object sender, RoutedEventArgs e)
         {
-            if (File.Exists(Current_Mod_To_Pack))
+            try
             {
-                if (File.Exists(Mod_Icon_Path))
+                if (File.Exists(Current_Mod_To_Pack))
                 {
-                    if (Directory.Exists(Current_Output_Dir))
+                    if (File.Exists(Mod_Icon_Path))
                     {
-                        DirectoryInfo Dir = new DirectoryInfo(Current_Mod_To_Pack);
-                        Directory.CreateDirectory(Current_Output_Dir + "/" + Mod_name.Text.Trim());
-                        if (Directory.Exists(Current_Output_Dir + "/" + Mod_name.Text.Trim()))
+                        if (Directory.Exists(Current_Output_Dir))
                         {
-                            File.Copy(Mod_Icon_Path, Current_Output_Dir + "/" + Mod_name.Text.Trim() + "/" + "icon.png");
-                            create_Manifest(Current_Output_Dir + "/" + Mod_name.Text.Trim());
-                            TextRange Description = new TextRange(
-                            // TextPointer to the start of content in the RichTextBox.
-                            Description_Box.Document.ContentStart,
-                           // TextPointer to the end of content in the RichTextBox.
-                            Description_Box.Document.ContentEnd);
-                            saveAsyncFile(Description.Text, Current_Output_Dir + "/" + Mod_name.Text.Trim() + "/" + "README.md", false, false);
-                            if(PackasSkin == true)
+                            FileInfo Dir = new FileInfo(Current_Mod_To_Pack);
+                            Directory.CreateDirectory(Current_Output_Dir + "/" + Mod_name.Text.Trim());
+                            if (Directory.Exists(Current_Output_Dir + "/" + Mod_name.Text.Trim()))
                             {
-                                File.Copy(Mod_Icon_Path, Current_Output_Dir + "/" + Mod_name.Text.Trim() + "/" + Dir.Name + ".zip");
+                                File.Copy(Mod_Icon_Path, Current_Output_Dir + "/" + Mod_name.Text.Trim() + "/" + "icon.png", true);
+                                create_Manifest(Current_Output_Dir + "/" + Mod_name.Text.Trim());
+                                TextRange Description = new TextRange(
+                                // TextPointer to the start of content in the RichTextBox.
+                                Description_Box.Document.ContentStart,
+                                // TextPointer to the end of content in the RichTextBox.
+                                Description_Box.Document.ContentEnd);
+                                saveAsyncFile(Description.Text, Current_Output_Dir + "/" + Mod_name.Text.Trim() + "/" + "README.md", false, false);
+                                if (Skin_Mod_Pack_Check.IsChecked == true)
+                                {
+                                    if (!Directory.Exists(Current_Output_Dir + "/" + Mod_name.Text.Trim() + "/" + "mods" + "/"))
+                                    {
+                                        Directory.CreateDirectory(Current_Output_Dir + "/" + Mod_name.Text.Trim() + "/" + "mods" + "/");
+                                    }
+                                    File.Copy(Current_Mod_To_Pack, Current_Output_Dir + "/" + Mod_name.Text.Trim() + "/" + "mods" + "/" + Dir.Name, true);
 
 
-                            }
-                            else
-                            {
-                                ZipFile.ExtractToDirectory(Current_Mod_To_Pack, Current_Output_Dir + "/" + Mod_name.Text, true);
+                                }
+                                else
+                                {
+                                    if (!Directory.Exists(Current_Output_Dir + "/" + Mod_name.Text.Trim() + "/" + "mods" + "/"))
+                                    {
+                                        Directory.CreateDirectory(Current_Output_Dir + "/" + Mod_name.Text.Trim() + "/" + "mods" + "/");
 
+                                    }
+                                    ZipFile.ExtractToDirectory(Current_Mod_To_Pack, Current_Output_Dir + "/" + Mod_name.Text.Trim() + "/" + "mods" + "/", true);
+
+
+                                }
+
+                                if (File.Exists(Current_Output_Dir + "/" + Mod_name.Text.Trim() + ".zip"))
+                                {
+                                    File.Delete(Current_Output_Dir + "/" + Mod_name.Text.Trim() + ".zip");
+                                    ZipFile.CreateFromDirectory(Current_Output_Dir + "/" + Mod_name.Text.Trim(), Current_Output_Dir + "/" + Mod_name.Text.Trim() + ".zip");
+
+                                }
+                                else
+                                {
+                                    ZipFile.CreateFromDirectory(Current_Output_Dir + "/" + Mod_name.Text.Trim(), Current_Output_Dir + "/" + Mod_name.Text.Trim() + ".zip");
+
+                                }
 
                             }
                         }
+                        else
+                        {
+                            Send_Warning_Notif("No Valid Output Path Found!");
+                            Output_Box.Background = Brushes.IndianRed;
+
+                            return;
+
+                        }
+
+                        if (File.Exists(Current_Output_Dir + "/" + Mod_name.Text.Trim() + ".zip"))
+                        {
+                            Directory.Delete(Current_Output_Dir + "/" + Mod_name.Text.Trim(), true);
+                        }
+                        Send_Success_Notif("Successfully Packed all items to -" + Current_Output_Dir + "/" + Mod_name.Text.Trim() + ".zip");
                     }
                     else
                     {
-                        Send_Warning_Notif("No Valid Output Path Found!");
-                        Output_Box.Background = Brushes.IndianRed;
-
+                        Send_Warning_Notif("No Valid Mod ICON Found!");
+                        BitmapImage bitmap = new BitmapImage();
+                        bitmap.BeginInit();
+                        bitmap.UriSource = new Uri(@"pack://application:,,,/Resources/NO_TEXTURE.png");
+                        bitmap.EndInit();
+                        Icon_Image.Source = bitmap;
                         return;
-
                     }
+
+
                 }
                 else
                 {
-                    Send_Warning_Notif("No Valid Mod ICON Found!");
-                    BitmapImage bitmap = new BitmapImage();
-                    bitmap.BeginInit();
-                    bitmap.UriSource = new Uri(@"pack://application:,,,/Resources/NO_TEXTURE.png");
-                    bitmap.EndInit();
-                    Icon_Image.Source = bitmap;
+                    Send_Warning_Notif("No Valid Mod Zip Found!");
+                    Output_Box.Background = Brushes.IndianRed;
+
                     return;
+
+
                 }
-
-
             }
-            else
+            catch (Exception ef)
             {
-                Send_Warning_Notif("No Valid Mod Zip Found!");
-                Output_Box.Background = Brushes.IndianRed;
+                Write_To_Log(ErrorManager(ef));
 
-                return;
-
-
+                Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_CONTACT"));
             }
         }
 
