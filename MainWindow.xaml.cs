@@ -2695,8 +2695,9 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                             Dir_Final = firstFolder;
                                             if ((Destinfo.Parent.FullName + @"\" + diArr[0].Name).Contains("keyvalues") || (Destinfo.Parent.FullName + @"\" + diArr[0].Name).Contains("vpk") || (Destinfo.Parent.FullName + @"\" + diArr[0].Name).Contains("materials"))
                                             {
-                                                Send_Error_Notif(GetTextResource("NOTIF_ERROR_MOD_INCOMPATIBLE"));
-                                                Send_Warning_Notif(GetTextResource("NOTIF_WARN_SUGGEST_DISABLE_MOD"));
+                                                // Send_Error_Notif(GetTextResource("NOTIF_ERROR_MOD_INCOMPATIBLE"));
+                                                // Send_Warning_Notif(GetTextResource("NOTIF_WARN_SUGGEST_DISABLE_MOD"));
+                                                Send_Error_Notif("This Mod Requires More Steps By a User To install! \n Please Manually Install this Mod By Clicking Go to Webpge.");
                                                 if (Directory.Exists(Current_Install_Folder + @"\NS_Downloaded_Mods"))
                                                 {
                                                     Directory.Delete(Current_Install_Folder + @"\NS_Downloaded_Mods", true);

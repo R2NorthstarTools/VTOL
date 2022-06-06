@@ -87,6 +87,7 @@
     <None Remove="Resources\TF_ICON.png" />
     <None Remove="Resources\themes.png" />
     <None Remove="Resources\Titanfall2_101.ico" />
+    <None Remove="Resources\T_BG.jpg" />
     <None Remove="Resources\Update_ICON.png" />
     <None Remove="Resources\VTOL_Hover.ico" />
     <None Remove="Resources\VTOL_Hover.png" />
@@ -325,6 +326,9 @@
     </Resource>
     <Resource Include="Resources\Titanfall2_101.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\T_BG.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Update_ICON.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

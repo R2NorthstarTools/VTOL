@@ -24,35 +24,35 @@
 
         <DataTemplate x:Key="NormalBox">
             <Grid Width="970" Background="{x:Null}" HorizontalAlignment="Center" Margin="0,0,0,3" Height="58">
-                <Label HorizontalAlignment="Stretch" Height="38" Margin="30,0,505,0" Background=  "#FF2C4C4C" Foreground="White" Content="{Binding Name}" FontSize="16" ToolTip="{Binding Description}" BorderBrush="{x:Null}"/>
+                <Label HorizontalAlignment="Stretch" Height="38" Margin="30,0,505,0" Background=  "{DynamicResource Button_BG}" Foreground="White" Content="{Binding Name}" FontSize="16" ToolTip="{Binding Description}" BorderBrush="{x:Null}"/>
                 <TextBox Margin="505,0,30,0" VerticalAlignment="Center" Height="38" Text ="{Binding Default}"   CaretBrush="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="#FF00EDBD" SelectionTextBrush="#FF847300"    Foreground="White" ToolTip="{Binding Type}" Tag="{Binding Tag}" Background="#FF4C4C4C" PreviewTextInput="ValidationTextBox" FontSize="16" RenderTransformOrigin="0,0" LostFocus="validate" KeyUp="Save_On_Focus_"    Initialized="TextBox_Initialized" />
 
             </Grid>
         </DataTemplate >
         <DataTemplate x:Key="ComboBox" >
             <Grid Width="970" Background="{x:Null}" HorizontalAlignment="Center" Margin="0,0,0,3" Height="58">
-                <Label HorizontalAlignment="Stretch" Height="38" Margin="30,0,505,0" Background=  "#FF2C4C4C" Foreground="White" Content="{Binding Name}" FontSize="16" ToolTip="{Binding Description}" BorderBrush="{x:Null}"/>
+                <Label HorizontalAlignment="Stretch" Height="38" Margin="30,0,505,0" Background=  "{DynamicResource Button_BG}" Foreground="White" Content="{Binding Name}" FontSize="16" ToolTip="{Binding Description}" BorderBrush="{x:Null}"/>
                 <hc:CheckComboBox Margin="505,0,30,0" VerticalAlignment="Center" Height="38"    BorderBrush="{x:Null}"    Foreground="White" ToolTip="{Binding Description}" Tag="{Binding Tag}" Background="#FF4C4C4C" FontSize="16" RenderTransformOrigin="0,0" ItemsSource="{Binding List}" SelectionMode="Extended" IsSynchronizedWithCurrentItem="False" Initialized="CheckComboBox_Initialized" SelectionChanged="Validate_Combo_Box"   MouseEnter="ComboBox_MouseEnter" />
 
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="FloatBox" >
             <Grid Width="970" Background="{x:Null}" HorizontalAlignment="Center" Margin="0,0,0,3" Height="58">
-                <Label HorizontalAlignment="Stretch" Height="38" Margin="30,0,505,0" Background=  "#FF2C4C4C" Foreground="White" Content="{Binding Name}" FontSize="16" ToolTip="{Binding Description}" BorderBrush="{x:Null}"/>
+                <Label HorizontalAlignment="Stretch" Height="38" Margin="30,0,505,0" Background=  "{DynamicResource Button_BG}" Foreground="White" Content="{Binding Name}" FontSize="16" ToolTip="{Binding Description}" BorderBrush="{x:Null}"/>
                 <TextBox Margin="505,0,30,0" VerticalAlignment="Center" Height="38" Text ="{Binding Default}"   CaretBrush="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="#FF00EDBD" SelectionTextBrush="#FF847300"    Foreground="White" ToolTip="{Binding Type}" Tag="{Binding Tag}" Background="#FF4C4C4C" PreviewTextInput="ValidationTextBox" FontSize="16" RenderTransformOrigin="0,0" LostFocus="validate" KeyUp="Save_On_Focus_"   Initialized="TextBox_Initialized" />
 
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="IntBox" >
             <Grid Width="970" Background="{x:Null}" HorizontalAlignment="Center" Margin="0,0,0,3" Height="58">
-                <Label HorizontalAlignment="Stretch" Height="38" Margin="30,0,505,0" Background=  "#FF2C4C4C" Foreground="White" Content="{Binding Name}" FontSize="16" ToolTip="{Binding Description}" BorderBrush="{x:Null}"/>
+                <Label HorizontalAlignment="Stretch" Height="38" Margin="30,0,505,0" Background=  "{DynamicResource Button_BG}" Foreground="White" Content="{Binding Name}" FontSize="16" ToolTip="{Binding Description}" BorderBrush="{x:Null}"/>
                 <TextBox Margin="505,0,30,0" VerticalAlignment="Center" Height="38" Text ="{Binding Default}"   CaretBrush="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="#FF00EDBD" SelectionTextBrush="#FF847300"    Foreground="White" ToolTip="{Binding Description}" Tag="{Binding Tag}" Background="#FF4C4C4C" PreviewTextInput="ValidationTextBox" FontSize="16" RenderTransformOrigin="0,0" KeyUp="Save_On_Focus_"    Initialized="TextBox_Initialized" />
 
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="BOOLBox" >
             <Grid Width="970" Background="{x:Null}" HorizontalAlignment="Center" Margin="0,0,0,3" Height="58">
-                <Label HorizontalAlignment="Stretch" Height="38" Margin="30,0,505,0" Background=  "#FF2C4C4C" Foreground="White" Content="{Binding Name}" FontSize="16" ToolTip="{Binding Description}" BorderBrush="{x:Null}"/>
+                <Label HorizontalAlignment="Stretch" Height="38" Margin="30,0,505,0" Background=  "{DynamicResource Button_BG}" Foreground="White" Content="{Binding Name}" FontSize="16" ToolTip="{Binding Description}" BorderBrush="{x:Null}"/>
                 <ComboBox Margin="505,0,30,0" Height="38" Text ="{Binding Default}" Foreground="White" ToolTip="{Binding Description}" Tag="{Binding Tag}" Background="#FF4C4C4C"  FontSize="16"  Initialized="CheckComboBox_Initialized" SelectionChanged="Validate_Combo_Box" MouseEnter="ComboBox_MouseEnter" >
 
                     <ComboBoxItem Content="No" />
@@ -63,7 +63,7 @@
         </DataTemplate>
         <DataTemplate x:Key="One_Select_Combo" >
             <Grid Width="970" Background="{x:Null}" HorizontalAlignment="Center" Margin="0,0,0,3" Height="58">
-                <Label HorizontalAlignment="Stretch" Height="38" Margin="30,0,505,0" Background=  "#FF2C4C4C" Foreground="White" Content="{Binding Name}" FontSize="16" ToolTip="{Binding Description}" BorderBrush="{x:Null}"/>
+                <Label HorizontalAlignment="Stretch" Height="38" Margin="30,0,505,0" Background=  "{DynamicResource Button_BG}" Foreground="White" Content="{Binding Name}" FontSize="16" ToolTip="{Binding Description}" BorderBrush="{x:Null}"/>
                 <ComboBox Margin="505,0,30,0" Height="38" Text ="{Binding Default}" Foreground="White" ToolTip="{Binding Description}" Tag="{Binding Tag}" Background="#FF4C4C4C"  FontSize="16" Initialized="CheckComboBox_Initialized"  ItemsSource="{Binding List}"  SelectionChanged="Validate_Combo_Box"  MouseEnter="ComboBox_MouseEnter" />
 
 
@@ -82,6 +82,7 @@
             <ImageBrush x:Key="NO_Texture" ImageSource="/Resources/NO_TEXTURE.png" Stretch="UniformToFill"/>
             <ImageBrush x:Key="BG_PANELS" ImageSource="/Resources/BG.jpg" Stretch="UniformToFill"/>
             <ImageBrush x:Key="NS_ICON" ImageSource="/Resources/northstar_icon_ZfV_icon.ico" Stretch="UniformToFill"/>
+            <ImageBrush x:Key="Tool_PANELS" ImageSource="/Resources/T_BG.jpg" Stretch="UniformToFill"/>
 
             <!-- <SolidColorBrush x:Key="WINDOW" Color="#FF101010" /> -->
             <!-- <SolidColorBrush x:Key="Button_HOVER" Color="#FF2C4C4C" /> -->
@@ -106,7 +107,7 @@
 
         <hc:SimplePanel x:Name="Main_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Visible" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2" >
 
-            <hc:SimplePanel x:Name="BG_panel_Main" Margin="38,50,37,238" Background="#FF101010"  hc:BorderElement.CornerRadius="15" Height="345">
+            <hc:SimplePanel x:Name="BG_panel_Main" Margin="38,50,37,238" Background="{DynamicResource Tool_PANELS}" hc:BorderElement.CornerRadius="15" Height="345">
 
 
                 <hc:Badge x:Name="Badge" Value="2" Text="New" Margin="60,227,60,9" Background="#FFFF0C0C" BorderBrush="White"  />
@@ -606,14 +607,14 @@
             </hc:ScrollViewer>
 
         </hc:SimplePanel>
-        <hc:SimplePanel x:Name="Tools_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Visible" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
+        <hc:SimplePanel x:Name="Tools_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
 
             <hc:ScrollViewer>
                 <Grid Height="1386" >
                     <Label Content="Tools" Width="282" Margin="0,31,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Height="44" Padding="10,3,10,3"/>
 
                     <Label Content="Thunderstore Packager " Width="202" Margin="64,120,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Bold" FontFamily="Gadugi" Height="44" Padding="10,3,10,3" FontSize="16" HorizontalAlignment="Left"/>
-                    <hc:SimplePanel Margin="64,164,64,19" Background="#FF101010" Width="882" HorizontalAlignment="Center" >
+                    <hc:SimplePanel Margin="64,164,64,19" Background="{DynamicResource Tool_PANELS}" Width="882" HorizontalAlignment="Center" >
                         <TextBox x:Name="Zip_Box" HorizontalAlignment="Center" Margin="0,69,0,0" TextWrapping="NoWrap" Text="Zip " VerticalAlignment="Top" Width="688" Background="White" Foreground="Black" SelectionTextBrush="Black" CaretBrush="Black" FontSize="11" IsReadOnly="True" IsUndoEnabled="False"/>
                         <Label  Content="Content" Margin="0,37,0,0" VerticalAlignment="Top" Width="88" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="16"/>
                         <Button x:Name="Locate_Zip"  Height="30" Margin="0,116,0,0" VerticalAlignment="Top" Background=  "{DynamicResource Button_BG}" BorderBrush="{x:Null}" Width="502" Content="Locate Mod Content" Padding="0,0,0,0" Click="Locate_Zip_Click"/>
@@ -621,7 +622,7 @@
                         <Button x:Name="Locate_Icon"  Height="30" Margin="0,437,0,0" VerticalAlignment="Top" Background=  "{DynamicResource Button_BG}" BorderBrush="{x:Null}" Width="252" Content="Locate Icon" Padding="0,0,0,0" Click="Locate_Icon_Click"/>
                         <Label Content="Thundersore Page Description" Width="202" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Normal" FontFamily="Gadugi" Height="30" Padding="10,3,10,3" Margin="0,504,0,0" VerticalAlignment="Top"/>
 
-                        <RichTextBox x:Name="Description_Box" Margin="0,550,0,0" Background="#FF1F1F1F" Height="190" VerticalAlignment="Top" BorderBrush="#FF101010" SelectionTextBrush="{x:Null}" SelectionBrush="#FF101010" CaretBrush="#FF101010" AutomationProperties.HelpText="Log Area" Width="802" HorizontalAlignment="Center" AcceptsTab="True" IsDocumentEnabled="True" IsManipulationEnabled="True">
+                        <RichTextBox x:Name="Description_Box" Margin="0,539,0,0" Background="#FF1F1F1F" Height="201" VerticalAlignment="Top" BorderBrush="#FF101010" SelectionTextBrush="{x:Null}" SelectionBrush="#FF101010" CaretBrush="#FF101010" AutomationProperties.HelpText="Log Area" Width="802" HorizontalAlignment="Center" AcceptsTab="True" IsDocumentEnabled="True" IsManipulationEnabled="True">
                             <FlowDocument>
                                 <Paragraph>
                                     <Run Text="RichTextBox"/>
@@ -633,7 +634,7 @@
                         <Button x:Name="Output_Button"  Height="30" Margin="606,1062,0,0" VerticalAlignment="Top" Background=  "{DynamicResource Button_BG}" BorderBrush="{x:Null}" Content="Output Directory" Padding="0,0,0,0" HorizontalAlignment="Left" Width="181" Click="Output_Button_Click"/>
                         <TextBox x:Name="Output_Box" HorizontalAlignment="Right" Margin="0,1062,281,0" TextWrapping="Wrap" Text="Output zip" VerticalAlignment="Top" Width="502" Background="White" Foreground="Black" SelectionTextBrush="Black" CaretBrush="Black"/>
 
-                        <Button x:Name="Save_Mod"  Height="39" Margin="0,1145,0,0" VerticalAlignment="Top" Background=  "{DynamicResource Button_BG}" BorderBrush="{x:Null}" Width="502" Content="Save As a Thunderstore Mod" Padding="0,0,0,0" Click="Save_Mod_Click"/>
+                        <Button x:Name="Save_Mod"  Height="39" Margin="0,1145,0,0" VerticalAlignment="Top" Background=  "{DynamicResource Button_BG}" BorderBrush="{x:Null}" Width="502" Content="Output As a Thunderstore Mod" Padding="0,0,0,0" Click="Save_Mod_Click"/>
                         <Label Content="Name" Width="54" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Normal" FontFamily="Gadugi" Height="30" Padding="10,3,10,3" Margin="229,749,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                         <Label Content="Version" Width="70" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Normal" FontFamily="Gadugi" Height="30" Padding="10,3,10,3" Margin="225,814,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                         <Label Content="Webpage" Width="81" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Normal" FontFamily="Gadugi" Height="30" Padding="10,3,10,3" Margin="226,863,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
@@ -646,7 +647,7 @@
                         <TextBox x:Name="Mod_website_url" HorizontalAlignment="Center" Margin="0,893,0,0" TextWrapping="NoWrap" Text="Website URL" VerticalAlignment="Top" Width="424" Background="White" Foreground="Black" SelectionTextBrush="Black" CaretBrush="Black" FontSize="11" />
                         <TextBox x:Name="Mod_description" HorizontalAlignment="Center" Margin="0,951,0,0" TextWrapping="NoWrap" Text="Description" VerticalAlignment="Top" Width="424" Background="White" Foreground="Black" SelectionTextBrush="Black" CaretBrush="Black" FontSize="11" />
                         <TextBox x:Name="Mod_dependencies" HorizontalAlignment="Center" Margin="0,1011,0,0" TextWrapping="NoWrap" Text="Dependencies" VerticalAlignment="Top" Width="424" Background="White" Foreground="Black" SelectionTextBrush="Black" CaretBrush="Black" FontSize="11" />
-                        <CheckBox x:Name="Skin_Mod_Pack_Check" Content="Package as a Skin?" HorizontalAlignment="Center" Height="20" Width="122" Margin="0,1108,0,0" VerticalAlignment="Top" Checked="Skin_Mod_Pack_Check_Checked" Unchecked="Skin_Mod_Pack_Check_Unchecked"/>
+                        <CheckBox x:Name="Skin_Mod_Pack_Check" Content="Package as a DDS Skin?" HorizontalAlignment="Center" Height="20" Width="149" Margin="0,1108,0,0" VerticalAlignment="Top" Checked="Skin_Mod_Pack_Check_Checked" Unchecked="Skin_Mod_Pack_Check_Unchecked"/>
 
                     </hc:SimplePanel>
 
