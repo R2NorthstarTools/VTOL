@@ -533,7 +533,7 @@
 
         <hc:SimplePanel x:Name="Updates_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
             <hc:ScrollViewer VerticalScrollBarVisibility="Visible">
-                <Grid Height="1457" KeyDown="Grid_KeyDown">
+                <Grid Height="1021" KeyDown="Grid_KeyDown">
                     <Label Content="{DynamicResource UI_TITLE_UPDATES}" Width="190" Margin="0,32,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Height="44" Padding="10,3,10,3"/>
                     <hc:SimplePanel Margin="175,59,175,39">
 
@@ -586,14 +586,13 @@
 
 
         <hc:SimplePanel x:Name="Theme_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
-            <hc:ScrollViewer VerticalScrollBarVisibility="Visible">
-                <Grid Height="1250">
+                <Grid Height="622">
 
                     <Label Content="Themes" Width="190" Margin="411,23,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Height="44" Padding="10,3,10,3" HorizontalAlignment="Left"/>
 
-                    <hc:ColorPicker Name="ColorPicker_Accent" Margin="140,142,0,534" Background="#FF6F6F6F" Confirmed="ColorPicker_Accent_Confirmed" HorizontalAlignment="Left" Width="230"/>
+                    <hc:ColorPicker Name="ColorPicker_Accent" Margin="140,140,0,0" Background="#FF6F6F6F" Confirmed="ColorPicker_Accent_Confirmed" HorizontalAlignment="Left" Width="230" Height="362" VerticalAlignment="Top"/>
                     <Label Content="Accent Color" Width="190" Margin="160,93,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Height="44" Padding="10,3,10,3" HorizontalAlignment="Left"/>
-                    <hc:ColorPicker x:Name="ColorPicker_Border" Margin="0,140,136,533" Background="#FF6F6F6F" Confirmed="ColorPicker_Border_Confirmed" HorizontalAlignment="Right" Width="230" IsEnabled="False"/>
+                    <hc:ColorPicker x:Name="ColorPicker_Border" Margin="0,140,137,0" Background="#FF6F6F6F" Confirmed="ColorPicker_Border_Confirmed" HorizontalAlignment="Right" Width="230" IsEnabled="False" Height="364" VerticalAlignment="Top"/>
                     <Label Content="Border Color" Margin="0,91,157,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Height="44" Padding="10,3,10,3" HorizontalAlignment="Right" Width="190"/>
 
 
@@ -604,14 +603,13 @@
                     <Label  Content="Current Background Image" HorizontalAlignment="Right" Margin="0,1024,640,208" VerticalAlignment="Stretch" Width="139" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}"/>
 -->
                 </Grid>
-            </hc:ScrollViewer>
 
         </hc:SimplePanel>
-        <hc:SimplePanel x:Name="Tools_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Visible" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
+        <hc:SimplePanel x:Name="Tools_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
 
             <hc:ScrollViewer>
                 <Grid Height="1386" >
-                    <Label Content="Tools" Width="282" Margin="0,31,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Height="44" Padding="10,3,10,3"/>
+                    <Label Content="Tools" Width="282" Margin="0,31,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="22" FontWeight="Bold" FontFamily="Gadugi" Height="44" Padding="10,3,10,3"/>
 
                     <Label Content="Thunderstore Packager " Width="202" Margin="64,120,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Bold" FontFamily="Gadugi" Height="44" Padding="10,3,10,3" FontSize="16" HorizontalAlignment="Left"/>
                     <hc:SimplePanel Margin="64,164,64,19" Background="{DynamicResource Tool_PANELS}" Width="882" HorizontalAlignment="Center" >

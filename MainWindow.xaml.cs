@@ -464,7 +464,6 @@ YOUR DESCRIPTION
                 Log_Indicator.Background = Brushes.Transparent;
                 // Sections_Tabs.SelectedItem = 0;
                 //IsLoading_Panel.Visibility = Visibility.Hidden;
-                GC.Collect();
 
 
                 this.VTOL.Title = String.Format("VTOL {0}", version);
@@ -515,7 +514,7 @@ YOUR DESCRIPTION
                 Set_About();
                 Select_Main();
                 getProcessorInfo();
-                string[] arguments = Environment.GetCommandLineArgs();
+               // string[] arguments = Environment.GetCommandLineArgs();
 
                 //Console.WriteLine("GetCommandLineArgs: {0}", string.Join(", ", arguments));
                 if (File.Exists(@"C:\ProgramData\VTOL_DATA\VARS\Theme.txt"))
@@ -636,7 +635,6 @@ YOUR DESCRIPTION
                     try
                     {
                         Directory.Delete(Current_Install_Folder + @"\Thumbnails", true);
-                        GC.Collect();
                     }
                     catch (Exception ef)
                     {
@@ -663,59 +661,41 @@ YOUR DESCRIPTION
                         Send_Info_Notif(GetTextResource("NOTIF_INFO_FOUND_INSTALL_PATH") + Current_Install_Folder + "\n");
                         if (Directory.Exists(Current_Install_Folder))
                         {
-                            try
+
+                            NSExe = Get_And_Set_Filepaths(Current_Install_Folder, "NorthstarLauncher.exe");
+                            Check_Integrity_Of_NSINSTALL();
+                            if (NS_Installed == true)
                             {
 
-                                NSExe = Get_And_Set_Filepaths(Current_Install_Folder, "NorthstarLauncher.exe");
-                                Check_Integrity_Of_NSINSTALL();
-                                if (NS_Installed == true)
-                                {
 
-
-                                    Install_NS.Content = GetTextResource("UPDATE_REPAIR_NS");
-                                }
-                                else
-                                {
-
-                                    Install_NS.Content = GetTextResource("INSTALL_NS");
-
-
-                                }
+                                Install_NS.Content = GetTextResource("UPDATE_REPAIR_NS");
                             }
-                            catch (Exception ef)
+                            else
                             {
-                                Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_ERROR_OCCURRED"));
-                                Write_To_Log(ErrorManager(ef));
+
+                                Install_NS.Content = GetTextResource("INSTALL_NS");
+
+
 
                             }
+
 
                         }
+                        else
+                        {
 
-
+                            Send_Warning_Notif(GetTextResource("NOTIF_WARN_AUTOCHECK_CFG"));
+                        }
                     }
                     else
                     {
+                        Current_Install_Folder = InstalledApplications.GetApplictionInstallPath("Titanfall2");
 
-                        Send_Warning_Notif(GetTextResource("NOTIF_WARN_AUTOCHECK_CFG"));
+
                     }
                 }
-                else
-                {
-                    Current_Install_Folder = InstalledApplications.GetApplictionInstallPath("Titanfall2");
-                    Send_Warning_Notif(GetTextResource("NOTIF_WARN_AUTOCHECK_CFG"));
+           
 
-
-                }
-            }
-            catch (System.IO.DirectoryNotFoundException e)
-            {
-                Write_To_Log("Could Not Verify Dir" + Current_Install_Folder);
-                Send_Warning_Notif(GetTextResource("NOTIF_WARN_AUTOCHECK_CFG"));
-                Write_To_Log(ErrorManager(e));
-
-
-
-            }
             if (Titanfall2_Directory_TextBox.Text == null || Titanfall2_Directory_TextBox.Text == "")
             {
 
@@ -730,13 +710,18 @@ YOUR DESCRIPTION
             Origin_Client_Running = Check_Process_Running("OriginClientService");
 
             PingHost(MasterServer_URL);
-            //  System.Timers.Timer aTimer = new System.Timers.Timer(5000); //2 minutes in milliseconds
-            // aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
-            //  aTimer.Start();
-            GC.Collect();
+                //  System.Timers.Timer aTimer = new System.Timers.Timer(5000); //2 minutes in milliseconds
+                // aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
+                //  aTimer.Start();
 
 
+            }
+            catch (Exception ef)
+            {
+                Send_Warning_Notif(GetTextResource("NOTIF_WARN_AUTOCHECK_CFG"));
+                Write_To_Log(ErrorManager(ef));
 
+            }
 
         }
 
@@ -1620,18 +1605,28 @@ YOUR DESCRIPTION
 
             string Text = @"-This Application Installs The Northstar Launcher Created by BobTheBob and can install the countless Mods Authored by the many Titanfall2 Modders.
 Current Features:
-*Updating Northstar Installations
-*Installation of the Northstar Launcher by pulling the latest Json of the Northstar repo to access the download.
-*Verifying a Titanfall 2 Northstar install
-*Viewing Mods in the Mod List
-*Toggling Mods On and Off in the Northstar Client
-*Downloading Mods from a Remote repo
-*Downloading Mods from a Local Zip Download
-*Launching the Northstar Exe from the base.
-*Installing Skins From a Zip
-*Launching the Dedicated Northstar Server
-*Browsing and Installing Mods from the Thunderstore Mod Repo
-*Configuring a Dedicated Server From Start To Finish in the Application.
+Easily install, update and launch Northstar
+
+Manage installed Northstar mods
+
+Downloading and installing Northstar mods from a GitHub/GitLab repository
+
+Installing downloaded Northstar mods (.zip files)
+
+Easily install custom Weapon/Pilot Skins
+
+Easily start a Northstar Dedicated Server
+
+Thunderstore Mod Browser
+
+Create custom servers using this application to fine tune setups.
+
+Manage dedicated Northstar servers.
+
+Use the Tools To pack Thunderstore Compatible Mod Packages
+
+Install Skins From the Thunderstore Mod Browser
+
 
 -Please do suggest any new features and/or improvements through the Git issue tracker, or by sending me a personal message.
 Thank you again to all you Pilots, Hope we wreak havoc on the Frontier for years to come.
@@ -1640,12 +1635,17 @@ More Instructions at this link: https://github.com/BigSpice/VTOL/blob/master/REA
 Gif image used in Northstar is by @Smurfson.
 
 Big Thanks to - 
-@Ralley#3354
-@Mysterious#7899
-@wolf109909#5291
-@EmmaM#6474
-@laundmo#7544
-@E3VL#6669
+@Ralley111
+@MysteriousRSA
+@emma-miler
+@wolf109909
+@laundmo
+@SamLam140330
+@ConnorDoesDev
+@ScureX
+@rrrfffrrr
+@themoonisacheese
+@xamionex
 Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/Ju1cy ";
             About_BOX.Document.Blocks.Clear();
             Run run = new Run(Text);

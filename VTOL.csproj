@@ -124,7 +124,9 @@
     <Resource Include="Resources\infobw.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\InkedNorthstar-512_LI.jpg" />
+    <Resource Include="Resources\InkedNorthstar-512_LI.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Language_Icons\cn.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -219,7 +221,7 @@
     <PackageReference Include="Ookii.Dialogs.Wpf" Version="5.0.1" />
     <PackageReference Include="Pfim" Version="0.5.2" />
     <PackageReference Include="Prism.Wpf" Version="8.1.97" />
-    <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="1.0.0-beta0005" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="2.1.2" />
     <PackageReference Include="System.Management" Version="6.0.0" />
     <PackageReference Include="XamlAnimatedGif" Version="2.0.2" />
   </ItemGroup>

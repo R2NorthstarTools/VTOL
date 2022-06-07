@@ -67,7 +67,7 @@ namespace VTOL
 		}
 
 		private void Save<T>(string file)
-			where T : struct, IPixel<T>
+			where T : unmanaged, IPixel<T>
 		{
 			Image<T> image = Image.LoadPixelData<T>(
 				_image.Data, _image.Width, _image.Height);
