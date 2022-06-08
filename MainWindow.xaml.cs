@@ -9240,7 +9240,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
     ""version_number"":" + '\u0022' + Mod_version_number.Text.Trim() + '\u0022' + @",
     ""website_url"": " + '\u0022' + Mod_website_url.Text.Trim() + '\u0022' + @",
     ""description"": " + '\u0022' + Mod_description.Text.Trim() + '\u0022' + @",
-    ""dependencies"": [" + '\u0022' + Mod_dependencies+ '\u0022' + "]" +
+    ""dependencies"": [" + '\u0022' + Mod_dependencies.Text+ '\u0022' + "]" +
        "\n}";
                     }
                     else {
@@ -9249,7 +9249,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
     ""version_number"":" + '\u0022' + Mod_version_number.Text.Trim() + '\u0022' + @",
     ""website_url"": " + '\u0022' + Mod_website_url.Text.Trim() + '\u0022' + @",
     ""description"": " + '\u0022' + Mod_description.Text.Trim() + '\u0022' + @",
-    ""dependencies"": [" + '\u0022' + "northstar-Northstar-" + Properties.Settings.Default.Version.Remove(0, 1) + '\u0022' + "]" +
+    ""dependencies"":" + '\u0022' + "[" + '\u0022' + "northstar-Northstar-" + Properties.Settings.Default.Version.Remove(0, 1) + '\u0022' + "]" +
                 "\n}";
                     }
                 saveAsyncFile(Output, Output_Folder + "/" + "manifest.json", false, false);
