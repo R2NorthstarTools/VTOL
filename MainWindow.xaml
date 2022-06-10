@@ -620,7 +620,7 @@
                         <Button x:Name="Locate_Icon"  Height="30" Margin="0,437,0,0" VerticalAlignment="Top" Background=  "{DynamicResource Button_BG}" BorderBrush="{x:Null}" Width="252" Content="Locate Icon" Padding="0,0,0,0" Click="Locate_Icon_Click"/>
                         <Label Content="Thundersore Page Description" Width="202" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Normal" FontFamily="Gadugi" Height="30" Padding="10,3,10,3" Margin="0,504,0,0" VerticalAlignment="Top"/>
 
-                        <RichTextBox x:Name="Description_Box" Margin="0,539,0,0" Background="#FF1F1F1F" Height="201" VerticalAlignment="Top" BorderBrush="#FF101010" SelectionTextBrush="{x:Null}" SelectionBrush="#FF101010" CaretBrush="#FF101010" AutomationProperties.HelpText="Log Area" Width="802" HorizontalAlignment="Center" AcceptsTab="True" IsDocumentEnabled="True" IsManipulationEnabled="True">
+                        <RichTextBox x:Name="Description_Box" Margin="0,539,0,0" Background="#FF1F1F1F" Height="201" VerticalAlignment="Top" BorderBrush="#FF101010" SelectionTextBrush="{x:Null}" SelectionBrush="{DynamicResource Button_BG}" CaretBrush="White" AutomationProperties.HelpText="Log Area" Width="802" HorizontalAlignment="Center" AcceptsTab="True" IsDocumentEnabled="True" IsManipulationEnabled="True">
                             <FlowDocument>
                                 <Paragraph>
                                     <Run Text="RichTextBox"/>

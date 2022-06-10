@@ -105,6 +105,7 @@
       <Lcid>0</Lcid>
       <Isolated>false</Isolated>
       <EmbedInteropTypes>true</EmbedInteropTypes>
+      <CopyLocal>True</CopyLocal>
     </COMReference>
   </ItemGroup>
 
@@ -229,6 +230,7 @@
   <ItemGroup>
     <Reference Include="Utils">
       <HintPath>Utils.dll</HintPath>
+      <CopyLocal>True</CopyLocal>
     </Reference>
   </ItemGroup>
 

@@ -8063,25 +8063,30 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 }
                 else
                 {
-                    System.Windows.MessageBoxResult result = HandyControl.Controls.MessageBox.Show(new MessageBoxInfo { Message = "Not Running In Administrator Mode. Would you like to eleveate the application?", Caption = "ERROR!", Button = MessageBoxButton.YesNo, IconBrushKey = ResourceToken.AccentBrush, IconKey = ResourceToken.AskGeometry, StyleKey = "MessageBoxCustom" });
-                    if (result == System.Windows.MessageBoxResult.Yes)
+                    if (IsAdministrator() == false)
                     {
-                        if (File.Exists((System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().CodeBase).Replace(@"file:\", "")).Trim() + @"\VTOL.exe"))
+
+                        System.Windows.MessageBoxResult result = HandyControl.Controls.MessageBox.Show(new MessageBoxInfo { Message = "Not Running In Administrator Mode. Would you like to eleveate the application?", Caption = "ERROR!", Button = MessageBoxButton.YesNo, IconBrushKey = ResourceToken.AccentBrush, IconKey = ResourceToken.AskGeometry, StyleKey = "MessageBoxCustom" });
+                        if (result == System.Windows.MessageBoxResult.Yes)
                         {
-                            // this.Close();
+                            if (File.Exists((System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().CodeBase).Replace(@"file:\", "")).Trim() + @"\VTOL.exe"))
+                            {
+                                // this.Close();
 
-                            ProcessStartInfo info = new ProcessStartInfo((System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().CodeBase).Replace(@"file:\", "")).Trim() + @"\VTOL.exe");
-                            info.UseShellExecute = true;
-                            info.Verb = "runas";
-                            Process.Start(info);
-                            App.Current.Shutdown();
+                                ProcessStartInfo info = new ProcessStartInfo((System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().CodeBase).Replace(@"file:\", "")).Trim() + @"\VTOL.exe");
+                                info.UseShellExecute = true;
+                                info.Verb = "runas";
+                                Process.Start(info);
+                                App.Current.Shutdown();
 
+                            }
+                        }
+                        else
+                        {
+                            return;
                         }
                     }
-                    else
-                    {
-                        return;
-                    }
+                    
                 }
 
 
@@ -8157,15 +8162,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
         }
 
-        public class Collection
-        {
-            public Collection()
-            {
-                //     DataContext = new MainWindow();
-            }
-        }
-
-
+     
         private void Label_MouseDown(object sender, MouseButtonEventArgs e)
         {
             try
