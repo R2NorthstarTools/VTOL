@@ -36,7 +36,6 @@ using System.Globalization;
 using System.Windows.Threading;
 using Zipi = Ionic.Zip;
 using System.Net.NetworkInformation;
-using Microsoft.Win32;
 using System.Timers;
 using HandyControl.Data;
 using System.Security.Principal;
@@ -511,9 +510,9 @@ YOUR DESCRIPTION
 
                 }
                 Check_For_New_Northstar_Install();
-                Set_About();
-                Select_Main();
-                getProcessorInfo();
+                Task.WaitAll(Set_About(), Select_Main(), getProcessorInfo());
+
+                
                // string[] arguments = Environment.GetCommandLineArgs();
 
                 //Console.WriteLine("GetCommandLineArgs: {0}", string.Join(", ", arguments));
@@ -663,7 +662,7 @@ YOUR DESCRIPTION
                         {
 
                             NSExe = Get_And_Set_Filepaths(Current_Install_Folder, "NorthstarLauncher.exe");
-                            Check_Integrity_Of_NSINSTALL();
+                            Check_Integrity_Of_NSINSTALL().Wait();
                             if (NS_Installed == true)
                             {
 
@@ -774,7 +773,7 @@ YOUR DESCRIPTION
             }
 
         }
-        async void call_TS_MODS()
+        async Task call_TS_MODS()
         {
 
             try
@@ -837,7 +836,7 @@ YOUR DESCRIPTION
             return TextResource;
 
         }
-        private async void ChangeLanguageTo(string LanguageCode)
+        private async Task ChangeLanguageTo(string LanguageCode)
 
         {
             try
@@ -1098,7 +1097,7 @@ YOUR DESCRIPTION
                 }
             }
         }
-        async void Thunderstore_Parse(bool hard_refresh = true, string Filter_Type = "None", bool Search_ = false, string SearchQuery = "#")
+        async Task Thunderstore_Parse(bool hard_refresh = true, string Filter_Type = "None", bool Search_ = false, string SearchQuery = "#")
         {
 
             try
@@ -1665,7 +1664,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
         {
 
         }
-        void Select_Main()
+        async Task Select_Main()
         {
 
 
@@ -1793,7 +1792,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
 
         }
-        async void Select_Mod_Browse()
+        async Task Select_Mod_Browse()
         {
 
             Mod_Panel.Visibility = Visibility.Hidden;
@@ -2160,7 +2159,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
         }
         private static bool ListCheck<T>(IEnumerable<T> l1, IEnumerable<T> l2)
         {
-            // TODO: Null parm checks
+            // TODO: Null parm checks 
             if (l1.Intersect(l2).Any())
             {
                 ////Console.WriteLine("matched");
@@ -2190,7 +2189,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             shortcut.TargetPath = pathToExe;
             shortcut.Save();
         }
-        private void Check_Integrity_Of_NSINSTALL()
+        private async Task Check_Integrity_Of_NSINSTALL()
         {
 
 
@@ -2367,7 +2366,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
             }
         }
-        private async void Read_Latest_Release(string address, string json_name = "temp.json", bool Parse = true, bool Log_Msgs = true)
+        private async Task Read_Latest_Release(string address, string json_name = "temp.json", bool Parse = true, bool Log_Msgs = true)
         {
             if (address != null)
             {
@@ -2514,10 +2513,8 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             // If the source directory does not exist, throw an exception.
             if (!dir.Exists)
             {
-                throw new DirectoryNotFoundException(
-                    "Source directory does not exist or could not be found: "
-                    + sourceDirName);
-                return;
+                Write_To_Log("\nDirectory - " + dir.FullName + "Does not Exist. Logging For possible Errors.\n");
+
             }
             else
             {
@@ -2681,7 +2678,8 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
 
                                     var Script = directory.GetDirectories(searchQuery3, SearchOption.AllDirectories);
-
+                                    Destinfo.Attributes &= ~FileAttributes.ReadOnly;
+                                    directory.Attributes &= ~FileAttributes.ReadOnly;
 
                                     foreach (var d in Script)
                                     {
@@ -2705,6 +2703,9 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                             }
                                             else
                                             {
+                                                var Destf = new DirectoryInfo(Destinfo.Parent.FullName);
+                                                Destf.Attributes &= ~FileAttributes.ReadOnly;
+
                                                 if (Skin_Install == true)
                                                 {
 
@@ -3429,7 +3430,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
 
         }
-        async void Install_NS_METHOD()
+        async Task Install_NS_METHOD()
         {
             try
             {
@@ -3451,7 +3452,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 }
                 completed_flag = 0;
                 PropertyGridDemoModel Git = new PropertyGridDemoModel();
-                Read_Latest_Release(Current_REPO_URL);
+                Read_Latest_Release(Current_REPO_URL).Wait();
                 Current_File_Label.Content = GetTextResource("DOWNLOADING_NORTHSTAR_LATEST_RELEAST_TEXT") + "-" + Properties.Settings.Default.Version;
                 Status_Label.Content = GetTextResource("CURRENTLY_DOWNLOADING");
                 Wait_Text.Text = GetTextResource("PLEASE_WAIT");
@@ -5404,7 +5405,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             }
             return "";
         }
-        public async void getProcessorInfo()
+        public async Task getProcessorInfo()
         {
             Write_To_Log("\nDisplaying Processor Name And System Info....");
             RegistryKey processor_name = Registry.LocalMachine.OpenSubKey(@"Hardware\Description\System\CentralProcessor\0", RegistryKeyPermissionCheck.ReadSubTree);   //This registry entry contains entry for processor info.
@@ -5498,7 +5499,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
         }
 
 
-        private async void Load_Click(object sender, RoutedEventArgs e)
+        private async Task Load_Click(object sender, RoutedEventArgs e)
         {
 
 
@@ -8018,7 +8019,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             var principal = new WindowsPrincipal(identity);
             return principal.IsInRole(WindowsBuiltInRole.Administrator);
         }
-        async void Run_Origin()
+        async Task Run_Origin()
         {
             try
             {
@@ -8069,7 +8070,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                         System.Windows.MessageBoxResult result = HandyControl.Controls.MessageBox.Show(new MessageBoxInfo { Message = "Not Running In Administrator Mode. Would you like to eleveate the application?", Caption = "ERROR!", Button = MessageBoxButton.YesNo, IconBrushKey = ResourceToken.AccentBrush, IconKey = ResourceToken.AskGeometry, StyleKey = "MessageBoxCustom" });
                         if (result == System.Windows.MessageBoxResult.Yes)
                         {
-                            if (File.Exists((System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().CodeBase).Replace(@"file:\", "")).Trim() + @"\VTOL.exe"))
+                            if (File.Exists((Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().CodeBase).Replace(@"file:\", "")).Trim() + @"\VTOL.exe"))
                             {
                                 // this.Close();
 

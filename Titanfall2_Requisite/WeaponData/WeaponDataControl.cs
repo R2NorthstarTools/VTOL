@@ -5260,14 +5260,13 @@ namespace Titanfall2_SkinTool.Titanfall2.WeaponData
                         //苦无没有cav贴图
                         break;
                     default:
-                        throw new Exception("BUG!" + "\n" + "Unable to load, is this file a standard skin file?");
+                      Console.WriteLine("The File - " + WeaponName + "Was not valid");
                         break;
                 }
             }
             else if (WeaponName.Contains("Skin31"))
-            {
-                //等待RPAK文件开发中...
-                //To do...
+            {//TODO as of 2022-06-10
+               //Custom Skin Slots here.
             }
         }
     }
