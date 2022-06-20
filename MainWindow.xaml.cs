@@ -2667,10 +2667,18 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
 
 
+                                    string[] list = Directory.GetFiles(Destination, "*.json*",
+                                       SearchOption.AllDirectories);
+
+                                    // Display the file names 
+                                    // Present in the A directory 
+                                    foreach (string file in list)
+                                    {
+                                        MessageBox.Show(file);
+                                    }
 
 
-
-                                    string searchQuery3 = "*" + "mod" + "*";
+                                    string searchQuery3 = "*" + "mods" + "*";
                                     string folderName = Destination;
 
                                     var directory = new DirectoryInfo(folderName);
@@ -2680,6 +2688,8 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                     var Script = directory.GetDirectories(searchQuery3, SearchOption.AllDirectories);
                                     Destinfo.Attributes &= ~FileAttributes.ReadOnly;
                                     directory.Attributes &= ~FileAttributes.ReadOnly;
+                                    var F = Script.FirstOrDefault();
+                                    MessageBox.Show(F.FullName);
 
                                     foreach (var d in Script)
                                     {
@@ -2690,7 +2700,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                         {
 
                                             Dir_Final = firstFolder;
-                                            if ((Destinfo.Parent.FullName + @"\" + diArr[0].Name).Contains("keyvalues") || (Destinfo.Parent.FullName + @"\" + diArr[0].Name).Contains("vpk") || (Destinfo.Parent.FullName + @"\" + diArr[0].Name).Contains("materials"))
+                                            if ((Destinfo.Parent.FullName + @"\" + diArr[0].Name).Contains("materials"))
                                             {
                                                 // Send_Error_Notif(GetTextResource("NOTIF_ERROR_MOD_INCOMPATIBLE"));
                                                 // Send_Warning_Notif(GetTextResource("NOTIF_WARN_SUGGEST_DISABLE_MOD"));
@@ -2730,7 +2740,10 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                                 }
                                                 else
                                                 {
-                                                    CopyFilesRecursively(firstFolder, Destinfo.Parent.FullName + @"\" + diArr[0].Name);
+                                                  
+                                                     // CopyFilesRecursively(firstFolder, Destinfo.Parent.FullName + @"\" + diArr[0].Name);
+                                                   
+
 
                                                 }
 
@@ -3071,7 +3084,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 //                Found_Install = true; 
                 //                break;
                 //            }
-                //            else
+                //            else  
                 //            {
                 //                //Console.WriteLine("Trying again 2");
                 //                WalkDirectoryTree(root, Search, FolderMode);
@@ -4455,7 +4468,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                 Directory.CreateDirectory(Current_Install_Folder + @"\Skins_Unpack_Mod_MNGR");
                                 Skin_Path = Current_Install_Folder + @"\Skins_Unpack_Mod_MNGR";
 
-                                ZipFile.ExtractToDirectory(Skin_Temp_Loc, Skin_Path, Encoding.GetEncoding("GBK"));
+                                ZipFile.ExtractToDirectory(Skin_Temp_Loc, Skin_Path, Encoding.GetEncoding("GBK"),true);
 
                             }
                         }
@@ -4753,7 +4766,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                             Directory.CreateDirectory(Current_Install_Folder + @"\Skins_Unpack_Mod_MNGR");
                             Skin_Path = Current_Install_Folder + @"\Skins_Unpack_Mod_MNGR";
 
-                            ZipFile.ExtractToDirectory(Skin_Temp_Loc, Skin_Path, Encoding.GetEncoding("GBK"));
+                            ZipFile.ExtractToDirectory(Skin_Temp_Loc, Skin_Path, Encoding.GetEncoding("GBK"),true);
 
                         }
                     }
@@ -9380,4 +9393,5 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
     }
 
 }
+
 
