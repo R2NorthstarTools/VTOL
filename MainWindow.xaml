@@ -177,12 +177,12 @@
         </hc:SimplePanel>
         <hc:SimplePanel Grid.ColumnSpan="4" Grid.RowSpan="3" >
             <hc:SimplePanel x:Name="Step_Panel" Grid.ColumnSpan="4" Grid.RowSpan="2" Margin="0,0,-4,-1" Height="735">
-            <hc:SimplePanel.Background>
-                <SolidColorBrush Color="Black" Opacity="0.85"/>
-            </hc:SimplePanel.Background>
+                <hc:SimplePanel.Background>
+                    <SolidColorBrush Color="Black" Opacity="0.85"/>
+                </hc:SimplePanel.Background>
 
 
-               
+
             </hc:SimplePanel>
             <hc:StepBar x:Name="Step_s" Grid.ColumnSpan="4" Margin="177,174,-65,350" Grid.RowSpan="3" >
                 <hc:StepBarItem Content="Locate Titanfall 2" Margin="76,6,65,0"/>
@@ -275,7 +275,7 @@
 
 
 
-        <hc:SimplePanel x:Name="Mod_Browse_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
+        <hc:SimplePanel x:Name="Mod_Browse_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Visible" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
             <hc:SimplePanel Margin="10,10,10,10" Background="{DynamicResource Tool_PANELS}">
                 <TabControl x:Name="Sections_Tabs" Margin="44,72,43,31"  BorderBrush="{x:Null}" Foreground="{x:Null}" Background="{x:Null}" Padding="0,0,0,0" SelectionChanged="Sections_Tabs_SelectionChanged">
                     <TabItem Header="Client Mods" Width="150">
@@ -327,6 +327,7 @@
                         </TabItem.BorderBrush>
                     </TabItem>
                 </TabControl>
+
                 <ListBox ItemsSource="{Binding itemsList}" x:Name="Test_List" Margin="43,104,43,32" SelectionChanged="Test_List_SelectionChanged" RequestBringIntoView="Test_List_RequestBringIntoView" ScrollViewer.CanContentScroll="False" Visibility="Visible" BorderBrush="#FF232323" Padding="1,0,1,0" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Standard"  IsTextSearchEnabled="False" IsSynchronizedWithCurrentItem="False" MaxHeight="9000" AutomationProperties.IsOffscreenBehavior="Offscreen" MaxWidth="9000" >
                     <ListBox.Resources>
                         <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="Transparent" />
@@ -362,6 +363,7 @@
 
                             </Style.Triggers>
                         </Style>
+
                     </ListBox.ItemContainerStyle>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
@@ -377,14 +379,17 @@
                                     <TextBlock TextWrapping="Wrap" Text="{Binding description}" VerticalAlignment="Top" FontSize="11" Margin="99,64,0,0" Height="28" HorizontalAlignment="Left" Width="510" FontWeight="Bold" FontStyle="Italic" IsHitTestVisible="False"/>
                                     <TextBlock  Text="{Binding Name}"  FontSize="16" Margin="98,0,0,83" Height="23" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="604" IsHitTestVisible="False" />
                                     <TextBlock TextWrapping="Wrap" Text="{Binding owner}" Margin="186,0,0,67" Height="15" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="284" FontSize="11" IsHitTestVisible="False"/>
-                                    <TextBlock TextWrapping="Wrap" Text="{Binding date_created}" FontSize="10" Margin="117,3,0,0" HorizontalAlignment="Left" Width="561" Height="14" VerticalAlignment="Top" Grid.Row="1" IsHitTestVisible="False"/>
+                                    <TextBlock TextWrapping="Wrap" Text="{Binding date_created}" FontSize="10" Margin="99,3,0,0" HorizontalAlignment="Left" Width="532" Height="14" VerticalAlignment="Top" Grid.Row="1" IsHitTestVisible="False"/>
                                     <Label Content="{DynamicResource UI_TEXT_THUNDERSTORE_AUTHOR}" Height="14" Width="82" HorizontalAlignment="Left" Margin="99,30,0,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="9" HorizontalContentAlignment="Left" IsHitTestVisible="False"/>
-                                    <Label Content="{DynamicResource UI_TEXT_THUNDERSTORE_PUBLISH_DATE}" Height="14" Width="107" HorizontalAlignment="Left" Margin="5,3,0,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="9" Grid.Row="1" HorizontalContentAlignment="Left" IsHitTestVisible="False"/>
+                                    <Label Content="{DynamicResource UI_TEXT_THUNDERSTORE_PUBLISH_DATE}" Height="14" Width="83" HorizontalAlignment="Left" Margin="5,3,0,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="9" Grid.Row="1" HorizontalContentAlignment="Left" IsHitTestVisible="False"/>
                                     <Button Content="{DynamicResource UI_BUTTON_THUNDERSTORE_INSTALL}"  HorizontalAlignment="Left" Margin="722,15,0,0" VerticalAlignment="Top" Background=  "{DynamicResource Button_BG}" BorderBrush="{x:Null}" Height="53" Width="146" Click="Download_Install" Tag="{Binding download_url}" Padding="0,0,0,0" Focusable="True"  />
                                     <Button Content="{DynamicResource UI_BUTTON_THUNDERSTORE_GOTO_WEBPAGE}" HorizontalAlignment="Left" Margin="722,73,0,0" Tag ="{Binding Webpage}" VerticalAlignment="Top" Background=  "{DynamicResource Button_BG}" BorderBrush="{x:Null}" Height="22" Width="146" Click="Open_Package_Webpage" Padding="0,0,0,0"/>
                                     <Label Content="{DynamicResource UI_TEXT_THUNDERSTORE_MOD_DESC}" Height="14" Width="83" HorizontalAlignment="Left" Margin="98,0,0,0" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="9" FontStyle="Normal" FontWeight="Normal" HorizontalContentAlignment="Left" IsHitTestVisible="False"/>
                                     <Label Content="{DynamicResource UI_TEXT_THUNDERSTORE_FILE_SIZE}" Height="14" HorizontalAlignment="Left" Margin="5,19,0,0" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="9" Grid.Row="1" VerticalAlignment="Top" HorizontalContentAlignment="Center" IsHitTestVisible="False"/>
-                                    <TextBlock TextWrapping="Wrap" Text="{Binding File_Size}" FontSize="10" Margin="93,19,0,0" HorizontalAlignment="Left" Width="257" Height="14" VerticalAlignment="Top" Grid.Row="1" IsHitTestVisible="False"/>
+                                    <Label Content="Dependencies" Height="14" HorizontalAlignment="Left" Margin="203,19,0,0" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="9" Grid.Row="1" VerticalAlignment="Top" HorizontalContentAlignment="Center" IsHitTestVisible="False"/>
+                                    <TextBlock TextWrapping="Wrap" Text="{Binding Dependencies}" FontSize="11" Margin="290,19,0,0" HorizontalAlignment="Left" Width="412" Height="14" VerticalAlignment="Top" Grid.Row="1" IsHitTestVisible="False" Foreground="#FFFFF0C6" FontStyle="Italic" FontWeight="Bold"/>
+
+                                    <TextBlock TextWrapping="Wrap" Text="{Binding File_Size}" FontSize="10" Margin="66,19,0,0" HorizontalAlignment="Left" Width="125" Height="14" VerticalAlignment="Top" Grid.Row="1" IsHitTestVisible="False"/>
                                     <hc:Badge Margin="737,97,97,10" BorderBrush="{x:Null}" Maximum="9000" BadgeMargin="0,0,0,0" Grid.RowSpan="2" Value="{Binding Rating}" Foreground="#FFF9D900" FontSize="11" IsHitTestVisible="False" ScrollViewer.VerticalScrollBarVisibility="Disabled" IsTabStop="False" Focusable="False" />
                                     <Image Margin="738,109,112,10" Source="/Resources/heart.png" RenderTransformOrigin="0.471,0.217" Grid.RowSpan="2" IsHitTestVisible="False" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
                                     <hc:Badge Margin="803,97,31,10" BorderBrush="{x:Null}"  Value="{Binding Downloads}" Maximum="9000" BadgeMargin="0,0,0,0" Grid.RowSpan="2"  Foreground="#FF4EFF48" FontSize="11" RenderTransformOrigin="0,0" Text="" IsHitTestVisible="False" ScrollViewer.VerticalScrollBarVisibility="Disabled" IsTabStop="False" Focusable="False" />
@@ -396,14 +401,15 @@
                             </Button>
 
 
-
-
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
 
 
 
+
+
+               
 
 
 
@@ -1064,7 +1070,7 @@
 
 
 
-        
+
 
     </Grid>
 

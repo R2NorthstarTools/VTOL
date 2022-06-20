@@ -1229,6 +1229,8 @@ YOUR DESCRIPTION
             public int Rating { get; set; }
             public string File_Size { get; set; }
             public string Downloads { get; set; }
+            public string Dependencies { get; set; }
+
 
         }
         void Download_Install(object sender, RoutedEventArgs e)
@@ -1244,12 +1246,25 @@ YOUR DESCRIPTION
                 if (words[2].Contains("DDS"))
                 {
 
-                    parse_git_to_zip(words[0], true);
+                  //  parse_git_to_zip(words[0], true);
                 }
                 else
                 {
 
-                    parse_git_to_zip(words[0]);
+                 //   parse_git_to_zip(words[0]);
+                }
+                MessageBox.Show(words[3]);
+                if(words[3].Trim() != null && words[3].Trim() != "" && words[3].Count() > 2)
+                {
+                    System.Windows.MessageBoxResult result = HandyControl.Controls.MessageBox.Show(new MessageBoxInfo { Message = "Required Dependency Called -\n" + words[3] + "\nIs required, would you like to Add and download?", Caption = "INFO", Button = MessageBoxButton.YesNo, IconBrushKey = ResourceToken.AccentBrush, IconKey = ResourceToken.AskGeometry, StyleKey = "MessageBoxCustom"});
+                    if (result == System.Windows.MessageBoxResult.Yes)
+                    {
+                        MessageBox.Show("Start the download");
+                    }
+                    else
+                    {
+                        return;
+                    }
                 }
             }
             catch (Exception ex)
@@ -1294,23 +1309,18 @@ YOUR DESCRIPTION
 
             try
             {
-
                 itemsList.Clear();
-                // var myValue = ((Button)sender).Tag;
                 string ICON = "";
-                // List<string> lst = new List<string> { };
-                //  List<string> Icons = new List<string> { };
-                // List<string> Description = new List<string> { };
-                // List<string> File_Size_ = new List<string> { };
                 List<int> Downloads = new List<int> { };
                 List<object> Temp = new List<object> { };
-
+                List<string> Dependencies = new List<string> { };
                 string Tags = "";
                 string downloads = "";
                 string download_url = "";
                 string Descrtiption = "";
                 string FileSize = "";
                 string Exclude_String = "";
+                string Dependencies_ = "";
                 switch (Filter_Type)
                 {
                     case "All":
@@ -1340,14 +1350,7 @@ YOUR DESCRIPTION
                         Exclude_String = "#";
 
                         break;
-
-
                 }
-                //Icons.Clear();
-                // Description.Clear();
-                // lst.Clear();
-                //  File_Size_.Clear();
-                //List<object> MainList = Update.Thunderstore;
                 if (Update.Thunderstore.Length > 0)
                 {
 
@@ -1355,40 +1358,39 @@ YOUR DESCRIPTION
                     for (int i = 0; i < Update.Thunderstore.Length; i++)
                     {
 
-                        //  for (List item = Update.Thunderstore.ToList()<VTOL.Thunderstore_>; int i = 0; i < Update.Thunderstore.Length; i++)
-                        //  {
                         if (Update.Thunderstore[i].FullName == "northstar-Northstar")
                         {
                             continue;
                         }
+
                         int rating = Update.Thunderstore[i].RatingScore;
 
                         Tags = String.Join(" , ", Update.Thunderstore[i].Categories);
 
-                        //Tag = item.Categories;
 
 
                         List<versions> versions = Update.Thunderstore[i].versions;
+
                         if (Search_ == true)
                         {
 
                             if (Filter_Type != "All" && Filter_Type != "None")
                             {
 
-                                // MessageBox.Show(Update.Thunderstore[i].Name);
                                 if (Tags.Contains(Filter_Type) && !Tags.Contains(Exclude_String))
                                 {
 
 
-                                    //MessageBox.Show(Update.Thunderstore[i].Name);
 
                                     if (Update.Thunderstore[i].Name.Contains(SearchQuery, StringComparison.OrdinalIgnoreCase) || Update.Thunderstore[i].Owner.Contains(SearchQuery, StringComparison.OrdinalIgnoreCase))
                                     {
 
-                                        foreach (var items in Update.Thunderstore[i].versions)
+                                        foreach (var items in versions)
 
 
                                         {
+                                           
+
                                             Downloads.Add(Convert.ToInt32(items.Downloads));
 
 
@@ -1398,8 +1400,22 @@ YOUR DESCRIPTION
 
 
                                         downloads = (Downloads.Sum()).ToString();
+                                        for (var x = 0; x < versions.Last().Dependencies.Count; x++)
+                                        {
+                                            if (versions.Last().Dependencies[x].Contains("northstar-Northstar"))
+                                            {
 
+                                                continue;
+                                            }
+                                            else
+                                            {
+                                                Dependencies.Add(versions.Last().Dependencies[x]);
 
+                                            }
+
+                                        }
+
+                                        Dependencies_ = String.Join(", ", Dependencies);
 
                                         download_url = versions.Last().DownloadUrl;
                                         ICON = versions.Last().Icon;
@@ -1408,6 +1424,8 @@ YOUR DESCRIPTION
 
 
                                         Downloads.Clear();
+                                        Dependencies.Clear();
+                                       
                                         GC.Collect();
 
 
@@ -1416,8 +1434,7 @@ YOUR DESCRIPTION
                                             FileSize = Convert_To_Size(value);
                                         }
 
-                                        itemsList.Add(new Button { Name = Update.Thunderstore[i].Name, Icon = ICON, date_created = Update.Thunderstore[i].DateCreated.ToString(), description = Descrtiption, owner = Update.Thunderstore[i].Owner, Rating = rating, download_url = download_url + "|" + Update.Thunderstore[i].FullName.ToString() + "|" + Tags, Webpage = Update.Thunderstore[i].PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads });
-                                        //  return itemsList;
+                                        itemsList.Add(new Button { Name = Update.Thunderstore[i].Name, Icon = ICON, date_created = Update.Thunderstore[i].DateCreated.ToString(), description = Descrtiption, owner = Update.Thunderstore[i].Owner, Rating = rating, download_url = download_url + "|" + Update.Thunderstore[i].FullName.ToString() + "|" + Tags + "|" + Dependencies_, Webpage = Update.Thunderstore[i].PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads, Dependencies = Dependencies_ });
 
 
                                     }
@@ -1428,12 +1445,13 @@ YOUR DESCRIPTION
                                 if (Update.Thunderstore[i].Name.Contains(SearchQuery, StringComparison.OrdinalIgnoreCase) || Update.Thunderstore[i].Owner.Contains(SearchQuery, StringComparison.OrdinalIgnoreCase))
                                 {
 
-                                    foreach (var items in Update.Thunderstore[i].versions)
+                                    foreach (var items in versions)
 
 
                                     {
+                                       
                                         Downloads.Add(Convert.ToInt32(items.Downloads));
-
+                                      
 
 
                                     }
@@ -1441,14 +1459,29 @@ YOUR DESCRIPTION
 
 
                                     downloads = (Downloads.Sum()).ToString();
+                                    for (var x = 0; x < versions.Last().Dependencies.Count; x++)
+                                    {
+                                        if (versions.Last().Dependencies[x].Contains("northstar-Northstar"))
+                                        {
 
+                                            continue;
+                                        }
+                                        else
+                                        {
+                                            Dependencies.Add(versions.Last().Dependencies[x]);
+
+                                        }
+
+                                    }
 
 
                                     download_url = versions.Last().DownloadUrl;
                                     ICON = versions.Last().Icon;
                                     FileSize = versions.Last().FileSize.ToString();
                                     Descrtiption = versions.Last().Description;
+                                    Dependencies_ = String.Join(", ", Dependencies);
 
+                                    Dependencies.Clear();
 
                                     Downloads.Clear();
                                     GC.Collect();
@@ -1458,8 +1491,7 @@ YOUR DESCRIPTION
                                     {
                                         FileSize = Convert_To_Size(value);
                                     }
-                                    itemsList.Add(new Button { Name = Update.Thunderstore[i].Name, Icon = ICON, date_created = Update.Thunderstore[i].DateCreated.ToString(), description = Descrtiption, owner = Update.Thunderstore[i].Owner, Rating = rating, download_url = download_url + "|" + Update.Thunderstore[i].FullName.ToString() + "|" + Tags, Webpage = Update.Thunderstore[i].PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads });
-                                    //  return itemsList;
+                                    itemsList.Add(new Button { Name = Update.Thunderstore[i].Name, Icon = ICON, date_created = Update.Thunderstore[i].DateCreated.ToString(), description = Descrtiption, owner = Update.Thunderstore[i].Owner, Rating = rating, download_url = download_url + "|" + Update.Thunderstore[i].FullName.ToString() + "|" + Tags + "|" + Dependencies_, Webpage = Update.Thunderstore[i].PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads, Dependencies = Dependencies_ });
 
 
                                 }
@@ -1470,21 +1502,38 @@ YOUR DESCRIPTION
                         }
                         else if (Filter_Type == "None")
                         {
-                            foreach (var items in Update.Thunderstore[i].versions)
+                            foreach (var items in versions)
 
 
                             {
+                                
                                 Downloads.Add(Convert.ToInt32(items.Downloads));
                             }
                             downloads = (Downloads.Sum()).ToString();
+                            for (var x = 0; x < versions.Last().Dependencies.Count; x++)
+                            {
+                                if (versions.Last().Dependencies[x].Contains("northstar-Northstar"))
+                                {
 
+                                    continue;
+                                }
+                                else
+                                {
+                                    Dependencies.Add(versions.Last().Dependencies[x]);
+
+                                }
+
+                            }
                             GC.Collect();
+                            Dependencies_ = String.Join(", ", Dependencies);
 
                             download_url = versions.Last().DownloadUrl;
                             ICON = versions.Last().Icon;
                             FileSize = versions.Last().FileSize.ToString();
                             Descrtiption = versions.Last().Description;
                             Downloads.Clear();
+                            Dependencies.Clear();
+
                             GC.Collect();
 
 
@@ -1494,75 +1543,53 @@ YOUR DESCRIPTION
                             }
 
 
-                            itemsList.Add(new Button { Name = Update.Thunderstore[i].Name, Icon = ICON, date_created = Update.Thunderstore[i].DateCreated.ToString(), description = Descrtiption, owner = Update.Thunderstore[i].Owner, Rating = rating, download_url = download_url + "|" + Update.Thunderstore[i].FullName.ToString() + "|" + Tags, Webpage = Update.Thunderstore[i].PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads });
+                            itemsList.Add(new Button { Name = Update.Thunderstore[i].Name, Icon = ICON, date_created = Update.Thunderstore[i].DateCreated.ToString(), description = Descrtiption, owner = Update.Thunderstore[i].Owner, Rating = rating, download_url = download_url + "|" + Update.Thunderstore[i].FullName.ToString() + "|" + Tags + "|" + Dependencies_, Webpage = Update.Thunderstore[i].PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads, Dependencies = Dependencies_ });
 
-                            //      itemsList.Add(new Button { Name = item.Name, Icon = ICON, date_created = item.DateCreated.ToString(), description = Descrtiption, owner=item.Owner, Rating = rating, download_url = download_url +"|"+item.FullName.ToString(), Webpage  = item.PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads });
 
                         }
-                        //                    else if (Tags.Contains(Filter_Type) && !Tags.Contains(Exclude_String))
 
                         else if (Tags.Contains(Filter_Type) && !Tags.Contains(Exclude_String))
                         {
 
-                            foreach (var items in Update.Thunderstore[i].versions)
+                            foreach (var items in versions)
 
 
                             {
+                                
                                 Downloads.Add(Convert.ToInt32(items.Downloads));
+                                
 
-                                /*
-                                if (Tags.Contains("Skins"))
-                                {
-                                    Send_Fatal_Notif(items.DownloadUrl + "\n" +items.Description+"\n"+items.FileSize.ToString()+"\n"+Convert.ToInt32(items.Downloads));
-                                    lst.Add(items.DownloadUrl);
-                                    Icons.Add(items.Icon);
-                                    Description.Add(items.Description);
-                                    File_Size_.Add(items.FileSize.ToString());
-                                    Downloads.Add(Convert.ToInt32(items.Downloads));
-                                }
-                                GC.Collect();
-                                if (Tags.Contains("Skins"))
-                                {
-                                    lst.Add(items.DownloadUrl);
-                                     Icons.Add(items.Icon);
-                                     Description.Add(items.Description);
-                                      File_Size_.Add(items.FileSize.ToString());
-                                       Downloads.Add(Convert.ToInt32(items.Downloads));
-                                }
-                                lst.Add(items.DownloadUrl);
-                                  Icons.Add(items.Icon);
-                                 Description.Add(items.Description);
-                                  File_Size_.Add(items.FileSize.ToString());
-                                  Downloads.Add(Convert.ToInt32(items.Downloads));
-                                 */
-                                //   ICON = items.Icon;
 
                             }
 
-                            //  lst.Sort();
-                            //  Icons.Sort();
-                            //   File_Size_.Sort();
-                            //  Description.Sort();
+                          
                             GC.Collect();
-                            /*
-                            download_url = (lst.Last());
-                            ICON = (Icons.Last());
-                            FileSize = (File_Size_.Last());
-                            Descrtiption = (Description.Last());
-                            */
+                          
                             downloads = (Downloads.Sum()).ToString();
 
 
 
                             download_url = versions.Last().DownloadUrl;
+                            for (var x = 0; x < versions.Last().Dependencies.Count; x++)
+                            {
+                                if (versions.Last().Dependencies[x].Contains("northstar-Northstar"))
+                                {
+
+                                    continue;
+                                }
+                                else
+                                {
+                                    Dependencies.Add(versions.Last().Dependencies[x]);
+
+                                }
+
+                            }
                             ICON = versions.Last().Icon;
                             FileSize = versions.Last().FileSize.ToString();
                             Descrtiption = versions.Last().Description;
+                            Dependencies_ = String.Join(", ", Dependencies);
+                            Dependencies.Clear();
 
-                            //   Description.Clear();
-                            //  File_Size_.Clear();
-                            //   lst.Clear();
-                            //   Icons.Clear();
                             Downloads.Clear();
 
 
@@ -1570,17 +1597,11 @@ YOUR DESCRIPTION
                             {
                                 FileSize = Convert_To_Size(value);
                             }
-                            //   foreach (object o in lst)
-                            //     {
-                            //       MessageBox.Show(o.ToString());
-                            //  }
-
-                            //itemsList.Add(new Button {  Name = item.full_name.ToString() , Icon = item.latest.icon,date_created = item.date_created.ToString(), description = item.latest.description, owner=item.owner, Rating = rating});
-                            itemsList.Add(new Button { Name = Update.Thunderstore[i].Name, Icon = ICON, date_created = Update.Thunderstore[i].DateCreated.ToString(), description = Descrtiption, owner = Update.Thunderstore[i].Owner, Rating = rating, download_url = download_url + "|" + Update.Thunderstore[i].FullName.ToString() + "|" + Tags, Webpage = Update.Thunderstore[i].PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads });
+                          
+                            itemsList.Add(new Button { Name = Update.Thunderstore[i].Name, Icon = ICON, date_created = Update.Thunderstore[i].DateCreated.ToString(), description = Descrtiption, owner = Update.Thunderstore[i].Owner, Rating = rating, download_url = download_url + "|" + Update.Thunderstore[i].FullName.ToString() + "|" + Tags + "|" + Dependencies_, Webpage = Update.Thunderstore[i].PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads , Dependencies = Dependencies_ });
 
                         }
 
-                        // itemsList.Add(item.full_name.ToString());
                     }
                 }
 
