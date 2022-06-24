@@ -43,7 +43,7 @@ Total Downloads Since First Release:
 
 * Installing downloaded [Northstar](https://northstar.tf) mods (.zip files)
 
-* Easily install custom Weapon/Pilot Skins
+* Easily install custom Titan/Weapon/Pilot Skins 
 
 * Easily start a [Northstar](https://northstar.tf) Dedicated Server
 
