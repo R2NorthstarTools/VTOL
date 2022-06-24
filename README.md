@@ -109,15 +109,14 @@ _If origin has been detected as inactive, clicking this icon will auto start the
 
 ![image](https://user-images.githubusercontent.com/23240514/175618633-cc3a6411-392c-4d68-a3e6-66e6b42da24f.png)
 
-*Under this section, you can configure the entire backend of a server and start it from here.
-*
-**Simply click load configuration to start editing your server cfg files.
-**![image](https://user-images.githubusercontent.com/23240514/175618698-a42a92d5-cfd8-4c8f-9aad-171b8d0cc5bc.png)<br/>
+**Under this section, you can configure the entire backend of a server and start it from here.**<br/>
+*Simply click load configuration to start editing your server cfg files.*
+![image](https://user-images.githubusercontent.com/23240514/175618698-a42a92d5-cfd8-4c8f-9aad-171b8d0cc5bc.png)<br/>
 
 ![image](https://user-images.githubusercontent.com/23240514/175618788-51c6621d-7ac0-48a8-9473-22ae1395108b.png)<br/>
-![image](https://user-images.githubusercontent.com/23240514/175618810-ebcd86a6-a797-4ade-874d-86c76d60711f.png)
+![image](https://user-images.githubusercontent.com/23240514/175618810-ebcd86a6-a797-4ade-874d-86c76d60711f.png))<br/>
 You are also able to import and export server Configs from other Pilots :D.
-![image](https://user-images.githubusercontent.com/23240514/175620654-8a865c81-0785-47da-9d4b-443e2b434edc.png)
+![image](https://user-images.githubusercontent.com/23240514/175620654-8a865c81-0785-47da-9d4b-443e2b434edc.png)<br/>
 <br/>
 ![image](https://user-images.githubusercontent.com/23240514/175620405-dddfd675-3cd6-4322-9299-fc96ebf650a8.png)
 ### Thunderstore Mod Browser
