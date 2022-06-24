@@ -185,30 +185,30 @@ To Change your Theme, Simply select a color and Click Confirm.
 ![image](https://user-images.githubusercontent.com/23240514/175616582-138f870d-6480-47bb-b82e-9ca5dfe28030.png)
 
 ## TOOLS
-As of 1.2.3, the `` Tools``  Section has been added.
-### ** Thunderstore Packager**
+As of 1.2.3, the `` Tools``  Section has been added.<br/>
+### Thunderstore Packager<br/>
 ![image](https://user-images.githubusercontent.com/23240514/175616984-e2aa7fef-92fc-4231-855a-56aec3409830.png)
 Under this tool, it makes it seamless and easy to add and create fully compatible `` Thunderstore Mods`` .
-* Select the Zip of the Mod to be Uploaded
+* Select the Zip of the Mod to be Uploaded<br/>
 ![image](https://user-images.githubusercontent.com/23240514/175617495-2f6c95c9-b2e5-4d57-9556-ebbbb5ff7260.png)
 
-* Select an Icon that is **256x256**! this is **VERY** Important
+* Select an Icon that is **256x256**! this is **VERY** Important<br/>
 ![image](https://user-images.githubusercontent.com/23240514/175617503-4fe651f6-4724-47b6-9084-dd6267ea11bf.png)
 
-* Fill out your Page Description
+* Fill out your Page Description<br/>
 ![image](https://user-images.githubusercontent.com/23240514/175617519-710cb9a2-fd55-4ef5-985a-7cd2da9ed311.png)
 
 * Fill out these Fields as you Wish
-*Remember, mod names can only have letters(no -,?,', and other related symbols)
-*![image](https://user-images.githubusercontent.com/23240514/175617530-9edf95b7-568b-490c-acda-3c8de00de4ca.png)
+*Remember, mod names can only have letters(no -,?,', and other related symbols)*<br/>
+![image](https://user-images.githubusercontent.com/23240514/175617530-9edf95b7-568b-490c-acda-3c8de00de4ca.png)
 
-* Select and output Directory
+* Select and output Directory<br/>
 ![image](https://user-images.githubusercontent.com/23240514/175617542-cfa9972b-e5c7-4c7c-89c3-caf1138354b3.png)
 
-*This option is available as **VTOL** is able to install DDS skins put on the Thunderstore Page.
+* This option is available as ``VTOL`` is able to install DDS skins put on the Thunderstore Page.<br/>
 ![image](https://user-images.githubusercontent.com/23240514/175617549-06a757da-70d6-4ede-95ab-bfe5d95db972.png)
 
-* Click output and place the mod in your Thunderstore Publishes.
+* Click output and place the mod in your Thunderstore Publishes.<br/>
 ![image](https://user-images.githubusercontent.com/23240514/175617562-83d0eb87-1ab4-4969-840e-384c3a0a7622.png)
 
 
