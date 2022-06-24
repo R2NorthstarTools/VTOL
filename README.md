@@ -69,7 +69,8 @@ Total Downloads Since First Release:
 
 * You can preferably enable the automatic-updater module in the ``Update`` section
 
-![image](https://user-images.githubusercontent.com/23240514/166421008-d7fd3498-0bf0-449a-a7a5-b88c3d5be8ab.png)
+![image](https://user-images.githubusercontent.com/23240514/175615014-8005da51-6602-414f-9bf6-aa8be18797a4.png)
+
 
 ### Configuration
 
@@ -91,8 +92,8 @@ Total Downloads Since First Release:
 
    ![image](https://user-images.githubusercontent.com/23240514/152446412-d10f1f7e-bbc2-4558-8e8b-033aae2af410.png)
    
-* To update or repair your northstar installation, click the ``Update/Repair Northstar`` Button.
-    * This will download the latest [Northstar release](https://github.com/R2Northstar/Northstar/releases/latest) and repair/update your current instllation.
+* To update or repair your Northstar installation, click the ``Update/Repair Northstar`` Button.
+    * This will download the latest [Northstar release](https://github.com/R2Northstar/Northstar/releases/latest) and repair/update your current installation.
 
 
    ![image](https://user-images.githubusercontent.com/23240514/152446466-26d91f33-948d-4051-9247-c21b20328515.png)
@@ -100,10 +101,33 @@ Total Downloads Since First Release:
 _If an outdated version is detected, this will update it, if the installed version is up to date, it will repair it._
 
 ## Feature Guides
+
+### Status Icons
+_If origin has been detected as inactive, clicking this icon will auto start the Origin Client._
+![image](https://user-images.githubusercontent.com/23240514/175618395-1b95e20a-147d-4101-a93e-159e9d96b177.png)
+### Dedicated Server
+
+![image](https://user-images.githubusercontent.com/23240514/175618633-cc3a6411-392c-4d68-a3e6-66e6b42da24f.png)
+
+*Under this section, you can configure the entire backend of a server and start it from here.
+*
+**Simply click load configuration to start editing your server cfg files.
+**![image](https://user-images.githubusercontent.com/23240514/175618698-a42a92d5-cfd8-4c8f-9aad-171b8d0cc5bc.png)<br/>
+
+![image](https://user-images.githubusercontent.com/23240514/175618788-51c6621d-7ac0-48a8-9473-22ae1395108b.png)<br/>
+![image](https://user-images.githubusercontent.com/23240514/175618810-ebcd86a6-a797-4ade-874d-86c76d60711f.png)
+You are also able to import and export server Configs from other Pilots :D.
+![image](https://user-images.githubusercontent.com/23240514/175620654-8a865c81-0785-47da-9d4b-443e2b434edc.png)
+<br/>
+![image](https://user-images.githubusercontent.com/23240514/175620405-dddfd675-3cd6-4322-9299-fc96ebf650a8.png)
 ### Thunderstore Mod Browser
 
 _[Thunderstore](https://northstar.thunderstore.io) Support released as of version 1.1.7_
-![image](https://user-images.githubusercontent.com/23240514/166420773-b1e79cb3-7e6a-47f7-94d5-99258cd761fa.png)
+![image](https://user-images.githubusercontent.com/23240514/175615183-657f4412-6953-477f-8e2f-b36d22582cc1.png)
+
+There is now Search functionality you can use to search through the mod Categories by publisher or mod name. Simply Click the ``Search Bar`` and Fill out your query
+![image](https://user-images.githubusercontent.com/23240514/175615679-72cfcb6e-8a86-4bc6-bc3a-215df71ace15.png)
+
 
 If you wish to, you can also navigate to the mod's thunderstore site to download the mod manually using the ``Go To Webpage`` button.
 
@@ -114,7 +138,9 @@ If you wish to, you can also navigate to the mod's thunderstore site to download
 ## Installing Mods
 
 * You can see a list of all installed and disabled mods in the ``Mods`` section:
-![image](https://user-images.githubusercontent.com/23240514/166420846-75c3abbd-4e24-4f2d-bfde-2a23ef11b74d.png)
+![image](https://user-images.githubusercontent.com/23240514/175618156-ef991163-0729-422c-8362-d5358c568e1a.png)
+
+
 
 * If you have a .zip file of the mod you want to install, you simply need to browse to the .zip file and   select it. It'll be installed in the same way.
 
@@ -124,17 +150,25 @@ If you wish to, you can also navigate to the mod's thunderstore site to download
 ![image](https://user-images.githubusercontent.com/23240514/152447434-f2996352-9237-46f0-aa07-2c2e3181ea21.png)
 ![image](https://user-images.githubusercontent.com/23240514/152447448-24d51ad1-da48-44d2-b1d6-c864767cd230.png)
 
+* Right Click over a mod to view more options such as deleting the mod,
+![image](https://user-images.githubusercontent.com/23240514/175615887-8682b71d-b375-4ed5-ab9c-8db6847caccd.png)
+
+* Or to see info about the mod,
+![image](https://user-images.githubusercontent.com/23240514/175615942-cd533cc2-aec1-48c6-a515-1df3cdb591fd.png)
+
 ## Installing Skins 
 
 * First, Navigate to your desired Skin's ``.ZIP`` file
-![image](https://user-images.githubusercontent.com/23240514/152447515-c4eb762b-d4b9-49da-b713-87aded2220d2.png)
+![image](https://user-images.githubusercontent.com/23240514/175616031-cc4cf3e4-5899-4f5c-8935-b01fd024445d.png)
+
 <br /><br />
 
 * Click import skin and wait for the compatibility check to finish.
 
 ![image](https://user-images.githubusercontent.com/23240514/152447613-e3fc58d8-992e-46ad-9c2c-499a87888603.png)
 
-![image](https://user-images.githubusercontent.com/23240514/152447631-03075684-204e-4311-b3dc-4bd6e264d0f3.png)
+![image](https://user-images.githubusercontent.com/23240514/175616227-83102217-1ba1-4499-9c3e-74291c4d002b.png)
+
 
 * Once the compatibility is ``Confirmed`` with a green light, the application can now inject the skin.
 * Click ``Install Skin`` to proceed with the installation of the skin.
@@ -144,7 +178,39 @@ If you wish to, you can also navigate to the mod's thunderstore site to download
 
 Skin Textures will be previewed in the following way
 
-![image](https://user-images.githubusercontent.com/23240514/152447664-09a21668-b54f-41df-8493-f1567c497ec1.png)
+![image](https://user-images.githubusercontent.com/23240514/175616321-17bfc047-a240-4fca-88a8-53e2401912e3.png)
+
+## THEMES
+To Change your Theme, Simply select a color and Click Confirm.
+![image](https://user-images.githubusercontent.com/23240514/175616520-5c169ccf-9997-48dc-ab1f-6cc69ba14ae9.png)
+![image](https://user-images.githubusercontent.com/23240514/175616582-138f870d-6480-47bb-b82e-9ca5dfe28030.png)
+
+## TOOLS
+As of 1.2.3, the `` Tools``  Section has been added.
+### ** Thunderstore Packager**
+![image](https://user-images.githubusercontent.com/23240514/175616984-e2aa7fef-92fc-4231-855a-56aec3409830.png)
+Under this tool, it makes it seamless and easy to add and create fully compatible `` Thunderstore Mods`` .
+* Select the Zip of the Mod to be Uploaded
+![image](https://user-images.githubusercontent.com/23240514/175617495-2f6c95c9-b2e5-4d57-9556-ebbbb5ff7260.png)
+
+* Select an Icon that is **256x256**! this is **VERY** Important
+![image](https://user-images.githubusercontent.com/23240514/175617503-4fe651f6-4724-47b6-9084-dd6267ea11bf.png)
+
+* Fill out your Page Description
+![image](https://user-images.githubusercontent.com/23240514/175617519-710cb9a2-fd55-4ef5-985a-7cd2da9ed311.png)
+
+* Fill out these Fields as you Wish
+*Remember, mod names can only have letters(no -,?,', and other related symbols)
+*![image](https://user-images.githubusercontent.com/23240514/175617530-9edf95b7-568b-490c-acda-3c8de00de4ca.png)
+
+* Select and output Directory
+![image](https://user-images.githubusercontent.com/23240514/175617542-cfa9972b-e5c7-4c7c-89c3-caf1138354b3.png)
+
+*This option is available as **VTOL** is able to install DDS skins put on the Thunderstore Page.
+![image](https://user-images.githubusercontent.com/23240514/175617549-06a757da-70d6-4ede-95ab-bfe5d95db972.png)
+
+* Click output and place the mod in your Thunderstore Publishes.
+![image](https://user-images.githubusercontent.com/23240514/175617562-83d0eb87-1ab4-4969-840e-384c3a0a7622.png)
 
 
 ## Updating VTOL
