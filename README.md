@@ -124,11 +124,11 @@ You are also able to import and export server Configs from other Pilots :D.
 _[Thunderstore](https://northstar.thunderstore.io) Support released as of version 1.1.7_
 ![image](https://user-images.githubusercontent.com/23240514/175615183-657f4412-6953-477f-8e2f-b36d22582cc1.png)
 
-There is now Search functionality you can use to search through the mod Categories by publisher or mod name. Simply Click the ``Search Bar`` and Fill out your query
+There is now Search functionality you can use to search through the mod Categories by publisher or mod name. Simply Click the ``Search Bar`` and Fill out your query<br/>
 ![image](https://user-images.githubusercontent.com/23240514/175615679-72cfcb6e-8a86-4bc6-bc3a-215df71ace15.png)
+<br/>
 
-
-If you wish to, you can also navigate to the mod's thunderstore site to download the mod manually using the ``Go To Webpage`` button.
+If you wish to, you can also navigate to the mod's thunderstore site to download the mod manually using the ``Go To Webpage`` button.<br/>
 
 ![image](https://user-images.githubusercontent.com/23240514/166420788-ad403cd9-d435-49b9-8d41-168d028f06f8.png)
 
@@ -149,10 +149,10 @@ If you wish to, you can also navigate to the mod's thunderstore site to download
 ![image](https://user-images.githubusercontent.com/23240514/152447434-f2996352-9237-46f0-aa07-2c2e3181ea21.png)
 ![image](https://user-images.githubusercontent.com/23240514/152447448-24d51ad1-da48-44d2-b1d6-c864767cd230.png)
 
-* Right Click over a mod to view more options such as deleting the mod,
+* Right Click over a mod to view more options such as deleting the mod,<br/>
 ![image](https://user-images.githubusercontent.com/23240514/175615887-8682b71d-b375-4ed5-ab9c-8db6847caccd.png)
 
-* Or to see info about the mod,
+* Or to see info about the mod<br/>
 ![image](https://user-images.githubusercontent.com/23240514/175615942-cd533cc2-aec1-48c6-a515-1df3cdb591fd.png)
 
 ## Installing Skins 
