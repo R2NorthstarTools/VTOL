@@ -360,6 +360,8 @@ namespace VTOL
         public Thunderstore_V1 Thunderstore_;
         Updater Update;
         public bool Animation_Start_Northstar { get; set; }
+        public bool Completed_Operation = false; 
+
         public bool Animation_Start_Vanilla { get; set; }
         public string Ns_dedi_File = "";
         public string Convar_File = "";
@@ -1107,7 +1109,7 @@ YOUR DESCRIPTION
 
                 if (hard_refresh == true)
                 {
-                    Update = new Updater("https://gtfo.thunderstore.io/api/v1/package/");
+                    Update = new Updater("https://northstar.thunderstore.io/api/v1/package/");
                     Update.Download_Cutom_JSON();
                     //  LoadListViewData(Filter_Type);
 
@@ -1246,26 +1248,62 @@ YOUR DESCRIPTION
                 if (words[2].Contains("DDS"))
                 {
 
-                  //  parse_git_to_zip(words[0], true);
+                    parse_git_to_zip(words[0], true);
                 }
                 else
                 {
 
-                 //   parse_git_to_zip(words[0]);
+                    parse_git_to_zip(words[0]);
                 }
-                MessageBox.Show(words[3]);
-                if(words[3].Trim() != null && words[3].Trim() != "" && words[3].Count() > 2)
+                if (words[3].Trim() != null && words[3].Trim() != "" && words[3].Count() > 2)
                 {
                     System.Windows.MessageBoxResult result = HandyControl.Controls.MessageBox.Show(new MessageBoxInfo { Message = "Required Dependency Called -\n" + words[3] + "\nIs required, would you like to Add and download?", Caption = "INFO", Button = MessageBoxButton.YesNo, IconBrushKey = ResourceToken.AccentBrush, IconKey = ResourceToken.AskGeometry, StyleKey = "MessageBoxCustom"});
                     if (result == System.Windows.MessageBoxResult.Yes)
                     {
-                        MessageBox.Show("Start the download");
+                        if (words[3].Contains(","))
+                        {
+
+                            string[] Downloads = words[3].Split(",");
+                            foreach (var it in Downloads)
+                            {
+                                LAST_INSTALLED_MOD = it;
+
+                                parse_git_to_zip(Search_For_Mod_Thunderstore(it));
+
+
+                            }
+                            Send_Info_Notif("Dependencies Download Completed");
+
+
+                        }
+                        else
+                        {
+
+                            LAST_INSTALLED_MOD = words[3];
+                            parse_git_to_zip(Search_For_Mod_Thunderstore(words[3]));
+
+
+
+                            Send_Info_Notif("Dependencies Download Completed");
+
+                        }
+
+                       
+
                     }
                     else
                     {
+
                         return;
                     }
                 }
+                else
+                {
+
+                    return;
+                }
+
+              
             }
             catch (Exception ex)
             {
@@ -1273,6 +1311,7 @@ YOUR DESCRIPTION
                 Mod_Progress_BAR.ShowText = false;
                 Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_ERROR_OCCURRED"));
                 Write_To_Log(ErrorManager(ex));
+                Completed_Operation = false;
 
             }
         }
@@ -1302,7 +1341,33 @@ YOUR DESCRIPTION
             return result;
 
         }
+        public string Search_For_Mod_Thunderstore(string SearchQuery = "None")
 
+        {
+            Update = new Updater("https://northstar.thunderstore.io/api/v1/package/");
+
+            Update.Download_Cutom_JSON();
+
+            for (int i = 0; i < Update.Thunderstore.Length; i++)
+            {
+                List<versions> versions = Update.Thunderstore[i].versions;
+
+                string[] subs = SearchQuery.Split('-');
+              
+
+                if (Update.Thunderstore[i].FullName.Contains(subs[1], StringComparison.OrdinalIgnoreCase) || Update.Thunderstore[i].Owner.Contains(SearchQuery, StringComparison.OrdinalIgnoreCase))
+                {
+                   
+
+                    return versions.Last().DownloadUrl;
+
+                }
+
+
+            }
+            return null; 
+        }
+    
 
         private List<object> LoadListViewData(string Filter_Type = "None", bool Search_ = false, string SearchQuery = "#")
         {
@@ -1414,7 +1479,7 @@ YOUR DESCRIPTION
                                             }
 
                                         }
-
+                                       
                                         Dependencies_ = String.Join(", ", Dependencies);
 
                                         download_url = versions.Last().DownloadUrl;
@@ -2693,14 +2758,14 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
                                     // Display the file names 
                                     // Present in the A directory 
-                                    foreach (string file in list)
-                                    {
-                                        MessageBox.Show(file);
-                                    }
-
+                                    //  foreach (string file in list)
+                                    //  {
+                                    //       MessageBox.Show(file);
+                                    //   }
 
                                     string searchQuery3 = "*" + "mods" + "*";
                                     string folderName = Destination;
+                                    MessageBox.Show(folderName);
 
                                     var directory = new DirectoryInfo(folderName);
                                     var Destinfo = new DirectoryInfo(Destination);
@@ -2710,7 +2775,16 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                     Destinfo.Attributes &= ~FileAttributes.ReadOnly;
                                     directory.Attributes &= ~FileAttributes.ReadOnly;
                                     var F = Script.FirstOrDefault();
-                                    MessageBox.Show(F.FullName);
+                                    // MessageBox.Show(F.FullName);
+                                    foreach (var d in list)
+                                    {
+                                        MessageBox.Show(d);
+
+
+                                    }
+                                    DirectoryInfo dx = new DirectoryInfo(list.First());
+                                    MessageBox.Show(dx.Parent.FullName+"XFFFF");
+                                    MessageBox.Show(Destinfo.Parent.FullName + "0FAAA");
 
                                     foreach (var d in Script)
                                     {
@@ -2762,7 +2836,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                                 else
                                                 {
                                                   
-                                                     // CopyFilesRecursively(firstFolder, Destinfo.Parent.FullName + @"\" + diArr[0].Name);
+                                                      CopyFilesRecursively(firstFolder, Destinfo.Parent.FullName + @"\" + diArr[0].Name);
                                                    
 
 
@@ -2783,7 +2857,6 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                     }
 
                                     Directory.Delete(Destination, true);
-
                                     if (Dir_Final == null)
                                     {
                                         if (Skin_Install == false)
@@ -2799,6 +2872,8 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                         {
                                             Send_Info_Notif(GetTextResource("NOTIF_INFO_GROUP_UNPACK_UNPACKED") + "  " + Path.GetFileName(Target_Zip) + "  " + GetTextResource("NOTIF_INFO_GROUP_UNPACK_TO") + "  " + Dir_Final);
                                             Send_Success_Notif(GetTextResource("NOTIF_SUCCESS_INSTALLED_DASH") + LAST_INSTALLED_MOD);
+                                            Completed_Operation = true;
+
                                         }
                                     }
                                     if (Directory.Exists(Current_Install_Folder + @"\NS_Downloaded_Mods"))
@@ -4193,7 +4268,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
 
                 Unpack_To_Location_Custom(Current_Install_Folder + @"\NS_Downloaded_Mods\" + LAST_INSTALLED_MOD + ".zip", Current_Install_Folder + @"\R2Northstar\mods\" + LAST_INSTALLED_MOD, true, false, false);
-
+                Completed_Operation = true;
             }
 
             catch (Exception ex)
@@ -4379,6 +4454,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             {
                 try
                 {
+                    Thread.Sleep(1000);
                     action();
                     return;
                 }
@@ -9410,6 +9486,17 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
         {
             Properties.Settings.Default.PackageAsSkin = false;
             Properties.Settings.Default.Save();
+        }
+
+        private void SearchBar_GotFocus(object sender, RoutedEventArgs e)
+        {
+            SearchBar.Text = "";
+        }
+
+        private void SearchBar_LostFocus(object sender, RoutedEventArgs e)
+        {
+            SearchBar.Text = "Search";
+
         }
     }
 

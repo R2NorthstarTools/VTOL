@@ -415,7 +415,7 @@
 
 
                 <Label Content="{DynamicResource UI_TITLE_THUNDERSTORE}" Height="44" Width="190" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi" Margin="0,10,0,0"/>
-                <hc:SearchBar x:Name="SearchBar" HorizontalAlignment="Left" Height="0" TextWrapping="Wrap" Text="SearchBar" VerticalAlignment="Top" Width="282" Margin="46,18,0,0" KeyDown="SearchBar_KeyDown"/>
+                <hc:SearchBar x:Name="SearchBar" HorizontalAlignment="Left" Height="0" TextWrapping="Wrap" Text="SearchBar" VerticalAlignment="Top" Width="282" Margin="46,18,0,0" KeyDown="SearchBar_KeyDown" GotFocus="SearchBar_GotFocus" LostFocus="SearchBar_LostFocus"/>
             </hc:SimplePanel>
 
             <hc:CircleProgressBar  x:Name="Mod_Progress_BAR" Margin="0,12,14,0"  Foreground="White" Width="43" BorderBrush="{x:Null}" HorizontalAlignment="Right" Height="43" VerticalAlignment="Top" Background=  "{DynamicResource Button_BG}" Value="-4" ArcThickness="2" ShowText="False" />
