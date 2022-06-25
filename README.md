@@ -114,7 +114,7 @@ _If origin has been detected as inactive, clicking this icon will auto start the
 ![image](https://user-images.githubusercontent.com/23240514/175618698-a42a92d5-cfd8-4c8f-9aad-171b8d0cc5bc.png)<br/>
 
 ![image](https://user-images.githubusercontent.com/23240514/175618788-51c6621d-7ac0-48a8-9473-22ae1395108b.png)<br/>
-![image](https://user-images.githubusercontent.com/23240514/175618810-ebcd86a6-a797-4ade-874d-86c76d60711f.png))<br/>
+![image](https://user-images.githubusercontent.com/23240514/175618810-ebcd86a6-a797-4ade-874d-86c76d60711f.png)<br/>
 You are also able to import and export server Configs from other Pilots :D.
 ![image](https://user-images.githubusercontent.com/23240514/175620654-8a865c81-0785-47da-9d4b-443e2b434edc.png)<br/>
 <br/>
@@ -124,14 +124,18 @@ You are also able to import and export server Configs from other Pilots :D.
 _[Thunderstore](https://northstar.thunderstore.io) Support released as of version 1.1.7_
 ![image](https://user-images.githubusercontent.com/23240514/175615183-657f4412-6953-477f-8e2f-b36d22582cc1.png)
 
-There is now Search functionality you can use to search through the mod Categories by publisher or mod name. Simply Click the ``Search Bar`` and Fill out your query<br/>
+There is now Search functionality you can use to search through the mod Categories by publisher or mod name. Simply Click the ``Search Bar`` and Fill out your query<br/><br />
+
 ![image](https://user-images.githubusercontent.com/23240514/175615679-72cfcb6e-8a86-4bc6-bc3a-215df71ace15.png)
-<br/>
+<br/><br />
+
 
 If you wish to, you can also navigate to the mod's thunderstore site to download the mod manually using the ``Go To Webpage`` button.<br/>
 
 ![image](https://user-images.githubusercontent.com/23240514/166420788-ad403cd9-d435-49b9-8d41-168d028f06f8.png)
 
+<br />
+<br />
 
 
 ## Installing Mods
@@ -192,7 +196,7 @@ Under this tool, it makes it seamless and easy to add and create fully compatibl
 * Select the Zip of the Mod to be Uploaded<br/>
 ![image](https://user-images.githubusercontent.com/23240514/175617495-2f6c95c9-b2e5-4d57-9556-ebbbb5ff7260.png)
 
-* Select an Icon that is **256x256**! this is **VERY** Important<br/>
+* Select an **PNG** Icon that is **256x256** this is **VERY** Important<br/>
 ![image](https://user-images.githubusercontent.com/23240514/175617503-4fe651f6-4724-47b6-9084-dd6267ea11bf.png)
 
 * Fill out your Page Description<br/>
