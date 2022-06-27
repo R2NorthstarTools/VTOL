@@ -372,7 +372,6 @@ namespace VTOL
         bool Warn_Close_EA;
         SolidColorBrush Accent_Color = (SolidColorBrush)new BrushConverter().ConvertFrom("#2C4C4C");
         SolidColorBrush Border_Color = (SolidColorBrush)new BrushConverter().ConvertFrom("#2C4C4C");
-
         ObservableCollection<object> OjectList = new ObservableCollection<object>();
         int completed_flag;
         bool PackasSkin = false;
@@ -466,8 +465,19 @@ YOUR DESCRIPTION
                 // Sections_Tabs.SelectedItem = 0;
                 //IsLoading_Panel.Visibility = Visibility.Hidden;
 
+                if (Properties.Settings.Default.Version.Remove(0, 1) != "1.7.1")
+                {
+                    this.VTOL.Title = String.Format("VTOL {0}", version + "  |  Northstar Version - " + Properties.Settings.Default.Version.Remove(0, 1));
 
-                this.VTOL.Title = String.Format("VTOL {0}", version);
+
+                }
+                else
+                {
+                    this.VTOL.Title = String.Format("VTOL {0}", version);
+
+                    
+
+                }
                 //   if (File.Exists(@"C:\ProgramData\VTOL_DATA\VARS\First_Time.txt"))
                 //   {
                 //      (Read_From_TextFile_OneLine(@"C:\ProgramData\VTOL_DATA\VARS\First_Time.txt").Trim());
@@ -539,7 +549,7 @@ YOUR DESCRIPTION
                             ColorPicker_Accent.SelectedBrush = (SolidColorBrush)new BrushConverter().ConvertFrom(lines[0]);
 
                             Colors_Set Colors_Set = new Colors_Set { Accent_Color = Accent_Color };
-                            this.DataContext = Colors_Set;
+                            this.DataContext = Colors_Set; 
                             this.Resources["Button_BG"] = (SolidColorBrush)new BrushConverter().ConvertFrom(ColorPicker_Accent.SelectedBrush.Color.ToString());
 
                         }
@@ -560,7 +570,6 @@ YOUR DESCRIPTION
                 else
                 {
                     this.Resources["Button_BG"] = Accent_Color;
-
 
                 }
                 if (do_not_overwrite_Ns_file == true)
@@ -2689,7 +2698,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             try
             {
                 //    Loading_Panel.Visibility = Visibility.Visible;
-
+                ;
                 string Dir_Final = null;
                 if (File.Exists(Target_Zip))
                 {
@@ -2726,8 +2735,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                             if (Clean_Thunderstore == true)
                             {
 
-                                try
-                                {
+                               
 
                                     // Check if file exists with its full path    
                                     if (File.Exists(Path.Combine(Destination, "icon.png")))
@@ -2753,8 +2761,6 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
 
 
-                                    string[] list = Directory.GetFiles(Destination, "*.json*",
-                                       SearchOption.AllDirectories);
 
                                     // Display the file names 
                                     // Present in the A directory 
@@ -2762,40 +2768,41 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                     //  {
                                     //       MessageBox.Show(file);
                                     //   }
-
-                                    string searchQuery3 = "*" + "mods" + "*";
-                                    string folderName = Destination;
-                                    MessageBox.Show(folderName);
-
-                                    var directory = new DirectoryInfo(folderName);
-                                    var Destinfo = new DirectoryInfo(Destination);
-
-
-                                    var Script = directory.GetDirectories(searchQuery3, SearchOption.AllDirectories);
-                                    Destinfo.Attributes &= ~FileAttributes.ReadOnly;
-                                    directory.Attributes &= ~FileAttributes.ReadOnly;
-                                    var F = Script.FirstOrDefault();
-                                    // MessageBox.Show(F.FullName);
-                                    foreach (var d in list)
+                                    if (Skin_Install == false)
                                     {
-                                        MessageBox.Show(d);
+                                        string searchQuery3 = "*" + "mod.json" + "*";
+                                        string folderName = Destination;
 
+                                        //  string[] list = Directory.GetFiles(Destination, "*mod.json*",
+                                        //      SearchOption.AllDirectories);
+                                        var directory = new DirectoryInfo(folderName);
+                                        var Destinfo = new DirectoryInfo(Destination);
+
+
+                                        var Script = directory.GetFiles(searchQuery3, SearchOption.AllDirectories);
+                                        Destinfo.Attributes &= ~FileAttributes.ReadOnly;
+                                        directory.Attributes &= ~FileAttributes.ReadOnly;
+                                        var File_ = Script.FirstOrDefault();
+                                    if(Script.Length > 1)
+                                    {
+                                        Send_Error_Notif("This Mod is a Multipack, Please Manually Install this Mod!");
+                                        Send_Info_Notif("You can Find the Mod in your mod Folder for Configuration.");
+                                        return;
 
                                     }
-                                    DirectoryInfo dx = new DirectoryInfo(list.First());
-                                    MessageBox.Show(dx.Parent.FullName+"XFFFF");
-                                    MessageBox.Show(Destinfo.Parent.FullName + "0FAAA");
 
-                                    foreach (var d in Script)
-                                    {
-                                        DirectoryInfo di = new DirectoryInfo(d.FullName);
-                                        DirectoryInfo[] diArr = di.GetDirectories();
-                                        string firstFolder = diArr[0].FullName;
-                                        if (Directory.Exists(firstFolder))
+
+
+                       
+                                    
+                                    FileInfo FolderTemp = new FileInfo(File_.FullName);
+                                        DirectoryInfo di = new DirectoryInfo(Directory.GetParent(File_.FullName).ToString());
+                                        string firstFolder = di.FullName;
+
+                                        if (Directory.Exists(Destination))
                                         {
-
-                                            Dir_Final = firstFolder;
-                                            if ((Destinfo.Parent.FullName + @"\" + diArr[0].Name).Contains("materials"))
+                                           Dir_Final = Destination;
+                                            if (Destination.Contains("materials"))
                                             {
                                                 // Send_Error_Notif(GetTextResource("NOTIF_ERROR_MOD_INCOMPATIBLE"));
                                                 // Send_Warning_Notif(GetTextResource("NOTIF_WARN_SUGGEST_DISABLE_MOD"));
@@ -2808,55 +2815,42 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                             }
                                             else
                                             {
-                                                var Destf = new DirectoryInfo(Destinfo.Parent.FullName);
-                                                Destf.Attributes &= ~FileAttributes.ReadOnly;
+                                            
 
-                                                if (Skin_Install == true)
+                                               
+                                                Directory.CreateDirectory(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder");
+                                                if(Directory.Exists(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder"))
                                                 {
-
-
-
-                                                    var ext = new List<string> { "zip" };
-                                                    var myFiles = Directory.EnumerateFiles(firstFolder + @"\", "*.*", SearchOption.AllDirectories).Where(s => ext.Contains(Path.GetExtension(s).TrimStart('.').ToLowerInvariant()));
-
-                                                    //  var Script2 = Directorys.GetDirectories(searchQuery4, SearchOption.AllDirectories);
-
-                                                    foreach (string x in myFiles)
-                                                    {
-
-
-                                                        Skin_Install_Tree(true, x);
-                                                    }
-
-
-
-
+                                                    CopyFilesRecursively(firstFolder, Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder");
 
                                                 }
-                                                else
-                                                {
-                                                  
-                                                      CopyFilesRecursively(firstFolder, Destinfo.Parent.FullName + @"\" + diArr[0].Name);
-                                                   
 
 
-                                                }
+                                                Clear_Folder(Destination);
+                                                CopyFilesRecursively(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder",Destination);
+                                                Directory.Delete(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder",true);
 
                                             }
-                                        }
-                                        if (Directory.Exists(Destinfo.Parent.FullName + @"\" + diArr[0].Name + @"\" + "Locked_Folder"))
-                                        {
-                                            Directory.Delete(Destinfo.Parent.FullName + @"\" + diArr[0].Name + @"\" + "Locked_Folder", true);
 
                                         }
 
-
-
-                                        //   DirectoryCopy(d.Parent.FullName,Destination, true);
 
                                     }
+                                    else
+                                    {
+                                        var ext = new List<string> { "zip" };
+                                       var myFiles = Directory.EnumerateFiles(Destination + @"\", "*.*", SearchOption.AllDirectories).Where(s => ext.Contains(Path.GetExtension(s).TrimStart('.').ToLowerInvariant()));
+                                        foreach (string x in myFiles)
+                                        {
 
-                                    Directory.Delete(Destination, true);
+
+                                            Skin_Install_Tree(true, x);
+                                            Thread.Sleep(500);
+                                        }
+                                    }
+
+
+                                
                                     if (Dir_Final == null)
                                     {
                                         if (Skin_Install == false)
@@ -2881,14 +2875,6 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                         Directory.Delete(Current_Install_Folder + @"\NS_Downloaded_Mods", true);
                                     }
 
-                                }
-                                catch (IOException ioExp)
-                                {
-                                    Write_To_Log(ErrorManager(ioExp));
-
-                                    Send_Warning_Notif(GetTextResource("NOTIF_WARN_ISSUE_DETECTED"));
-
-                                }
 
 
                             }
@@ -2960,10 +2946,26 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             }
             catch (Exception ex)
             {
-
+        
                 Write_To_Log(ErrorManager(ex));
                 Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
+               
 
+            }
+        }
+        private void Clear_Folder(string FolderName)
+        {
+            DirectoryInfo dir = new DirectoryInfo(FolderName);
+
+            foreach (FileInfo fi in dir.GetFiles())
+            {
+                fi.Delete();
+            }
+
+            foreach (DirectoryInfo di in dir.GetDirectories())
+            {
+                Clear_Folder(di.FullName);
+                di.Delete();
             }
         }
         private void Unpack_To_Location(string Target_Zip, string Destination_Zip)
@@ -9010,6 +9012,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                         if (isValidHexaCode(ColorPicker_Accent.SelectedBrush.Color.ToString()))
                         {
                             this.Resources["Button_BG"] = (SolidColorBrush)new BrushConverter().ConvertFrom(ColorPicker_Accent.SelectedBrush.Color.ToString());
+
                             saveAsyncFile(ColorPicker_Accent.SelectedBrush.Color.ToString().Trim(), @"C:\ProgramData\VTOL_DATA\VARS\Theme.txt", false, false);
                             Send_Success_Notif("Saved The Color And Applied!");
 

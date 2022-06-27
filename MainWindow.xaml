@@ -15,6 +15,8 @@
         Title="VTOL" Height="750" Width="1200" UseLayoutRounding="True" ResizeMode="CanMinimize" Icon="/Resources/Northstar-512.png" Background="Black" WindowStyle="SingleBorderWindow">
     <Window.Resources>
         <SolidColorBrush x:Name="Button_BG" x:Key="Button_BG" Color="#FF2C4C4C" />
+        <Color  x:Key="Button_RAW_COLOR" />
+
         <SolidColorBrush x:Key="Button_HOVER" Color="#FF2C4C4C" />
         <SolidColorBrush x:Key="WINDOW" Color="#FF101010" />
         <SolidColorBrush x:Name="Button_Border" x:Key="Button_Border" Color="#FF00EAB9" />
@@ -175,7 +177,7 @@
             </hc:GifImage>
             <Label Content="{DynamicResource UI_TITLE_MAIN}" Height="44" Width="190" Margin="0,6,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi"/>
         </hc:SimplePanel>
-        <hc:SimplePanel Grid.ColumnSpan="4" Grid.RowSpan="3" >
+        <!--<hc:SimplePanel Grid.ColumnSpan="4" Grid.RowSpan="3" >
             <hc:SimplePanel x:Name="Step_Panel" Grid.ColumnSpan="4" Grid.RowSpan="2" Margin="0,0,-4,-1" Height="735">
                 <hc:SimplePanel.Background>
                     <SolidColorBrush Color="Black" Opacity="0.85"/>
@@ -190,7 +192,7 @@
                 <hc:StepBarItem Content="Launch Title" Margin="10,8,10,3"/>
 
             </hc:StepBar>
-        </hc:SimplePanel>
+        </hc:SimplePanel>-->
 
         <hc:SimplePanel Background="Black" HorizontalAlignment="Left" Width="1010" Grid.Column="1" VerticalAlignment="Top" ScrollViewer.CanContentScroll="True" Grid.IsSharedSizeScope="True" ClipToBounds="True" Height="104" Grid.Row="1" Margin="0,212,0,0" Grid.RowSpan="2" Grid.ColumnSpan="3">
             <Button x:Name="Titanfall_2_Btn"  Height="54" Width="430" Background=  "{DynamicResource Button_BG}" BorderThickness="1,1,1,1" BorderBrush="{x:Null}" HorizontalAlignment="Left" Margin="35,0,0,0" MouseEnter="Titanfall_2_Btn_MouseEnter" Click="Titanfall_2_Btn_Click"  >
@@ -244,8 +246,13 @@
                             </MenuItem>
                         </ContextMenu>
                     </hc:SimplePanel.ContextMenu>
-                    <ListBox x:Name="Disabled_ListBox"  Margin="30,60,0,30" BorderBrush="#FF545454" Width="371" HorizontalAlignment="Left" Background="#FF333333" PreviewMouseRightButtonDown="MOD_PreviewMouseRightButtonDown" LostFocus="Disabled_ListBox_LostFocus" MouseLeave="Disabled_ListBox_MouseLeave" AllowDrop="False" IsTextSearchEnabled="False" IsSynchronizedWithCurrentItem="True" TargetUpdated="Disabled_ListBox_TargetUpdated" PreviewMouseMove="Disabled_ListBox_PreviewMouseMove" ManipulationCompleted="Disabled_ListBox_ManipulationCompleted"/>
-                    <ListBox x:Name="Enabled_ListBox"  Margin="550,60,30,30" BorderBrush="#FF545454" Background="#FF333333" PreviewMouseRightButtonDown="MOD_PreviewMouseRightButtonDown" MouseLeave="Enabled_ListBox_MouseLeave" IsTextSearchEnabled="False" AllowDrop="False" LostFocus="Enabled_ListBox_LostFocus" PreviewMouseMove="Enabled_ListBox_PreviewMouseMove"/>
+                    <ListBox x:Name="Disabled_ListBox"  Margin="30,60,0,30" BorderBrush="#FF545454" Width="371" HorizontalAlignment="Left" Background="#FF333333" PreviewMouseRightButtonDown="MOD_PreviewMouseRightButtonDown" LostFocus="Disabled_ListBox_LostFocus" MouseLeave="Disabled_ListBox_MouseLeave" AllowDrop="False" IsTextSearchEnabled="False" IsSynchronizedWithCurrentItem="True" TargetUpdated="Disabled_ListBox_TargetUpdated" PreviewMouseMove="Disabled_ListBox_PreviewMouseMove" ManipulationCompleted="Disabled_ListBox_ManipulationCompleted">
+                      
+                    </ListBox>
+
+                    <ListBox x:Name="Enabled_ListBox"  Margin="550,60,30,30" BorderBrush="#FF545454" Background="#FF333333" PreviewMouseRightButtonDown="MOD_PreviewMouseRightButtonDown" MouseLeave="Enabled_ListBox_MouseLeave" IsTextSearchEnabled="False" AllowDrop="False" LostFocus="Enabled_ListBox_LostFocus" PreviewMouseMove="Enabled_ListBox_PreviewMouseMove">
+                      
+                    </ListBox>
                     <Button x:Name="Enable_Mod" Content="" Height="51" Width="56" Margin="0,110,0,0" VerticalAlignment="Top" Background="{DynamicResource Enable_Button}" BorderBrush="{x:Null}" Click="Enable_Mod_Click"/>
                     <Button x:Name="Disable_Mod" Content="" Height="51" Width="56" Margin="0,212,0,0" VerticalAlignment="Top" Background="{StaticResource Disable_Button}" BorderBrush="{x:Null}" Click="Disable_Mod_Click"/>
                     <Label Content="{DynamicResource UI_TITLE_MODS}" Height="44" Width="190" Margin="0,-201,0,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="20" FontWeight="Bold" FontFamily="Gadugi"/>
@@ -275,7 +282,7 @@
 
 
 
-        <hc:SimplePanel x:Name="Mod_Browse_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Visible" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
+        <hc:SimplePanel x:Name="Mod_Browse_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
             <hc:SimplePanel Margin="10,10,10,10" Background="{DynamicResource Tool_PANELS}">
                 <TabControl x:Name="Sections_Tabs" Margin="44,72,43,31"  BorderBrush="{x:Null}" Foreground="{x:Null}" Background="{x:Null}" Padding="0,0,0,0" SelectionChanged="Sections_Tabs_SelectionChanged">
                     <TabItem Header="Client Mods" Width="150">
