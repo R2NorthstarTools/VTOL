@@ -397,8 +397,15 @@ YOUR DESCRIPTION
         {
             Application.Current.MainWindow.Loaded += VTOL_Loaded;
 
-            InitializeComponent();
+
             Application.Current.MainWindow.Closing += new CancelEventHandler(MainWindow_Closing);
+
+
+            InitializeComponent();
+            BeginInit();
+
+
+
             do_not_overwrite_Ns_file = Properties.Settings.Default.Ns_Startup;
             do_not_overwrite_Ns_file_Dedi = Properties.Settings.Default.Ns_Dedi;
             Sort_Lists = Properties.Settings.Default.Sort_Mods;
@@ -468,73 +475,19 @@ YOUR DESCRIPTION
                 // Sections_Tabs.SelectedItem = 0;
                 //IsLoading_Panel.Visibility = Visibility.Hidden;
 
-                if (Properties.Settings.Default.Version.Remove(0, 1) != "1.7.1")
-                {
-                    this.VTOL.Title = String.Format("VTOL {0}", version + "  |  Northstar Version - " + Properties.Settings.Default.Version.Remove(0, 1));
-
-
-                }
-                else
-                {
-                    this.VTOL.Title = String.Format("VTOL {0}", version);
-
-                    
-
-                }
+               
                 //   if (File.Exists(@"C:\ProgramData\VTOL_DATA\VARS\First_Time.txt"))
                 //   {
                 //      (Read_From_TextFile_OneLine(@"C:\ProgramData\VTOL_DATA\VARS\First_Time.txt").Trim());
                 //  }
-                if (File.Exists(@"C:\ProgramData\VTOL_DATA\VARS\Language.txt"))
-                {
-                    ChangeLanguageTo(Read_From_TextFile_OneLine(@"C:\ProgramData\VTOL_DATA\VARS\Language.txt").Trim());
-                }
-                else
-                {
-                    CultureInfo ci = CultureInfo.InstalledUICulture;
-                    if (ci.TwoLetterISOLanguageName == "zh")
-                    {
-                        ChangeLanguageTo("cn");
-                    }
-                    else // this is due to we misused cn and zh. zh is the actual languageName and cn is what we have in file.
-                    {
-                        ChangeLanguageTo(ci.TwoLetterISOLanguageName);
-                    }
+               
 
-                    Write_To_Log("\nLanguage Detected was - " + ci.TwoLetterISOLanguageName);
-                }
-
-                if (File.Exists(@"C:\ProgramData\VTOL_DATA\VARS\AUTHOR.txt"))
-                {
-                    Author_Used = Read_From_TextFile_OneLine(@"C:\ProgramData\VTOL_DATA\VARS\AUTHOR.txt").Trim();
-
-                }
-                if (File.Exists(@"C:\ProgramData\VTOL_DATA\VARS\REPO.txt"))
-                {
-                    Repo_Used = Read_From_TextFile_OneLine(@"C:\ProgramData\VTOL_DATA\VARS\REPO.txt").Trim();
-
-                }
-                if (File.Exists(@"C:\ProgramData\VTOL_DATA\VARS\REPO_URL.txt"))
-                {
-                    Current_REPO_URL = Read_From_TextFile_OneLine(@"C:\ProgramData\VTOL_DATA\VARS\REPO_URL.txt").Trim();
-
-                }
-                if (File.Exists(@"C:\ProgramData\VTOL_DATA\VARS\MASTER_SERVERURL.txt"))
-                {
-                    MasterServer_URL = Read_From_TextFile_OneLine(@"C:\ProgramData\VTOL_DATA\VARS\MASTER_SERVERURL.txt").Trim();
-
-                }
-                if (File.Exists(@"C:\ProgramData\VTOL_DATA\VARS\Current_Ver.txt"))
-                {
-                    Current_Ver_ = Read_From_TextFile_OneLine(@"C:\ProgramData\VTOL_DATA\VARS\MASTER_SERVERURL.txt").Trim();
-                    Properties.Settings.Default.Version = Current_Ver_;
-                    Properties.Settings.Default.Save();
-                }
+              
                 Check_For_New_Northstar_Install();
                 Task.WaitAll(Set_About(), Select_Main(), getProcessorInfo());
-
                 
-               // string[] arguments = Environment.GetCommandLineArgs();
+
+                // string[] arguments = Environment.GetCommandLineArgs();
 
                 //Console.WriteLine("GetCommandLineArgs: {0}", string.Join(", ", arguments));
                 if (File.Exists(@"C:\ProgramData\VTOL_DATA\VARS\Theme.txt"))
@@ -611,25 +564,13 @@ YOUR DESCRIPTION
                 updaterModulePath = Path.Combine(Header, "VTOL_Updater.exe");
                 GC.Collect();
 
-            }
+            
 
-            catch (System.IO.DirectoryNotFoundException e)
-            {
-                Write_To_Log("Could Not Verify Dir" + Current_Install_Folder);
-                Write_To_Log(ErrorManager(e));
-
-                // HandyControl.Controls.Growl.ErrorGlobal("\nVTOL tried to check for an existing config (cfg), please manually select it.");
-                //log.AppendText("\nThe Launcher Tried to Auto Check For an existing CFG, please use the manual Check to search.");
-
-
-
-            }
 
 
             // HandyControl.Controls.Growl.InfoGlobal(Header);
             // Send_Info_Notif(Properties.Settings.Default.Version);
-            try
-            {
+           
                 if (Directory.Exists(Current_Install_Folder + @"\Skins_Unpack_Mod_MNGR"))
                 {
                     try
@@ -668,21 +609,76 @@ YOUR DESCRIPTION
                 if (Directory.Exists(@"C:\ProgramData\VTOL_DATA"))
                 {
 
+                    if (File.Exists(@"C:\ProgramData\VTOL_DATA\VARS\Language.txt"))
+                    {
+                        ChangeLanguageTo(Read_From_TextFile_OneLine(@"C:\ProgramData\VTOL_DATA\VARS\Language.txt").Trim());
+                    }
+                    else
+                    {
+                        CultureInfo ci = CultureInfo.InstalledUICulture;
+                        if (ci.TwoLetterISOLanguageName == "zh")
+                        {
+                            ChangeLanguageTo("cn");
+                        }
+                        else // this is due to we misused cn and zh. zh is the actual languageName and cn is what we have in file.
+                        {
+                            ChangeLanguageTo(ci.TwoLetterISOLanguageName);
+                        }
 
+                        Write_To_Log("\nLanguage Detected was - " + ci.TwoLetterISOLanguageName);
+                    }
+                    if (File.Exists(@"C:\ProgramData\VTOL_DATA\VARS\AUTHOR.txt"))
+                    {
+                        Author_Used = Read_From_TextFile_OneLine(@"C:\ProgramData\VTOL_DATA\VARS\AUTHOR.txt").Trim();
 
+                    }
+                    if (File.Exists(@"C:\ProgramData\VTOL_DATA\VARS\REPO.txt"))
+                    {
+                        Repo_Used = Read_From_TextFile_OneLine(@"C:\ProgramData\VTOL_DATA\VARS\REPO.txt").Trim();
+
+                    }
+                    if (File.Exists(@"C:\ProgramData\VTOL_DATA\VARS\REPO_URL.txt"))
+                    {
+                        Current_REPO_URL = Read_From_TextFile_OneLine(@"C:\ProgramData\VTOL_DATA\VARS\REPO_URL.txt").Trim();
+
+                    }
+                    if (File.Exists(@"C:\ProgramData\VTOL_DATA\VARS\MASTER_SERVERURL.txt"))
+                    {
+                        MasterServer_URL = Read_From_TextFile_OneLine(@"C:\ProgramData\VTOL_DATA\VARS\MASTER_SERVERURL.txt").Trim();
+
+                    }
+                    if (File.Exists(@"C:\ProgramData\VTOL_DATA\VARS\Current_Ver.txt"))
+                    {
+                        Current_Ver_ = Read_From_TextFile_OneLine(@"C:\ProgramData\VTOL_DATA\VARS\Current_Ver.txt").Trim();
+                        Properties.Settings.Default.Version = Current_Ver_;
+                        Properties.Settings.Default.Save();
+                    }
 
                     Current_Install_Folder = Read_From_TextFile_OneLine(@"C:\ProgramData\VTOL_DATA\VARS\INSTALL.txt");
                     if (Directory.Exists(Current_Install_Folder))
                     {
                         Found_Install_Folder = true;
                         Titanfall2_Directory_TextBox.Text = Current_Install_Folder;
+                        if (Properties.Settings.Default.Version.Remove(0, 1) != "1.7.1"&& Found_Install_Folder == true)
+                        {
+                            this.VTOL.Title = String.Format("VTOL {0}", version + "  |  Northstar Version - " + Properties.Settings.Default.Version.Remove(0, 1));
+
+
+                        }
+                        else
+                        {
+                            this.VTOL.Title = String.Format("VTOL {0}", version);
+
+
+
+                        }
                         // Install_Textbox.BackColor = Color.White;
                         Send_Info_Notif(GetTextResource("NOTIF_INFO_FOUND_INSTALL_PATH") + Current_Install_Folder + "\n");
                         if (Directory.Exists(Current_Install_Folder))
                         {
 
                             NSExe = Get_And_Set_Filepaths(Current_Install_Folder, "NorthstarLauncher.exe");
-                            Check_Integrity_Of_NSINSTALL().Wait();
+                            Check_Integrity_Of_NSINSTALL();
                             if (NS_Installed == true)
                             {
 
@@ -732,15 +728,19 @@ YOUR DESCRIPTION
                 //  System.Timers.Timer aTimer = new System.Timers.Timer(5000); //2 minutes in milliseconds
                 // aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
                 //  aTimer.Start();
+                Log_Indicator.Background = Brushes.Transparent;
 
 
             }
             catch (Exception ef)
             {
-                Send_Warning_Notif(GetTextResource("NOTIF_WARN_AUTOCHECK_CFG"));
+                Send_Warning_Notif(GetTextResource("NOTIF_ERROR_NS_BAD_INTEGRITY"));
                 Write_To_Log(ErrorManager(ef));
 
             }
+            EndInit();
+
+
         }
 
         static bool isValidHexaCode(string str)
@@ -1033,14 +1033,13 @@ YOUR DESCRIPTION
         }
         void MainWindow_Closing(object sender, CancelEventArgs e)
         {
-            save_Log();
+           // save_Log();
             HandyControl.Controls.Growl.ClearGlobal();
 
 
         }
         protected void MainWindow_Closed(object sender, EventArgs args)
         {
-            Application.Current.Shutdown();
             App.Current.Shutdown();
             
 
@@ -4379,7 +4378,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             try
             {
                 Updater Update = new Updater(Author_Used, Repo_Used);
-                Update.Force_Version = Properties.Settings.Default.Version;
+                Update.Force_Version = Properties.Settings.Default.Version.Remove(0,1);
                 Update.Force_Version_ = true;
                 if (Update.CheckForUpdate())
                 {

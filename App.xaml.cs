@@ -24,7 +24,6 @@ namespace VTOL
             base.OnStartup(e);
 
             splash = new Startup();
-            this.MainWindow = splash;
 
             splash.Show();
             // Step 2 - Start a stop watch  
@@ -35,7 +34,7 @@ namespace VTOL
                 this.Dispatcher.Invoke(() =>
                 {
                     MainWindow main = new MainWindow();
-                    this.MainWindow = main;
+                   // this.MainWindow = main;
 
                     main.ShowActivated = false;
                     splash.Close();

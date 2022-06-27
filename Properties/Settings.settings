@@ -5,9 +5,6 @@
     <Setting Name="Ns_Startup" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="Version" Type="System.String" Scope="User">
-      <Value Profile="(Default)">v1.7.1</Value>
-    </Setting>
     <Setting Name="Ns_Dedi" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
@@ -43,6 +40,9 @@
     </Setting>
     <Setting Name="PackageAsSkin" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="Version" Type="System.String" Scope="User">
+      <Value Profile="(Default)">1.7.1</Value>
     </Setting>
   </Settings>
 </SettingsFile>
