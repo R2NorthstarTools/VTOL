@@ -1261,7 +1261,6 @@ YOUR DESCRIPTION
                 }
                 else
                 {
-
                     parse_git_to_zip(words[0]);
                 }
                 if (words[3].Trim() != null && words[3].Trim() != "" && words[3].Count() > 2)
@@ -1474,9 +1473,9 @@ YOUR DESCRIPTION
 
 
                                         downloads = (Downloads.Sum()).ToString();
-                                        for (var x = 0; x < versions.Last().Dependencies.Count; x++)
+                                        for (var x = 0; x < versions.First().Dependencies.Count; x++)
                                         {
-                                            if (versions.Last().Dependencies[x].Contains("northstar-Northstar"))
+                                            if (versions.First().Dependencies[x].Contains("northstar-Northstar"))
                                             {
 
                                                 continue;
@@ -1491,16 +1490,14 @@ YOUR DESCRIPTION
                                        
                                         Dependencies_ = String.Join(", ", Dependencies);
 
-                                        download_url = versions.Last().DownloadUrl;
-                                        ICON = versions.Last().Icon;
-                                        FileSize = versions.Last().FileSize.ToString();
-                                        Descrtiption = versions.Last().Description;
-
+                                        download_url = versions.First().DownloadUrl;
+                                        ICON = versions.First().Icon;
+                                        FileSize = versions.First().FileSize.ToString();
+                                        Descrtiption = versions.First().Description;
 
                                         Downloads.Clear();
                                         Dependencies.Clear();
                                        
-                                        GC.Collect();
 
 
                                         if (int.TryParse(FileSize, out int value))
@@ -1533,32 +1530,31 @@ YOUR DESCRIPTION
 
 
                                     downloads = (Downloads.Sum()).ToString();
-                                    for (var x = 0; x < versions.Last().Dependencies.Count; x++)
+                                    for (var x = 0; x < versions.First().Dependencies.Count; x++)
                                     {
-                                        if (versions.Last().Dependencies[x].Contains("northstar-Northstar"))
+                                        if (versions.First().Dependencies[x].Contains("northstar-Northstar"))
                                         {
 
                                             continue;
                                         }
                                         else
                                         {
-                                            Dependencies.Add(versions.Last().Dependencies[x]);
+                                            Dependencies.Add(versions.First().Dependencies[x]);
 
                                         }
 
                                     }
+                                    
 
-
-                                    download_url = versions.Last().DownloadUrl;
-                                    ICON = versions.Last().Icon;
-                                    FileSize = versions.Last().FileSize.ToString();
-                                    Descrtiption = versions.Last().Description;
+                                    download_url = versions.First().DownloadUrl;
+                                    ICON = versions.First().Icon;
+                                    FileSize = versions.First().FileSize.ToString();
+                                    Descrtiption = versions.First().Description;
                                     Dependencies_ = String.Join(", ", Dependencies);
 
                                     Dependencies.Clear();
 
                                     Downloads.Clear();
-                                    GC.Collect();
 
 
                                     if (int.TryParse(FileSize, out int value))
@@ -1583,32 +1579,35 @@ YOUR DESCRIPTION
                                 
                                 Downloads.Add(Convert.ToInt32(items.Downloads));
                             }
+
                             downloads = (Downloads.Sum()).ToString();
-                            for (var x = 0; x < versions.Last().Dependencies.Count; x++)
+                            for (var x = 0; x < versions.First().Dependencies.Count; x++)
                             {
-                                if (versions.Last().Dependencies[x].Contains("northstar-Northstar"))
+                                if (versions.First().Dependencies[x].Contains("northstar-Northstar"))
                                 {
 
                                     continue;
                                 }
                                 else
                                 {
-                                    Dependencies.Add(versions.Last().Dependencies[x]);
+                                    Dependencies.Add(versions.First().Dependencies[x]);
 
                                 }
 
                             }
-                            GC.Collect();
                             Dependencies_ = String.Join(", ", Dependencies);
+                            //foreach (var xx in versions)
+                            //{
+                            //    MessageBox.Show(string.Join("\n", xx.VersionNumber));
 
-                            download_url = versions.Last().DownloadUrl;
-                            ICON = versions.Last().Icon;
-                            FileSize = versions.Last().FileSize.ToString();
-                            Descrtiption = versions.Last().Description;
+                            //}
+                            download_url = versions.First().DownloadUrl;
+                            ICON = versions.First().Icon;
+                            FileSize = versions.First().FileSize.ToString();
+                            Descrtiption = versions.First().Description;
                             Downloads.Clear();
                             Dependencies.Clear();
 
-                            GC.Collect();
 
 
                             if (int.TryParse(FileSize, out int value))
@@ -1636,31 +1635,35 @@ YOUR DESCRIPTION
 
                             }
 
-                          
-                            GC.Collect();
+
                           
                             downloads = (Downloads.Sum()).ToString();
+                            //foreach (var xx in versions)
+                            //{
+                            //    MessageBox.Show(string.Join("\n", xx.VersionNumber) + xx.Name);
+
+                            //}
 
 
+                            download_url = versions.First().DownloadUrl;
 
-                            download_url = versions.Last().DownloadUrl;
-                            for (var x = 0; x < versions.Last().Dependencies.Count; x++)
+                            for (var x = 0; x < versions.First().Dependencies.Count; x++)
                             {
-                                if (versions.Last().Dependencies[x].Contains("northstar-Northstar"))
+                                if (versions.First().Dependencies[x].Contains("northstar-Northstar"))
                                 {
 
                                     continue;
                                 }
                                 else
                                 {
-                                    Dependencies.Add(versions.Last().Dependencies[x]);
+                                    Dependencies.Add(versions.First().Dependencies[x]);
 
                                 }
 
                             }
-                            ICON = versions.Last().Icon;
-                            FileSize = versions.Last().FileSize.ToString();
-                            Descrtiption = versions.Last().Description;
+                            ICON = versions.First().Icon;
+                            FileSize = versions.First().FileSize.ToString();
+                            Descrtiption = versions.First().Description;
                             Dependencies_ = String.Join(", ", Dependencies);
                             Dependencies.Clear();
 
@@ -2727,7 +2730,10 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                             // complete for the boolean to be set to true
                             //   }
                             //  Loading_Panel.Visibility = Visibility.Hidden;
-
+                            if(IsDirectoryEmpty(new DirectoryInfo(Destination)) == false)
+                            {
+                                Clear_Folder(Destination);
+                            }
                             ZipFile.ExtractToDirectory(Target_Zip, Destination, true);
                             //dialog.Close();
                             Send_Success_Notif("\nUnpacking Complete!\n");
@@ -2771,37 +2777,48 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                     if (Skin_Install == false)
                                     {
                                         string searchQuery3 = "*" + "mod.json" + "*";
-                                        string folderName = Destination;
 
                                         //  string[] list = Directory.GetFiles(Destination, "*mod.json*",
                                         //      SearchOption.AllDirectories);
-                                        var directory = new DirectoryInfo(folderName);
                                         var Destinfo = new DirectoryInfo(Destination);
 
 
-                                        var Script = directory.GetFiles(searchQuery3, SearchOption.AllDirectories);
+                                        var Script = Destinfo.GetFiles(searchQuery3, SearchOption.AllDirectories);
                                         Destinfo.Attributes &= ~FileAttributes.ReadOnly;
-                                        directory.Attributes &= ~FileAttributes.ReadOnly;
+                                        //foreach (var file in Script)
+                                        // {
+                                        //       MessageBox.Show(file.FullName);
+                                        // }
+
+
+                                        if (Script.Length != 0)
+                                        {
                                         var File_ = Script.FirstOrDefault();
-                                    if(Script.Length > 1)
-                                    {
-                                        Send_Error_Notif("This Mod is a Multipack, Please Manually Install this Mod!");
-                                        Send_Info_Notif("You can Find the Mod in your mod Folder for Configuration.");
-                                        return;
 
-                                    }
+                                        if (Script.Length > 1)
+                                        {
+                                           
+                                            if (Directory.Exists(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder"))
+                                            {
+                                                Directory.Delete(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder", true);
 
+                                            }
+                                            if (Directory.Exists(Current_Install_Folder + @"\NS_Downloaded_Mods"))
+                                            {
+                                                Directory.Delete(Current_Install_Folder + @"\NS_Downloaded_Mods", true);
+                                            }
+                                            Send_Error_Notif("This Mod is a Multipack, Please Manually Install this Mod!");
+                                            Send_Info_Notif("You can Find the Mod in your mod Folder for Configuration.");
+                                            return;
+                                            
+                                        }
 
-
-                       
-                                    
-                                    FileInfo FolderTemp = new FileInfo(File_.FullName);
+                                        FileInfo FolderTemp = new FileInfo(File_.FullName);
                                         DirectoryInfo di = new DirectoryInfo(Directory.GetParent(File_.FullName).ToString());
                                         string firstFolder = di.FullName;
 
                                         if (Directory.Exists(Destination))
                                         {
-                                           Dir_Final = Destination;
                                             if (Destination.Contains("materials"))
                                             {
                                                 // Send_Error_Notif(GetTextResource("NOTIF_ERROR_MOD_INCOMPATIBLE"));
@@ -2815,24 +2832,46 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                             }
                                             else
                                             {
-                                            
 
-                                               
+
+
                                                 Directory.CreateDirectory(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder");
-                                                if(Directory.Exists(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder"))
+                                                if (Directory.Exists(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder"))
                                                 {
                                                     CopyFilesRecursively(firstFolder, Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder");
 
+
+
+
+                                                    Clear_Folder(Destination);
+                                                    CopyFilesRecursively(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder", Destination);
+                                                    Directory.Delete(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder", true);
                                                 }
-
-
-                                                Clear_Folder(Destination);
-                                                CopyFilesRecursively(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder",Destination);
-                                                Directory.Delete(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder",true);
-
                                             }
 
                                         }
+                                    }
+                                    else
+                                    {
+                                       
+                                            if (Directory.Exists(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder"))
+                                            {
+                                                Directory.Delete(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder", true);
+
+                                            }
+                                            if (Directory.Exists(Current_Install_Folder + @"\NS_Downloaded_Mods"))
+                                            {
+                                                Directory.Delete(Current_Install_Folder + @"\NS_Downloaded_Mods", true);
+                                            }
+                                            Directory.Delete(Destination, true);
+
+                                            Send_Error_Notif("This Mod Requires More Steps By a User To install! \n Please Manually Install this Mod By Clicking Go to Webpge.");
+                                            return;
+
+                                       
+
+
+                                    }
 
 
                                     }
@@ -2845,13 +2884,16 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
 
                                             Skin_Install_Tree(true, x);
-                                            Thread.Sleep(500);
-                                        }
+                                            Thread.Sleep(100);
+                                            Install_Skin();
+                                            Thread.Sleep(100);
+
                                     }
+                                }
 
 
                                 
-                                    if (Dir_Final == null)
+                                    if (Destination == null)
                                     {
                                         if (Skin_Install == false)
                                         {
@@ -2864,7 +2906,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                     {
                                         if (Skin_Install == false)
                                         {
-                                            Send_Info_Notif(GetTextResource("NOTIF_INFO_GROUP_UNPACK_UNPACKED") + "  " + Path.GetFileName(Target_Zip) + "  " + GetTextResource("NOTIF_INFO_GROUP_UNPACK_TO") + "  " + Dir_Final);
+                                            Send_Info_Notif(GetTextResource("NOTIF_INFO_GROUP_UNPACK_UNPACKED") + "  " + Path.GetFileName(Target_Zip) + "  " + GetTextResource("NOTIF_INFO_GROUP_UNPACK_TO") + "  " + Destination);
                                             Send_Success_Notif(GetTextResource("NOTIF_SUCCESS_INSTALLED_DASH") + LAST_INSTALLED_MOD);
                                             Completed_Operation = true;
 
@@ -3313,14 +3355,10 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             {
 
                 Send_Info_Notif(GetTextResource("NOTIF_INFO_LOOKING_FOR_INSTALL_SMILEYFACE"));
-                //  Cursor.Current = Cursors.WaitCursor;
-                // Log_Box.AppendText("\nLooking Under the Directory  -" +@"C:\Program Files (x86)\Steam");
                 FindNSInstall("Titanfall2", @"C:\Program Files (x86)\Steam");
 
-                //  Log_Box.AppendText("\nLooking Under the Directory -" +@"C:\Program Files (x86)\Origin Games");
                 FindNSInstall("Titanfall2", @"C:\Program Files (x86)\Origin Games");
 
-                // Log_Box.AppendText("\nLooking Under the Directory  -" +@"C:\Program Files\EA Games");
                 FindNSInstall("Titanfall2", @"C:\Program Files\EA Games");
                 if (Found_Install_Folder == false && failed_search_counter >= 1)
                 {
@@ -3335,14 +3373,11 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             }
             if (Found_Install_Folder == true)
             {
-                // Install_Textbox.Text = Current_Install_Folder;
-                //  Install_Textbox.BackColor = Color.White;
+               
                 Directory.CreateDirectory(@"C:\ProgramData\VTOL_DATA\VARS");
                 saveAsyncFile(Current_Install_Folder, @"C:\ProgramData\VTOL_DATA\VARS\INSTALL.txt", false, false);
-                // Log_Box.AppendText("\nFound Install Location at " + Current_Install_Folder + "\n");
                 NSExe = Get_And_Set_Filepaths(Current_Install_Folder, "NorthstarLauncher.exe");
                 Send_Success_Notif(GetTextResource("NOTIF_SUCCESS_FOUND_INSTALL"));
-                //Checking if the path Given Returned Something Meaningful. I know i could do this better, but its 3.37am and i feel like im dying from this cold :|.
                 Check_Integrity_Of_NSINSTALL();
             }
 
@@ -3415,7 +3450,6 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
 
 
-                //   ////Console.WriteLine("In Mods!");
                 if (Current_Install_Folder == null || Current_Install_Folder == "" || !Directory.Exists(Current_Install_Folder))
                 {
                     HandyControl.Controls.Growl.AskGlobal("Could Not find That Install Location !!!, please renavigate to the Correct Install Path!", isConfirmed =>
@@ -3438,16 +3472,12 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                     {
                         if (NS_Installed == true)
                         {
-                            //   label6.Text = "ACTIVE\n"+Current_Install_Folder+@"\R2Northstar\mods\";
-                            //    label5.Text = "INACTIVE\n"+Current_Install_Folder+@"\R2Northstar\mods\";
-                            // checkedListBox1.Items.Clear();
+                   
                             string NS_Mod_Dir = Current_Install_Folder + @"\R2Northstar\mods";
                             System.IO.DirectoryInfo rootDirs = new DirectoryInfo(@NS_Mod_Dir);
-                            //Log_Box.AppendText("Current Mod Dir Found At - "+NS_Mod_Dir);
                             if (!Directory.Exists(NS_Mod_Dir))
                             {
                                 Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_MOD_DIRECTORY_EMPTY"));
-                                // Main_Window.SelectedTab = Main;
                                 Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_NS_NOT_INSTALLED_PROPERLY"));
 
                             }
@@ -3463,29 +3493,24 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                     {
                                         Directory.Delete(dirInfo.FullName, true);
 
-                                        // Send_Info_Notif(GetTextResource("NOTIF_INFO_NO_INACTIVE_MODS"));
                                     }
                                     else if (Template_traverse(dirInfo, "Locked_Folder") == true)
                                     {
-                                        //&& !IsDirectoryEmpty(new DirectoryInfo(dirInfo+@"\Locked_Folder"))
-                                        //   ////Console.WriteLine("Inactive - " + dirInfo.Name);
+                                     
                                         Mod_Directory_List_InActive.Add(dirInfo.Name);
-                                        //  Log_Box.AppendText(dirInfo.Name);
 
                                         if (Directory.Exists(dirInfo + @"\Locked_Folder") && IsDirectoryEmpty(new DirectoryInfo(dirInfo + @"\Locked_Folder")))
                                         {
 
-                                            // if (IsDirectoryEmpty(new DirectoryInfo(dirInfo+@"\Locked_Folder")))
-                                            //  {
+                                       
 
                                             Directory.Delete(dirInfo + @"\Locked_Folder");
 
-                                            //   }
+                                     
                                         }
                                     }
                                     else
                                     {
-                                        // ////Console.WriteLine("Active - " + dirInfo.Name);
 
                                         Mod_Directory_List_Active.Add(dirInfo.Name);
 
@@ -3498,14 +3523,11 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                             else
                             {
 
-                                //   Log_Box.AppendText("\nInvalid Path");
-                                //   Main_Window.SelectedTab = Main;
                                 Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_NS_NOT_INSTALLED_PROPERLY"));
                             }
                         }
                         else
                         {
-                            // Main_Window.SelectedTab = Main;
 
                             Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_NS_NOT_INSTALLED"));
 
@@ -3578,30 +3600,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                     if (File.Exists(Current_Install_Folder + @"\ns_startup_args_dedi.txt") && File.Exists(Current_Install_Folder + @"\ns_startup_args.txt") && File.Exists(GetFile(Current_Install_Folder, "autoexec_ns_server.cfg").First()))
                     {
                         x = GetFile(Current_Install_Folder, "autoexec_ns_server.cfg").First();
-                        /*
-                        if (do_not_overwrite_Ns_file_Dedi == true)
-                        {
-                            if (Directory.Exists(Current_Install_Folder + @"\TempCopyFolder"))
-                            {
-                                Send_Info_Notif(GetTextResource("NOTIF_INFO_BACKING_UP_ARG_FILES"));
-                                System.IO.File.Copy(Current_Install_Folder + @"\ns_startup_args.txt", Current_Install_Folder + @"\TempCopyFolder\ns_startup_args.txt", true);
-                                System.IO.File.Copy(x, Current_Install_Folder + @"\TempCopyFolder\autoexec_ns_server.cfg", true);
-
-                                System.IO.File.Copy(Current_Install_Folder + @"\ns_startup_args_dedi.txt", Current_Install_Folder + @"\TempCopyFolder\ns_startup_args_dedi.txt", true);
-                            }
-                            else
-                            {
-
-                                Send_Info_Notif(GetTextResource("NOTIF_INFO_CREATING_DIRECTORY_AND_BACKUP_ARGS"));
-                                System.IO.Directory.CreateDirectory(Current_Install_Folder + @"\TempCopyFolder");
-                                System.IO.File.Copy(x, Current_Install_Folder + @"\TempCopyFolder\autoexec_ns_server.cfg", true);
-
-                                System.IO.File.Copy(Current_Install_Folder + @"\ns_startup_args.txt", Current_Install_Folder + @"\TempCopyFolder\ns_startup_args.txt", true);
-                                System.IO.File.Copy(Current_Install_Folder + @"\ns_startup_args_dedi.txt", Current_Install_Folder + @"\TempCopyFolder\ns_startup_args_dedi.txt", true);
-
-                            }
-                        }
-                        */
+                       
                         if (do_not_overwrite_Ns_file == true)
                         {
                             if (Directory.Exists(Current_Install_Folder + @"\TempCopyFolder"))
@@ -3693,25 +3692,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 return;
             }
         }
-        private void CheckIfModenabled(string path)
-        {
-
-            if (Directory.Exists(path + @"\Disable_Corner"))
-            {
-
-                //   ////Console.WriteLine(path + "    This Mod is Disabled");
-
-            }
-            else
-            {
-                // ////Console.WriteLine(path + "    This Mod is Enabled");
-
-
-
-            }
-
-
-        }
+      
         private void Check_Args()
         {
 
@@ -4812,7 +4793,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                 Diffuse_IMG.Source = bitmap2;
 
                                 Glow_IMG.Source = bitmap2;
-                                Send_Info_Notif("Thumbnail Failed To be Genereated! - Does not impact install.");
+                                Send_Info_Notif(GetTextResource("THUMBNAIL_FAILED"));
 
                             }
                             BitmapImage bitmap = new BitmapImage();
@@ -4845,14 +4826,11 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 else
                 {
                     Skin_Path_Box.Text = Skin_Temp_Loc;
-                    // Send_Success_Notif("\nSkin Found!");
                     if (ZipHasFile(".dds", Skin_Temp_Loc))
                     {
                         Send_Success_Notif(GetTextResource("NOTIF_SUCCESS_COMPATIBLE_SKIN_FOUND"));
                         Compat_Indicator.Fill = Brushes.LimeGreen;
                         Install_Skin_Bttn.IsEnabled = true;
-                        //   var directory = new DirectoryInfo(root);
-                        // var myFile = (from f in directory.GetFiles()orderby f.LastWriteTime descending select f).First();
                         if (Directory.Exists(Current_Install_Folder + @"\Skins_Unpack_Mod_MNGR"))
                         {
                             Skin_Path = Current_Install_Folder + @"\Skins_Unpack_Mod_MNGR";
@@ -4879,11 +4857,9 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
                     try
                     {
-                        //  ////Console.WriteLine(Skin_Temp_Loc);
                         String Thumbnail = Current_Install_Folder + @"\Thumbnails\";
                         if (Directory.Exists(Thumbnail))
                         {
-                            //DirectoryInfo dir = new DirectoryInfo(Thumbnail);
                             var Serached = SearchAccessibleFiles(Skin_Path, "col");
                             var firstOrDefault_Col = Serached.FirstOrDefault();
                             if (!Serached.Any())
@@ -4895,7 +4871,6 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                 if (File.Exists(firstOrDefault_Col))
                                 {
                                     String col = Thumbnail + Path.GetFileName(firstOrDefault_Col) + ".png";
-                                    //  ////Console.WriteLine(firstOrDefault_Col);
                                     if (File.Exists(col))
                                     {
 
@@ -4909,7 +4884,6 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                     }
                                     else
                                     {
-                                        //////Console.WriteLine(col);
                                         DDSImage img_1 = new DDSImage(firstOrDefault_Col);
 
                                         img_1.Save(col);
@@ -4949,8 +4923,6 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                     if (File.Exists(firstOrDefault_ilm + ".png"))
                                     {
 
-                                        ////Console.WriteLine(firstOrDefault_ilm);
-                                        // Image Image_2 = new Bitmap(Thumbnail+Path.GetFileName(firstOrDefault_ilm)+".png");
                                         BitmapImage bitmap = new BitmapImage();
                                         bitmap.BeginInit();
                                         bitmap.UriSource = new Uri(Thumbnail + Path.GetFileName(firstOrDefault_ilm) + ".png");
@@ -4963,7 +4935,6 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                         DDSImage img_2 = new DDSImage(firstOrDefault_ilm);
                                         img_2.Save(Thumbnail + Path.GetFileName(firstOrDefault_ilm) + ".png");
 
-                                        //Image Image_2 = new Bitmap(Thumbnail+Path.GetFileName(firstOrDefault_ilm)+".png");
                                         BitmapImage bitmap = new BitmapImage();
                                         bitmap.BeginInit();
                                         bitmap.UriSource = new Uri(Thumbnail + Path.GetFileName(firstOrDefault_ilm) + ".png");
@@ -4973,7 +4944,6 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                 }
                                 else
                                 {
-                                    // Image Image_1 = new Bitmap(Directory.GetCurrentDirectory()+@"\No_Texture.jpg");
                                     BitmapImage bitmap = new BitmapImage();
                                     bitmap.BeginInit();
                                     bitmap.UriSource = new Uri(@"pack://application:,,,/Resources/NO_TEXTURE.png");
@@ -4993,7 +4963,6 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
                             Directory.CreateDirectory(Thumbnail);
 
-                            //DirectoryInfo dir = new DirectoryInfo(Thumbnail);
                             var Serached = SearchAccessibleFiles(Skin_Path, "col");
                             var firstOrDefault_Col = Serached.FirstOrDefault();
                             if (!Serached.Any())
@@ -5004,11 +4973,9 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                             {
                                 if (File.Exists(firstOrDefault_Col))
                                 {
-                                    //  ////Console.WriteLine(firstOrDefault_Col);
                                     if (File.Exists(firstOrDefault_Col + ".png"))
                                     {
 
-                                        //   Image Image_1 = new Bitmap(Thumbnail+Path.GetFileName(firstOrDefault_Col)+".png");
                                         BitmapImage bitmap = new BitmapImage();
                                         bitmap.BeginInit();
                                         bitmap.UriSource = new Uri(Thumbnail + Path.GetFileName(firstOrDefault_Col) + ".png");
@@ -5019,7 +4986,6 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                     {
                                         DDSImage img_1 = new DDSImage(firstOrDefault_Col);
                                         img_1.Save(Thumbnail + Path.GetFileName(firstOrDefault_Col) + ".png");
-                                        // Image Image_1 = new Bitmap(Thumbnail+Path.GetFileName(firstOrDefault_Col)+".png");
                                         BitmapImage bitmap = new BitmapImage();
                                         bitmap.BeginInit();
                                         bitmap.UriSource = new Uri(Thumbnail + Path.GetFileName(firstOrDefault_Col) + ".png");
@@ -5031,7 +4997,6 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                 }
                                 else
                                 {
-                                    // Image Image_1 = new Bitmap(Directory.GetCurrentDirectory()+@"\No_Texture.jpg");
                                     BitmapImage bitmap = new BitmapImage();
                                     bitmap.BeginInit();
                                     bitmap.UriSource = new Uri(@"pack://application:,,,/Resources/NO_TEXTURE.png");
@@ -5056,8 +5021,6 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                     if (File.Exists(firstOrDefault_ilm + ".png"))
                                     {
 
-                                        //   ////Console.WriteLine(firstOrDefault_ilm);
-                                        //    Image Image_2 = new Bitmap(Thumbnail+Path.GetFileName(firstOrDefault_ilm)+".png");
                                         BitmapImage bitmap = new BitmapImage();
                                         bitmap.BeginInit();
                                         bitmap.UriSource = new Uri(Thumbnail + Path.GetFileName(firstOrDefault_ilm) + ".png");
@@ -5069,7 +5032,6 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
                                         DDSImage img_2 = new DDSImage(firstOrDefault_ilm);
                                         img_2.Save(Thumbnail + Path.GetFileName(firstOrDefault_ilm) + ".png");
-                                        // Image Image_2 = new Bitmap(Thumbnail+Path.GetFileName(firstOrDefault_ilm)+".png");
                                         BitmapImage bitmap = new BitmapImage();
                                         bitmap.BeginInit();
                                         bitmap.UriSource = new Uri(Thumbnail + Path.GetFileName(firstOrDefault_ilm) + ".png");
@@ -5079,7 +5041,6 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                 }
                                 else
                                 {
-                                    //  Image Image_1 = new Bitmap(Directory.GetCurrentDirectory()+@"\No_Texture.jpg");
                                     BitmapImage bitmap = new BitmapImage();
                                     bitmap.BeginInit();
                                     bitmap.UriSource = new Uri(@"pack://application:,,,/Resources/NO_TEXTURE.png");
@@ -5096,7 +5057,6 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
                         }
 
-                        //   Import_Skin_Bttn.Enabled=false;
                     }
                     catch (Exception ex)
                     {
@@ -5143,16 +5103,13 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                     }
                     else
                     {
-                        //  ////Console.WriteLine(path);
                         Current_Install_Folder = path;
                         Found_Install_Folder = true;
                         Titanfall2_Directory_TextBox.Background = Brushes.White;
 
                         Titanfall2_Directory_TextBox.Text = Current_Install_Folder;
-                        // Install_Textbox.BackColor = Color.White;
                         Directory.CreateDirectory(@"C:\ProgramData\VTOL_DATA\VARS");
                         saveAsyncFile(Current_Install_Folder, @"C:\ProgramData\VTOL_DATA\VARS\INSTALL.txt", false, false);
-                        //Log_Box.AppendText("\nFound Install Location at " + Current_Install_Folder + "\n");
                         NSExe = Get_And_Set_Filepaths(Current_Install_Folder, "NorthstarLauncher.exe");
                         Check_Integrity_Of_NSINSTALL();
 
@@ -5197,7 +5154,6 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                     procStartInfo.WorkingDirectory = System.IO.Path.GetDirectoryName(NSExe);
 
 
-                    // procStartInfo.Arguments = args;
 
                     process.StartInfo = procStartInfo;
 
@@ -5206,12 +5162,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                     pid = id;
                     Process tempProc = Process.GetProcessById(id);
                     WindowState = WindowState.Minimized;
-                    // this.Visible = false;
-                    // Thread.Sleep(5000);
-                    // tempProc.WaitForExit();
-                    // this.Visible = true;
-
-                    // Process process = Process.Start(NSExe, Arg_Box.Text);
+                
                     process.Close();
 
 
@@ -5227,7 +5178,6 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             else
             {
 
-                //   ////Console.WriteLine("Err, File not found");
 
 
             }
@@ -5278,8 +5228,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                     {
                         string FolderName = path.Split(Path.DirectorySeparatorChar).Last();
                         Browse_For_MOD.Text = path;
-                        //  ////Console.WriteLine(path);
-                        //  ////Console.WriteLine("The Folder Name is-" + FolderName + "\n\n");
+                    
                         Unpack_To_Location_Custom(path, Current_Install_Folder + @"\R2Northstar\mods");
                         Call_Mods_From_Folder();
 
@@ -5290,7 +5239,6 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             }
             catch (Exception ex)
             {
-                //MessageBox.Show(ex.Message);
 
                 if (ex.Message == "Sequence contains no elements")
                 {
@@ -5335,8 +5283,9 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             s[2] = temp;
             return s;
         }
-        private void Install_Skin_Bttn_Click(object sender, RoutedEventArgs e)
+       public void Install_Skin()
         {
+
             try
             {
                 Skin_Path_Box.Text = "";
@@ -5407,26 +5356,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                             Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
                             break;
                     }
-                    /*
-                    if (IsPilot(i))
-                    {
-
-                        Titanfall2_SkinTool.Titanfall2.PilotData.PilotDataControl pdc = new Titanfall2_SkinTool.Titanfall2.PilotData.PilotDataControl(i, imagecheck);
-                        toseek = Convert.ToInt64(pdc.Seek);
-                        tolength = Convert.ToInt32(pdc.Length);
-                        totype = Convert.ToInt32(pdc.SeekLength);
-                    }
-                    else //if(IsWeapon(i))
-                    {
-
-
-                        Titanfall2_SkinTool.Titanfall2.WeaponData.WeaponDataControl wdc = new Titanfall2_SkinTool.Titanfall2.WeaponData.WeaponDataControl(i, imagecheck);
-                        toseek = Convert.ToInt64(wdc.FilePath[0, 1]);
-                        tolength = Convert.ToInt32(wdc.FilePath[0, 2]);
-                        totype = Convert.ToInt32(wdc.FilePath[0, 3]);
-
-                    }
-                    */
+                    
 
                     StarpakControl sc = new StarpakControl(i, toseek, tolength, totype, Current_Install_Folder, "Titanfall2", imagecheck, "Replace");
 
@@ -5434,9 +5364,9 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 }
 
                 FileList.Clear();
-                Send_Success_Notif(GetTextResource("NOTIF_SUCCESS_INSTALLED"));
                 DirectoryInfo di = new DirectoryInfo(Skin_Path);
                 FileInfo[] files = di.GetFiles();
+                Send_Success_Notif(GetTextResource("NOTIF_SUCCESS_INSTALLED"));
 
                 BitmapImage bitmap = new BitmapImage();
                 bitmap.BeginInit();
@@ -5471,7 +5401,14 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
                 Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
             }
-        }/*
+        
+
+    }
+        private void Install_Skin_Bttn_Click(object sender, RoutedEventArgs e)
+        {
+            Install_Skin();
+        }
+           /*
         public void getOperatingSystemInfo()
         {
             Write_To_Log("Displaying operating system info....");
@@ -8002,6 +7939,11 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
                     Check_Tabs(false);
                 }
+                else
+                {
+                    Check_Tabs(true);
+
+                }
             }
             else
             {
@@ -8628,7 +8570,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                     }
                     else
                     {
-                        Send_Error_Notif("Load Your Files First!");
+                        Send_Error_Notif(GetTextResource("LOAD"));
                         Send_Error_Notif(GetTextResource("NOTIF_ERROR_SUGGEST_REBROWSE"));
                         return;
                     }
@@ -8799,7 +8741,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                 else
                                 {
 
-                                    Send_Error_Notif("Error! Cannot see valid Server config files in the zip!");
+                                    Send_Error_Notif(GetTextResource("SERVER_CFG_FAILED"));
                                     return;
                                 }
                             }
