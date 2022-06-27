@@ -353,7 +353,7 @@ namespace VTOL
         public string MasterServer_URL_CN = "nscn.wolf109909.top";
         public string Current_REPO_URL_CN = "https://nscn.wolf109909.top/version/query";
         public bool Loaded_ = false;
-
+        public string Current_Ver_;
         public int pid;
         string Skin_Path = "";
         string Skin_Temp_Loc = "";
@@ -523,6 +523,12 @@ YOUR DESCRIPTION
                 {
                     MasterServer_URL = Read_From_TextFile_OneLine(@"C:\ProgramData\VTOL_DATA\VARS\MASTER_SERVERURL.txt").Trim();
 
+                }
+                if (File.Exists(@"C:\ProgramData\VTOL_DATA\VARS\Current_Ver.txt"))
+                {
+                    Current_Ver_ = Read_From_TextFile_OneLine(@"C:\ProgramData\VTOL_DATA\VARS\MASTER_SERVERURL.txt").Trim();
+                    Properties.Settings.Default.Version = Current_Ver_;
+                    Properties.Settings.Default.Save();
                 }
                 Check_For_New_Northstar_Install();
                 Task.WaitAll(Set_About(), Select_Main(), getProcessorInfo());
@@ -1034,8 +1040,9 @@ YOUR DESCRIPTION
         }
         protected void MainWindow_Closed(object sender, EventArgs args)
         {
+            Application.Current.Shutdown();
             App.Current.Shutdown();
-
+            
 
         }
         [DllImport("wininet.dll")]
@@ -1277,7 +1284,6 @@ YOUR DESCRIPTION
                             foreach (var it in Downloads)
                             {
                                 LAST_INSTALLED_MOD = it;
-
                                 parse_git_to_zip(Search_For_Mod_Thunderstore(it));
 
 
@@ -1297,6 +1303,7 @@ YOUR DESCRIPTION
                                 }
                                 Thread.Sleep(300);
                                 LAST_INSTALLED_MOD = words[3];
+
                                 parse_git_to_zip(Search_For_Mod_Thunderstore(words[3]));
 
 
@@ -1389,7 +1396,7 @@ YOUR DESCRIPTION
                 {
                    
 
-                    return versions.Last().DownloadUrl;
+                    return versions.First().DownloadUrl;
 
                 }
 
@@ -1453,7 +1460,7 @@ YOUR DESCRIPTION
                     for (int i = 0; i < Update.Thunderstore.Length; i++)
                     {
 
-                        if (Update.Thunderstore[i].FullName == "northstar-Northstar")
+                        if (Update.Thunderstore[i].FullName == "northstar-Northstar" || Update.Thunderstore[i].FullName.Contains("r2modman"))
                         {
                             continue;
                         }
@@ -1484,7 +1491,7 @@ YOUR DESCRIPTION
 
 
                                         {
-                                           
+
 
                                             Downloads.Add(Convert.ToInt32(items.Downloads));
 
@@ -1497,14 +1504,14 @@ YOUR DESCRIPTION
                                         downloads = (Downloads.Sum()).ToString();
                                         for (var x = 0; x < versions.First().Dependencies.Count; x++)
                                         {
-                                            if (versions.First().Dependencies[x].Contains("northstar-Northstar"))
+                                            if (versions.First().Dependencies[x].Contains("northstar-Northstar") || versions.First().Dependencies[x].Contains("r2modman"))
                                             {
 
                                                 continue;
                                             }
                                             else
                                             {
-                                                Dependencies.Add(versions.Last().Dependencies[x]);
+                                                Dependencies.Add(versions.First().Dependencies[x]);
 
                                             }
 
@@ -1516,7 +1523,6 @@ YOUR DESCRIPTION
                                         ICON = versions.First().Icon;
                                         FileSize = versions.First().FileSize.ToString();
                                         Descrtiption = versions.First().Description;
-
                                         Downloads.Clear();
                                         Dependencies.Clear();
                                        
@@ -1527,7 +1533,7 @@ YOUR DESCRIPTION
                                             FileSize = Convert_To_Size(value);
                                         }
 
-                                        itemsList.Add(new Button { Name = Update.Thunderstore[i].Name, Icon = ICON, date_created = Update.Thunderstore[i].DateCreated.ToString(), description = Descrtiption, owner = Update.Thunderstore[i].Owner, Rating = rating, download_url = download_url + "|" + Update.Thunderstore[i].FullName.ToString() + "|" + Tags + "|" + Dependencies_, Webpage = Update.Thunderstore[i].PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads, Dependencies = Dependencies_ });
+                                        itemsList.Add(new Button { Name = Update.Thunderstore[i].Name + "-" + versions.First().VersionNumber, Icon = ICON, date_created = Update.Thunderstore[i].DateCreated.ToString(), description = Descrtiption, owner = Update.Thunderstore[i].Owner, Rating = rating, download_url = download_url + "|" + Update.Thunderstore[i].Name + "-" + versions.First().VersionNumber + "|" + Tags + "|" + Dependencies_, Webpage = Update.Thunderstore[i].PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads, Dependencies = Dependencies_ });
 
 
                                     }
@@ -1542,7 +1548,6 @@ YOUR DESCRIPTION
 
 
                                     {
-                                       
                                         Downloads.Add(Convert.ToInt32(items.Downloads));
                                       
 
@@ -1554,7 +1559,7 @@ YOUR DESCRIPTION
                                     downloads = (Downloads.Sum()).ToString();
                                     for (var x = 0; x < versions.First().Dependencies.Count; x++)
                                     {
-                                        if (versions.First().Dependencies[x].Contains("northstar-Northstar"))
+                                        if (versions.First().Dependencies[x].Contains("northstar-Northstar") || versions.First().Dependencies[x].Contains("r2modman"))
                                         {
 
                                             continue;
@@ -1569,6 +1574,7 @@ YOUR DESCRIPTION
                                     
 
                                     download_url = versions.First().DownloadUrl;
+                                    
                                     ICON = versions.First().Icon;
                                     FileSize = versions.First().FileSize.ToString();
                                     Descrtiption = versions.First().Description;
@@ -1577,13 +1583,14 @@ YOUR DESCRIPTION
                                     Dependencies.Clear();
 
                                     Downloads.Clear();
+                                    MessageBox.Show(Update.Thunderstore[i].Name + " " + download_url);
 
 
                                     if (int.TryParse(FileSize, out int value))
                                     {
                                         FileSize = Convert_To_Size(value);
                                     }
-                                    itemsList.Add(new Button { Name = Update.Thunderstore[i].Name, Icon = ICON, date_created = Update.Thunderstore[i].DateCreated.ToString(), description = Descrtiption, owner = Update.Thunderstore[i].Owner, Rating = rating, download_url = download_url + "|" + Update.Thunderstore[i].FullName.ToString() + "|" + Tags + "|" + Dependencies_, Webpage = Update.Thunderstore[i].PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads, Dependencies = Dependencies_ });
+                                    itemsList.Add(new Button { Name = Update.Thunderstore[i].Name + "-" + versions.First().VersionNumber, Icon = ICON, date_created = Update.Thunderstore[i].DateCreated.ToString(), description = Descrtiption, owner = Update.Thunderstore[i].Owner, Rating = rating, download_url = download_url + "|" + Update.Thunderstore[i].Name + "-" + versions.First().VersionNumber + "|" + Tags + "|" + Dependencies_, Webpage = Update.Thunderstore[i].PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads, Dependencies = Dependencies_ });
 
 
                                 }
@@ -1598,14 +1605,15 @@ YOUR DESCRIPTION
 
 
                             {
-                                
+                               // MessageBox.Show(String.Join(", ", items.DownloadUrl));
+
                                 Downloads.Add(Convert.ToInt32(items.Downloads));
                             }
 
                             downloads = (Downloads.Sum()).ToString();
                             for (var x = 0; x < versions.First().Dependencies.Count; x++)
                             {
-                                if (versions.First().Dependencies[x].Contains("northstar-Northstar"))
+                                if (versions.First().Dependencies[x].Contains("northstar-Northstar") || versions.First().Dependencies[x].Contains("r2modman"))
                                 {
 
                                     continue;
@@ -1638,7 +1646,7 @@ YOUR DESCRIPTION
                             }
 
 
-                            itemsList.Add(new Button { Name = Update.Thunderstore[i].Name, Icon = ICON, date_created = Update.Thunderstore[i].DateCreated.ToString(), description = Descrtiption, owner = Update.Thunderstore[i].Owner, Rating = rating, download_url = download_url + "|" + Update.Thunderstore[i].FullName.ToString() + "|" + Tags + "|" + Dependencies_, Webpage = Update.Thunderstore[i].PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads, Dependencies = Dependencies_ });
+                            itemsList.Add(new Button { Name = Update.Thunderstore[i].Name + "-" + versions.First().VersionNumber, Icon = ICON, date_created = Update.Thunderstore[i].DateCreated.ToString(), description = Descrtiption, owner = Update.Thunderstore[i].Owner, Rating = rating, download_url = download_url + "|" + Update.Thunderstore[i].Name + "-" + versions.First().VersionNumber + "|" + Tags + "|" + Dependencies_, Webpage = Update.Thunderstore[i].PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads, Dependencies = Dependencies_ });
 
 
                         }
@@ -1650,7 +1658,8 @@ YOUR DESCRIPTION
 
 
                             {
-                                
+                              //  MessageBox.Show(String.Join(", ", items.DownloadUrl));
+
                                 Downloads.Add(Convert.ToInt32(items.Downloads));
                                 
 
@@ -1666,12 +1675,12 @@ YOUR DESCRIPTION
 
                             //}
 
+                           
 
                             download_url = versions.First().DownloadUrl;
-
                             for (var x = 0; x < versions.First().Dependencies.Count; x++)
                             {
-                                if (versions.First().Dependencies[x].Contains("northstar-Northstar"))
+                                if (versions.First().Dependencies[x].Contains("northstar-Northstar") || versions.First().Dependencies[x].Contains("r2modman"))
                                 {
 
                                     continue;
@@ -1697,7 +1706,7 @@ YOUR DESCRIPTION
                                 FileSize = Convert_To_Size(value);
                             }
                           
-                            itemsList.Add(new Button { Name = Update.Thunderstore[i].Name, Icon = ICON, date_created = Update.Thunderstore[i].DateCreated.ToString(), description = Descrtiption, owner = Update.Thunderstore[i].Owner, Rating = rating, download_url = download_url + "|" + Update.Thunderstore[i].FullName.ToString() + "|" + Tags + "|" + Dependencies_, Webpage = Update.Thunderstore[i].PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads , Dependencies = Dependencies_ });
+                            itemsList.Add(new Button { Name = Update.Thunderstore[i].Name + "-" + versions.First().VersionNumber, Icon = ICON, date_created = Update.Thunderstore[i].DateCreated.ToString(), description = Descrtiption, owner = Update.Thunderstore[i].Owner, Rating = rating, download_url = download_url + "|" + Update.Thunderstore[i].Name + "-" + versions.First().VersionNumber + "|" + Tags + "|" + Dependencies_, Webpage = Update.Thunderstore[i].PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads , Dependencies = Dependencies_ });
 
                         }
 
@@ -2558,6 +2567,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                     string out_ = myJObject.SelectToken("assets.browser_download_url").Value<string>();
                     Properties.Settings.Default.Version = myJObject.SelectToken("tag_name").Value<string>();
                     Properties.Settings.Default.Save();
+                    saveAsyncFile(Properties.Settings.Default.Version, @"C:\ProgramData\VTOL_DATA\VARS\Current_Ver.txt", false, false);
 
                     Send_Info_Notif(GetTextResource("NOTIF_INFO_RELEASE_PARSED") + out_);
                     if (Directory.Exists(@"C:\ProgramData\VTOL_DATA\temp\" + json_name))
@@ -2599,6 +2609,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                     current_Northstar_version_Url = myJObject.SelectToken("assets.browser_download_url").Value<string>();
                     Properties.Settings.Default.Version = myJObject.SelectToken("tag_name").Value<string>();
                     Properties.Settings.Default.Save();
+                    saveAsyncFile(Properties.Settings.Default.Version, @"C:\ProgramData\VTOL_DATA\VARS\Current_Ver.txt", false, false);
 
                     Send_Info_Notif(GetTextResource("NOTIF_INFO_RELEASE_PARSED") + current_Northstar_version_Url);
 
@@ -3524,7 +3535,12 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                 {
                                     if (IsDirectoryEmpty(dirInfo))
                                     {
-                                        Directory.Delete(dirInfo.FullName, true);
+                                        if(IsDirectoryEmpty(new DirectoryInfo(dirInfo.FullName)) == true)
+                                        {
+                                            Directory.Delete(dirInfo.FullName, true);
+
+
+                                        }
 
                                     }
                                     else if (Template_traverse(dirInfo, "Locked_Folder") == true)
@@ -3571,7 +3587,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                     else
                     {
 
-                        Send_Fatal_Notif(GetTextResource("NOTIF_FATALL_GAME_PATH_INVALID"));
+                        Send_Error_Notif(GetTextResource("NOTIF_FATALL_GAME_PATH_INVALID"));
 
                     }
                 }
@@ -8474,7 +8490,10 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 {
                     Sort_Img_Source.Source = new BitmapImage(new Uri(@"/Resources/Sort_Off.png", UriKind.Relative));
                     Sort_Lists = false;
-                    Enabled_ListBox.Items.IsLiveSorting = false;
+                    Mod_Directory_List_Active.Sort();
+                    Mod_Directory_List_InActive.Sort();
+                    Enabled_ListBox.Items.IsLiveSorting = true;
+                    Disabled_ListBox.Items.IsLiveSorting = true;
                     Properties.Settings.Default.Sort_Mods = false;
                     Properties.Settings.Default.Save();
                     Sort_Lists = Properties.Settings.Default.Sort_Mods;
@@ -8485,7 +8504,8 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 else
                 {
                     Sort_Img_Source.Source = new BitmapImage(new Uri(@"/Resources/Sort_On.png", UriKind.Relative));
-                    Enabled_ListBox.Items.IsLiveSorting = true;
+                    Enabled_ListBox.Items.IsLiveSorting = false;
+                    Disabled_ListBox.Items.IsLiveSorting = false;
 
                     Sort_Lists = true;
                     Properties.Settings.Default.Sort_Mods = true;
@@ -8884,65 +8904,67 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
             try
             {
-                if (Disabled_ListBox.SelectedItem != null && Disabled_ListBox.IsMouseOver == true && Enabled_ListBox.IsMouseOver == false)
+                if (Disabled_ListBox.SelectedItem != null  && Enabled_ListBox.IsMouseOver == false)
                 {
                     string Mod = (Disabled_ListBox.SelectedItem.ToString());
                     string FolderDir = Find_Folder(Mod, Current_Install_Folder + @"\R2Northstar\mods");
+                  
                     if (Directory.Exists(FolderDir))
                     {
 
 
-                        if (Directory.Exists(FolderDir))
-                        {
                             string mod_Json = FindFirstFile(FolderDir, "mod.json");
 
-                            if (mod_Json != null && IsValidPath(mod_Json) && File.Exists(mod_Json))
+
+                        if (mod_Json != null && File.Exists(mod_Json))
                             {
                                 var myJsonString = File.ReadAllText(mod_Json);
                                 var myJObject = JObject.Parse(myJsonString);
 
-                                string Output = "Name:" + myJObject.SelectToken("Name").Value<string>() + "\n" + "Description:" + myJObject.SelectToken("Description").Value<string>() + "Version:" + myJObject.SelectToken("Version").Value<string>();
+                                string Output = "Name: " + myJObject.SelectToken("Name").Value<string>() + Environment.NewLine + "Description: " + myJObject.SelectToken("Description").Value<string>() + Environment.NewLine + "Version: " + myJObject.SelectToken("Version").Value<string>();
 
                                 System.Windows.MessageBoxResult result = HandyControl.Controls.MessageBox.Show(new MessageBoxInfo { Message = Output, Caption = "INFO", Button = MessageBoxButton.OK, IconBrushKey = ResourceToken.AccentBrush, IconKey = ResourceToken.AskGeometry, StyleKey = "MessageBoxCustom" });
 
                             }
 
-
-                        }
+                        
 
 
                     }
+                  
+                        
+
+                    
 
                 }
-                else if (Enabled_ListBox.SelectedItem != null && Disabled_ListBox.IsMouseOver == false && Enabled_ListBox.IsMouseOver == true)
+                else if (Enabled_ListBox.SelectedItem != null  && Disabled_ListBox.IsMouseOver == false)
                 {
 
                     string Mod = (Enabled_ListBox.SelectedItem.ToString());
                     string FolderDir = Find_Folder(Mod, Current_Install_Folder + @"\R2Northstar\mods");
+                
                     if (Directory.Exists(FolderDir))
                     {
 
 
-                        if (Directory.Exists(FolderDir))
-                        {
+                       
                             string mod_Json = FindFirstFile(FolderDir, "mod.json");
 
-                            if (mod_Json != null && IsValidPath(mod_Json) && File.Exists(mod_Json))
-                            {
-                                var myJsonString = File.ReadAllText(mod_Json);
+                        if (mod_Json != null && File.Exists(mod_Json))
+                        {
+                            var myJsonString = File.ReadAllText(mod_Json);
                                 var myJObject = JObject.Parse(myJsonString);
-                                string Output = "Name: " + myJObject.SelectToken("Name").Value<string>() + "\n" + "Description: " + myJObject.SelectToken("Description").Value<string>() + "\n" + "Version: " + myJObject.SelectToken("Version").Value<string>();
+                                string Output = "Name:  " + myJObject.SelectToken("Name").Value<string>() + Environment.NewLine + "Description:  " + myJObject.SelectToken("Description").Value<string>() + Environment.NewLine + "Version:  " + myJObject.SelectToken("Version").Value<string>();
 
                                 System.Windows.MessageBoxResult result = HandyControl.Controls.MessageBox.Show(new MessageBoxInfo { Message = Output, Caption = "INFO", Button = MessageBoxButton.OK, IconBrushKey = ResourceToken.AccentBrush, IconKey = ResourceToken.AskGeometry, StyleKey = "MessageBoxCustom" });
 
                             }
 
 
-                        }
 
 
                     }
-
+                 
 
                 }
             }
@@ -9566,7 +9588,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
                 // Settings.  
                 //this.autoList.ItemsSource = this.AutoSuggestionList.Where(p => p.ToLower().Contains(this.Arg_Box.Text.ToLower())).ToList();
-                this.autoList.ItemsSource = this.AutoSuggestionList;
+              //  this.autoList.ItemsSource = this.AutoSuggestionList;
             }
             catch (Exception ex)
             {
@@ -9583,8 +9605,8 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
         }
         private void VTOL_Loaded(object sender, RoutedEventArgs e)
         {
-            Loaded_ = true;
-            this.Topmost = true;
+           // Loaded_ = true;
+            //this.Topmost = true;
         }
 
         private void VTOL_LayoutUpdated(object sender, EventArgs e)
@@ -9592,6 +9614,8 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
 
         }
+
+       
     }
 
 }

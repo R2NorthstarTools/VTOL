@@ -12,7 +12,7 @@
         x:Class="VTOL.MainWindow"
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
-        Title="VTOL" Height="750" Width="1200" UseLayoutRounding="True" ResizeMode="CanMinimize" Icon="/Resources/Northstar-512.png" Background="Black" WindowStyle="SingleBorderWindow" Loaded="VTOL_Loaded" LayoutUpdated="VTOL_LayoutUpdated">
+        Title="VTOL" Height="750" Width="1200" UseLayoutRounding="True" ResizeMode="CanMinimize" Icon="/Resources/Northstar-512.png" Background="Black" WindowStyle="SingleBorderWindow" Loaded="VTOL_Loaded" LayoutUpdated="VTOL_LayoutUpdated" Closed="MainWindow_Closed">
     <Window.Resources>
         <SolidColorBrush x:Name="Button_BG" x:Key="Button_BG" Color="#FF2C4C4C" />
         <Color  x:Key="Button_RAW_COLOR" />
