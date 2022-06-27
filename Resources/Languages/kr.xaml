@@ -170,4 +170,10 @@
     <system:String x:Key="CURRENTLY_INSTALLING">설치중:</system:String>
     <system:String x:Key="CURRENTLY_DOWNLOADING">다운로드중:</system:String>
     <system:String x:Key="DOWNLOADING_NORTHSTAR_LATEST_RELEAST_TEXT">노스스타 최신 버전</system:String>
+    <!-- New Strings as of 12:26AM 2022-06-27 -->
+    <!-- Added By Juicy-->
+    <!-- USAGE_C# == GetTextResource("X:KEY")-->
+    <system:String x:Key="THUMBNAIL_FAILED">썸네일 생성 실패! - 설치에 영향을 미치지 않습니다.</system:String>
+    <system:String x:Key="LOAD_FILES">먼저 파일을 로드하십시오!</system:String>
+    <system:String x:Key="SERVER_CFG_FAILED">오류! zip에서 유효한 서버 구성 파일을 볼 수 없습니다!</system:String>
 </ResourceDictionary>

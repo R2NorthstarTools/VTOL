@@ -171,4 +171,14 @@
     <system:String x:Key="CURRENTLY_INSTALLING">目前正在安装:</system:String>
     <system:String x:Key="CURRENTLY_DOWNLOADING">目前正在下载:</system:String>
     <system:String x:Key="DOWNLOADING_NORTHSTAR_LATEST_RELEAST_TEXT">Northstar最新版本</system:String>
+
+    <!-- New Strings as of 12:26AM 2022-06-27 -->
+    <!-- Added By Juicy-->
+    <!-- USAGE_C# == GetTextResource("X:KEY")-->
+    <system:String x:Key="THUMBNAIL_FAILED">Thumbnail Failed To be Genereated! - 不影响安装。</system:String>
+   
+    <system:String x:Key="LOAD_FILES">先加载你的文件！</system:String>
+ 
+    <system:String x:Key="SERVER_CFG_FAILED">Error! 无法在压缩包中看到有效的服务器配置文件！</system:String>
+ 
 </ResourceDictionary>

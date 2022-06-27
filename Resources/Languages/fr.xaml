@@ -170,4 +170,11 @@
     <system:String x:Key="CURRENTLY_INSTALLING">Actuellement en cours d'installation:</system:String>
     <system:String x:Key="CURRENTLY_DOWNLOADING">Actuellement en cours de téléchargement:</system:String>
     <system:String x:Key="DOWNLOADING_NORTHSTAR_LATEST_RELEAST_TEXT">+Northstar Latest Version</system:String>
+
+    <!-- New Strings as of 12:26AM 2022-06-27 -->
+    <!-- Added By Juicy-->
+    <!-- USAGE_C# == GetTextResource("X:KEY")-->
+    <system:String x:Key="THUMBNAIL_FAILED">Thumbnail Failed To be Genereated ! - N'a pas d'impact sur l'installation.</system:String>
+    <system:String x:Key="LOAD_FILES">Load Your Files First!</system:String>
+    <system:String x:Key="SERVER_CFG_FAILED">Error ! Impossible de voir les fichiers de configuration du serveur valides dans le zip!</system:String>
 </ResourceDictionary>

@@ -784,7 +784,7 @@ YOUR DESCRIPTION
             }
 
         }
-        async Task call_TS_MODS()
+        public void call_TS_MODS()
         {
 
             try
@@ -797,7 +797,7 @@ YOUR DESCRIPTION
 
                         // Thread thread = new Thread(delegate ()
                         // {
-
+                        Thread.Sleep(50);
                         Check_Tabs(true);
 
                         // });
@@ -1249,7 +1249,6 @@ YOUR DESCRIPTION
             try
             {
 
-
                 Send_Info_Notif(GetTextResource("NOTIF_INFO_DOWNLOAD_START"));
                 var objname = ((System.Windows.Controls.Button)sender).Tag.ToString();
                 string[] words = objname.Split("|");
@@ -1268,6 +1267,7 @@ YOUR DESCRIPTION
                     System.Windows.MessageBoxResult result = HandyControl.Controls.MessageBox.Show(new MessageBoxInfo { Message = "Required Dependency Called -\n" + words[3] + "\nIs required, would you like to Add and download?", Caption = "INFO", Button = MessageBoxButton.YesNo, IconBrushKey = ResourceToken.AccentBrush, IconKey = ResourceToken.AskGeometry, StyleKey = "MessageBoxCustom"});
                     if (result == System.Windows.MessageBoxResult.Yes)
                     {
+                        
                         if (words[3].Contains(","))
                         {
 
@@ -1286,13 +1286,33 @@ YOUR DESCRIPTION
                         }
                         else
                         {
+                            if (Completed_Operation == false)
+                            {
+                                Send_Warning_Notif("Download in progress Detected, added Mod to qeue");
+                                while(Completed_Operation == true)
+                                {
+                                    Console.WriteLine("HD");
+                                }
+                                Thread.Sleep(300);
+                                LAST_INSTALLED_MOD = words[3];
+                                parse_git_to_zip(Search_For_Mod_Thunderstore(words[3]));
 
-                            LAST_INSTALLED_MOD = words[3];
-                            parse_git_to_zip(Search_For_Mod_Thunderstore(words[3]));
+
+
+                                Send_Info_Notif("Dependencies Download Completed");
+
+                            }
+                            else
+                            {
+                                LAST_INSTALLED_MOD = words[3];
+                                parse_git_to_zip(Search_For_Mod_Thunderstore(words[3]));
 
 
 
-                            Send_Info_Notif("Dependencies Download Completed");
+                                Send_Info_Notif("Dependencies Download Completed");
+
+                            }
+
 
                         }
 
@@ -1319,7 +1339,7 @@ YOUR DESCRIPTION
                 Mod_Progress_BAR.ShowText = false;
                 Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_ERROR_OCCURRED"));
                 Write_To_Log(ErrorManager(ex));
-                Completed_Operation = false;
+                Completed_Operation = true;
 
             }
         }
@@ -1912,12 +1932,13 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             Mod_Browse.IsSelected = true;
             Update_Tab.IsSelected = false;
             Log.IsSelected = false;
-            call_TS_MODS();
 
 
 
             Tools.IsSelected = false;
             Themes.IsSelected = false;
+            call_TS_MODS();
+
 
         }
         void Select_Server()
@@ -2701,7 +2722,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             try
             {
                 //    Loading_Panel.Visibility = Visibility.Visible;
-                ;
+                
                 string Dir_Final = null;
                 if (File.Exists(Target_Zip))
                 {
@@ -2864,7 +2885,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                                 Directory.Delete(Current_Install_Folder + @"\NS_Downloaded_Mods", true);
                                             }
                                             Directory.Delete(Destination, true);
-
+                                        Completed_Operation = true;
                                             Send_Error_Notif("This Mod Requires More Steps By a User To install! \n Please Manually Install this Mod By Clicking Go to Webpge.");
                                             return;
 
@@ -2917,6 +2938,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                         Directory.Delete(Current_Install_Folder + @"\NS_Downloaded_Mods", true);
                                     }
 
+                                Completed_Operation = true;
 
 
                             }
@@ -2939,18 +2961,22 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                                         //    var directory = new DirectoryInfo(folderName);
                                         //   var Destinfo = new DirectoryInfo(Destination);
                                         ZipFile.ExtractToDirectory(Target_Zip, Destination, true);
+                                        Send_Success_Notif("\nUnpacking Complete!\n");
 
                                     }
                                     else
                                     {
                                         ZipFile.ExtractToDirectory(Target_Zip, Destination, true);
-                                        // Send_Success_Notif("\nUnpacking Complete!\n");
+                                        Send_Success_Notif("\nUnpacking Complete!\n");
+                                        Completed_Operation = true;
+
                                     }
                                 }
                                 else
                                 {
                                     //Main_Window.SelectedTab = Main;
                                     Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_OBJ_NOT_ZIP"));
+                                    Completed_Operation = true;
 
 
                                 }
@@ -2962,6 +2988,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
                             Send_Warning_Notif(GetTextResource("NOTIF_ERROR_OBJ_NOT_ZIP"));
 
+                            Completed_Operation = true;
 
                         }
 
@@ -2975,11 +3002,14 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                         if (!File.Exists(Target_Zip))
                         {
                             Send_Error_Notif(GetTextResource("NOTIF_ERROR_ZIP_NOT_EXIST"));
+                            Completed_Operation = true;
 
 
                         }
                         if (!Directory.Exists(Destination))
                         {
+                            Completed_Operation = true;
+
                             Send_Error_Notif(GetTextResource("NOTIF_ERROR_ZIP_NOT_EXIST_CHECK_PATH"));
 
                         }
@@ -2988,7 +3018,8 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             }
             catch (Exception ex)
             {
-        
+                Completed_Operation = true;
+
                 Write_To_Log(ErrorManager(ex));
                 Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
                
@@ -4274,6 +4305,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
 
                 Unpack_To_Location_Custom(Current_Install_Folder + @"\NS_Downloaded_Mods\" + LAST_INSTALLED_MOD + ".zip", Current_Install_Folder + @"\R2Northstar\mods\" + LAST_INSTALLED_MOD, true, false, true);
+                Completed_Operation = true;
             }
 
             catch (Exception ex)
