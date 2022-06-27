@@ -196,8 +196,20 @@
       "Description": "The number of snapshots stored locally for use in replays, this should be set to sv_updaterate_mp x 15",
       "ARG": "CONVAR"
     }
-
-
+    {
+      "Display_Val": "net_data_block_enabled",
+      "Type": "BOOL",
+      "Default": "0",
+      "Description": "not really sure on this, have heard datablock could have security issues? doesn't seem to have any adverse effects being disabled",
+      "ARG": "CONVAR"
+    }
+    {
+      "Display_Val": "host_skip_client_dll_crc",
+      "Type": "BOOL",
+      "Default": "1",
+      "Description": "allow people to run modded client dlls, this is mainly so people running pilot visor colour mods can keep those, since they use a client.dll edit",
+      "ARG": "CONVAR"
+    }
 
   ]
 

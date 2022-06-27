@@ -61,6 +61,7 @@
     <None Remove="Resources\Language_Icons\ru.png" />
     <None Remove="Resources\Language_Icons\us.png" />
     <None Remove="Resources\like.png" />
+    <None Remove="Resources\Loading_Moon.jpg" />
     <None Remove="Resources\Lock_BW.png" />
     <None Remove="Resources\Lock_WB.png" />
     <None Remove="Resources\LOG_ICON.png" />
@@ -107,6 +108,12 @@
       <EmbedInteropTypes>true</EmbedInteropTypes>
       <CopyLocal>True</CopyLocal>
     </COMReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Loading_Moon.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>

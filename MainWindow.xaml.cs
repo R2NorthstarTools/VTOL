@@ -352,6 +352,7 @@ namespace VTOL
         public string MasterServer_URL;
         public string MasterServer_URL_CN = "nscn.wolf109909.top";
         public string Current_REPO_URL_CN = "https://nscn.wolf109909.top/version/query";
+        public bool Loaded_ = false;
 
         public int pid;
         string Skin_Path = "";
@@ -391,9 +392,11 @@ YOUR DESCRIPTION
                 set { Accent_Color = value; }
             }
         }
-
+        
         public MainWindow()
         {
+            Application.Current.MainWindow.Loaded += VTOL_Loaded;
+
             InitializeComponent();
             Application.Current.MainWindow.Closing += new CancelEventHandler(MainWindow_Closing);
             do_not_overwrite_Ns_file = Properties.Settings.Default.Ns_Startup;
@@ -732,7 +735,6 @@ YOUR DESCRIPTION
                 Write_To_Log(ErrorManager(ef));
 
             }
-
         }
 
         static bool isValidHexaCode(string str)
@@ -9473,6 +9475,121 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
         private void SearchBar_LostFocus(object sender, RoutedEventArgs e)
         {
             SearchBar.Text = "Search";
+
+        }
+        private List<string> autoSuggestionList = new List<string>();
+
+        public List<string> AutoSuggestionList
+        {
+            get { return this.autoSuggestionList; }
+            set { this.autoSuggestionList = value; }
+        }
+        private void OpenAutoSuggestionBox()
+        {
+            try
+            {
+                autoSuggestionList.Add("ns_should_log_all_clientcommands");
+                // Enable.  
+                this.autoListPopup.Visibility = Visibility.Visible;
+                this.autoListPopup.IsOpen = true;
+                this.autoList.Visibility = Visibility.Visible;
+            }
+            catch (Exception ex)
+            {
+                // Info.  
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                Console.Write(ex);
+            }
+        }
+        private void CloseAutoSuggestionBox()
+        {
+            try
+            {
+                // Enable.  
+                this.autoListPopup.Visibility = Visibility.Collapsed;
+                this.autoListPopup.IsOpen = false;
+                this.autoList.Visibility = Visibility.Collapsed;
+            }
+            catch (Exception ex)
+            {
+                // Info.  
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                Console.Write(ex);
+            }
+        }
+        private void AutoList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                // Verification.  
+                if (this.autoList.SelectedIndex <= -1)
+                {
+                    // Disable.  
+                    this.CloseAutoSuggestionBox();
+
+                    // Info.  
+                    return;
+                }
+
+                // Disable.  
+                this.CloseAutoSuggestionBox();
+
+                // Settings.  
+                this.Arg_Box.Text = this.Arg_Box.Text  + " "+ this.autoList.SelectedItem.ToString() + " ";
+                this.autoList.SelectedIndex = -1;
+            }
+            catch (Exception ex)
+            {
+                // Info.  
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                Console.Write(ex);
+            }
+        }
+
+    
+    private void Arg_Box_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            try
+            {
+                // Verification.  
+                if (string.IsNullOrEmpty(this.Arg_Box.Text))
+                {
+                    // Disable.  
+                //    this.CloseAutoSuggestionBox();
+
+                    // Info.  
+                    return;
+                }
+
+                // Enable.  
+             //   this.OpenAutoSuggestionBox();
+
+                // Settings.  
+                //this.autoList.ItemsSource = this.AutoSuggestionList.Where(p => p.ToLower().Contains(this.Arg_Box.Text.ToLower())).ToList();
+                this.autoList.ItemsSource = this.AutoSuggestionList;
+            }
+            catch (Exception ex)
+            {
+                // Info.  
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                Console.Write(ex);
+            }
+        }
+        public static bool IsWindowOpen<T>(string name = "") where T : Window
+        {
+            return string.IsNullOrEmpty(name)
+               ? Application.Current.Windows.OfType<T>().Any()
+               : Application.Current.Windows.OfType<T>().Any(w => w.Name.Equals(name));
+        }
+        private void VTOL_Loaded(object sender, RoutedEventArgs e)
+        {
+            Loaded_ = true;
+            this.Topmost = true;
+        }
+
+        private void VTOL_LayoutUpdated(object sender, EventArgs e)
+        {
+
 
         }
     }
