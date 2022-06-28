@@ -19,31 +19,6 @@ namespace VTOL
         System.Windows.Forms.Timer timer1 = new System.Windows.Forms.Timer();
         private int counter = 60;
         Startup splash;
-        protected override void OnStartup(StartupEventArgs e)
-        {
-            base.OnStartup(e);
-
-            splash = new Startup();
-
-            splash.Show();
-            // Step 2 - Start a stop watch  
-            Task.Factory.StartNew(() =>
-            {
-                // Step 3 - Load your windows but don't show it yet  
-              
-                this.Dispatcher.Invoke(() =>
-                {
-                    MainWindow main = new MainWindow();
-                   // this.MainWindow = main;
-
-                    main.ShowActivated = false;
-                    splash.Close();
-
-                });
-            });
-
-        }
-
       
     }
 }

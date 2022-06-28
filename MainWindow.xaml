@@ -164,7 +164,7 @@
             <ScrollViewer x:Name="Scroll_View" VerticalScrollBarVisibility="Hidden" HorizontalAlignment="Left" Margin="990,0,0,0" Width="20">
                 <StackPanel hc:Growl.GrowlParent="True" VerticalAlignment="Center" Margin="0,10,10,10"/>
             </ScrollViewer>
-            <Image x:Name="Banner_Image" Margin="38,409,37,0" Width="935" Height="203" Source="Resources/Banner_normal.jpg" Stretch="UniformToFill"  />
+            <Image x:Name="Banner_Image" Margin="38,409,37,0" Width="935" Height="203" Source="Resources/Banner_normal.jpg" Stretch="UniformToFill" Loaded="Banner_Image_Loaded"  />
             <hc:GifImage x:Name="Gif_Image_Vanilla" Height="203" VerticalAlignment="Top" Margin="38,409,37,0" Stretch="Fill" Visibility="Hidden" Panel.ZIndex="3" IsHitTestVisible="False" gif:AnimationBehavior.AutoStart="False" ScrollViewer.VerticalScrollBarVisibility="Disabled">
                 <hc:GifImage.Source>
                     <BitmapImage x:Name="Bitmap1" UriSource="\Resources\TF2_Vanilla_promo.gif" CacheOption="OnLoad"/>

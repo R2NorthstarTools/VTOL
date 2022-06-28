@@ -319,6 +319,7 @@ namespace VTOL
 
     public partial class MainWindow : Window
     {
+    
 
         BitmapImage Vanilla = new BitmapImage(new Uri(@"/Resources/TF2_Vanilla_promo.gif", UriKind.Relative));
         BitmapImage Northstar = new BitmapImage(new Uri(@"/Resources/Northstar_Smurfson.gif", UriKind.Relative));
@@ -395,6 +396,9 @@ YOUR DESCRIPTION
         
         public MainWindow()
         {
+            Startup splash = new Startup();
+
+            splash.Show();
             Application.Current.MainWindow.Loaded += VTOL_Loaded;
 
 
@@ -452,20 +456,20 @@ YOUR DESCRIPTION
                 Animation_Start_Vanilla = false;
                 Write_To_Log("", true);
                 LOG_BOX.IsReadOnly = true;
-                Loading_Panel.Visibility = Visibility.Hidden;
-                Mod_Panel.Visibility = Visibility.Hidden;
-                //  Load_Line.Visibility = Visibility.Hidden;
-                skins_Panel.Visibility = Visibility.Hidden;
+                Loading_Panel.Visibility = Visibility.Collapsed;
+                Mod_Panel.Visibility = Visibility.Collapsed;
+                //  Load_Line.Visibility = Visibility.Collapsed;
+                skins_Panel.Visibility = Visibility.Collapsed;
                 Main_Panel.Visibility = Visibility.Visible;
-                About_Panel.Visibility = Visibility.Hidden;
-                Mod_Browse_Panel.Visibility = Visibility.Hidden;
-                About_Panel.Visibility = Visibility.Hidden;
-                Dedicated_Server_Panel.Visibility = Visibility.Hidden;
-                Log_Panel.Visibility = Visibility.Hidden;
-                Updates_Panel.Visibility = Visibility.Hidden;
-                Drag_Drop_Overlay.Visibility = Visibility.Hidden;
-                Drag_Drop_Overlay_Skins.Visibility = Visibility.Hidden;
-                Tools_Panel.Visibility = Visibility.Hidden;
+                About_Panel.Visibility = Visibility.Collapsed;
+                Mod_Browse_Panel.Visibility = Visibility.Collapsed;
+                About_Panel.Visibility = Visibility.Collapsed;
+                Dedicated_Server_Panel.Visibility = Visibility.Collapsed;
+                Log_Panel.Visibility = Visibility.Collapsed;
+                Updates_Panel.Visibility = Visibility.Collapsed;
+                Drag_Drop_Overlay.Visibility = Visibility.Collapsed;
+                Drag_Drop_Overlay_Skins.Visibility = Visibility.Collapsed;
+                Tools_Panel.Visibility = Visibility.Collapsed;
 
                 string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
                 Install_Skin_Bttn.IsEnabled = false;
@@ -475,17 +479,17 @@ YOUR DESCRIPTION
                 // Sections_Tabs.SelectedItem = 0;
                 //IsLoading_Panel.Visibility = Visibility.Hidden;
 
-               
+
                 //   if (File.Exists(@"C:\ProgramData\VTOL_DATA\VARS\First_Time.txt"))
                 //   {
                 //      (Read_From_TextFile_OneLine(@"C:\ProgramData\VTOL_DATA\VARS\First_Time.txt").Trim());
                 //  }
-               
 
-              
+
+
                 Check_For_New_Northstar_Install();
                 Task.WaitAll(Set_About(), Select_Main(), getProcessorInfo());
-                
+
 
                 // string[] arguments = Environment.GetCommandLineArgs();
 
@@ -511,7 +515,7 @@ YOUR DESCRIPTION
                             ColorPicker_Accent.SelectedBrush = (SolidColorBrush)new BrushConverter().ConvertFrom(lines[0]);
 
                             Colors_Set Colors_Set = new Colors_Set { Accent_Color = Accent_Color };
-                            this.DataContext = Colors_Set; 
+                            this.DataContext = Colors_Set;
                             this.Resources["Button_BG"] = (SolidColorBrush)new BrushConverter().ConvertFrom(ColorPicker_Accent.SelectedBrush.Color.ToString());
 
                         }
@@ -564,13 +568,13 @@ YOUR DESCRIPTION
                 updaterModulePath = Path.Combine(Header, "VTOL_Updater.exe");
                 GC.Collect();
 
-            
 
 
 
-            // HandyControl.Controls.Growl.InfoGlobal(Header);
-            // Send_Info_Notif(Properties.Settings.Default.Version);
-           
+
+                // HandyControl.Controls.Growl.InfoGlobal(Header);
+                // Send_Info_Notif(Properties.Settings.Default.Version);
+
                 if (Directory.Exists(Current_Install_Folder + @"\Skins_Unpack_Mod_MNGR"))
                 {
                     try
@@ -659,7 +663,7 @@ YOUR DESCRIPTION
                     {
                         Found_Install_Folder = true;
                         Titanfall2_Directory_TextBox.Text = Current_Install_Folder;
-                        if (Properties.Settings.Default.Version.Remove(0, 1) != "1.7.1"&& Found_Install_Folder == true)
+                        if (Properties.Settings.Default.Version.Remove(0, 1) != "1.7.1" && Found_Install_Folder == true)
                         {
                             this.VTOL.Title = String.Format("VTOL {0}", version + "  |  Northstar Version - " + Properties.Settings.Default.Version.Remove(0, 1));
 
@@ -709,40 +713,55 @@ YOUR DESCRIPTION
 
                     }
                 }
-           
-
-            if (Titanfall2_Directory_TextBox.Text == null || Titanfall2_Directory_TextBox.Text == "")
-            {
-
-                Titanfall2_Directory_TextBox.Background = Brushes.Red;
-            }
-            else
-            {
-                Titanfall2_Directory_TextBox.Background = Brushes.White;
 
 
-            }
-            Origin_Client_Running = Check_Process_Running("OriginClientService");
+                if (Titanfall2_Directory_TextBox.Text == null || Titanfall2_Directory_TextBox.Text == "")
+                {
 
-            PingHost(MasterServer_URL);
+                    Titanfall2_Directory_TextBox.Background = Brushes.Red;
+                }
+                else
+                {
+                    Titanfall2_Directory_TextBox.Background = Brushes.White;
+
+
+                }
+                Origin_Client_Running = Check_Process_Running("OriginClientService");
+
+                PingHost(MasterServer_URL);
                 //  System.Timers.Timer aTimer = new System.Timers.Timer(5000); //2 minutes in milliseconds
                 // aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
                 //  aTimer.Start();
                 Log_Indicator.Background = Brushes.Transparent;
-
-
             }
             catch (Exception ef)
             {
                 Send_Warning_Notif(GetTextResource("NOTIF_ERROR_NS_BAD_INTEGRITY"));
                 Write_To_Log(ErrorManager(ef));
+                splash.Close();
 
             }
             EndInit();
+            splash.Close();
 
 
         }
-
+        void pencereac<T>(int Ops) where T : Window, new()
+        {
+            if (!Application.Current.Windows.OfType<T>().Any()) // Check is Not Open, Open it.
+            {
+                var wind = new T();
+                switch (Ops)
+                {
+                    case 1:
+                        wind.Close();
+                        break;
+                    case 0:
+                        wind.Show();
+                        break;
+                }
+            }
+        }
         static bool isValidHexaCode(string str)
         {
             if (str[0] != '#')
@@ -1276,34 +1295,36 @@ YOUR DESCRIPTION
                     if (result == System.Windows.MessageBoxResult.Yes)
                     {
                         
-                        if (words[3].Contains(","))
-                        {
+                        //if (words[3].Contains(","))
+                        //{
 
-                            string[] Downloads = words[3].Split(",");
-                            foreach (var it in Downloads)
-                            {
-                                LAST_INSTALLED_MOD = it;
-                                parse_git_to_zip(Search_For_Mod_Thunderstore(it));
+                        //    string[] Downloads = words[3].Split(",");
+
+                        //    foreach (var it in Downloads)
+                        //    {
+                        //        string[] Word_Arr = it.Split("-");
+
+                        //        LAST_INSTALLED_MOD = Word_Arr[0] + "-" + Word_Arr[1];
+                        //        parse_git_to_zip(Search_For_Mod_Thunderstore(Word_Arr[0] + "-" + Word_Arr[1]));
 
 
-                            }
-                            Send_Info_Notif("Dependencies Download Completed");
+                        //    }
+                        //    Send_Info_Notif("Dependencies Download Completed");
 
 
-                        }
-                        else
-                        {
+                        //}
+                        //else
+                        //{
                             if (Completed_Operation == false)
                             {
                                 Send_Warning_Notif("Download in progress Detected, added Mod to qeue");
-                                while(Completed_Operation == true)
-                                {
-                                    Console.WriteLine("HD");
-                                }
-                                Thread.Sleep(300);
-                                LAST_INSTALLED_MOD = words[3];
+                                
 
-                                parse_git_to_zip(Search_For_Mod_Thunderstore(words[3]));
+                                string[] Word_Arr = Search_For_Mod_Thunderstore(words[3]).Split("`");
+                                LAST_INSTALLED_MOD = Word_Arr[1];
+
+
+                                parse_git_to_zip(Word_Arr[0]);
 
 
 
@@ -1312,8 +1333,11 @@ YOUR DESCRIPTION
                             }
                             else
                             {
-                                LAST_INSTALLED_MOD = words[3];
-                                parse_git_to_zip(Search_For_Mod_Thunderstore(words[3]));
+                                string[] Word_Arr = Search_For_Mod_Thunderstore(words[3]).Split("`");
+                                LAST_INSTALLED_MOD = Word_Arr[1];
+
+
+                                parse_git_to_zip(Word_Arr[0]);
 
 
 
@@ -1322,7 +1346,7 @@ YOUR DESCRIPTION
                             }
 
 
-                        }
+                        //}
 
                        
 
@@ -1395,7 +1419,7 @@ YOUR DESCRIPTION
                 {
                    
 
-                    return versions.First().DownloadUrl;
+                    return versions.First().DownloadUrl + "`" + Update.Thunderstore[i].Name + "-" + versions.First().VersionNumber;
 
                 }
 
@@ -1582,7 +1606,6 @@ YOUR DESCRIPTION
                                     Dependencies.Clear();
 
                                     Downloads.Clear();
-                                    MessageBox.Show(Update.Thunderstore[i].Name + " " + download_url);
 
 
                                     if (int.TryParse(FileSize, out int value))
@@ -1604,7 +1627,6 @@ YOUR DESCRIPTION
 
 
                             {
-                               // MessageBox.Show(String.Join(", ", items.DownloadUrl));
 
                                 Downloads.Add(Convert.ToInt32(items.Downloads));
                             }
@@ -1625,11 +1647,7 @@ YOUR DESCRIPTION
 
                             }
                             Dependencies_ = String.Join(", ", Dependencies);
-                            //foreach (var xx in versions)
-                            //{
-                            //    MessageBox.Show(string.Join("\n", xx.VersionNumber));
-
-                            //}
+                           
                             download_url = versions.First().DownloadUrl;
                             ICON = versions.First().Icon;
                             FileSize = versions.First().FileSize.ToString();
@@ -1657,7 +1675,6 @@ YOUR DESCRIPTION
 
 
                             {
-                              //  MessageBox.Show(String.Join(", ", items.DownloadUrl));
 
                                 Downloads.Add(Convert.ToInt32(items.Downloads));
                                 
@@ -1668,11 +1685,7 @@ YOUR DESCRIPTION
 
                           
                             downloads = (Downloads.Sum()).ToString();
-                            //foreach (var xx in versions)
-                            //{
-                            //    MessageBox.Show(string.Join("\n", xx.VersionNumber) + xx.Name);
-
-                            //}
+                        
 
                            
 
@@ -4356,18 +4369,18 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             //Button Bt = (Button)sender;
             // DoubleAnimation Anim = new DoubleAnimation(0, TimeSpan.FromSeconds(2));
 
-            Banner_Image.Visibility = Visibility.Hidden;
+            Banner_Image.Visibility = Visibility.Collapsed;
 
-            Gif_Image_Northstar.Visibility = Visibility.Hidden;
+            Gif_Image_Northstar.Visibility = Visibility.Collapsed;
             Animation_Start_Vanilla = true;
             Gif_Image_Vanilla.Visibility = Visibility.Visible;
         }
 
         private void Northstar_Btn_MouseEnter(object sender, MouseEventArgs e)
         {
-            Gif_Image_Vanilla.Visibility = Visibility.Hidden;
+            Gif_Image_Vanilla.Visibility = Visibility.Collapsed;
 
-            Banner_Image.Visibility = Visibility.Hidden;
+            Banner_Image.Visibility = Visibility.Collapsed;
             Animation_Start_Northstar = true;
             Gif_Image_Northstar.Visibility = Visibility.Visible;
 
@@ -9614,7 +9627,10 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
         }
 
-       
+        private void Banner_Image_Loaded(object sender, RoutedEventArgs e)
+        {
+            
+        }
     }
 
 }

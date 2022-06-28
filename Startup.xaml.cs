@@ -19,6 +19,7 @@ namespace VTOL
     /// </summary>
     public partial class Startup : Window
     {
+        public bool end =false;
         public Startup()
         {
             InitializeComponent();
