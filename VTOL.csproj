@@ -387,10 +387,10 @@
 
   <ItemGroup>
     <Page Update="Resources\Languages\cn.xaml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Page>
     <Page Update="Resources\Languages\de.xaml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Page>
     <Page Update="Resources\Languages\en - Copy.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
@@ -398,10 +398,16 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Resources\Languages\en.xaml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Page>
     <Page Update="Resources\Languages\fr.xaml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Page>
+    <Page Update="Resources\Languages\it.xaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Page>
+    <Page Update="Resources\Languages\kr.xaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Page>
   </ItemGroup>
 

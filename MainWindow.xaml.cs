@@ -485,7 +485,24 @@ YOUR DESCRIPTION
                 //      (Read_From_TextFile_OneLine(@"C:\ProgramData\VTOL_DATA\VARS\First_Time.txt").Trim());
                 //  }
 
+                if (File.Exists(@"C:\ProgramData\VTOL_DATA\VARS\Language.txt"))
+                {
+                    ChangeLanguageTo(Read_From_TextFile_OneLine(@"C:\ProgramData\VTOL_DATA\VARS\Language.txt").Trim());
+                }
+                else
+                {
+                    CultureInfo ci = CultureInfo.InstalledUICulture;
+                    if (ci.TwoLetterISOLanguageName == "zh")
+                    {
+                        ChangeLanguageTo("cn");
+                    }
+                    else // this is due to we misused cn and zh. zh is the actual languageName and cn is what we have in file.
+                    {
+                        ChangeLanguageTo(ci.TwoLetterISOLanguageName);
+                    }
 
+                    Write_To_Log("\nLanguage Detected was - " + ci.TwoLetterISOLanguageName);
+                }
 
                 Check_For_New_Northstar_Install();
                 Task.WaitAll(Set_About(), Select_Main(), getProcessorInfo());
@@ -613,24 +630,7 @@ YOUR DESCRIPTION
                 if (Directory.Exists(@"C:\ProgramData\VTOL_DATA"))
                 {
 
-                    if (File.Exists(@"C:\ProgramData\VTOL_DATA\VARS\Language.txt"))
-                    {
-                        ChangeLanguageTo(Read_From_TextFile_OneLine(@"C:\ProgramData\VTOL_DATA\VARS\Language.txt").Trim());
-                    }
-                    else
-                    {
-                        CultureInfo ci = CultureInfo.InstalledUICulture;
-                        if (ci.TwoLetterISOLanguageName == "zh")
-                        {
-                            ChangeLanguageTo("cn");
-                        }
-                        else // this is due to we misused cn and zh. zh is the actual languageName and cn is what we have in file.
-                        {
-                            ChangeLanguageTo(ci.TwoLetterISOLanguageName);
-                        }
-
-                        Write_To_Log("\nLanguage Detected was - " + ci.TwoLetterISOLanguageName);
-                    }
+                  
                     if (File.Exists(@"C:\ProgramData\VTOL_DATA\VARS\AUTHOR.txt"))
                     {
                         Author_Used = Read_From_TextFile_OneLine(@"C:\ProgramData\VTOL_DATA\VARS\AUTHOR.txt").Trim();
@@ -2263,11 +2263,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                     WalkDirectoryTree(rootDirs, Search);
 
                     ////Console.WriteLine("Files with restricted access:");
-                    foreach (string s in log)
-                    {
-                        ////Console.WriteLine(s);
-                    }
-
+                    
                 }
                 else
                 {
@@ -2286,7 +2282,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
                 Send_Error_Notif(GetTextResource("NOTIF_ERROR_INVALID_PATH_FED"));
                 failed_search_counter++;
-
+                
             }
 
 
