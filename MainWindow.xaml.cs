@@ -355,7 +355,7 @@ namespace VTOL
         public string MasterServer_URL_CN = "nscn.wolf109909.top";
         public string Current_REPO_URL_CN = "https://nscn.wolf109909.top/version/query";
         public bool Loaded_ = false;
-        public string Current_Ver_;
+        public string Current_Ver_ = "NODATA";
         public int pid;
         string Skin_Path = "";
         string Skin_Temp_Loc = "";
@@ -414,10 +414,10 @@ namespace VTOL
             do_not_overwrite_Ns_file_Dedi = Properties.Settings.Default.Ns_Dedi;
             Sort_Lists = Properties.Settings.Default.Sort_Mods;
             Warn_Close_EA = Properties.Settings.Default.Warning_Close_EA;
-            Author_Used = Properties.Settings.Default.Author;
-            Repo_Used = Properties.Settings.Default.Repo;
-            MasterServer_URL = Properties.Settings.Default.MasterServer_URL;
-            Current_REPO_URL = Properties.Settings.Default.Current_REPO_URL;
+            //Author_Used = Properties.Settings.Default.Author;
+            //Repo_Used = Properties.Settings.Default.Repo;
+            //MasterServer_URL = Properties.Settings.Default.MasterServer_URL;
+            //Current_REPO_URL = Properties.Settings.Default.Current_REPO_URL;
             PackasSkin = Properties.Settings.Default.PackageAsSkin;
             Skin_Mod_Pack_Check.IsChecked = Properties.Settings.Default.PackageAsSkin;
             //  Test_List.ItemsSource = itemsList;
@@ -467,6 +467,8 @@ namespace VTOL
                 Server_Indicator.Fill = Brushes.Red;
                 Log_Indicator.Background = Brushes.Transparent;
 
+                string Header = Path.GetFullPath(Path.Combine(System.Reflection.Assembly.GetExecutingAssembly().Location, @"../"));
+                updaterModulePath = Path.Combine(Header, "VTOL_Updater.exe");
 
 
                 if (Directory.Exists(DocumentsFolder))
@@ -478,14 +480,14 @@ namespace VTOL
                         dynamic User_Settings_Json = new JObject();
                         User_Settings_Json.Current_Version = "NODATA";
                         User_Settings_Json.Theme = "NODATA";
-                        User_Settings_Json.Master_Server_Url = "NODATA";
-                        User_Settings_Json.Repo = "NODATA";
+                        User_Settings_Json.Master_Server_Url = "Northstar.tf";
+                        User_Settings_Json.Repo = "Northstar";
                         User_Settings_Json.Language = "NODATA";
                         User_Settings_Json.Repo_Url = "NODATA";
                         User_Settings_Json.Northstar_Install_Location = "NODATA";
-                        User_Settings_Json.MasterServer_URL_CN = "NODATA";
-                        User_Settings_Json.Current_REPO_URL_CN = "NODATA";
-                        User_Settings_Json.Author = "NODATA";
+                        User_Settings_Json.MasterServer_URL_CN = "nscn.wolf109909.top";
+                        User_Settings_Json.Current_REPO_URL_CN = "https://nscn.wolf109909.top/version/query";
+                        User_Settings_Json.Author = "R2Northstar";
 
                         var User_Settings_Json_String = Newtonsoft.Json.JsonConvert.SerializeObject(User_Settings_Json);
 
@@ -494,7 +496,7 @@ namespace VTOL
                             StreamWriter.WriteLine(User_Settings_Json_String.ToString());
                             StreamWriter.Close();
                         }
-
+                        User_Settings_Vars = User_Settings.FromJson(User_Settings_Json_String);
                     }
                     else
                     {
@@ -517,95 +519,84 @@ namespace VTOL
                 
 
 
-                if (User_Settings_Vars.Language != "NODATA")
-                {
-                    ChangeLanguageTo(User_Settings_Vars.Language);
-                }
-                else
-                {
-                    CultureInfo ci = CultureInfo.InstalledUICulture;
-                    if (ci.TwoLetterISOLanguageName == "zh")
-                    {
-                        ChangeLanguageTo("cn");
-                    }
-                    else // this is due to we misused cn and zh. zh is the actual languageName and cn is what we have in file.
-                    {
-                        ChangeLanguageTo(ci.TwoLetterISOLanguageName);
-                    }
 
-                    Write_To_Log("\nLanguage Detected was - " + ci.TwoLetterISOLanguageName);
-                }
-
-                Check_For_New_Northstar_Install();
                 Task.WaitAll(Set_About(), Select_Main(), getProcessorInfo());
 
                 if (User_Settings_Vars != null)
                 {
 
-                    if (User_Settings_Vars != null)
+                    if (User_Settings_Vars.Language != "NODATA")
                     {
-                        Author_Used = User_Settings_Vars.Author;
-
+                        ChangeLanguageTo(User_Settings_Vars.Language);
                     }
-                    if (User_Settings_Vars != null)
+                    else
                     {
+                        CultureInfo ci = CultureInfo.InstalledUICulture;
+                        if (ci.TwoLetterISOLanguageName == "zh")
+                        {
+                            ChangeLanguageTo("cn");
+                        }
+                        else // this is due to we misused cn and zh. zh is the actual languageName and cn is what we have in file.
+                        {
+                            ChangeLanguageTo(ci.TwoLetterISOLanguageName);
+                        }
+
+                        Write_To_Log("\nLanguage Detected was - " + ci.TwoLetterISOLanguageName);
+                    }
+                    Author_Used = User_Settings_Vars.Author;
+                                      
                         Repo_Used = User_Settings_Vars.Repo;
-
-                    }
-                    if (User_Settings_Vars != null)
-                    {
+                                      
                         Current_REPO_URL = User_Settings_Vars.RepoUrl;
+                                                           
+                        Current_Ver_ = User_Settings_Vars.CurrentVersion;
 
-                    }
-                    if (User_Settings_Vars != null)
-                    {
                         MasterServer_URL = User_Settings_Vars.MasterServerUrl;
+                        
+                        Current_Install_Folder = User_Settings_Vars.NorthstarInstallLocation;
+
+
+                    if (isValidHexaCode(User_Settings_Vars.Theme))
+                    {
+
+                        Accent_Color = (SolidColorBrush)new BrushConverter().ConvertFrom(User_Settings_Vars.Theme);
+                        ColorPicker_Accent.SelectedBrush = (SolidColorBrush)new BrushConverter().ConvertFrom(User_Settings_Vars.Theme);
+
+                        Colors_Set Colors_Set = new Colors_Set { Accent_Color = Accent_Color };
+                        this.DataContext = Colors_Set;
+                        this.Resources["Button_BG"] = (SolidColorBrush)new BrushConverter().ConvertFrom(ColorPicker_Accent.SelectedBrush.Color.ToString());
 
                     }
-
-                    Current_Ver_ = User_Settings_Vars.CurrentVersion;
-                    Properties.Settings.Default.Version = Current_Ver_;
-                    Properties.Settings.Default.Save();
-
-
-                    Current_Install_Folder = User_Settings_Vars.NorthstarInstallLocation;
-                    if (Directory.Exists(Current_Install_Folder))
+                    else
                     {
+                        this.Resources["Button_BG"] = Accent_Color;
+
+                    }
+                }
+
+               
+
+
+                if (Directory.Exists(Current_Install_Folder))
+                    {
+                        //if (File.Exists(Current_Install_Folder + @"\ns_version.txt") )
+                        //{
+                        //    Current_Ver_ = File.ReadAllText(Current_Install_Folder + @"\ns_version.txt");
+                        //    User_Settings_Vars.CurrentVersion = Current_Ver_;
+                        //    Properties.Settings.Default.Version = Current_Ver_;
+                        //    Properties.Settings.Default.Save();
+                        //}
+                        
                         Titanfall2_Directory_TextBox.Text = Current_Install_Folder;
                         Send_Info_Notif(GetTextResource("NOTIF_INFO_FOUND_INSTALL_PATH") +" "+ Current_Install_Folder + "\n");
 
-                        if (Properties.Settings.Default.Version.Remove(0, 1) != "1.7.1" && Found_Install_Folder == true)
-                        {
-                            this.VTOL.Title = String.Format("VTOL {0}", version + "  |  Northstar Version - " + Properties.Settings.Default.Version.Remove(0, 1));
-
-
-                        }
-                        else
-                        {
-                            this.VTOL.Title = String.Format("VTOL {0}", version);
-
-
-
-                        }
-                        // Install_Textbox.BackColor = Color.White;
-
+                        
+                    // Install_Textbox.BackColor = Color.White;
+                   
 
                         NSExe = Get_And_Set_Filepaths(Current_Install_Folder, "NorthstarLauncher.exe");
                         Check_Integrity_Of_NSINSTALL();
-                        if (NS_Installed == true)
-                        {
-
-
-                            Install_NS.Content = GetTextResource("UPDATE_REPAIR_NS");
-                        }
-                        else
-                        {
-
-                            Install_NS.Content = GetTextResource("INSTALL_NS");
-
-
-
-                        }
+                        
 
 
                         if (Titanfall2_Directory_TextBox.Text == null || Titanfall2_Directory_TextBox.Text == "")
@@ -624,43 +615,38 @@ namespace VTOL
                     }
                     else
                     {
-                        Send_Warning_Notif(GetTextResource("NOTIF_WARN_AUTOCHECK_CFG"));
 
+                    //Current_Install_Folder = InstalledApplications.GetApplictionInstallPath("Titanfall2");
+                    string Path = Auto_Find_And_verify();
+                    if (IsValidPath(Path))
+                    {
+                        Current_Install_Folder = Path;
+                        User_Settings_Vars.NorthstarInstallLocation = Path;
+                        string User_Settings_Json_Strings_ = Newtonsoft.Json.JsonConvert.SerializeObject(User_Settings_Vars);
+                        Titanfall2_Directory_TextBox.Text = Current_Install_Folder;
+                        NSExe = Get_And_Set_Filepaths(Current_Install_Folder, "NorthstarLauncher.exe");
+
+                        using (var StreamWriter = new StreamWriter(DocumentsFolder + @"\VTOL_DATA\Settings\User_Settings.Json", false))
+                        {
+                            StreamWriter.WriteLine(User_Settings_Json_Strings_);
+                            StreamWriter.Close();
+                        }
+                        Check_Integrity_Of_NSINSTALL();
+                    }
+                    else
+                    {
+                        Send_Warning_Notif(GetTextResource("NOTIF_ERROR_INVALID_INSTALL_PATH"));
                         Send_Warning_Notif(GetTextResource("NOTIF_ERROR_NS_BAD_INTEGRITY"));
-                        //Current_Install_Folder = InstalledApplications.GetApplictionInstallPath("Titanfall2");
-
 
                     }
+
                 }
+                
                 // string[] arguments = Environment.GetCommandLineArgs();
 
                 //Console.WriteLine("GetCommandLineArgs: {0}", string.Join(", ", arguments));
-                if (User_Settings_Vars.Theme != "NODATA")
-                {
 
 
-                   
-
-                        if (isValidHexaCode(User_Settings_Vars.Theme))
-                        {
-
-                            Accent_Color = (SolidColorBrush)new BrushConverter().ConvertFrom(User_Settings_Vars.Theme);
-                            ColorPicker_Accent.SelectedBrush = (SolidColorBrush)new BrushConverter().ConvertFrom(User_Settings_Vars.Theme);
-
-                            Colors_Set Colors_Set = new Colors_Set { Accent_Color = Accent_Color };
-                            this.DataContext = Colors_Set;
-                            this.Resources["Button_BG"] = (SolidColorBrush)new BrushConverter().ConvertFrom(ColorPicker_Accent.SelectedBrush.Color.ToString());
-
-                        }
-                       
-
-                    
-                }
-                else
-                {
-                    this.Resources["Button_BG"] = Accent_Color;
-
-                }
                 if (do_not_overwrite_Ns_file == true)
                 {
                     Ns_Args.IsChecked = true;
@@ -684,12 +670,10 @@ namespace VTOL
 
                 }
 
+                Check_For_New_Northstar_Install();
 
 
 
-                string Header = Path.GetFullPath(Path.Combine(System.Reflection.Assembly.GetExecutingAssembly().Location, @"../"));
-                updaterModulePath = Path.Combine(Header, "VTOL_Updater.exe");
-                GC.Collect();
 
 
 
@@ -809,6 +793,34 @@ namespace VTOL
                 aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
                  aTimer.Start();
                 Log_Indicator.Background = Brushes.Transparent;
+                if (Properties.Settings.Default.Version != "NODATA" || Properties.Settings.Default.Version != "")
+                {
+                    this.VTOL.Title = String.Format("VTOL {0}", version + "  |  Northstar Version - " + Properties.Settings.Default.Version.Remove(0, 1));
+
+
+                }
+                else
+                {
+                    this.VTOL.Title = String.Format("VTOL {0}", version);
+
+
+
+                }
+
+                if (NS_Installed == true)
+                {
+
+
+                    Install_NS.Content = GetTextResource("UPDATE_REPAIR_NS");
+                }
+                else
+                {
+
+                    Install_NS.Content = GetTextResource("INSTALL_NS");
+
+
+
+                }
             }
             catch (Exception ef)
             {
@@ -3467,47 +3479,184 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
             Progress_Bar_Window.Value = e.ProgressPercentage;
         }
-        private void Auto_Install_And_verify()
+        private string Auto_Find_And_verify()
         {
-            failed_search_counter = 0;
-            Send_Info_Notif(GetTextResource("NOTIF_INFO_FINDING_GAME"));
-            while (NS_Installed == false && failed_search_counter < 1)
-            {
+           
+                string path = "C:/ProgramData/Microsoft/Windows/Start Menu/Programs/Steam";
 
-                Send_Info_Notif(GetTextResource("NOTIF_INFO_LOOKING_FOR_INSTALL_SMILEYFACE"));
-                FindNSInstall("Titanfall2", @"C:\Program Files (x86)\Steam");
-
-                FindNSInstall("Titanfall2", @"C:\Program Files (x86)\Origin Games");
-
-                FindNSInstall("Titanfall2", @"C:\Program Files\EA Games");
-                if (NS_Installed == false && failed_search_counter >= 1)
+                if (!Directory.Exists(path) || !File.Exists(Path.Combine(path, "Steam.lnk")))
                 {
-                    Titanfall2_Directory_TextBox.Background = Brushes.Red;
-                    Install_NS_EXE_Textbox.Background = Brushes.Red;
-                    Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_GAME_INSTALL_NOT_FOUND"));
-                    break;
+                    if (Directory.Exists("C:/Program Files (x86)/Origin Games/Titanfall2") && File.Exists("C:/Program Files (x86)/Origin Games/Titanfall2/Titanfall2.exe"))
+                        return "C:/Program Files (x86)/Origin Games/Titanfall2";
 
+                    try
+                    {
+                        RegistryKey originReg = Registry.LocalMachine.OpenSubKey("SOFTWARE").OpenSubKey("Respawn").OpenSubKey("Titanfall2");
+                        if (originReg.GetValue("Install Dir") != null) return (string)originReg.GetValue("Install Dir");
+                    }
+                    catch
+                    {
+
+                    }
+
+                Titanfall2_Directory_TextBox.Background = Brushes.Red;
+                       Install_NS_EXE_Textbox.Background = Brushes.Red;
+                       Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_GAME_INSTALL_NOT_FOUND"));
+                       return null;
+            }
+
+            // AUTOMATIC AQCUISITION
+            // THE COOL SHIT:TM:
+
+            string target = GetShortcutTarget(Path.Combine(path, "Steam.lnk"));
+                string steamDir = Path.GetDirectoryName(target);
+
+                //Console.WriteLine(target);
+
+                List<string> folderPaths = new List<string>();
+
+                // probably stupid, but meh
+                string[] libraryFolders = File.ReadAllText(Path.Combine(steamDir, "config/libraryfolders.vdf")).Split('\"');
+                for (int i = 0; i < libraryFolders.Length; i++)
+                {
+                    string val = libraryFolders[i];
+                    if (val == "path")
+                    {
+                        Console.WriteLine(libraryFolders[i + 2]);
+                        folderPaths.Add(libraryFolders[i + 2]);
+                    }
+                }
+
+                foreach (string folder in folderPaths)
+                {
+                    //Console.WriteLine(folder);
+                    Thread.Sleep(1000);
+                    foreach (string dir in Directory.GetDirectories(Path.Combine(folder, "steamapps/common")))
+                    {
+                        //Console.WriteLine(dir);
+                        if (dir.EndsWith("Titanfall2") && File.Exists(Path.Combine(dir, "Titanfall2.exe")))
+                        {
+                            return dir;
+                        }
+                    }
+                }
+
+                try
+                {
+                    RegistryKey originReg = Registry.LocalMachine.OpenSubKey("SOFTWARE").OpenSubKey("Respawn").OpenSubKey("Titanfall2");
+                    if (originReg.GetValue("Install Dir") != null) return (string)originReg.GetValue("Install Dir");
+                }
+                catch
+                {
 
                 }
 
-            }
-            if (NS_Installed == true)
-            {
+                if (Directory.Exists("C:/Program Files (x86)/Origin Games/Titanfall2") && File.Exists("C:/Program Files (x86)/Origin Games/Titanfall2/Titanfall2.exe"))
+                    return "C:/Program Files (x86)/Origin Games/Titanfall2";
+            Titanfall2_Directory_TextBox.Background = Brushes.Red;
+                   Install_NS_EXE_Textbox.Background = Brushes.Red;
+                   Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_GAME_INSTALL_NOT_FOUND"));
+            return null;
+
+            //failed_search_counter = 0;
+            //Send_Info_Notif(GetTextResource("NOTIF_INFO_FINDING_GAME"));
+            //while (NS_Installed == false && failed_search_counter < 1)
+            //{
+
+            //    Send_Info_Notif(GetTextResource("NOTIF_INFO_LOOKING_FOR_INSTALL_SMILEYFACE"));
+            //    FindNSInstall("Titanfall2", @"C:\Program Files (x86)\Steam");
+
+            //    FindNSInstall("Titanfall2", @"C:\Program Files (x86)\Origin Games");
+
+            //    FindNSInstall("Titanfall2", @"C:\Program Files\EA Games");
+            //    if (NS_Installed == false && failed_search_counter >= 1)
+            //    {
+            //        Titanfall2_Directory_TextBox.Background = Brushes.Red;
+            //        Install_NS_EXE_Textbox.Background = Brushes.Red;
+            //        Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_GAME_INSTALL_NOT_FOUND"));
+            //        break;
+
+
+            //    }
+
+            //}
+            //if (NS_Installed == true)
+            //{
                
-                User_Settings_Vars.NorthstarInstallLocation = Current_Install_Folder;
-                string User_Settings_Json_Strings = Newtonsoft.Json.JsonConvert.SerializeObject(User_Settings_Vars);
-                using (var StreamWriter = new StreamWriter(DocumentsFolder + @"\VTOL_DATA\Settings\User_Settings.Json", false))
-                {
-                    StreamWriter.WriteLine(User_Settings_Json_Strings);
-                    StreamWriter.Close();
-                }
-                NSExe = Get_And_Set_Filepaths(Current_Install_Folder, "NorthstarLauncher.exe");
-                Send_Success_Notif(GetTextResource("NOTIF_SUCCESS_FOUND_INSTALL"));
-                Check_Integrity_Of_NSINSTALL();
-            }
+            //    User_Settings_Vars.NorthstarInstallLocation = Current_Install_Folder;
+            //    string User_Settings_Json_Strings = Newtonsoft.Json.JsonConvert.SerializeObject(User_Settings_Vars);
+            //    using (var StreamWriter = new StreamWriter(DocumentsFolder + @"\VTOL_DATA\Settings\User_Settings.Json", false))
+            //    {
+            //        StreamWriter.WriteLine(User_Settings_Json_Strings);
+            //        StreamWriter.Close();
+            //    }
+            //    NSExe = Get_And_Set_Filepaths(Current_Install_Folder, "NorthstarLauncher.exe");
+            //    Send_Success_Notif(GetTextResource("NOTIF_SUCCESS_FOUND_INSTALL"));
+            //    Check_Integrity_Of_NSINSTALL();
+            //}
 
         }
-        private bool IsValidPath(string path, bool allowRelativePaths = false)
+        // stolen from the internet
+        //stolen from EladNLG with permission
+        private static string GetShortcutTarget(string file)
+        {
+            try
+            {
+                if (System.IO.Path.GetExtension(file).ToLower() != ".lnk")
+                {
+                    throw new Exception("Supplied file must be a .LNK file");
+                }
+
+                FileStream fileStream = File.Open(file, FileMode.Open, FileAccess.Read);
+                using (System.IO.BinaryReader fileReader = new BinaryReader(fileStream))
+                {
+                    fileStream.Seek(0x14, SeekOrigin.Begin);     // Seek to flags
+                    uint flags = fileReader.ReadUInt32();        // Read flags
+                    if ((flags & 1) == 1)
+                    {                      // Bit 1 set means we have to
+                                           // skip the shell item ID list
+                        fileStream.Seek(0x4c, SeekOrigin.Begin); // Seek to the end of the header
+                        uint offset = fileReader.ReadUInt16();   // Read the length of the Shell item ID list
+                        fileStream.Seek(offset, SeekOrigin.Current); // Seek past it (to the file locator info)
+                    }
+
+                    long fileInfoStartsAt = fileStream.Position; // Store the offset where the file info
+                                                                 // structure begins
+                    uint totalStructLength = fileReader.ReadUInt32(); // read the length of the whole struct
+                    fileStream.Seek(0xc, SeekOrigin.Current); // seek to offset to base pathname
+                    uint fileOffset = fileReader.ReadUInt32(); // read offset to base pathname
+                                                               // the offset is from the beginning of the file info struct (fileInfoStartsAt)
+                    fileStream.Seek((fileInfoStartsAt + fileOffset), SeekOrigin.Begin); // Seek to beginning of
+                                                                                        // base pathname (target)
+                    long pathLength = (totalStructLength + fileInfoStartsAt) - fileStream.Position - 2; // read
+                                                                                                        // the base pathname. I don't need the 2 terminating nulls.
+                    char[] linkTarget = fileReader.ReadChars((int)pathLength); // should be unicode safe
+                    var link = new string(linkTarget);
+
+                    int begin = link.IndexOf("\0\0");
+                    if (begin > -1)
+                    {
+                        int end = link.IndexOf("\\\\", begin + 2) + 2;
+                        end = link.IndexOf('\0', end) + 1;
+
+                        string firstPart = link.Substring(0, begin);
+                        string secondPart = link.Substring(end);
+
+                        return firstPart + secondPart;
+                    }
+                    else
+                    {
+                        return link;
+                    }
+                }
+            }
+            catch
+            {
+                return "";
+            }
+        }
+    
+    private bool IsValidPath(string path, bool allowRelativePaths = false)
         {
             bool isValid = true;
 
@@ -4420,8 +4569,27 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
             try
             {
-                Auto_Install_And_verify();
+                if (!IsValidPath(Current_Install_Folder))
+                {
+                    MessageBox.Show("o");
+                    string Path = Auto_Find_And_verify();
+                    if (IsValidPath(Path))
+                    {
+                        Current_Install_Folder = Path;
+                        User_Settings_Vars.NorthstarInstallLocation = Path;
+                        string User_Settings_Json_Strings = Newtonsoft.Json.JsonConvert.SerializeObject(User_Settings_Vars);
+                        using (var StreamWriter = new StreamWriter(DocumentsFolder + @"\VTOL_DATA\Settings\User_Settings.Json", false))
+                        {
+                            StreamWriter.WriteLine(User_Settings_Json_Strings);
+                            StreamWriter.Close();
+                        }
+
+                    }
+                }
+                Check_Integrity_Of_NSINSTALL();
+
             }
+
 
             catch (Exception ex)
             {
@@ -9259,7 +9427,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 {
                     Test_List.ItemsSource = null;
 
-                    Check_Tabs(false, true, SearchBar.Text);
+                    Check_Tabs(true, true, SearchBar.Text);
 
 
 
@@ -9281,7 +9449,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
 
 
-                    Check_Tabs(false, false, SearchBar.Text);
+                    Check_Tabs(true, false, SearchBar.Text);
 
                 }
             }

@@ -7,8 +7,8 @@
     <UseWPF>true</UseWPF>
     <ApplicationIcon>Resources\Northstar-512.ico</ApplicationIcon>
     <PackageIcon>Northstar-512.png</PackageIcon>
-    <AssemblyVersion>1.2.6</AssemblyVersion>
-    <FileVersion>1.2.6</FileVersion>
+    <AssemblyVersion>1.2.7</AssemblyVersion>
+    <FileVersion>1.2.7</FileVersion>
     <PackageTags>Mod_Manager;Installer;VTOL</PackageTags>
     <DebugType>embedded</DebugType>
     <Platforms>AnyCPU;x64;x86</Platforms>
