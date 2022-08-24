@@ -26,8 +26,8 @@
     <Setting Name="Current_REPO_URL" Type="System.String" Scope="User">
       <Value Profile="(Default)">https://api.github.com/repos/R2Northstar/Northstar/releases/latest</Value>
     </Setting>
-    <Setting Name="Sort_Mods_By_Date" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+    <Setting Name="Sort_Mods_By_Date" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="Author" Type="System.String" Scope="User">
       <Value Profile="(Default)">R2Northstar</Value>

@@ -20,7 +20,6 @@ using Path = System.IO.Path;
 using System.Reflection;
 using System.ComponentModel;
 using System.Diagnostics;
-using WishLib = IWshRuntimeLibrary;
 using Newtonsoft.Json.Linq;
 using Microsoft.Win32;
 using System.Collections;
@@ -39,7 +38,7 @@ using System.Net.NetworkInformation;
 using System.Timers;
 using HandyControl.Data;
 using System.Security.Principal;
-
+using Walterlv.Windows.Interop;
 using Newtonsoft.Json;
 using System.Windows.Media.Effects;
 using Aspose.Zip;
@@ -2386,24 +2385,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 return false;
             }
         }
-        private static void AddShortcut(string Location_Of_Exe, string nameofshortcut)
-        {
-            string pathToExe = Location_Of_Exe;
-            string commonStartMenuPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonStartMenu);
-            string appStartMenuPath = Path.Combine(commonStartMenuPath, "Programs", Path.GetFileName(Location_Of_Exe));
-
-            if (!Directory.Exists(appStartMenuPath))
-                Directory.CreateDirectory(appStartMenuPath);
-
-            string shortcutLocation = Path.Combine(appStartMenuPath, nameofshortcut + ".lnk");
-            WishLib.WshShell shell = new WishLib.WshShell();
-            WishLib.IWshShortcut shortcut = (WishLib.IWshShortcut)shell.CreateShortcut(shortcutLocation);
-
-            shortcut.Description = "Test App Description";
-            //shortcut.IconLocation = @"C:\Program Files (x86)\TestApp\TestApp.ico"; //uncomment to set the icon of the shortcut
-            shortcut.TargetPath = pathToExe;
-            shortcut.Save();
-        }
+       
         private async Task Check_Integrity_Of_NSINSTALL()
         {
 
@@ -2599,7 +2581,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
 
                 s = s.Replace("[", "");
-                s = s.Replace("]", "");
+                s = s.Replace("]", ""); 
                 if (Directory.Exists(DocumentsFolder + @"\VTOL_DATA\temp"))
                 {
                     saveAsyncFile(s, DocumentsFolder + @"\VTOL_DATA\temp\" + json_name, false, false);
@@ -3319,67 +3301,21 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
         }
         void WalkDirectoryTree(System.IO.DirectoryInfo root, String Search)
         {
-            // System.IO.FileInfo[] files = null;
+           
             System.IO.DirectoryInfo[] subDirs = null;
 
-            //// First, process all the files directly under this folder
-            //try
-            //{
-            //    files = root.GetFiles("*.*");
-            //}
-            //// This is thrown if even one of the files requires permissions greater
-            //// than the application provides.
-            //catch (UnauthorizedAccessException e)
-            //{
-
-            //    log.Add(e.Message);
-            //}
-
-            //catch (System.IO.DirectoryNotFoundException e)
-            //{
-            //    //Console.WriteLine(e.Message);
-            //}
             try
             {
-                //if (files != null)
-                //{
-                //    if (FolderMode == false)
-                //    {
-                //        foreach (System.IO.FileInfo fi in files)
-                //        {
-                //            if (fi.Name.Contains(Search))
-                //            {
-                //                //Console.WriteLine("Found File");
-                //                //Console.WriteLine(fi.FullName);
-                //                //Console.WriteLine(fi.Directory);
-
-                //                Found_Install_Folder = true;
-                //                Found_Install = true; 
-                //                break;
-                //            }
-                //            else  
-                //            {
-                //                //Console.WriteLine("Trying again 2");
-                //                WalkDirectoryTree(root, Search, FolderMode);
-
-                //            }
-
-
-                //        }
-                //    }
-
-                // Now find all the subdirectories under this directory.
+               
                 subDirs = root.GetDirectories();
 
 
                 var last = subDirs.Last();
-                //Log_Box.AppendText(last.FullName + "sdsdsdsd");
                 foreach (System.IO.DirectoryInfo dirInfo in subDirs)
                 {
                     if (dirInfo.Name.Contains(Search))
                     {
-                        // //Console.WriteLine("Found Folder");
-                        //  //Console.WriteLine(dirInfo.FullName);
+                     
                         Current_Install_Folder = (dirInfo.FullName);
                         break;
 
@@ -3392,7 +3328,6 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                     else
                     {
 
-                        //////Console.WriteLine("Trying again at " + dirInfo);
                         if (deep_Chk == true)
                         {
                             WalkDirectoryTree(dirInfo, Search);
@@ -3401,11 +3336,9 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                     }
                     if (dirInfo == null)
                     {
-                        ////Console.WriteLine(dirInfo.FullName + "This is not a valid Folder????!");
                         continue;
 
                     }
-                    // Resursive call for each subdirectory.
                 }
 
                 Send_Error_Notif(GetTextResource("NOTIF_ERROR_GROUP_DIRECTORY_TREE_CANNOT_FIND_INSTALL_AT") + root + GetTextResource("NOTIF_ERROR_GROUP_DIRECTORY_TREE_CONTINUE_TRAVERSE"));
@@ -3920,7 +3853,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                         else
                         {
 
-                            Directory.CreateDirectory(DocumentsFolder + @"\VTOL_DATAReleases\");
+                            Directory.CreateDirectory(DocumentsFolder + @"\VTOL_DATA\Releases\");
                             webClient.DownloadFileAsync(new Uri(current_Northstar_version_Url), DocumentsFolder + @"\VTOL_DATA\Releases\Northstar_Release.zip");
                             webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadProgressCallback_Progress_Window);
 
@@ -8513,50 +8446,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
      
         private void Label_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            try
-            {
-
-                if (Warn_Close_EA == true)
-                {
-                    if (Check_Process_Running("EABackgroundService", true) == true)
-                    {
-                        System.Windows.MessageBoxResult result = HandyControl.Controls.MessageBox.Show(new MessageBoxInfo { Message = "Clicking YES Means that the EA Client that the application has detected active, will be Closed Immediately!. Please exit any associated Processes Before proceeding.!", Caption = "WARNING!", Button = MessageBoxButton.YesNo, IconBrushKey = ResourceToken.AccentBrush, IconKey = ResourceToken.AskGeometry, StyleKey = "MessageBoxCustom" });
-                        if (result == System.Windows.MessageBoxResult.Yes)
-                        {
-                            //Properties.Settings.Default.Warning_Close_EA = false;
-                            // Properties.Settings.Default.Save();
-                            //Warn_Close_EA = Properties.Settings.Default.Warning_Close_EA;
-
-                            Run_Origin();
-
-                        }
-                        else
-                        {
-                            return;
-                        }
-
-
-                    }
-                    else
-                    {
-                        Run_Origin();
-
-                    }
-
-                }
-                else
-                {
-                    Run_Origin();
-
-                }
-            }
-            catch (Exception ex)
-            {
-                Write_To_Log(ErrorManager(ex));
-                Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
-
-            }
-
+            
         }
         private string Find_Folder(string searchQuery, string folderPath)
         {

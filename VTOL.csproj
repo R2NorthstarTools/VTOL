@@ -16,6 +16,8 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/BigSpice/VTOL</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
+	  <PublishSingleFile>true</PublishSingleFile>
+
   </PropertyGroup>
 
   <ItemGroup>
@@ -95,19 +97,6 @@
     <None Remove="Resources\VTOL_POINTER.cur" />
     <None Remove="Utils.dll" />
     <None Remove="VTOL_Hover.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <COMReference Include="IWshRuntimeLibrary">
-      <WrapperTool>tlbimp</WrapperTool>
-      <VersionMinor>0</VersionMinor>
-      <VersionMajor>1</VersionMajor>
-      <Guid>f935dc20-1cf0-11d0-adb9-00c04fd58a0b</Guid>
-      <Lcid>0</Lcid>
-      <Isolated>false</Isolated>
-      <EmbedInteropTypes>true</EmbedInteropTypes>
-      <CopyLocal>True</CopyLocal>
-    </COMReference>
   </ItemGroup>
 
   <ItemGroup>
@@ -231,6 +220,7 @@
     <PackageReference Include="Prism.Wpf" Version="8.1.97" />
     <PackageReference Include="SixLabors.ImageSharp" Version="2.1.2" />
     <PackageReference Include="System.Management" Version="6.0.0" />
+    <PackageReference Include="Walterlv.Windows.Interop" Version="7.3.1" />
     <PackageReference Include="XamlAnimatedGif" Version="2.0.2" />
   </ItemGroup>
 
@@ -359,6 +349,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Update="Properties\Settings.Designer.cs">
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <AutoGen>True</AutoGen>
@@ -409,6 +404,17 @@
     <Page Update="Resources\Languages\kr.xaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Scripts\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

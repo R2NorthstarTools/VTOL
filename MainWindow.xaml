@@ -36,7 +36,7 @@
                 <Label HorizontalAlignment="Stretch" Height="38" Margin="30,0,505,0" Background=  "{DynamicResource Button_BG}" Foreground="White" Content="{Binding Name}" FontSize="16" ToolTip="{Binding Description}" BorderBrush="{x:Null}"/>
                 <hc:CheckComboBox Margin="505,0,30,0" VerticalAlignment="Center" Height="38"    BorderBrush="{x:Null}"    Foreground="White" ToolTip="{Binding Description}" Tag="{Binding Tag}" Background="#FF4C4C4C" FontSize="16" RenderTransformOrigin="0,0" ItemsSource="{Binding List}" SelectionMode="Extended" IsSynchronizedWithCurrentItem="False" Initialized="CheckComboBox_Initialized" SelectionChanged="Validate_Combo_Box"   MouseEnter="ComboBox_MouseEnter" />
 
-            </Grid>
+            </Grid>     
         </DataTemplate>
         <DataTemplate x:Key="FloatBox" >
             <Grid Width="970" Background="{x:Null}" HorizontalAlignment="Center" Margin="0,0,0,3" Height="58">
@@ -72,6 +72,8 @@
             </Grid>
         </DataTemplate>
         <local:Server_Template_Selector x:Key="Server_Template_Selector" />
+        
+        
     </Window.Resources>
 
 
@@ -437,7 +439,7 @@
 
 
 
-        <hc:SimplePanel x:Name="skins_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Hidden" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
+        <hc:SimplePanel x:Name="skins_Panel" Background="{DynamicResource BG_PANELS}" Visibility="Visible" Margin="190,0,0,2" Grid.ColumnSpan="4" Grid.RowSpan="2">
 
             <Grid HorizontalAlignment="Stretch" DockPanel.Dock="Top" Height="Auto" AllowDrop="True" Drop="skins_Panel_Drop" DragEnter="skins_Panel_DragEnter" Background="Transparent" DragLeave="skins_Panel_DragLeave"  >
                 <hc:SimplePanel Margin="30,59,30,444">
@@ -1087,8 +1089,14 @@
 
             </hc:SimpleStackPanel>
         </hc:SimplePanel>
-
-
+      
+        <!--<wpfui:CardExpander Grid.ColumnSpan="2" Margin="58,272,346,26" Grid.Column="2"  >
+            <TextBlock
+                MaxWidth="300"
+                Text="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna 3wiedzmin3najlepszy"
+                TextAlignment="Justify"
+                TextWrapping="Wrap" />
+        </wpfui:CardExpander>-->
 
 
 

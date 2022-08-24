@@ -121,10 +121,10 @@ namespace VTOL.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool Sort_Mods_By_Date {
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public double Sort_Mods_By_Date {
             get {
-                return ((bool)(this["Sort_Mods_By_Date"]));
+                return ((double)(this["Sort_Mods_By_Date"]));
             }
             set {
                 this["Sort_Mods_By_Date"] = value;
