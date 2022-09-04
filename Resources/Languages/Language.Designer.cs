@@ -61,11 +61,544 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The Location - &apos; .
+        /// </summary>
+        public static string Browse_Titanfall_Button_Click_TheLocation {
+            get {
+                return ResourceManager.GetString("Browse_Titanfall_Button_Click_TheLocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Release Candidate Detected.
+        /// </summary>
+        public static string Check_For_New_Northstar_Install_ReleaseCandidateDetected {
+            get {
+                return ResourceManager.GetString("Check_For_New_Northstar_Install_ReleaseCandidateDetected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update Available Downloading And Installing Now!.
+        /// </summary>
+        public static string Check_For_New_Northstar_Install_UpdateAvailableDownloadingAndInstallingNow {
+            get {
+                return ResourceManager.GetString("Check_For_New_Northstar_Install_UpdateAvailableDownloadingAndInstallingNow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Directory Check Failed.
+        /// </summary>
+        public static string Check_Integrity_Of_NSINSTALL_DirectoryCheckFailed {
+            get {
+                return ResourceManager.GetString("Check_Integrity_Of_NSINSTALL_DirectoryCheckFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NORTHSTAR IS NOT INSTALLED AND AUTO INSTALL FAILED!.
+        /// </summary>
+        public static string Page_Home_Auto_Install__NORTHSTARISNOTINSTALLEDANDAUTOINSTALLFAILED {
+            get {
+                return ResourceManager.GetString("Page_Home_Auto_Install__NORTHSTARISNOTINSTALLEDANDAUTOINSTALLFAILED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  &quot; &apos; Is not Valid.
+        /// </summary>
+        public static string Page_Home_Browse_Titanfall_Button_Click_IsNotValid {
+            get {
+                return ResourceManager.GetString("Page_Home_Browse_Titanfall_Button_Click_IsNotValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  &apos; is Valid and has been Set.
+        /// </summary>
+        public static string Page_Home_Browse_Titanfall_Button_Click_IsValidAndHasBeenSet {
+            get {
+                return ResourceManager.GetString("Page_Home_Browse_Titanfall_Button_Click_IsValidAndHasBeenSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Location - &apos; &quot; .
+        /// </summary>
+        public static string Page_Home_Browse_Titanfall_Button_Click_TheLocation {
+            get {
+                return ResourceManager.GetString("Page_Home_Browse_Titanfall_Button_Click_TheLocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Custom Modding And Server Framework.
+        /// </summary>
+        public static string Page_Home_CustomModdingAndServerFramework {
+            get {
+                return ResourceManager.GetString("Page_Home_CustomModdingAndServerFramework", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Install Northstar.
+        /// </summary>
+        public static string Page_Home_INIT_InstallNorthstar {
+            get {
+                return ResourceManager.GetString("Page_Home_INIT_InstallNorthstar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NORTHSTAR AUTO INSTALL WILL NOW BEGIN, PLEASE WAIT ABOUT 30 SECONDS!.
+        /// </summary>
+        public static string Page_Home_INIT_NORTHSTARAUTOINSTALLWILLNOWBEGINPLEASEWAITABOUT30SECONDS {
+            get {
+                return ResourceManager.GetString("Page_Home_INIT_NORTHSTARAUTOINSTALLWILLNOWBEGINPLEASEWAITABOUT30SECONDS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update Northstar.
+        /// </summary>
+        public static string Page_Home_INIT_UpdateNorthstar {
+            get {
+                return ResourceManager.GetString("Page_Home_INIT_UpdateNorthstar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Launch Titanfall 2 Northstar.
+        /// </summary>
+        public static string Page_Home_LaunchTitanfall2Northstar {
+            get {
+                return ResourceManager.GetString("Page_Home_LaunchTitanfall2Northstar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  &quot;The Origin Client Is already Running!.
+        /// </summary>
+        public static string Page_Home_Origin_Client_Card_Click_TheOriginClientIsAlreadyRunning {
+            get {
+                return ResourceManager.GetString("Page_Home_Origin_Client_Card_Click_TheOriginClientIsAlreadyRunning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  &quot;Could not Find EA Origin Install, Please Start Manually, Or Repair your installation!.
+        /// </summary>
+        public static string Page_Home_Run_Origin_CouldNotFindEAOriginInstallPleaseStartManuallyOrRepairYourInstallation {
+            get {
+                return ResourceManager.GetString("Page_Home_Run_Origin_CouldNotFindEAOriginInstallPleaseStartManuallyOrRepairYourIn" +
+                        "stallation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Master Server Checked And Timed Out too much. Turning off Master Server Checks.
+        /// </summary>
+        public static string Page_Home_timer_Tick_MasterServerCheckedAndTimedOutTooMuchTurningOffMasterServerChecks {
+            get {
+                return ResourceManager.GetString("Page_Home_timer_Tick_MasterServerCheckedAndTimedOutTooMuchTurningOffMasterServerC" +
+                        "hecks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to is not a zip!.
+        /// </summary>
+        public static string Page_Home_Unpack_To_Location_IsNotAZip {
+            get {
+                return ResourceManager.GetString("Page_Home_Unpack_To_Location_IsNotAZip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The File - .
+        /// </summary>
+        public static string Page_Home_Unpack_To_Location_TheFile {
+            get {
+                return ResourceManager.GetString("Page_Home_Unpack_To_Location_TheFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Was not Found!.
+        /// </summary>
+        public static string Page_Home_Unpack_To_Location_WasNotFound {
+            get {
+                return ResourceManager.GetString("Page_Home_Unpack_To_Location_WasNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Welcome To.
         /// </summary>
         public static string Page_Home_WelcomeTo {
             get {
                 return ResourceManager.GetString("Page_Home_WelcomeTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could Not Find Northstar.exe!.
+        /// </summary>
+        public static string Page_Server_Launch_Northstar_Advanced_Click_CouldNotFindNorthstarExe {
+            get {
+                return ResourceManager.GetString("Page_Server_Launch_Northstar_Advanced_Click_CouldNotFindNorthstarExe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could Not Find Dedicated bat!.
+        /// </summary>
+        public static string Page_Server_Launch_Northstar_Dedicated_Click_CouldNotFindDedicatedBat {
+            get {
+                return ResourceManager.GetString("Page_Server_Launch_Northstar_Dedicated_Click_CouldNotFindDedicatedBat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Auto Save failed.
+        /// </summary>
+        public static string Page_Server_OnKeyDownHandler_Dedi_Arg_AutoSaveFailed {
+            get {
+                return ResourceManager.GetString("Page_Server_OnKeyDownHandler_Dedi_Arg_AutoSaveFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saved.
+        /// </summary>
+        public static string Page_Server_OnKeyDownHandler_Dedi_Arg_Saved {
+            get {
+                return ResourceManager.GetString("Page_Server_OnKeyDownHandler_Dedi_Arg_Saved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  &quot;Cannot Set The path.
+        /// </summary>
+        public static string Page_Server_Read_Convar_args_CannotSetThePath {
+            get {
+                return ResourceManager.GetString("Page_Server_Read_Convar_args_CannotSetThePath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Startup Arguments Northstar Dedicated Client.
+        /// </summary>
+        public static string Page_Server_StartupArgumentsNorthstarDedicatedClient {
+            get {
+                return ResourceManager.GetString("Page_Server_StartupArgumentsNorthstarDedicatedClient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot Read Input.
+        /// </summary>
+        public static string Page_Server_Validate_Combo_Box_CannotReadInput {
+            get {
+                return ResourceManager.GetString("Page_Server_Validate_Combo_Box_CannotReadInput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  &quot;Compatible Skin Found at : .
+        /// </summary>
+        public static string Page_Skins_Browse_Click_CompatibleSkinFoundAt {
+            get {
+                return ResourceManager.GetString("Page_Skins_Browse_Click_CompatibleSkinFoundAt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  &quot;  is Not a Skin Zip!.
+        /// </summary>
+        public static string Page_Skins_Browse_Click_IsNotASkinZip {
+            get {
+                return ResourceManager.GetString("Page_Skins_Browse_Click_IsNotASkinZip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Compatible Skin(s) Found : .
+        /// </summary>
+        public static string Page_Skins_Drag_Drop_Area_Drop_CompatibleSkinSFound {
+            get {
+                return ResourceManager.GetString("Page_Skins_Drag_Drop_Area_Drop_CompatibleSkinSFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Drag to Install.
+        /// </summary>
+        public static string Page_Skins_Drag_Drop_Area_Drop_DragToInstall {
+            get {
+                return ResourceManager.GetString("Page_Skins_Drag_Drop_Area_Drop_DragToInstall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to   is Not a Skin Zip!.
+        /// </summary>
+        public static string Page_Skins_Drag_Drop_Area_Drop_IsNotASkinZip {
+            get {
+                return ResourceManager.GetString("Page_Skins_Drag_Drop_Area_Drop_IsNotASkinZip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  - has been Installed!.
+        /// </summary>
+        public static string Page_Skins_Install_Skin_From_Path_HasBeenInstalled {
+            get {
+                return ResourceManager.GetString("Page_Skins_Install_Skin_From_Path_HasBeenInstalled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Skin - .
+        /// </summary>
+        public static string Page_Skins_Install_Skin_From_Path_TheSkin {
+            get {
+                return ResourceManager.GetString("Page_Skins_Install_Skin_From_Path_TheSkin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opening the Following URL - .
+        /// </summary>
+        public static string Page_Skins_OPEN_WEBPAGE_OpeningTheFollowingURL {
+            get {
+                return ResourceManager.GetString("Page_Skins_OPEN_WEBPAGE_OpeningTheFollowingURL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  has been Downloaded and Installed.
+        /// </summary>
+        public static string Page_Thunderstore_Unpack_To_Location_Custom_HasBeenDownloadedAndInstalled {
+            get {
+                return ResourceManager.GetString("Page_Thunderstore_Unpack_To_Location_Custom_HasBeenDownloadedAndInstalled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  &quot;One of the Manifest Inputs are Empty.
+        /// </summary>
+        public static string Page_Tools_create_Manifest_OneOfTheManifestInputsAreEmpty {
+            get {
+                return ResourceManager.GetString("Page_Tools_create_Manifest_OneOfTheManifestInputsAreEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid Image Size!. Must be 256x256.
+        /// </summary>
+        public static string Page_Tools_Icon_Image_MouseDown_InvalidImageSizeMustBe256x256 {
+            get {
+                return ResourceManager.GetString("Page_Tools_Icon_Image_MouseDown_InvalidImageSizeMustBe256x256", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not A Valid PNG Image.
+        /// </summary>
+        public static string Page_Tools_Icon_Image_MouseDown_NotAValidPNGImage {
+            get {
+                return ResourceManager.GetString("Page_Tools_Icon_Image_MouseDown_NotAValidPNGImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to That was not a proper PNG.
+        /// </summary>
+        public static string Page_Tools_Icon_Image_MouseDown_ThatWasNotAProperPNG {
+            get {
+                return ResourceManager.GetString("Page_Tools_Icon_Image_MouseDown_ThatWasNotAProperPNG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valid Image Found at - .
+        /// </summary>
+        public static string Page_Tools_Icon_Image_MouseDown_ValidImageFoundAt {
+            get {
+                return ResourceManager.GetString("Page_Tools_Icon_Image_MouseDown_ValidImageFoundAt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid Image Size!. Must be smaller than 2048 x 2048.
+        /// </summary>
+        public static string Page_Tools_Image_Icon_Drop_InvalidImageSizeMustBeSmallerThan2048X2048 {
+            get {
+                return ResourceManager.GetString("Page_Tools_Image_Icon_Drop_InvalidImageSizeMustBeSmallerThan2048X2048", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid Zip Found.
+        /// </summary>
+        public static string Page_Tools_Locate_Zip_Click_InvalidZipFound {
+            get {
+                return ResourceManager.GetString("Page_Tools_Locate_Zip_Click_InvalidZipFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valid Zip Found.
+        /// </summary>
+        public static string Page_Tools_Locate_Zip_Click_ValidZipFound {
+            get {
+                return ResourceManager.GetString("Page_Tools_Locate_Zip_Click_ValidZipFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not An Output Directory.
+        /// </summary>
+        public static string Page_Tools_Output_Button_Click_NotAnOutputDirectory {
+            get {
+                return ResourceManager.GetString("Page_Tools_Output_Button_Click_NotAnOutputDirectory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Generated The Skin Successfully!.
+        /// </summary>
+        public static string Page_Tools_ProcessSkin_GeneratedTheSkinSuccessfully {
+            get {
+                return ResourceManager.GetString("Page_Tools_ProcessSkin_GeneratedTheSkinSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Item Not Set!.
+        /// </summary>
+        public static string Page_Tools_ProcessSkin_ItemNotSet {
+            get {
+                return ResourceManager.GetString("Page_Tools_ProcessSkin_ItemNotSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maps Are not Set!.
+        /// </summary>
+        public static string Page_Tools_ProcessSkin_MapsAreNotSet {
+            get {
+                return ResourceManager.GetString("Page_Tools_ProcessSkin_MapsAreNotSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Output path is not set!.
+        /// </summary>
+        public static string Page_Tools_ProcessSkin_OutputPathIsNotSet {
+            get {
+                return ResourceManager.GetString("Page_Tools_ProcessSkin_OutputPathIsNotSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skin Name Not Set!.
+        /// </summary>
+        public static string Page_Tools_ProcessSkin_SkinNameNotSet {
+            get {
+                return ResourceManager.GetString("Page_Tools_ProcessSkin_SkinNameNotSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Valid Mod ICON Found.
+        /// </summary>
+        public static string Page_Tools_Save_Mod_Click_NoValidModICONFound {
+            get {
+                return ResourceManager.GetString("Page_Tools_Save_Mod_Click_NoValidModICONFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Valid Output Path Found.
+        /// </summary>
+        public static string Page_Tools_Save_Mod_Click_NoValidOutputPathFound {
+            get {
+                return ResourceManager.GetString("Page_Tools_Save_Mod_Click_NoValidOutputPathFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Valid Zip file to pack was found.
+        /// </summary>
+        public static string Page_Tools_Save_Mod_Click_NoValidZipFileToPackWasFound {
+            get {
+                return ResourceManager.GetString("Page_Tools_Save_Mod_Click_NoValidZipFileToPackWasFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  &quot;Successfully Packed all items to -.
+        /// </summary>
+        public static string Page_Tools_Save_Mod_Click_SuccessfullyPackedAllItemsTo {
+            get {
+                return ResourceManager.GetString("Page_Tools_Save_Mod_Click_SuccessfullyPackedAllItemsTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Release Not Found!.
+        /// </summary>
+        public static string Parse_Release_ReleaseNotFound {
+            get {
+                return ResourceManager.GetString("Parse_Release_ReleaseNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please Wait as VTOL restarts!.
+        /// </summary>
+        public static string PleaseWaitAsVTOLRestarts {
+            get {
+                return ResourceManager.GetString("PleaseWaitAsVTOLRestarts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid Release Donwload URL!.
+        /// </summary>
+        public static string Read_Latest_Release_InvalidReleaseDonwloadURL {
+            get {
+                return ResourceManager.GetString("Read_Latest_Release_InvalidReleaseDonwloadURL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Installation Complete!.
+        /// </summary>
+        public static string Unpack_To_Location_InstallationComplete {
+            get {
+                return ResourceManager.GetString("Unpack_To_Location_InstallationComplete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  &quot;The File - .
+        /// </summary>
+        public static string Unpack_To_Location_TheFile {
+            get {
+                return ResourceManager.GetString("Unpack_To_Location_TheFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  &quot;Was not Found!.
+        /// </summary>
+        public static string Unpack_To_Location_WasNotFound {
+            get {
+                return ResourceManager.GetString("Unpack_To_Location_WasNotFound", resourceCulture);
             }
         }
     }

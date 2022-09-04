@@ -311,7 +311,7 @@ namespace VTOL.Pages
 
                          SnackBar.Icon = SymbolRegular.ErrorCircle20;
                             SnackBar.Appearance = ControlAppearance.Danger;SnackBar.Title = "ERROR";
-                        SnackBar.Message = "Invalid Zip Found";
+                        SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Locate_Zip_Click_InvalidZipFound;
                         SnackBar.Show();
                         Zip_Box.Background = Brushes.IndianRed;
 
@@ -324,7 +324,7 @@ namespace VTOL.Pages
                         {
                             SnackBar.Appearance = ControlAppearance.Info;
                             SnackBar.Title = "INFO";
-                            SnackBar.Message = "Valid Zip Found";
+                            SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Locate_Zip_Click_ValidZipFound;
                             SnackBar.Show();
                             Zip_Box.Text = Current_Mod_To_Pack;
                             Zip_Box.Background = Brushes.Transparent;
@@ -352,7 +352,7 @@ namespace VTOL.Pages
                 {
                      SnackBar.Icon = SymbolRegular.ErrorCircle20;
                             SnackBar.Appearance = ControlAppearance.Danger;SnackBar.Title = "ERROR";
-                    SnackBar.Message = "Not An Output Directory";
+                    SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Output_Button_Click_NotAnOutputDirectory;
                     SnackBar.Show();
                     Output_Box.Background = Brushes.IndianRed;
 
@@ -375,7 +375,7 @@ namespace VTOL.Pages
                 {
                      SnackBar.Icon = SymbolRegular.ErrorCircle20;
                             SnackBar.Appearance = ControlAppearance.Danger;SnackBar.Title = "ERROR";
-                    SnackBar.Message = "One of the Manifest Inputs are Empty";
+                    SnackBar.Message =VTOL.Resources.Languages.Language.Page_Tools_create_Manifest_OneOfTheManifestInputsAreEmpty;
                     SnackBar.Show();
                     return;
 
@@ -521,7 +521,7 @@ namespace VTOL.Pages
                         {
                              SnackBar.Icon = SymbolRegular.ErrorCircle20;
                             SnackBar.Appearance = ControlAppearance.Danger;SnackBar.Title = "ERROR";
-                            SnackBar.Message = "No Valid Output Path Found";
+                            SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Save_Mod_Click_NoValidOutputPathFound;
                             SnackBar.Show();
                             Output_Box.Background = Brushes.IndianRed;
 
@@ -535,14 +535,14 @@ namespace VTOL.Pages
                         }
                         SnackBar.Appearance = ControlAppearance.Success;
                         SnackBar.Title = "SUCCESS";
-                        SnackBar.Message = "Successfully Packed all items to -" + Current_Output_Dir + @"\" + Mod_name.Text.Trim() + ".zip";
+                        SnackBar.Message =VTOL.Resources.Languages.Language.Page_Tools_Save_Mod_Click_SuccessfullyPackedAllItemsTo + Current_Output_Dir + @"\" + Mod_name.Text.Trim() + ".zip";
                         SnackBar.Show();
                     }
                     else
                     {
                          SnackBar.Icon = SymbolRegular.ErrorCircle20;
                             SnackBar.Appearance = ControlAppearance.Danger;SnackBar.Title = "ERROR";
-                        SnackBar.Message = "No Valid Mod ICON Found";
+                        SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Save_Mod_Click_NoValidModICONFound;
                         SnackBar.Show();
                         BitmapImage bitmap = new BitmapImage();
                         bitmap.BeginInit();
@@ -557,7 +557,7 @@ namespace VTOL.Pages
                 {
                      SnackBar.Icon = SymbolRegular.ErrorCircle20;
                             SnackBar.Appearance = ControlAppearance.Danger;SnackBar.Title = "ERROR";
-                    SnackBar.Message = "No Valid Zip file to pack was found";
+                    SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Save_Mod_Click_NoValidZipFileToPackWasFound;
                     SnackBar.Show();
                     Output_Box.Background = Brushes.IndianRed;
 
@@ -603,7 +603,7 @@ namespace VTOL.Pages
 
                              SnackBar.Icon = SymbolRegular.ErrorCircle20;
                             SnackBar.Appearance = ControlAppearance.Danger;SnackBar.Title = "ERROR";
-                            SnackBar.Message = "Not A Valid PNG Image";
+                            SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Icon_Image_MouseDown_NotAValidPNGImage;
                             SnackBar.Show();
                             return;
 
@@ -626,7 +626,7 @@ namespace VTOL.Pages
 
                                     SnackBar.Appearance = ControlAppearance.Success;
                                     SnackBar.Title = "SUCCESS";
-                                    SnackBar.Message = "Valid Image Found at - " + Mod_Icon_Path;
+                                    SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Icon_Image_MouseDown_ValidImageFoundAt + Mod_Icon_Path;
                                     SnackBar.Show();
                                     BitmapImage Mod_Icon = new BitmapImage();
                                     Mod_Icon.BeginInit();
@@ -640,7 +640,7 @@ namespace VTOL.Pages
                                 {
                                      SnackBar.Icon = SymbolRegular.ErrorCircle20;
                             SnackBar.Appearance = ControlAppearance.Danger;SnackBar.Title = "ERROR";
-                                    SnackBar.Message = "Invalid Image Size!. Must be 256x256";
+                                    SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Icon_Image_MouseDown_InvalidImageSizeMustBe256x256;
                                     SnackBar.Show();
                                     BitmapImage bitmap = new BitmapImage();
                                     bitmap.BeginInit();
@@ -655,7 +655,7 @@ namespace VTOL.Pages
                             {
                                  SnackBar.Icon = SymbolRegular.ErrorCircle20;
                             SnackBar.Appearance = ControlAppearance.Danger;SnackBar.Title = "ERROR";
-                                SnackBar.Message = "That was not a proper PNG";
+                                SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Icon_Image_MouseDown_ThatWasNotAProperPNG;
                                 SnackBar.Show();
                                 BitmapImage bitmap = new BitmapImage();
                                 bitmap.BeginInit();
@@ -770,7 +770,7 @@ namespace VTOL.Pages
 
                             SnackBar.Icon = SymbolRegular.ErrorCircle20;
                             SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
-                            SnackBar.Message = "Not A Valid PNG Image";
+                            SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Icon_Image_MouseDown_NotAValidPNGImage;
                             SnackBar.Show();
                             return;
 
@@ -793,7 +793,7 @@ namespace VTOL.Pages
 
                                     SnackBar.Appearance = ControlAppearance.Success;
                                     SnackBar.Title = "SUCCESS";
-                                    SnackBar.Message = "Valid Image Found at - " + Mod_Icon_Path;
+                                    SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Icon_Image_MouseDown_ValidImageFoundAt + Mod_Icon_Path;
                                     SnackBar.Show();
                                     BitmapImage Mod_Icon = new BitmapImage();
                                     Mod_Icon.BeginInit();
@@ -808,7 +808,7 @@ namespace VTOL.Pages
                                 {
                                     SnackBar.Icon = SymbolRegular.ErrorCircle20;
                                     SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
-                                    SnackBar.Message = "Invalid Image Size!. Must be 256x256";
+                                    SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Icon_Image_MouseDown_InvalidImageSizeMustBe256x256;
                                     SnackBar.Show();
                                     BitmapImage bitmap = new BitmapImage();
                                     bitmap.BeginInit();
@@ -824,7 +824,7 @@ namespace VTOL.Pages
                             {
                                 SnackBar.Icon = SymbolRegular.ErrorCircle20;
                                 SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
-                                SnackBar.Message = "That was not a proper PNG";
+                                SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Icon_Image_MouseDown_ThatWasNotAProperPNG;
                                 SnackBar.Show();
                                 BitmapImage bitmap = new BitmapImage();
                                 bitmap.BeginInit();
@@ -864,7 +864,7 @@ namespace VTOL.Pages
 
                     SnackBar.Icon = SymbolRegular.ErrorCircle20;
                     SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
-                    SnackBar.Message = "Not A Valid PNG Image";
+                    SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Icon_Image_MouseDown_NotAValidPNGImage;
                     SnackBar.Show();
                     return;
 
@@ -922,7 +922,7 @@ namespace VTOL.Pages
                             {
                                 SnackBar.Icon = SymbolRegular.ErrorCircle20;
                                 SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
-                                SnackBar.Message = "Invalid Image Size!. Must be smaller than 2048 x 2048";
+                                SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Image_Icon_Drop_InvalidImageSizeMustBeSmallerThan2048X2048;
                                 SnackBar.Show();
                                 DashedBorder.Background = new ImageBrush();
                                 return;
@@ -970,7 +970,7 @@ namespace VTOL.Pages
 
                                 SnackBar.Icon = SymbolRegular.ErrorCircle20;
                                 SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
-                                SnackBar.Message = "Not A Valid PNG Image";
+                                SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Icon_Image_MouseDown_NotAValidPNGImage;
                                 SnackBar.Show();
                                 return;
 
@@ -1027,7 +1027,7 @@ namespace VTOL.Pages
                                     {
                                         SnackBar.Icon = SymbolRegular.ErrorCircle20;
                                         SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
-                                        SnackBar.Message = "Invalid Image Size!. Must be smaller than 2048 x 2048";
+                                        SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Image_Icon_Drop_InvalidImageSizeMustBeSmallerThan2048X2048;
                                         SnackBar.Show();
                                         DashedBorder.Background = new ImageBrush();
                                         return;
@@ -1076,7 +1076,7 @@ namespace VTOL.Pages
                     {
                         SnackBar.Appearance = ControlAppearance.Danger;
                         SnackBar.Title = "ERROR";
-                        SnackBar.Message = "Skin Name Not Set!";
+                        SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_ProcessSkin_SkinNameNotSet;
                         SnackBar.Show();
                         return;
                     }
@@ -1084,7 +1084,7 @@ namespace VTOL.Pages
                     {
                         SnackBar.Appearance = ControlAppearance.Danger;
                         SnackBar.Title = "ERROR";
-                        SnackBar.Message = "Item Not Set!";
+                        SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_ProcessSkin_ItemNotSet;
                         SnackBar.Show();
                         return;
                     }
@@ -1092,7 +1092,7 @@ namespace VTOL.Pages
                     {
                         SnackBar.Appearance = ControlAppearance.Danger;
                         SnackBar.Title = "ERROR";
-                        SnackBar.Message = "Output path is not set!";
+                        SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_ProcessSkin_OutputPathIsNotSet;
                         SnackBar.Show();
                         return;
                     }
@@ -1103,7 +1103,7 @@ namespace VTOL.Pages
                     {
                         SnackBar.Appearance = ControlAppearance.Danger;
                         SnackBar.Title = "ERROR";
-                        SnackBar.Message = "Maps Are not Set!";
+                        SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_ProcessSkin_MapsAreNotSet;
                         SnackBar.Show();
                         return;
                     }
@@ -1270,7 +1270,7 @@ namespace VTOL.Pages
             
                     SnackBar.Appearance = ControlAppearance.Success;
                     SnackBar.Title = "SUCCESS";
-                    SnackBar.Message = "Generated The Skin Successfully!";
+                    SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_ProcessSkin_GeneratedTheSkinSuccessfully;
                     SnackBar.Show();
                     Zip_Box.Text = Current_Mod_To_Pack;
                 zipArchive.Dispose();
@@ -1432,7 +1432,7 @@ namespace VTOL.Pages
                     //Send_Error_Notif("Not An Output Directory");
                     SnackBar.Icon = SymbolRegular.ErrorCircle20;
                     SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
-                    SnackBar.Message = "Not An Output Directory";
+                    SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Output_Button_Click_NotAnOutputDirectory;
                     SnackBar.Show();
                     Output_Box.Background = Brushes.IndianRed;
 

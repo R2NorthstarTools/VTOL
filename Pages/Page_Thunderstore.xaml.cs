@@ -77,8 +77,6 @@ namespace VTOL.Pages
         private List<string> Current_Mod_Filter_Tags = null;
         private List<string> Options_List = new List<string>();
         bool do_not_overwrite_Ns_file = true;
-        bool do_not_overwrite_Ns_file_Dedi = true;
-        bool do_not_overwrite_Ns_auto_exec = true;
 
         public Page_Thunderstore()
         {
@@ -1308,7 +1306,7 @@ namespace VTOL.Pages
                                          
                                          SnackBar.Title = "SUCCESS";
                                         SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
-                                        SnackBar.Message = "The Mod " + Path.GetFileNameWithoutExtension(Target_Zip).Replace("_", " ") + " has been Downloaded and Installed";
+                                        SnackBar.Message = "The Mod " + Path.GetFileNameWithoutExtension(Target_Zip).Replace("_", " ") + VTOL.Resources.Languages.Language.Page_Thunderstore_Unpack_To_Location_Custom_HasBeenDownloadedAndInstalled;
                                         SnackBar.Show();
 
 
@@ -1335,9 +1333,9 @@ namespace VTOL.Pages
 
 
                                     }
-                                    if (!Directory.Exists(User_Settings_Vars.NorthstarInstallLocation + @"\TempCopyFolder\"))
+                                    if (!Directory.Exists(User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder"))
                                     {
-                                        Directory.CreateDirectory(User_Settings_Vars.NorthstarInstallLocation + @"\TempCopyFolder\");
+                                        Directory.CreateDirectory(User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder");
                                     }
 
                                     if (do_not_overwrite_Ns_file == true)
@@ -1345,28 +1343,24 @@ namespace VTOL.Pages
                                       
                                             if (File.Exists(User_Settings_Vars.NorthstarInstallLocation + @"ns_startup_args.txt"))
                                             {
-                                                System.IO.File.Copy(User_Settings_Vars.NorthstarInstallLocation + @"ns_startup_args.txt",User_Settings_Vars.NorthstarInstallLocation + @"\TempCopyFolder\ns_startup_args.txt", true);
+                                                System.IO.File.Copy(User_Settings_Vars.NorthstarInstallLocation + @"ns_startup_args.txt",User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder\ns_startup_args.txt", true);
                                             }
 
                                         
 
 
-                                    }
-                                    if (do_not_overwrite_Ns_file_Dedi == true)
-                                    {
+                                    
                                         if (File.Exists(User_Settings_Vars.NorthstarInstallLocation +  User_Settings_Vars.Profile_Path + @"\mods\Northstar.CustomServers\mod\cfg\autoexec_ns_server.cfg"))
                                         {
 
-                                            System.IO.File.Copy(User_Settings_Vars.NorthstarInstallLocation +  User_Settings_Vars.Profile_Path + @"\mods\Northstar.CustomServers\mod\cfg\autoexec_ns_server.cfg", User_Settings_Vars.NorthstarInstallLocation + @"\TempCopyFolder\autoexec_ns_server.cfg", true);
+                                            System.IO.File.Copy(User_Settings_Vars.NorthstarInstallLocation +  User_Settings_Vars.Profile_Path + @"\mods\Northstar.CustomServers\mod\cfg\autoexec_ns_server.cfg", User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder\autoexec_ns_server.cfg", true);
 
 
 
                                         }
 
 
-                                    }
-                                    if (do_not_overwrite_Ns_auto_exec == true)
-                                    {
+                                    
                                         if (File.Exists(User_Settings_Vars.NorthstarInstallLocation + @"ns_startup_args_dedi.txt"))
                                         {
 
@@ -1420,33 +1414,29 @@ namespace VTOL.Pages
                                           
                                                 if (File.Exists(User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder\ns_startup_args.txt"))
                                                 {
-                                                    System.IO.File.Copy(User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder\ns_startup_args.txt", User_Settings_Vars.NorthstarInstallLocation + @"\ns_startup_args.txt", true);
+                                                    System.IO.File.Copy(User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder\ns_startup_args.txt", User_Settings_Vars.NorthstarInstallLocation + @"ns_startup_args.txt", true);
                                                 }
 
                                             
 
 
-                                        }
-                                        if (do_not_overwrite_Ns_file_Dedi == true)
-                                        {
+                                       
                                             if (File.Exists(User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder\autoexec_ns_server.cfg"))
                                             {
 
-                                                System.IO.File.Copy (User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder\autoexec_ns_server.cfg",User_Settings_Vars.NorthstarInstallLocation + @"\" + User_Settings_Vars.Profile_Path + @"\mods\Northstar.CustomServers\mod\cfg\autoexec_ns_server.cfg",true);
+                                                System.IO.File.Copy (User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder\autoexec_ns_server.cfg",User_Settings_Vars.NorthstarInstallLocation + User_Settings_Vars.Profile_Path + @"\mods\Northstar.CustomServers\mod\cfg\autoexec_ns_server.cfg",true);
 
 
 
                                             }
 
 
-                                        }
-                                        if (do_not_overwrite_Ns_auto_exec == true)
-                                        {
+                                        
                                             if (File.Exists(User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder\ns_startup_args_dedi.txt"))
                                             {
 
 
-                                                System.IO.File.Copy(User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder\ns_startup_args_dedi.txt", User_Settings_Vars.NorthstarInstallLocation + @"\ns_startup_args_dedi.txt", true);
+                                                System.IO.File.Copy(User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder\ns_startup_args_dedi.txt", User_Settings_Vars.NorthstarInstallLocation + @"ns_startup_args_dedi.txt", true);
 
 
                                             }
@@ -1458,10 +1448,10 @@ namespace VTOL.Pages
                                             {
                                                 Progress_Bar.Value = 0;
                                             }
-                                            if (File.Exists(User_Settings_Vars.NorthstarInstallLocation + @"\NorthstarLauncher.exe"))
+                                            if (File.Exists(User_Settings_Vars.NorthstarInstallLocation + @"NorthstarLauncher.exe"))
                                             {
 
-                                                FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(User_Settings_Vars.NorthstarInstallLocation + @"\NorthstarLauncher.exe");
+                                                FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(User_Settings_Vars.NorthstarInstallLocation + @"NorthstarLauncher.exe");
 
                                                 string Current_Ver_ = myFileVersionInfo.FileVersion;
 
@@ -1478,7 +1468,7 @@ namespace VTOL.Pages
 
                                             SnackBar.Title = "SUCCESS";
                                             SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
-                                            SnackBar.Message = "The Build " + Path.GetFileNameWithoutExtension(Target_Zip).Replace("_", " ") + " has been Downloaded and Installed";
+                                            SnackBar.Message = "The Build " + Path.GetFileNameWithoutExtension(Target_Zip).Replace("_", " ") + VTOL.Resources.Languages.Language.Page_Thunderstore_Unpack_To_Location_Custom_HasBeenDownloadedAndInstalled;
                                             SnackBar.Show();
 
 
@@ -1629,7 +1619,7 @@ namespace VTOL.Pages
                                    
                                         SnackBar.Title = "SUCCESS";
                                         SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
-                                        SnackBar.Message = "The Mod " + Path.GetFileNameWithoutExtension(Target_Zip).Replace("_", " ") + " has been Downloaded and Installed";
+                                        SnackBar.Message = "The Mod " + Path.GetFileNameWithoutExtension(Target_Zip).Replace("_", " ") + VTOL.Resources.Languages.Language.Page_Thunderstore_Unpack_To_Location_Custom_HasBeenDownloadedAndInstalled;
                                         SnackBar.Show();
 
                                     

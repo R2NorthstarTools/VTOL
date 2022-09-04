@@ -210,7 +210,7 @@
                         </TransformGroup>
                     </Image.RenderTransform>
                 </Image>
-                <TextBlock TextWrapping="Wrap" Text="Custom Modding And Server Framework" Height="31" Width="412" FontSize="22" FontFamily="Segoe UI" DockPanel.Dock="Left" Foreground="White" Margin="6,0,0,0" RenderTransformOrigin="0.5,0.5">
+                <TextBlock TextWrapping="Wrap" Text="{x:Static properties:Language.Page_Home_CustomModdingAndServerFramework}" Height="32" Width="480" FontSize="22" FontFamily="Segoe UI" DockPanel.Dock="Left" Foreground="White" Margin="6,0,0,0" RenderTransformOrigin="0.5,0.5">
                     <TextBlock.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform/>
@@ -236,7 +236,7 @@
                 </ui:Button.Effect>
 
             </ui:Button>
-            <Label Content="Launch Titanfall 2 Northstar" Background="{x:Null}" Foreground="White" Margin="65,287,0,0" Padding="0,0,0,0" VerticalAlignment="Top" Width="276" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="24" FontSize="14" IsHitTestVisible="False"/>
+            <Label Content="{x:Static properties:Language.Page_Home_LaunchTitanfall2Northstar}" Background="{x:Null}" Foreground="White" Margin="65,287,0,0" Padding="0,0,0,0" VerticalAlignment="Top" Width="276" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="24" FontSize="14" IsHitTestVisible="False"/>
 
             <!-- To be put under settings-->
             <!--<Label Content="Profile:" Background="{x:Null}" Foreground="White" Margin="48,205,0,0" Padding="0,0,0,0" VerticalAlignment="Top" Width="276" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="24" FontSize="12" IsHitTestVisible="False"/>

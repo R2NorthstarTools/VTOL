@@ -421,11 +421,11 @@ namespace VTOL.Pages
            await  Install_NS_METHOD();
 
             NSExe = Get_And_Set_Filepaths(Current_Install_Folder, "NorthstarLauncher.exe");
-            if (File.Exists(Current_Install_Folder + @"\NorthstarLauncher.exe"))
+            if (File.Exists(Current_Install_Folder + @"NorthstarLauncher.exe"))
             {
 
                 // Get the file version info for the notepad.
-                FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(Current_Install_Folder + @"\NorthstarLauncher.exe");
+                FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(Current_Install_Folder + @"NorthstarLauncher.exe");
 
                 // Print the file name and version number.
                 Console.WriteLine(myFileVersionInfo.FileVersion);
@@ -452,7 +452,7 @@ namespace VTOL.Pages
                    
                     SnackBar.Appearance = ControlAppearance.Info;
                     SnackBar.Title = "INFO";
-                    SnackBar.Message = "Please Wait as VTOL restarts!";
+                    SnackBar.Message = VTOL.Resources.Languages.Language.PleaseWaitAsVTOLRestarts;
                     SnackBar.Show();
                 });
                 await Task.Delay(1000);
@@ -472,7 +472,7 @@ namespace VTOL.Pages
                     Main.VERSION_TEXT.Text = "VTOL - " + ProductVersion + " | Northstar Version - UNKNOWN!";
                     SnackBar.Appearance = ControlAppearance.Danger;
                     SnackBar.Title = "WARNING!";
-                    SnackBar.Message = "NORTHSTAR IS NOT INSTALLED AND AUTO INSTALL FAILED!";
+                    SnackBar.Message = VTOL.Resources.Languages.Language.Page_Home_Auto_Install__NORTHSTARISNOTINSTALLEDANDAUTOINSTALLFAILED;
                     SnackBar.Show();
                 });
 
@@ -555,25 +555,14 @@ namespace VTOL.Pages
                     MasterServer_URL = User_Settings_Vars.MasterServerUrl;
 
                     Current_Install_Folder = User_Settings_Vars.NorthstarInstallLocation;
-
-
-                    //if (isValidHexaCode(User_Settings_Vars.Theme))
-                    //{
-
-                    //    Accent_Color = (SolidColorBrush)new BrushConverter().ConvertFrom(User_Settings_Vars.Theme);
-                    //    ColorPicker_Accent.SelectedBrush = (SolidColorBrush)new BrushConverter().ConvertFrom(User_Settings_Vars.Theme);
-
-                    //    Colors_Set Colors_Set = new Colors_Set { Accent_Color = Accent_Color };
-                    //    this.DataContext = Colors_Set;
-                    //    this.Resources["Button_BG"] = (SolidColorBrush)new BrushConverter().ConvertFrom(ColorPicker_Accent.SelectedBrush.Color.ToString());
-
-                    //}
-                    //else
-                    //{
-                    //    this.Resources["Button_BG"] = Accent_Color;
-
-                    //}
-                }
+                    if (!Current_Install_Folder.EndsWith(@"\"))
+                    { string fix = Current_Install_Folder + @"\";
+                        User_Settings_Vars.NorthstarInstallLocation = fix;
+                        Current_Install_Folder = fix;
+                    }
+                   
+                     
+                    }
 
 
 
@@ -614,7 +603,7 @@ namespace VTOL.Pages
 
                             SnackBar.Appearance = ControlAppearance.Danger;
                             SnackBar.Title = "WARNING!";
-                            SnackBar.Message = "NORTHSTAR AUTO INSTALL WILL NOW BEGIN, PLEASE WAIT ABOUT 30 SECONDS!";
+                            SnackBar.Message = VTOL.Resources.Languages.Language.Page_Home_INIT_NORTHSTARAUTOINSTALLWILLNOWBEGINPLEASEWAITABOUT30SECONDS;
                             SnackBar.Timeout = 8000;
                             SnackBar.Show();
                             Auto_Install_(true);
@@ -671,7 +660,7 @@ namespace VTOL.Pages
              .CreateLogger();
                                 SnackBar.Appearance = ControlAppearance.Danger;
                                 SnackBar.Title = "WARNING!";
-                                SnackBar.Message = "NORTHSTAR IS NOT INSTALLED AND AUTO INSTALL FAILED!";
+                                SnackBar.Message = VTOL.Resources.Languages.Language.Page_Home_Auto_Install__NORTHSTARISNOTINSTALLEDANDAUTOINSTALLFAILED;
                                 SnackBar.Show();
 
                             }
@@ -707,12 +696,12 @@ namespace VTOL.Pages
 
 
 
-                if (Directory.Exists(Current_Install_Folder + @"\Skins_Unpack_Mod_MNGR"))
+                if (Directory.Exists(Current_Install_Folder + @"Skins_Unpack_Mod_MNGR"))
                 {
                     try
                     {
 
-                        Directory.Delete(Current_Install_Folder + @"\Skins_Unpack_Mod_MNGR", true);
+                        Directory.Delete(Current_Install_Folder + @"Skins_Unpack_Mod_MNGR", true);
                         GC.Collect();
                     }
                     catch (Exception ex)
@@ -729,11 +718,11 @@ namespace VTOL.Pages
 
 
                 }
-                if (Directory.Exists(Current_Install_Folder + @"\Thumbnails"))
+                if (Directory.Exists(Current_Install_Folder + @"Thumbnails"))
                 {
                     try
                     {
-                        Directory.Delete(Current_Install_Folder + @"\Thumbnails", true);
+                        Directory.Delete(Current_Install_Folder + @"Thumbnails", true);
                     }
                     catch (Exception ex)
                     {
@@ -753,9 +742,7 @@ namespace VTOL.Pages
                 if (Directory.Exists(@"C:\ProgramData\VTOL_DATA"))
                 {
 
-                    //System.Windows.MessageBoxResult result = HandyControl.Controls.MessageBox.Show(new MessageBoxInfo { Message = "Detected Legacy Files For VTOL\n WOULD YOU LIKE TO MIGRATE AND DELETE?", Caption = "INFO", Button = MessageBoxButton.YesNo, IconBrushKey = ResourceToken.AccentBrush, IconKey = ResourceToken.AskGeometry, StyleKey = "MessageBoxCustom" });
-                    //if (result == System.Windows.MessageBoxResult.Yes)
-                    //{
+                    
 
 
                     if (File.Exists(@"C:\ProgramData\VTOL_DATA\VARS\AUTHOR.txt"))
@@ -804,7 +791,7 @@ namespace VTOL.Pages
 
                     }
                     Directory.Delete(@"C:\ProgramData\VTOL_DATA", true);
-                    //    }
+                   
                 }
 
                
@@ -833,12 +820,12 @@ namespace VTOL.Pages
                 {
 
 
-                    Update_Northstar_Button.Content = "Update Northstar";
+                    Update_Northstar_Button.Content = VTOL.Resources.Languages.Language.Page_Home_INIT_UpdateNorthstar;
                 }
                 else
                 {
 
-                    Update_Northstar_Button.Content = "Install Northstar";
+                    Update_Northstar_Button.Content = VTOL.Resources.Languages.Language.Page_Home_INIT_InstallNorthstar;
 
 
 
@@ -1294,8 +1281,8 @@ namespace VTOL.Pages
                         Wpf.Ui.Controls.Snackbar D = new Wpf.Ui.Controls.Snackbar();
                         D.Title = "Warning - Home Page!";
                         D.Appearance = Wpf.Ui.Common.ControlAppearance.Caution;
-                        D.Message = "Master Server Checked And Timed Out too much. Turning off Master Server Checks";
-                        D.ShowAsync();
+                        D.Message = VTOL.Resources.Languages.Language.Page_Home_timer_Tick_MasterServerCheckedAndTimedOutTooMuchTurningOffMasterServerChecks;
+                        D.Show();
                         Toggle_MS_BT(false);
                     }
                 }
@@ -1875,7 +1862,7 @@ namespace VTOL.Pages
                         {
                             SnackBar.Appearance = ControlAppearance.Caution;
                             SnackBar.Title = "WARNING!";
-                            SnackBar.Message = "The Origin Client Is already Running!";
+                            SnackBar.Message =VTOL.Resources.Languages.Language.Page_Home_Origin_Client_Card_Click_TheOriginClientIsAlreadyRunning;
                             SnackBar.Show();
                             Origin_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#B2037F10");
                             Origin_Client_Card.IconFilled = true;
@@ -2054,7 +2041,7 @@ namespace VTOL.Pages
                 {
                     SnackBar.Appearance = ControlAppearance.Danger;
                     SnackBar.Title = "WARNING!";
-                    SnackBar.Message = "Could not Find EA Origin Install, Please Start Manually, Or Repair your installation!";
+                    SnackBar.Message =VTOL.Resources.Languages.Language.Page_Home_Run_Origin_CouldNotFindEAOriginInstallPleaseStartManuallyOrRepairYourInstallation;
                     SnackBar.Show();
                  
                     Origin_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#99630000");
@@ -2123,7 +2110,7 @@ namespace VTOL.Pages
                                 Check_Integrity_Of_NSINSTALL();
                                 SnackBar.Appearance = ControlAppearance.Success;
                                 SnackBar.Title = "SUCCESS";
-                                SnackBar.Message = "The Location - ' " + Current_Install_Folder + " ' is Valid and has been Set";
+                                SnackBar.Message = VTOL.Resources.Languages.Language.Page_Home_Browse_Titanfall_Button_Click_TheLocation+ Current_Install_Folder + VTOL.Resources.Languages.Language.Page_Home_Browse_Titanfall_Button_Click_IsValidAndHasBeenSet;
                                 SnackBar.Show();
 
                             }
@@ -2131,7 +2118,7 @@ namespace VTOL.Pages
                             {
                                 SnackBar.Appearance = ControlAppearance.Danger;
                                 SnackBar.Title = "WARNING!";
-                                SnackBar.Message = "NORTHSTAR AUTO INSTALL WILL NOW BEGIN, PLEASE WAIT ABOUT 30 SECONDS!";
+                                SnackBar.Message = VTOL.Resources.Languages.Language.Page_Home_INIT_NORTHSTARAUTOINSTALLWILLNOWBEGINPLEASEWAITABOUT30SECONDS;
                                 SnackBar.Timeout = 8000;
                                 SnackBar.Show();
 
@@ -2142,7 +2129,7 @@ namespace VTOL.Pages
                         {
                             SnackBar.Appearance = ControlAppearance.Danger;
                             SnackBar.Title = "WARNING!";
-                            SnackBar.Message = "The Location - ' " + Current_Install_Folder + " ' Is not Valid";
+                            SnackBar.Message = VTOL.Resources.Languages.Language.Browse_Titanfall_Button_Click_TheLocation + Current_Install_Folder +VTOL.Resources.Languages.Language.Page_Home_Browse_Titanfall_Button_Click_IsNotValid;
                             SnackBar.Timeout = 8000;
                             SnackBar.Show();
 
@@ -2230,7 +2217,7 @@ namespace VTOL.Pages
                 {
                     SnackBar.Appearance = ControlAppearance.Danger;
                     SnackBar.Title = "WARNING!";
-                    SnackBar.Message = "Directory Check Failed";
+                    SnackBar.Message = VTOL.Resources.Languages.Language.Check_Integrity_Of_NSINSTALL_DirectoryCheckFailed;
                     SnackBar.Show();
                     //Send_Error_Notif(GetTextResource("NOTIF_ERROR_DIRECTORY_CHECK_FAILED"));
                     NS_Installed = false;
@@ -2370,7 +2357,7 @@ namespace VTOL.Pages
 
                 SnackBar.Appearance = ControlAppearance.Danger;
                 SnackBar.Title = "ERROR!";
-                SnackBar.Message = "Invalid Release Donwload URL!";
+                SnackBar.Message = VTOL.Resources.Languages.Language.Read_Latest_Release_InvalidReleaseDonwloadURL;
                 SnackBar.Show();
 
                 //Send_Error_Notif(GetTextResource("NOTIF_ERROR_INVALID_URL"));
@@ -2445,7 +2432,7 @@ namespace VTOL.Pages
                     //Send_Error_Notif(GetTextResource("NOTIF_ERROR_RELEASE_NOT_FOUND"));
                     SnackBar.Appearance = ControlAppearance.Danger;
                     SnackBar.Title = "ERROR!";
-                    SnackBar.Message = "Release Not Found!";
+                    SnackBar.Message = VTOL.Resources.Languages.Language.Parse_Release_ReleaseNotFound;
                     SnackBar.Show();
 
 
@@ -2474,10 +2461,10 @@ namespace VTOL.Pages
         {
             try
             {
-                FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(Current_Install_Folder + @"\NorthstarLauncher.exe");
+                FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(Current_Install_Folder + @"NorthstarLauncher.exe");
                 if (myFileVersionInfo.FileVersion.Contains("rc"))
                 {
-                    SnackBar.Message = "Release Candidate Detected";
+                    SnackBar.Message = VTOL.Resources.Languages.Language.Check_For_New_Northstar_Install_ReleaseCandidateDetected;
                     SnackBar.Title = "INFO";
                     SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
                     SnackBar.Show();
@@ -2492,7 +2479,7 @@ namespace VTOL.Pages
                    
 
 
-                        SnackBar.Message = "Update Available Downloading And Installing Now!";
+                        SnackBar.Message = VTOL.Resources.Languages.Language.Check_For_New_Northstar_Install_UpdateAvailableDownloadingAndInstallingNow;
                     SnackBar.Title = "INFO";
                     SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
                     SnackBar.Show();
@@ -2552,10 +2539,10 @@ namespace VTOL.Pages
                     });
                     Fade_In_Fade_Out_Control(true);
 
-                    if (Directory.Exists(Current_Install_Folder + @"\TempCopyFolder"))
+                    if (Directory.Exists(Current_Install_Folder + @"TempCopyFolder"))
                 {
 
-                        Directory.Delete(Current_Install_Folder + @"\TempCopyFolder", true);
+                        Directory.Delete(Current_Install_Folder + @"TempCopyFolder", true);
                     
                     
                 }
@@ -2568,34 +2555,34 @@ namespace VTOL.Pages
                 string x = "";
                 if (Current_Install_Folder != null || Current_Install_Folder != "")
                 {
-                    if (File.Exists(Current_Install_Folder + @"\ns_startup_args_dedi.txt") && File.Exists(Current_Install_Folder + @"\ns_startup_args.txt") )
+                    if (File.Exists(Current_Install_Folder + @"ns_startup_args_dedi.txt") && File.Exists(Current_Install_Folder + @"ns_startup_args.txt") )
                     {
                         //x = GetFile(Current_Install_Folder, "autoexec_ns_server.cfg").First();
 
                         if (do_not_overwrite_Ns_file == true)
                         {
-                            if (Directory.Exists(Current_Install_Folder + @"\TempCopyFolder"))
+                            if (Directory.Exists(Current_Install_Folder + @"TempCopyFolder"))
                             {
-                                if (Directory.Exists(Current_Install_Folder + @"\ns_startup_args.txt"))
+                                if (Directory.Exists(Current_Install_Folder + @"ns_startup_args.txt"))
                                 {
-                                    System.IO.File.Copy(Current_Install_Folder + @"\ns_startup_args.txt", Current_Install_Folder + @"\TempCopyFolder\ns_startup_args.txt", true);
+                                    System.IO.File.Copy(Current_Install_Folder + @"ns_startup_args.txt", Current_Install_Folder + @"TempCopyFolder\ns_startup_args.txt", true);
                                 }
-                                if (Directory.Exists(Current_Install_Folder + @"\ns_startup_args_dedi.txt"))
+                                if (Directory.Exists(Current_Install_Folder + @"ns_startup_args_dedi.txt"))
                                 {
-                                    System.IO.File.Copy(Current_Install_Folder + @"\ns_startup_args_dedi.txt", Current_Install_Folder + @"\TempCopyFolder\ns_startup_args_dedi.txt", true);
+                                    System.IO.File.Copy(Current_Install_Folder + @"ns_startup_args_dedi.txt", Current_Install_Folder + @"TempCopyFolder\ns_startup_args_dedi.txt", true);
                                 }
                             }
                             else
                             {
 
-                                System.IO.Directory.CreateDirectory(Current_Install_Folder + @"\TempCopyFolder");
-                                if (Directory.Exists(Current_Install_Folder + @"\ns_startup_args.txt"))
+                                System.IO.Directory.CreateDirectory(Current_Install_Folder + @"TempCopyFolder");
+                                if (Directory.Exists(Current_Install_Folder + @"ns_startup_args.txt"))
                                 {
-                                    System.IO.File.Copy(Current_Install_Folder + @"\ns_startup_args.txt", Current_Install_Folder + @"\TempCopyFolder\ns_startup_args.txt", true);
+                                    System.IO.File.Copy(Current_Install_Folder + @"ns_startup_args.txt", Current_Install_Folder + @"TempCopyFolder\ns_startup_args.txt", true);
                                 }
-                                if (Directory.Exists(Current_Install_Folder + @"\ns_startup_args_dedi.txt"))
+                                if (Directory.Exists(Current_Install_Folder + @"ns_startup_args_dedi.txt"))
                                 {
-                                    System.IO.File.Copy(Current_Install_Folder + @"\ns_startup_args_dedi.txt", Current_Install_Folder + @"\TempCopyFolder\ns_startup_args_dedi.txt", true);
+                                    System.IO.File.Copy(Current_Install_Folder + @"ns_startup_args_dedi.txt", Current_Install_Folder + @"TempCopyFolder\ns_startup_args_dedi.txt", true);
                                 }
                             }
                             Directory.CreateDirectory(DocumentsFolder + @"\VTOL_DATA\Releases\");
@@ -2759,20 +2746,20 @@ namespace VTOL.Pages
         private void Unpack_To_Location(string Target_Zip, string Destination_Zip)
         {
             unpack_flg = false;
-            if (Directory.Exists(Current_Install_Folder + @"\R2Northstar\mods\Northstar.Client\Locked_Folder"))
+            if (Directory.Exists(Current_Install_Folder + @"R2Northstar\mods\Northstar.Client\Locked_Folder"))
             {
-                Directory.Delete(Current_Install_Folder + @"\R2Northstar\mods\Northstar.Client\Locked_Folder", true);
+                Directory.Delete(Current_Install_Folder + @"R2Northstar\mods\Northstar.Client\Locked_Folder", true);
 
             }
-            if (Directory.Exists(Current_Install_Folder + @"\R2Northstar\mods\Northstar.Custom\Locked_Folder"))
+            if (Directory.Exists(Current_Install_Folder + @"R2Northstar\mods\Northstar.Custom\Locked_Folder"))
             {
-                Directory.Delete(Current_Install_Folder + @"\R2Northstar\mods\Northstar.Custom\Locked_Folder", true);
+                Directory.Delete(Current_Install_Folder + @"R2Northstar\mods\Northstar.Custom\Locked_Folder", true);
 
 
             }
-            if (Directory.Exists(Current_Install_Folder + @"\R2Northstar\mods\Northstar.CustomServers\Locked_Folder"))
+            if (Directory.Exists(Current_Install_Folder + @"R2Northstar\mods\Northstar.CustomServers\Locked_Folder"))
             {
-                Directory.Delete(Current_Install_Folder + @"\R2Northstar\mods\Northstar.CustomServers\Locked_Folder", true);
+                Directory.Delete(Current_Install_Folder + @"R2Northstar\mods\Northstar.CustomServers\Locked_Folder", true);
 
 
             }
@@ -2787,41 +2774,41 @@ namespace VTOL.Pages
                     ZipFile zipFile = new ZipFile(Target_Zip);
 
                     zipFile.ExtractAll(Destination_Zip, Ionic.Zip.ExtractExistingFileAction.OverwriteSilently);
-                    if (File.Exists(Current_Install_Folder + @"\ns_startup_args_dedi.txt") && File.Exists(Current_Install_Folder + @"\ns_startup_args.txt"))
+                    if (File.Exists(Current_Install_Folder + @"ns_startup_args_dedi.txt") && File.Exists(Current_Install_Folder + @"ns_startup_args.txt"))
                     {
                         if (do_not_overwrite_Ns_file == true)
                         {
-                            if (Directory.Exists(Current_Install_Folder + @"\TempCopyFolder\"))
+                            if (Directory.Exists(Current_Install_Folder + @"TempCopyFolder"))
                             {
-                                if (Directory.Exists(Current_Install_Folder + @"\TempCopyFolder\ns_startup_args.txt"))
+                                if (Directory.Exists(Current_Install_Folder + @"TempCopyFolder\ns_startup_args.txt"))
                                 {
-                                    System.IO.File.Copy(Current_Install_Folder + @"\TempCopyFolder\ns_startup_args.txt", Current_Install_Folder + @"\ns_startup_args.txt", true);
+                                    System.IO.File.Copy(Current_Install_Folder + @"TempCopyFolder\ns_startup_args.txt", Current_Install_Folder + @"ns_startup_args.txt", true);
                                 }
 
                           
-                                if (Directory.Exists(Current_Install_Folder + @"\TempCopyFolder\autoexec_ns_server.cfg"))
+                                if (Directory.Exists(Current_Install_Folder + @"TempCopyFolder\autoexec_ns_server.cfg"))
                                 {
-                                    System.IO.File.Copy(Current_Install_Folder + @"\TempCopyFolder\autoexec_ns_server.cfg", Current_Install_Folder + @"\R2Northstar\mods\Northstar.CustomServers\mod\cfg\autoexec_ns_server.cfg", true);
+                                    System.IO.File.Copy(Current_Install_Folder + @"TempCopyFolder\autoexec_ns_server.cfg", Current_Install_Folder + @"R2Northstar\mods\Northstar.CustomServers\mod\cfg\autoexec_ns_server.cfg", true);
                                 }
-                                if (Directory.Exists(Current_Install_Folder + @"\TempCopyFolder\ns_startup_args_dedi.txt"))
+                                if (Directory.Exists(Current_Install_Folder + @"TempCopyFolder\ns_startup_args_dedi.txt"))
                                 {
-                                    System.IO.File.Copy(Current_Install_Folder + @"\TempCopyFolder\ns_startup_args_dedi.txt", Current_Install_Folder + @"\ns_startup_args_dedi.txt", true);
+                                    System.IO.File.Copy(Current_Install_Folder + @"TempCopyFolder\ns_startup_args_dedi.txt", Current_Install_Folder + @"ns_startup_args_dedi.txt", true);
                                 }
 
                             }
 
 
                         }
-                        if (Directory.Exists(Current_Install_Folder + @"\TempCopyFolder"))
+                        if (Directory.Exists(Current_Install_Folder + @"TempCopyFolder"))
                         {
-                            Directory.Delete(Current_Install_Folder + @"\TempCopyFolder", true);
+                            Directory.Delete(Current_Install_Folder + @"TempCopyFolder", true);
                         }
                         DispatchIfNecessary(() =>
                         {
 
 
                             unpack_flg = true;
-                            SnackBar.Message = "Installation Complete!";
+                            SnackBar.Message = VTOL.Resources.Languages.Language.Unpack_To_Location_InstallationComplete;
                             SnackBar.Title = "SUCCESS";
                             SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
                             SnackBar.Show();
@@ -2840,7 +2827,7 @@ namespace VTOL.Pages
                         Log.Error("The File - " +Target_Zip+ "Was not Found!");
                         SnackBar.Appearance = ControlAppearance.Danger;
                         SnackBar.Title = "ERROR!";
-                        SnackBar.Message = "The File - " + Target_Zip + "Was not Found!";
+                        SnackBar.Message =VTOL.Resources.Languages.Language.Unpack_To_Location_TheFile + Target_Zip +VTOL.Resources.Languages.Language.Unpack_To_Location_WasNotFound;
                         SnackBar.Show();
 
                     }
@@ -2848,7 +2835,7 @@ namespace VTOL.Pages
                     {
                         SnackBar.Appearance = ControlAppearance.Danger;
                         SnackBar.Title = "ERROR!";
-                        SnackBar.Message = "The File - " + Destination_Zip + "Was not Found!";
+                        SnackBar.Message =VTOL.Resources.Languages.Language.Unpack_To_Location_TheFile + Destination_Zip + VTOL.Resources.Languages.Language.Page_Home_Unpack_To_Location_WasNotFound;
                         SnackBar.Show();
                         //Send_Error_Notif(GetTextResource("NOTIF_ERROR_ZIP_NOT_EXIST_CHECK_PATH"));
                         Log.Error("The File - " + Destination_Zip + "Was not Found!");
@@ -2861,13 +2848,14 @@ namespace VTOL.Pages
                 Log.Error("The File - " + Target_Zip + "is not a zip!");
                 SnackBar.Appearance = ControlAppearance.Danger;
                 SnackBar.Title = "ERROR!";
-                SnackBar.Message = "The File - " + Target_Zip + "is not a zip!";
+                SnackBar.Message = VTOL.Resources.Languages.Language.Page_Home_Unpack_To_Location_TheFile + Target_Zip + VTOL.Resources.Languages.Language.Page_Home_Unpack_To_Location_IsNotAZip;
                 SnackBar.Show();
                 // Main_Window.SelectedTab = Main;
                 //Send_Error_Notif(GetTextResource("NOTIF_ERROR_OBJ_NOT_ZIP"));
 
             }
         }
+
         private void Update_Northstar_Button_Click(object sender, RoutedEventArgs e)
         {
             try

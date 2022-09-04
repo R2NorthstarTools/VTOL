@@ -7,6 +7,7 @@
         xmlns:Pages="clr-namespace:VTOL.Pages"
                xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
                 xmlns:parallax="clr-namespace:Parallax.WPF.Controls;assembly=Parallax.WPF"
+             xmlns:properties="clr-namespace:VTOL.Resources.Languages"
 
           xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
 xmlns:notifications="clr-namespace:Notification.Wpf.Controls;assembly=Notification.Wpf"

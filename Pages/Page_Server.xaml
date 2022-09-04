@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:VTOL.Pages"
       mc:Ignorable="d" 
              xmlns:hc="https://handyorg.github.io/handycontrol"
+   xmlns:properties="clr-namespace:VTOL.Resources.Languages"
 
       KeepAlive="True"
       d:DesignHeight="670" d:DesignWidth="1148"
@@ -71,7 +72,7 @@
 
                 <Grid Visibility="Visible">
                     <Button x:Name="Launch_Northstar_Advanced" Height="40" Margin="50,175,0,0" VerticalAlignment="Top" BorderBrush="White" Background="#FF085F36" Width="370" Content="Launch Northstar Client" Click="Launch_Northstar_Advanced_Click" />
-                    <hc:TextBox x:Name="Arg_Box" Height="82" TextWrapping="Wrap" VerticalAlignment="Top" Margin="50,84,0,0" Width="370" HorizontalAlignment="Left" />
+                    <hc:TextBox x:Name="Arg_Box" Height="82" TextWrapping="Wrap" VerticalAlignment="Top" Margin="50,84,0,0" Width="370" HorizontalAlignment="Left" KeyDown="OnKeyDownHandler_Nrml_Arg" />
                     <Popup x:Name="autoListPopup"    
                    Visibility="Collapsed"                    
                    Height="100"    
@@ -86,8 +87,8 @@
                     </Popup>
 
                     <Button x:Name="Dedicated_Btn" Height="40" Margin="594,175,50,0" BorderBrush="White" Background="#FF282C50" VerticalAlignment="Top" HorizontalAlignment="Stretch" Content="Launch Norhtstar Dedicated Server" Click="Dedicated_Btn_Click" />
-                    <hc:TextBox x:Name="Arg_Box_Dedi" Height="86" TextWrapping="Wrap" VerticalAlignment="Top" Margin="594,82,50,0"/>
-                    <Label  Height="35" BorderBrush="{x:Null}" Background="{x:Null}" Margin="584,44,10,0" VerticalAlignment="Top" Content="Startup Arguments Northstar Dedicated Client" FontSize="14" HorizontalContentAlignment="Center" Padding="0,0,0,0" VerticalContentAlignment="Center"/>
+                    <hc:TextBox x:Name="Arg_Box_Dedi" Height="86" TextWrapping="Wrap" VerticalAlignment="Top" Margin="594,82,50,0" KeyDown="OnKeyDownHandler_Dedi_Arg"/>
+                    <Label  Height="35" BorderBrush="{x:Null}" Background="{x:Null}" Margin="594,44,50,0" VerticalAlignment="Top" Content="{x:Static properties:Language.Page_Server_StartupArgumentsNorthstarDedicatedClient}" FontSize="14" HorizontalContentAlignment="Center" Padding="0,0,0,0" VerticalContentAlignment="Center"/>
                     <Label Height="35" Margin="32,44,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Background="{x:Null}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="Startup Arguments Northstar Client" FontSize="14" HorizontalAlignment="Left" Width="406"/>
 
                 </Grid>

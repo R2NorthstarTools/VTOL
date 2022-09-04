@@ -227,14 +227,14 @@ namespace VTOL.Pages
 
                         SnackBar.Appearance = ControlAppearance.Success;
                         SnackBar.Title = "SUCCESS";
-                        SnackBar.Message = "Saved";
+                        SnackBar.Message = VTOL.Resources.Languages.Language.Page_Server_OnKeyDownHandler_Dedi_Arg_Saved;
                         SnackBar.Show();
                     }
                     else
                     {
                         SnackBar.Appearance = ControlAppearance.Danger;
                         SnackBar.Title = "ERROR";
-                        SnackBar.Message = "Auto Save failed";
+                        SnackBar.Message = VTOL.Resources.Languages.Language.Page_Server_OnKeyDownHandler_Dedi_Arg_AutoSaveFailed;
                         SnackBar.Show();
                     
 
@@ -245,7 +245,7 @@ namespace VTOL.Pages
             {
                 SnackBar.Appearance = ControlAppearance.Danger;
                 SnackBar.Title = "ERROR";
-                SnackBar.Message = "Auto Save failed";
+                SnackBar.Message = VTOL.Resources.Languages.Language.Page_Server_OnKeyDownHandler_Dedi_Arg_AutoSaveFailed;
                 SnackBar.Show();
               
             }
@@ -269,7 +269,7 @@ namespace VTOL.Pages
                     {
                         SnackBar.Appearance = ControlAppearance.Danger;
                         SnackBar.Title = "ERROR";
-                        SnackBar.Message = "Auto Save failed";
+                        SnackBar.Message = VTOL.Resources.Languages.Language.Page_Server_OnKeyDownHandler_Dedi_Arg_AutoSaveFailed;
                         SnackBar.Show();
                        
 
@@ -280,7 +280,7 @@ namespace VTOL.Pages
             {
                 SnackBar.Appearance = ControlAppearance.Danger;
                 SnackBar.Title = "ERROR";
-                SnackBar.Message = "Auto Save failed";
+                SnackBar.Message = VTOL.Resources.Languages.Language.Page_Server_OnKeyDownHandler_Dedi_Arg_AutoSaveFailed;
                 SnackBar.Show();
 
                
@@ -335,7 +335,7 @@ namespace VTOL.Pages
                         {
                             SnackBar.Appearance = ControlAppearance.Danger;
                             SnackBar.Title = "ERROR";
-                            SnackBar.Message = "Cannot Read Input";
+                            SnackBar.Message = VTOL.Resources.Languages.Language.Page_Server_Validate_Combo_Box_CannotReadInput;
                             SnackBar.Show();
                         }
                     }
@@ -677,7 +677,7 @@ namespace VTOL.Pages
                     {
                         SnackBar.Appearance = ControlAppearance.Danger;
                         SnackBar.Title = "ERROR";
-                        SnackBar.Message = "Cannot Set The path";
+                        SnackBar.Message =VTOL.Resources.Languages.Language.Page_Server_Read_Convar_args_CannotSetThePath;
                         SnackBar.Show();
                         //Send_Warning_Notif(GetTextResource("NOTIF_WARN_CANNOT_SET_PATH"));
 
@@ -2116,7 +2116,7 @@ namespace VTOL.Pages
                 {
                     SnackBar.Appearance = ControlAppearance.Danger;
                     SnackBar.Title = "ERROR";
-                    SnackBar.Message = "Could Not Find Dedicated bat!";
+                    SnackBar.Message = VTOL.Resources.Languages.Language.Page_Server_Launch_Northstar_Dedicated_Click_CouldNotFindDedicatedBat;
                     SnackBar.Show();
 
 
@@ -2126,7 +2126,7 @@ namespace VTOL.Pages
             {
                 SnackBar.Appearance = ControlAppearance.Danger;
                 SnackBar.Title = "ERROR";
-                SnackBar.Message = "Could Not Find Dedicated bat!";
+                SnackBar.Message = VTOL.Resources.Languages.Language.Page_Server_Launch_Northstar_Dedicated_Click_CouldNotFindDedicatedBat;
                 SnackBar.Show();
 
 
@@ -2228,7 +2228,7 @@ namespace VTOL.Pages
 
                     SnackBar.Appearance = ControlAppearance.Danger;
                     SnackBar.Title = "ERROR";
-                    SnackBar.Message = "Could Not Find Northstar.exe!";
+                    SnackBar.Message = VTOL.Resources.Languages.Language.Page_Server_Launch_Northstar_Advanced_Click_CouldNotFindNorthstarExe;
                     SnackBar.Show();
                 }
             }
@@ -2290,7 +2290,7 @@ namespace VTOL.Pages
                 {
                     SnackBar.Appearance = ControlAppearance.Danger;
                     SnackBar.Title = "ERROR";
-                    SnackBar.Message = "Could Not Find Dedicated bat!";
+                    SnackBar.Message = VTOL.Resources.Languages.Language.Page_Server_Launch_Northstar_Dedicated_Click_CouldNotFindDedicatedBat;
                     SnackBar.Show();
 
 
@@ -2300,7 +2300,7 @@ namespace VTOL.Pages
             {
                 SnackBar.Appearance = ControlAppearance.Danger;
                 SnackBar.Title = "ERROR";
-                SnackBar.Message = "Could Not Find Dedicated bat!";
+                SnackBar.Message = VTOL.Resources.Languages.Language.Page_Server_Launch_Northstar_Dedicated_Click_CouldNotFindDedicatedBat;
                 SnackBar.Show();
 
 

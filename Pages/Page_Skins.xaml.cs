@@ -131,7 +131,7 @@ namespace VTOL.Pages
                 {
 
 
-                    if (Directory.Exists(User_Settings_Vars.NorthstarInstallLocation+ @"Skins_Unpack_Mod_MNGR"))
+                    if (Directory.Exists(User_Settings_Vars.NorthstarInstallLocation + @"Skins_Unpack_Mod_MNGR"))
                     {
 
                         current_skin_folder = User_Settings_Vars.NorthstarInstallLocation+ @"Skins_Unpack_Mod_MNGR";
@@ -250,7 +250,7 @@ namespace VTOL.Pages
                 DispatchIfNecessary(async () =>
                 {
                     Main.Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
-                    Main.Snackbar.Show("SUCCESS!", "The Skin - " + Path.GetFileNameWithoutExtension(Zip_Path) + " - has been Installed!");
+                    Main.Snackbar.Show("SUCCESS!", VTOL.Resources.Languages.Language.Page_Skins_Install_Skin_From_Path_TheSkin + Path.GetFileNameWithoutExtension(Zip_Path) + VTOL.Resources.Languages.Language.Page_Skins_Install_Skin_From_Path_HasBeenInstalled);
                 });
 
                 foreach (FileInfo file in files)
@@ -402,8 +402,8 @@ namespace VTOL.Pages
                         else
                         {
                             Main.Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Caution;
-                            Main.Snackbar.Show("ERROR", "File " + Path.GetFileName(file) + "  is Not a Skin Zip!");
-                            Install_Queue_Label.Content = "Drag to Install";
+                            Main.Snackbar.Show("ERROR", "File " + Path.GetFileName(file) + VTOL.Resources.Languages.Language.Page_Skins_Drag_Drop_Area_Drop_IsNotASkinZip);
+                            Install_Queue_Label.Content = VTOL.Resources.Languages.Language.Page_Skins_Drag_Drop_Area_Drop_DragToInstall;
                             Skin_Path.Text = "Path";
 
                             Drag_Drop_Area.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#66000000");
@@ -435,7 +435,7 @@ namespace VTOL.Pages
 
                     Install_Queue_Label.Content = String.Join(" | ", names);
                     Main.Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
-                    Main.Snackbar.Show("INFO", "Compatible Skin(s) Found : " + String.Join(" | ", names));
+                    Main.Snackbar.Show("INFO", VTOL.Resources.Languages.Language.Page_Skins_Drag_Drop_Area_Drop_CompatibleSkinSFound + String.Join(" | ", names));
                 }
                
             }
@@ -545,7 +545,7 @@ namespace VTOL.Pages
                     {
                         Main.Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
 
-                        Main.Snackbar.Show("INFO", "Compatible Skin Found at : " + openFileDialog.FileName);
+                        Main.Snackbar.Show("INFO",VTOL.Resources.Languages.Language.Page_Skins_Browse_Click_CompatibleSkinFoundAt + openFileDialog.FileName);
 
                         Skin_List.Add(openFileDialog.FileName);
                         Skin_Path.Text = openFileDialog.FileName;
@@ -555,8 +555,8 @@ namespace VTOL.Pages
                     else
                     {
                         Main.Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Caution;
-                        Main.Snackbar.Show("ERROR", "File "+ Path.GetFileName(openFileDialog.FileName) +  "  is Not a Skin Zip!");
-                        Install_Queue_Label.Content = "Drag to Install";
+                        Main.Snackbar.Show("ERROR", "File "+ Path.GetFileName(openFileDialog.FileName) + VTOL.Resources.Languages.Language.Page_Skins_Browse_Click_IsNotASkinZip);
+                        Install_Queue_Label.Content = VTOL.Resources.Languages.Language.Page_Skins_Drag_Drop_Area_Drop_DragToInstall;
                         Skin_Path.Text = "Path";
 
                         Drag_Drop_Area.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#66000000");
@@ -587,7 +587,7 @@ namespace VTOL.Pages
             await Task.Run(() =>
             {
                 DispatchIfNecessary(() => {
-                    SnackBar.Message = "Opening the Following URL - " + URL;
+                    SnackBar.Message = VTOL.Resources.Languages.Language.Page_Skins_OPEN_WEBPAGE_OpeningTheFollowingURL + URL;
                     SnackBar.Title = "INFO";
                     SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
                     SnackBar.Show();
