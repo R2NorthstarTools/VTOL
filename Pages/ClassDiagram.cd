@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="VTOL.Pages.Page_About">
+    <Position X="15" Y="1.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\Page_About.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="VTOL.Pages.InstalledApplications">
+    <Position X="0.5" Y="1.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAQQAAgAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\Page_Home.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VTOL.Pages.Page_Home">
+    <Position X="8.25" Y="1.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AISI6oJBAFEoHQI4KgRAoClC6AQaSYJSRsMOzNjPTAE=</HashCode>
+      <FileName>Pages\Page_Home.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="VTOL.Pages.Card_" BaseTypeListCollapsed="true">
+    <Position X="28.5" Y="1.25" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIQgACAAAAYAgAAAQAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Pages\Page_Mods.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="VTOL.Pages.ExtensionMethods">
+    <Position X="28.5" Y="7" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\Page_Mods.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VTOL.Pages.Extension">
+    <Position X="28.5" Y="5.75" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\Page_Mods.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VTOL.Pages.Page_Mods" BaseTypeListCollapsed="true">
+    <Position X="28.5" Y="8.5" Width="4" />
+    <NestedTypes>
+      <Class Name="VTOL.Pages.Page_Mods.Card_" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Pages\Page_Mods.xaml.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>ASB2aIAVBAgAAEEAApCAgiFCABIAQAgiUGEABQIiBAA=</HashCode>
+      <FileName>Pages\Page_Mods.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="VTOL.Pages.Page_Server">
+    <Position X="18" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\Page_Server.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="VTOL.Pages.Page_Settings">
+    <Position X="19.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\Page_Settings.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="VTOL.Pages.Page_Skins">
+    <Position X="3" Y="1.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>IQAgAAABQgAAAAAAAgAIKCAAoBAAABhEAEABBAIBAIA=</HashCode>
+      <FileName>Pages\Page_Skins.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="VTOL.Pages.Page_Themes">
+    <Position X="24" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\Page_Themes.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="VTOL.Pages.NegatingConverter">
+    <Position X="3" Y="7.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\Page_Thunderstore.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="2.55" />
+  </Class>
+  <Class Name="VTOL.Pages.Page_Thunderstore">
+    <Position X="11.25" Y="1.25" Width="3.75" />
+    <NestedTypes>
+      <Class Name="VTOL.Pages.Page_Thunderstore.LIST_JSON" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Pages\Page_Thunderstore.xaml.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="VTOL.Pages.Page_Thunderstore.Grid_" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Pages\Page_Thunderstore.xaml.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>QhAC44MzAgJBIwBAAgCEJAwCoEAAyGIAAFwBJAApBCQ=</HashCode>
+      <FileName>Pages\Page_Thunderstore.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="VTOL.Pages.Page_Tools">
+    <Position X="5.75" Y="1.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAYAAAAAgEAAAAAAABAEAAQAAACAACAAQAIBACAgAA=</HashCode>
+      <FileName>Pages\Page_Tools.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="VTOL.Pages.Window_Tool_Image_Editor_Wizard">
+    <Position X="21" Y="1.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAAAAABAAAAAAAAAECAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\Window_Tool_Image_Editor_Wizard.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="VTOL.MainWindow">
+    <Position X="25.5" Y="1.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAIAIBAAAAAAAABAAICACAAASgIAGMAAAQAQJAggBgA=</HashCode>
+      <FileName>MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="VTOL.WindowBlur">
+    <Position X="32.5" Y="1.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>EAAAAEAACgCAAAYAEAADQgQCAIAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>WindowBlur.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="VTOL.Native.AccentPolicy">
+    <Position X="32.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAAAAIAAAAAAAAAAAACAAAAAgAAA=</HashCode>
+      <FileName>WindowBlur.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="VTOL.Native.WindowCompositionAttributeData">
+    <Position X="32.5" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAACAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>WindowBlur.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Enum Name="VTOL.Native.AccentState">
+    <Position X="32.5" Y="5.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAQAAAAAAAAAAAgAAAAAAAAAAAIAAAAAAAI=</HashCode>
+      <FileName>WindowBlur.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="VTOL.Native.WindowCompositionAttribute">
+    <Position X="32.5" Y="10.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>WindowBlur.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

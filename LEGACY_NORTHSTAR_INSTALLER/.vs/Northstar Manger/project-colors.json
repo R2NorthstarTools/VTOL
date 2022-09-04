@@ -1,0 +1,21 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "dc20b102-3edf-4f8a-b7b7-97d0c53f653b": {
+      "ProjectGuid": "dc20b102-3edf-4f8a-b7b7-97d0c53f653b",
+      "DisplayName": "Northstar Manger",
+      "ColorIndex": 0
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
+    },
+    "2eebf1a9-5aad-4c76-aa78-8da292845234": {
+      "ProjectGuid": "2eebf1a9-5aad-4c76-aa78-8da292845234",
+      "DisplayName": "NorthStarInstaller_Advanced",
+      "ColorIndex": 1
+    }
+  },
+  "NextColorIndex": 2
+}

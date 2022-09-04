@@ -13,7 +13,7 @@ namespace VTOL.Properties {
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.0.3.0")]
-    public sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
+    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
         
@@ -121,10 +121,10 @@ namespace VTOL.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public double Sort_Mods_By_Date {
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Sort_Mods_By_Date {
             get {
-                return ((double)(this["Sort_Mods_By_Date"]));
+                return ((bool)(this["Sort_Mods_By_Date"]));
             }
             set {
                 this["Sort_Mods_By_Date"] = value;
@@ -188,6 +188,42 @@ namespace VTOL.Properties {
             }
             set {
                 this["Version"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Auto_Update_Northstar {
+            get {
+                return ((bool)(this["Auto_Update_Northstar"]));
+            }
+            set {
+                this["Auto_Update_Northstar"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Auto_Close_VTOL_on_Launch {
+            get {
+                return ((bool)(this["Auto_Close_VTOL_on_Launch"]));
+            }
+            set {
+                this["Auto_Close_VTOL_on_Launch"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Backup_arg_Files {
+            get {
+                return ((bool)(this["Backup_arg_Files"]));
+            }
+            set {
+                this["Backup_arg_Files"] = value;
             }
         }
     }

@@ -2,419 +2,666 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows10.0.17763.0</TargetFramework>
+    <TargetFramework>net6.0-windows10.0.22621.0</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
-    <ApplicationIcon>Resources\Northstar-512.ico</ApplicationIcon>
-    <PackageIcon>Northstar-512.png</PackageIcon>
-    <AssemblyVersion>1.2.7</AssemblyVersion>
-    <FileVersion>1.2.7</FileVersion>
-    <PackageTags>Mod_Manager;Installer;VTOL</PackageTags>
+    <Platforms>AnyCPU;x64</Platforms>
+	<UseWindowsForms>true</UseWindowsForms>
+    <TargetFrameworks></TargetFrameworks>
     <DebugType>embedded</DebugType>
-    <Platforms>AnyCPU;x64;x86</Platforms>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PackageIcon>Northstar-512.ico</PackageIcon>
     <StartupObject>VTOL.App</StartupObject>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-    <RepositoryUrl>https://github.com/BigSpice/VTOL</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
 	  <PublishSingleFile>true</PublishSingleFile>
+	  <IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
+	  <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
+	  <ApplicationIcon>Resources\Icons\Main_UI\Northstar-512.ico</ApplicationIcon>
+	  <GenerateDocumentationFile>True</GenerateDocumentationFile>
+	  <RepositoryUrl>https://github.com/BigSpice/VTOL</RepositoryUrl>
+	  <RepositoryType>git</RepositoryType>
+	  <PackageTags>mod;installer;modmanager;northstar-client;titanfall2</PackageTags>
+	  <AssemblyVersion>2.0.0</AssemblyVersion>
+	  <FileVersion>2.0.0</FileVersion>
+	  <Version>2.0.0</Version>
+	  <EnableNETAnalyzers>False</EnableNETAnalyzers>
+	  <ErrorReport>none</ErrorReport>
 
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Remove="LEGACY_NORTHSTAR_INSTALLER\**" />
+    <Compile Remove="Version_1_VTOL_INSTALLER\**" />
     <EmbeddedResource Remove="LEGACY_NORTHSTAR_INSTALLER\**" />
+    <EmbeddedResource Remove="Version_1_VTOL_INSTALLER\**" />
     <None Remove="LEGACY_NORTHSTAR_INSTALLER\**" />
+    <None Remove="Version_1_VTOL_INSTALLER\**" />
     <Page Remove="LEGACY_NORTHSTAR_INSTALLER\**" />
+    <Page Remove="Version_1_VTOL_INSTALLER\**" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="Banner_normal.jpg" />
-    <None Remove="Resources\24x24.png" />
-    <None Remove="Resources\32x32.ico" />
-    <None Remove="Resources\Banner_normal.jpg" />
-    <None Remove="Resources\bestboy.png" />
-    <None Remove="Resources\BG.jpg" />
-    <None Remove="Resources\BG_Drag_Drop.gif" />
-    <None Remove="Resources\BG_Panels.png" />
-    <None Remove="Resources\BG_SMALL.png" />
-    <None Remove="Resources\Delete_Icon.png" />
-    <None Remove="Resources\Disable_Img.png" />
-    <None Remove="Resources\download_icon.png" />
-    <None Remove="Resources\Enable_Image.png" />
-    <None Remove="Resources\folder.png" />
-    <None Remove="Resources\Folder_Browse_Icon.ico" />
-    <None Remove="Resources\Folder_Browse_Icon.png" />
-    <None Remove="Resources\heart.png" />
-    <None Remove="Resources\home.png" />
-    <None Remove="Resources\ICON_64.ico" />
-    <None Remove="Resources\ICON_64.png" />
-    <None Remove="Resources\info.png" />
-    <None Remove="Resources\infobw.png" />
-    <None Remove="Resources\InkedNorthstar-512_LI.jpg" />
-    <None Remove="Resources\internet.png" />
-    <None Remove="Resources\Language_Icons\cn.png" />
-    <None Remove="Resources\Language_Icons\de.png" />
-    <None Remove="Resources\Language_Icons\fr.png" />
-    <None Remove="Resources\Language_Icons\gb.png" />
-    <None Remove="Resources\Language_Icons\it.png" />
-    <None Remove="Resources\Language_Icons\jp.png" />
-    <None Remove="Resources\Language_Icons\kr.png" />
-    <None Remove="Resources\Language_Icons\pt.png" />
-    <None Remove="Resources\Language_Icons\ru.png" />
-    <None Remove="Resources\Language_Icons\us.png" />
-    <None Remove="Resources\like.png" />
-    <None Remove="Resources\Loading_Moon.jpg" />
-    <None Remove="Resources\Lock_BW.png" />
-    <None Remove="Resources\Lock_WB.png" />
-    <None Remove="Resources\LOG_ICON.png" />
-    <None Remove="Resources\main-menu.png" />
-    <None Remove="Resources\marvin_face_sad.png" />
-    <None Remove="Resources\Northstar512-maskable.ico" />
-    <None Remove="Resources\northstar_icon_ZfV_icon.ico" />
-    <None Remove="Resources\NorthStar_Smurfson.gif" />
-    <None Remove="Resources\NO_TEXTURE.png" />
-    <None Remove="Resources\NO_TEXTURE.png" />
-    <None Remove="Resources\NSCN_ICON.png" />
-    <None Remove="Resources\NS_ICON.png" />
-    <None Remove="Resources\Panel_Var_2.png" />
-    <None Remove="Resources\Search_Icon.png" />
-    <None Remove="Resources\Server_ICON.png" />
-    <None Remove="Resources\Sheet.png" />
-    <None Remove="Resources\Sort_Off.png" />
-    <None Remove="Resources\Sort_On.png" />
-    <None Remove="Resources\space-invaders-gif-6.gif" />
-    <None Remove="Resources\target.png" />
-    <None Remove="Resources\Test_Args_1.json" />
-    <None Remove="Resources\Test_Transparent.png" />
-    <None Remove="Resources\TF2_Vanilla_promo.gif" />
-    <None Remove="Resources\TF_ICON.png" />
-    <None Remove="Resources\themes.png" />
-    <None Remove="Resources\Titanfall2_101.ico" />
-    <None Remove="Resources\T_BG.jpg" />
-    <None Remove="Resources\Update_ICON.png" />
-    <None Remove="Resources\VTOL_Hover.ico" />
-    <None Remove="Resources\VTOL_Hover.png" />
-    <None Remove="Resources\VTOL_POINTER.cur" />
-    <None Remove="Utils.dll" />
-    <None Remove="VTOL_Hover.png" />
+    <None Remove="Fonts\HoloSymMDL2.ttf" />
+    <None Remove="Fonts\Segoe Fluent Icons.ttf" />
+    <None Remove="Fonts\Segoe MDL2 Assets.ttf" />
+    <None Remove="Fonts\Segoe UI Bold Italic.ttf" />
+    <None Remove="Fonts\Segoe UI Bold.ttf" />
+    <None Remove="Fonts\Segoe UI Italic.ttf" />
+    <None Remove="Fonts\Segoe UI Light Italic.ttf" />
+    <None Remove="Fonts\Segoe UI Light.ttf" />
+    <None Remove="Fonts\Segoe UI Semibold Italic.ttf" />
+    <None Remove="Fonts\Segoe UI Semibold.ttf" />
+    <None Remove="Fonts\Segoe UI Semilight Italic.ttf" />
+    <None Remove="Fonts\Segoe UI Semilight.ttf" />
+    <None Remove="Fonts\Segoe UI.ttf" />
+    <None Remove="Fonts\Segoe-UI-Variable-Static-Display-Bold.ttf" />
+    <None Remove="Fonts\Segoe-UI-Variable-Static-Display-Light.ttf" />
+    <None Remove="Fonts\Segoe-UI-Variable-Static-Display-Semibold.ttf" />
+    <None Remove="Fonts\Segoe-UI-Variable-Static-Display-Semilight.ttf" />
+    <None Remove="Fonts\Segoe-UI-Variable-Static-Display.ttf" />
+    <None Remove="Fonts\Segoe-UI-Variable-Static-Small-Bold.ttf" />
+    <None Remove="Fonts\Segoe-UI-Variable-Static-Small-Light.ttf" />
+    <None Remove="Fonts\Segoe-UI-Variable-Static-Small-Semibold.ttf" />
+    <None Remove="Fonts\Segoe-UI-Variable-Static-Small-Semilight.ttf" />
+    <None Remove="Fonts\Segoe-UI-Variable-Static-Small.ttf" />
+    <None Remove="Fonts\Segoe-UI-Variable-Static-Text-Bold.ttf" />
+    <None Remove="Fonts\Segoe-UI-Variable-Static-Text-Light.ttf" />
+    <None Remove="Fonts\Segoe-UI-Variable-Static-Text-Semibold.ttf" />
+    <None Remove="Fonts\Segoe-UI-Variable-Static-Text-Semilight.ttf" />
+    <None Remove="Fonts\Segoe-UI-Variable-Static-Text.ttf" />
+    <None Remove="Fonts\SegoeUI-VF.ttf" />
+    <None Remove="Resources\Backgrounds\5005323-titanfall-2-games-2018-games-hd-4k.jpg" />
+    <None Remove="Resources\Backgrounds\6._The_Beacon_-_1.png" />
+    <None Remove="Resources\Backgrounds\62f29d37d6baf.jpg" />
+    <None Remove="Resources\Backgrounds\62f29db0c88a2.jpg" />
+    <None Remove="Resources\Backgrounds\62f29db4dc5d6.jpg" />
+    <None Remove="Resources\Backgrounds\62f29dba743d3.jpg" />
+    <None Remove="Resources\Backgrounds\62f29dbe97209.jpg" />
+    <None Remove="Resources\Backgrounds\62f29dc4899f0.jpg" />
+    <None Remove="Resources\Backgrounds\62f29dca3b728.jpg" />
+    <None Remove="Resources\Backgrounds\709498.jpg" />
+    <None Remove="Resources\Backgrounds\728597.jpg" />
+    <None Remove="Resources\Backgrounds\760106.jpg" />
+    <None Remove="Resources\Backgrounds\AgedAmusingHoatzin-size_restricted.gif" />
+    <None Remove="Resources\Backgrounds\alternator.png" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper %281%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper %2810%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper %2811%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper %2812%29.png" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper %2813%29.png" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper %2814%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper %2815%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper %2816%29.png" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper %2817%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper %2818%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper %2819%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper %282%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper %2820%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper %2821%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper %2822%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper %2823%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper %2824%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper %2825%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper %2826%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper %2827%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper %2828%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper %2829%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper %283%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper %2830%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper %2831%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper %2832%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper %2833%29.png" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper %2834%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper %2835%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper %2836%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper %2837%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper %2838%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper %2839%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper %284%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper %2840%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper %2841%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper %2842%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper %2843%29.png" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper %2844%29.png" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper %2845%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper %2846%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper %2847%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper %2848%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper %2849%29.png" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper %285%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper %286%29.png" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper %287%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper %288%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper %289%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%281%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%2810%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%2811%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%2812%29.png" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%2813%29.png" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%2814%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%2815%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%2816%29.png" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%2817%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%2818%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%2819%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%282%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%2820%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%2821%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%2822%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%2823%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%2824%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%2825%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%2826%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%2827%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%2828%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%2829%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%283%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%2830%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%2831%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%2832%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%2833%29.png" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%2834%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper%2835%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper%2836%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper%2837%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper%2838%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper%2839%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%284%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper%2840%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper%2841%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper%2842%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper%2843%29.png" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper%2844%29.png" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper%2845%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper%2846%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper%2847%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper%2848%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper%2849%29.png" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%285%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%286%29.png" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%287%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%288%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%289%29.jpg" />
+    <None Remove="Resources\Backgrounds\DBG5Qi9U0AEphM7.jpg" />
+    <None Remove="Resources\Backgrounds\FAqBg.png" />
+    <None Remove="Resources\Backgrounds\HD-wallpaper-titanfall-2-colony-reborn-dlc-titanfall-2-games-2016-games-xbox-games.jpg" />
+    <None Remove="Resources\Backgrounds\Skin_How_To_BG.png" />
+    <None Remove="Resources\Backgrounds\TF2_Achievement_BT_Prime.png" />
+    <None Remove="Resources\Backgrounds\TF2_TheFoldWeapon_Loadscreen_1.png" />
+    <None Remove="Resources\Backgrounds\Thunderstore.png" />
+    <None Remove="Resources\Backgrounds\titanfall-2-monarch-uhd-4k-wallpaper.jpg" />
+    <None Remove="Resources\Backgrounds\titanfall-2-screen.jpg" />
+    <None Remove="Resources\Icons\GitHub-Mark-32px.png" />
+    <None Remove="Resources\Icons\GitHub-Mark-Light-32px.png" />
+    <None Remove="Resources\Icons\Main_UI\discord.ico" />
+    <None Remove="Resources\Icons\Main_UI\gitbook.ico" />
+    <None Remove="Resources\Icons\Main_UI\gitbook.png" />
+    <None Remove="Resources\Icons\Main_UI\northstar_icon_ZfV_icon.ico" />
+    <None Remove="Resources\Icons\Main_UI\plugin.png" />
+    <None Remove="Resources\Icons\Main_UI\settings.png" />
+    <None Remove="Resources\Icons\Main_UI\twitch.ico" />
+    <None Remove="Resources\Icons\Main_UI\User_Icon.png" />
+    <None Remove="Resources\Icons\Main_UI\VTOL_16.ico" />
+    <None Remove="Resources\Icons\Main_UI\VTOL_24.ico" />
+    <None Remove="Resources\Icons\Main_UI\VTOL_32.ico" />
+    <None Remove="Resources\Icons\Main_UI\VTOL_multires.ico" />
+    <None Remove="Resources\Icons\Titanfall2_Icon.ico" />
+    <None Remove="Resources\Resource_Static\Northstar_Server_Vals_Aug_2022.json" />
+    <None Remove="Resources\Resource_Static\NO_TEXTURE.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resources\Loading_Moon.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="Utils.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Resources\24x24.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Folder_Browse_Icon.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\infobw.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\InkedNorthstar-512_LI.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Language_Icons\cn.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Language_Icons\de.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Language_Icons\fr.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Language_Icons\gb.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Language_Icons\it.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Language_Icons\jp.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Language_Icons\kr.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Language_Icons\pt.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Language_Icons\ru.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Language_Icons\us.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\marvin_face_sad.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Northstar-512.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Resources\32x32.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\bestboy.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\BG.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\BG_Drag_Drop.gif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\BG_Panels.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\download_icon.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Folder_Browse_Icon.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\heart.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Banner_normal.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Banner_normal.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Disable_Img.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Enable_Image.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\home.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Aspose.ZIP" Version="22.5.0" />
+    <PackageReference Include="AltoHttp" Version="1.5.2" />
+    <PackageReference Include="Aspose.Zip" Version="22.7.0" />
+    <PackageReference Include="BCnEncoder.Net" Version="2.1.0" />
+    <PackageReference Include="BCnEncoder.Net.ImageSharp" Version="1.1.1" />
+    <PackageReference Include="BugsRadar" Version="1.0.0.1" />
+    <PackageReference Include="ByteSize" Version="2.1.1" />
     <PackageReference Include="DotNetZip" Version="1.16.0" />
-    <PackageReference Include="HandyControls" Version="3.3.11" />
+    <PackageReference Include="Downloader" Version="2.3.7" />
+    <PackageReference Include="Enterwell.Clients.Wpf.Notifications" Version="1.4.2" />
+    <PackageReference Include="FluentScheduler" Version="5.5.1" />
+    <PackageReference Include="HandyControls" Version="3.4.2" />
+    <PackageReference Include="Hangfire" Version="1.7.31" />
+    <PackageReference Include="Iconic.Zlib.Netstandard" Version="1.0.0" />
     <PackageReference Include="Json.Net" Version="1.0.33" />
+    <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
+    <PackageReference Include="Magick.NET-Q16-AnyCPU" Version="12.1.0" />
+    <PackageReference Include="Microsoft.Build" Version="17.2.0" />
     <PackageReference Include="MSBuild.Microsoft.VisualStudio.Web.targets" Version="14.0.0.3" />
+    <PackageReference Include="NBug" Version="1.2.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="Octokit" Version="0.50.0" />
+    <PackageReference Include="Notification.Wpf" Version="6.1.0.5" />
+    <PackageReference Include="Octokit" Version="2.0.1" />
     <PackageReference Include="Ookii.Dialogs.Wpf" Version="5.0.1" />
-    <PackageReference Include="Pfim" Version="0.5.2" />
+    <PackageReference Include="Parallax.WPF" Version="1.0.8" />
+    <PackageReference Include="Pfim" Version="0.11.1" />
+    <PackageReference Include="PortableDownloader" Version="1.3.27" />
+    <PackageReference Include="PortableStorage" Version="1.2.70" />
     <PackageReference Include="Prism.Wpf" Version="8.1.97" />
-    <PackageReference Include="SixLabors.ImageSharp" Version="2.1.2" />
+    <PackageReference Include="Serilog" Version="2.12.0-dev-01479" />
+    <PackageReference Include="Serilog.Settings.Configuration" Version="3.3.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="4.0.1" />
+    <PackageReference Include="Serilog.Sinks.FastConsole" Version="2.1.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="2.1.3" />
+    <PackageReference Include="Soluling" Version="1.0.52" />
+    <PackageReference Include="Syncfusion.SfImageEditor.WPF" Version="20.2.0.45" />
+    <PackageReference Include="Syncfusion.SfSkinManager.WPF" Version="20.2.0.45" />
+    <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
     <PackageReference Include="System.Management" Version="6.0.0" />
+    <PackageReference Include="System.Threading.Tasks.Dataflow" Version="6.0.0" />
     <PackageReference Include="Walterlv.Windows.Interop" Version="7.3.1" />
+    <PackageReference Include="WPF-UI" Version="2.0.2" />
     <PackageReference Include="XamlAnimatedGif" Version="2.0.2" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(1).jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(10).jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(11).jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(12).png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(13).png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(14).jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(15).jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(16).png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(17).jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(18).jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(19).jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(2).jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(20).jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(21).jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(22).jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(23).jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(24).jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(25).jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(26).jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(27).jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(28).jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(29).jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(3).jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(30).jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(31).jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(32).jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(33).png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(34).jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper(35).jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper(36).jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper(37).jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper(38).jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper(39).jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(4).jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper(40).jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper(41).jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper(42).jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper(43).png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper(44).png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper(45).jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper(46).jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper(47).jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper(48).jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper(49).png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(5).jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(6).png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(7).jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(8).jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(9).jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Main_UI\Northstar-512.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Banner_normal.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\FAqBg.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Main_UI\plugin.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Main_UI\settings.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Resource_Static\Northstar_Server_Vals_Aug_2022.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Resources\Backgrounds\Skin_How_To_BG.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Content Include="Resources\Backgrounds\Thunderstore.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Resources\Icons\GitHub-Mark-32px.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\GitHub-Mark-Light-32px.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Fonts\HoloSymMDL2.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Segoe Fluent Icons.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Segoe MDL2 Assets.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Segoe UI Bold Italic.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Segoe UI Bold.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Segoe UI Italic.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Segoe UI Light Italic.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Segoe UI Light.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Segoe UI Semibold Italic.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Segoe UI Semibold.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Segoe UI Semilight Italic.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Segoe UI Semilight.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Segoe UI.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Segoe-UI-Variable-Static-Display-Bold.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Segoe-UI-Variable-Static-Display-Light.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Segoe-UI-Variable-Static-Display-Semibold.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Segoe-UI-Variable-Static-Display-Semilight.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Segoe-UI-Variable-Static-Display.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Segoe-UI-Variable-Static-Small-Bold.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Segoe-UI-Variable-Static-Small-Light.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Segoe-UI-Variable-Static-Small-Semibold.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Segoe-UI-Variable-Static-Small-Semilight.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Segoe-UI-Variable-Static-Small.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Segoe-UI-Variable-Static-Text-Bold.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Segoe-UI-Variable-Static-Text-Light.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Segoe-UI-Variable-Static-Text-Semibold.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Segoe-UI-Variable-Static-Text-Semilight.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Segoe-UI-Variable-Static-Text.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\SegoeUI-VF.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Reference Include="Utils">
-      <HintPath>Utils.dll</HintPath>
-      <CopyLocal>True</CopyLocal>
+      <HintPath>..\VTOL\Utils.dll</HintPath>
     </Reference>
+    <Resource Include="Resources\Icons\Main_UI\discord.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Main_UI\gitbook.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Main_UI\gitbook.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Main_UI\Northstar-512.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Main_UI\northstar_icon_ZfV_icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Main_UI\twitch.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Main_UI\User_Icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Main_UI\VTOL_16.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Main_UI\VTOL_24.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Main_UI\VTOL_32.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Main_UI\VTOL_multires.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Titanfall2_Icon.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resources\folder.png">
+    <Resource Include="Resources\Backgrounds\alternator.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\info.png">
+    <Resource Include="Resources\Resource_Static\NO_TEXTURE.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\internet.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\like.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Lock_BW.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Lock_WB.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\LOG_ICON.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\main-menu.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Northstar-512-maskable.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Northstar-512.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Northstar512-maskable.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\BG_SMALL.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Delete_Icon.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\northstar_icon_ZfV_icon.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\NorthStar_Smurfson.gif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\NSCN_ICON.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\NS_ICON.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Sort_Off.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Sort_On.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\NO_TEXTURE.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Panel_Var_2.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Search_Icon.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Server_ICON.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Sheet.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\space-invaders-gif-6.gif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\target.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Test_Args_1.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Test_Transparent.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\TF2_Vanilla_promo.gif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\TF_ICON.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\themes.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Titanfall2_101.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\T_BG.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Update_ICON.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\VTOL_Hover.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\VTOL_Hover.png">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\VTOL_POINTER.cur">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="VTOL_Hover.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Properties\Resources.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Update="Properties\Settings.Designer.cs">
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Update="Resources\Languages\Language.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Language.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Scripts\ParallaxEffect.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Languages\Language.de-DE.resx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Languages\Language.fr.resx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Languages\Language.it.resx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Languages\Language.ko.resx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Languages\Language.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Language.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Languages\Language.zh.resx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
     <None Update="Properties\Settings.settings">
-      <Generator>PublicSettingsSingleFileGenerator</Generator>
+      <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Update="README.md">
+    <None Update="Resources\Icons\Main_UI\Northstar-512.ico">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
-    <None Update="Resources\Northstar-512-maskable.png">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-    <None Update="Resources\Northstar-512.png">
+    <None Update="Resources\Icons\Main_UI\northstar_icon_ZfV_icon.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
 
   <ItemGroup>
-    <Page Update="Resources\Languages\cn.xaml">
+    <Page Update="Pages\Page_About.xaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Page>
-    <Page Update="Resources\Languages\de.xaml">
+    <Page Update="Pages\Page_Home.xaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Page>
-    <Page Update="Resources\Languages\en - Copy.xaml">
-      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Resources\Languages\en.xaml">
+    <Page Update="Pages\Page_Logs.xaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Page>
-    <Page Update="Resources\Languages\fr.xaml">
+    <Page Update="Pages\Page_Mods.xaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Page>
-    <Page Update="Resources\Languages\it.xaml">
+    <Page Update="Pages\Page_Server.xaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Page>
-    <Page Update="Resources\Languages\kr.xaml">
+    <Page Update="Pages\Page_Settings.xaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Page>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Scripts\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
+    <Page Update="Pages\Page_Skins.xaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Page>
+    <Page Update="Pages\Page_Themes.xaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Page>
+    <Page Update="Pages\Page_Thunderstore.xaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Page>
+    <Page Update="Pages\Page_Tools.xaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Page>
+    <Page Update="Pages\Page_Updates.xaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Page>
   </ItemGroup>
 
 </Project>

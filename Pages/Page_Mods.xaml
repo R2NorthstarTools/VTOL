@@ -1,0 +1,175 @@
+﻿<Page
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      xmlns:local="clr-namespace:VTOL.Pages"
+      xmlns:hc="https://handyorg.github.io/handycontrol" x:Class="VTOL.Pages.Page_Mods"
+      mc:Ignorable="d"
+      d:DesignHeight="670" d:DesignWidth="1148"
+      Title="Page_Mods" KeepAlive="True">
+
+    <Grid x:Name="Mod_Grid" Loaded="Mod_Grid_Loaded" Unloaded="Mod_Grid_Unloaded" AllowDrop="True" Drop="Mod_List_Box_Drop"  PreviewDragOver="Drag_Drop_Overlay_Mods_PreviewDragOver">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="172*"/>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="15*"/>
+        </Grid.ColumnDefinitions>
+        <hc:SimplePanel Grid.ColumnSpan="2" Margin="65,174,0,65">
+
+            <hc:SimplePanel.ContextMenu>
+
+                <ContextMenu>
+                    <MenuItem >
+                        <MenuItem.Icon>
+                            <Image  />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem x:Name="Delete_Menu_Context" Header="Delete" Visibility="Visible" IsEnabled="True">
+                        <MenuItem.Icon>
+                            <Image  />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem x:Name="SortMenu" Header="Sort" Visibility="Visible" IsEnabled="True" >
+                        <MenuItem.Icon>
+                            <Image x:Name="Sort_Img_Source" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem x:Name="Info" Header="Info" Visibility="Visible" IsEnabled="True" >
+                        <MenuItem.Icon>
+                            <Image x:Name="Info_Img"  />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </ContextMenu>
+            </hc:SimplePanel.ContextMenu>
+        </hc:SimplePanel>
+
+        <ui:Button x:Name="padd" Content="" VerticalAlignment="Top" Margin="0,93,5,0" Height="33" Padding="0,0,0,0" Icon="ArrowSortDownLines20" BorderBrush="{x:Null}" Click="padd_Click" Grid.Column="1" Width="33" HorizontalAlignment="Right" ToolTip="Reverse Filter Order"/>
+        <Image Source="/Resources/Icons/Main_UI/Northstar-512.ico" Grid.ColumnSpan="3" Margin="640,174,-180,-174" Opacity="0.05" IsHitTestVisible="False">
+
+        </Image>
+        <ComboBox x:Name="Filter" Margin="135,93,40,0" BorderBrush="{x:Null}" Background="#C1424242" SelectedIndex="0"  VerticalAlignment="Top" SelectionChanged="ComboBox_SelectionChanged" Height="33" Padding="10,5,10,7" Grid.Column="1" ToolTip="Filter Mod List " >
+            <ComboBoxItem Name="Name">Name</ComboBoxItem>
+            <ComboBoxItem Name="Date">Date</ComboBoxItem>
+            <ComboBoxItem Name="Status">Status</ComboBoxItem>
+        </ComboBox>
+
+        <ui:TextBox x:Name="Search_Bar_Suggest_Mods" Margin="65,133,5,0" TextWrapping="NoWrap" Height="36" VerticalAlignment="Top"  Text="~Search"  BorderThickness="0,0,0,0" Icon="Search48" KeyDown="Search_Bar_Suggest_Mods_KeyDown" GotFocus="Search_Bar_Suggest_Mods_GotFocus" VirtualizingPanel.ScrollUnit="Pixel" LostFocus="Search_Bar_Suggest_Mods_LostFocus" TextChanged="Search_Bar_Suggest_Mods_TextChanged" Background="{x:Null}" Grid.ColumnSpan="2" />
+
+        <ListBox x:Name="Mod_List_Box"  Margin="65,174,5,65" ItemsSource="{Binding Final_List}"  VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.ScrollUnit="Pixel" Grid.ColumnSpan="2" GotFocus="Mod_List_Box_GotFocus" IsSynchronizedWithCurrentItem="True" Loaded="Mod_List_Box_Loaded"  >
+            <!--d:ItemsSource="{d:SampleData ItemCount=50}"-->
+
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <ui:CardControl Margin="0,4,0,4" Foreground="{x:Null}" IsHitTestVisible="True" AutomationProperties.HelpText="sd" Tag="{Binding Mod_Name_}" MouseRightButtonDown="EXTRA_SETTINGS_Dock_MouseRightButtonDown" Padding="5,5,5,5" Loaded="CardControl_Loaded" IsMouseCaptureWithinChanged="CardControl_IsMouseCaptureWithinChanged" GotFocus="CardControl_GotFocus" MouseMove="CardControl_MouseMove" ClickMode="Press">
+                        <ui:CardControl.Header>
+                            <StackPanel Grid.Column="0" VerticalAlignment="Center" Height="56" Width="225" HorizontalAlignment="Left" Margin="6,0,0,0">
+
+                                <TextBlock
+                        FontSize="13"
+                        FontWeight="Medium"
+                         Text="{Binding Mod_Name_}" Margin="0,3,0,7"  Foreground="White"/>
+                                <TextBlock
+                        FontSize="12"
+                        Foreground="White"
+                       Text="{Binding Mod_Date_}" Height="18" Margin="0,2,0,0" />
+                            </StackPanel>
+                        </ui:CardControl.Header>
+                        <Grid Height="60" RenderTransformOrigin="0.5,0.5" Width="435">
+
+                            <DockPanel   Height="62" HorizontalAlignment="Right" Margin="0,0,0,-2" Width="435" Opacity="0" IsEnabled="False" Tag="Hidden" AutomationProperties.IsOffscreenBehavior="Offscreen">
+                                <ui:Button x:Name="Info_Btn" Width="58" Height="42" Content="Info"  Background="#FF24ABBD" Tag ="{Binding Mod_Name_}"  ToolTip="{Binding Mod_Name_}" Margin="0,0,1,0" Click="Info_Btn_Click" ClickMode="Press"/>
+                                <ui:Button x:Name="Check_For_Update" Width="121" Height="42" Content="Check For Update" Tag ="{Binding Mod_Name_}" ToolTip="{Binding Mod_Name_}" Margin="0,0,5,0" FontSize="12" Click="Check_For_Update_Click" IsEnabled="False" Visibility="Collapsed">
+                                    <ui:Button.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#FF0A9A68"/>
+                                            <GradientStop Color="#FF58B192" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </ui:Button.Background>
+                                </ui:Button>
+                                <ui:Button x:Name="Delete_Btn" Width="76" Height="42" Content="Delete"  Background="#FFB90000" Tag ="{Binding Mod_Name_}"  ToolTip="{Binding Mod_Name_}" Margin="0,0,30,0" Click="Delete_Btn_Click"/>
+
+                            </DockPanel>
+                            <ui:Button x:Name="Mod_Btn" Width="112" Height="42" Content="{Binding En_Di}"  Background="{Binding Is_Active_Color}" Tag ="{Binding En_Di}" Click="Mod_Btn_Click" ToolTip="{Binding Mod_Name_}" Margin="0,0,10,0" HorizontalAlignment="Right"/>
+                            <ui:SymbolIcon RenderTransformOrigin="0.5,0.5" Width="16" HorizontalAlignment="Left" Margin="285,0,0,0" Symbol="Warning12" Foreground="Red" Opacity="{Binding Flag}" ToolTip="{Binding Error_Tooltip}" >
+                                <ui:SymbolIcon.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform ScaleX="1.2" ScaleY="1.2"/>
+                                        <SkewTransform/>
+                                        <RotateTransform/>
+                                        <TranslateTransform/>
+                                    </TransformGroup>
+                                </ui:SymbolIcon.RenderTransform>
+                            </ui:SymbolIcon>
+                        </Grid>
+
+
+                    </ui:CardControl>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+
+                    <Setter Property="IsTabStop" Value="False" />
+
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListBoxItem">
+                                <ContentPresenter/>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+
+
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="IsSelected" Value="True"/>
+                            <Setter Property="Foreground" Value="Transparent"/>
+
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="False">
+                            <Setter Property="IsSelected" Value="False"/>
+                            <Setter Property="Foreground" Value="Transparent"/>
+
+                        </Trigger>
+
+                    </Style.Triggers>
+                </Style>
+
+            </ListBox.ItemContainerStyle>
+
+
+
+
+
+
+        </ListBox>
+
+
+        <ui:Snackbar x:Name="Snack" Grid.ColumnSpan="3" Margin="24,0,24,24"/>
+        <Label Content="Listed Here are the Mods that are Currently Installed." Margin="65,0,0,573" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="281"/>
+        <Label Content="MODS" Margin="65,0,342,594" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Background="{x:Null}" Foreground="White" FontSize="22" FontWeight="Bold" Height="28" VerticalAlignment="Bottom"/>
+        <Label Content="Filter" Margin="136,0,0,574" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" Grid.Column="1" HorizontalAlignment="Left" Width="47"/>
+        <Label x:Name="Mod_Count_Label" Content ="Mod Count: 0" Margin="65,605,0,0" Height="16" VerticalAlignment="Top" HorizontalAlignment="Left" Width="102" Padding="0,0,0,0" Foreground="#52FFFFFF" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
+        <Label Content ="RightClick for Context Menu" Margin="0,605,5,0" Height="16" VerticalAlignment="Top" HorizontalAlignment="Right" Width="228" Padding="0,0,0,0" Grid.Column="1" HorizontalContentAlignment="Right" Foreground="#52FFFFFF" VerticalContentAlignment="Center"/>
+
+       
+        <ui:Dialog x:Name="Dialog" Grid.ColumnSpan="3" Grid.RowSpan="3" DialogHeight="250" Foreground="White" FontStretch="SemiCondensed" FontFamily="Segoe UI Semibold" ButtonRightClick="Dialog_ButtonRightClick">
+        </ui:Dialog>
+        <ui:Dialog x:Name="DialogF" Grid.ColumnSpan="3" Grid.RowSpan="3" DialogHeight="250" Foreground="White" FontStretch="SemiCondensed" FontFamily="Segoe UI Semibold" ButtonRightClick="DialogF_ButtonRightClick" ButtonLeftClick="DialogF_ButtonLeftClick" Drop="Mod_List_Box_Drop" PreviewDragEnter="Mod_List_Box_PreviewDragEnter" PreviewDragLeave="Mod_List_Box_PreviewDragLeave" AllowDrop="True"/>
+        <Border x:Name="Drag_Drop_Overlay_Mods" Grid.ColumnSpan="3" Background="#99000000" Visibility="Hidden" HorizontalAlignment="Right" Width="1148" Drop="Mod_List_Box_Drop" PreviewDragOver="Drag_Drop_Overlay_Mods_PreviewDragOver" AllowDrop="True">
+            <ui:SymbolIcon Content="SymbolIcon" Height="18" Width="16" Symbol="ArrowDownload48" RenderTransformOrigin="0.5,0.5" >
+                <ui:SymbolIcon.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="6" ScaleY="6"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </ui:SymbolIcon.RenderTransform>
+            </ui:SymbolIcon>
+
+        </Border>
+    </Grid>
+</Page>

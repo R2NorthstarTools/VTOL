@@ -1,0 +1,218 @@
+﻿<Page xmlns:hc="https://handyorg.github.io/handycontrol"  x:Class="VTOL.Pages.Page_Thunderstore"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:VTOL.Pages" 
+      mc:Ignorable="d" 
+	          xmlns:cntrls="clr-namespace:VTOL"
+
+xmlns:controls="clr-namespace:Enterwell.Clients.Wpf.Notifications.Controls;assembly=Enterwell.Clients.Wpf.Notifications"
+      d:DesignHeight="670" d:DesignWidth="1148"
+      Title="Page_Thunderstore">
+    <Page.Resources>
+        <local:NegatingConverter x:Key="NegatingConverter" />
+        <Storyboard x:Key="slide">
+            <DoubleAnimation From="{Binding ActualWidth, ElementName=stack}" 
+                                     To="{Binding ActualWidth, Converter={StaticResource NegatingConverter}, ElementName=txtKron}" 
+                                     Duration="00:00:30"
+                                     Storyboard.TargetProperty="X"
+                                     Storyboard.TargetName="transferCurreny2"
+                                     RepeatBehavior="Forever"/>
+        </Storyboard>
+    </Page.Resources>
+    <Grid  Focusable="True" OverridesDefaultStyle="True" ClipToBounds="True" Unloaded="Grid_Unloaded">
+        <ui:TextBox x:Name="Search_Bar_Suggest_Mods" Margin="48,133,448,0" TextWrapping="NoWrap" Height="36" VerticalAlignment="Top"  Text="~Search"  BorderThickness="0,0,0,0" Icon="Search48"  GotFocus="Search_Bar_Suggest_Mods_GotFocus" LostFocus="Search_Bar_Suggest_Mods_LostFocus"  Background="{x:Null}" TextChanged="Search_Bar_Suggest_Mods_TextChanged" />
+        <hc:CheckComboBox x:Name="Search_Filters" ItemsSource="{Binding Final_List}" Margin="0,131,35,0" Height="36" VerticalAlignment="Top" SelectedIndex="-1" ShowClearButton="True" Cursor="Hand" Padding="6,6,6,3" BorderThickness="0,0,0,1" BorderBrush="#FF999999" Background="#00000000" HorizontalAlignment="Right" Width="408" SelectionChanged="Search_Filters_SelectionChanged" hc:InfoElement.Placeholder="Filters" ToolTip="Filter Thunderstore List"  />
+        <Label Content="These are the Collection of Mods Hosted On the ThunderStore Mod platform." Margin="50,0,0,573" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="410"/>
+        <Label Content="THUNDERSTORE" Margin="50,0,357,594" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Background="{x:Null}" Foreground="White" FontSize="22" FontWeight="Bold" Height="28" VerticalAlignment="Bottom"/>
+
+        <Image Source="/Resources/Backgrounds/Thunderstore.png" Grid.ColumnSpan="3" Margin="640,174,-180,-174" Opacity="0.05" IsHitTestVisible="False">
+
+        </Image>
+
+        <ui:VirtualizingItemsControl x:Name="Thunderstore_List"  VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.ScrollUnit="Pixel" ItemsSource="{Binding itemsList}"  Margin="35,174,35,54" Background="#994E4E4E" ScrollViewer.CanContentScroll="True" Foreground="White" Width="1078" Height="445" CacheLengthUnit="Pixel" Padding="0,0,0,5">
+
+            <!--<ui:CardExpander
+            HorizontalContentAlignment="Center"
+          
+            IsEnabled="True"
+            IsExpanded="False" Width="1030" HorizontalAlignment="Stretch" Margin="0,4,0,4" MouseLeftButtonDown="CardExpander_MouseLeftButtonDown">
+                <ui:CardExpander.Header>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Image Source="/Resources/Backgrounds/HD-wallpaper-titanfall-2-colony-reborn-dlc-titanfall-2-games-2016-games-xbox-games.jpg" Height="100" Margin="0,3,0,0" Stretch="UniformToFill" HorizontalAlignment="Left" Width="100"/>
+
+                        <StackPanel Grid.Column="0" VerticalAlignment="Center" Margin="124,0,0,0">
+
+                            <TextBlock
+                            FontSize="18"
+                            FontWeight="Medium"
+                            Text="MOD NAME TITLE" />
+                            <TextBlock
+                            FontSize="12"
+                            Foreground="White"
+                            Text="Useful if, for example, you want to add a Mod descrip[tion to the card." Margin="0,11,0,0" />
+                        </StackPanel>
+                        <ui:Button
+                        Grid.Column="1"
+                        Margin="0,0,16,0"
+                        Padding="30,6"
+                        VerticalAlignment="Center"
+                        Appearance="Secondary"
+                        Content="Download and Install" Icon="ArrowDownload16" />
+                    </Grid>
+                </ui:CardExpander.Header>
+                -->
+            <!--  CardExpander content  -->
+            <!--
+                <TextBlock
+                MaxWidth="300"
+                Text="Lorem Dependencies dolor sit amet, consectetur Cat elit, sed do im going tempor incididunt ut labore et to  magna 3wiedzkill3najlyouzy"
+                TextAlignment="Justify"
+                TextWrapping="Wrap" />
+            </ui:CardExpander>-->
+            <ui:VirtualizingItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid  Margin="3,3,3,8" Width="255" Height="286" HorizontalAlignment="Center" MouseMove="StackPanel_GotFocus" MouseEnter="Grid_MouseEnter" MouseLeave="Grid_MouseLeave">
+
+
+
+
+                        <Image x:Name="Ts_Image" Source="{Binding Icon}" Stretch="Fill" Height="Auto" GotFocus="Ts_Image_GotFocus" LostFocus="Ts_Image_LostFocus" MouseEnter="Ts_Image_MouseEnter" Width="Auto" HorizontalAlignment="Center"/>
+
+
+
+
+                        <StackPanel Width="255" HorizontalAlignment="Center" Margin="0,205,0,0" Background="#BF000000">
+
+
+
+
+                            <TextBlock TextWrapping="Wrap"   TextTrimming="CharacterEllipsis" 
+                                       Text="{Binding Name}" 
+                                       HorizontalAlignment="Left" FontSize="16" Width="252" TextAlignment="Left" FontStretch="Normal" FontWeight="Bold" Height="27" Margin="5,0,0,0" Background="{x:Null}" />
+
+                            <!--<hc:RunningBlock Content="{Binding Name}" FontSize="20"   Runaway="True" IsRunning="False" AutoRun="True" IsEnabled="False" IsHitTestVisible="False" IsTabStop="False" Focusable="False" Foreground="White" OverridesDefaultStyle="True" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>-->
+
+
+
+                            <TextBlock TextAlignment="Left" Text="{Binding Tag}" Margin="5,6,5,6"  FontSize="12" Background="{x:Null}" Foreground="#FFFFF1E6" Width="250" HorizontalAlignment="Left" FontStyle="Italic" TextWrapping="Wrap"/>
+
+                        </StackPanel>
+                        <hc:SimplePanel Background="Black" Opacity="0">
+                            <Border Background="#991B1B1B">
+                                <ProgressBar Value="0" SmallChange="0.1" Foreground="#6600714F" Height="286" Background="{x:Null}" IsHitTestVisible="False" IsTabStop="False"/>
+                            </Border>
+                            <!--<Rectangle  Opacity="0.5" Fill="#FF2B2B2B">
+                                <Rectangle.Effect>
+                                    <BlurEffect KernelType="Gaussian" Radius="10"></BlurEffect>
+                                </Rectangle.Effect>
+                                            
+
+                            </Rectangle>-->
+                            <TextBlock TextAlignment="Left" Text="{Binding owner, StringFormat={}{0:From :}}" Margin="10,3,10,0"  FontSize="14" Background="{x:Null}" Foreground="#FFABABAB" VerticalAlignment="Top" Height="19"/>
+
+
+
+                            <Canvas  ClipToBounds="True" Name="canMain" Margin="10,31,10,161"  Background="#FF131313" Loaded="canMain_IsVisibleChanged" >
+                                <TextBlock  Name="tbmarquee"  Foreground="White" Text="{Binding description}"  TextWrapping="Wrap" FontSize="14" Width="235" Height="94" Padding="5,5,5,5" ScrollViewer.CanContentScroll="True" ></TextBlock>
+                            </Canvas>
+
+                            <ui:Button x:Name="Install_Bttn_Thunderstore" Margin="130,250,10,0" Background="#FF005D42" HorizontalAlignment="Stretch" Height="29" Content="Install" FontSize="14" Icon="ArrowDownload16" BorderBrush="{x:Null}" VerticalAlignment="Top" Padding="0,0,0,0" Tag="{Binding download_url}" Click="Install_Bttn_Thunderstore_Click" ToolTip ="{Binding Tag}"/>
+                            <TextBlock TextAlignment="Left" Text="{Binding date_created}" Margin="10,161,10,107" Background="{x:Null}" Foreground="#FFC7C7C7" FontSize="11" RenderTransformOrigin="0.5,0.5">
+                                <TextBlock.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform ScaleY="1"/>
+                                        <SkewTransform/>
+                                        <RotateTransform/>
+                                        <TranslateTransform/>
+                                    </TransformGroup>
+                                </TextBlock.RenderTransform>
+                            </TextBlock>
+                            <TextBlock TextAlignment="Left" Text="{Binding File_Size}" Margin="10,181,182,87"  FontSize="11" Background="{x:Null}" Foreground="#FFC7C7C7" FontWeight="Bold"/>
+                            <ui:Button x:Name="Open_Webpage" Margin="10,250,130,0" Background="#FF2A4B65" HorizontalAlignment="Stretch" Height="29" Content="WebPage" FontSize="14" Icon="GlobeSearch24" BorderBrush="{x:Null}" VerticalAlignment="Top" Appearance="Secondary" IconFilled="True" Padding="0,0,0,0" Click="Open_Webpage_Click" Tag="{Binding Webpage}"/>
+                            <ui:SymbolIcon Symbol="ThumbLike16" HorizontalAlignment="Left" Margin="57,209,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5">
+                                <ui:SymbolIcon.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform ScaleX="1.4" ScaleY="1.4"/>
+                                        <SkewTransform/>
+                                        <RotateTransform/>
+                                        <TranslateTransform/>
+                                    </TransformGroup>
+                                </ui:SymbolIcon.RenderTransform>
+                            </ui:SymbolIcon>
+                            <ui:SymbolIcon Symbol="ArrowDownload16" HorizontalAlignment="Left" Margin="183,210,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5">
+                                <ui:SymbolIcon.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform ScaleX="1.4" ScaleY="1.4"/>
+                                        <SkewTransform/>
+                                        <RotateTransform/>
+                                        <TranslateTransform/>
+                                    </TransformGroup>
+                                </ui:SymbolIcon.RenderTransform>
+                            </ui:SymbolIcon>
+                            <TextBlock TextAlignment="Center" Text="{Binding Downloads}" Margin="164,231,0,0"  FontSize="11" Background="{x:Null}" Foreground="#FFC7C7C7" FontWeight="Normal" Height="13" HorizontalAlignment="Left" VerticalAlignment="Top" Width="54"/>
+                            <TextBlock TextAlignment="Center" Text="{Binding Rating}" Margin="38,231,0,0"  FontSize="11" Background="{x:Null}" Foreground="#FFC7C7C7" FontWeight="Normal" Height="13" HorizontalAlignment="Left" VerticalAlignment="Top" Width="54"/>
+                            <ui:CardAction Content="Dependencies" Height="33" Margin="-11,128,-11,0" VerticalAlignment="Top" Padding="2,0,0,0" RenderTransformOrigin="0.5,0.5" Icon="ReceiptPlay20" Click="CardAction_Click" Tag="{Binding FullName}" IsEnabled="False" IconForeground="White" ToolTip="{Binding Dependencies}" Foreground="White" Focusable="False" IsTabStop="False" ClickMode="Press">
+                                <ui:CardAction.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform ScaleX="0.85" ScaleY="0.85"/>
+                                        <SkewTransform/>
+                                        <RotateTransform/>
+                                        <TranslateTransform/>
+                                    </TransformGroup>
+                                </ui:CardAction.RenderTransform>
+                            </ui:CardAction>
+
+                        </hc:SimplePanel>
+
+                    </Grid>
+
+
+
+                </DataTemplate>
+            </ui:VirtualizingItemsControl.ItemTemplate>
+
+            <!--<ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+
+                    <Setter Property="IsTabStop" Value="False" />
+
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListBoxItem">
+                                <ContentPresenter/>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+
+           
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="IsSelected" Value="True"/>
+                            <Setter Property="Foreground" Value="Transparent"/>
+
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="False">
+                            <Setter Property="IsSelected" Value="False"/>
+                            <Setter Property="Foreground" Value="Transparent"/>
+
+                        </Trigger>
+
+                    </Style.Triggers>
+                </Style>                                      
+
+            </ListBox.ItemContainerStyle>-->
+        </ui:VirtualizingItemsControl>
+
+
+        <!--<ui:Dialog x:Name="Dialog" SnapsToDevicePixels="False"  />-->
+        <ui:Dialog x:Name="Dialog" ButtonRightClick="Dialog_ButtonRightClick" Foreground="White" Focusable="False" ButtonLeftClick="Dialog_ButtonLeftClick"/>
+        <ui:ProgressRing x:Name="Loading_Ring" Width="120" Height="120" Foreground="#FF009468"  IsIndeterminate="True"  Visibility="Visible" Margin="514,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"></ui:ProgressRing>
+        <Label x:Name="Filter_Label" Margin="0,140,283,0" Background="{x:Null}" Foreground="#CCFFFFFF" Content="Filter" VerticalContentAlignment="Center" VerticalAlignment="Top" FontSize="14" IsHitTestVisible="False" Height="20" Padding="0,0,0,0" IsEnabled="False" HorizontalAlignment="Right" Width="155"/>
+    </Grid>
+</Page>
