@@ -1,0 +1,121 @@
+﻿<Page x:Class="VTOL.Pages.Page_Server"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      xmlns:local="clr-namespace:VTOL.Pages"
+      mc:Ignorable="d" 
+             xmlns:hc="https://handyorg.github.io/handycontrol"
+
+      KeepAlive="True"
+      d:DesignHeight="670" d:DesignWidth="1148"
+      Title="Page_Server">
+    <Page.Resources>
+
+
+        <DataTemplate x:Key="NormalBox">
+            <Grid Width="970" Background="{x:Null}" HorizontalAlignment="Center" Margin="0,0,0,3" Height="58">
+                <Label HorizontalAlignment="Stretch" Height="38" Margin="30,0,480,0" Background=  "{DynamicResource Button_BG}" Foreground="White" Content="{Binding Name}" FontSize="16" ToolTip="{Binding Description}" BorderBrush="{x:Null}"/>
+                <TextBox Margin="505,0,30,0" VerticalAlignment="Center" Height="38" Text ="{Binding Default}"   CaretBrush="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="#FF00EDBD" SelectionTextBrush="#FF847300"    Foreground="White" ToolTip="{Binding Type}" Tag="{Binding Tag}" Background="#FF4C4C4C" PreviewTextInput="ValidationTextBox" FontSize="16" RenderTransformOrigin="0,0" LostFocus="validate" KeyUp="Save_On_Focus_"    Initialized="TextBox_Initialized" />
+
+            </Grid>
+        </DataTemplate >
+        <DataTemplate x:Key="ComboBox" >
+            <Grid Width="970" Background="{x:Null}" HorizontalAlignment="Center" Margin="0,0,0,3" Height="58">
+                <Label HorizontalAlignment="Stretch" Height="38" Margin="30,0,480,0" Background=  "{DynamicResource Button_BG}" Foreground="White" Content="{Binding Name}" FontSize="16" ToolTip="{Binding Description}" BorderBrush="{x:Null}"/>
+                <hc:CheckComboBox Margin="505,0,30,0" VerticalAlignment="Center" Height="38"    BorderBrush="{x:Null}"    Foreground="White" ToolTip="{Binding Description}" Tag="{Binding Tag}" Background="#FF4C4C4C" FontSize="16" RenderTransformOrigin="0,0" ItemsSource="{Binding List}" SelectionMode="Extended" IsSynchronizedWithCurrentItem="False" Initialized="CheckComboBox_Initialized" SelectionChanged="Validate_Combo_Box"   MouseEnter="ComboBox_MouseEnter" />
+
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="FloatBox" >
+            <Grid Width="970" Background="{x:Null}" HorizontalAlignment="Center" Margin="0,0,0,3" Height="58">
+                <Label HorizontalAlignment="Stretch" Height="38" Margin="30,0,480,0" Background=  "{DynamicResource Button_BG}" Foreground="White" Content="{Binding Name}" FontSize="16" ToolTip="{Binding Description}" BorderBrush="{x:Null}"/>
+                <TextBox Margin="505,0,30,0" VerticalAlignment="Center" Height="38" Text ="{Binding Default}"   CaretBrush="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="#FF00EDBD" SelectionTextBrush="#FF847300"    Foreground="White" ToolTip="{Binding Type}" Tag="{Binding Tag}" Background="#FF4C4C4C" PreviewTextInput="ValidationTextBox" FontSize="16" RenderTransformOrigin="0,0" LostFocus="validate" KeyUp="Save_On_Focus_"   Initialized="TextBox_Initialized" />
+
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="IntBox" >
+            <Grid Width="970" Background="{x:Null}" HorizontalAlignment="Center" Margin="0,0,0,3" Height="58">
+                <Label HorizontalAlignment="Stretch" Height="38" Margin="30,0,480,0" Background=  "{DynamicResource Button_BG}" Foreground="White" Content="{Binding Name}" FontSize="16" ToolTip="{Binding Description}" BorderBrush="{x:Null}"/>
+                <TextBox Margin="505,0,30,0" VerticalAlignment="Center" Height="38" Text ="{Binding Default}"   CaretBrush="{x:Null}" BorderBrush="{x:Null}" SelectionBrush="#FF00EDBD" SelectionTextBrush="#FF847300"    Foreground="White" ToolTip="{Binding Description}" Tag="{Binding Tag}" Background="#FF4C4C4C" PreviewTextInput="ValidationTextBox" FontSize="16" RenderTransformOrigin="0,0" KeyUp="Save_On_Focus_"    Initialized="TextBox_Initialized" />
+
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="BOOLBox" >
+            <Grid Width="970" Background="{x:Null}" HorizontalAlignment="Center" Margin="0,0,0,3" Height="58">
+                <Label HorizontalAlignment="Stretch" Height="38" Margin="30,0,480,0" Background=  "{DynamicResource Button_BG}" Foreground="White" Content="{Binding Name}" FontSize="16" ToolTip="{Binding Description}" BorderBrush="{x:Null}"/>
+                <ComboBox Margin="505,0,30,0" Height="38" Text ="{Binding Default}" Foreground="White" ToolTip="{Binding Description}" Tag="{Binding Tag}" Background="#FF4C4C4C"  FontSize="16"  Initialized="CheckComboBox_Initialized" SelectionChanged="Validate_Combo_Box" MouseEnter="ComboBox_MouseEnter" >
+
+                    <ComboBoxItem Content="No" />
+                    <ComboBoxItem Content="Yes" />
+                </ComboBox>
+
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="One_Select_Combo" >
+            <Grid Width="970" Background="{x:Null}" HorizontalAlignment="Center" Margin="0,0,0,3" Height="58">
+                <Label HorizontalAlignment="Stretch" Height="38" Margin="30,0,480,0" Background=  "{DynamicResource Button_BG}" Foreground="White" Content="{Binding Name}" FontSize="16" ToolTip="{Binding Description}" BorderBrush="{x:Null}"/>
+                <ComboBox Margin="505,0,30,0" Height="38" Text ="{Binding Default}" Foreground="White" ToolTip="{Binding Description}" Tag="{Binding Tag}" Background="#FF4C4C4C"  FontSize="16" Initialized="CheckComboBox_Initialized"  ItemsSource="{Binding List}"  SelectionChanged="Validate_Combo_Box"  MouseEnter="ComboBox_MouseEnter" />
+
+
+            </Grid>
+        </DataTemplate>
+        <local:Server_Template_Selector x:Key="Server_Template_Selector" />
+    </Page.Resources>
+    <Grid>
+        <Label Content="Configure, Import and Export Dedicated Server and Client Settings" Margin="50,0,0,573" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="410"/>
+        <Label Content="SERVER" Margin="50,0,357,594" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Background="{x:Null}" Foreground="White" FontSize="22" FontWeight="Bold" Height="28" VerticalAlignment="Bottom"/>
+        <ScrollViewer x:Name="Scoller"  Margin="50,120,50,30" PanningMode="VerticalOnly" VerticalScrollBarVisibility="Visible" BorderBrush="White" Foreground="White">
+            <hc:SimpleStackPanel Margin="10,10,10,10" Height="1735" ScrollViewer.HorizontalScrollBarVisibility="Hidden" >
+
+
+                <Grid Visibility="Visible">
+                    <Button x:Name="Launch_Northstar_Advanced" Height="40" Margin="50,175,0,0" VerticalAlignment="Top" BorderBrush="White" Background="#FF085F36" Width="370" Content="Launch Northstar Client" Click="Launch_Northstar_Advanced_Click" />
+                    <hc:TextBox x:Name="Arg_Box" Height="82" TextWrapping="Wrap" VerticalAlignment="Top" Margin="50,84,0,0" Width="370" HorizontalAlignment="Left" />
+                    <Popup x:Name="autoListPopup"    
+                   Visibility="Collapsed"                    
+                   Height="100"    
+                   StaysOpen="False"    
+                   Placement="Bottom">
+
+                        <ListBox x:Name="autoList"    
+                         Visibility="Collapsed"    
+                         Width="200"    
+                         Height="100"    
+                        />
+                    </Popup>
+
+                    <Button x:Name="Dedicated_Btn" Height="40" Margin="594,175,50,0" BorderBrush="White" Background="#FF282C50" VerticalAlignment="Top" HorizontalAlignment="Stretch" Content="Launch Norhtstar Dedicated Server" Click="Dedicated_Btn_Click" />
+                    <hc:TextBox x:Name="Arg_Box_Dedi" Height="86" TextWrapping="Wrap" VerticalAlignment="Top" Margin="594,82,50,0"/>
+                    <Label  Height="35" BorderBrush="{x:Null}" Background="{x:Null}" Margin="584,44,10,0" VerticalAlignment="Top" Content="Startup Arguments Northstar Dedicated Client" FontSize="14" HorizontalContentAlignment="Center" Padding="0,0,0,0" VerticalContentAlignment="Center"/>
+                    <Label Height="35" Margin="32,44,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Background="{x:Null}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="Startup Arguments Northstar Client" FontSize="14" HorizontalAlignment="Left" Width="406"/>
+
+                </Grid>
+                <Button x:Name="Load_Files" Height="46" Width="916" Margin="0,23,0,0" VerticalAlignment="Top" Content="Load Files" BorderBrush="{x:Null}" HorizontalAlignment="Center" Click="Load_Files_Click"  />
+
+                <Button x:Name="Import_Server_Config" Height="40" Width="546" Margin="0,8,0,0" VerticalAlignment="Top" Content="Import Server Config" BorderBrush="{x:Null}" HorizontalAlignment="Center" Click="Import_Server_Config_Click"  />
+
+                <Label Height="58" Width="375" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,36,0,0"  FontSize="36" FontFamily="Bahnschrift SemiLight" Background="{x:Null}" BorderBrush="{x:Null}" Content="STARTUP ARGUMENTS" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" />
+                <ListBox x:Name="Startup_Arguments_UI_List"  ItemTemplateSelector="{StaticResource Server_Template_Selector}" Margin="0,-4,0,-322" Background="#FF101010" BorderBrush="{x:Null}"  ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="False" Height="500" PreviewMouseWheel="S" VirtualizingPanel.ScrollUnit="Pixel">
+                </ListBox>
+                <Label Height="58" Width="375" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,387,0,0"  FontSize="36" FontFamily="Bahnschrift SemiLight" Background="{x:Null}" BorderBrush="{x:Null}" Content="CONVAR ARGUMENTS" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" />
+
+                <ListBox x:Name="Convar_Arguments_UI_List" Background="#FF101010" BorderBrush="{x:Null}"  Height="500" VerticalAlignment="Top" ScrollViewer.CanContentScroll="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="0,-4,0,0"  ItemTemplateSelector="{StaticResource Server_Template_Selector}" PreviewMouseWheel="Convar_Arguments_UI_List_PreviewMouseWheel" VirtualizingPanel.ScrollUnit="Pixel"/>
+
+                <Button x:Name="Launch_Northstar_Dedicated"  Height="51" Width="764" BorderBrush="White"  Margin="0,30,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Content="Launch Northstar Dedicated Client" Click="Launch_Northstar_Dedicated_Click" />
+
+                <Button x:Name="Export_Server_Config" Height="42" Width="418" VerticalAlignment="Top" Content="Export Server Config" BorderBrush="{x:Null}" HorizontalAlignment="Center" Margin="0,23,0,0" Click="Export_Server_Config_Click"  />
+
+
+            </hc:SimpleStackPanel>
+
+        </ScrollViewer>
+        <!--<hc:StepBar x:Name="Step_Bar" Height="52" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="-10,0,0,0" Dock="Top" Width="1158" StepChanged="Step_Bar_StepChanged">
+            <hc:StepBarItem  Content="Load Files" Width="127" HorizontalAlignment="Center">
+            </hc:StepBarItem>
+            <hc:StepBarItem   Content="Lmao" Width="58" HorizontalAlignment="Center" VerticalAlignment="Top" >
+            </hc:StepBarItem>
+            <hc:StepBarItem HorizontalAlignment="Center" VerticalAlignment="Top" Width="96" Content="Reload Changes" />
+        </hc:StepBar>-->
+    </Grid>
+</Page>

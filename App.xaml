@@ -3,25 +3,22 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:VTOL"
              StartupUri="MainWindow.xaml"
-             xmlns:hc="https://handyorg.github.io/handycontrol">
+             xmlns:wui="http://schemas.lepo.co/wpfui/2022/xaml"
+            xmlns:hc="https://handyorg.github.io/handycontrol" Startup="Application_Startup">
+
     <Application.Resources>
-        <ResourceDictionary>
-            <LinearGradientBrush x:Key="Gradient_Brush" EndPoint="1,0">
-                <GradientStop  Color="#FF326CF3"/>
-                <GradientStop Color="#FF02FFB4" Offset="1"/>
-            </LinearGradientBrush>
-            <Style x:Key="MessageBoxCustom" TargetType="hc:MessageBox" BasedOn="{StaticResource {x:Type hc:MessageBox}}">
-                <Setter Property="NonClientAreaBackground" Value="{DynamicResource Gradient_Brush}"/>
-                <Setter Property="OtherButtonHoverBackground" Value="#888580"/>
-                <Setter Property="OtherButtonForeground" Value="White"/>
-                <Setter Property="OtherButtonHoverForeground" Value="White"/>
-                <Setter Property="NonClientAreaForeground" Value="White"/>
-                <Setter Property="CloseButtonForeground" Value="Black"/>
-            </Style> 
+       
+        <ResourceDictionary >
             <ResourceDictionary.MergedDictionaries>
                 <hc:ThemeResources  RequestedTheme="Dark"/>
                 <hc:Theme/>
+                <wui:ControlsDictionary />
+                <wui:ThemesDictionary Theme="Dark" />
+
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
+        
     </Application.Resources>
+   
+
 </Application>

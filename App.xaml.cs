@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
-using System.Diagnostics;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-
+using VTOL.Pages;
 namespace VTOL
 {
     /// <summary>
@@ -15,10 +13,15 @@ namespace VTOL
     /// </summary>
     public partial class App : Application
     {
-        private const int MINIMUM_SPLASH_TIME = 1000; // Miliseconds  
-        System.Windows.Forms.Timer timer1 = new System.Windows.Forms.Timer();
-        private int counter = 60;
-        Startup splash;
-      
+        private void Application_Startup(object sender, StartupEventArgs e)
+        {
+            for (int i = 0; i != e.Args.Length; ++i)
+            {
+               
+                    Console.WriteLine("Ahh i cant see the args " + e.Args);
+                
+            }
+
+        }
     }
 }

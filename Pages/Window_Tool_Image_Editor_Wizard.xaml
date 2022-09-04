@@ -1,0 +1,30 @@
+﻿<Window x:Class="VTOL.Pages.Window_Tool_Image_Editor_Wizard"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VTOL.Pages"
+        mc:Ignorable="d"
+        
+        Title="Image Editor Lizard" Height="564" Width="954" WindowStartupLocation="CenterScreen" WindowState="Normal" ResizeMode="CanResize" WindowStyle="SingleBorderWindow" Cursor="" MinWidth="647" MinHeight="450" Closed="Window_Closed" Icon="/Resources/Icons/Main_UI/VTOL_16.ico" OverridesDefaultStyle="False" >
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+  
+    <Grid OverridesDefaultStyle="True" >
+
+
+
+
+
+
+
+
+
+       
+
+    </Grid>
+</Window>

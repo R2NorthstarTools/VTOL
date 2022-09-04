@@ -1,0 +1,88 @@
+﻿<Page
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      xmlns:local="clr-namespace:VTOL"
+      xmlns:hc="https://handyorg.github.io/handycontrol" x:Class="VTOL.Pages.Page_Skins"
+      mc:Ignorable="d" 
+      KeepAlive="True"
+      d:DesignHeight="670" d:DesignWidth="1148"
+      Title="Skins" AllowDrop="True">
+
+    <Grid UseLayoutRounding="True"
+        RenderOptions.BitmapScalingMode="NearestNeighbor"
+        SnapsToDevicePixels="True"
+        RenderOptions.ClearTypeHint="Enabled" PreviewDragOver="Grid_PreviewDragOver">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="575*"/>
+            <ColumnDefinition Width="573*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="29*"/>
+            <RowDefinition Height="105*"/>
+        </Grid.RowDefinitions>
+        <ui:TextBox x:Name="Skin_Path" Margin="50,133,273,0" TextWrapping="NoWrap" Height="36" VerticalAlignment="Top"  Text="Path"  BorderThickness="0,0,0,0" Icon="Search16" Background="{x:Null}" Grid.RowSpan="2" AllowDrop="False" Focusable="False" IsHitTestVisible="False" IsTabStop="False" ClearButtonEnabled="False" Grid.ColumnSpan="2" />
+        <Image Source="/Resources/Backgrounds/alternator.png" Margin="65,144,-180,-144" Opacity="0.1" IsHitTestVisible="False" IsEnabled="False" AllowDrop="False" Grid.RowSpan="2" Grid.Column="1"/>
+
+        <Label Content="Install DDS Foramtted Skins Here" Margin="50,0,0,56" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="410" AllowDrop="False"/>
+        <Label Content="SKINS" Margin="50,0,357,77" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Background="{x:Null}" Foreground="White" FontSize="22" FontWeight="Bold" Height="28" VerticalAlignment="Bottom" AllowDrop="False" Grid.ColumnSpan="2"/>
+
+        <hc:DashedBorder x:Name="Drag_Drop_Area" BorderDashArray="40, 21" BorderBrush="White" Background="#66000000" BorderThickness="1" Margin="50,50,50,290" BorderDashOffset="8" BorderDashThickness="2" BorderDashCap="Round" CornerRadius="6" Grid.Row="1" Drop="Drag_Drop_Area_Drop" PreviewDragOver="Drag_Drop_Area_PreviewDragOver" PreviewDragLeave="Drag_Drop_Area_PreviewDragLeave" Focusable="True" Grid.ColumnSpan="2">
+            <ui:SymbolIcon Content="SymbolIcon" Height="18" Width="16" Symbol="ArrowDownload48" RenderTransformOrigin="0.5,0.5">
+                <ui:SymbolIcon.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="3" ScaleY="3"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </ui:SymbolIcon.RenderTransform>
+            </ui:SymbolIcon>
+
+
+        </hc:DashedBorder>
+        <Label x:Name="Install_Queue_Label" Content="Drag to Install" Margin="73,170,73,0" Height="20" VerticalAlignment="Top" Grid.Row="1" HorizontalContentAlignment="Center" IsHitTestVisible="False" Grid.ColumnSpan="2"/>
+
+        <!--<Border BorderBrush="#FF797979" BorderThickness="1" Margin="50,125,49,410" CornerRadius="3"/>-->
+        <ui:Button x:Name="Install_Skin" Content="Install Skin " Margin="50,280,50,0" VerticalAlignment="Top" Height="60" Appearance="Primary" Background="#A33C3C3C"   Foreground="White" BorderThickness="2,2,2,2" BorderBrush="{x:Null}" Grid.Row="1" HorizontalAlignment="Stretch" AllowDrop="False" Click="Install_Skin_Click" Grid.ColumnSpan="2" ToolTip="Install the skin file(s)" ClickMode="Press" >
+
+        </ui:Button>
+        <ui:CardAction x:Name="FAQ" Height="100" Content="FAQ" Margin="50,380,35,0" VerticalAlignment="Top" ClickMode="Press" Grid.Row="1" AllowDrop="False" BorderBrush="{x:Null}" FontWeight="Bold" Click="FAQ_Click" ToolTip="Open the FAQ Page">
+            <ui:CardAction.Background>
+                <ImageBrush ImageSource="/Resources/Backgrounds/FAqBg.png" Stretch="UniformToFill"/>
+            </ui:CardAction.Background>
+            <ui:CardAction.Effect>
+                <DropShadowEffect
+                ShadowDepth="3"
+                Direction="330"
+                Color="Black"
+                Opacity="0.5"
+                BlurRadius="4"/>
+            </ui:CardAction.Effect>
+        </ui:CardAction>
+        <ui:CardAction x:Name="Making_Your_Own" Content="Making Your Own Skin" Margin="33,380,50,0" VerticalAlignment="Top" ClickMode="Press" Grid.Row="1" AllowDrop="False" Foreground="White" BorderThickness="2,2,1,1" BorderBrush="{x:Null}" Height="100" FontWeight="Bold" Click="Making_Your_Own_Click" Grid.Column="1" ToolTip="Open a Guide Page">
+            <ui:CardAction.Background>
+                <ImageBrush ImageSource="/Resources/Backgrounds/Skin_How_To_BG.png" Stretch="UniformToFill"/>
+            </ui:CardAction.Background>
+            <ui:CardAction.Effect>
+                <DropShadowEffect
+                ShadowDepth="3"
+                Direction="330"
+                Color="Black"
+                Opacity="0.5"
+                BlurRadius="4"/>
+            </ui:CardAction.Effect>
+        </ui:CardAction>
+
+
+        <ui:Button x:Name="Browse" Content="Browse" Margin="0,133,50,0" VerticalAlignment="Top" Height="36" Appearance="Primary" Background="#A33C3C3C"   Foreground="White" BorderThickness="2,2,2,2" BorderBrush="{x:Null}" Grid.RowSpan="2" Padding="-20.2,0,0,0" HorizontalAlignment="Right" Width="208" AllowDrop="False" Click="Browse_Click" Grid.Column="1" ToolTip="Browse for a Skin File" ClickMode="Press">
+
+        </ui:Button>
+
+        <ProgressBar x:Name="Skin_Install_Progress" Height="10" Grid.Row="1" VerticalAlignment="Top" Foreground="{Binding Source={x:Static SystemParameters.WindowGlassBrush}}" Margin="50,255,50,0" Grid.ColumnSpan="2"/>
+        <Button x:Name="clear_queue"  Grid.Row="1" Padding="0,0,0,0" Height="25" Margin="552,345,552,0" Grid.ColumnSpan="2" VerticalAlignment="Top" Visibility="Hidden" Click="clear_queue_Click" HorizontalAlignment="Stretch">
+            <ui:SymbolIcon Symbol="Delete24"></ui:SymbolIcon>
+        </Button>
+    </Grid>
+</Page>

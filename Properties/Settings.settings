@@ -44,5 +44,14 @@
     <Setting Name="Version" Type="System.String" Scope="User">
       <Value Profile="(Default)">1.7.1</Value>
     </Setting>
+    <Setting Name="Auto_Update_Northstar" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="Auto_Close_VTOL_on_Launch" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="Backup_arg_Files" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
