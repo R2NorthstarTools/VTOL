@@ -885,38 +885,49 @@ namespace VTOL.Pages
                             if (imgwidth < 2048 && imgheight < 2048)
                             {
 
-
-
-                                BitmapImage map_ = new BitmapImage();
-                                map_.BeginInit();
-
-                                map_.UriSource = new Uri(map_Path);
-                                map_.EndInit();
-                                switch (DashedBorder.Name)
+                                if (imgwidth == 256 && imgheight == 256)
                                 {
-                                    case "Color_":
-                                        break;
-                                    case "Specular_":
-                                        break;
-                                    case "Glossiness_":
-                                        break;
-                                    case "Normal_":
-                                        break;
-                                    case "Ambient_":
-                                        break;
-                                    case "Cavity_":
-                                        break;
-                                    case "Emmision_":
-                                        break;
 
-                                    default:
-                                        break;
+                                    BitmapImage map_ = new BitmapImage();
+                                    map_.BeginInit();
+
+                                    map_.UriSource = new Uri(map_Path);
+                                    map_.EndInit();
+                                    switch (DashedBorder.Name)
+                                    {
+                                        case "Color_":
+                                            break;
+                                        case "Specular_":
+                                            break;
+                                        case "Glossiness_":
+                                            break;
+                                        case "Normal_":
+                                            break;
+                                        case "Ambient_":
+                                            break;
+                                        case "Cavity_":
+                                            break;
+                                        case "Emmision_":
+                                            break;
+
+                                        default:
+                                            break;
+
+                                    }
+                                    DashedBorder.Background = new ImageBrush(map_);
+                                    DashedBorder.Tag = map_Path;
+                                    ImageNumber++;
+                                }
+                                else
+                                {
+                                    SnackBar.Icon = SymbolRegular.ErrorCircle20;
+                                    SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
+                                    SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Icon_Image_MouseDown_InvalidImageSizeMustBe256x256;
+                                    SnackBar.Show();
+                                    DashedBorder.Background = new ImageBrush();
+                                    return;
 
                                 }
-                                DashedBorder.Background = new ImageBrush(map_);
-                                DashedBorder.Tag = map_Path;
-                                ImageNumber++;
-
                             }
                             else
                             {

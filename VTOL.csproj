@@ -196,9 +196,12 @@
     <None Remove="Resources\Icons\Main_UI\discord.ico" />
     <None Remove="Resources\Icons\Main_UI\gitbook.ico" />
     <None Remove="Resources\Icons\Main_UI\gitbook.png" />
+    <None Remove="Resources\Icons\Main_UI\info-large.png" />
     <None Remove="Resources\Icons\Main_UI\northstar_icon_ZfV_icon.ico" />
     <None Remove="Resources\Icons\Main_UI\plugin.png" />
+    <None Remove="Resources\Icons\Main_UI\server-icon-download-icons-17.png" />
     <None Remove="Resources\Icons\Main_UI\settings.png" />
+    <None Remove="Resources\Icons\Main_UI\Tools-Silhouette-Transparent.png" />
     <None Remove="Resources\Icons\Main_UI\twitch.ico" />
     <None Remove="Resources\Icons\Main_UI\User_Icon.png" />
     <None Remove="Resources\Icons\Main_UI\VTOL_16.ico" />
@@ -536,18 +539,27 @@
     <Resource Include="Resources\Icons\Main_UI\gitbook.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Content Include="Resources\Icons\Main_UI\info-large.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Resource Include="Resources\Icons\Main_UI\Northstar-512.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\Icons\Main_UI\northstar_icon_ZfV_icon.png">
+    <Content Include="Resources\Icons\Main_UI\northstar_icon_ZfV_icon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Icons\Main_UI\twitch.ico">
+    </Content>
+    <Content Include="Resources\Icons\Main_UI\server-icon-download-icons-17.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Icons\Main_UI\User_Icon.png">
+    </Content>
+    <Content Include="Resources\Icons\Main_UI\Tools-Silhouette-Transparent.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    </Content>
+    <Content Include="Resources\Icons\Main_UI\twitch.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\Main_UI\User_Icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Resource Include="Resources\Icons\Main_UI\VTOL_16.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>

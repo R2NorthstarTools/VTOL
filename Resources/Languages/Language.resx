@@ -297,4 +297,34 @@
   <data name="Page_Home_LaunchTitanfall2Northstar" xml:space="preserve">
     <value>Launch Titanfall 2 Northstar</value>
   </data>
+  <data name="Page_Home_MasterServer" xml:space="preserve">
+    <value>Master Server</value>
+  </data>
+  <data name="Page_Home_ToggleChecking" xml:space="preserve">
+    <value>Toggle Checking</value>
+  </data>
+  <data name="Page_Home_IndicatesIfOriginIsRunningClickToLaunchIfInactive" xml:space="preserve">
+    <value>Indicates if Origin is running (Click To launch if inactive)</value>
+  </data>
+  <data name="Page_Home_ShowsThePingLatencyOverTime" xml:space="preserve">
+    <value>Shows the ping+latency over time</value>
+  </data>
+  <data name="Page_Home_OpenTitanfall2Folder" xml:space="preserve">
+    <value>Open Titanfall 2 Folder</value>
+  </data>
+  <data name="Page_Home_LocateTitanfall2Install" xml:space="preserve">
+    <value>Locate Titanfall 2 Install</value>
+  </data>
+  <data name="Page_Home_ManuallyChangeTheTitanfall2InstallDirectory" xml:space="preserve">
+    <value>Manually Change the Titanfall 2 Install Directory</value>
+  </data>
+  <data name="Page_Home_UpdateNorthstar" xml:space="preserve">
+    <value>Update +Northstar</value>
+  </data>
+  <data name="Page_Home_NorthstarInstallation" xml:space="preserve">
+    <value>Northstar Installation </value>
+  </data>
+  <data name="Page_Home_LaunchNorthstar" xml:space="preserve">
+    <value>launch +Northstar" </value>
+  </data>
 </root>

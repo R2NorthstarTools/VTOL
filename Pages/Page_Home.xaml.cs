@@ -188,7 +188,7 @@ namespace VTOL.Pages
         public string Author_Used;
         public string Repo_Used;
         public bool Auto_Update_Northstar;
-        public bool Auto_Close_VTOL;
+        public bool Minimize_On_Launch;
         public string MasterServer_URL;
         public string MasterServer_URL_CN = "nscn.wolf109909.top";
         public string Current_REPO_URL_CN = "https://nscn.wolf109909.top/version/query";
@@ -496,7 +496,8 @@ namespace VTOL.Pages
                 do_not_overwrite_Ns_file = Properties.Settings.Default.Backup_arg_Files;
                 Sort_Lists = Properties.Settings.Default.Sort_Mods;
                 Warn_Close_EA = Properties.Settings.Default.Warning_Close_EA;
-               
+                Minimize_On_Launch = Properties.Settings.Default.Auto_Close_VTOL_on_Launch;
+
                 //  Skin_Mod_Pack_Check.IsChecked = Properties.Settings.Default.PackageAsSkin;
                 //Mod_dependencies.Text = "northstar-Northstar-" + Properties.Settings.Default.Version.Remove(0, 1);
                 DataContext = this;
@@ -545,7 +546,6 @@ namespace VTOL.Pages
                     Author_Used = User_Settings_Vars.Author;
 
                     Repo_Used = User_Settings_Vars.Repo;
-                    Auto_Close_VTOL = User_Settings_Vars.Auto_Close_VTOL;
                     Auto_Update_Northstar = User_Settings_Vars.Auto_Update_Northstar;
 
                     Current_REPO_URL = User_Settings_Vars.RepoUrl;
@@ -1569,6 +1569,7 @@ namespace VTOL.Pages
 
         private void Launch_Northstar_Click(object sender, RoutedEventArgs e)
         {
+            Minimize_On_Launch = Properties.Settings.Default.Auto_Close_VTOL_on_Launch;
             if (Directory.Exists(Current_Install_Folder))
             {
 
@@ -1587,7 +1588,7 @@ namespace VTOL.Pages
                     int id = process.Id;
                     int pid = id;
                     Process tempProc = Process.GetProcessById(id);
-                    if (Auto_Close_VTOL == true)
+                    if (Minimize_On_Launch == true)
                     {
                         Main.Minimize();
                     }
@@ -2746,24 +2747,62 @@ namespace VTOL.Pages
         private void Unpack_To_Location(string Target_Zip, string Destination_Zip)
         {
             unpack_flg = false;
-            if (Directory.Exists(Current_Install_Folder + @"R2Northstar\mods\Northstar.Client\Locked_Folder"))
+            if (Directory.Exists(Current_Install_Folder + User_Settings_Vars.Profile_Path + @"\mods\Northstar.Client\Locked_Folder"))
             {
-                Directory.Delete(Current_Install_Folder + @"R2Northstar\mods\Northstar.Client\Locked_Folder", true);
+                Directory.Delete(Current_Install_Folder + User_Settings_Vars.Profile_Path + @"\mods\Northstar.Client\Locked_Folder", true);
 
             }
-            if (Directory.Exists(Current_Install_Folder + @"R2Northstar\mods\Northstar.Custom\Locked_Folder"))
+            if (Directory.Exists(Current_Install_Folder + User_Settings_Vars.Profile_Path + @"\mods\Northstar.Custom\Locked_Folder"))
             {
-                Directory.Delete(Current_Install_Folder + @"R2Northstar\mods\Northstar.Custom\Locked_Folder", true);
-
-
-            }
-            if (Directory.Exists(Current_Install_Folder + @"R2Northstar\mods\Northstar.CustomServers\Locked_Folder"))
-            {
-                Directory.Delete(Current_Install_Folder + @"R2Northstar\mods\Northstar.CustomServers\Locked_Folder", true);
+                Directory.Delete(Current_Install_Folder + User_Settings_Vars.Profile_Path + @"\mods\Northstar.Custom\Locked_Folder", true);
 
 
             }
+            if (Directory.Exists(Current_Install_Folder + User_Settings_Vars.Profile_Path + @"\mods\Northstar.CustomServers\Locked_Folder"))
+            {
+                Directory.Delete(Current_Install_Folder + User_Settings_Vars.Profile_Path + @"\mods\Northstar.CustomServers\Locked_Folder", true);
 
+
+            }
+            string nrml = GetFile(Current_Install_Folder , @"ns_startup_args.txt").First();
+            string cfg = GetFile(Current_Install_Folder , @"autoexec_ns_server.cfg").First();
+            string dedi = GetFile(Current_Install_Folder , @"ns_startup_args_dedi.txt").First();
+            if (do_not_overwrite_Ns_file == true)
+            {
+                if (!Directory.Exists(Current_Install_Folder + @"TempCopyFolder"))
+                {
+                        Directory.CreateDirectory(Current_Install_Folder + @"TempCopyFolder");
+                }
+                if (File.Exists(nrml))
+                {
+                    System.IO.File.Copy(nrml, Current_Install_Folder + @"TempCopyFolder\ns_startup_args.txt", true);
+                }
+
+
+
+
+
+                if (File.Exists(cfg))
+                {
+
+                    System.IO.File.Copy(cfg, Current_Install_Folder + @"TempCopyFolder\autoexec_ns_server.cfg", true);
+
+
+
+                }
+
+
+
+                if (File.Exists(dedi))
+                {
+
+
+                    System.IO.File.Copy(dedi, Current_Install_Folder + @"TempCopyFolder\ns_startup_args_dedi.txt", true);
+
+
+                }
+
+            }
 
             if (File.Exists(Target_Zip) && Directory.Exists(Destination_Zip))
             {
@@ -2774,34 +2813,37 @@ namespace VTOL.Pages
                     ZipFile zipFile = new ZipFile(Target_Zip);
 
                     zipFile.ExtractAll(Destination_Zip, Ionic.Zip.ExtractExistingFileAction.OverwriteSilently);
-                    if (File.Exists(Current_Install_Folder + @"ns_startup_args_dedi.txt") && File.Exists(Current_Install_Folder + @"ns_startup_args.txt"))
+
+
+                    if (do_not_overwrite_Ns_file == true)
                     {
-                        if (do_not_overwrite_Ns_file == true)
+
+                        if (Directory.Exists(Current_Install_Folder + @"TempCopyFolder\"))
                         {
-                            if (Directory.Exists(Current_Install_Folder + @"TempCopyFolder"))
+                            if (File.Exists(Current_Install_Folder + @"TempCopyFolder\ns_startup_args.txt"))
                             {
-                                if (Directory.Exists(Current_Install_Folder + @"TempCopyFolder\ns_startup_args.txt"))
-                                {
-                                    System.IO.File.Copy(Current_Install_Folder + @"TempCopyFolder\ns_startup_args.txt", Current_Install_Folder + @"ns_startup_args.txt", true);
-                                }
 
-                          
-                                if (Directory.Exists(Current_Install_Folder + @"TempCopyFolder\autoexec_ns_server.cfg"))
-                                {
-                                    System.IO.File.Copy(Current_Install_Folder + @"TempCopyFolder\autoexec_ns_server.cfg", Current_Install_Folder + @"R2Northstar\mods\Northstar.CustomServers\mod\cfg\autoexec_ns_server.cfg", true);
-                                }
-                                if (Directory.Exists(Current_Install_Folder + @"TempCopyFolder\ns_startup_args_dedi.txt"))
-                                {
-                                    System.IO.File.Copy(Current_Install_Folder + @"TempCopyFolder\ns_startup_args_dedi.txt", Current_Install_Folder + @"ns_startup_args_dedi.txt", true);
-                                }
-
+                                System.IO.File.Copy(Current_Install_Folder + @"TempCopyFolder\ns_startup_args.txt", Current_Install_Folder + @"ns_startup_args.txt", true);
                             }
 
 
+                            if (File.Exists(Current_Install_Folder + @"TempCopyFolder\autoexec_ns_server.cfg"))
+                            {
+                                System.IO.File.Copy(Current_Install_Folder + @"TempCopyFolder\autoexec_ns_server.cfg", Current_Install_Folder + User_Settings_Vars.Profile_Path + @"\mods\Northstar.CustomServers\mod\cfg\autoexec_ns_server.cfg", true);
+                            }
+                            if (File.Exists(Current_Install_Folder + @"TempCopyFolder\ns_startup_args_dedi.txt"))
+                            {
+                                System.IO.File.Copy(Current_Install_Folder + @"TempCopyFolder\ns_startup_args_dedi.txt", Current_Install_Folder + @"ns_startup_args_dedi.txt", true);
+                            }
+
                         }
+                    }
+
+                        
+
                         if (Directory.Exists(Current_Install_Folder + @"TempCopyFolder"))
                         {
-                            Directory.Delete(Current_Install_Folder + @"TempCopyFolder", true);
+                               Directory.Delete(Current_Install_Folder + @"TempCopyFolder", true);
                         }
                         DispatchIfNecessary(() =>
                         {
@@ -2816,7 +2858,7 @@ namespace VTOL.Pages
                         });
 
                        
-                    }
+                    
 
                 }
                 else

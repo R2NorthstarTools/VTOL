@@ -142,6 +142,15 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Indicates if Origin is running (Click To launch if inactive).
+        /// </summary>
+        public static string Page_Home_IndicatesIfOriginIsRunningClickToLaunchIfInactive {
+            get {
+                return ResourceManager.GetString("Page_Home_IndicatesIfOriginIsRunningClickToLaunchIfInactive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Install Northstar.
         /// </summary>
         public static string Page_Home_INIT_InstallNorthstar {
@@ -169,11 +178,65 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to launch +Northstar&quot; .
+        /// </summary>
+        public static string Page_Home_LaunchNorthstar {
+            get {
+                return ResourceManager.GetString("Page_Home_LaunchNorthstar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Launch Titanfall 2 Northstar.
         /// </summary>
         public static string Page_Home_LaunchTitanfall2Northstar {
             get {
                 return ResourceManager.GetString("Page_Home_LaunchTitanfall2Northstar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Locate Titanfall 2 Install.
+        /// </summary>
+        public static string Page_Home_LocateTitanfall2Install {
+            get {
+                return ResourceManager.GetString("Page_Home_LocateTitanfall2Install", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manually Change the Titanfall 2 Install Directory.
+        /// </summary>
+        public static string Page_Home_ManuallyChangeTheTitanfall2InstallDirectory {
+            get {
+                return ResourceManager.GetString("Page_Home_ManuallyChangeTheTitanfall2InstallDirectory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Master Server.
+        /// </summary>
+        public static string Page_Home_MasterServer {
+            get {
+                return ResourceManager.GetString("Page_Home_MasterServer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Northstar Installation .
+        /// </summary>
+        public static string Page_Home_NorthstarInstallation {
+            get {
+                return ResourceManager.GetString("Page_Home_NorthstarInstallation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open Titanfall 2 Folder.
+        /// </summary>
+        public static string Page_Home_OpenTitanfall2Folder {
+            get {
+                return ResourceManager.GetString("Page_Home_OpenTitanfall2Folder", resourceCulture);
             }
         }
         
@@ -197,12 +260,30 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Shows the ping+latency over time.
+        /// </summary>
+        public static string Page_Home_ShowsThePingLatencyOverTime {
+            get {
+                return ResourceManager.GetString("Page_Home_ShowsThePingLatencyOverTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Master Server Checked And Timed Out too much. Turning off Master Server Checks.
         /// </summary>
         public static string Page_Home_timer_Tick_MasterServerCheckedAndTimedOutTooMuchTurningOffMasterServerChecks {
             get {
                 return ResourceManager.GetString("Page_Home_timer_Tick_MasterServerCheckedAndTimedOutTooMuchTurningOffMasterServerC" +
                         "hecks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toggle Checking.
+        /// </summary>
+        public static string Page_Home_ToggleChecking {
+            get {
+                return ResourceManager.GetString("Page_Home_ToggleChecking", resourceCulture);
             }
         }
         
@@ -230,6 +311,15 @@ namespace VTOL.Resources.Languages {
         public static string Page_Home_Unpack_To_Location_WasNotFound {
             get {
                 return ResourceManager.GetString("Page_Home_Unpack_To_Location_WasNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update +Northstar.
+        /// </summary>
+        public static string Page_Home_UpdateNorthstar {
+            get {
+                return ResourceManager.GetString("Page_Home_UpdateNorthstar", resourceCulture);
             }
         }
         

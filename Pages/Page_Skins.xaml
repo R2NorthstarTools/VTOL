@@ -45,7 +45,7 @@
         <Label x:Name="Install_Queue_Label" Content="Drag to Install" Margin="73,170,73,0" Height="20" VerticalAlignment="Top" Grid.Row="1" HorizontalContentAlignment="Center" IsHitTestVisible="False" Grid.ColumnSpan="2"/>
 
         <!--<Border BorderBrush="#FF797979" BorderThickness="1" Margin="50,125,49,410" CornerRadius="3"/>-->
-        <ui:Button x:Name="Install_Skin" Content="Install Skin " Margin="50,280,50,0" VerticalAlignment="Top" Height="60" Appearance="Primary" Background="#A33C3C3C"   Foreground="White" BorderThickness="2,2,2,2" BorderBrush="{x:Null}" Grid.Row="1" HorizontalAlignment="Stretch" AllowDrop="False" Click="Install_Skin_Click" Grid.ColumnSpan="2" ToolTip="Install the skin file(s)" ClickMode="Press" >
+        <ui:Button x:Name="Install_Skin" Content="Install Skin " Margin="50,280,50,0" VerticalAlignment="Top" Height="60" Appearance="Primary" Background="#FF383838"   Foreground="White" BorderThickness="2,2,2,2" BorderBrush="{x:Null}" Grid.Row="1" HorizontalAlignment="Stretch" AllowDrop="False" Click="Install_Skin_Click" Grid.ColumnSpan="2" ToolTip="Install the skin file(s)" ClickMode="Press" >
 
         </ui:Button>
         <ui:CardAction x:Name="FAQ" Height="100" Content="FAQ" Margin="50,380,35,0" VerticalAlignment="Top" ClickMode="Press" Grid.Row="1" AllowDrop="False" BorderBrush="{x:Null}" FontWeight="Bold" Click="FAQ_Click" ToolTip="Open the FAQ Page">
@@ -76,7 +76,7 @@
         </ui:CardAction>
 
 
-        <ui:Button x:Name="Browse" Content="Browse" Margin="0,133,50,0" VerticalAlignment="Top" Height="36" Appearance="Primary" Background="#A33C3C3C"   Foreground="White" BorderThickness="2,2,2,2" BorderBrush="{x:Null}" Grid.RowSpan="2" Padding="-20.2,0,0,0" HorizontalAlignment="Right" Width="208" AllowDrop="False" Click="Browse_Click" Grid.Column="1" ToolTip="Browse for a Skin File" ClickMode="Press">
+        <ui:Button x:Name="Browse" Content="Browse" Margin="0,133,50,0" VerticalAlignment="Top" Height="36" Appearance="Primary" Background="#FF383838"   Foreground="White" BorderThickness="2,2,2,2" BorderBrush="{x:Null}" Grid.RowSpan="2" Padding="-20.2,0,0,0" HorizontalAlignment="Right" Width="208" AllowDrop="False" Click="Browse_Click" Grid.Column="1" ToolTip="Browse for a Skin File" ClickMode="Press">
 
         </ui:Button>
 

@@ -1,7 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Pages"
   ],
-  "SelectedNode": "\\VTOL.sln (VTOL.sln)",
+  "SelectedNode": "\\Pages\\Page_Tools.xaml.cs",
   "PreviewInSolutionExplorer": false
 }

@@ -48,7 +48,7 @@ namespace VTOL.Pages
             public string Author { get; set; }
             public bool Auto_Update_Northstar { get; set; }
 
-            public bool Auto_Close_VTOL { get; set; }
+            public bool Minimize_On_Launch { get; set; }
 
             //[Category("Profile")]
             //public bool Boolean { get; set; }
@@ -65,14 +65,14 @@ namespace VTOL.Pages
             {
                 Language = Language.English,
                 Master_Server_Url = User_Settings_Vars.MasterServerUrl,
-                Do_Not_Overwrite_Config_Files = true,
+                Do_Not_Overwrite_Config_Files = Properties.Settings.Default.Backup_arg_Files,
+                Minimize_On_Launch = Properties.Settings.Default.Auto_Close_VTOL_on_Launch,
 
                 Repo_Url = User_Settings_Vars.RepoUrl,
                 Repo = User_Settings_Vars.Repo,
 
                 Author = User_Settings_Vars.Author,
                 Auto_Update_Northstar = User_Settings_Vars.Auto_Update_Northstar,
-                Auto_Close_VTOL = User_Settings_Vars.Auto_Close_VTOL
 
         };
             Settings.SelectedObject = Settings_;
@@ -109,8 +109,23 @@ namespace VTOL.Pages
 
         private void Settings_LostFocus(object sender, RoutedEventArgs e)
         {
+            User_Settings_Vars.MasterServerUrl = Settings_.Master_Server_Url;
+            Properties.Settings.Default.Auto_Close_VTOL_on_Launch = Settings_.Minimize_On_Launch;
+            Properties.Settings.Default.Save();
 
-          
+            User_Settings_Vars.Auto_Close_VTOL = Settings_.Minimize_On_Launch;
+            User_Settings_Vars.Author = Settings_.Author;
+            User_Settings_Vars.Repo = Settings_.Repo;
+            User_Settings_Vars.RepoUrl = Settings_.Repo_Url;
+            Properties.Settings.Default.Backup_arg_Files = Settings_.Do_Not_Overwrite_Config_Files;
+            Properties.Settings.Default.Save();
+            string User_Settings_Json_Strings = Newtonsoft.Json.JsonConvert.SerializeObject(User_Settings_Vars);
+            using (var StreamWriter = new StreamWriter(DocumentsFolder + @"\VTOL_DATA\Settings\User_Settings.Json", false))
+            {
+                StreamWriter.WriteLine(User_Settings_Json_Strings);
+                StreamWriter.Close();
+            }
+
         }
 
         private void Settings_MouseMove(object sender, MouseEventArgs e)
@@ -120,21 +135,7 @@ namespace VTOL.Pages
 
         private void Settings_MouseLeave(object sender, MouseEventArgs e)
         {
-            User_Settings_Vars.MasterServerUrl = Settings_.Master_Server_Url;
-            User_Settings_Vars.Auto_Update_Northstar = Settings_.Auto_Update_Northstar;
-            User_Settings_Vars.Auto_Close_VTOL = Settings_.Auto_Close_VTOL;
-            User_Settings_Vars.Author = Settings_.Author;
-            User_Settings_Vars.Repo = Settings_.Repo;
-            User_Settings_Vars.RepoUrl = Settings_.Repo_Url;
-            Properties.Settings.Default.Backup_arg_Files = Settings_.Do_Not_Overwrite_Config_Files;
-            Properties.Settings.Default.Save();
-
-            string User_Settings_Json_Strings = Newtonsoft.Json.JsonConvert.SerializeObject(User_Settings_Vars);
-            using (var StreamWriter = new StreamWriter(DocumentsFolder + @"\VTOL_DATA\Settings\User_Settings.Json", false))
-            {
-                StreamWriter.WriteLine(User_Settings_Json_Strings);
-                StreamWriter.Close();
-            }
+           
         }
     }
 }

@@ -223,7 +223,7 @@
 
             </DockPanel>
 
-            <ui:Button x:Name="Launch_Northstar" Margin="36,268,0,0" VerticalAlignment="Top" Height="62" Appearance="Primary" Background="{Binding Source={x:Static SystemParameters.WindowGlassBrush}}"  Foreground="White" BorderThickness="2,2,2,2" Width="333" BorderBrush="{x:Null}" Click="Launch_Northstar_Click" FontSize="16" FontWeight="Normal" FontStyle="Normal" Opacity="0.6" ClickMode="Press" ToolTip="launch +Northstar" >
+            <ui:Button x:Name="Launch_Northstar" Margin="36,268,0,0" VerticalAlignment="Top" Height="62" Appearance="Primary" Background="{Binding Source={x:Static SystemParameters.WindowGlassBrush}}"  Foreground="White" BorderThickness="2,2,2,2" Width="333" BorderBrush="{x:Null}" Click="Launch_Northstar_Click" FontSize="16" FontWeight="Normal" FontStyle="Normal" Opacity="0.6" ClickMode="Press" ToolTip="{x:Static properties:Language.Page_Home_LaunchNorthstar}">
 
                 <ui:Button.Effect>
                     <DropShadowEffect
@@ -275,15 +275,15 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock HorizontalAlignment="Left" Margin="34,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="26" Width="182" Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontSize="18" FontFamily="Segoe UI" Grid.Column="1"/>
 
-                <TextBlock HorizontalAlignment="Left" Margin="34,129,0,0" TextWrapping="Wrap" Text="Northstar Installation " VerticalAlignment="Top" Height="14" Width="148" Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                <TextBlock HorizontalAlignment="Left" Margin="34,129,0,0" TextWrapping="Wrap" Text="{x:Static properties:Language.Page_Home_NorthstarInstallation}" VerticalAlignment="Top" Height="14" Width="148" Foreground="{DynamicResource TextFillColorSecondaryBrush}"
  FontFamily="Segoe UI" Grid.Column="1"/>
                 <TextBox x:Name="Directory_Box" Text="D:/Games/Titanfall2/Northstar.exe" Margin="32,158,2,0" VerticalAlignment="Top" Height="35" IsReadOnly="True" UndoLimit="0" Grid.Column="1" ToolTip="Current Titanfall 2 Path" />
-                <ui:Button x:Name="Update_Northstar_Button" Padding="6" Appearance="Secondary" FontSize="14" Height="40" Margin="32,216,40,0" VerticalAlignment="Top" HorizontalAlignment="Stretch" Content="Update Northstar" Grid.ColumnSpan="2" Grid.Column="1" Click="Update_Northstar_Button_Click" ToolTip="Update +Northstar" />
+                <ui:Button x:Name="Update_Northstar_Button" Padding="6" Appearance="Secondary" FontSize="14" Height="40" Margin="32,216,40,0" VerticalAlignment="Top" HorizontalAlignment="Stretch" Content="Update Northstar" Grid.ColumnSpan="2" Grid.Column="1" Click="Update_Northstar_Button_Click" ToolTip="{x:Static properties:Language.Page_Home_UpdateNorthstar}" />
                 <ProgressBar x:Name="ProgressBar" Margin="32,261,40,21" Grid.Column="1" Grid.ColumnSpan="2" Foreground="{Binding Source={x:Static SystemParameters.WindowGlassBrush}}" Opacity="0" >
 
                 </ProgressBar>
-                <ui:Button x:Name="Browse_Titanfall_Button" Padding="6" Appearance="Secondary" FontSize="14" Height="36" Margin="71,158,40,0" VerticalAlignment="Top" HorizontalAlignment="Stretch" Content="Locate Titanfall 2 Install" Grid.Column="2" Click="Browse_Titanfall_Button_Click" ToolTip="Manually Change the Titanfall 2 Install Directory" />
-                <ui:Button x:Name="Browse_Titanfall_Install" Padding="6" Appearance="Secondary" FontSize="14" Height="36" Margin="15,158,0,0" VerticalAlignment="Top"  Grid.Column="2"  Icon="Open24" Width="51" ToolTip="Open Titanfall 2 Folder" Click="Browse_Titanfall_Install_Click"/>
+                <ui:Button x:Name="Browse_Titanfall_Button" Padding="6" Appearance="Secondary" FontSize="14" Height="36" Margin="71,158,40,0" VerticalAlignment="Top" HorizontalAlignment="Stretch" Content="{x:Static properties:Language.Page_Home_LocateTitanfall2Install}" Grid.Column="2" Click="Browse_Titanfall_Button_Click" ToolTip="{x:Static properties:Language.Page_Home_ManuallyChangeTheTitanfall2InstallDirectory}" />
+                <ui:Button x:Name="Browse_Titanfall_Install" Padding="6" Appearance="Secondary" FontSize="14" Height="36" Margin="15,158,0,0" VerticalAlignment="Top"  Grid.Column="2"  Icon="Open24" Width="51" ToolTip="{x:Static properties:Language.Page_Home_OpenTitanfall2Folder}" Click="Browse_Titanfall_Install_Click"/>
 
                 <Grid Grid.ColumnSpan="3">
 
@@ -313,17 +313,17 @@
                     </Border>
 
 
-                    <ui:CardControl x:Name="Master_Server_Card" Margin="36,44,1,0" Icon="PlugConnected20" Height="68" Background="{DynamicResource Bg_Chart}" VerticalAlignment="Top" IconForeground="{DynamicResource TextOnAccentFillColorSelectedTextBrush}" Foreground="White" BorderBrush="{x:Null}" ToolTip="Shows the ping+latency over time">
+                    <ui:CardControl x:Name="Master_Server_Card" Margin="36,44,1,0" Icon="PlugConnected20" Height="68" Background="{DynamicResource Bg_Chart}" VerticalAlignment="Top" IconForeground="{DynamicResource TextOnAccentFillColorSelectedTextBrush}" Foreground="White" BorderBrush="{x:Null}" ToolTip="{x:Static properties:Language.Page_Home_ShowsThePingLatencyOverTime}">
 
                         <ui:CardControl.Header>
                             <StackPanel Grid.Column="0" VerticalAlignment="Center" Width="303" HorizontalAlignment="Left">
                                 <TextBlock Foreground="{DynamicResource TextOnAccentFillColorSelectedTextBrush}"
                         FontSize="13"
                         FontWeight="Medium"
-                        Text="Master Server" />
+                        Text="{x:Static properties:Language.Page_Home_MasterServer}" />
                                 <TextBlock
                         FontSize="12"
-                        Text="Toggle Checking" Foreground="#FFD4D4D4" />
+                        Text="{x:Static properties:Language.Page_Home_ToggleChecking}" Foreground="#FFD4D4D4" />
                             </StackPanel>
                         </ui:CardControl.Header>
 
@@ -333,7 +333,7 @@
                         </ui:ToggleSwitch>
 
                     </ui:CardControl>
-                    <ui:CardAction x:Name="Origin_Client_Card" Content="Origin Client Running" Icon="FoodToast16"  Height="68" Margin="0,44,40,0" Background="{DynamicResource Bg_Chart_Red}" VerticalAlignment="Top" Grid.Column="2" RenderTransformOrigin="0.5,0.5"  Foreground="{DynamicResource TextOnAccentFillColorSelectedTextBrush}" BorderBrush="{x:Null}" Click="Origin_Client_Card_Click" ClickMode="Press" ToolTip="Indicates if Origin is running (Click To launch if inactive)">
+                    <ui:CardAction x:Name="Origin_Client_Card" Content="Origin Client Running" Icon="FoodToast16"  Height="68" Margin="0,44,40,0" Background="{DynamicResource Bg_Chart_Red}" VerticalAlignment="Top" Grid.Column="2" RenderTransformOrigin="0.5,0.5"  Foreground="{DynamicResource TextOnAccentFillColorSelectedTextBrush}" BorderBrush="{x:Null}" Click="Origin_Client_Card_Click" ClickMode="Press" ToolTip="{x:Static properties:Language.Page_Home_IndicatesIfOriginIsRunningClickToLaunchIfInactive}">
                         <ui:CardAction.RenderTransform>
                             <TransformGroup>
                                 <ScaleTransform/>
