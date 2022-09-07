@@ -34,9 +34,320 @@ using System.Diagnostics;
 using Hangfire;
 using ZipFile = Ionic.Zip.ZipFile;
 using System.Reflection;
-
 namespace VTOL.Pages
 {
+    public class Skin_Processor_
+    {
+        private MainWindow Main = GetMainWindow();
+
+        private List<string> Skin_List = new List<string>();
+        private Wpf.Ui.Controls.Snackbar SnackBar;
+        private List<string> names = new List<string>();
+        User_Settings User_Settings_Vars = null;
+        public static bool ZipHasFile(string Search, string zipFullPath)
+        {
+            ZipFile zipFile = new ZipFile(zipFullPath);
+
+
+            foreach (var entry in zipFile.Entries)
+            {
+                if (entry.FileName.Contains(Search, StringComparison.OrdinalIgnoreCase))
+                {
+
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private int ImageCheck(String ImageName)
+        {
+            int result = -1;
+            int temp = ImageName.LastIndexOf("\\");
+            ImageName = ImageName.Substring(0, temp);
+            temp = ImageName.LastIndexOf("\\") + 1;
+            ImageName = ImageName.Substring(temp, ImageName.Length - temp);
+            switch (ImageName)
+            {
+                case "256x128":
+                case "256x256":
+                case "256":
+                    //Big change,I don't want to do it:(
+                    break;
+                case "512x256":
+                case "512x512":
+                case "512":
+                    result = 0;
+                    break;
+                case "1024x512":
+                case "1024x1024":
+                case "1024":
+                    result = 1;
+                    break;
+                case "2048x1024":
+                case "2048x2048":
+                case "2048":
+                    result = 2;
+                    break;
+                case "4096x2048":
+                case "4096x4096":
+                case "4096":
+                    result = 3;
+                    break;
+                default:
+                    result = -1;
+                    break;
+            }
+            return result;
+        }
+
+        private bool IsPilot(string Name)
+        {
+            if (Name.Contains("Stim_") || Name.Contains("PhaseShift_") || Name.Contains("HoloPilot_") || Name.Contains("PulseBlade_") || Name.Contains("Grapple_") || Name.Contains("AWall_") || Name.Contains("Cloak_") || Name.Contains("Public_"))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        string current_skin_folder = null;
+
+        public void Install_Skin_From_Path(string Zip_Path)
+        {
+
+            try
+            {
+                User_Settings_Vars = Main.User_Settings_Vars;
+                SnackBar = Main.Snackbar;
+                if (ZipHasFile(".dds", Zip_Path))
+                {
+
+
+                    if (Directory.Exists(User_Settings_Vars.NorthstarInstallLocation + @"Skins_Unpack_Mod_MNGR"))
+                    {
+
+                        current_skin_folder = User_Settings_Vars.NorthstarInstallLocation + @"Skins_Unpack_Mod_MNGR";
+                        ZipFile zipFile = new ZipFile(Zip_Path);
+
+                        zipFile.ExtractAll(User_Settings_Vars.NorthstarInstallLocation + @"Skins_Unpack_Mod_MNGR", Ionic.Zip.ExtractExistingFileAction.OverwriteSilently);
+                        //Skin_Path = Current_Install_Folder + @"\Skins_Unpack_Mod_MNGR";
+
+                    }
+                    else
+                    {
+
+                        Directory.CreateDirectory(User_Settings_Vars.NorthstarInstallLocation + @"Skins_Unpack_Mod_MNGR");
+                        current_skin_folder = User_Settings_Vars.NorthstarInstallLocation + @"Skins_Unpack_Mod_MNGR";
+
+                        ZipFile zipFile = new ZipFile(Zip_Path);
+
+                        zipFile.ExtractAll(User_Settings_Vars.NorthstarInstallLocation + @"Skins_Unpack_Mod_MNGR", Ionic.Zip.ExtractExistingFileAction.OverwriteSilently);
+
+                    }
+                }
+                else
+                {
+                    //Send_Error_Notif(GetTextResource("NOTIF_ERROR_SKIN_INCOMPATIBLE"));
+                    Log.Error("Issue With Skin Install!");
+
+
+                }
+
+
+
+
+                //Block Taken From Skin Tool
+                List<string> FileList = new List<string>();
+                if (current_skin_folder != null)
+                {
+                    FindSkinFiles(current_skin_folder, FileList, ".dds");
+
+                }
+                else
+                {
+                    Log.Error("Issue With Skin Install!");
+
+                    return;
+                }
+
+
+
+                var matchingvalues = FileList.FirstOrDefault(stringToCheck => stringToCheck.Contains(""));
+                for (int i = 0; i < FileList.Count; i++)
+                {
+                    if (FileList[i].Contains("col")) // (you use the word "contains". either equals or indexof might be appropriate)
+                    {
+
+                        //Console.WriteLine(i);
+                    }
+                }
+                int DDSFolderExist = 0;
+
+                DDSFolderExist = FileList.Count;
+                if (DDSFolderExist == 0)
+                {
+                    Log.Error("Could Not Find Skins in Zip??");
+                }
+
+                foreach (var i in FileList)
+                {
+                    int FolderLength = current_skin_folder.Length;
+                    String FileString = i.Substring(FolderLength);
+                    int imagecheck = ImageCheck(i);
+                    //the following code is waiting for the custom model
+                    Int64 toseek = 0;
+                    int tolength = 0;
+                    int totype = 0;
+                    switch (GetTextureType(i))
+                    {
+                        case 1://Weapon
+                               //Need to recode weapon part
+
+                            VTOL.Titanfall2_Requisite.WeaponData.WeaponDataControl wdc = new VTOL.Titanfall2_Requisite.WeaponData.WeaponDataControl(i, imagecheck);
+                            toseek = Convert.ToInt64(wdc.FilePath[0, 1]);
+                            tolength = Convert.ToInt32(wdc.FilePath[0, 2]);
+                            totype = Convert.ToInt32(wdc.FilePath[0, 3]);
+
+
+                            break;
+                        case 2://Pilot
+                            VTOL.Titanfall2_Requisite.PilotDataControl.PilotDataControl pdc = new VTOL.Titanfall2_Requisite.PilotDataControl.PilotDataControl(i, imagecheck);
+                            toseek = Convert.ToInt64(pdc.Seek);
+                            tolength = Convert.ToInt32(pdc.Length);
+                            totype = Convert.ToInt32(pdc.SeekLength);
+                            break;
+                        case 3://Titan
+                            VTOL.Titanfall2_Requisite.TitanDataControl.TitanDataControl tdc = new VTOL.Titanfall2_Requisite.TitanDataControl.TitanDataControl(i, imagecheck);
+                            toseek = Convert.ToInt64(tdc.Seek);
+                            tolength = Convert.ToInt32(tdc.Length);
+                            totype = Convert.ToInt32(tdc.SeekLength);
+                            break;
+
+                        default:
+                            Log.Error("Issue With Skin Install!");
+
+                            break;
+                    }
+
+
+                    StarpakControl sc = new StarpakControl(i, toseek, tolength, totype, User_Settings_Vars.NorthstarInstallLocation, "Titanfall2", imagecheck, "Replace");
+
+
+                }
+
+                FileList.Clear();
+                DirectoryInfo di = new DirectoryInfo(current_skin_folder);
+                FileInfo[] files = di.GetFiles();
+
+
+                Main.Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
+                Main.Snackbar.Show("SUCCESS!", VTOL.Resources.Languages.Language.Page_Skins_Install_Skin_From_Path_TheSkin + Path.GetFileNameWithoutExtension(Zip_Path) + VTOL.Resources.Languages.Language.Page_Skins_Install_Skin_From_Path_HasBeenInstalled);
+
+                foreach (FileInfo file in files)
+                {
+                    file.Delete();
+                }
+                foreach (DirectoryInfo dir_ in di.GetDirectories())
+                {
+                    dir_.Delete(true);
+                }
+                Directory.Delete(current_skin_folder);
+
+
+
+
+
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+
+            }
+
+        }
+
+        private void FindSkinFiles(string FolderPath, List<string> FileList, string FileExtention)
+        {
+            try
+            {
+                DirectoryInfo di = new DirectoryInfo(FolderPath);
+                FileSystemInfo[] fi = di.GetFileSystemInfos();
+                foreach (var i in fi)
+                {
+                    if (i is DirectoryInfo)
+                    {
+                        FindSkinFiles(i.FullName, FileList, FileExtention);
+                    }
+                    else
+                    {
+                        if (i.Extension == FileExtention)
+                        {
+                            FileList.Add(i.FullName);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+
+            }
+        }
+
+
+
+
+        private static int GetTextureType(string Name)
+        {
+            if (Name != null && Name.Length == 0)
+            {
+                return 0;
+            }
+            if (Name.Contains("Stim_") || Name.Contains("PhaseShift_") || Name.Contains("HoloPilot_")
+            || Name.Contains("PulseBlade_") || Name.Contains("Grapple_") || Name.Contains("AWall_")
+            || Name.Contains("Cloak_") || Name.Contains("Pilot_"))
+            {
+                return 2;
+            }
+            else if (Name.Contains("Titan_"))
+            {
+                return 3;
+            }
+            else
+            {
+                return 1;
+            }
+
+        }
+
+        private static MainWindow GetMainWindow()
+        {
+            MainWindow mainWindow = null;
+
+            foreach (Window window in Application.Current.Windows)
+            {
+                Type type = typeof(MainWindow);
+                if (window != null && window.DependencyObjectType.Name == type.Name)
+                {
+                    mainWindow = (MainWindow)window;
+                    if (mainWindow != null)
+                    {
+                        break;
+                    }
+                }
+            }
+
+
+            return mainWindow;
+
+        }
+
+
+    }
     /// <summary>
     /// Interaction logic for Page_Thunderstore.xaml
     /// </summary>
@@ -1477,10 +1788,11 @@ namespace VTOL.Pages
                                     }
 
                                 }
-                                else
+                                else if(Skin_Install == true)
                                 {
                                     var ext = new List<string> { "zip" };
                                     var myFiles = Directory.EnumerateFiles(Destination, "*.*", SearchOption.AllDirectories).Where(s => ext.Contains(Path.GetExtension(s).TrimStart('.').ToLowerInvariant()));
+
                                     Install_Skin_Async_Starter(myFiles);
                                     DispatchIfNecessary(() =>
                                     {
@@ -1493,41 +1805,6 @@ namespace VTOL.Pages
 
 
 
-                                //if (Destination == null)
-                                //{
-                                //    if (Skin_Install == false)
-                                //    {
-                                //        //Send_Error_Notif(GetTextResource("NOTIF_ERROR_MOD_INCOMPATIBLE"));
-                                //        //Send_Warning_Notif(GetTextResource("NOTIF_WARN_SUGGEST_DISABLE_MOD"));
-                                //    }
-                                //    return;
-                                //}
-                                //else
-                                //{
-                                //    if (Skin_Install == false)
-                                //    {
-                                //        //Send_Info_Notif(GetTextResource("NOTIF_INFO_GROUP_UNPACK_UNPACKED") + "  " + Path.GetFileName(Target_Zip) + "  " + GetTextResource("NOTIF_INFO_GROUP_UNPACK_TO") + "  " + Destination);
-                                //        //Send_Success_Notif(GetTextResource("NOTIF_SUCCESS_INSTALLED_DASH") + LAST_INSTALLED_MOD);
-                                //        //Completed_Operation = true;
-
-                                //    }
-                                //}
-
-                                //DispatchIfNecessary(() => {
-                                //    if (Progress_Bar != null)
-                                //    {
-                                //        Progress_Bar.Value = 0;
-                                //    }
-                                //    if (Skin_Install == false)
-                                //    {
-                                //        SnackBar.Title = "SUCCESS";
-                                //        SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
-                                //        SnackBar.Message = "The Mod " + Path.GetFileNameWithoutExtension(Target_Zip).Replace("_", " ") + " has been Downloaded and Installed";
-                                //        SnackBar.Show();
-
-                                //    }
-
-                                //});
 
 
                             }
@@ -1703,17 +1980,22 @@ namespace VTOL.Pages
         }
         async Task Install_Skin_Async_Starter(IEnumerable<string> in_)
         {
+          
             await Task.Run(async () => //Task.Run automatically unwraps nested Task types!
-            {        
-                
-                Page_Skins Page_Skins = new Page_Skins();
+            {
 
-               
+
                 foreach (string i in in_)
                 {
-                    await Page_Skins.Install_Skin_From_Path(i);
-                    Console.WriteLine("installed");
+                    DispatchIfNecessary(() =>
+                    {
+                        Skin_Processor_ Skinp = new Skin_Processor_();
 
+
+                         Skinp.Install_Skin_From_Path(i);
+
+                      
+                    });
                     await Task.Delay(1500);
 
 
@@ -2009,20 +2291,7 @@ namespace VTOL.Pages
        
         private void canMain_IsVisibleChanged(object sender, RoutedEventArgs e)
         {
-            if (sender.GetType() == typeof(Canvas))
-            {
-                Canvas Canvas = (Canvas)sender;
-                if (Canvas.IsVisible == true)
-                {
-                    TextBlock TextBlock = FindVisualChild<TextBlock>(Canvas);
-                    if (MeasureText(TextBlock.Text, TextBlock.FontFamily, TextBlock.FontStyle, TextBlock.FontWeight, TextBlock.FontStretch, TextBlock.FontSize).Width < TextBlock.Width)
-                    {
-
-                       // Auto_Scroll_Description(Canvas, TextBlock);
-
-                    }
-                }
-            }
+          
         }
     }
         

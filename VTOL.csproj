@@ -603,7 +603,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Resources\Languages\Language.de-DE.resx">
+    <EmbeddedResource Update="Resources\Languages\Language.de.resx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\Languages\Language.fr.resx">

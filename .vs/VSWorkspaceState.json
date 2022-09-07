@@ -1,8 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Pages"
+    "\\Pages",
+    "\\Resources",
+    "\\Resources\\Languages"
   ],
-  "SelectedNode": "\\Pages\\Page_Tools.xaml.cs",
+  "SelectedNode": "\\Resources\\Languages\\Language.resx",
   "PreviewInSolutionExplorer": false
 }

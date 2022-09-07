@@ -103,6 +103,7 @@ namespace VTOL.Pages
         private string Auto_exec = "";
         private bool Started_Selection = false;
         private string _filePath;
+        bool init_ = false;
         Snackbar SnackBar;
         public Page_Server()
         {
@@ -902,7 +903,7 @@ namespace VTOL.Pages
                                     if (ARG != null && ARG != "" && ARG == "CONVAR")
                                     {
                                         Write_convar_To_File(name, val, Description, true, Convar_File);
-                                        GC.Collect();
+
                                         Text_Box.Foreground = Brushes.White;
 
                                     }
@@ -930,7 +931,7 @@ namespace VTOL.Pages
                                         Write_convar_To_File(name, val, Description, true, Convar_File);
                                         Text_Box.Foreground = Brushes.White;
 
-                                        GC.Collect();
+
 
                                     }
                                     else
@@ -989,7 +990,7 @@ namespace VTOL.Pages
 
                                         Write_Startup_Arg_To_File(name, val, true, true, Ns_dedi_File);
                                         Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow;
-                                        GC.Collect();
+
                                         Text_Box.Foreground = Brushes.White;
 
 
@@ -1558,7 +1559,7 @@ namespace VTOL.Pages
             {
 
                 //Send_Error_Notif(GetTextResource("NOTIF_ERROR_CANNOT_FIND_FOLDER"));
-                //GC.Collect();
+                //
 
 
             }
@@ -1618,7 +1619,6 @@ namespace VTOL.Pages
                     Convar_File = GetFile(User_Settings_Vars.NorthstarInstallLocation, "autoexec_ns_server.cfg").First();
                     Ns_dedi_File = GetFile(User_Settings_Vars.NorthstarInstallLocation, "ns_startup_args_dedi.txt").First();
                     NS_Startup = GetFile(User_Settings_Vars.NorthstarInstallLocation, "ns_startup_args.txt").First();
-
 
                 }
                 if (Convar_File != null || Ns_dedi_File != null)
@@ -1878,7 +1878,7 @@ namespace VTOL.Pages
 
                     Load_Files.Content = "Reload Arguments";
                     Check_Args();
-
+                    init_ = true;
                     //Send_Success_Notif("Imported and Applied!");
                 }
                 else
@@ -2265,57 +2265,61 @@ namespace VTOL.Pages
         {
             try
             {
-
-                if (File.Exists(User_Settings_Vars.NorthstarInstallLocation + @"ns_startup_args_dedi.txt"))
+                if (init_ == true)
                 {
-                    saveAsyncFile(Arg_Box_Dedi.Text, User_Settings_Vars.NorthstarInstallLocation + @"ns_startup_args_dedi.txt", false, false);
+                    if (File.Exists(User_Settings_Vars.NorthstarInstallLocation + @"ns_startup_args_dedi.txt"))
+                    {
+                        saveAsyncFile(Arg_Box_Dedi.Text, GetFile(User_Settings_Vars.NorthstarInstallLocation, "ns_startup_args_dedi.txt").FirstOrDefault(), false, false);
 
-                   
+
+                    }
+                    else
+                    {
+                        SnackBar.Appearance = ControlAppearance.Danger;
+                        SnackBar.Title = "ERROR";
+                        SnackBar.Message = VTOL.Resources.Languages.Language.Page_Server_OnKeyDownHandler_Dedi_Arg_AutoSaveFailed;
+                        SnackBar.Show();
+
+
+                    }
+
                 }
-                else
-                {
-                    SnackBar.Appearance = ControlAppearance.Danger;
-                    SnackBar.Title = "ERROR";
-                    SnackBar.Message = VTOL.Resources.Languages.Language.Page_Server_OnKeyDownHandler_Dedi_Arg_AutoSaveFailed;
-                    SnackBar.Show();
-
-
-                }
-
             }
             catch (Exception ex)
             {
+
                 SnackBar.Appearance = ControlAppearance.Danger;
                 SnackBar.Title = "ERROR";
                 SnackBar.Message = VTOL.Resources.Languages.Language.Page_Server_OnKeyDownHandler_Dedi_Arg_AutoSaveFailed;
                 SnackBar.Show();
 
             }
-
         }
+        
 
         private void Arg_Box_LostFocus(object sender, RoutedEventArgs e)
         {
             try
             {
 
-
-                if (File.Exists(NS_Startup))
+                if (init_ == true)
                 {
-                    saveAsyncFile(Arg_Box.Text, NS_Startup, false, false);
+                    if (File.Exists(NS_Startup.Trim()))
+                    {
+                        saveAsyncFile(Arg_Box.Text, GetFile(User_Settings_Vars.NorthstarInstallLocation, "ns_startup_args.txt").FirstOrDefault(), false, false);
 
 
+                    }
+                    else
+                    {
+                        SnackBar.Appearance = ControlAppearance.Danger;
+                        SnackBar.Title = "ERROR";
+                        SnackBar.Message = VTOL.Resources.Languages.Language.Page_Server_OnKeyDownHandler_Dedi_Arg_AutoSaveFailed;
+                        SnackBar.Show();
+
+
+                    }
                 }
-                else
-                {
-                    SnackBar.Appearance = ControlAppearance.Danger;
-                    SnackBar.Title = "ERROR";
-                    SnackBar.Message = VTOL.Resources.Languages.Language.Page_Server_OnKeyDownHandler_Dedi_Arg_AutoSaveFailed;
-                    SnackBar.Show();
-
-
-                }
-
             }
             catch (Exception ex)
             {

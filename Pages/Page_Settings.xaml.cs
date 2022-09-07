@@ -60,10 +60,43 @@ namespace VTOL.Pages
             InitializeComponent();
             User_Settings_Vars = Main.User_Settings_Vars;
             DocumentsFolder = Main.DocumentsFolder;
+            Language Lang = Language.English;
+            if (User_Settings_Vars.Language != null)
+            {
+                switch (User_Settings_Vars.Language)
+                {
+                    case "en":
+                        Lang = Language.English;
 
+                        break;
+                    case "fr":
+                        Lang = Language.French;
+
+                        break;
+                    case "zh":
+                        Lang = Language.Chinese;
+
+                        break;
+                    case "it":
+                        Lang = Language.Italian;
+
+                        break;
+                    case "ko":
+                        Lang = Language.Korean;
+
+                        break;
+
+                    default:
+                        Lang = Language.English;
+
+                        break;
+
+
+                }
+            }
             Settings_ = new PropertyGridDemoModel
             {
-                Language = Language.English,
+                Language = Lang,
                 Master_Server_Url = User_Settings_Vars.MasterServerUrl,
                 Do_Not_Overwrite_Config_Files = Properties.Settings.Default.Backup_arg_Files,
                 Minimize_On_Launch = Properties.Settings.Default.Auto_Close_VTOL_on_Launch,
@@ -112,11 +145,41 @@ namespace VTOL.Pages
             User_Settings_Vars.MasterServerUrl = Settings_.Master_Server_Url;
             Properties.Settings.Default.Auto_Close_VTOL_on_Launch = Settings_.Minimize_On_Launch;
             Properties.Settings.Default.Save();
+            switch (Settings_.Language.ToString())
+            {
+                case "English":
+                    User_Settings_Vars.Language = "en";
 
+                    break;
+                case "French":
+                    User_Settings_Vars.Language = "fr";
+
+                    break;
+                case "Chinese":
+                    User_Settings_Vars.Language = "zh";
+
+                    break;
+                case "Italian":
+                    User_Settings_Vars.Language = "it";
+
+                    break;
+                case "Korean":
+                    User_Settings_Vars.Language = "ko";
+
+                    break;
+              
+                default:
+                    User_Settings_Vars.Language = "en";
+
+                    break;
+
+
+            }
             User_Settings_Vars.Auto_Close_VTOL = Settings_.Minimize_On_Launch;
             User_Settings_Vars.Author = Settings_.Author;
             User_Settings_Vars.Repo = Settings_.Repo;
             User_Settings_Vars.RepoUrl = Settings_.Repo_Url;
+            User_Settings_Vars.Auto_Update_Northstar = Settings_.Auto_Update_Northstar;
             Properties.Settings.Default.Backup_arg_Files = Settings_.Do_Not_Overwrite_Config_Files;
             Properties.Settings.Default.Save();
             string User_Settings_Json_Strings = Newtonsoft.Json.JsonConvert.SerializeObject(User_Settings_Vars);

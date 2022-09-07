@@ -247,7 +247,7 @@
                         <TextBox x:Name="Output_Directory"  Margin="108,1074,377,0" TextWrapping="Wrap" Text="Output Directory" VerticalAlignment="Top" Background="#FF171717" Foreground="White" SelectionTextBrush="White" CaretBrush="White"/>
                         <hc:ProgressButton x:Name="Output_Bt_W_Progress" Height="37" Margin="108,1125,138,0" VerticalAlignment="Top"  BorderBrush="{x:Null}" Content="Create Skin" Padding="0,0,0,0" HorizontalAlignment="Stretch" Click="Output_Bt_W_Progress_Click" Background="#FF383838" ClickMode="Press" />
                         <Label Margin="110,62,0,0" Content="Name" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Height="21" VerticalAlignment="Top" HorizontalAlignment="Left" Width="173" FontSize="14"/>
-                        <Label Margin="494,62,0,0" Content="Drag and Drop or Click to populate the Maps" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Height="21" VerticalAlignment="Top" HorizontalAlignment="Left" Width="414" Padding="0,0,4,4" FontSize="11" Foreground="#97FFFFFF"/>
+                        <Label Margin="0,62,122,0" Content="Drag and Drop or Click to populate the Maps" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Height="21" VerticalAlignment="Top" Padding="0,0,4,4" FontSize="11" Foreground="#97FFFFFF" HorizontalAlignment="Right" Width="414"/>
 
                     </Grid>
                 </hc:ScrollViewer>

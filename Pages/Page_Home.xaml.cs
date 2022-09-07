@@ -51,7 +51,22 @@ namespace VTOL.Pages
     /// Interaction logic for Page_Home.xaml
     /// </summary>
     /// 
-    public class InstalledApplications
+   public static class Utility
+    {
+        static string invalidRegStr;
+
+    public static string MakeValidFileName(this string name)
+    {
+        if (invalidRegStr == null)
+        {
+            var invalidChars = System.Text.RegularExpressions.Regex.Escape(new string(System.IO.Path.GetInvalidFileNameChars()));
+            invalidRegStr = string.Format(@"([{0}]*\.+$)|([{0}]+)", invalidChars);
+        }
+
+        return System.Text.RegularExpressions.Regex.Replace(name, invalidRegStr, "_");
+    }
+}
+public class InstalledApplications
     {
 
         public static string GetApplictionInstallPath(string nameOfAppToFind)
@@ -210,11 +225,12 @@ namespace VTOL.Pages
             User_Settings_Vars = Main.User_Settings_Vars;
             DocumentsFolder = Main.DocumentsFolder;
             SnackBar = Main.Snackbar;
-
+            Current_Install_Folder = User_Settings_Vars.NorthstarInstallLocation;
             DispatcherTimer timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(2);
             timer.Tick += timer_Tick;
             timer.Start();
+            Random random_ = new Random();
 
             LastHourSeries = new SeriesCollection
             {
@@ -223,13 +239,13 @@ namespace VTOL.Pages
                     AreaLimit = -10,
                     Values = new ChartValues<ObservableValue>
                     {
-                        new ObservableValue(30),
-                        new ObservableValue(30),
-                        new ObservableValue(36),
-                        new ObservableValue(32),
-                        new ObservableValue(23),
-                        new ObservableValue(32),
-                        new ObservableValue(23)
+                        new ObservableValue(random_.Next(10,30)),
+                        new ObservableValue(random_.Next(20,50)),
+                        new ObservableValue(random_.Next(20,50)),
+                        new ObservableValue(random_.Next(10,30)),
+                        new ObservableValue(random_.Next(20,50)),
+                        new ObservableValue(random_.Next(20,50)),
+                        new ObservableValue(random_.Next(10,30))
 
                     }
                 }
@@ -489,6 +505,20 @@ namespace VTOL.Pages
             Application.Current.Shutdown();
 
         }
+        public static string returnSafeString(string s)
+        {
+            foreach (char character in Path.GetInvalidFileNameChars())
+            {
+                s = s.Replace(character.ToString(), string.Empty);
+            }
+
+            foreach (char character in Path.GetInvalidPathChars())
+            {
+                s = s.Replace(character.ToString(), string.Empty);
+            }
+
+            return (s);
+        }
         void INIT()
         {
             try
@@ -525,24 +555,40 @@ namespace VTOL.Pages
                 if (User_Settings_Vars != null)
                 {
 
-                    if (User_Settings_Vars.Language != "NODATA")
-                    {
-                        //ChangeLanguageTo(User_Settings_Vars.Language);
-                    }
-                    else
-                    {
-                        //CultureInfo ci = CultureInfo.InstalledUICulture;
-                        //if (ci.TwoLetterISOLanguageName == "zh")
-                        //{
-                        //    ChangeLanguageTo("cn");
-                        //}
-                        //else // this is due to we misused cn and zh. zh is the actual languageName and cn is what we have in file.
-                        //{
-                        //    ChangeLanguageTo(ci.TwoLetterISOLanguageName);
-                        //}
+                    //try
+                    //{
 
-                        //Write_To_Log("\nLanguage Detected was - " + ci.TwoLetterISOLanguageName);
-                    }
+                    //    if (User_Settings_Vars.Language != "NODATA")
+                    //    {
+                    //        CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(User_Settings_Vars.Language);
+                    //        ResourceDictionary dict = new ResourceDictionary();
+                    //        dict.Source = new Uri(@"Resources\Languages\Language." + User_Settings_Vars.Language + ".resx", UriKind.Relative);
+
+                    //        this.Resources.MergedDictionaries.Add(dict);
+
+                    //    }
+                    //    else
+                    //    {
+                          
+                    //        CultureInfo ci = CultureInfo.InstalledUICulture;
+
+                    //        CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(ci.TwoLetterISOLanguageName);
+                    //        ResourceDictionary dict = new ResourceDictionary();
+                    //        dict.Source = new Uri(@"Resources\Languages\Language." + ci.TwoLetterISOLanguageName + ".resx", UriKind.Relative);
+
+                    //        this.Resources.MergedDictionaries.Add(dict);
+                    //    }
+                    //}
+                    //catch (Exception ex)
+                    //{
+                    //    ResourceDictionary dict = new ResourceDictionary();
+                    //    dict.Source = new Uri(@"Resources\Languages\Language.resx", UriKind.Relative);
+
+                    //    this.Resources.MergedDictionaries.Add(dict);
+                    //}
+
+
+
                     Author_Used = User_Settings_Vars.Author;
 
                     Repo_Used = User_Settings_Vars.Repo;
@@ -554,15 +600,16 @@ namespace VTOL.Pages
 
                     MasterServer_URL = User_Settings_Vars.MasterServerUrl;
 
-                    Current_Install_Folder = User_Settings_Vars.NorthstarInstallLocation;
+                    Current_Install_Folder = Path.GetFullPath(User_Settings_Vars.NorthstarInstallLocation);
                     if (!Current_Install_Folder.EndsWith(@"\"))
                     { string fix = Current_Install_Folder + @"\";
                         User_Settings_Vars.NorthstarInstallLocation = fix;
-                        Current_Install_Folder = fix;
+                        Current_Install_Folder = fix.Replace(@"\\", @"\").Replace("/", @"\");
                     }
-                   
-                     
-                    }
+
+                    Current_Install_Folder = Current_Install_Folder;
+
+                }
 
 
 
@@ -577,8 +624,8 @@ namespace VTOL.Pages
                         // Get the file version info for the notepad.
                         FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(Current_Install_Folder + @"NorthstarLauncher.exe");
 
-                            // Print the file name and version number.
-                            Console.WriteLine(myFileVersionInfo.FileVersion);
+                        // Print the file name and version number.
+                        Console.WriteLine(myFileVersionInfo.FileVersion);
                             Current_Ver_ = myFileVersionInfo.FileVersion;
 
                             User_Settings_Vars.CurrentVersion = Current_Ver_;
@@ -588,14 +635,21 @@ namespace VTOL.Pages
                             Main.VERSION_TEXT.Text = "VTOL - " + ProductVersion + " | Northstar Version - " + Current_Ver_.Remove(0, 1);
                             NSExe = Get_And_Set_Filepaths(Current_Install_Folder, "NorthstarLauncher.exe");
                             Main.VERSION_TEXT.Refresh();
-                        if(User_Settings_Vars.Auto_Update_Northstar == true)
+                        Main.User_Settings_Vars = User_Settings_Vars;
+
+                        if (User_Settings_Vars.Auto_Update_Northstar == true)
                         {
                             Check_For_New_Northstar_Install();
 
 
 
                         }
-
+                        string User_Settings_Json_Strings = Newtonsoft.Json.JsonConvert.SerializeObject(User_Settings_Vars);
+                           using (var StreamWriter = new StreamWriter(DocumentsFolder + @"\VTOL_DATA\Settings\User_Settings.Json", false))
+                           {
+                               StreamWriter.WriteLine(User_Settings_Json_Strings);
+                                StreamWriter.Close();
+                           }
                     }
                     else
                         {
@@ -631,12 +685,7 @@ namespace VTOL.Pages
                 }
                 else
                 {
-                    string User_Settings_Json_Strings = Newtonsoft.Json.JsonConvert.SerializeObject(User_Settings_Vars);
-                    using (var StreamWriter = new StreamWriter(DocumentsFolder + @"\VTOL_DATA\Settings\User_Settings.Json", false))
-                    {
-                        StreamWriter.WriteLine(User_Settings_Json_Strings);
-                        StreamWriter.Close();
-                    }
+                   
 
                     Current_Install_Folder = InstalledApplications.GetApplictionInstallPath("Titanfall2");
                     string Path = Auto_Find_And_verify().Replace(@"\\", @"\").Replace("/", @"\");
@@ -665,6 +714,7 @@ namespace VTOL.Pages
 
                             }
                         }
+                        Main.User_Settings_Vars = User_Settings_Vars;
 
                         using (var StreamWriter = new StreamWriter(DocumentsFolder + @"\VTOL_DATA\Settings\User_Settings.Json", false))
                         {
@@ -674,8 +724,10 @@ namespace VTOL.Pages
                     }
                     else
                     {
-                        //    Send_Warning_Notif(GetTextResource("NOTIF_ERROR_INVALID_INSTALL_PATH"));
-                        //    Send_Warning_Notif(GetTextResource("NOTIF_ERROR_NS_BAD_INTEGRITY"));
+                        SnackBar.Appearance = ControlAppearance.Danger;
+                        SnackBar.Title = "WARNING!";
+                        SnackBar.Message = "Invalid Install Path, Please manually locate the correct folder!";
+                        SnackBar.Show();
 
                     }
 
@@ -702,27 +754,6 @@ namespace VTOL.Pages
                     {
 
                         Directory.Delete(Current_Install_Folder + @"Skins_Unpack_Mod_MNGR", true);
-                        GC.Collect();
-                    }
-                    catch (Exception ex)
-                    {
-                        //Write_To_Log(ErrorManager(ef));
-                        Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-                        var log = new LoggerConfiguration()
-     .WriteTo.File(DocumentsFolder + @"\VTOL_DATA\Logs\log.txt", rollingInterval: RollingInterval.Day)
-     .CreateLogger();
-                        //Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_CONTACT"));
-                    }
-
-
-
-
-                }
-                if (Directory.Exists(Current_Install_Folder + @"Thumbnails"))
-                {
-                    try
-                    {
-                        Directory.Delete(Current_Install_Folder + @"Thumbnails", true);
                     }
                     catch (Exception ex)
                     {
@@ -730,14 +761,13 @@ namespace VTOL.Pages
                         var log = new LoggerConfiguration()
      .WriteTo.File(DocumentsFolder + @"\VTOL_DATA\Logs\log.txt", rollingInterval: RollingInterval.Day)
      .CreateLogger();
-
-                        //    Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_CONTACT"));
-                        //    Write_To_Log(ErrorManager(ef));
-
                     }
 
-                }
 
+
+
+                }
+                
 
                 if (Directory.Exists(@"C:\ProgramData\VTOL_DATA"))
                 {
@@ -794,27 +824,6 @@ namespace VTOL.Pages
                    
                 }
 
-               
-
-                 
-
-                
-
-
-
-                //if (Properties.Settings.Default.Version != "NODATA" || Properties.Settings.Default.Version != "")
-                //{
-                //    this.Main.Title = String.Format("VTOL {0}", version + "  |  Northstar Version - " + Properties.Settings.Default.Version.Remove(0, 1));
-
-
-                //}
-                //else
-                //{
-                //    this.Main.Title = String.Format("VTOL {0}", version);
-
-
-
-                //}
 
                 if (NS_Installed == true)
                 {
