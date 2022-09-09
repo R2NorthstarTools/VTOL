@@ -1,6 +1,10 @@
 # VTOL
 
 <a href="https://github.com/BigSpice/VTOL/releases/latest/download/VTOL_Installer.msi"><img src="https://user-images.githubusercontent.com/23240514/166419664-53e775d8-fe0d-4508-be5c-1361de70725e.png"></a><br>
+<p align="center">
+<a href="https://drive.google.com/file/d/1sbDzGgldvQpkux9N1v9UaS9vH23QSG0l/view?usp=sharing"><img src="https://user-images.githubusercontent.com/23240514/189295456-52b2bfd1-1759-4c20-931c-ad78b1537f45.png" width="200" alignment="center"></a><br>
+</p>
+<h1 align="center">Click To download the latest Portable Release</h1><br><br><br><br>
 
 Users on the latest release:
 
