@@ -172,6 +172,9 @@ Simply click "Yes" and the application will attempt to fix the issue.
 
 ![image](https://user-images.githubusercontent.com/23240514/150570184-6cf29ee6-40a5-4517-839c-3e2dcddcf637.png)
 
+Please Follow this Link to Deeper Read into The error Code should it fail to clear - https://aka.ms/dotnet/app-launch-failed
+![image](https://user-images.githubusercontent.com/23240514/189293562-24ff7a7d-922e-4f6f-b325-c56e8352f36f.png)
+
 
 Thank you to @ConnorDoesDev and @MysteriousRSA for the massive support in making the application and #Readme more readable.
 
