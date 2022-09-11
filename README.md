@@ -54,6 +54,9 @@ Total Downloads Since First Release:
 ### Contribute
 * _Suggestions/bug reports are highly appreciated. Please create a new [issue](https://github.com/BigSpice/VTOL/issues/new) and fill out the fields._
 ### Installation and updates
+
+* PLEASE USE THE PORTABLE IF THE INSTALLER FAILS
+
 * Install this application by downloading and running the latest [release from here](https://github.com/BigSpice/VTOL/releases)
    * ``Download the .msi package``
 ![image](https://user-images.githubusercontent.com/23240514/166421076-ef637226-a61b-4904-9fae-88f1298d4051.png)
