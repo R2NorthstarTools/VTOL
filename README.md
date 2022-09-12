@@ -1,6 +1,9 @@
 # VTOL
 
 <a href="https://github.com/BigSpice/VTOL/releases/latest/download/VTOL_Installer.msi"><img src="https://user-images.githubusercontent.com/23240514/166419664-53e775d8-fe0d-4508-be5c-1361de70725e.png"></a><br>
+
+<h1  align="center">PLEASE USE THE PORTABLE IF THE INSTALLER FAILS</h1><br>
+
 <p align="center">
 <a href="https://bit.ly/3B0whP3"><img src="https://user-images.githubusercontent.com/23240514/189295456-52b2bfd1-1759-4c20-931c-ad78b1537f45.png" width="200" alignment="center"></a><br>
 </p>
@@ -55,7 +58,6 @@ Total Downloads Since First Release:
 * _Suggestions/bug reports are highly appreciated. Please create a new [issue](https://github.com/BigSpice/VTOL/issues/new) and fill out the fields._
 ### Installation and updates
 
-* PLEASE USE THE PORTABLE IF THE INSTALLER FAILS
 
 * Install this application by downloading and running the latest [release from here](https://github.com/BigSpice/VTOL/releases)
    * ``Download the .msi package``
