@@ -15,12 +15,12 @@ namespace VTOL
     {
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            for (int i = 0; i != e.Args.Length; ++i)
-            {
+            //for (int i = 0; i != e.Args.Length; ++i)
+            //{
                
-                    Console.WriteLine("Ahh i cant see the args " + e.Args);
+            //        Console.WriteLine("Ahh i cant see the args " + e.Args);
                 
-            }
+            //}
 
         }
     }

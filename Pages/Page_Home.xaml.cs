@@ -436,9 +436,9 @@ public class InstalledApplications
         {
            await  Install_NS_METHOD();
 
-            NSExe = Get_And_Set_Filepaths(Current_Install_Folder, "NorthstarLauncher.exe");
             if (File.Exists(Current_Install_Folder + @"NorthstarLauncher.exe"))
             {
+                NSExe = Get_And_Set_Filepaths(Current_Install_Folder, "NorthstarLauncher.exe");
 
                 // Get the file version info for the notepad.
                 FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(Current_Install_Folder + @"NorthstarLauncher.exe");
@@ -607,7 +607,18 @@ public class InstalledApplications
                         Current_Install_Folder = fix.Replace(@"\\", @"\").Replace("/", @"\");
                     }
 
-                    Current_Install_Folder = Current_Install_Folder;
+
+                }
+                else
+                {
+                    Current_Install_Folder = Path.GetFullPath(User_Settings_Vars.NorthstarInstallLocation);
+                    if (!Current_Install_Folder.EndsWith(@"\"))
+                    {
+                        string fix = Current_Install_Folder + @"\";
+                        User_Settings_Vars.NorthstarInstallLocation = fix;
+                        Current_Install_Folder = fix.Replace(@"\\", @"\").Replace("/", @"\");
+                    }
+
 
                 }
 
@@ -2484,7 +2495,7 @@ public class InstalledApplications
                 Updater Update = new Updater(User_Settings_Vars.Author, User_Settings_Vars.Repo);
                 Update.Force_Version = User_Settings_Vars.CurrentVersion;
                 Update.Force_Version_ = true;
-                if (Update.CheckForUpdate())
+                if (Update.CheckForUpdate(true))
                 {
                    
 

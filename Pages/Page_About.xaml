@@ -5,6 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:VTOL.Pages"
       mc:Ignorable="d" 
+            xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
+
       KeepAlive="True"
       d:DesignHeight="670" d:DesignWidth="1148"
       Title="Page_About">
@@ -23,7 +25,7 @@
 
         <Label Content="About VTOL and Documentation On its Use" Margin="50,0,0,573" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="410"/>
         <Label Content="ABOUT" Margin="50,0,357,594" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Background="{x:Null}" Foreground="White" FontSize="22" FontWeight="Bold" Height="28" VerticalAlignment="Bottom"/>
-        <RichTextBox x:Name="About_BOX" Margin="50,116,50,0" Background="#FF101010" Height="444" VerticalAlignment="Top" BorderBrush="#FF101010" SelectionTextBrush="{x:Null}" SelectionBrush="#FF101010" CaretBrush="#FF101010" AutomationProperties.HelpText="Log Area" FontFamily="Segoe UI" OverridesDefaultStyle="False">
+        <!--<RichTextBox x:Name="About_BOX" Margin="50,116,50,0" Background="#FF101010" Height="444" VerticalAlignment="Top" BorderBrush="#FF101010" SelectionTextBrush="{x:Null}" SelectionBrush="#FF101010" CaretBrush="#FF101010" AutomationProperties.HelpText="Log Area" FontFamily="Segoe UI" OverridesDefaultStyle="False">
             <FlowDocument>
                 <Paragraph>
                     <Run Text="RichTextBox"/>
@@ -31,7 +33,9 @@
                 </Paragraph>
 
             </FlowDocument>
-        </RichTextBox>
+        </RichTextBox>-->
+        <wv2:WebView2 Margin="50,113,50,105" Name="Readme_Page" IsHitTestVisible="False" Source="https://github.com/BigSpice/VTOL"  />
+
         <ui:Button x:Name="Cofigure" Content="Configure Updates" Height="45" Margin="182,590,594,0" VerticalAlignment="Top" Icon="Settings32" HorizontalAlignment="Stretch" Click="Button_Click" Background="#FF383838"/>
         <ui:Button x:Name="Check" Content="Check For Update" Height="45" Margin="0,590,182,0" VerticalAlignment="Top" Icon="DatabaseSearch24" HorizontalAlignment="Right" Width="372" Click="Check_Click" Background="#FF383838"/>
     </Grid>

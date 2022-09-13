@@ -54,7 +54,6 @@ namespace VTOL
 
 
 
-            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
 
 
             if (Directory.Exists(DocumentsFolder))
@@ -99,6 +98,7 @@ namespace VTOL
             }
             else
             {
+                MessageBox.Show("VTOL SYSTEMS FAILED TO FIND YOUR DOCUMENTS FOLDER");
                 Application.Current.Shutdown();
 
             }
@@ -130,13 +130,7 @@ namespace VTOL
 
 
         }
-        static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
-        {
-            BugsRadar_.SendException((e.ExceptionObject as Exception));
-
-            // Log the exception, display it, etc
-            Log.Error((e.ExceptionObject as Exception), $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-        }
+      
         public static void RegisterUriScheme()
         {
             using (var key = Registry.CurrentUser.CreateSubKey("SOFTWARE\\Classes\\" + UriScheme))

@@ -103,7 +103,7 @@ namespace VTOL.Pages
         private string Auto_exec = "";
         private bool Started_Selection = false;
         private string _filePath;
-        bool init_ = false;
+         public bool init_ = false;
         Snackbar SnackBar;
         public Page_Server()
         {
@@ -1669,8 +1669,11 @@ namespace VTOL.Pages
             }
         private void Load_Files_Click(object sender, RoutedEventArgs e)
         {
+            init_ = true;
+
             try
             {
+
                 Load_Files_();
 
             }
@@ -1693,8 +1696,11 @@ namespace VTOL.Pages
         }
         private void Import_Server_Config_Click(object sender, RoutedEventArgs e)
         {
+            init_ = true;
+
             try
             {
+
                 string zipPath = null;
                 OpenFileDialog openFileDialog = new OpenFileDialog();
                 openFileDialog.Filter = "Zip files (*.zip)|*.zip|All files (*.*)|*.*";
@@ -2304,9 +2310,9 @@ namespace VTOL.Pages
 
                 if (init_ == true)
                 {
-                    if (File.Exists(NS_Startup.Trim()))
+                    if (File.Exists(NS_Startup))
                     {
-                        saveAsyncFile(Arg_Box.Text, GetFile(User_Settings_Vars.NorthstarInstallLocation, "ns_startup_args.txt").FirstOrDefault(), false, false);
+                        saveAsyncFile(Arg_Box.Text, NS_Startup, false, false);
 
 
                     }

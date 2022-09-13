@@ -2,10 +2,10 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows10.0.22621.0</TargetFramework>
+    <TargetFramework>net6.0-windows10.0.17763.0</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
-    <Platforms>AnyCPU;x64</Platforms>
+    <Platforms>AnyCPU;x64;x86</Platforms>
 	<UseWindowsForms>true</UseWindowsForms>
     <TargetFrameworks></TargetFrameworks>
     <DebugType>embedded</DebugType>
@@ -14,15 +14,15 @@
     <StartupObject>VTOL.App</StartupObject>
 	  <PublishSingleFile>true</PublishSingleFile>
 	  <IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
-	  <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
+	  <SupportedOSPlatformVersion>8.0</SupportedOSPlatformVersion>
 	  <ApplicationIcon>Resources\Icons\Main_UI\Northstar-512.ico</ApplicationIcon>
 	  <GenerateDocumentationFile>True</GenerateDocumentationFile>
 	  <RepositoryUrl>https://github.com/BigSpice/VTOL</RepositoryUrl>
 	  <RepositoryType>git</RepositoryType>
 	  <PackageTags>mod;installer;modmanager;northstar-client;titanfall2</PackageTags>
-	  <AssemblyVersion>2.0.0</AssemblyVersion>
-	  <FileVersion>2.0.0</FileVersion>
-	  <Version>2.0.0</Version>
+	  <AssemblyVersion>2.0.1</AssemblyVersion>
+	  <FileVersion>2.0.1</FileVersion>
+	  <Version>2.0.1</Version>
 	  <EnableNETAnalyzers>False</EnableNETAnalyzers>
 	  <ErrorReport>none</ErrorReport>
 
@@ -215,14 +215,13 @@
 
   <ItemGroup>
     <PackageReference Include="AltoHttp" Version="1.5.2" />
-    <PackageReference Include="Aspose.Zip" Version="22.7.0" />
+    <PackageReference Include="Aspose.Zip" Version="22.8.0" />
     <PackageReference Include="BCnEncoder.Net" Version="2.1.0" />
     <PackageReference Include="BCnEncoder.Net.ImageSharp" Version="1.1.1" />
     <PackageReference Include="BugsRadar" Version="1.0.0.1" />
     <PackageReference Include="ByteSize" Version="2.1.1" />
     <PackageReference Include="DotNetZip" Version="1.16.0" />
-    <PackageReference Include="Downloader" Version="2.3.7" />
-    <PackageReference Include="Enterwell.Clients.Wpf.Notifications" Version="1.4.2" />
+    <PackageReference Include="Downloader" Version="2.3.8" />
     <PackageReference Include="FluentScheduler" Version="5.5.1" />
     <PackageReference Include="HandyControls" Version="3.4.2" />
     <PackageReference Include="Hangfire" Version="1.7.31" />
@@ -230,7 +229,8 @@
     <PackageReference Include="Json.Net" Version="1.0.33" />
     <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
     <PackageReference Include="Magick.NET-Q16-AnyCPU" Version="12.1.0" />
-    <PackageReference Include="Microsoft.Build" Version="17.2.0" />
+    <PackageReference Include="Microsoft.Build" Version="17.3.1" />
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.1343.22" />
     <PackageReference Include="MSBuild.Microsoft.VisualStudio.Web.targets" Version="14.0.0.3" />
     <PackageReference Include="NBug" Version="1.2.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
@@ -244,19 +244,19 @@
     <PackageReference Include="Prism.Wpf" Version="8.1.97" />
     <PackageReference Include="Serilog" Version="2.12.0-dev-01479" />
     <PackageReference Include="Serilog.Settings.Configuration" Version="3.3.0" />
-    <PackageReference Include="Serilog.Sinks.Console" Version="4.0.1" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="4.1.0" />
     <PackageReference Include="Serilog.Sinks.FastConsole" Version="2.1.0" />
     <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
     <PackageReference Include="SixLabors.ImageSharp" Version="2.1.3" />
     <PackageReference Include="Soluling" Version="1.0.52" />
-    <PackageReference Include="Syncfusion.SfImageEditor.WPF" Version="20.2.0.45" />
-    <PackageReference Include="Syncfusion.SfSkinManager.WPF" Version="20.2.0.45" />
+    <PackageReference Include="Syncfusion.SfImageEditor.WPF" Version="20.2.0.48" />
+    <PackageReference Include="Syncfusion.SfSkinManager.WPF" Version="20.2.0.48" />
     <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
     <PackageReference Include="System.Management" Version="6.0.0" />
     <PackageReference Include="System.Threading.Tasks.Dataflow" Version="6.0.0" />
     <PackageReference Include="Walterlv.Windows.Interop" Version="7.3.1" />
     <PackageReference Include="WPF-UI" Version="2.0.2" />
-    <PackageReference Include="XamlAnimatedGif" Version="2.0.2" />
+    <PackageReference Include="XamlAnimatedGif" Version="2.0.3" />
   </ItemGroup>
 
   <ItemGroup>

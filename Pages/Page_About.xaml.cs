@@ -34,7 +34,7 @@ namespace VTOL.Pages
 
         async Task Set_About()
         {
-            About_BOX.IsReadOnly = true;
+
             Paragraph paragraph = new Paragraph();
             SnackBar = Main.Snackbar;
 
@@ -83,15 +83,9 @@ Big Thanks to -
 @themoonisacheese
 @xamionex
 Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/Ju1cy ";
-            About_BOX.Document.Blocks.Clear();
-            Run run = new Run(Text);
-            paragraph.Inlines.Add(run);
-            About_BOX.Document.Blocks.Add(paragraph);
 
 
-
-
-
+           
 
 
 

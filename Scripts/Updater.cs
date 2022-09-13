@@ -273,7 +273,7 @@ namespace VTOL
         /// <returns>True if there is a new version</returns>
         ///  <exception cref="NullReferenceException">Thrown when the Repository is null</exception>
         ///  <exception cref="FormatException">Thrown when the version was in a invalid format</exception>
-        public bool CheckForUpdate()
+        public bool CheckForUpdate(bool custom = false)
         {
             GetRepository();
 
@@ -290,22 +290,41 @@ namespace VTOL
             else
             {
 
-                currentVersion = Version_.ConvertToVersion("v"+Assembly.GetEntryAssembly().GetName().Version.ToString());
+                currentVersion = Version_.ConvertToVersion("v" + Assembly.GetEntryAssembly().GetName().Version.ToString());
                 newestVersion = Version_.ConvertToVersion(repository.TagName);
 
 
             }
-
-
-            if (currentVersion < newestVersion && (Convert.ToInt32(currentVersion.ToString().Replace(".","")) < Convert.ToInt32(newestVersion.ToString().Replace(".", ""))))
+            try { 
+            if (custom == true)
             {
 
-                UpdateAvailable?.Invoke(this, new VersionEventArgs(newestVersion, currentVersion));
-                State = UpdaterState.Idle;
-                return true;
-            }
 
-            State = UpdaterState.Idle;
+                if (currentVersion < newestVersion && (Convert.ToInt32(currentVersion.ToString().Replace(".", "")) < Convert.ToInt32(newestVersion.ToString().Replace(".", ""))))
+                {
+
+                    UpdateAvailable?.Invoke(this, new VersionEventArgs(newestVersion, currentVersion));
+                    State = UpdaterState.Idle;
+                    return true;
+                }
+            }
+            else
+            {
+                if (currentVersion < newestVersion)
+                {
+
+                    UpdateAvailable?.Invoke(this, new VersionEventArgs(newestVersion, currentVersion));
+                    State = UpdaterState.Idle;
+                    return true;
+                }
+
+            }
+        }
+             catch (Exception ex)
+            {
+            return false;
+            }
+    State = UpdaterState.Idle;
             return false;
         }
 
