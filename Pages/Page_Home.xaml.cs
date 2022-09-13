@@ -436,7 +436,7 @@ public class InstalledApplications
         {
            await  Install_NS_METHOD();
 
-            if (File.Exists(Current_Install_Folder + @"NorthstarLauncher.exe"))
+            if (File.Exists(Current_Install_Folder + @"NorthstarLauncher.exe") && File.Exists(Current_Install_Folder + @"Titanfall2.exe"))
             {
                 NSExe = Get_And_Set_Filepaths(Current_Install_Folder, "NorthstarLauncher.exe");
 
@@ -611,10 +611,9 @@ public class InstalledApplications
                 }
                 else
                 {
-                    Current_Install_Folder = Path.GetFullPath(User_Settings_Vars.NorthstarInstallLocation);
+                     Current_Install_Folder = Path.GetFullPath(User_Settings_Vars.NorthstarInstallLocation);
                     if (!Current_Install_Folder.EndsWith(@"\"))
-                    {
-                        string fix = Current_Install_Folder + @"\";
+                    { string fix = Current_Install_Folder + @"\";
                         User_Settings_Vars.NorthstarInstallLocation = fix;
                         Current_Install_Folder = fix.Replace(@"\\", @"\").Replace("/", @"\");
                     }
@@ -624,19 +623,20 @@ public class InstalledApplications
 
 
 
-                if (Directory.Exists(Current_Install_Folder))
+                if (Directory.Exists(Current_Install_Folder) || Current_Install_Folder!="NODATA")
                 {
-
-                   
-
-                        if (File.Exists(Current_Install_Folder + @"NorthstarLauncher.exe"))
+                    if (File.Exists(Current_Install_Folder + "Titanfall2.exe"))
                     {
 
-                        // Get the file version info for the notepad.
-                        FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(Current_Install_Folder + @"NorthstarLauncher.exe");
 
-                        // Print the file name and version number.
-                        Console.WriteLine(myFileVersionInfo.FileVersion);
+                        if (File.Exists(Current_Install_Folder + @"NorthstarLauncher.exe") )
+                        {
+
+                            // Get the file version info for the notepad.
+                            FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(Current_Install_Folder + @"NorthstarLauncher.exe");
+
+                            // Print the file name and version number.
+                            Console.WriteLine(myFileVersionInfo.FileVersion);
                             Current_Ver_ = myFileVersionInfo.FileVersion;
 
                             User_Settings_Vars.CurrentVersion = Current_Ver_;
@@ -646,23 +646,23 @@ public class InstalledApplications
                             Main.VERSION_TEXT.Text = "VTOL - " + ProductVersion + " | Northstar Version - " + Current_Ver_.Remove(0, 1);
                             NSExe = Get_And_Set_Filepaths(Current_Install_Folder, "NorthstarLauncher.exe");
                             Main.VERSION_TEXT.Refresh();
-                        Main.User_Settings_Vars = User_Settings_Vars;
+                            Main.User_Settings_Vars = User_Settings_Vars;
 
-                        if (User_Settings_Vars.Auto_Update_Northstar == true)
-                        {
-                            Check_For_New_Northstar_Install();
+                            if (User_Settings_Vars.Auto_Update_Northstar == true)
+                            {
+                                Check_For_New_Northstar_Install();
 
 
 
-                        }
-                        string User_Settings_Json_Strings = Newtonsoft.Json.JsonConvert.SerializeObject(User_Settings_Vars);
-                           using (var StreamWriter = new StreamWriter(DocumentsFolder + @"\VTOL_DATA\Settings\User_Settings.Json", false))
-                           {
-                               StreamWriter.WriteLine(User_Settings_Json_Strings);
+                            }
+                            string User_Settings_Json_Strings = Newtonsoft.Json.JsonConvert.SerializeObject(User_Settings_Vars);
+                            using (var StreamWriter = new StreamWriter(DocumentsFolder + @"\VTOL_DATA\Settings\User_Settings.Json", false))
+                            {
+                                StreamWriter.WriteLine(User_Settings_Json_Strings);
                                 StreamWriter.Close();
-                           }
-                    }
-                    else
+                            }
+                        }
+                        else
                         {
 
 
@@ -672,7 +672,8 @@ public class InstalledApplications
                             SnackBar.Timeout = 8000;
                             SnackBar.Show();
                             Auto_Install_(true);
-                        return;
+                            Current_Install_Folder = "";
+                            return;
 
 
 
@@ -680,7 +681,18 @@ public class InstalledApplications
 
 
                         }
+                    }
+                    else
+                    {
+                        SnackBar.Appearance = ControlAppearance.Danger;
+                        SnackBar.Title = "WARNING!";
+                        SnackBar.Message = "Invalid Install Path, Please manually locate the correct folder!";
+                        SnackBar.Show();
+                        Current_Install_Folder = "";
 
+                        return;
+
+                    }
                     
                     Directory_Box.Text = Current_Install_Folder;
 
@@ -707,30 +719,47 @@ public class InstalledApplications
                         string User_Settings_Json_Strings_ = Newtonsoft.Json.JsonConvert.SerializeObject(User_Settings_Vars);
                         Directory_Box.Text = Current_Install_Folder;
                         Auto_Install_(false);
-
-                        if (!File.Exists(NSExe))
+                        if (File.Exists(Current_Install_Folder + "Titanfall2.exe") || Current_Install_Folder != "NODATA")
                         {
-                            try
-                            {
-                                NSExe = Get_And_Set_Filepaths(Current_Install_Folder, "NorthstarLauncher.exe");
-                            } catch (Exception ex) {
-                                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-                                var log = new LoggerConfiguration()
-             .WriteTo.File(DocumentsFolder + @"\VTOL_DATA\Logs\log.txt", rollingInterval: RollingInterval.Day)
-             .CreateLogger();
-                                SnackBar.Appearance = ControlAppearance.Danger;
-                                SnackBar.Title = "WARNING!";
-                                SnackBar.Message = VTOL.Resources.Languages.Language.Page_Home_Auto_Install__NORTHSTARISNOTINSTALLEDANDAUTOINSTALLFAILED;
-                                SnackBar.Show();
 
+
+
+                            if (!File.Exists(NSExe))
+                            {
+                                try
+                                {
+                                    NSExe = Get_And_Set_Filepaths(Current_Install_Folder, "NorthstarLauncher.exe");
+                                }
+                                catch (Exception ex)
+                                {
+                                    Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                                    var log = new LoggerConfiguration()
+                 .WriteTo.File(DocumentsFolder + @"\VTOL_DATA\Logs\log.txt", rollingInterval: RollingInterval.Day)
+                 .CreateLogger();
+                                    SnackBar.Appearance = ControlAppearance.Danger;
+                                    SnackBar.Title = "WARNING!";
+                                    SnackBar.Message = VTOL.Resources.Languages.Language.Page_Home_Auto_Install__NORTHSTARISNOTINSTALLEDANDAUTOINSTALLFAILED;
+                                    SnackBar.Show();
+                                    return;
+
+                                }
+                            }
+                            Main.User_Settings_Vars = User_Settings_Vars;
+
+                            using (var StreamWriter = new StreamWriter(DocumentsFolder + @"\VTOL_DATA\Settings\User_Settings.Json", false))
+                            {
+                                StreamWriter.WriteLine(User_Settings_Json_Strings_);
+                                StreamWriter.Close();
                             }
                         }
-                        Main.User_Settings_Vars = User_Settings_Vars;
-
-                        using (var StreamWriter = new StreamWriter(DocumentsFolder + @"\VTOL_DATA\Settings\User_Settings.Json", false))
+                        else
                         {
-                            StreamWriter.WriteLine(User_Settings_Json_Strings_);
-                            StreamWriter.Close();
+                            SnackBar.Appearance = ControlAppearance.Danger;
+                            SnackBar.Title = "WARNING!";
+                            SnackBar.Message = "Invalid Install Path, Please manually locate the correct folder!";
+                            SnackBar.Show();
+                            return;
+
                         }
                     }
                     else
@@ -739,9 +768,9 @@ public class InstalledApplications
                         SnackBar.Title = "WARNING!";
                         SnackBar.Message = "Invalid Install Path, Please manually locate the correct folder!";
                         SnackBar.Show();
+                        return;
 
                     }
-
                 }
 
                 // string[] arguments = Environment.GetCommandLineArgs();
