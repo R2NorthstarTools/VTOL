@@ -387,7 +387,7 @@ namespace VTOL.Pages
                     {
 
                         Output = @"{
-    ""name"": " + '\u0022' + Mod_name.Text.Trim() + '\u0022' + @",
+    ""name"": " + '\u0022' + Mod_name.Text.Trim().Replace(" ","_") + '\u0022' + @",
     ""version_number"":" + '\u0022' + Mod_version_number.Text.Trim() + '\u0022' + @",
     ""website_url"": " + '\u0022' + Mod_website_url.Text.Trim() + '\u0022' + @",
     ""description"": " + '\u0022' + Mod_description.Text.Trim() + '\u0022' + @",
@@ -397,7 +397,7 @@ namespace VTOL.Pages
                     else
                     {
                         Output = @"{
-    ""name"": " + '\u0022' + Mod_name.Text.Trim() + '\u0022' + @",
+    ""name"": " + '\u0022' + Mod_name.Text.Trim().Replace(" ", "_") + '\u0022' + @",
     ""version_number"":" + '\u0022' + Mod_version_number.Text.Trim() + '\u0022' + @",
     ""website_url"": " + '\u0022' + Mod_website_url.Text.Trim() + '\u0022' + @",
     ""description"": " + '\u0022' + Mod_description.Text.Trim() + '\u0022' + @",
@@ -745,7 +745,7 @@ namespace VTOL.Pages
         private void Icon_Image_ImageSelected(object sender, RoutedEventArgs e)
         {
            
-        }
+        }                                                                                                                                                                                                                                                            
 
         private void ScrollViewer_MouseDown(object sender, MouseButtonEventArgs e)
         {

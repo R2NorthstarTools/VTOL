@@ -327,4 +327,7 @@
   <data name="Page_Home_LaunchNorthstar" xml:space="preserve">
     <value>launch +Northstar" </value>
   </data>
+  <data name="Page_Home_Install_NS_METHOD_SequenceContainsNoElements" xml:space="preserve">
+    <value>Sequence contains no elements</value>
+  </data>
 </root>

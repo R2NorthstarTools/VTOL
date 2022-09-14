@@ -1793,7 +1793,7 @@ namespace VTOL.Pages
                                     var ext = new List<string> { "zip" };
                                     var myFiles = Directory.EnumerateFiles(Destination, "*.*", SearchOption.AllDirectories).Where(s => ext.Contains(Path.GetExtension(s).TrimStart('.').ToLowerInvariant()));
 
-                                    Install_Skin_Async_Starter(myFiles);
+                                    Install_Skin_Async_Starter(myFiles, Destination);
                                     DispatchIfNecessary(() =>
                                     {
                                         if (Progress_Bar != null)
@@ -1802,7 +1802,6 @@ namespace VTOL.Pages
                                         }
                                     });
                                     }
-
 
 
 
@@ -1978,7 +1977,7 @@ namespace VTOL.Pages
                 return new Version(FileVersionInfo.GetVersionInfo(Assembly.GetCallingAssembly().Location).ProductVersion).ToString();
             }
         }
-        async Task Install_Skin_Async_Starter(IEnumerable<string> in_)
+        async Task Install_Skin_Async_Starter(IEnumerable<string> in_, string Destination = "")
         {
           
             await Task.Run(async () => //Task.Run automatically unwraps nested Task types!
@@ -2000,7 +1999,11 @@ namespace VTOL.Pages
 
 
                 }
-               
+
+                if (Directory.Exists(Destination) && Destination != "")
+                {
+                    Directory.Delete(Destination, true);
+                }
             });
         }
         private void ScrollViewer_MouseEnter(object sender, MouseEventArgs e)
