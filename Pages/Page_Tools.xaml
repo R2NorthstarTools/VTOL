@@ -365,25 +365,25 @@
                         <RichTextBox x:Name="Description_Box_Advocate" Background="#FF373737" Height="151" VerticalAlignment="Top" BorderBrush="{x:Null}" SelectionTextBrush="{x:Null}" CaretBrush="White" AutomationProperties.HelpText="Log Area" Width="802" HorizontalAlignment="Center" AcceptsTab="True" IsDocumentEnabled="True" IsManipulationEnabled="True" FontFamily="Segoe UI" Margin="0,640,0,0" OverridesDefaultStyle="False">
                             <FlowDocument>
                                 <Paragraph>
-                                    <Run Text="RichTextBox" FontFamily="Segoe UI"/>
+                                    <Run Text="Test Readme Text" FontFamily="Segoe UI"/>
 
                                 </Paragraph>
 
                             </FlowDocument>
                         </RichTextBox>
-                        <Button x:Name="Output_Button_Advocate"  Height="35" Margin="0,1025,100,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Content="Output Directory" Padding="0,0,0,0" Width="180" RenderTransformOrigin="0.411,0.429" HorizontalAlignment="Right" ToolTip="Manually Specify the Output Directory" Click="Output_Button_Advocate_Click" Background="#FF383838"/>
-                        <TextBox x:Name="Output_Box_Advocate" Margin="84,1025,285,0" TextWrapping="Wrap" Text="Output zip" VerticalAlignment="Top" Background="#FF171717" Foreground="White" SelectionTextBrush="White" CaretBrush="White"/>
+                        <Button x:Name="Output_Button_Advocate"  Height="35" Margin="0,1025,100,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Content="Output Directory" Padding="0,0,0,0" Width="180" RenderTransformOrigin="0.411,0.429" HorizontalAlignment="Right" ToolTip="Manually Specify the Output Directory" Click="Output_Button_Click" Background="#FF383838"/>
+                        <TextBox x:Name="Output_Box_Advocate" Margin="84,1025,285,0" TextWrapping="Wrap" Text="Output Path" VerticalAlignment="Top" Background="#FF171717" Foreground="White" SelectionTextBrush="White" CaretBrush="White"/>
                         <!--<Button x:Name="Editor"  Height="30" Margin="281,476,281,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Content="Editor" Padding="0,0,0,0" Click="Editor_Copy_Click" ToolTip="Open The In Built Image Editor" HorizontalAlignment="Stretch" LayoutUpdated="Editor_LayoutUpdated" Visibility="Collapsed" />-->
 
-                        <Button x:Name="Save_Mod_Advocate"  Height="39" Margin="84,1089,100,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Content="Convert Skin" Padding="0,0,0,0" HorizontalAlignment="Stretch" ToolTip="Save the mod to the Specified Path" Click="Save_Mod_Advocate_Click" Background="#FF383838" />
+                        <Button x:Name="Save_Mod_Advocate"  Height="39" Margin="84,1089,100,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Content="Convert Skin" Padding="0,0,0,0" HorizontalAlignment="Stretch" ToolTip="Save the mod to the Specified Path" Click="Save_Mod_Click" Background="#FF383838" />
                         <Label Content="Version Number" Width="113" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Normal" FontFamily="Gadugi" Height="19" Padding="0,0,0,0" Margin="211,854,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                         <Label Content="Author Name" Width="113" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Normal" FontFamily="Gadugi" Height="20" Padding="0,0,0,0" Margin="211,908,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                         <Label Content="Skin Name" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Normal" FontFamily="Gadugi" Height="17" Padding="0,0,0,0" Margin="211,967,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="115"/>
 
 
                         <TextBox x:Name="Mod_version_number_Advocate" Margin="353,847,209,0" TextWrapping="NoWrap" Text="1.0.0" VerticalAlignment="Top" Background="#FF171717" Foreground="White" SelectionTextBrush="White" CaretBrush="White" FontSize="11" />
-                        <TextBox x:Name="Mod_Author_Name_Advocate" Margin="353,902,209,0" TextWrapping="NoWrap" Text="Author Name" VerticalAlignment="Top" Background="#FF171717" Foreground="White" SelectionTextBrush="White" CaretBrush="White"   FontSize="11" />
-                        <TextBox x:Name="Mod_Skin_Name_Advocate" Margin="353,960,209,0" TextWrapping="NoWrap" Text="Skin Name" VerticalAlignment="Top" Background="#FF171717" Foreground="White" SelectionTextBrush="White" CaretBrush="White"  FontSize="11" />
+                        <TextBox x:Name="Mod_Author_Name_Advocate" Margin="353,902,209,0" TextWrapping="NoWrap" Text="Test Author" VerticalAlignment="Top" Background="#FF171717" Foreground="White" SelectionTextBrush="White" CaretBrush="White"   FontSize="11" />
+                        <TextBox x:Name="Mod_Skin_Name_Advocate" Margin="353,960,209,0" TextWrapping="NoWrap" Text="Test Skin Name" VerticalAlignment="Top" Background="#FF171717" Foreground="White" SelectionTextBrush="White" CaretBrush="White"  FontSize="11" />
                         <Label  Content="Description" Margin="0,614,0,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="16" HorizontalAlignment="Center"/>
                         <Separator Foreground="#CCFFFFFF" Background="#CCA4A4A4" Margin="176,427,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="298" Height="797" FontSize="7" BorderThickness="0,0,0,0" RenderTransformOrigin="0.5,0.5" BorderBrush="{x:Null}" >
                             <Separator.RenderTransform>
