@@ -403,8 +403,8 @@
 
                 </hc:ScrollViewer>
             </TabItem>
-            <TabItem Header="RePak">
-            </TabItem>
+            <!--<TabItem Header="RePak">
+            </TabItem>-->
         </TabControl>
 
     </Grid>

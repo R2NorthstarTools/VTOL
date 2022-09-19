@@ -40,6 +40,7 @@ using PixelFormat = System.Drawing.Imaging.PixelFormat;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
 using System.Windows.Media.Animation;
+using System.Text.RegularExpressions;
 
 namespace VTOL.Pages
 {
@@ -1820,25 +1821,25 @@ namespace VTOL.Pages
                 SnackBar.Message = "Author Name Is Minimum 2 Letters";
                 SnackBar.Show();
             }
-            if (Mod_Adv_Version_Num == null || Mod_Adv_Version_Num == "" || Mod_Adv_Version_Num.Count() < 2)
+            if (Mod_Adv_Version_Num == null || Mod_Adv_Version_Num == "" || Mod_Adv_Version_Num.Count() < 2 || !Regex.Match(Mod_Adv_Version_Num, "\\d+.\\d+.\\d+").Success)
             {
                 SnackBar.Appearance = ControlAppearance.Danger;
                 SnackBar.Title = "ERROR";
-                SnackBar.Message = "Author Name Is Minimum 2 Letters";
+                SnackBar.Message = "Version Number Is Invalid";
                 SnackBar.Show();
             }
             if (Mod_Adv_Skin_Name == null || Mod_Adv_Skin_Name == "" || Mod_Adv_Skin_Name.Count() < 2)
             {
                 SnackBar.Appearance = ControlAppearance.Danger;
                 SnackBar.Title = "ERROR";
-                SnackBar.Message = "Author Name Is Minimum 2 Letters";
+                SnackBar.Message = "Skin Name Is Is Invalid";
                 SnackBar.Show();
             }
             if (Mod_Adv_Readme == null || Mod_Adv_Readme == "" || Mod_Adv_Readme.Count() < 2)
             {
                 SnackBar.Appearance = ControlAppearance.Danger;
                 SnackBar.Title = "ERROR";
-                SnackBar.Message = "Author Name Is Minimum 2 Letters";
+                SnackBar.Message = "Is Invalid";
                 SnackBar.Show();
             }
 
@@ -2028,7 +2029,7 @@ namespace VTOL.Pages
                   
 
                     // copy png over
-                    File.Copy(Mod_Adv_Icon_Path, modTempFolderPath + "\\icon.png");
+                    File.Copy(Mod_Adv_Icon_Path, modTempFolderPath + "\\icon.png",true);
                 }
 
             //    ConvertTaskComplete();
@@ -2039,8 +2040,18 @@ namespace VTOL.Pages
 
                 if (Description_Box_Advocate.Document.Blocks.Count > 1)
                 {
-               
-                    File.WriteAllText(modTempFolderPath + "\\README.md", "");
+                        TextRange textRange = new TextRange(
+               // TextPointer to the start of content in the RichTextBox.
+               Description_Box_Advocate.Document.ContentStart,
+               // TextPointer to the end of content in the RichTextBox.
+               Description_Box_Advocate.Document.ContentEnd
+           );
+
+                        // The Text property on a TextRange object returns a string
+                        // representing the plain text content of the TextRange.
+                         
+
+                        File.WriteAllText(modTempFolderPath + "\\README.md", textRange.Text);
                 }
                 else
                 {
