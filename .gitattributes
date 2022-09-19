@@ -1,0 +1,2 @@
+*.exe filter=lfs diff=lfs merge=lfs -text
+*.deploy filter=lfs diff=lfs merge=lfs -text
