@@ -26,14 +26,16 @@
 
 
                     <Grid Margin="30,10,30,0" Grid.ColumnSpan="2" Height="1207" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="218*"/>
+                            <ColumnDefinition Width="267*"/>
+                        </Grid.ColumnDefinitions>
 
-                        <TextBox x:Name="Zip_Box" Margin="149,105,149,0" TextWrapping="NoWrap" Text="Zipped Mod" VerticalAlignment="Top" Background="#FF171717" Foreground="White" SelectionTextBrush="White" CaretBrush="White" FontSize="11" IsReadOnly="True" IsUndoEnabled="False"/>
+                        <TextBox x:Name="Zip_Box" Margin="149,105,149,0" TextWrapping="NoWrap" Text="Zipped Mod" VerticalAlignment="Top" Background="#FF171717" Foreground="White" SelectionTextBrush="White" CaretBrush="White" FontSize="11" IsReadOnly="True" IsUndoEnabled="False" Grid.ColumnSpan="2"/>
                         <Label  Content="Content" Margin="152,79,0,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="16" HorizontalAlignment="Left"/>
-                        <Label  Content="256x256~(.png)" Margin="0,468,0,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="10" HorizontalAlignment="Center"/>
-                        <Label  Content="ReadMe.md" Margin="0,677,0,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="10" HorizontalAlignment="Center"/>
-
-                        <Button x:Name="Locate_Zip"  Height="30" Margin="149,141,149,0" VerticalAlignment="Top"  BorderBrush="{x:Null}" Content="Locate Mod Content" Padding="0,0,0,0" Click="Locate_Zip_Click" ToolTip="Locate the Mod Zip manually" HorizontalAlignment="Stretch" Background="#FF383838" />
-                        <ui:SymbolIcon Margin="0,331,0,0" VerticalAlignment="Top" Symbol="Add16" RenderTransformOrigin="0.5,0.5" Opacity="0.6">
+                        <Label  Content="256x256~(.png)" Margin="14,468,0,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="10" HorizontalAlignment="Left" Grid.Column="1"/>
+                        <Label  Content="ReadMe.md" Margin="23,677,0,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="10" HorizontalAlignment="Left" Grid.Column="1"/>
+                        <ui:SymbolIcon Margin="41,331,0,0" VerticalAlignment="Top" Symbol="Add16" RenderTransformOrigin="0.5,0.5" Opacity="0.6" Grid.Column="1" HorizontalAlignment="Left">
                             <ui:SymbolIcon.RenderTransform>
                                 <TransformGroup>
                                     <ScaleTransform ScaleX="2" ScaleY="2"/>
@@ -43,7 +45,7 @@
                                 </TransformGroup>
                             </ui:SymbolIcon.RenderTransform>
                         </ui:SymbolIcon>
-                        <hc:DashedBorder x:Name="Image_Icon" CornerRadius="8,8,8,8" Margin="0,212,0,0" Cursor="Hand" BorderDashCap="Round" BorderDashOffset="0" BorderDashThickness="2" BorderDashArray="10, 3" BorderBrush="White" BorderThickness="1,1,1,1" MouseDown="Image_Icon_MouseDown" Drop="Image_Icon_Drop" AllowDrop="True" HorizontalAlignment="Center" Width="256" Height="256" VerticalAlignment="Top">
+                        <hc:DashedBorder x:Name="Image_Icon" CornerRadius="8,8,8,8" Margin="357,212,0,0" Cursor="Hand" BorderDashCap="Round" BorderDashOffset="0" BorderDashThickness="2" BorderDashArray="10, 3" BorderBrush="White" BorderThickness="1,1,1,1" MouseDown="Image_Icon_MouseDown" Drop="Image_Icon_Drop" AllowDrop="True" HorizontalAlignment="Left" Width="256" Height="256" VerticalAlignment="Top" Grid.ColumnSpan="2">
 
                             <hc:DashedBorder.Background>
                                 <ImageBrush Stretch="UniformToFill" />
@@ -51,7 +53,7 @@
                         </hc:DashedBorder>
                         <!--<hc:ImageSelector x:Name="Icon_Image" Height="256" VerticalAlignment="Top" Margin="0,212,0,0"  HorizontalAlignment="Center" Width="256" Background="#FF292929" Filter="(.png)|*.png" DefaultExt=".png" OverridesDefaultStyle="True" StrokeThickness="2" ImageSelected="Icon_Image_ImageSelected" IsManipulationEnabled="True" RenderTransformOrigin="0.499,0.502"/>-->
 
-                        <RichTextBox x:Name="Description_Box" Background="#FF373737" Height="151" VerticalAlignment="Top" BorderBrush="{x:Null}" SelectionTextBrush="{x:Null}" CaretBrush="White" AutomationProperties.HelpText="Log Area" Width="802" HorizontalAlignment="Center" AcceptsTab="True" IsDocumentEnabled="True" IsManipulationEnabled="True" FontFamily="Segoe UI" Margin="0,525,0,0" OverridesDefaultStyle="False">
+                        <RichTextBox x:Name="Description_Box" Background="#FF373737" Height="151" VerticalAlignment="Top" BorderBrush="{x:Null}" SelectionTextBrush="{x:Null}" CaretBrush="White" AutomationProperties.HelpText="Log Area" Width="802" HorizontalAlignment="Left" AcceptsTab="True" IsDocumentEnabled="True" IsManipulationEnabled="True" FontFamily="Segoe UI" Margin="84,525,0,0" OverridesDefaultStyle="False" Grid.ColumnSpan="2">
                             <FlowDocument>
                                 <Paragraph>
                                     <Run Text="RichTextBox" FontFamily="Segoe UI"/>
@@ -60,26 +62,26 @@
 
                             </FlowDocument>
                         </RichTextBox>
-                        <Button x:Name="Output_Button"  Height="35" Margin="0,1055,92,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Content="Output Directory" Padding="0,0,0,0" Width="180" RenderTransformOrigin="0.411,0.429" HorizontalAlignment="Right" ToolTip="Manually Specify the Output Directory" Click="Output_Button_Click" Background="#FF383838"/>
-                        <TextBox x:Name="Output_Box" Margin="92,1055,277,0" TextWrapping="Wrap" Text="Output zip" VerticalAlignment="Top" Background="#FF171717" Foreground="White" SelectionTextBrush="White" CaretBrush="White"/>
+                        <Button x:Name="Output_Button"  Height="35" Margin="0,1055,92,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Content="Output Directory" Padding="0,0,0,0" Width="180" RenderTransformOrigin="0.411,0.429" HorizontalAlignment="Right" ToolTip="Manually Specify the Output Directory" Click="Output_Button_Click" Background="#FF383838" Grid.Column="1"/>
+                        <TextBox x:Name="Output_Box" Margin="92,1055,277,0" TextWrapping="Wrap" Text="Output zip" VerticalAlignment="Top" Background="#FF171717" Foreground="White" SelectionTextBrush="White" CaretBrush="White" Grid.ColumnSpan="2"/>
                         <!--<Button x:Name="Editor"  Height="30" Margin="281,476,281,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Content="Editor" Padding="0,0,0,0" Click="Editor_Copy_Click" ToolTip="Open The In Built Image Editor" HorizontalAlignment="Stretch" LayoutUpdated="Editor_LayoutUpdated" Visibility="Collapsed" />-->
 
-                        <Button x:Name="Save_Mod"  Height="39" Margin="92,1130,92,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Content="Output As a Thunderstore Mod" Padding="0,0,0,0" HorizontalAlignment="Stretch" ToolTip="Save the mod to the Specified Path" Click="Save_Mod_Click" Background="#FF383838" />
+                        <Button x:Name="Save_Mod"  Height="39" Margin="92,1130,92,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Content="Output As a Thunderstore Mod" Padding="0,0,0,0" HorizontalAlignment="Stretch" ToolTip="Save the mod to the Specified Path" Click="Save_Mod_Click" Background="#FF383838" Grid.ColumnSpan="2" />
                         <Label Content="Name" Width="98" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Normal" FontFamily="Gadugi" Height="19" Padding="0,0,0,0" Margin="226,719,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                         <Label Content="Version" Width="98" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Normal" FontFamily="Gadugi" Height="19" Padding="0,0,0,0" Margin="226,778,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                         <Label Content="Webpage" Width="98" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Normal" FontFamily="Gadugi" Height="20" Padding="0,0,0,0" Margin="226,832,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                         <Label Content="Description" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Normal" FontFamily="Gadugi" Height="17" Padding="0,0,0,0" Margin="226,892,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="98"/>
                         <Label Content="Dependencies" Width="98" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Normal" FontFamily="Gadugi" Height="20" Padding="0,0,0,0" Margin="226,952,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
 
-                        <TextBox   x:Name="Mod_name" Margin="353,712,209,0" TextWrapping="NoWrap" Text="NEW_Mod_Name" VerticalAlignment="Top" Background="#FF171717" Foreground="White" SelectionTextBrush="White" CaretBrush="White"  FontSize="11" FontFamily="Segoe UI" />
+                        <TextBox   x:Name="Mod_name" Margin="353,712,209,0" TextWrapping="NoWrap" Text="NEW_Mod_Name" VerticalAlignment="Top" Background="#FF171717" Foreground="White" SelectionTextBrush="White" CaretBrush="White"  FontSize="11" FontFamily="Segoe UI" Grid.ColumnSpan="2" />
 
-                        <TextBox x:Name="Mod_version_number" Margin="353,771,209,0" TextWrapping="NoWrap" Text="1.0.0" VerticalAlignment="Top" Background="#FF171717" Foreground="White" SelectionTextBrush="White" CaretBrush="White" FontSize="11" />
-                        <TextBox x:Name="Mod_website_url" Margin="353,826,209,0" TextWrapping="NoWrap" Text="Mymodrepo.com" VerticalAlignment="Top" Background="#FF171717" Foreground="White" SelectionTextBrush="White" CaretBrush="White"   FontSize="11" />
-                        <TextBox x:Name="Mod_description" Margin="353,884,209,0" TextWrapping="NoWrap" Text="Hi!, Im a generated Northstar Mod!" VerticalAlignment="Top" Background="#FF171717" Foreground="White" SelectionTextBrush="White" CaretBrush="White"  FontSize="11" />
-                        <TextBox x:Name="Mod_dependencies" Margin="353,944,209,0" TextWrapping="NoWrap" Text="Dependencies" VerticalAlignment="Top" Background="#FF171717" Foreground="White" SelectionTextBrush="White" CaretBrush="White" FontSize="11" />
-                        <CheckBox x:Name="Skin_Mod_Pack_Check" Content="Package as a DDS Skin?" Height="20" Width="220" Margin="0,1001,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Unloaded="Skin_Mod_Pack_Check_Unchecked" Checked="Skin_Mod_Pack_Check_Checked"/>
-                        <Label  Content="Description" Margin="0,499,0,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="16" HorizontalAlignment="Center"/>
-                        <Separator Foreground="#CCFFFFFF" Background="#CCA4A4A4" Margin="176,302,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="298" Height="1001" FontSize="7" BorderThickness="0,0,0,0" RenderTransformOrigin="0.5,0.5" BorderBrush="{x:Null}" >
+                        <TextBox x:Name="Mod_version_number" Margin="353,771,209,0" TextWrapping="NoWrap" Text="1.0.0" VerticalAlignment="Top" Background="#FF171717" Foreground="White" SelectionTextBrush="White" CaretBrush="White" FontSize="11" Grid.ColumnSpan="2" />
+                        <TextBox x:Name="Mod_website_url" Margin="353,826,209,0" TextWrapping="NoWrap" Text="Mymodrepo.com" VerticalAlignment="Top" Background="#FF171717" Foreground="White" SelectionTextBrush="White" CaretBrush="White"   FontSize="11" Grid.ColumnSpan="2" />
+                        <TextBox x:Name="Mod_description" Margin="353,884,209,0" TextWrapping="NoWrap" Text="Hi!, Im a generated Northstar Mod!" VerticalAlignment="Top" Background="#FF171717" Foreground="White" SelectionTextBrush="White" CaretBrush="White"  FontSize="11" Grid.ColumnSpan="2" />
+                        <TextBox x:Name="Mod_dependencies" Margin="353,944,209,0" TextWrapping="NoWrap" Text="Dependencies" VerticalAlignment="Top" Background="#FF171717" Foreground="White" SelectionTextBrush="White" CaretBrush="White" FontSize="11" Grid.ColumnSpan="2" />
+                        <CheckBox x:Name="Skin_Mod_Pack_Check" Content="Package as a DDS Skin?" Height="20" Width="220" Margin="375,1001,0,0" VerticalAlignment="Top" Unloaded="Skin_Mod_Pack_Check_Unchecked" Checked="Skin_Mod_Pack_Check_Checked" Grid.ColumnSpan="2"/>
+                        <Label  Content="Description" Margin="9,499,0,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="16" HorizontalAlignment="Left" Grid.Column="1"/>
+                        <Separator Foreground="#CCFFFFFF" Background="#CCA4A4A4" Margin="176,302,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="298" Height="1001" FontSize="7" BorderThickness="0,0,0,0" RenderTransformOrigin="0.5,0.5" BorderBrush="{x:Null}" Grid.ColumnSpan="2" >
                             <Separator.RenderTransform>
                                 <TransformGroup>
                                     <ScaleTransform ScaleX="0.01" ScaleY="0.44"/>
@@ -89,7 +91,7 @@
                                 </TransformGroup>
                             </Separator.RenderTransform>
                         </Separator>
-                        <Label  Content="Icon" Margin="0,186,0,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="16" HorizontalAlignment="Center"/>
+                        <Label  Content="Icon" Margin="34,186,0,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="16" HorizontalAlignment="Left" Grid.Column="1"/>
                     </Grid>
 
                 </hc:ScrollViewer>
@@ -369,11 +371,11 @@
 
                             </FlowDocument>
                         </RichTextBox>
-                        <Button x:Name="Output_Button_Advocate"  Height="35" Margin="0,1025,100,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Content="Output Directory" Padding="0,0,0,0" Width="180" RenderTransformOrigin="0.411,0.429" HorizontalAlignment="Right" ToolTip="Manually Specify the Output Directory" Click="Output_Button_Click" Background="#FF383838"/>
+                        <Button x:Name="Output_Button_Advocate"  Height="35" Margin="0,1025,100,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Content="Output Directory" Padding="0,0,0,0" Width="180" RenderTransformOrigin="0.411,0.429" HorizontalAlignment="Right" ToolTip="Manually Specify the Output Directory" Click="Output_Button_Advocate_Click" Background="#FF383838"/>
                         <TextBox x:Name="Output_Box_Advocate" Margin="84,1025,285,0" TextWrapping="Wrap" Text="Output zip" VerticalAlignment="Top" Background="#FF171717" Foreground="White" SelectionTextBrush="White" CaretBrush="White"/>
                         <!--<Button x:Name="Editor"  Height="30" Margin="281,476,281,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Content="Editor" Padding="0,0,0,0" Click="Editor_Copy_Click" ToolTip="Open The In Built Image Editor" HorizontalAlignment="Stretch" LayoutUpdated="Editor_LayoutUpdated" Visibility="Collapsed" />-->
 
-                        <Button x:Name="Save_Mod_Advocate"  Height="39" Margin="84,1089,100,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Content="Convert Skin" Padding="0,0,0,0" HorizontalAlignment="Stretch" ToolTip="Save the mod to the Specified Path" Click="Save_Mod_Click" Background="#FF383838" />
+                        <Button x:Name="Save_Mod_Advocate"  Height="39" Margin="84,1089,100,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Content="Convert Skin" Padding="0,0,0,0" HorizontalAlignment="Stretch" ToolTip="Save the mod to the Specified Path" Click="Save_Mod_Advocate_Click" Background="#FF383838" />
                         <Label Content="Version Number" Width="113" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Normal" FontFamily="Gadugi" Height="19" Padding="0,0,0,0" Margin="211,854,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                         <Label Content="Author Name" Width="113" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Normal" FontFamily="Gadugi" Height="20" Padding="0,0,0,0" Margin="211,908,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                         <Label Content="Skin Name" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Normal" FontFamily="Gadugi" Height="17" Padding="0,0,0,0" Margin="211,967,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="115"/>

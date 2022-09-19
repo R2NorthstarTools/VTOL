@@ -1812,6 +1812,7 @@ namespace VTOL.Pages
         string Mod_Adv_Output_Path;
         public void Convert()
         {
+            try { 
             if(Mod_Adv_Author_name == null || Mod_Adv_Author_name == "" || Mod_Adv_Author_name.Count() < 2)
             {
                 SnackBar.Appearance = ControlAppearance.Danger;
@@ -1841,7 +1842,7 @@ namespace VTOL.Pages
                 SnackBar.Show();
             }
 
-            if (!Directory.Exists(Mod_Adv_Skin_Path))
+            if (!File.Exists(Mod_Adv_Skin_Path))
             {
 
            
@@ -1862,7 +1863,7 @@ namespace VTOL.Pages
                 SnackBar.Show();
                 return;
             }
-            if (!Directory.Exists(Mod_Adv_Repak_Path))
+            if (!File.Exists(Mod_Adv_Repak_Path))
             {
 
 
@@ -1874,7 +1875,7 @@ namespace VTOL.Pages
                 SnackBar.Show();
                 return;
             }
-            if (!Directory.Exists(Mod_Adv_Icon_Path))
+            if (!File.Exists(Mod_Adv_Icon_Path))
             {
 
 
@@ -2179,15 +2180,14 @@ namespace VTOL.Pages
             }
             catch (Exception ex)
             {
-                // create message box showing the full error
-                MessageBoxButton msgButton = MessageBoxButton.OK;
-                MessageBoxImage msgIcon = MessageBoxImage.Error;
-                MessageBox.Show("There was an unhandled error during conversion!\n\n" + ex.Message + "\n\n" + ex.StackTrace, "Conversion Error", msgButton, msgIcon);
+                
                 SnackBar.Appearance = ControlAppearance.Danger;
                 SnackBar.Title = "ERROR";
-                SnackBar.Message = "Unknown Error!";
+                SnackBar.Message = "There was an unhandled error during conversion!\n\n" + ex.Message + "\n\n" + ex.StackTrace;
                 SnackBar.Show();
-                return;
+                    Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+
+                    return;
             }
             finally
             {
@@ -2213,10 +2213,26 @@ namespace VTOL.Pages
             SnackBar.Title = "SUCCESS";
             SnackBar.Message = "Conversion Completed Successfully";
             SnackBar.Show();
+
+
+            }
+            catch (Exception ex)
+            {
+
+                SnackBar.Appearance = ControlAppearance.Danger;
+                SnackBar.Title = "ERROR";
+                SnackBar.Message = ex.Message;
+                SnackBar.Show();
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+
+            }
+
+
         }
 
         private bool DdsToPng(string imagePath, string outputPath)
         {
+            try { 
             // yoinked from pfim usage example
             using (var image = Pfimage.FromFile(imagePath))
             {
@@ -2252,11 +2268,23 @@ namespace VTOL.Pages
             }
             return true;
         }
+            catch (Exception ex)
+            {
 
-        // these dictionaries have to be hardcoded because skin tool just hardcodes in offsets afaik
+                SnackBar.Appearance = ControlAppearance.Danger;
+                SnackBar.Title = "ERROR";
+                SnackBar.Message = ex.Message;
+                SnackBar.Show();
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
-        // weapons
-        private readonly Dictionary<string, string> weaponNameToPath = new()
+            }
+            return false;
+}
+
+// these dictionaries have to be hardcoded because skin tool just hardcodes in offsets afaik
+
+// weapons
+private readonly Dictionary<string, string> weaponNameToPath = new()
         {
             // pilot weapons
             { "R201_Default", @"texture\\models\\weapons\\r101\\r101" },
@@ -2641,7 +2669,47 @@ namespace VTOL.Pages
 
         private void Locate_Zip_Advocate_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
 
+
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                openFileDialog.Filter = "Zip files (*.zip)|*.zip|All files (*.*)|*.*";
+                openFileDialog.RestoreDirectory = true;
+                if (openFileDialog.ShowDialog() == true)
+                {
+                    Mod_Adv_Skin_Path = openFileDialog.FileName;
+                    if (!File.Exists(Mod_Adv_Skin_Path))
+                    {
+
+                        SnackBar.Icon = SymbolRegular.ErrorCircle20;
+                        SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
+                        SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Locate_Zip_Click_InvalidZipFound;
+                        SnackBar.Show();
+
+                        return;
+
+                    }
+                    else
+                    {
+                        if (Path.GetExtension(Mod_Adv_Skin_Path).Contains("zip") || Path.GetExtension(Mod_Adv_Skin_Path).Contains("Zip"))
+                        {
+                            SnackBar.Appearance = ControlAppearance.Info;
+                            SnackBar.Title = "INFO";
+                            SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Locate_Zip_Click_ValidZipFound;
+                            SnackBar.Show();
+                            Zip_Box_Advocate.Text = Mod_Adv_Skin_Path;
+
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+
+            }
         }
 
        
@@ -2671,12 +2739,12 @@ namespace VTOL.Pages
                         }
                         else
                         {
-                            if (Path.GetExtension(Mod_Icon_Path).Contains("png"))
+                            if (Path.GetExtension(Mod_Adv_Icon_Path).Contains("png"))
                             {
                                 int imgwidth;
                                 int imgheight;
 
-                                using (var image = SixLabors.ImageSharp.Image.Load(Mod_Icon_Path))
+                                using (var image = SixLabors.ImageSharp.Image.Load(Mod_Adv_Icon_Path))
                                 {
                                     imgwidth = image.Width;
                                     imgheight = image.Height;
@@ -2692,7 +2760,7 @@ namespace VTOL.Pages
                                     BitmapImage Mod_Icon = new BitmapImage();
                                     Mod_Icon.BeginInit();
 
-                                    Mod_Icon.UriSource = new Uri(Mod_Icon_Path);
+                                    Mod_Icon.UriSource = new Uri(Mod_Adv_Icon_Path);
                                     Mod_Icon.EndInit();
 
                                     Image_Icon_Advocate.Background = new ImageBrush(Mod_Icon);
@@ -2704,11 +2772,7 @@ namespace VTOL.Pages
                                     SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
                                     SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Icon_Image_MouseDown_InvalidImageSizeMustBe256x256;
                                     SnackBar.Show();
-                                    BitmapImage bitmap = new BitmapImage();
-                                    bitmap.BeginInit();
-                                    bitmap.UriSource = new Uri(@"pack://application:,,,/Resources/Resource_Static/NO_TEXTURE.png");
-                                    bitmap.EndInit();
-                                    Image_Icon_Advocate.Background = new ImageBrush(null);
+                                   
                                     return;
 
                                 }
@@ -2720,11 +2784,7 @@ namespace VTOL.Pages
                                 SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
                                 SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Icon_Image_MouseDown_ThatWasNotAProperPNG;
                                 SnackBar.Show();
-                                BitmapImage bitmap = new BitmapImage();
-                                bitmap.BeginInit();
-                                bitmap.UriSource = new Uri(@"pack://application:,,,/Resources/Resource_Static/NO_TEXTURE.png");
-                                bitmap.EndInit();
-                                Image_Icon_Advocate.Background = new ImageBrush(null);
+                             
                                 return;
                             }
                         }
@@ -2822,7 +2882,77 @@ namespace VTOL.Pages
 
         private void Locate_Repak_Exe_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
 
+
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                openFileDialog.Filter = "Exe files (*.Exe)|*.exe|All files (*.*)|*.*";
+                openFileDialog.RestoreDirectory = true;
+                if (openFileDialog.ShowDialog() == true)
+                {
+                    Mod_Adv_Repak_Path = openFileDialog.FileName;
+                    if (!File.Exists(Mod_Adv_Repak_Path))
+                    {
+
+                        SnackBar.Icon = SymbolRegular.ErrorCircle20;
+                        SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
+                        SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Locate_Zip_Click_InvalidZipFound;
+                        SnackBar.Show();
+
+                        return;
+
+                    }
+                    else
+                    {
+                        if (Path.GetExtension(Mod_Adv_Repak_Path).Contains("exe"))
+                        {
+                            SnackBar.Appearance = ControlAppearance.Info;
+                            SnackBar.Title = "INFO";
+                            SnackBar.Message = "Exe Located!";
+                            SnackBar.Show();
+                            Zip_Box_Advocate_Copy.Text = Mod_Adv_Repak_Path;
+
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+
+            }
+        }
+
+        private void Output_Button_Advocate_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Forms.FolderBrowserDialog dialog = new System.Windows.Forms.FolderBrowserDialog();
+            System.Windows.Forms.DialogResult res = dialog.ShowDialog();
+            if (res == System.Windows.Forms.DialogResult.OK)
+            {
+                Mod_Adv_Output_Path = dialog.SelectedPath;
+                if (!Directory.Exists(Mod_Adv_Output_Path))
+                {
+                    SnackBar.Icon = SymbolRegular.ErrorCircle20;
+                    SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
+                    SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Output_Button_Click_NotAnOutputDirectory;
+                    SnackBar.Show();
+
+                    return;
+
+                }
+                else
+                {
+                    Output_Box_Advocate.Text = Mod_Adv_Output_Path;
+
+                }
+            }
+        }
+
+        private void Save_Mod_Advocate_Click(object sender, RoutedEventArgs e)
+        {
+            Convert();
         }
     }
 }
