@@ -11,14 +11,14 @@
       Title="Page_Tools">
 
     <Grid >
-        <Image Source="/Resources/Icons/Main_UI/Tools-Silhouette-Transparent.png" Margin="602,199,-112,-192" Opacity="0.1" IsHitTestVisible="False" IsEnabled="False" AllowDrop="False" Stretch="Uniform" MinWidth="250" MinHeight="251"/>
+        <Image x:Name="Icon_Bg" Source="/Resources/Icons/Main_UI/Tools-Silhouette-Transparent.png" Margin="602,199,-112,-192" Opacity="0.2" IsHitTestVisible="False" IsEnabled="False" AllowDrop="False" Stretch="Uniform" MinWidth="250" MinHeight="251"/>
 
         <Label Content="Tools For Ease of Development on the Norhtstar Client" Margin="50,0,0,573" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="590"/>
         <Label Content="TOOLS" Margin="50,0,357,594" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Background="{x:Null}" Foreground="White" FontSize="22" FontWeight="Bold" Height="28" VerticalAlignment="Bottom"/>
 
 
 
-        <TabControl Margin="50,106,50,14" TabStripPlacement="Top" Background="{x:Null}" BorderBrush="#33FFFFFF" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+        <TabControl x:Name="Tabs" Margin="50,106,50,14" TabStripPlacement="Top" Background="{x:Null}" BorderBrush="#33FFFFFF" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" SelectionChanged="Tabs_SelectionChanged">
 
             <TabItem Header="ThunderStore Packer">
 
@@ -330,6 +330,79 @@
                     </Border>
                 </Grid>
             </TabItem>-->
+            <TabItem Header="Advocate">
+                <hc:ScrollViewer  Padding="8,8,8,8"  MouseDown="ScrollViewer_MouseDown" Height="514">
+
+
+                    <Grid Margin="30,10,30,0" Grid.ColumnSpan="2" Height="1207" >
+
+                        <TextBox x:Name="Zip_Box_Advocate" Margin="149,105,149,0" TextWrapping="NoWrap" Text="DDS Skin Zip" VerticalAlignment="Top" Background="#FF171717" Foreground="White" SelectionTextBrush="White" CaretBrush="White" FontSize="11" IsReadOnly="True" IsUndoEnabled="False"/>
+                        <Label  Content="Content" Margin="152,79,0,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="16" HorizontalAlignment="Left"/>
+                        <Label  Content="256x256~(.png)" Margin="0,583,0,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="10" HorizontalAlignment="Center"/>
+                        <Label  Content="ReadMe.md" Margin="0,792,0,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="10" HorizontalAlignment="Center"/>
+
+                        <Button x:Name="Locate_Zip_Advocate"  Height="30" Margin="149,141,149,0" VerticalAlignment="Top"  BorderBrush="{x:Null}" Content="Locate Skin Content" Padding="0,0,0,0" ToolTip="Locate the Mod Zip manually" HorizontalAlignment="Stretch" Background="#FF383838" Click="Locate_Zip_Advocate_Click" />
+                        <ui:SymbolIcon Margin="0,446,0,0" VerticalAlignment="Top" Symbol="Add16" RenderTransformOrigin="0.5,0.5" Opacity="0.6">
+                            <ui:SymbolIcon.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform ScaleX="2" ScaleY="2"/>
+                                    <SkewTransform/>
+                                    <RotateTransform/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </ui:SymbolIcon.RenderTransform>
+                        </ui:SymbolIcon>
+                        <hc:DashedBorder x:Name="Image_Icon_Advocate" CornerRadius="8,8,8,8" Margin="0,327,0,0" Cursor="Hand" BorderDashCap="Round" BorderDashOffset="0" BorderDashThickness="2" BorderDashArray="10, 3" BorderBrush="White" BorderThickness="1,1,1,1" MouseDown="Image_Icon_Advocate_MouseDown" Drop="Image_Icon_Advocate_Drop" AllowDrop="True" HorizontalAlignment="Center" Width="256" Height="256" VerticalAlignment="Top">
+
+                            <hc:DashedBorder.Background>
+                                <ImageBrush Stretch="UniformToFill" />
+                            </hc:DashedBorder.Background>
+                        </hc:DashedBorder>
+                        <!--<hc:ImageSelector x:Name="Icon_Image" Height="256" VerticalAlignment="Top" Margin="0,212,0,0"  HorizontalAlignment="Center" Width="256" Background="#FF292929" Filter="(.png)|*.png" DefaultExt=".png" OverridesDefaultStyle="True" StrokeThickness="2" ImageSelected="Icon_Image_ImageSelected" IsManipulationEnabled="True" RenderTransformOrigin="0.499,0.502"/>-->
+
+                        <RichTextBox x:Name="Description_Box_Advocate" Background="#FF373737" Height="151" VerticalAlignment="Top" BorderBrush="{x:Null}" SelectionTextBrush="{x:Null}" CaretBrush="White" AutomationProperties.HelpText="Log Area" Width="802" HorizontalAlignment="Center" AcceptsTab="True" IsDocumentEnabled="True" IsManipulationEnabled="True" FontFamily="Segoe UI" Margin="0,640,0,0" OverridesDefaultStyle="False">
+                            <FlowDocument>
+                                <Paragraph>
+                                    <Run Text="RichTextBox" FontFamily="Segoe UI"/>
+
+                                </Paragraph>
+
+                            </FlowDocument>
+                        </RichTextBox>
+                        <Button x:Name="Output_Button_Advocate"  Height="35" Margin="0,1025,100,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Content="Output Directory" Padding="0,0,0,0" Width="180" RenderTransformOrigin="0.411,0.429" HorizontalAlignment="Right" ToolTip="Manually Specify the Output Directory" Click="Output_Button_Click" Background="#FF383838"/>
+                        <TextBox x:Name="Output_Box_Advocate" Margin="84,1025,285,0" TextWrapping="Wrap" Text="Output zip" VerticalAlignment="Top" Background="#FF171717" Foreground="White" SelectionTextBrush="White" CaretBrush="White"/>
+                        <!--<Button x:Name="Editor"  Height="30" Margin="281,476,281,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Content="Editor" Padding="0,0,0,0" Click="Editor_Copy_Click" ToolTip="Open The In Built Image Editor" HorizontalAlignment="Stretch" LayoutUpdated="Editor_LayoutUpdated" Visibility="Collapsed" />-->
+
+                        <Button x:Name="Save_Mod_Advocate"  Height="39" Margin="84,1089,100,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Content="Convert Skin" Padding="0,0,0,0" HorizontalAlignment="Stretch" ToolTip="Save the mod to the Specified Path" Click="Save_Mod_Click" Background="#FF383838" />
+                        <Label Content="Version Number" Width="113" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Normal" FontFamily="Gadugi" Height="19" Padding="0,0,0,0" Margin="211,854,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                        <Label Content="Author Name" Width="113" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Normal" FontFamily="Gadugi" Height="20" Padding="0,0,0,0" Margin="211,908,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                        <Label Content="Skin Name" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Normal" FontFamily="Gadugi" Height="17" Padding="0,0,0,0" Margin="211,967,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="115"/>
+
+
+                        <TextBox x:Name="Mod_version_number_Advocate" Margin="353,847,209,0" TextWrapping="NoWrap" Text="1.0.0" VerticalAlignment="Top" Background="#FF171717" Foreground="White" SelectionTextBrush="White" CaretBrush="White" FontSize="11" />
+                        <TextBox x:Name="Mod_Author_Name_Advocate" Margin="353,902,209,0" TextWrapping="NoWrap" Text="Author Name" VerticalAlignment="Top" Background="#FF171717" Foreground="White" SelectionTextBrush="White" CaretBrush="White"   FontSize="11" />
+                        <TextBox x:Name="Mod_Skin_Name_Advocate" Margin="353,960,209,0" TextWrapping="NoWrap" Text="Skin Name" VerticalAlignment="Top" Background="#FF171717" Foreground="White" SelectionTextBrush="White" CaretBrush="White"  FontSize="11" />
+                        <Label  Content="Description" Margin="0,614,0,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="16" HorizontalAlignment="Center"/>
+                        <Separator Foreground="#CCFFFFFF" Background="#CCA4A4A4" Margin="176,427,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="298" Height="797" FontSize="7" BorderThickness="0,0,0,0" RenderTransformOrigin="0.5,0.5" BorderBrush="{x:Null}" >
+                            <Separator.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform ScaleX="0.01" ScaleY="0.44"/>
+                                    <SkewTransform/>
+                                    <RotateTransform/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </Separator.RenderTransform>
+                        </Separator>
+                        <Label  Content="Icon" Margin="0,301,0,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="16" HorizontalAlignment="Center"/>
+                        <TextBox x:Name="Zip_Box_Advocate_Copy" Margin="149,220,149,0" TextWrapping="NoWrap" Text="RePak path" VerticalAlignment="Top" Background="#FF171717" Foreground="White" SelectionTextBrush="White" CaretBrush="White" FontSize="11" IsReadOnly="True" IsUndoEnabled="False"/>
+                        <Label  Content="RePak" Margin="152,194,0,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="16" HorizontalAlignment="Left"/>
+                        <Button x:Name="Locate_Repak_Exe"  Height="30" Margin="149,256,149,0" VerticalAlignment="Top"  BorderBrush="{x:Null}" Content="Locate Repak Exe" Padding="0,0,0,0" ToolTip="Locate the Mod Zip manually" HorizontalAlignment="Stretch" Background="#FF383838" Click="Locate_Repak_Exe_Click" />
+                    </Grid>
+
+                </hc:ScrollViewer>
+            </TabItem>
+            <TabItem Header="RePak">
+            </TabItem>
         </TabControl>
 
     </Grid>

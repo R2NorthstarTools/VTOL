@@ -35,6 +35,7 @@ namespace VTOL.Pages
         async Task Set_About()
         {
 
+            About_BOX.IsReadOnly = true;
             Paragraph paragraph = new Paragraph();
             SnackBar = Main.Snackbar;
 
@@ -84,8 +85,11 @@ Big Thanks to -
 @xamionex
 Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/Ju1cy ";
 
+            About_BOX.Document.Blocks.Clear();
+            Run run = new Run(Text);
+            paragraph.Inlines.Add(run);
+            About_BOX.Document.Blocks.Add(paragraph);
 
-           
 
 
 
@@ -147,7 +151,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 }
                 catch (Exception ex)
                 {
-                    //Write_To_Log(ErrorManager(ex));
+                    Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
                 }
                 Process process = Process.Start(updaterModulePath, "/configure");

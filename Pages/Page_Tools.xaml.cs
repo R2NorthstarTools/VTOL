@@ -18,6 +18,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ZipFile_ = Ionic.Zip.ZipFile;
+using System.Drawing.Imaging;
 
 using Microsoft.Win32;
 using SixLabors.ImageSharp;
@@ -34,6 +35,11 @@ using ImageMagick;
 using ImageMagick.Formats;
 using Serilog;
 using System.Globalization;
+using Pfim;
+using PixelFormat = System.Drawing.Imaging.PixelFormat;
+using System.Runtime.InteropServices;
+using System.Diagnostics;
+using System.Windows.Media.Animation;
 
 namespace VTOL.Pages
 {
@@ -41,6 +47,334 @@ namespace VTOL.Pages
     /// Interaction logic for Page_Tools.xaml
     /// </summary>
     /// 
+
+    internal class DdsHandler
+    {
+        // dds file structure
+        char[] magic = new char[4];
+        // header
+        UInt32 size;
+        UInt32 flags;
+        UInt32 height;
+        UInt32 width;
+        UInt32 pitchOrLinearSize;
+        UInt32 depth;
+        UInt32 mipMapCount;
+        char[] reserved = new char[44];
+        // header -> pixel format
+        UInt32 pixel_Size;
+        UInt32 pixel_Flags;
+        char[] pixel_FourCC = new char[4];
+        UInt32 pixel_RGBBitCount;
+        UInt32 pixel_rBitMask;
+        UInt32 pixel_gBitMask;
+        UInt32 pixel_bBitMask;
+        UInt32 pixel_aBitMask;
+        // header again
+        UInt32 caps;
+        UInt32 caps2;
+        UInt32 caps3;
+        UInt32 caps4;
+        UInt32 reserved1;
+        // dx10 header
+        DXGI_FORMAT dxgiFormat;
+        DX10ResourceDimension resourceDimension;
+        UInt32 miscFlags;
+        UInt32 arraySize;
+        DX10AlphaMode alphaMode;
+
+        // other variables
+        bool isDX10;
+        byte[] data; // just everything else thats not in the header
+
+
+        public DdsHandler(string path)
+        {
+            BinaryReader reader = new(new FileStream(path, FileMode.Open));
+            try
+            {
+                // read magic
+                magic = reader.ReadChars(4);
+                if (new string(magic) != "DDS ")
+                {
+                    throw new Exception("File is not a valid DDS file at path " + path);
+                }
+                // read header
+                size = reader.ReadUInt32();
+                flags = reader.ReadUInt32();
+                height = reader.ReadUInt32();
+                width = reader.ReadUInt32();
+                pitchOrLinearSize = reader.ReadUInt32();
+                depth = reader.ReadUInt32();
+                mipMapCount = reader.ReadUInt32();
+                reserved = reader.ReadChars(44);
+                pixel_Size = reader.ReadUInt32();
+                pixel_Flags = reader.ReadUInt32();
+                pixel_FourCC = reader.ReadChars(4);
+                pixel_RGBBitCount = reader.ReadUInt32();
+                pixel_rBitMask = reader.ReadUInt32();
+                pixel_gBitMask = reader.ReadUInt32();
+                pixel_bBitMask = reader.ReadUInt32();
+                pixel_aBitMask = reader.ReadUInt32();
+                caps = reader.ReadUInt32();
+                caps2 = reader.ReadUInt32();
+                caps3 = reader.ReadUInt32();
+                caps4 = reader.ReadUInt32();
+                reserved1 = reader.ReadUInt32();
+                // read extra header if needed
+                isDX10 = new string(pixel_FourCC) == "DX10";
+                if (isDX10)
+                {
+                    dxgiFormat = (DXGI_FORMAT)reader.ReadUInt32();
+                    resourceDimension = (DX10ResourceDimension)reader.ReadUInt32();
+                    miscFlags = reader.ReadUInt32();
+                    arraySize = reader.ReadUInt32();
+                    alphaMode = (DX10AlphaMode)reader.ReadUInt32();
+                }
+                // read rest of data
+                // potentially losing data here if length > max int value?
+                data = reader.ReadBytes((int)(reader.BaseStream.Length - reader.BaseStream.Position));
+            }
+            finally
+            {
+                reader.Close();
+            }
+        }
+        public void Convert()
+        {
+            string str_fourCC = new(pixel_FourCC);
+            switch (str_fourCC)
+            {
+                case "DXT1":
+                    ToDX10(DXGI_FORMAT.DXGI_FORMAT_BC1_UNORM_SRGB);
+                    break;
+                case "ATI2":
+                case "BC5U":
+                    pixel_FourCC = new char[4] { 'B', 'C', '5', 'U' };
+                    if (pitchOrLinearSize == 0)
+                        pitchOrLinearSize = (uint)data.Length;
+                    if ((flags & 0x000A0000) != 0x000A0000)
+                        flags |= 0x000A0000;
+                    break;
+                case "BC4U":
+                    //ToDX10(DXGI_FORMAT.DXGI_FORMAT_BC4_UNORM);
+                    if (pitchOrLinearSize == 0)
+                        pitchOrLinearSize = (uint)data.Length;
+                    if ((flags & 0x000A0000) != 0x000A0000)
+                        flags |= 0x000A0000;
+                    if ((caps & 0x00400000) != 0x00400000)
+                        caps |= 0x00400000;
+                    if ((caps & 0x00000008) != 0x00000008)
+                        caps |= 0x00000008;
+                    break;
+
+                default:
+                    throw new NotImplementedException("DDS fourCC not supported: " + str_fourCC);
+            }
+        }
+
+        public void ToDX10(DXGI_FORMAT format)
+        {
+            dxgiFormat = format;
+            arraySize = 1;
+            resourceDimension = DX10ResourceDimension.Texture2D;
+            alphaMode = DX10AlphaMode.Unknown;
+            miscFlags = 0;
+            pixel_FourCC = new char[4] { 'D', 'X', '1', '0' };
+            isDX10 = true;
+        }
+
+        public void Save(string path)
+        {
+            Directory.CreateDirectory(Path.GetDirectoryName(path));
+            BinaryWriter writer = new(new FileStream(path, FileMode.Create));
+            try
+            {
+                // write magic
+                writer.Write(magic);
+                // write header
+                writer.Write(size);
+                writer.Write(flags);
+                writer.Write(height);
+                writer.Write(width);
+                writer.Write(pitchOrLinearSize);
+                writer.Write(depth);
+                writer.Write(mipMapCount);
+                writer.Write(reserved);
+                writer.Write(pixel_Size);
+                writer.Write(pixel_Flags);
+                writer.Write(pixel_FourCC);
+                writer.Write(pixel_RGBBitCount);
+                writer.Write(pixel_rBitMask);
+                writer.Write(pixel_gBitMask);
+                writer.Write(pixel_bBitMask);
+                writer.Write(pixel_aBitMask);
+                writer.Write(caps);
+                writer.Write(caps2);
+                writer.Write(caps3);
+                writer.Write(caps4);
+                writer.Write(reserved1);
+                // write dx10 header if needed
+                if (isDX10)
+                {
+                    writer.Write((UInt32)dxgiFormat);
+                    writer.Write((UInt32)resourceDimension);
+                    writer.Write(miscFlags);
+                    writer.Write(arraySize);
+                    writer.Write((UInt32)alphaMode);
+                }
+                // write raw data
+                writer.Write(data);
+            }
+            finally
+            {
+                writer.Close();
+            }
+        }
+
+
+        public enum DXGI_FORMAT : UInt32
+        {
+            DXGI_FORMAT_UNKNOWN,
+            DXGI_FORMAT_R32G32B32A32_TYPELESS,
+            DXGI_FORMAT_R32G32B32A32_FLOAT,
+            DXGI_FORMAT_R32G32B32A32_UINT,
+            DXGI_FORMAT_R32G32B32A32_SINT,
+            DXGI_FORMAT_R32G32B32_TYPELESS,
+            DXGI_FORMAT_R32G32B32_FLOAT,
+            DXGI_FORMAT_R32G32B32_UINT,
+            DXGI_FORMAT_R32G32B32_SINT,
+            DXGI_FORMAT_R16G16B16A16_TYPELESS,
+            DXGI_FORMAT_R16G16B16A16_FLOAT,
+            DXGI_FORMAT_R16G16B16A16_UNORM,
+            DXGI_FORMAT_R16G16B16A16_UINT,
+            DXGI_FORMAT_R16G16B16A16_SNORM,
+            DXGI_FORMAT_R16G16B16A16_SINT,
+            DXGI_FORMAT_R32G32_TYPELESS,
+            DXGI_FORMAT_R32G32_FLOAT,
+            DXGI_FORMAT_R32G32_UINT,
+            DXGI_FORMAT_R32G32_SINT,
+            DXGI_FORMAT_R32G8X24_TYPELESS,
+            DXGI_FORMAT_D32_FLOAT_S8X24_UINT,
+            DXGI_FORMAT_R32_FLOAT_X8X24_TYPELESS,
+            DXGI_FORMAT_X32_TYPELESS_G8X24_UINT,
+            DXGI_FORMAT_R10G10B10A2_TYPELESS,
+            DXGI_FORMAT_R10G10B10A2_UNORM,
+            DXGI_FORMAT_R10G10B10A2_UINT,
+            DXGI_FORMAT_R11G11B10_FLOAT,
+            DXGI_FORMAT_R8G8B8A8_TYPELESS,
+            DXGI_FORMAT_R8G8B8A8_UNORM,
+            DXGI_FORMAT_R8G8B8A8_UNORM_SRGB,
+            DXGI_FORMAT_R8G8B8A8_UINT,
+            DXGI_FORMAT_R8G8B8A8_SNORM,
+            DXGI_FORMAT_R8G8B8A8_SINT,
+            DXGI_FORMAT_R16G16_TYPELESS,
+            DXGI_FORMAT_R16G16_FLOAT,
+            DXGI_FORMAT_R16G16_UNORM,
+            DXGI_FORMAT_R16G16_UINT,
+            DXGI_FORMAT_R16G16_SNORM,
+            DXGI_FORMAT_R16G16_SINT,
+            DXGI_FORMAT_R32_TYPELESS,
+            DXGI_FORMAT_D32_FLOAT,
+            DXGI_FORMAT_R32_FLOAT,
+            DXGI_FORMAT_R32_UINT,
+            DXGI_FORMAT_R32_SINT,
+            DXGI_FORMAT_R24G8_TYPELESS,
+            DXGI_FORMAT_D24_UNORM_S8_UINT,
+            DXGI_FORMAT_R24_UNORM_X8_TYPELESS,
+            DXGI_FORMAT_X24_TYPELESS_G8_UINT,
+            DXGI_FORMAT_R8G8_TYPELESS,
+            DXGI_FORMAT_R8G8_UNORM,
+            DXGI_FORMAT_R8G8_UINT,
+            DXGI_FORMAT_R8G8_SNORM,
+            DXGI_FORMAT_R8G8_SINT,
+            DXGI_FORMAT_R16_TYPELESS,
+            DXGI_FORMAT_R16_FLOAT,
+            DXGI_FORMAT_D16_UNORM,
+            DXGI_FORMAT_R16_UNORM,
+            DXGI_FORMAT_R16_UINT,
+            DXGI_FORMAT_R16_SNORM,
+            DXGI_FORMAT_R16_SINT,
+            DXGI_FORMAT_R8_TYPELESS,
+            DXGI_FORMAT_R8_UNORM,
+            DXGI_FORMAT_R8_UINT,
+            DXGI_FORMAT_R8_SNORM,
+            DXGI_FORMAT_R8_SINT,
+            DXGI_FORMAT_A8_UNORM,
+            DXGI_FORMAT_R1_UNORM,
+            DXGI_FORMAT_R9G9B9E5_SHAREDEXP,
+            DXGI_FORMAT_R8G8_B8G8_UNORM,
+            DXGI_FORMAT_G8R8_G8B8_UNORM,
+            DXGI_FORMAT_BC1_TYPELESS,
+            DXGI_FORMAT_BC1_UNORM,
+            DXGI_FORMAT_BC1_UNORM_SRGB,
+            DXGI_FORMAT_BC2_TYPELESS,
+            DXGI_FORMAT_BC2_UNORM,
+            DXGI_FORMAT_BC2_UNORM_SRGB,
+            DXGI_FORMAT_BC3_TYPELESS,
+            DXGI_FORMAT_BC3_UNORM,
+            DXGI_FORMAT_BC3_UNORM_SRGB,
+            DXGI_FORMAT_BC4_TYPELESS,
+            DXGI_FORMAT_BC4_UNORM,
+            DXGI_FORMAT_BC4_SNORM,
+            DXGI_FORMAT_BC5_TYPELESS,
+            DXGI_FORMAT_BC5_UNORM,
+            DXGI_FORMAT_BC5_SNORM,
+            DXGI_FORMAT_B5G6R5_UNORM,
+            DXGI_FORMAT_B5G5R5A1_UNORM,
+            DXGI_FORMAT_B8G8R8A8_UNORM,
+            DXGI_FORMAT_B8G8R8X8_UNORM,
+            DXGI_FORMAT_R10G10B10_XR_BIAS_A2_UNORM,
+            DXGI_FORMAT_B8G8R8A8_TYPELESS,
+            DXGI_FORMAT_B8G8R8A8_UNORM_SRGB,
+            DXGI_FORMAT_B8G8R8X8_TYPELESS,
+            DXGI_FORMAT_B8G8R8X8_UNORM_SRGB,
+            DXGI_FORMAT_BC6H_TYPELESS,
+            DXGI_FORMAT_BC6H_UF16,
+            DXGI_FORMAT_BC6H_SF16,
+            DXGI_FORMAT_BC7_TYPELESS,
+            DXGI_FORMAT_BC7_UNORM,
+            DXGI_FORMAT_BC7_UNORM_SRGB,
+            DXGI_FORMAT_AYUV,
+            DXGI_FORMAT_Y410,
+            DXGI_FORMAT_Y416,
+            DXGI_FORMAT_NV12,
+            DXGI_FORMAT_P010,
+            DXGI_FORMAT_P016,
+            DXGI_FORMAT_420_OPAQUE,
+            DXGI_FORMAT_YUY2,
+            DXGI_FORMAT_Y210,
+            DXGI_FORMAT_Y216,
+            DXGI_FORMAT_NV11,
+            DXGI_FORMAT_AI44,
+            DXGI_FORMAT_IA44,
+            DXGI_FORMAT_P8,
+            DXGI_FORMAT_A8P8,
+            DXGI_FORMAT_B4G4R4A4_UNORM,
+            DXGI_FORMAT_P208,
+            DXGI_FORMAT_V208,
+            DXGI_FORMAT_V408,
+            DXGI_FORMAT_FORCE_UINT,
+        };
+
+        enum DX10ResourceDimension : UInt32
+        {
+            Unknown = 0,
+            Buffer = 1,
+            Texture1D = 2,
+            Texture2D = 3,
+            Texture3D = 4,
+        };
+
+        enum DX10AlphaMode : UInt32
+        {
+            Unknown = 0,
+            Straight = 1,
+            PreMultiplied = 2,
+            Opaque = 3,
+            Custom = 4,
+        };
+    }
     public class Item
     {
         public string Name { get; set; }
@@ -1455,5 +1789,1040 @@ namespace VTOL.Pages
 
                 }
             }
+
+
+
+
+        ///////////////////////ADVOCATE TOOL/////////////////////////////////////////////
+        ///CREATED BY https://github.com/ASpoonPlaysGames?tab=repositories 
+        ///Full authorazation has been given from the creator
+        ///
+
+
+
+
+
+        string Mod_Adv_Icon_Path;
+        string Mod_Adv_Skin_Path;
+        string Mod_Adv_Repak_Path;
+        string Mod_Adv_Author_name;
+        string Mod_Adv_Version_Num;
+        string Mod_Adv_Skin_Name;
+        string Mod_Adv_Readme;
+        string Mod_Adv_Output_Path;
+        public void Convert()
+        {
+            if(Mod_Adv_Author_name == null || Mod_Adv_Author_name == "" || Mod_Adv_Author_name.Count() < 2)
+            {
+                SnackBar.Appearance = ControlAppearance.Danger;
+                SnackBar.Title = "ERROR";
+                SnackBar.Message = "Author Name Is Minimum 2 Letters";
+                SnackBar.Show();
+            }
+            if (Mod_Adv_Version_Num == null || Mod_Adv_Version_Num == "" || Mod_Adv_Version_Num.Count() < 2)
+            {
+                SnackBar.Appearance = ControlAppearance.Danger;
+                SnackBar.Title = "ERROR";
+                SnackBar.Message = "Author Name Is Minimum 2 Letters";
+                SnackBar.Show();
+            }
+            if (Mod_Adv_Skin_Name == null || Mod_Adv_Skin_Name == "" || Mod_Adv_Skin_Name.Count() < 2)
+            {
+                SnackBar.Appearance = ControlAppearance.Danger;
+                SnackBar.Title = "ERROR";
+                SnackBar.Message = "Author Name Is Minimum 2 Letters";
+                SnackBar.Show();
+            }
+            if (Mod_Adv_Readme == null || Mod_Adv_Readme == "" || Mod_Adv_Readme.Count() < 2)
+            {
+                SnackBar.Appearance = ControlAppearance.Danger;
+                SnackBar.Title = "ERROR";
+                SnackBar.Message = "Author Name Is Minimum 2 Letters";
+                SnackBar.Show();
+            }
+
+            if (!Directory.Exists(Mod_Adv_Skin_Path))
+            {
+
+           
+                SnackBar.Appearance = ControlAppearance.Danger;
+                SnackBar.Title = "ERROR";
+                SnackBar.Message = "Skin Content Is Invalid!";
+                SnackBar.Show();
+                return;
+            }
+            if (!Directory.Exists(Mod_Adv_Output_Path))
+            {
+                
+
+            
+                SnackBar.Appearance = ControlAppearance.Danger;
+                SnackBar.Title = "ERROR";
+                SnackBar.Message = "Output Path Is Invalid!";
+                SnackBar.Show();
+                return;
+            }
+            if (!Directory.Exists(Mod_Adv_Repak_Path))
+            {
+
+
+           
+            
+                SnackBar.Appearance = ControlAppearance.Danger;
+                SnackBar.Title = "ERROR";
+                SnackBar.Message = "RePak Path Is Invalid!";
+                SnackBar.Show();
+                return;
+            }
+            if (!Directory.Exists(Mod_Adv_Icon_Path))
+            {
+
+
+           
+                SnackBar.Appearance = ControlAppearance.Danger;
+                SnackBar.Title = "ERROR";
+                SnackBar.Message = "Icon Content Is Invalid!";
+                SnackBar.Show();
+                return;
+            }
+
+            // make some variables that are useful at various points
+            string tempFolderPath = Path.GetTempPath();
+            string skinTempFolderPath = Path.GetFullPath(tempFolderPath + "/Skin");
+            string modTempFolderPath = Path.GetFullPath(tempFolderPath + "/Mod");
+            string repakTempFolderPath = Path.GetFullPath(tempFolderPath + "/RePak");
+
+            // try convert stuff, if we get a weird exception, don't crash preferably
+            try
+            {
+                /////////////////////////////
+                // create temp directories //
+                /////////////////////////////
+
+
+                // directory for unzipped file
+                Directory.CreateDirectory(skinTempFolderPath);
+
+                // directory for TS-compliant mod
+                Directory.CreateDirectory(modTempFolderPath);
+
+                // directory for RePak things
+                Directory.CreateDirectory(repakTempFolderPath);
+
+
+                ///////////////////////////////
+                // unzip skin to temp folder //
+                ///////////////////////////////
+
+
+                try
+                {
+                    ZipFile.ExtractToDirectory(Mod_Adv_Skin_Path, skinTempFolderPath, true);
+                }
+                catch (InvalidDataException)
+                {
+                    SnackBar.Appearance = ControlAppearance.Danger;
+                    SnackBar.Title = "ERROR";
+                    SnackBar.Message = "Unable to unzip skin!";
+                    SnackBar.Show();
+                    return;
+                }
+
+
+                ////////////////////////////////////
+                // create temp mod file structure //
+                ////////////////////////////////////
+
+
+                Directory.CreateDirectory(modTempFolderPath + "\\mods\\" + Mod_Adv_Author_name + "." + Mod_Adv_Skin_Name + "\\paks");
+
+
+                /////////////////////
+                // create icon.png //
+                /////////////////////
+
+                if (Mod_Adv_Icon_Path == "")
+                {
+                    // fuck you, im using the col of the first folder i find, shouldve specified an icon path
+                    string[] skinPaths = Directory.GetDirectories(skinTempFolderPath);
+                    if (skinPaths.Length == 0)
+                    {
+                        SnackBar.Appearance = ControlAppearance.Danger;
+                        SnackBar.Title = "ERROR";
+                        SnackBar.Message = "No Skins found in zip!";
+                        SnackBar.Show();
+                        return;
+                    }
+                    string[] resolutions = Directory.GetDirectories(skinPaths[0]);
+                    if (resolutions.Length == 0)
+                    {
+                        SnackBar.Appearance = ControlAppearance.Danger;
+                        SnackBar.Title = "ERROR";
+                        SnackBar.Message = "No Skins found in zip!";
+                        SnackBar.Show();
+                        return;
+                    }
+                    // find highest resolution folder
+                    int highestRes = 0;
+                    foreach (string resolution in resolutions)
+                    {
+                        string? thing = Path.GetFileName(resolution);
+                        // check if higher than highestRes and a power of 2
+                        if (int.TryParse(thing, out int res) && res > highestRes && (highestRes & (highestRes - 1)) == 0)
+                        {
+                            highestRes = res;
+                        }
+                    }
+                    // check that we actually found something
+                    if (highestRes == 0)
+                    {
+                        SnackBar.Appearance = ControlAppearance.Danger;
+                        SnackBar.Title = "ERROR";
+                        SnackBar.Message = "No valid image resolutions found in zip!";
+                        SnackBar.Show();
+                        return;
+                    }
+
+                    string[] files = Directory.GetFiles(skinPaths[0] + "\\" + highestRes.ToString());
+                    if (files.Length == 0)
+                    {
+                        SnackBar.Appearance = ControlAppearance.Danger;
+                        SnackBar.Title = "ERROR";
+                        SnackBar.Message = "No files in highest resolution folder!";
+                        SnackBar.Show();
+                        return;
+                    }
+                    // find _col file
+                    string colPath = "";
+                    foreach (string file in files)
+                    {
+                        if (file.EndsWith("_col.dds"))
+                        {
+                            colPath = file;
+                            break;
+                        }
+                    }
+                    if (colPath == "")
+                    {
+                        SnackBar.Appearance = ControlAppearance.Danger;
+                        SnackBar.Title = "ERROR";
+                        SnackBar.Message = "No _col texture found in highest resolution folder";
+                        SnackBar.Show();
+                        return;
+                    }
+
+                    if (!DdsToPng(colPath, modTempFolderPath + "\\icon.png"))
+                    {
+                        SnackBar.Appearance = ControlAppearance.Danger;
+                        SnackBar.Title = "ERROR";
+                        SnackBar.Message = "Failed to convert dds to png for icon!";
+                        SnackBar.Show();
+                        return;
+                    }
+                }
+                else
+                {
+                    // check that png is correct size
+                    System.Drawing.Image img = System.Drawing.Image.FromFile(Mod_Adv_Icon_Path);
+                  
+
+                    // copy png over
+                    File.Copy(Mod_Adv_Icon_Path, modTempFolderPath + "\\icon.png");
+                }
+
+            //    ConvertTaskComplete();
+
+                //////////////////////
+                // create README.md //
+                //////////////////////
+
+                if (Description_Box_Advocate.Document.Blocks.Count > 1)
+                {
+               
+                    File.WriteAllText(modTempFolderPath + "\\README.md", "");
+                }
+                else
+                {
+                    SnackBar.Appearance = ControlAppearance.Danger;
+                    SnackBar.Title = "ERROR";
+                    SnackBar.Message = "No files in highest resolution folder!";
+                    SnackBar.Show();
+
+                }
+
+
+                //////////////////////////
+                // create manifest.json //
+                //////////////////////////
+
+
+                string manifest = string.Format("{{\n\"name\":\"{0}\",\n\"version_number\":\"{1}\",\n\"website_url\":\"\",\n\"dependencies\":[],\n\"description\":\"{2}\"\n}}", Mod_Adv_Skin_Name.Replace(' ', '_'), Mod_Adv_Version_Num, string.Format("Skin made by {0}", Mod_Adv_Author_name));
+                File.WriteAllText(modTempFolderPath + "\\manifest.json", manifest);
+
+
+                /////////////////////
+                // create mod.json //
+                /////////////////////
+
+
+                string modJson = string.Format("{{\n\"Name\": \"{0}\",\n\"Description\": \"\",\n\"Version\": \"{1}\",\n\"LoadPriority\": 1,\n\"ConVars\":[],\n\"Scripts\":[],\n\"Localisation\":[]\n}}", Mod_Adv_Author_name + "." + Mod_Adv_Skin_Name, Mod_version_number);
+                File.WriteAllText(modTempFolderPath + "\\mods\\" + Mod_Adv_Author_name + "." + Mod_Adv_Skin_Name + "\\mod.json", modJson);
+
+
+                //////////////////////////////////////////////////////////////////
+                // create map.json and move textures to temp folder for packing //
+                //////////////////////////////////////////////////////////////////
+
+
+                string map = string.Format("{{\n\"name\":\"{0}\",\n\"assetsDir\":\"{1}\",\n\"outputDir\":\"{2}\",\n\"version\": 7,\n\"files\":[\n", Mod_Adv_Skin_Name, (repakTempFolderPath + "\\assets").Replace('\\', '/'), (modTempFolderPath + "\\mods\\" + Mod_Adv_Author_name + "." + Mod_Adv_Skin_Name + "\\paks").Replace('\\', '/'));
+                // this tracks the textures that we have already added to the json, so we can avoid duplicates in there
+                List<string> textures = new();
+                bool isFirst = true;
+                foreach (string skinPath in Directory.GetDirectories(skinTempFolderPath))
+                {
+                    foreach (string resolution in Directory.GetDirectories(skinPath).OrderBy(path => int.Parse(Path.GetFileName(path))))
+                    {
+                        if (int.TryParse(Path.GetFileName(resolution), out int res))
+                        {
+                            foreach (string texture in Directory.GetFiles(resolution))
+                            {
+                                // move texture to temp folder for packing
+                                // convert from skin tool syntax to actual texture path, gotta be hardcoded because pain
+                                string texturePath = TextureNameToPath(Path.GetFileNameWithoutExtension(texture));
+                                if (texturePath == "")
+                                {
+                                   // ConversionFailed(button, styleProperty, "Failed to convert texture '" + Path.GetFileNameWithoutExtension(texture) + "')");
+                                    return;
+                                }
+
+                                // avoid duplicate textures in the json
+                                if (!textures.Contains(texturePath))
+                                {
+                                    // dont add a comma on the first one
+                                    if (!isFirst)
+                                        map += ",\n";
+                                    map += $"{{\n\"$type\":\"txtr\",\n\"path\":\"{texturePath}\",\n\"disableStreaming\":true,\n\"saveDebugName\":true\n}}";
+                                    // add texture to tracked textures
+                                    textures.Add(texturePath);
+                                }
+                                isFirst = false;
+                                // copy file
+                                Directory.CreateDirectory(Directory.GetParent($"{repakTempFolderPath}\\assets\\{texturePath}.dds").FullName);
+
+                                DdsHandler handler = new(texture);
+                                handler.Convert();
+                                handler.Save($"{repakTempFolderPath}\\assets\\{texturePath}.dds");
+                            }
+                        }
+                    }
+                }
+
+                // end the json
+                map += "\n]\n}";
+                File.WriteAllText(repakTempFolderPath + "\\map.json", map);
+
+
+                //////////////////////////
+                // pack using RePak.exe //
+                //////////////////////////
+
+             //   Message = "Packing using RePak...";
+
+                //var sb = new StringBuilder();
+
+                Process P = new();
+
+                //P.StartInfo.RedirectStandardOutput = true;
+                //P.StartInfo.RedirectStandardError = true;
+                //P.OutputDataReceived += (sender, args) => sb.AppendLine(args.Data);
+                //P.ErrorDataReceived += (sender, args) => sb.AppendLine(args.Data);
+                //P.StartInfo.UseShellExecute = false;
+                P.StartInfo.FileName = Properties.Settings.Default.RePakPath;
+                P.StartInfo.Arguments = "\"" + repakTempFolderPath + "\\map.json\"";
+                P.Start();
+                //P.BeginOutputReadLine();
+                //P.BeginErrorReadLine();
+                P.WaitForExit();
+
+                if (P.ExitCode == 1)
+                {
+                  //  ConversionFailed(button, styleProperty, "RePak failed to pack the rpak!");
+                    return;
+                }
+
+
+                //////////////////////
+                // create rpak.json //
+                //////////////////////
+
+
+                string rpakjson = string.Format("{{\n\"Preload\":\n{{\n\"{0}\":true\n}}\n}}", Mod_Adv_Skin_Name + ".rpak");
+
+                File.WriteAllText(modTempFolderPath + "\\mods\\" + Mod_Adv_Author_name + "." + Mod_Adv_Skin_Name + "\\paks\\rpak.json", rpakjson);
+
+
+                ///////////////////
+                // zip up result //
+                ///////////////////
+
+
+                ZipFile.CreateFromDirectory(modTempFolderPath, tempFolderPath + "\\" + Mod_Adv_Author_name + "." + Mod_Adv_Skin_Name + ".zip");
+
+
+                ////////////////////////////////////
+                // move result out of temp folder //
+                ////////////////////////////////////
+
+
+                File.Move(tempFolderPath + "\\" + Mod_Adv_Author_name + "." + Mod_Adv_Skin_Name + ".zip", Mod_Adv_Output_Path + "\\" + Mod_Adv_Author_name + "." + Mod_Adv_Skin_Name + ".zip", true);
+
+            }
+            catch (Exception ex)
+            {
+                // create message box showing the full error
+                MessageBoxButton msgButton = MessageBoxButton.OK;
+                MessageBoxImage msgIcon = MessageBoxImage.Error;
+                MessageBox.Show("There was an unhandled error during conversion!\n\n" + ex.Message + "\n\n" + ex.StackTrace, "Conversion Error", msgButton, msgIcon);
+                SnackBar.Appearance = ControlAppearance.Danger;
+                SnackBar.Title = "ERROR";
+                SnackBar.Message = "Unknown Error!";
+                SnackBar.Show();
+                return;
+            }
+            finally
+            {
+                /////////////
+                // cleanup //
+                /////////////
+
+
+                // delete temp folders
+                if (Directory.Exists(modTempFolderPath))
+                    Directory.Delete(modTempFolderPath, true);
+
+                if (Directory.Exists(repakTempFolderPath))
+                    Directory.Delete(repakTempFolderPath, true);
+
+                if (Directory.Exists(skinTempFolderPath))
+                    Directory.Delete(skinTempFolderPath, true);
+            }
+
+
+            // everything is done and good
+            SnackBar.Appearance = ControlAppearance.Success;
+            SnackBar.Title = "SUCCESS";
+            SnackBar.Message = "Conversion Completed Successfully";
+            SnackBar.Show();
+        }
+
+        private bool DdsToPng(string imagePath, string outputPath)
+        {
+            // yoinked from pfim usage example
+            using (var image = Pfimage.FromFile(imagePath))
+            {
+                PixelFormat format;
+
+                // Convert from Pfim's backend agnostic image format into GDI+'s image format
+                switch (image.Format)
+                {
+                    case Pfim.ImageFormat.Rgba32:
+                        format = PixelFormat.Format32bppArgb;
+                        break;
+                    default:
+                        // see the sample for more details
+                        throw new NotImplementedException();
+                }
+
+                // Pin pfim's data array so that it doesn't get reaped by GC, unnecessary
+                // in this snippet but useful technique if the data was going to be used in
+                // control like a picture box
+                var handle = GCHandle.Alloc(image.Data, GCHandleType.Pinned);
+                try
+                {
+                    var data = Marshal.UnsafeAddrOfPinnedArrayElement(image.Data, 0);
+                    var bitmap = new Bitmap(image.Width, image.Height, image.Stride, format, data);
+                    // resize the bitmap before saving it
+                    var resized = new Bitmap(bitmap, new System.Drawing.Size(256, 256));
+                    resized.Save(outputPath, System.Drawing.Imaging.ImageFormat.Png);
+                }
+                finally
+                {
+                    handle.Free();
+                }
+            }
+            return true;
+        }
+
+        // these dictionaries have to be hardcoded because skin tool just hardcodes in offsets afaik
+
+        // weapons
+        private readonly Dictionary<string, string> weaponNameToPath = new()
+        {
+            // pilot weapons
+            { "R201_Default", @"texture\\models\\weapons\\r101\\r101" },
+            { "R101_Default", @"texture\\models\\Weapons_R2\\r101_sfp\\r101_sfp" },
+            { "HemlokBFR_Default", @"texture\\models\\Weapons_R2\\hemlok_bfr_ar\\hemlok_BFR_ar" },
+            { "V47Flatline_Default", @"texture\\models\\weapons\\vinson\\vinson_rifle" },
+            { "G2A5_Default", @"texture\\models\\Weapons_R2\\g2a4_ar\\g2a4_ar_col" },
+            { "Alternator_Default", @"texture\\models\\Weapons_R2\\alternator_smg\\alternator_smg" },
+            { "CAR_Default", @"texture\\models\\Weapons_R2\\car_smg\\CAR_smg" },
+            { "R97_Default", @"texture\\models\\Weapons_R2\\r97\\R97_CN" },
+            { "Volt_Default", @"texture\\models\\weapons\\hemlok_smg\\hemlok_smg" },
+            { "Devotion_Default", @"texture\\models\\weapons\\hemlock_br\\hemlock_br" },
+            { "Devotion_clip_Default", @"texture\\models\\weapons\\hemlock_br\\hemlock_br_acc" },
+            { "LSTAR_Default", @"texture\\models\\weapons\\lstar\\lstar" },
+            { "Spitfire_Default", @"texture\\models\\Weapons_R2\\spitfire_lmg\\spitfire_lmg" },
+            { "DoubleTake_Default", @"texture\\models\\Weapons_R2\\doubletake_sr\\doubletake" },
+            { "Kraber_Default", @"texture\\models\\Weapons_R2\\kraber_sr\\kraber_sr" },
+            { "LongbowDMR_Default", @"texture\\models\\Weapons_R2\\Longbow_dmr\\longbow_dmr" },
+            { "EVA8_Default", @"texture\\models\\Weapons_R2\\eva8_stgn\\eva8_stgn" },
+            { "Mastiff_Default", @"texture\\models\\weapons\\mastiff_stgn\\mastiff_stgn" },
+            { "ColdWar_Default", @"texture\\models\\Weapons_R2\\pulse_lmg\\pulse_lmg" },
+            { "EPG_Default", @"texture\\models\\Weapons_R2\\epg\\epg" },
+            { "SMR_Default", @"texture\\models\\Weapons_R2\\sidewinder_at\\sidewinder_at" },
+            { "Softball_Default", @"texture\\models\\weapons\\softball_at\\softball_at_skin01" },
+            { "Mozambique_Default", @"texture\\models\\Weapons_R2\\pstl_sa3" },
+            { "P2016_Default", @"texture\\models\\Weapons_R2\\p2011_pstl\\p2011_pstl" },
+            { "RE45_Default", @"texture\\models\\Weapons_R2\\re45_pstl\\RE45" },
+            { "SmartPistol_Default", @"texture\\models\\Weapons_R2\\smart_pistol\\Smart_Pistol_MK6" },
+            { "Wingman_Default", @"texture\\models\\weapons\\b3_wingman\\b3_wingman" },
+            { "WingmanElite_Default", @"texture\\models\\Weapons_R2\\wingman_elite\\wingman_elite" },
+            { "Archer_Default", @"texture\\models\\Weapons_R2\\archer_at\\archer_at" },
+            { "ChargeRifle_Default", @"texture\\models\\Weapons_R2\\charge_rifle\\charge_rifle_at" },
+            { "MGL_Default", @"texture\\models\\weapons\\mgl_at\\mgl_at" },
+            { "Thunderbolt_Default", @"texture\\models\\Weapons_R2\\arc_launcher\\arc_launcher" },
+            // titan weapons
+            { "BroadSword_Default", @"texture\\models\\weapons\\titan_sword\\titan_sword_01" },
+            { "LeadWall_Default", @"texture\\models\\Weapons_R2\\titan_triple_threat\\triple_threat" },
+            { "PlasmaRailgun_Default", @"texture\\models\\Weapons_R2\\titan_plasma_railgun\\plasma_railgun" },
+            { "SplitterRifle_Default", @"texture\\models\\weapons\\titan_particle_accelerator\\titan_particle_accelerator" },
+            { "ThermiteLauncher_Default", @"texture\\models\\Weapons_R2\\titan_thermite_launcher\\thermite_launcher" },
+            { "TrackerCannon_Default", @"texture\\models\\Weapons_R2\\titan_40mm\\titan_40mm" },
+            { "XO16_Default", @"texture\\models\\Weapons_R2\\xo16_shorty_titan\\xo16_shorty_titan" },
+            { "XO16_clip_Default", @"texture\\models\\Weapons_R2\\xo16_a2_titan\\xo16_a2_titan" },
+            // melee
+            { "Sword_Default", @"texture\\models\\weapons\\bolo_sword\\bolo_sword_01" }, // also idk about this, this is a blank texture in vanilla
+            { "Kunai_Default", @"texture\\models\\Weapons_R2\\shuriken_kunai\\kunai_shuriken" }, // again, not entirely sure
+        };
+        // pilot and titan overrides - used for weird exceptions where things share textures etc.
+        private readonly Dictionary<string, string> nameToPathOverrides = new()
+        {
+            //////////////
+            /// PILOTS ///
+            //////////////
+            // cloak
+            // A-wall
+            // phase
+            { "PhaseShift_fbody_ilm", @"texture\\models\\humans\\titanpilot_gsuits\\pilot_light_ged\\p_l_ged_male_b_v1_skn01_ilm" },
+            // stim
+            // grapple
+            // pulse
+            // holo
+            { "HoloPilot_fbody_col", @"texture\\models\\humans\\titanpilot_gsuits\\pilot_medium_stalker\\p_m_stalker_female_b_v1_skn02_col" },
+            { "HoloPilot_mbody_col", @"texture\\models\\humans\\titanpilot_gsuits\\pilot_medium_stalker\\p_m_stalker_male_b_v1_skn02_col" },
+            { "HoloPilot_mbody_spc", @"texture\\models\\humans\\titanpilot_gsuits\\pilot_medium_stalker\\p_m_stalker_male_b_v1_skn02_spc" },
+            { "HoloPilot_gear_col", @"texture\\models\\humans\\titanpilot_gsuits\\pilot_medium_stalker\\p_m_stalker_male_g_v1_skn02_col" },
+            { "HoloPilot_gear_spc", @"texture\\models\\humans\\titanpilot_gsuits\\pilot_medium_stalker\\p_m_stalker_male_g_v1_skn02_spc" },
+            { "HoloPilot_helmet_col", @"texture\\models\\humans\\titanpilot_gsuits\\pilot_medium_stalker\\p_m_stalker_male_he_v1_skn02_col" },
+            { "HoloPilot_helmet_spc", @"texture\\models\\humans\\titanpilot_gsuits\\pilot_medium_stalker\\p_m_stalker_male_he_v1_skn02_spc" },
+            { "HoloPilot_jumpkit_col", @"texture\\models\\humans\\titanpilot_gsuits\\pilot_medium_stalker\\p_m_stalker_male_j_v1_skn02_col" },
+            { "HoloPilot_viewhand_col", @"texture\\models\\humans\\titanpilot_gsuits\\pilot_medium_stalker\\p_m_stalker_male_vh_v1_skn02_col" },
+            { "HoloPilot_viewhand_spc", @"texture\\models\\humans\\titanpilot_gsuits\\pilot_medium_stalker\\p_m_stalker_male_vh_v1_skn02_spc" },
+            //////////////
+            /// TITANS ///
+            //////////////
+            // ion
+            { "ION_Default_ao", @"texture\\models\\titans_r2\\medium_ion\\warpaint\\warpaint_02\\t_m_ion_warpaint_skin02_ao" },
+            { "ION_Default_cav", @"texture\\models\\titans_r2\\medium_ion\\warpaint\\warpaint_02\\t_m_ion_warpaint_skin02_cav" },
+            { "ION_Default_ilm", @"texture\\models\\titans_r2\\medium_ion\\warpaint\\warpaint_02\\t_m_ion_warpaint_skin02_ilm" },
+            { "ION_Default_nml", @"texture\\models\\titans_r2\\medium_ion\\warpaint\\warpaint_02\\t_m_ion_warpaint_skin02_nml" },
+            // ion prime
+            { "PrimeION_Default_ao", @"texture\\models\\titans_r2\\medium_ion_prime\\warpaint\\warpaint_00\\t_m_ion_prime_warpaint_skin01_ao" },
+            { "PrimeION_Default_cav", @"texture\\models\\titans_r2\\medium_ion_prime\\warpaint\\warpaint_00\\t_m_ion_prime_warpaint_skin01_cav" },
+            { "PrimeION_Default_ilm", @"texture\\models\\titans_r2\\medium_ion_prime\\warpaint\\warpaint_00\\t_m_ion_prime_warpaint_skin01_ilm" },
+            // tone
+            { "Tone_Default_ao", @"texture\\models\\titans_r2\\medium_tone\\warpaint\\warpaint_00\\t_m_tone_warpaint_skin00_ao" },
+            { "Tone_Default_cav", @"texture\\models\\titans_r2\\medium_tone\\warpaint\\warpaint_00\\t_m_tone_warpaint_skin00_cav" },
+            { "Tone_Default_ilm", @"texture\\models\\titans_r2\\medium_tone\\warpaint\\warpaint_00\\t_m_tone_warpaint_skin00_ilm" },
+            // tone prime
+            { "PrimeTone_Default_ao", @"texture\\models\\titans_r2\\medium_tone_prime\\warpaint\\warpaint_00\\t_m_tone_prime_warpaint_skin00_ao" },
+            { "PrimeTone_Default_cav", @"texture\\models\\titans_r2\\medium_tone_prime\\warpaint\\warpaint_00\\t_m_tone_prime_warpaint_skin00_cav" },
+            { "PrimeTone_Default_ilm", @"texture\\models\\titans_r2\\medium_tone_prime\\warpaint\\warpaint_00\\t_m_tone_prime_warpaint_skin00_ilm" },
+            { "PrimeTone_Default_nml", @"texture\\models\\titans_r2\\medium_tone_prime\\warpaint\\warpaint_00\\t_m_tone_prime_warpaint_skin00_nml" },
+            // northstar
+            // northstar prime
+            { "PrimeNorthstar_Default_ao", @"texture\\models\\titans_r2\\light_northstar_prime\\warpaint\\warpaint_00\\t_l_northstar_prime_warpaint_skin00_ao" },
+            { "PrimeNorthstar_Default_cav", @"texture\\models\\titans_r2\\light_northstar_prime\\warpaint\\warpaint_00\\t_l_northstar_prime_warpaint_skin00_cav" },
+            { "PrimeNorthstar_Default_ilm", @"texture\\models\\titans_r2\\light_northstar_prime\\warpaint\\warpaint_00\\t_l_northstar_prime_warpaint_skin00_ilm" },
+            { "PrimeNorthstar_Default_nml", @"texture\\models\\titans_r2\\light_northstar_prime\\warpaint\\warpaint_00\\t_l_northstar_prime_warpaint_skin00_nml" },
+            // ronin
+            // ronin prime
+            { "PrimeRonin_Default_ao", @"texture\\models\\titans_r2\\light_ronin_prime\\warpaint\\warpaint_00\\t_l_ronin_prime_warpaint_skin00_ao" },
+            { "PrimeRonin_Default_cav", @"texture\\models\\titans_r2\\light_ronin_prime\\warpaint\\warpaint_00\\t_l_ronin_prime_warpaint_skin00_cav" },
+            { "PrimeRonin_Default_ilm", @"texture\\models\\titans_r2\\light_ronin_prime\\warpaint\\warpaint_00\\t_l_ronin_prime_warpaint_skin00_ilm" },
+            { "PrimeRonin_Default_nml", @"texture\\models\\titans_r2\\light_ronin_prime\\warpaint\\warpaint_00\\t_l_ronin_prime_warpaint_skin00_nml" },
+            // scorch
+            { "Scorch_Default_ao", @"texture\\models\\titans_r2\\heavy_scorch\\warpaint\\warpaint_00\\t_h_scorch_warpaint_skin00_ao" },
+            { "Scorch_Default_cav", @"texture\\models\\titans_r2\\heavy_scorch\\warpaint\\warpaint_00\\t_h_scorch_warpaint_skin00_cav" },
+            { "Scorch_Default_ilm", @"texture\\models\\titans_r2\\heavy_scorch\\warpaint\\warpaint_00\\t_h_scorch_warpaint_skin00_ilm" },
+            // scorch prime
+            { "PrimeScorch_Default_ao", @"texture\\models\\titans_r2\\heavy_scorch_prime\\warpaint\\warpaint_00\\t_h_scorch_prime_warpaint_skin00_ao" },
+            { "PrimeScorch_Default_cav", @"texture\\models\\titans_r2\\heavy_scorch_prime\\warpaint\\warpaint_00\\t_h_scorch_prime_warpaint_skin00_cav" },
+            { "PrimeScorch_Default_ilm", @"texture\\models\\titans_r2\\heavy_scorch_prime\\warpaint\\warpaint_00\\t_h_scorch_prime_warpaint_skin00_ilm" },
+            // legion
+            { "Legion_Default_ao", @"texture\\models\\titans_r2\\heavy_legion\\warpaint\\warpaint_00\\t_h_legion_warpaint_skin00_ao" },
+            { "Legion_Default_cav", @"texture\\models\\titans_r2\\heavy_legion\\warpaint\\warpaint_00\\t_h_legion_warpaint_skin00_cav" },
+            { "Legion_Default_ilm", @"texture\\models\\titans_r2\\heavy_legion\\warpaint\\warpaint_00\\t_h_legion_warpaint_skin00_ilm" },
+            // legion prime
+            { "PrimeLegion_Default_ao", @"texture\\models\\titans_r2\\heavy_legion_prime\\warpaint\\warpaint_00\\t_h_legion_prime_warpaint_skin00_ao" },
+            { "PrimeLegion_Default_cav", @"texture\\models\\titans_r2\\heavy_legion_prime\\warpaint\\warpaint_00\\t_h_legion_prime_warpaint_skin00_cav" },
+            { "PrimeLegion_Default_ilm", @"texture\\models\\titans_r2\\heavy_legion_prime\\warpaint\\warpaint_00\\t_h_legion_prime_warpaint_skin00_ilm" },
+            { "PrimeLegion_Default_nml", @"texture\\models\\titans_r2\\heavy_legion_prime\\warpaint\\warpaint_00\\t_h_legion_prime_warpaint_skin00_nml" },
+            // monarch
+            { "Monarch_Default_ao", @"texture\\models\\titans_r2\\medium_vanguard\\warpaint\\warpaint_00\\t_m_vanguard_prime_warpaint_skin00_ao" },
+            { "Monarch_Default_cav", @"texture\\models\\titans_r2\\medium_vanguard\\warpaint\\warpaint_00\\t_m_vanguard_prime_warpaint_skin00_cav" },
+            { "Monarch_Default_ilm", @"texture\\models\\titans_r2\\medium_vanguard\\warpaint\\warpaint_00\\t_m_vanguard_prime_warpaint_skin00_ilm" },
+            { "Monarch_Default_nml", @"texture\\models\\titans_r2\\medium_vanguard\\warpaint\\warpaint_00\\t_m_vanguard_prime_warpaint_skin00_nml" },
+        };
+        // pilots and titans
+        private readonly Dictionary<string, string> nameToPath = new()
+        {
+            //////////////
+            /// PILOTS ///
+            //////////////
+            // cloak
+            { "Cloak_fbody", @"texture\\models\\humans\\titanpilot_gsuits\\pilot_heavy_drex\\pilot_heavy_drex_f_body_skin_01" },
+            { "Cloak_mbody", @"texture\\models\\humans\\titanpilot_gsuits\\pilot_heavy_drex\\pilot_heavy_drex_m_body_skin_01" },
+            { "Cloak_gauntlet", @"texture\\models\\humans\\titanpilot_gsuits\\pilot_heavy_drex\\pilot_heavy_drex_gauntlet_skin_01" },
+            { "Cloak_gear", @"texture\\models\\humans\\titanpilot_gsuits\\pilot_heavy_drex\\pilot_heavy_drex_gear_skin_01" },
+            { "Cloak_jumpkit", @"texture\\models\\humans\\titanpilot_gsuits\\pilot_heavy_drex\\pilot_heavy_drex_jumpkit_skin_01" },
+            { "Cloak_ghillie", @"texture\\models\\humans\\titanpilot_gsuits\\pilot_heavy_drex\\pilot_heavy_drex_ghullie_skin_01" },// ghullie lol
+            { "Cloak_helmet", @"texture\\models\\humans\\titanpilot_gsuits\\pilot_heavy_drex\\pilot_heavy_drex_helmet_skin_01" },
+            // A-wall
+            { "AWall_fbody", @"texture\\models\\humans\\titanpilot_gsuits\\pilot_hevy_roog\\pilot_hev_roog_f_body_skn_01" },
+            { "AWall_mbody", @"texture\\models\\humans\\titanpilot_gsuits\\pilot_hevy_roog\\pilot_hev_roog_m_body_skn_01" },
+            { "AWall_gauntlet", @"texture\\models\\humans\\titanpilot_gsuits\\pilot_hevy_roog\\pilot_hev_roog_m_gauntlet_skn_01" },
+            { "AWall_gear", @"texture\\models\\humans\\titanpilot_gsuits\\pilot_hevy_roog\\pilot_hev_roog_m_gear_skn_01" },
+            { "AWall_jumpkit", @"texture\\models\\humans\\titanpilot_gsuits\\pilot_hevy_roog\\pilot_hev_roog_m_jumpkit_skn_01" },
+            { "AWall_helmet", @"texture\\models\\humans\\titanpilot_gsuits\\pilot_heavy_helmets\\pilot_hev_helmet_v1_skn" },
+            // phase
+            { "PhaseShift_fbody", @"texture\\models\\humans\\titanpilot_gsuits\\pilot_light_ged\\p_l_ged_female_body_v1_skn01" },
+            { "PhaseShift_mbody", @"texture\\models\\humans\\titanpilot_gsuits\\pilot_light_ged\\p_l_ged_male_b_v1_skn01" },
+            { "PhaseShift_gear", @"texture\\models\\humans\\titanpilot_gsuits\\pilot_light_ged\\p_l_ged_male_g_v1_skn01" },
+            { "PhaseShift_viewhand", @"texture\\models\\humans\\titanpilot_gsuits\\pilot_light_ged\\p_l_ged_male_vh_v1_skn01" },
+            { "PhaseShift_jumpkit", @"texture\\models\\humans\\titanpilot_gsuits\\pilot_light_ged\\p_l_ged_male_j_v1_skn01" },
+            { "PhaseShift_helmet", @"texture\\models\\humans\\titanpilot_gsuits\\pilot_light_ged\\p_l_ged_male_g_v1_skn01" },
+            { "PhaseShift_hair", @"texture\\models\\humans\\titanpilot_gsuits\\pilot_light_ged\\p_l_ged_male_alpha_v1_skn01" },
+            // stim
+            { "Stim_fbody", @"texture\\models\\humans\\titanpilot_gsuits\\pilot_light_jester\\pilot_lit_jester_f_body" },
+            { "Stim_mbody", @"texture\\models\\humans\\titanpilot_gsuits\\pilot_light_jester\\pilot_lit_jester_m_body" },
+            { "Stim_fgear", @"texture\\models\\humans\\titanpilot_gsuits\\pilot_light_jester\\pilot_lit_jester_f_gear" },
+            { "Stim_gear", @"texture\\models\\humans\\titanpilot_gsuits\\pilot_light_jester\\pilot_lit_jester_gear" },
+            { "Stim_gauntlet", @"texture\\models\\humans\\titanpilot_gsuits\\pilot_light_jester\\pilot_lit_jester_gauntlet" },
+            { "Stim_fjumpkit", @"texture\\models\\humans\\titanpilot_gsuits\\pilot_light_jester\\pilot_lit_jester_f_jumpkit" },
+            { "Stim_jumpkit", @"texture\\models\\humans\\titanpilot_gsuits\\pilot_light_jester\\pilot_lit_jester_jumpkit" },
+            { "Stim_head", @"texture\\models\\humans\\titanpilot_gsuits\\pilot_light_jester\\pilot_lit_jester_head" },
+            // grapple
+            { "Grapple_fbody", @"texture\\models\\humans\\titanpilot_gsuits\\pilot_medium_geist\\pilot_med_geist_f_body_skn_01" },
+            { "Grapple_mbody", @"texture\\models\\humans\\titanpilot_gsuits\\pilot_medium_geist\\pilot_med_geist_m_body_skn_02" },
+            { "Grapple_gear", @"texture\\models\\humans\\titanpilot_gsuits\\pilot_medium_geist\\pilot_med_geist_gear_skn_02" },
+            { "Grapple_gauntlet", @"texture\\models\\humans\\titanpilot_gsuits\\pilot_medium_geist\\pilot_med_geist_gauntlet_skn_02" },
+            { "Grapple_jumpkit", @"texture\\models\\humans\\titanpilot_gsuits\\pilot_medium_geist\\pilot_med_geist_jumpkit_skn_01" },
+            { "Grapple_helmet", @"texture\\models\\humans\\titanpilot_gsuits\\pilot_medium_geist\\pilot_med_geist_helmet_v2_skn_01" },
+            // pulse
+            { "PulseBlade_fbody", @"texture\\models\\humans\\titanpilot_gsuits\\pilot_medium_reaper\\pilot_med_reaper_f_body_skin_01" },
+            { "PulseBlade_mbody", @"texture\\models\\humans\\titanpilot_gsuits\\pilot_medium_reaper\\pilot_med_reaper_m_body_skin_01" },
+            { "PulseBlade_gear", @"texture\\models\\humans\\titanpilot_gsuits\\pilot_medium_reaper\\pilot_med_reaper_m_gear_skin_01" },
+            { "PulseBlade_gauntlet", @"texture\\models\\humans\\titanpilot_gsuits\\pilot_medium_reaper\\pilot_med_reaper_m_gauntlet1_skin_01" },
+            { "PulseBlade_jumpkit", @"texture\\models\\humans\\titanpilot_gsuits\\pilot_medium_reaper\\pilot_med_reaper_jumpkit_skin_02" },
+            { "PulseBlade_helmet", @"texture\\models\\humans\\titanpilot_gsuits\\pilot_medium_v_helmets\\pilot_med_helmet_v2_skn_02" },
+            // holo
+            { "HoloPilot_fbody", @"texture\\models\\humans\\titanpilot_gsuits\\pilot_medium_stalker\\p_m_stalker_female_b_v1_skn01" },
+            { "HoloPilot_mbody", @"texture\\models\\humans\\titanpilot_gsuits\\pilot_medium_stalker\\p_m_stalker_male_b_v1_skn01" },
+            { "HoloPilot_gear", @"texture\\models\\humans\\titanpilot_gsuits\\pilot_medium_stalker\\p_m_stalker_male_g_v1_skn01" },
+            { "HoloPilot_viewhand", @"texture\\models\\humans\\titanpilot_gsuits\\pilot_medium_stalker\\p_m_stalker_male_vh_v1_skn01" },
+            { "HoloPilot_jumpkit", @"texture\\models\\humans\\titanpilot_gsuits\\pilot_medium_stalker\\p_m_stalker_male_j_v1_skn01" },
+            { "HoloPilot_helmet", @"texture\\models\\humans\\titanpilot_gsuits\\pilot_medium_stalker\\p_m_stalker_male_he_v1_skn01" },
+            // shared
+            { "Cloak_head", @"texture\\models\\humans\\titanpilot_heads\\pilot_v3_head" },
+            { "AWall_head", @"texture\\models\\humans\\titanpilot_heads\\pilot_v3_head" },
+            { "Grapple_head", @"texture\\models\\humans\\titanpilot_heads\\pilot_v3_head" },
+            { "PulseBlade_head", @"texture\\models\\humans\\titanpilot_heads\\pilot_v3_head" },
+            { "HoloPilot_head", @"texture\\models\\humans\\titanpilot_heads\\pilot_v3_head" },
+
+            //////////////
+            /// TITANS ///
+            //////////////
+            // ion
+            { "ION_Default", @"texture\\models\\titans_r2\\medium_ion\\warpaint\\warpaint_01\\t_m_ion_warpaint_skin01" },
+            // ion prime
+            { "PrimeION_Default", @"texture\\models\\titans_r2\\medium_ion_prime\\warpaint\\warpaint_01\\t_m_ion_prime_warpaint_skin01" },
+            // tone
+            { "Tone_Default", @"texture\\models\\titans_r2\\medium_tone\\warpaint\\warpaint_02\\t_m_tone_warpaint_skin02" },
+            // tone prime
+            { "PrimeTone_Default", @"texture\\models\\titans_r2\\medium_tone_prime\\warpaint\\warpaint_01\\t_m_tone_prime_warpaint_skin01" },
+            // northstar
+            { "Northstar_Default", @"texture\\models\\titans_r2\\light_northstar\\warpaint\\warpaint_01\\t_l_northstar_warpaint_skin01" },
+            // northstar prime
+            { "PrimeNorthstar_Default", @"texture\\models\\titans_r2\\light_northstar_prime\\warpaint\\warpaint_01\\t_l_northstar_prime_warpaint_skin01" },
+            // ronin
+            { "Ronin_Default", @"texture\\models\\titans_r2\\light_ronin\\warpaint\\warpaint_02\\t_l_ronin_warpaint_skin02" },
+            // ronin prime
+            { "PrimeRonin_Default", @"texture\\models\\titans_r2\\light_ronin_prime\\warpaint\\warpaint_01\\t_l_ronin_prime_warpaint_skin01" },
+            // scorch
+            { "Scorch_Default", @"texture\\models\\titans_r2\\heavy_scorch\\warpaint\\warpaint_01\\t_h_scorch_warpaint_skin01" },
+            // scorch prime
+            { "PrimeScorch_Default", @"texture\\models\\titans_r2\\heavy_scorch_prime\\warpaint\\warpaint_01\\t_h_scorch_prime_warpaint_skin01" },
+            // legion
+            { "Legion_Default", @"texture\\models\\titans_r2\\heavy_legion\\warpaint\\warpaint_01\\t_h_legion_warpaint_skin01" },
+            // legion prime
+            { "PrimeLegion_Default", @"texture\\models\\titans_r2\\heavy_legion_prime\\warpaint\\warpaint_01\\t_h_legion_prime_warpaint_skin01" },
+            // monarch
+            { "Monarch_Default", @"texture\\models\\titans_r2\\medium_vanguard\\warpaint\\warpaint_01\\t_m_vanguard_prime_warpaint_skin01" },
+
+        };
+        private string TextureNameToPath(string textureName)
+        {
+            int lastIndex = textureName.LastIndexOf('_');
+
+            string txtrType = textureName.Substring(lastIndex, textureName.Length - lastIndex);
+            textureName = textureName.Substring(0, lastIndex);
+
+            if (weaponNameToPath.ContainsKey(textureName))
+                return weaponNameToPath[textureName] + txtrType;
+
+            if (nameToPathOverrides.ContainsKey(textureName + txtrType))
+                return nameToPathOverrides[textureName + txtrType];
+            if (nameToPath.ContainsKey(textureName))
+                return nameToPath[textureName] + txtrType;
+
+            return "";
+        }
+        public async Task fade_dav(bool X = true)
+        {
+            await Task.Run(() =>
+            {
+                if (X == true)
+                {
+                   
+                    DispatchIfNecessary(() =>
+                    {
+                        if (Icon_Bg.Source.ToString().Contains("advocate_announcement_1.png"))
+                        {
+                            return;
+                        }
+                       
+                        if (Icon_Bg.Opacity > 0)
+                        {
+                            DoubleAnimation da = new DoubleAnimation
+                            {
+                                From = Icon_Bg.Opacity,
+                                To = 0,
+                                Duration = new Duration(TimeSpan.FromSeconds(0.4)),
+                                AutoReverse = false
+                            };
+                            Icon_Bg.BeginAnimation(OpacityProperty, da);
+
+                        }
+                    });
+
+                    Thread.Sleep(420);
+
+
+                    DispatchIfNecessary(() =>
+                {
+
+                    if (Icon_Bg.Opacity == 0)
+                    {
+                        BitmapImage bitmap = new BitmapImage();
+                        bitmap.BeginInit();
+                        bitmap.UriSource = new Uri(@"pack://application:,,,/Resources/Icons/Main_UI/advocate_announcement_1.png");
+                        bitmap.EndInit();
+                      
+
+                            Icon_Bg.Source = bitmap;
+                        
+
+                        DoubleAnimation da = new DoubleAnimation
+                        {
+                            From = Icon_Bg.Opacity,
+                            To = 0.2,
+                            Duration = new Duration(TimeSpan.FromSeconds(0.4)),
+                            AutoReverse = false
+                        };
+                        Icon_Bg.BeginAnimation(OpacityProperty, da);
+
+                    }
+                });
+
+
+
+
+                }
+                else
+                {
+                   
+                    DispatchIfNecessary(() =>
+                    {
+                        if (Icon_Bg.Source.ToString().Contains("Tools-Silhouette-Transparent.png"))
+                        {
+                            return;
+                        }
+                        
+                        if (Icon_Bg.Opacity > 0 )
+                        {
+                            DoubleAnimation da = new DoubleAnimation
+                            {
+                                From = Icon_Bg.Opacity,
+                                To = 0,
+                                Duration = new Duration(TimeSpan.FromSeconds(0.4)),
+                                AutoReverse = false
+                            };
+                            Icon_Bg.BeginAnimation(OpacityProperty, da);
+
+                        }
+                    });
+
+
+                    Thread.Sleep(420);
+                    DispatchIfNecessary(() =>
+                    {
+                    if (Icon_Bg.Opacity == 0)
+                    {
+                        BitmapImage bitmap = new BitmapImage();
+                        bitmap.BeginInit();
+                        bitmap.UriSource = new Uri(@"pack://application:,,,/Resources/Icons/Main_UI/Tools-Silhouette-Transparent.png");
+                        bitmap.EndInit();
+
+                     
+
+                            Icon_Bg.Source = bitmap;
+                     
+
+                            DoubleAnimation da = new DoubleAnimation
+                            {
+                                From = Icon_Bg.Opacity,
+                                To = 0.2,
+                                Duration = new Duration(TimeSpan.FromSeconds(0.4)),
+                                AutoReverse = false
+                            };
+                            Icon_Bg.BeginAnimation(OpacityProperty, da);
+
+                    }
+                    });
+
+
+                }
+            });
+
+        }
+        private void Tabs_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+            if (Tabs.SelectedItem.ToString() != null)
+            {
+
+
+                if (Tabs.SelectedValue.ToString().Contains("Advocate Content"))
+                {
+                    fade_dav(true);
+
+                }
+                else
+                {
+                    fade_dav(false);
+                }
+
+                
+            }
+
+
+        }
+
+        private void Locate_Zip_Advocate_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+       
+      
+        private void Image_Icon_Advocate_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                try
+                {
+                    OpenFileDialog openFileDialog = new OpenFileDialog();
+                    openFileDialog.Filter = "Png files (*.png)|*.png|All files (*.*)|*.*";
+                    openFileDialog.RestoreDirectory = true;
+                    if (openFileDialog.ShowDialog() == true)
+                    {
+                        Mod_Adv_Icon_Path = openFileDialog.FileName;
+                        if (!File.Exists(Mod_Adv_Icon_Path))
+                        {
+
+                            SnackBar.Icon = SymbolRegular.ErrorCircle20;
+                            SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
+                            SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Icon_Image_MouseDown_NotAValidPNGImage;
+                            SnackBar.Show();
+                            return;
+
+                        }
+                        else
+                        {
+                            if (Path.GetExtension(Mod_Icon_Path).Contains("png"))
+                            {
+                                int imgwidth;
+                                int imgheight;
+
+                                using (var image = SixLabors.ImageSharp.Image.Load(Mod_Icon_Path))
+                                {
+                                    imgwidth = image.Width;
+                                    imgheight = image.Height;
+                                }
+
+                                if (imgwidth == 256 && imgheight == 256)
+                                {
+
+                                    SnackBar.Appearance = ControlAppearance.Success;
+                                    SnackBar.Title = "SUCCESS";
+                                    SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Icon_Image_MouseDown_ValidImageFoundAt + Mod_Icon_Path;
+                                    SnackBar.Show();
+                                    BitmapImage Mod_Icon = new BitmapImage();
+                                    Mod_Icon.BeginInit();
+
+                                    Mod_Icon.UriSource = new Uri(Mod_Icon_Path);
+                                    Mod_Icon.EndInit();
+
+                                    Image_Icon_Advocate.Background = new ImageBrush(Mod_Icon);
+
+                                }
+                                else
+                                {
+                                    SnackBar.Icon = SymbolRegular.ErrorCircle20;
+                                    SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
+                                    SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Icon_Image_MouseDown_InvalidImageSizeMustBe256x256;
+                                    SnackBar.Show();
+                                    BitmapImage bitmap = new BitmapImage();
+                                    bitmap.BeginInit();
+                                    bitmap.UriSource = new Uri(@"pack://application:,,,/Resources/Resource_Static/NO_TEXTURE.png");
+                                    bitmap.EndInit();
+                                    Image_Icon_Advocate.Background = new ImageBrush(null);
+                                    return;
+
+                                }
+
+                            }
+                            else
+                            {
+                                SnackBar.Icon = SymbolRegular.ErrorCircle20;
+                                SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
+                                SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Icon_Image_MouseDown_ThatWasNotAProperPNG;
+                                SnackBar.Show();
+                                BitmapImage bitmap = new BitmapImage();
+                                bitmap.BeginInit();
+                                bitmap.UriSource = new Uri(@"pack://application:,,,/Resources/Resource_Static/NO_TEXTURE.png");
+                                bitmap.EndInit();
+                                Image_Icon_Advocate.Background = new ImageBrush(null);
+                                return;
+                            }
+                        }
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+
+                }
+            }
+        }
+        
+        private void Image_Icon_Advocate_Drop(object sender, DragEventArgs e)
+        {
+            try
+            {
+                if (e.Data.GetDataPresent(DataFormats.FileDrop))
+                {
+                    HandyControl.Controls.DashedBorder DashedBorder = (HandyControl.Controls.DashedBorder)sender;
+                    Console.WriteLine(DashedBorder.Name);
+
+                    // Note that you can have more than one file.
+                    string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+                    string map_Path = files.FirstOrDefault();
+
+
+
+                    if (!File.Exists(map_Path))
+                    {
+
+                        SnackBar.Icon = SymbolRegular.ErrorCircle20;
+                        SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
+                        SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Icon_Image_MouseDown_NotAValidPNGImage;
+                        SnackBar.Show();
+                        return;
+
+                    }
+                    else
+                    {
+                        if (Path.GetExtension(map_Path).Contains("png"))
+                        {
+                            int imgwidth;
+                            int imgheight;
+
+                            using (var image = SixLabors.ImageSharp.Image.Load(map_Path))
+                            {
+                                imgwidth = image.Width;
+                                imgheight = image.Height;
+                            }
+
+                           
+
+                                if (imgwidth == 256 && imgheight == 256)
+                                {
+
+                                    BitmapImage map_ = new BitmapImage();
+                                    map_.BeginInit();
+
+                                    map_.UriSource = new Uri(map_Path);
+                                    map_.EndInit();
+                                   
+                                    DashedBorder.Background = new ImageBrush(map_);
+                                    Mod_Adv_Icon_Path = map_Path;
+                                }
+                                else
+                                {
+                                    SnackBar.Icon = SymbolRegular.ErrorCircle20;
+                                    SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
+                                    SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Icon_Image_MouseDown_InvalidImageSizeMustBe256x256;
+                                    SnackBar.Show();
+                                    DashedBorder.Background = new ImageBrush();
+                                    return;
+
+                                }
+                            
+                        }
+
+                    }
+
+
+
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+
+            }
+
+        }
+
+        private void Locate_Repak_Exe_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
+}

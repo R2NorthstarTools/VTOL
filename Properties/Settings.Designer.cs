@@ -226,5 +226,7 @@ namespace VTOL.Properties {
                 this["Backup_arg_Files"] = value;
             }
         }
+
+        public string RePakPath { get; internal set; }
     }
 }

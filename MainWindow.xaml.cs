@@ -49,6 +49,7 @@ namespace VTOL
         }
         public MainWindow()
         {
+            try { 
             InitializeComponent();
 
 
@@ -72,7 +73,7 @@ namespace VTOL
                     User_Settings_Json.Repo_Url = "https://api.github.com/repos/R2Northstar/Northstar/releases/latest";
                     User_Settings_Json.Northstar_Install_Location = "NODATA";
                     User_Settings_Json.MasterServer_URL_CN = "nscn.wolf109909.top";
-                    User_Settings_Json.Current_REPO_URL_CN = "https://nscn.wolf109909.top/version/query";  
+                    User_Settings_Json.Current_REPO_URL_CN = "https://nscn.wolf109909.top/version/query";
                     User_Settings_Json.Author = "R2Northstar";
                     User_Settings_Vars.Auto_Update_Northstar = true;
                     User_Settings_Vars.Auto_Close_VTOL = true;
@@ -102,8 +103,8 @@ namespace VTOL
                 Application.Current.Shutdown();
 
             }
-           // ProfileManager Profile_ = new ProfileManager();
-          //  Profile_.InitializeProfiles(null);
+            // ProfileManager Profile_ = new ProfileManager();
+            //  Profile_.InitializeProfiles(null);
 
 
 
@@ -112,7 +113,7 @@ namespace VTOL
             Wpf.Ui.Appearance.ThemeType.Unknown,     // Theme type
   Wpf.Ui.Appearance.BackgroundType.None, // Background type
   true                                  // Whether to change accents automatically
-); 
+);
 
 
 
@@ -120,10 +121,15 @@ namespace VTOL
 
 
 
+        }
 
 
+            catch(Exception ex)
+            {
+                MessageBox.Show("Exception Encountered! - " + ex.Message);
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
-
+            }
 
 
 
