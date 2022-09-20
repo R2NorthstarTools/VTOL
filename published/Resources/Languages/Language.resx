@@ -1,0 +1,333 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="PleaseWaitAsVTOLRestarts" xml:space="preserve">
+    <value>Please Wait as VTOL restarts!</value>
+  </data>
+  <data name="Page_Skins_Install_Skin_From_Path_TheSkin" xml:space="preserve">
+    <value>The Skin - </value>
+  </data>
+  <data name="Page_Skins_Install_Skin_From_Path_HasBeenInstalled" xml:space="preserve">
+    <value> - has been Installed!</value>
+  </data>
+  <data name="Page_Skins_Drag_Drop_Area_Drop_IsNotASkinZip" xml:space="preserve">
+    <value>  is Not a Skin Zip!</value>
+  </data>
+  <data name="Page_Skins_Drag_Drop_Area_Drop_DragToInstall" xml:space="preserve">
+    <value>Drag to Install</value>
+  </data>
+  <data name="Page_Skins_Drag_Drop_Area_Drop_CompatibleSkinSFound" xml:space="preserve">
+    <value>Compatible Skin(s) Found : </value>
+  </data>
+  <data name="Page_Skins_Browse_Click_CompatibleSkinFoundAt" xml:space="preserve">
+    <value> "Compatible Skin Found at : </value>
+  </data>
+  <data name="Page_Skins_Browse_Click_IsNotASkinZip" xml:space="preserve">
+    <value> "  is Not a Skin Zip!</value>
+  </data>
+  <data name="Page_Skins_OPEN_WEBPAGE_OpeningTheFollowingURL" xml:space="preserve">
+    <value>Opening the Following URL - </value>
+  </data>
+  <data name="Page_Home_Auto_Install__NORTHSTARISNOTINSTALLEDANDAUTOINSTALLFAILED" xml:space="preserve">
+    <value>NORTHSTAR IS NOT INSTALLED AND AUTO INSTALL FAILED!</value>
+  </data>
+  <data name="Page_Home_INIT_NORTHSTARAUTOINSTALLWILLNOWBEGINPLEASEWAITABOUT30SECONDS" xml:space="preserve">
+    <value>NORTHSTAR AUTO INSTALL WILL NOW BEGIN, PLEASE WAIT ABOUT 30 SECONDS!</value>
+  </data>
+  <data name="Page_Home_timer_Tick_MasterServerCheckedAndTimedOutTooMuchTurningOffMasterServerChecks" xml:space="preserve">
+    <value>Master Server Checked And Timed Out too much. Turning off Master Server Checks</value>
+  </data>
+  <data name="Page_Home_Origin_Client_Card_Click_TheOriginClientIsAlreadyRunning" xml:space="preserve">
+    <value> "The Origin Client Is already Running!</value>
+  </data>
+  <data name="Page_Home_Browse_Titanfall_Button_Click_IsValidAndHasBeenSet" xml:space="preserve">
+    <value> ' is Valid and has been Set</value>
+  </data>
+  <data name="Page_Home_Browse_Titanfall_Button_Click_TheLocation" xml:space="preserve">
+    <value>The Location - ' " </value>
+  </data>
+  <data name="Page_Home_Browse_Titanfall_Button_Click_IsNotValid" xml:space="preserve">
+    <value> " ' Is not Valid</value>
+  </data>
+  <data name="Browse_Titanfall_Button_Click_TheLocation" xml:space="preserve">
+    <value>The Location - ' </value>
+  </data>
+  <data name="Check_Integrity_Of_NSINSTALL_DirectoryCheckFailed" xml:space="preserve">
+    <value>Directory Check Failed</value>
+  </data>
+  <data name="Read_Latest_Release_InvalidReleaseDonwloadURL" xml:space="preserve">
+    <value>Invalid Release Donwload URL!</value>
+  </data>
+  <data name="Parse_Release_ReleaseNotFound" xml:space="preserve">
+    <value>Release Not Found!</value>
+  </data>
+  <data name="Unpack_To_Location_InstallationComplete" xml:space="preserve">
+    <value>Installation Complete!</value>
+  </data>
+  <data name="Check_For_New_Northstar_Install_UpdateAvailableDownloadingAndInstallingNow" xml:space="preserve">
+    <value>Update Available Downloading And Installing Now!</value>
+  </data>
+  <data name="Check_For_New_Northstar_Install_ReleaseCandidateDetected" xml:space="preserve">
+    <value>Release Candidate Detected</value>
+  </data>
+  <data name="Unpack_To_Location_TheFile" xml:space="preserve">
+    <value> "The File - </value>
+  </data>
+  <data name="Unpack_To_Location_WasNotFound" xml:space="preserve">
+    <value> "Was not Found!</value>
+  </data>
+  <data name="Page_Home_Unpack_To_Location_WasNotFound" xml:space="preserve">
+    <value>Was not Found!</value>
+  </data>
+  <data name="Page_Home_Unpack_To_Location_TheFile" xml:space="preserve">
+    <value>The File - </value>
+  </data>
+  <data name="Page_Home_Unpack_To_Location_IsNotAZip" xml:space="preserve">
+    <value>is not a zip!</value>
+  </data>
+  <data name="Page_Home_Run_Origin_CouldNotFindEAOriginInstallPleaseStartManuallyOrRepairYourInstallation" xml:space="preserve">
+    <value> "Could not Find EA Origin Install, Please Start Manually, Or Repair your installation!</value>
+  </data>
+  <data name="Page_Home_INIT_InstallNorthstar" xml:space="preserve">
+    <value>Install Northstar</value>
+  </data>
+  <data name="Page_Home_INIT_UpdateNorthstar" xml:space="preserve">
+    <value>Update Northstar</value>
+  </data>
+  <data name="Page_Tools_Save_Mod_Click_NoValidZipFileToPackWasFound" xml:space="preserve">
+    <value>No Valid Zip file to pack was found</value>
+  </data>
+  <data name="Page_Tools_Icon_Image_MouseDown_InvalidImageSizeMustBe256x256" xml:space="preserve">
+    <value>Invalid Image Size!. Must be 256x256</value>
+  </data>
+  <data name="Page_Tools_Locate_Zip_Click_InvalidZipFound" xml:space="preserve">
+    <value>Invalid Zip Found</value>
+  </data>
+  <data name="Page_Tools_Locate_Zip_Click_ValidZipFound" xml:space="preserve">
+    <value>Valid Zip Found</value>
+  </data>
+  <data name="Page_Tools_Output_Button_Click_NotAnOutputDirectory" xml:space="preserve">
+    <value>Not An Output Directory</value>
+  </data>
+  <data name="Page_Tools_create_Manifest_OneOfTheManifestInputsAreEmpty" xml:space="preserve">
+    <value> "One of the Manifest Inputs are Empty</value>
+  </data>
+  <data name="Page_Tools_Save_Mod_Click_NoValidOutputPathFound" xml:space="preserve">
+    <value>No Valid Output Path Found</value>
+  </data>
+  <data name="Page_Tools_Save_Mod_Click_SuccessfullyPackedAllItemsTo" xml:space="preserve">
+    <value> "Successfully Packed all items to -</value>
+  </data>
+  <data name="Page_Tools_Save_Mod_Click_NoValidModICONFound" xml:space="preserve">
+    <value>No Valid Mod ICON Found</value>
+  </data>
+  <data name="Page_Tools_Icon_Image_MouseDown_NotAValidPNGImage" xml:space="preserve">
+    <value>Not A Valid PNG Image</value>
+  </data>
+  <data name="Page_Tools_Icon_Image_MouseDown_ValidImageFoundAt" xml:space="preserve">
+    <value>Valid Image Found at - </value>
+  </data>
+  <data name="Page_Tools_Icon_Image_MouseDown_ThatWasNotAProperPNG" xml:space="preserve">
+    <value>That was not a proper PNG</value>
+  </data>
+  <data name="Page_Tools_Image_Icon_Drop_InvalidImageSizeMustBeSmallerThan2048X2048" xml:space="preserve">
+    <value>Invalid Image Size!. Must be smaller than 2048 x 2048</value>
+  </data>
+  <data name="Page_Tools_ProcessSkin_SkinNameNotSet" xml:space="preserve">
+    <value>Skin Name Not Set!</value>
+  </data>
+  <data name="Page_Tools_ProcessSkin_ItemNotSet" xml:space="preserve">
+    <value>Item Not Set!</value>
+  </data>
+  <data name="Page_Tools_ProcessSkin_OutputPathIsNotSet" xml:space="preserve">
+    <value>Output path is not set!</value>
+  </data>
+  <data name="Page_Tools_ProcessSkin_MapsAreNotSet" xml:space="preserve">
+    <value>Maps Are not Set!</value>
+  </data>
+  <data name="Page_Tools_ProcessSkin_GeneratedTheSkinSuccessfully" xml:space="preserve">
+    <value>Generated The Skin Successfully!</value>
+  </data>
+  <data name="Page_Thunderstore_Unpack_To_Location_Custom_HasBeenDownloadedAndInstalled" xml:space="preserve">
+    <value> has been Downloaded and Installed</value>
+  </data>
+  <data name="Page_Server_Launch_Northstar_Dedicated_Click_CouldNotFindDedicatedBat" xml:space="preserve">
+    <value>Could Not Find Dedicated bat!</value>
+  </data>
+  <data name="Page_Server_OnKeyDownHandler_Dedi_Arg_Saved" xml:space="preserve">
+    <value>Saved</value>
+  </data>
+  <data name="Page_Server_OnKeyDownHandler_Dedi_Arg_AutoSaveFailed" xml:space="preserve">
+    <value>Auto Save failed</value>
+  </data>
+  <data name="Page_Server_Validate_Combo_Box_CannotReadInput" xml:space="preserve">
+    <value>Cannot Read Input</value>
+  </data>
+  <data name="Page_Server_Read_Convar_args_CannotSetThePath" xml:space="preserve">
+    <value> "Cannot Set The path</value>
+  </data>
+  <data name="Page_Server_Launch_Northstar_Advanced_Click_CouldNotFindNorthstarExe" xml:space="preserve">
+    <value>Could Not Find Northstar.exe!</value>
+  </data>
+  <data name="Page_Server_StartupArgumentsNorthstarDedicatedClient" xml:space="preserve">
+    <value>Startup Arguments Northstar Dedicated Client</value>
+  </data>
+  <data name="Page_Home_WelcomeTo" xml:space="preserve">
+    <value>Welcome To</value>
+  </data>
+  <data name="Page_Home_CustomModdingAndServerFramework" xml:space="preserve">
+    <value>Custom Modding And Server Framework</value>
+  </data>
+  <data name="Page_Home_LaunchTitanfall2Northstar" xml:space="preserve">
+    <value>Launch Titanfall 2 Northstar</value>
+  </data>
+  <data name="Page_Home_MasterServer" xml:space="preserve">
+    <value>Master Server</value>
+  </data>
+  <data name="Page_Home_ToggleChecking" xml:space="preserve">
+    <value>Toggle Checking</value>
+  </data>
+  <data name="Page_Home_IndicatesIfOriginIsRunningClickToLaunchIfInactive" xml:space="preserve">
+    <value>Indicates if Origin is running (Click To launch if inactive)</value>
+  </data>
+  <data name="Page_Home_ShowsThePingLatencyOverTime" xml:space="preserve">
+    <value>Shows the ping+latency over time</value>
+  </data>
+  <data name="Page_Home_OpenTitanfall2Folder" xml:space="preserve">
+    <value>Open Titanfall 2 Folder</value>
+  </data>
+  <data name="Page_Home_LocateTitanfall2Install" xml:space="preserve">
+    <value>Locate Titanfall 2 Install</value>
+  </data>
+  <data name="Page_Home_ManuallyChangeTheTitanfall2InstallDirectory" xml:space="preserve">
+    <value>Manually Change the Titanfall 2 Install Directory</value>
+  </data>
+  <data name="Page_Home_UpdateNorthstar" xml:space="preserve">
+    <value>Update +Northstar</value>
+  </data>
+  <data name="Page_Home_NorthstarInstallation" xml:space="preserve">
+    <value>Northstar Installation </value>
+  </data>
+  <data name="Page_Home_LaunchNorthstar" xml:space="preserve">
+    <value>launch +Northstar" </value>
+  </data>
+  <data name="Page_Home_Install_NS_METHOD_SequenceContainsNoElements" xml:space="preserve">
+    <value>Sequence contains no elements</value>
+  </data>
+</root>
