@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace VTOL.Pages
+
 {
     /// <summary>
     /// Interaction logic for Page_Logs.xaml
