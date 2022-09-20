@@ -5,6 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:VTOL.Pages" 
       mc:Ignorable="d" 
+             xmlns:properties="clr-namespace:VTOL.Resources.Languages"
+
 	          xmlns:cntrls="clr-namespace:VTOL"
 
       d:DesignHeight="670" d:DesignWidth="1148"
@@ -23,8 +25,8 @@
     <Grid  Focusable="True" OverridesDefaultStyle="True" ClipToBounds="True" Unloaded="Grid_Unloaded">
         <ui:TextBox x:Name="Search_Bar_Suggest_Mods" Margin="48,133,448,0" TextWrapping="NoWrap" Height="36" VerticalAlignment="Top"  Text="~Search"  BorderThickness="0,0,0,0" Icon="Search48"  GotFocus="Search_Bar_Suggest_Mods_GotFocus" LostFocus="Search_Bar_Suggest_Mods_LostFocus"  Background="{x:Null}" TextChanged="Search_Bar_Suggest_Mods_TextChanged" />
         <hc:CheckComboBox x:Name="Search_Filters" ItemsSource="{Binding Final_List}" Margin="0,131,35,0" Height="36" VerticalAlignment="Top" SelectedIndex="-1" ShowClearButton="True" Cursor="Hand" Padding="6,6,6,3" BorderThickness="0,0,0,1" BorderBrush="#FF999999" Background="#00000000" HorizontalAlignment="Right" Width="408" SelectionChanged="Search_Filters_SelectionChanged" hc:InfoElement.Placeholder="Filters" ToolTip="Filter Thunderstore List"  />
-        <Label Content="These are the Collection of Mods Hosted On the ThunderStore Mod platform." Margin="50,0,0,573" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="410"/>
-        <Label Content="THUNDERSTORE" Margin="50,0,357,594" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Background="{x:Null}" Foreground="White" FontSize="22" FontWeight="Bold" Height="28" VerticalAlignment="Bottom"/>
+        <Label Content="{x:Static properties:Language.Page_Thunderstore_TheseAreTheCollectionOfModsHostedOnTheThunderStoreModPlatform}" Margin="50,0,0,573" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="410"/>
+        <Label Content="{x:Static properties:Language.Page_Thunderstore_THUNDERSTORE}" Margin="50,0,357,594" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Background="{x:Null}" Foreground="White" FontSize="22" FontWeight="Bold" Height="28" VerticalAlignment="Bottom"/>
 
         <Image Source="/Resources/Backgrounds/Thunderstore.png" Grid.ColumnSpan="3" Margin="640,174,-180,-174" Opacity="0.05" IsHitTestVisible="False">
 

@@ -97,6 +97,60 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to VTOL SYSTEMS FAILED TO FIND YOUR DOCUMENTS FOLDER.
+        /// </summary>
+        public static string MainWindow_MainWindow_VTOLSYSTEMSFAILEDTOFINDYOURDOCUMENTSFOLDER {
+            get {
+                return ResourceManager.GetString("MainWindow_MainWindow_VTOLSYSTEMSFAILEDTOFINDYOURDOCUMENTSFOLDER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ABOUT.
+        /// </summary>
+        public static string Page_About_ABOUT {
+            get {
+                return ResourceManager.GetString("Page_About_ABOUT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to About VTOL and Documentation On its Use.
+        /// </summary>
+        public static string Page_About_AboutVTOLAndDocumentationOnItsUse {
+            get {
+                return ResourceManager.GetString("Page_About_AboutVTOLAndDocumentationOnItsUse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Check For Update.
+        /// </summary>
+        public static string Page_About_CheckForUpdate {
+            get {
+                return ResourceManager.GetString("Page_About_CheckForUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Configure Updates.
+        /// </summary>
+        public static string Page_About_ConfigureUpdates {
+            get {
+                return ResourceManager.GetString("Page_About_ConfigureUpdates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Defualt Textbox Text.
+        /// </summary>
+        public static string Page_About_DefualtTextboxText {
+            get {
+                return ResourceManager.GetString("Page_About_DefualtTextboxText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to NORTHSTAR IS NOT INSTALLED AND AUTO INSTALL FAILED!.
         /// </summary>
         public static string Page_Home_Auto_Install__NORTHSTARISNOTINSTALLEDANDAUTOINSTALLFAILED {
@@ -106,7 +160,7 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  &quot; &apos; Is not Valid.
+        ///   Looks up a localized string similar to    Is not Valid.
         /// </summary>
         public static string Page_Home_Browse_Titanfall_Button_Click_IsNotValid {
             get {
@@ -115,7 +169,7 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  &apos; is Valid and has been Set.
+        ///   Looks up a localized string similar to   is Valid and has been Set.
         /// </summary>
         public static string Page_Home_Browse_Titanfall_Button_Click_IsValidAndHasBeenSet {
             get {
@@ -124,7 +178,7 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The Location - &apos; &quot; .
+        ///   Looks up a localized string similar to The Location - &apos; .
         /// </summary>
         public static string Page_Home_Browse_Titanfall_Button_Click_TheLocation {
             get {
@@ -174,6 +228,15 @@ namespace VTOL.Resources.Languages {
         public static string Page_Home_INIT_UpdateNorthstar {
             get {
                 return ResourceManager.GetString("Page_Home_INIT_UpdateNorthstar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sequence contains no elements.
+        /// </summary>
+        public static string Page_Home_Install_NS_METHOD_SequenceContainsNoElements {
+            get {
+                return ResourceManager.GetString("Page_Home_Install_NS_METHOD_SequenceContainsNoElements", resourceCulture);
             }
         }
         
@@ -241,7 +304,7 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  &quot;The Origin Client Is already Running!.
+        ///   Looks up a localized string similar to  The Origin Client Is already Running!.
         /// </summary>
         public static string Page_Home_Origin_Client_Card_Click_TheOriginClientIsAlreadyRunning {
             get {
@@ -250,7 +313,7 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  &quot;Could not Find EA Origin Install, Please Start Manually, Or Repair your installation!.
+        ///   Looks up a localized string similar to  Could not Find EA Origin Install, Please Start Manually, Or Repair your installation!.
         /// </summary>
         public static string Page_Home_Run_Origin_CouldNotFindEAOriginInstallPleaseStartManuallyOrRepairYourInstallation {
             get {
@@ -333,6 +396,69 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Filter.
+        /// </summary>
+        public static string Page_Mods_Filter {
+            get {
+                return ResourceManager.GetString("Page_Mods_Filter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Listed Here are the Mods that are Currently Installed..
+        /// </summary>
+        public static string Page_Mods_ListedHereAreTheModsThatAreCurrentlyInstalled {
+            get {
+                return ResourceManager.GetString("Page_Mods_ListedHereAreTheModsThatAreCurrentlyInstalled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MODS.
+        /// </summary>
+        public static string Page_Mods_MODS {
+            get {
+                return ResourceManager.GetString("Page_Mods_MODS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to RightClick for Context Menu.
+        /// </summary>
+        public static string Page_Mods_RightClickForContextMenu {
+            get {
+                return ResourceManager.GetString("Page_Mods_RightClickForContextMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Configure, Import and Export Dedicated Server and Client Settings.
+        /// </summary>
+        public static string Page_Server_ConfigureImportAndExportDedicatedServerAndClientSettings {
+            get {
+                return ResourceManager.GetString("Page_Server_ConfigureImportAndExportDedicatedServerAndClientSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export Server Config.
+        /// </summary>
+        public static string Page_Server_ExportServerConfig {
+            get {
+                return ResourceManager.GetString("Page_Server_ExportServerConfig", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Import Server Config.
+        /// </summary>
+        public static string Page_Server_ImportServerConfig {
+            get {
+                return ResourceManager.GetString("Page_Server_ImportServerConfig", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Could Not Find Northstar.exe!.
         /// </summary>
         public static string Page_Server_Launch_Northstar_Advanced_Click_CouldNotFindNorthstarExe {
@@ -347,6 +473,42 @@ namespace VTOL.Resources.Languages {
         public static string Page_Server_Launch_Northstar_Dedicated_Click_CouldNotFindDedicatedBat {
             get {
                 return ResourceManager.GetString("Page_Server_Launch_Northstar_Dedicated_Click_CouldNotFindDedicatedBat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Launch Northstar Client.
+        /// </summary>
+        public static string Page_Server_LaunchNorthstarClient {
+            get {
+                return ResourceManager.GetString("Page_Server_LaunchNorthstarClient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Launch Northstar Dedicated Client.
+        /// </summary>
+        public static string Page_Server_LaunchNorthstarDedicatedClient {
+            get {
+                return ResourceManager.GetString("Page_Server_LaunchNorthstarDedicatedClient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Launch Northstar Dedicated Server.
+        /// </summary>
+        public static string Page_Server_LaunchNorthstarDedicatedServer {
+            get {
+                return ResourceManager.GetString("Page_Server_LaunchNorthstarDedicatedServer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Load Files.
+        /// </summary>
+        public static string Page_Server_LoadFiles {
+            get {
+                return ResourceManager.GetString("Page_Server_LoadFiles", resourceCulture);
             }
         }
         
@@ -369,11 +531,20 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  &quot;Cannot Set The path.
+        ///   Looks up a localized string similar to  Cannot Set The path.
         /// </summary>
         public static string Page_Server_Read_Convar_args_CannotSetThePath {
             get {
                 return ResourceManager.GetString("Page_Server_Read_Convar_args_CannotSetThePath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SERVER.
+        /// </summary>
+        public static string Page_Server_SERVER {
+            get {
+                return ResourceManager.GetString("Page_Server_SERVER", resourceCulture);
             }
         }
         
@@ -396,7 +567,34 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  &quot;Compatible Skin Found at : .
+        ///   Looks up a localized string similar to Fine Tune And Configure VTOL Here.
+        /// </summary>
+        public static string Page_Settings_FineTuneAndConfigureVTOLHere {
+            get {
+                return ResourceManager.GetString("Page_Settings_FineTuneAndConfigureVTOLHere", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SETTINGS.
+        /// </summary>
+        public static string Page_Settings_SETTINGS {
+            get {
+                return ResourceManager.GetString("Page_Settings_SETTINGS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Browse.
+        /// </summary>
+        public static string Page_Skins_Browse {
+            get {
+                return ResourceManager.GetString("Page_Skins_Browse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  Compatible Skin Found at : .
         /// </summary>
         public static string Page_Skins_Browse_Click_CompatibleSkinFoundAt {
             get {
@@ -405,7 +603,7 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  &quot;  is Not a Skin Zip!.
+        ///   Looks up a localized string similar to   is Not a Skin Zip!.
         /// </summary>
         public static string Page_Skins_Browse_Click_IsNotASkinZip {
             get {
@@ -459,11 +657,74 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Install DDS Foramtted Skins Here.
+        /// </summary>
+        public static string Page_Skins_InstallDDSForamttedSkinsHere {
+            get {
+                return ResourceManager.GetString("Page_Skins_InstallDDSForamttedSkinsHere", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Install Skin.
+        /// </summary>
+        public static string Page_Skins_InstallSkin {
+            get {
+                return ResourceManager.GetString("Page_Skins_InstallSkin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Opening the Following URL - .
         /// </summary>
         public static string Page_Skins_OPEN_WEBPAGE_OpeningTheFollowingURL {
             get {
                 return ResourceManager.GetString("Page_Skins_OPEN_WEBPAGE_OpeningTheFollowingURL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open a Guide Page.
+        /// </summary>
+        public static string Page_Skins_OpenAGuidePage {
+            get {
+                return ResourceManager.GetString("Page_Skins_OpenAGuidePage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open the FAQ Page.
+        /// </summary>
+        public static string Page_Skins_OpenTheFAQPage {
+            get {
+                return ResourceManager.GetString("Page_Skins_OpenTheFAQPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SKINS.
+        /// </summary>
+        public static string Page_Skins_SKINS {
+            get {
+                return ResourceManager.GetString("Page_Skins_SKINS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to These are the Collection of Mods Hosted On the ThunderStore Mod platform..
+        /// </summary>
+        public static string Page_Thunderstore_TheseAreTheCollectionOfModsHostedOnTheThunderStoreModPlatform {
+            get {
+                return ResourceManager.GetString("Page_Thunderstore_TheseAreTheCollectionOfModsHostedOnTheThunderStoreModPlatform", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to THUNDERSTORE.
+        /// </summary>
+        public static string Page_Thunderstore_THUNDERSTORE {
+            get {
+                return ResourceManager.GetString("Page_Thunderstore_THUNDERSTORE", resourceCulture);
             }
         }
         
@@ -477,7 +738,7 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  &quot;One of the Manifest Inputs are Empty.
+        ///   Looks up a localized string similar to  One of the Manifest Inputs are Empty.
         /// </summary>
         public static string Page_Tools_create_Manifest_OneOfTheManifestInputsAreEmpty {
             get {
@@ -630,11 +891,29 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  &quot;Successfully Packed all items to -.
+        ///   Looks up a localized string similar to  Successfully Packed all items to -.
         /// </summary>
         public static string Page_Tools_Save_Mod_Click_SuccessfullyPackedAllItemsTo {
             get {
                 return ResourceManager.GetString("Page_Tools_Save_Mod_Click_SuccessfullyPackedAllItemsTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TOOLS.
+        /// </summary>
+        public static string Page_Tools_TOOLS {
+            get {
+                return ResourceManager.GetString("Page_Tools_TOOLS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tools For Ease of Development on the Northstar Client.
+        /// </summary>
+        public static string Page_Tools_ToolsForEaseOfDevelopmentOnTheNorthstarClient {
+            get {
+                return ResourceManager.GetString("Page_Tools_ToolsForEaseOfDevelopmentOnTheNorthstarClient", resourceCulture);
             }
         }
         
@@ -675,7 +954,7 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  &quot;The File - .
+        ///   Looks up a localized string similar to  The File - .
         /// </summary>
         public static string Unpack_To_Location_TheFile {
             get {
@@ -684,7 +963,7 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  &quot;Was not Found!.
+        ///   Looks up a localized string similar to  Was not Found!.
         /// </summary>
         public static string Unpack_To_Location_WasNotFound {
             get {

@@ -6,6 +6,8 @@
       xmlns:local="clr-namespace:VTOL.Pages"
       xmlns:hc="https://handyorg.github.io/handycontrol" x:Class="VTOL.Pages.Page_Mods"
       mc:Ignorable="d"
+       xmlns:properties="clr-namespace:VTOL.Resources.Languages"
+
       d:DesignHeight="670" d:DesignWidth="1148"
       Title="Page_Mods" KeepAlive="True">
 
@@ -148,11 +150,11 @@
 
 
         <ui:Snackbar x:Name="Snack" Grid.ColumnSpan="3" Margin="24,0,24,24"/>
-        <Label Content="Listed Here are the Mods that are Currently Installed." Margin="65,0,0,573" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="281"/>
-        <Label Content="MODS" Margin="65,0,342,594" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Background="{x:Null}" Foreground="White" FontSize="22" FontWeight="Bold" Height="28" VerticalAlignment="Bottom"/>
-        <Label Content="Filter" Margin="136,0,0,574" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" Grid.Column="1" HorizontalAlignment="Left" Width="47"/>
+        <Label Content="{x:Static properties:Language.Page_Mods_ListedHereAreTheModsThatAreCurrentlyInstalled}" Margin="65,0,0,573" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="281" Grid.ColumnSpan="2"/>
+        <Label Content="{x:Static properties:Language.Page_Mods_MODS}" Margin="65,0,342,594" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Background="{x:Null}" Foreground="White" FontSize="22" FontWeight="Bold" Height="28" VerticalAlignment="Bottom"/>
+        <Label Content="{x:Static properties:Language.Page_Mods_Filter}" Margin="136,0,0,574" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" Grid.Column="1" HorizontalAlignment="Left" Width="47"/>
         <Label x:Name="Mod_Count_Label" Content ="Mod Count: 0" Margin="65,605,0,0" Height="16" VerticalAlignment="Top" HorizontalAlignment="Left" Width="102" Padding="0,0,0,0" Foreground="#52FFFFFF" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
-        <Label Content ="RightClick for Context Menu" Margin="0,605,5,0" Height="16" VerticalAlignment="Top" HorizontalAlignment="Right" Width="228" Padding="0,0,0,0" Grid.Column="1" HorizontalContentAlignment="Right" Foreground="#52FFFFFF" VerticalContentAlignment="Center"/>
+        <Label Content ="{x:Static properties:Language.Page_Mods_RightClickForContextMenu}" Margin="0,605,5,0" Height="16" VerticalAlignment="Top" HorizontalAlignment="Right" Width="228" Padding="0,0,0,0" Grid.Column="1" HorizontalContentAlignment="Right" Foreground="#52FFFFFF" VerticalContentAlignment="Center"/>
 
        
         <ui:Dialog x:Name="Dialog" Grid.ColumnSpan="3" Grid.RowSpan="3" DialogHeight="250" Foreground="White" FontStretch="SemiCondensed" FontFamily="Segoe UI Semibold" ButtonRightClick="Dialog_ButtonRightClick">

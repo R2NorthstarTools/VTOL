@@ -66,14 +66,14 @@
     <Grid>
         
         <Image Source="/Resources/Icons/Main_UI/server-icon-download-icons-17.png" Margin="640,174,-180,-174" Opacity="0.05" IsHitTestVisible="False"/>
-        <Label Content="Configure, Import and Export Dedicated Server and Client Settings" Margin="50,0,0,573" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="410"/>
-        <Label Content="SERVER" Margin="50,0,357,594" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Background="{x:Null}" Foreground="White" FontSize="22" FontWeight="Bold" Height="28" VerticalAlignment="Bottom"/>
+        <Label Content="{x:Static properties:Language.Page_Server_ConfigureImportAndExportDedicatedServerAndClientSettings}" Margin="50,0,0,573" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="410"/>
+        <Label Content="{x:Static properties:Language.Page_Server_SERVER}" Margin="50,0,357,594" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Background="{x:Null}" Foreground="White" FontSize="22" FontWeight="Bold" Height="28" VerticalAlignment="Bottom"/>
         <ScrollViewer x:Name="Scoller"  Margin="50,120,50,30" PanningMode="VerticalOnly" VerticalScrollBarVisibility="Visible" BorderBrush="White" Foreground="White">
             <hc:SimpleStackPanel Margin="10,10,10,10" Height="1735" ScrollViewer.HorizontalScrollBarVisibility="Hidden" >
 
 
                 <Grid Visibility="Visible">
-                    <Button x:Name="Launch_Northstar_Advanced" Height="40" Margin="50,175,0,0" VerticalAlignment="Top" BorderBrush="White" Background="#FF085F36" Width="370" Content="Launch Northstar Client" Click="Launch_Northstar_Advanced_Click" />
+                    <Button x:Name="Launch_Northstar_Advanced" Height="40" Margin="50,175,0,0" VerticalAlignment="Top" BorderBrush="White" Background="#FF085F36" Width="370" Content="{x:Static properties:Language.Page_Server_LaunchNorthstarClient}" Click="Launch_Northstar_Advanced_Click" />
                     <hc:TextBox x:Name="Arg_Box" Height="82" TextWrapping="Wrap" VerticalAlignment="Top" Margin="50,84,0,0" Width="370" HorizontalAlignment="Left" KeyDown="OnKeyDownHandler_Nrml_Arg" LostFocus="Arg_Box_LostFocus" BorderBrush="{x:Null}" />
                     <Popup x:Name="autoListPopup"    
                    Visibility="Collapsed"                    
@@ -88,15 +88,15 @@
                         />
                     </Popup>
 
-                    <Button x:Name="Dedicated_Btn" Height="40" Margin="594,175,50,0" BorderBrush="White" Background="#FF282C50" VerticalAlignment="Top" HorizontalAlignment="Stretch" Content="Launch Northstar Dedicated Server" Click="Dedicated_Btn_Click" />
+                    <Button x:Name="Dedicated_Btn" Height="40" Margin="594,175,50,0" BorderBrush="White" Background="#FF282C50" VerticalAlignment="Top" HorizontalAlignment="Stretch" Content="{x:Static properties:Language.Page_Server_LaunchNorthstarDedicatedServer}" Click="Dedicated_Btn_Click" />
                     <hc:TextBox x:Name="Arg_Box_Dedi" Height="86" TextWrapping="Wrap" VerticalAlignment="Top" Margin="594,82,50,0" KeyDown="OnKeyDownHandler_Dedi_Arg" LostFocus="Arg_Box_Dedi_LostFocus"/>
                     <Label  Height="35" BorderBrush="{x:Null}" Background="{x:Null}" Margin="594,44,50,0" VerticalAlignment="Top" Content="{x:Static properties:Language.Page_Server_StartupArgumentsNorthstarDedicatedClient}" FontSize="14" HorizontalContentAlignment="Center" Padding="0,0,0,0" VerticalContentAlignment="Center"/>
                     <Label Height="35" Margin="32,44,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Background="{x:Null}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="Startup Arguments Northstar Client" FontSize="14" HorizontalAlignment="Left" Width="406"/>
 
                 </Grid>
-                <Button x:Name="Load_Files" Height="46" Width="916" Margin="0,23,0,0" VerticalAlignment="Top" Content="Load Files" BorderBrush="{x:Null}" HorizontalAlignment="Center" Click="Load_Files_Click" Background="#FF383838"  />
+                <Button x:Name="Load_Files" Height="46" Width="916" Margin="0,23,0,0" VerticalAlignment="Top" Content="{x:Static properties:Language.Page_Server_LoadFiles}" BorderBrush="{x:Null}" HorizontalAlignment="Center" Click="Load_Files_Click" Background="#FF383838"  />
 
-                <Button x:Name="Import_Server_Config" Height="40" Width="546" Margin="0,8,0,0" VerticalAlignment="Top" Content="Import Server Config" BorderBrush="{x:Null}" HorizontalAlignment="Center" Click="Import_Server_Config_Click" Background="#FF383838"  />
+                <Button x:Name="Import_Server_Config" Height="40" Width="546" Margin="0,8,0,0" VerticalAlignment="Top" Content="{x:Static properties:Language.Page_Server_ImportServerConfig}" BorderBrush="{x:Null}" HorizontalAlignment="Center" Click="Import_Server_Config_Click" Background="#FF383838"  />
 
                 <Label Height="58" Width="375" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,36,0,0"  FontSize="36" FontFamily="Bahnschrift SemiLight" Background="{x:Null}" BorderBrush="{x:Null}" Content="STARTUP ARGUMENTS" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" />
                 <ListBox x:Name="Startup_Arguments_UI_List"  ItemTemplateSelector="{StaticResource Server_Template_Selector}" Margin="0,-4,0,-322" Background="#FF101010" BorderBrush="{x:Null}"  ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="False" Height="500" PreviewMouseWheel="S" VirtualizingPanel.ScrollUnit="Pixel">
@@ -105,9 +105,9 @@
 
                 <ListBox x:Name="Convar_Arguments_UI_List" Background="#FF101010" BorderBrush="{x:Null}"  Height="500" VerticalAlignment="Top" ScrollViewer.CanContentScroll="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="0,-4,0,0"  ItemTemplateSelector="{StaticResource Server_Template_Selector}" PreviewMouseWheel="Convar_Arguments_UI_List_PreviewMouseWheel" VirtualizingPanel.ScrollUnit="Pixel"/>
 
-                <Button x:Name="Launch_Northstar_Dedicated"  Height="51" Width="764" BorderBrush="White"  Margin="0,30,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Content="Launch Northstar Dedicated Client" Click="Launch_Northstar_Dedicated_Click" Background="#FF383838" />
+                <Button x:Name="Launch_Northstar_Dedicated"  Height="51" Width="764" BorderBrush="White"  Margin="0,30,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Content="{x:Static properties:Language.Page_Server_LaunchNorthstarDedicatedClient}" Click="Launch_Northstar_Dedicated_Click" Background="#FF383838" />
 
-                <Button x:Name="Export_Server_Config" Height="42" Width="418" VerticalAlignment="Top" Content="Export Server Config" BorderBrush="{x:Null}" HorizontalAlignment="Center" Margin="0,23,0,0" Click="Export_Server_Config_Click" Background="#FF383838"  />
+                <Button x:Name="Export_Server_Config" Height="42" Width="418" VerticalAlignment="Top" Content="{x:Static properties:Language.Page_Server_ExportServerConfig}" BorderBrush="{x:Null}" HorizontalAlignment="Center" Margin="0,23,0,0" Click="Export_Server_Config_Click" Background="#FF383838"  />
 
 
             </hc:SimpleStackPanel>

@@ -14,6 +14,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
+using System.Threading;
+using System.Globalization;
 
 namespace VTOL.Pages
 {
@@ -175,6 +177,10 @@ namespace VTOL.Pages
 
 
             }
+
+           
+
+
             User_Settings_Vars.Auto_Close_VTOL = Settings_.Minimize_On_Launch;
             User_Settings_Vars.Author = Settings_.Author;
             User_Settings_Vars.Repo = Settings_.Repo;

@@ -136,10 +136,10 @@
     <value>Compatible Skin(s) Found : </value>
   </data>
   <data name="Page_Skins_Browse_Click_CompatibleSkinFoundAt" xml:space="preserve">
-    <value> "Compatible Skin Found at : </value>
+    <value> Compatible Skin Found at : </value>
   </data>
   <data name="Page_Skins_Browse_Click_IsNotASkinZip" xml:space="preserve">
-    <value> "  is Not a Skin Zip!</value>
+    <value>  is Not a Skin Zip!</value>
   </data>
   <data name="Page_Skins_OPEN_WEBPAGE_OpeningTheFollowingURL" xml:space="preserve">
     <value>Opening the Following URL - </value>
@@ -154,16 +154,16 @@
     <value>Master Server Checked And Timed Out too much. Turning off Master Server Checks</value>
   </data>
   <data name="Page_Home_Origin_Client_Card_Click_TheOriginClientIsAlreadyRunning" xml:space="preserve">
-    <value> "The Origin Client Is already Running!</value>
+    <value> The Origin Client Is already Running!</value>
   </data>
   <data name="Page_Home_Browse_Titanfall_Button_Click_IsValidAndHasBeenSet" xml:space="preserve">
-    <value> ' is Valid and has been Set</value>
+    <value>  is Valid and has been Set</value>
   </data>
   <data name="Page_Home_Browse_Titanfall_Button_Click_TheLocation" xml:space="preserve">
-    <value>The Location - ' " </value>
+    <value>The Location - ' </value>
   </data>
   <data name="Page_Home_Browse_Titanfall_Button_Click_IsNotValid" xml:space="preserve">
-    <value> " ' Is not Valid</value>
+    <value>   Is not Valid</value>
   </data>
   <data name="Browse_Titanfall_Button_Click_TheLocation" xml:space="preserve">
     <value>The Location - ' </value>
@@ -187,10 +187,10 @@
     <value>Release Candidate Detected</value>
   </data>
   <data name="Unpack_To_Location_TheFile" xml:space="preserve">
-    <value> "The File - </value>
+    <value> The File - </value>
   </data>
   <data name="Unpack_To_Location_WasNotFound" xml:space="preserve">
-    <value> "Was not Found!</value>
+    <value> Was not Found!</value>
   </data>
   <data name="Page_Home_Unpack_To_Location_WasNotFound" xml:space="preserve">
     <value>Was not Found!</value>
@@ -202,7 +202,7 @@
     <value>is not a zip!</value>
   </data>
   <data name="Page_Home_Run_Origin_CouldNotFindEAOriginInstallPleaseStartManuallyOrRepairYourInstallation" xml:space="preserve">
-    <value> "Could not Find EA Origin Install, Please Start Manually, Or Repair your installation!</value>
+    <value> Could not Find EA Origin Install, Please Start Manually, Or Repair your installation!</value>
   </data>
   <data name="Page_Home_INIT_InstallNorthstar" xml:space="preserve">
     <value>Install Northstar</value>
@@ -226,13 +226,13 @@
     <value>Not An Output Directory</value>
   </data>
   <data name="Page_Tools_create_Manifest_OneOfTheManifestInputsAreEmpty" xml:space="preserve">
-    <value> "One of the Manifest Inputs are Empty</value>
+    <value> One of the Manifest Inputs are Empty</value>
   </data>
   <data name="Page_Tools_Save_Mod_Click_NoValidOutputPathFound" xml:space="preserve">
     <value>No Valid Output Path Found</value>
   </data>
   <data name="Page_Tools_Save_Mod_Click_SuccessfullyPackedAllItemsTo" xml:space="preserve">
-    <value> "Successfully Packed all items to -</value>
+    <value> Successfully Packed all items to -</value>
   </data>
   <data name="Page_Tools_Save_Mod_Click_NoValidModICONFound" xml:space="preserve">
     <value>No Valid Mod ICON Found</value>
@@ -280,7 +280,7 @@
     <value>Cannot Read Input</value>
   </data>
   <data name="Page_Server_Read_Convar_args_CannotSetThePath" xml:space="preserve">
-    <value> "Cannot Set The path</value>
+    <value> Cannot Set The path</value>
   </data>
   <data name="Page_Server_Launch_Northstar_Advanced_Click_CouldNotFindNorthstarExe" xml:space="preserve">
     <value>Could Not Find Northstar.exe!</value>
@@ -329,5 +329,95 @@
   </data>
   <data name="Page_Home_Install_NS_METHOD_SequenceContainsNoElements" xml:space="preserve">
     <value>Sequence contains no elements</value>
+  </data>
+  <data name="MainWindow_MainWindow_VTOLSYSTEMSFAILEDTOFINDYOURDOCUMENTSFOLDER" xml:space="preserve">
+    <value>VTOL SYSTEMS FAILED TO FIND YOUR DOCUMENTS FOLDER</value>
+  </data>
+  <data name="Page_Mods_RightClickForContextMenu" xml:space="preserve">
+    <value>RightClick for Context Menu</value>
+  </data>
+  <data name="Page_Mods_ListedHereAreTheModsThatAreCurrentlyInstalled" xml:space="preserve">
+    <value>Listed Here are the Mods that are Currently Installed.</value>
+  </data>
+  <data name="Page_About_AboutVTOLAndDocumentationOnItsUse" xml:space="preserve">
+    <value>About VTOL and Documentation On its Use</value>
+  </data>
+  <data name="Page_About_ABOUT" xml:space="preserve">
+    <value>ABOUT</value>
+  </data>
+  <data name="Page_About_CheckForUpdate" xml:space="preserve">
+    <value>Check For Update</value>
+  </data>
+  <data name="Page_About_ConfigureUpdates" xml:space="preserve">
+    <value>Configure Updates</value>
+  </data>
+  <data name="Page_About_DefualtTextboxText" xml:space="preserve">
+    <value>Defualt Textbox Text</value>
+  </data>
+  <data name="Page_Mods_MODS" xml:space="preserve">
+    <value>MODS</value>
+  </data>
+  <data name="Page_Mods_Filter" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="Page_Server_LoadFiles" xml:space="preserve">
+    <value>Load Files</value>
+  </data>
+  <data name="Page_Server_ImportServerConfig" xml:space="preserve">
+    <value>Import Server Config</value>
+  </data>
+  <data name="Page_Server_LaunchNorthstarDedicatedServer" xml:space="preserve">
+    <value>Launch Northstar Dedicated Server</value>
+  </data>
+  <data name="Page_Server_LaunchNorthstarClient" xml:space="preserve">
+    <value>Launch Northstar Client</value>
+  </data>
+  <data name="Page_Server_ConfigureImportAndExportDedicatedServerAndClientSettings" xml:space="preserve">
+    <value>Configure, Import and Export Dedicated Server and Client Settings</value>
+  </data>
+  <data name="Page_Server_SERVER" xml:space="preserve">
+    <value>SERVER</value>
+  </data>
+  <data name="Page_Server_LaunchNorthstarDedicatedClient" xml:space="preserve">
+    <value>Launch Northstar Dedicated Client</value>
+  </data>
+  <data name="Page_Server_ExportServerConfig" xml:space="preserve">
+    <value>Export Server Config</value>
+  </data>
+  <data name="Page_Settings_FineTuneAndConfigureVTOLHere" xml:space="preserve">
+    <value>Fine Tune And Configure VTOL Here</value>
+  </data>
+  <data name="Page_Settings_SETTINGS" xml:space="preserve">
+    <value>SETTINGS</value>
+  </data>
+  <data name="Page_Skins_InstallDDSForamttedSkinsHere" xml:space="preserve">
+    <value>Install DDS Foramtted Skins Here</value>
+  </data>
+  <data name="Page_Skins_SKINS" xml:space="preserve">
+    <value>SKINS</value>
+  </data>
+  <data name="Page_Skins_InstallSkin" xml:space="preserve">
+    <value>Install Skin</value>
+  </data>
+  <data name="Page_Skins_OpenTheFAQPage" xml:space="preserve">
+    <value>Open the FAQ Page</value>
+  </data>
+  <data name="Page_Skins_OpenAGuidePage" xml:space="preserve">
+    <value>Open a Guide Page</value>
+  </data>
+  <data name="Page_Skins_Browse" xml:space="preserve">
+    <value>Browse</value>
+  </data>
+  <data name="Page_Thunderstore_TheseAreTheCollectionOfModsHostedOnTheThunderStoreModPlatform" xml:space="preserve">
+    <value>These are the Collection of Mods Hosted On the ThunderStore Mod platform.</value>
+  </data>
+  <data name="Page_Thunderstore_THUNDERSTORE" xml:space="preserve">
+    <value>THUNDERSTORE</value>
+  </data>
+  <data name="Page_Tools_ToolsForEaseOfDevelopmentOnTheNorthstarClient" xml:space="preserve">
+    <value>Tools For Ease of Development on the Northstar Client</value>
+  </data>
+  <data name="Page_Tools_TOOLS" xml:space="preserve">
+    <value>TOOLS</value>
   </data>
 </root>

@@ -21,6 +21,7 @@ using NBug;
 using VTOL.Scripts;
 using System.Globalization;
 using Serilog;
+using System.Threading;
 
 namespace VTOL
 {
@@ -38,6 +39,7 @@ namespace VTOL
         const string FriendlyName = "Sample Protocol";
         static void Main(string[] args)
         {
+           
             if (args.Length > 0)
             {
                 if (Uri.TryCreate(args[0], UriKind.Absolute, out var uri) &&
@@ -49,15 +51,18 @@ namespace VTOL
         }
         public MainWindow()
         {
-            try { 
-            InitializeComponent();
+            try
+            {
+               
+                InitializeComponent();
 
 
 
+                //System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo("fr-FR");
+                //System.Threading.Thread.CurrentThread.CurrentCulture = new CultureInfo("fr-FR");
+               
 
-
-
-            if (Directory.Exists(DocumentsFolder))
+                if (Directory.Exists(DocumentsFolder))
             {
 
                 if (!File.Exists(DocumentsFolder + @"\VTOL_DATA\Settings\User_Settings.Json"))
@@ -103,13 +108,41 @@ namespace VTOL
                 Application.Current.Shutdown();
 
             }
-            // ProfileManager Profile_ = new ProfileManager();
-            //  Profile_.InitializeProfiles(null);
+                // ProfileManager Profile_ = new ProfileManager();
+                //  Profile_.InitializeProfiles(null);
+                string language = "en-EN";
+                switch (User_Settings_Vars.Language)
+                {
+                    case "fr":
+                        language = "fr-FR";
+                        break;
+                    case "it":
+                        language = "it-IT";
+                        break;
+                    case "de":
+                        language = "de-DE";
+                        break;
+                    case "zh":
+                        language = "zh-CHT";
+                        break;
+                    case "ko":
+                        language = "ko-KR";
+                        break;
+                    case "en":
+                        language = "en-EN";
+                        break;
+                    default:
+                        language = "en-EN";
+                        break;
 
+                }
+                CultureInfo ui_culture = new CultureInfo(language);
+                CultureInfo culture = new CultureInfo(language);
 
+                Thread.CurrentThread.CurrentUICulture = ui_culture;
+                Thread.CurrentThread.CurrentCulture = culture;
 
-
-            Wpf.Ui.Appearance.Theme.Apply(
+                Wpf.Ui.Appearance.Theme.Apply(
             Wpf.Ui.Appearance.ThemeType.Unknown,     // Theme type
   Wpf.Ui.Appearance.BackgroundType.None, // Background type
   true                                  // Whether to change accents automatically
