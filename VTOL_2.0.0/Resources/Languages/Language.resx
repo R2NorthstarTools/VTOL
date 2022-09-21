@@ -420,4 +420,7 @@
   <data name="Page_Tools_TOOLS" xml:space="preserve">
     <value>TOOLS</value>
   </data>
+  <data name="Page_Home_OriginClientRunning" xml:space="preserve">
+    <value>Origin Client Running</value>
+  </data>
 </root>

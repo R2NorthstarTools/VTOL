@@ -313,6 +313,15 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Origin Client Running.
+        /// </summary>
+        public static string Page_Home_OriginClientRunning {
+            get {
+                return ResourceManager.GetString("Page_Home_OriginClientRunning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to  Could not Find EA Origin Install, Please Start Manually, Or Repair your installation!.
         /// </summary>
         public static string Page_Home_Run_Origin_CouldNotFindEAOriginInstallPleaseStartManuallyOrRepairYourInstallation {

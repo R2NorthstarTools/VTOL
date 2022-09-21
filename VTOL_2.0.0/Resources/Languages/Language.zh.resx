@@ -117,4 +117,310 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="PleaseWaitAsVTOLRestarts" xml:space="preserve">
+    <value>请等待 VTOL 重启!</value>
+  </data>
+  <data name="Page_Skins_Install_Skin_From_Path_TheSkin" xml:space="preserve">
+    <value>皮肤 - </value>
+  </data>
+  <data name="Page_Skins_Install_Skin_From_Path_HasBeenInstalled" xml:space="preserve">
+    <value> -已经被安装!</value>
+  </data>
+  <data name="Page_Skins_Drag_Drop_Area_Drop_IsNotASkinZip" xml:space="preserve">
+    <value>  不是皮肤zip压缩包!</value>
+  </data>
+  <data name="Page_Skins_Drag_Drop_Area_Drop_DragToInstall" xml:space="preserve">
+    <value>拖到到此处来安装</value>
+  </data>
+  <data name="Page_Skins_Drag_Drop_Area_Drop_CompatibleSkinSFound" xml:space="preserve">
+    <value>可使用的皮肤:</value>
+  </data>
+  <data name="Page_Skins_Browse_Click_CompatibleSkinFoundAt" xml:space="preserve">
+    <value> 可使用的皮肤路径 :</value>
+  </data>
+  <data name="Page_Skins_Browse_Click_IsNotASkinZip" xml:space="preserve">
+    <value>  不是皮肤zip压缩包!</value>
+  </data>
+  <data name="Page_Skins_OPEN_WEBPAGE_OpeningTheFollowingURL" xml:space="preserve">
+    <value>正在打开这个链接:</value>
+  </data>
+  <data name="Page_Home_Auto_Install__NORTHSTARISNOTINSTALLEDANDAUTOINSTALLFAILED" xml:space="preserve">
+    <value>NorthStar 没有被安装并且自动安装失败!</value>
+  </data>
+  <data name="Page_Home_INIT_NORTHSTARAUTOINSTALLWILLNOWBEGINPLEASEWAITABOUT30SECONDS" xml:space="preserve">
+    <value>NorthStar 自动安装现在启动了, 差不多需要30秒完成!</value>
+  </data>
+  <data name="Page_Home_timer_Tick_MasterServerCheckedAndTimedOutTooMuchTurningOffMasterServerChecks" xml:space="preserve">
+    <value>主服务器超时时间过长. 正在关闭主服务器检查.</value>
+  </data>
+  <data name="Page_Home_Origin_Client_Card_Click_TheOriginClientIsAlreadyRunning" xml:space="preserve">
+    <value> Origin 客户端已经在运行了!</value>
+  </data>
+  <data name="Page_Home_Browse_Titanfall_Button_Click_IsValidAndHasBeenSet" xml:space="preserve">
+    <value>  是有效的并且已经被设置</value>
+  </data>
+  <data name="Page_Home_Browse_Titanfall_Button_Click_TheLocation" xml:space="preserve">
+    <value>路径 - '</value>
+  </data>
+  <data name="Page_Home_Browse_Titanfall_Button_Click_IsNotValid" xml:space="preserve">
+    <value>   不是有效的</value>
+  </data>
+  <data name="Browse_Titanfall_Button_Click_TheLocation" xml:space="preserve">
+    <value>路径 - '</value>
+  </data>
+  <data name="Check_Integrity_Of_NSINSTALL_DirectoryCheckFailed" xml:space="preserve">
+    <value>路径检查失败!</value>
+  </data>
+  <data name="Read_Latest_Release_InvalidReleaseDonwloadURL" xml:space="preserve">
+    <value>错误的发行版下载链接!</value>
+  </data>
+  <data name="Parse_Release_ReleaseNotFound" xml:space="preserve">
+    <value>发行版本未找到!</value>
+  </data>
+  <data name="Unpack_To_Location_InstallationComplete" xml:space="preserve">
+    <value>安装成功!</value>
+  </data>
+  <data name="Check_For_New_Northstar_Install_UpdateAvailableDownloadingAndInstallingNow" xml:space="preserve">
+    <value>升级可用, 正在下载并安装!</value>
+  </data>
+  <data name="Check_For_New_Northstar_Install_ReleaseCandidateDetected" xml:space="preserve">
+    <value>检测到预发行版本</value>
+  </data>
+  <data name="Unpack_To_Location_TheFile" xml:space="preserve">
+    <value> 文件 -</value>
+  </data>
+  <data name="Unpack_To_Location_WasNotFound" xml:space="preserve">
+    <value> 未找到!</value>
+  </data>
+  <data name="Page_Home_Unpack_To_Location_WasNotFound" xml:space="preserve">
+    <value>未找到!</value>
+  </data>
+  <data name="Page_Home_Unpack_To_Location_TheFile" xml:space="preserve">
+    <value>文件 -</value>
+  </data>
+  <data name="Page_Home_Unpack_To_Location_IsNotAZip" xml:space="preserve">
+    <value>不是zip压缩包!</value>
+  </data>
+  <data name="Page_Home_Run_Origin_CouldNotFindEAOriginInstallPleaseStartManuallyOrRepairYourInstallation" xml:space="preserve">
+    <value> 找不到已安装的 EA Origin 客户端, 请手动打开, 或者修复你的安装!</value>
+  </data>
+  <data name="Page_Home_INIT_InstallNorthstar" xml:space="preserve">
+    <value>安装 NorthStar</value>
+  </data>
+  <data name="Page_Home_INIT_UpdateNorthstar" xml:space="preserve">
+    <value>升级 +NorthStar</value>
+  </data>
+  <data name="Page_Tools_Save_Mod_Click_NoValidZipFileToPackWasFound" xml:space="preserve">
+    <value>找不到要打包的有效zip文件</value>
+  </data>
+  <data name="Page_Tools_Icon_Image_MouseDown_InvalidImageSizeMustBe256x256" xml:space="preserve">
+    <value>映像文件大小不可用!. 必须是 256x256</value>
+  </data>
+  <data name="Page_Tools_Locate_Zip_Click_InvalidZipFound" xml:space="preserve">
+    <value>找到了不可用的zip压缩包</value>
+  </data>
+  <data name="Page_Tools_Locate_Zip_Click_ValidZipFound" xml:space="preserve">
+    <value>找到了可用的zip压缩包</value>
+  </data>
+  <data name="Page_Tools_Output_Button_Click_NotAnOutputDirectory" xml:space="preserve">
+    <value>不是一个输出目录</value>
+  </data>
+  <data name="Page_Tools_create_Manifest_OneOfTheManifestInputsAreEmpty" xml:space="preserve">
+    <value> 列表中有一项是空的 </value>
+  </data>
+  <data name="Page_Tools_Save_Mod_Click_NoValidOutputPathFound" xml:space="preserve">
+    <value>找不到可用的输出路径</value>
+  </data>
+  <data name="Page_Tools_Save_Mod_Click_SuccessfullyPackedAllItemsTo" xml:space="preserve">
+    <value> 成功打包了所有文件至 -</value>
+  </data>
+  <data name="Page_Tools_Save_Mod_Click_NoValidModICONFound" xml:space="preserve">
+    <value>找不到可用的 Mod 图标</value>
+  </data>
+  <data name="Page_Tools_Icon_Image_MouseDown_NotAValidPNGImage" xml:space="preserve">
+    <value>不是可用的 png 格式图片</value>
+  </data>
+  <data name="Page_Tools_Icon_Image_MouseDown_ValidImageFoundAt" xml:space="preserve">
+    <value>找到了可用映像 -</value>
+  </data>
+  <data name="Page_Tools_Icon_Image_MouseDown_ThatWasNotAProperPNG" xml:space="preserve">
+    <value>这不是适用的 png 图片</value>
+  </data>
+  <data name="Page_Tools_Image_Icon_Drop_InvalidImageSizeMustBeSmallerThan2048X2048" xml:space="preserve">
+    <value>图片大小不可用!. 必须比 2048x2048 更小</value>
+  </data>
+  <data name="Page_Tools_ProcessSkin_SkinNameNotSet" xml:space="preserve">
+    <value>皮肤名称未设置!</value>
+  </data>
+  <data name="Page_Tools_ProcessSkin_ItemNotSet" xml:space="preserve">
+    <value>物品名称未设置!</value>
+  </data>
+  <data name="Page_Tools_ProcessSkin_OutputPathIsNotSet" xml:space="preserve">
+    <value>输出路径未设置!</value>
+  </data>
+  <data name="Page_Tools_ProcessSkin_MapsAreNotSet" xml:space="preserve">
+    <value>地图未设置!</value>
+  </data>
+  <data name="Page_Tools_ProcessSkin_GeneratedTheSkinSuccessfully" xml:space="preserve">
+    <value>成功生成皮肤!</value>
+  </data>
+  <data name="Page_Thunderstore_Unpack_To_Location_Custom_HasBeenDownloadedAndInstalled" xml:space="preserve">
+    <value> 已经被下载且安装</value>
+  </data>
+  <data name="Page_Server_Launch_Northstar_Dedicated_Click_CouldNotFindDedicatedBat" xml:space="preserve">
+    <value>找不到服务器启动脚本!</value>
+  </data>
+  <data name="Page_Server_OnKeyDownHandler_Dedi_Arg_Saved" xml:space="preserve">
+    <value>已保存</value>
+  </data>
+  <data name="Page_Server_OnKeyDownHandler_Dedi_Arg_AutoSaveFailed" xml:space="preserve">
+    <value>自动保存失败</value>
+  </data>
+  <data name="Page_Server_Validate_Combo_Box_CannotReadInput" xml:space="preserve">
+    <value>不能读取输入</value>
+  </data>
+  <data name="Page_Server_Read_Convar_args_CannotSetThePath" xml:space="preserve">
+    <value> 不能设置路径</value>
+  </data>
+  <data name="Page_Server_Launch_Northstar_Advanced_Click_CouldNotFindNorthstarExe" xml:space="preserve">
+    <value>未找到 Northstar.exe!</value>
+  </data>
+  <data name="Page_Server_StartupArgumentsNorthstarDedicatedClient" xml:space="preserve">
+    <value>启动含参数的 NorthStar 服务端</value>
+  </data>
+  <data name="Page_Home_WelcomeTo" xml:space="preserve">
+    <value>欢迎来到</value>
+  </data>
+  <data name="Page_Home_CustomModdingAndServerFramework" xml:space="preserve">
+    <value>可自定义的模组和服务器框架</value>
+  </data>
+  <data name="Page_Home_LaunchTitanfall2Northstar" xml:space="preserve">
+    <value>启动 TitanFall 2 NorthStar</value>
+  </data>
+  <data name="Page_Home_MasterServer" xml:space="preserve">
+    <value>主服务器</value>
+  </data>
+  <data name="Page_Home_ToggleChecking" xml:space="preserve">
+    <value>切换主服务器检查</value>
+  </data>
+  <data name="Page_Home_IndicatesIfOriginIsRunningClickToLaunchIfInactive" xml:space="preserve">
+    <value>显示 Origin 是否正在运行 (如果未激活, 单击此处启动)</value>
+  </data>
+  <data name="Page_Home_ShowsThePingLatencyOverTime" xml:space="preserve">
+    <value>随时间显示 Ping 与 延迟</value>
+  </data>
+  <data name="Page_Home_OpenTitanfall2Folder" xml:space="preserve">
+    <value>打开 TitanFall 2 目录</value>
+  </data>
+  <data name="Page_Home_LocateTitanfall2Install" xml:space="preserve">
+    <value>定位 TitanFall 2 安装目录</value>
+  </data>
+  <data name="Page_Home_ManuallyChangeTheTitanfall2InstallDirectory" xml:space="preserve">
+    <value>手动更改 TitanFall2 安装目录位置</value>
+  </data>
+  <data name="Page_Home_UpdateNorthstar" xml:space="preserve">
+    <value>更新 +NorthStar</value>
+  </data>
+  <data name="Page_Home_NorthstarInstallation" xml:space="preserve">
+    <value>NorthStar 安装程序</value>
+  </data>
+  <data name="Page_Home_LaunchNorthstar" xml:space="preserve">
+    <value>启动 +NorthStar"</value>
+  </data>
+  <data name="Page_Home_Install_NS_METHOD_SequenceContainsNoElements" xml:space="preserve">
+    <value>序列不包含任何元素</value>
+  </data>
+  <data name="MainWindow_MainWindow_VTOLSYSTEMSFAILEDTOFINDYOURDOCUMENTSFOLDER" xml:space="preserve">
+    <value>VTOL 未成功找到你的文档文件夹</value>
+  </data>
+  <data name="Page_Mods_RightClickForContextMenu" xml:space="preserve">
+    <value>右键打开菜单</value>
+  </data>
+  <data name="Page_Mods_ListedHereAreTheModsThatAreCurrentlyInstalled" xml:space="preserve">
+    <value>展示在这里的是已经安装的 Mods</value>
+  </data>
+  <data name="Page_About_AboutVTOLAndDocumentationOnItsUse" xml:space="preserve">
+    <value>关于 VTOL 及其使用文档</value>
+  </data>
+  <data name="Page_About_ABOUT" xml:space="preserve">
+    <value>关于</value>
+  </data>
+  <data name="Page_About_CheckForUpdate" xml:space="preserve">
+    <value>检查更新</value>
+  </data>
+  <data name="Page_About_ConfigureUpdates" xml:space="preserve">
+    <value>配置更新</value>
+  </data>
+  <data name="Page_About_DefualtTextboxText" xml:space="preserve">
+    <value>默认文本框文本</value>
+  </data>
+  <data name="Page_Mods_MODS" xml:space="preserve">
+    <value>模组</value>
+  </data>
+  <data name="Page_Mods_Filter" xml:space="preserve">
+    <value>筛选</value>
+  </data>
+  <data name="Page_Server_LoadFiles" xml:space="preserve">
+    <value>加载</value>
+  </data>
+  <data name="Page_Server_ImportServerConfig" xml:space="preserve">
+    <value>导入服务器配置</value>
+  </data>
+  <data name="Page_Server_LaunchNorthstarDedicatedServer" xml:space="preserve">
+    <value>启动 NorthStar 服务端</value>
+  </data>
+  <data name="Page_Server_LaunchNorthstarClient" xml:space="preserve">
+    <value>启动 NorthStar 客户端</value>
+  </data>
+  <data name="Page_Server_ConfigureImportAndExportDedicatedServerAndClientSettings" xml:space="preserve">
+    <value>配置, 导入与导出服务端与客户端设定</value>
+  </data>
+  <data name="Page_Server_SERVER" xml:space="preserve">
+    <value>服务器</value>
+  </data>
+  <data name="Page_Server_LaunchNorthstarDedicatedClient" xml:space="preserve">
+    <value>启动 NorthStar 专用客户端</value>
+  </data>
+  <data name="Page_Server_ExportServerConfig" xml:space="preserve">
+    <value>导出服务器配置</value>
+  </data>
+  <data name="Page_Settings_FineTuneAndConfigureVTOLHere" xml:space="preserve">
+    <value>在此微调和配置 VTOL</value>
+  </data>
+  <data name="Page_Settings_SETTINGS" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="Page_Skins_InstallDDSForamttedSkinsHere" xml:space="preserve">
+    <value>在这里安装 DDS 格式的皮肤</value>
+  </data>
+  <data name="Page_Skins_SKINS" xml:space="preserve">
+    <value>皮肤</value>
+  </data>
+  <data name="Page_Skins_InstallSkin" xml:space="preserve">
+    <value>安装皮肤</value>
+  </data>
+  <data name="Page_Skins_OpenTheFAQPage" xml:space="preserve">
+    <value>打开 FAQ 页面</value>
+  </data>
+  <data name="Page_Skins_OpenAGuidePage" xml:space="preserve">
+    <value>打开向导页</value>
+  </data>
+  <data name="Page_Skins_Browse" xml:space="preserve">
+    <value>浏览</value>
+  </data>
+  <data name="Page_Thunderstore_TheseAreTheCollectionOfModsHostedOnTheThunderStoreModPlatform" xml:space="preserve">
+    <value>在 ThunderStore 平台上的模组</value>
+  </data>
+  <data name="Page_Thunderstore_THUNDERSTORE" xml:space="preserve">
+    <value>ThunderStore</value>
+  </data>
+  <data name="Page_Tools_ToolsForEaseOfDevelopmentOnTheNorthstarClient" xml:space="preserve">
+    <value>便于在 NorthStar 客户端上进行开发的工具</value>
+  </data>
+  <data name="Page_Tools_TOOLS" xml:space="preserve">
+    <value>工具</value>
+  </data>
+  <data name="Page_Home_OriginClientRunning" xml:space="preserve">
+    <value>运行Origin客户端</value>
+  </data>
 </root>

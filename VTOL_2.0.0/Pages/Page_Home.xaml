@@ -333,7 +333,7 @@
                         </ui:ToggleSwitch>
 
                     </ui:CardControl>
-                    <ui:CardAction x:Name="Origin_Client_Card" Content="Origin Client Running" Icon="FoodToast16"  Height="68" Margin="0,44,40,0" Background="{DynamicResource Bg_Chart_Red}" VerticalAlignment="Top" Grid.Column="2" RenderTransformOrigin="0.5,0.5"  Foreground="{DynamicResource TextOnAccentFillColorSelectedTextBrush}" BorderBrush="{x:Null}" Click="Origin_Client_Card_Click" ClickMode="Press" ToolTip="{x:Static properties:Language.Page_Home_IndicatesIfOriginIsRunningClickToLaunchIfInactive}">
+                    <ui:CardAction x:Name="Origin_Client_Card" Content="{x:Static properties:Language.Page_Home_OriginClientRunning}" Icon="FoodToast16"  Height="68" Margin="0,44,40,0" Background="{DynamicResource Bg_Chart_Red}" VerticalAlignment="Top" Grid.Column="2" RenderTransformOrigin="0.5,0.5"  Foreground="{DynamicResource TextOnAccentFillColorSelectedTextBrush}" BorderBrush="{x:Null}" Click="Origin_Client_Card_Click" ClickMode="Press" ToolTip="{x:Static properties:Language.Page_Home_IndicatesIfOriginIsRunningClickToLaunchIfInactive}">
                         <ui:CardAction.RenderTransform>
                             <TransformGroup>
                                 <ScaleTransform/>
