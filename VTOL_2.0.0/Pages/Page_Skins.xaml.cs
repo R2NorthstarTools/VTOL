@@ -16,7 +16,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Threading;
-using Hangfire;
 using Serilog;
 using System.Globalization;
 using Path = System.IO.Path;

@@ -19,9 +19,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using VTOL;
-using PortableDownloader;
-using AltoHttp;
-using AltoHttp.Exceptions;
+
 using Downloader;
 using Path = System.IO.Path;
 using System.IO.Compression;
@@ -31,7 +29,6 @@ using System.Threading.Tasks.Dataflow;
 using Threading;
 using System.Windows.Threading;
 using System.Diagnostics;
-using Hangfire;
 using ZipFile = Ionic.Zip.ZipFile;
 using System.Reflection;
 namespace VTOL.Pages
@@ -1238,14 +1235,7 @@ namespace VTOL.Pages
             //lblSpeed.Text = e.SpeedInBytes.ToHumanReadableSize() + "/s";
             //progressBar.Value = (int)(e.Progress * 100);
         }
-        void downloader_ErrorOccured(object sender, ErrorEventArgs e)
-        {
-            var ex = e.GetException();
-            if (ex is FileValidationFailedException)
-            {
-            }
-            //MessageBox.Show("Error: " + e.GetException().Message + " " + e.GetException().StackTrace);
-        }
+        
         void downloader_DownloadCompleted(object sender, AsyncCompletedEventArgs e, ProgressBar Progress_Bar, string Mod_Name, string Location, bool Skin_Install, bool NS_CANDIDATE_INSTALL)
         {
             Console.WriteLine(Location);

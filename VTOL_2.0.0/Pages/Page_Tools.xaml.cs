@@ -41,6 +41,7 @@ using System.Runtime.InteropServices;
 using System.Diagnostics;
 using System.Windows.Media.Animation;
 using System.Text.RegularExpressions;
+using NLog;
 
 namespace VTOL.Pages
 {
@@ -383,6 +384,8 @@ namespace VTOL.Pages
     }
     public partial class Page_Tools : Page
     {
+        private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
+
         Window_Tool_Image_Editor_Wizard Img_ed;
         private string Current_Output_Dir;
         private string Current_Mod_To_Pack;
@@ -395,6 +398,8 @@ namespace VTOL.Pages
         public Page_Tools()
         { 
             InitializeComponent();
+            Logger.Info("Hello Papertrail");
+
             SnackBar = Main.Snackbar;
             Mod_dependencies.Text = "northstar-Northstar-" + Properties.Settings.Default.Version.Remove(0, 1);
             Paragraph paragraph = new Paragraph();
@@ -682,8 +687,7 @@ namespace VTOL.Pages
             System.Windows.Forms.DialogResult res = dialog.ShowDialog();
             if (res == System.Windows.Forms.DialogResult.OK)
             {
-                Current_Output_Dir = dialog.SelectedPath;
-                if (!Directory.Exists(Current_Output_Dir))
+                if (!Directory.Exists(dialog.SelectedPath))
                 {
                      SnackBar.Icon = SymbolRegular.ErrorCircle20;
                             SnackBar.Appearance = ControlAppearance.Danger;SnackBar.Title = "ERROR";
@@ -696,6 +700,8 @@ namespace VTOL.Pages
                 }
                 else
                 {
+                    Current_Output_Dir = dialog.SelectedPath;
+
                     Output_Box.Text = Current_Output_Dir;
                     Output_Box.Background = Brushes.Transparent;
 
@@ -1631,8 +1637,9 @@ namespace VTOL.Pages
                     SnackBar.Message = ex.Message;
                     SnackBar.Show();
                     Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                    Logger.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
-                }
+            }
 
 
 
@@ -1809,11 +1816,15 @@ namespace VTOL.Pages
         string Mod_Adv_Author_name;
         string Mod_Adv_Version_Num;
         string Mod_Adv_Skin_Name;
-        string Mod_Adv_Readme;
         string Mod_Adv_Output_Path;
         public void Convert()
         {
-            try { 
+            try {
+
+                Mod_Adv_Version_Num = Mod_version_number_Advocate.Text;
+                Mod_Adv_Author_name = Mod_Author_Name_Advocate.Text;
+                Mod_Adv_Skin_Name = Mod_Skin_Name_Advocate.Text;
+               
             if(Mod_Adv_Author_name == null || Mod_Adv_Author_name == "" || Mod_Adv_Author_name.Count() < 2)
             {
                 SnackBar.Appearance = ControlAppearance.Danger;
@@ -1835,15 +1846,15 @@ namespace VTOL.Pages
                 SnackBar.Message = "Skin Name Is Is Invalid";
                 SnackBar.Show();
             }
-            if (Mod_Adv_Readme == null || Mod_Adv_Readme == "" || Mod_Adv_Readme.Count() < 2)
-            {
-                SnackBar.Appearance = ControlAppearance.Danger;
-                SnackBar.Title = "ERROR";
-                SnackBar.Message = "Is Invalid";
-                SnackBar.Show();
-            }
 
-            if (!File.Exists(Mod_Adv_Skin_Path))
+                if (Description_Box_Advocate.Document.Blocks.Count < 1)
+                {
+                    SnackBar.Appearance = ControlAppearance.Danger;
+                    SnackBar.Title = "ERROR";
+                    SnackBar.Message = "Description Is Invalid";
+                    SnackBar.Show();
+                }
+                if (!File.Exists(Mod_Adv_Skin_Path))
             {
 
            
@@ -2032,13 +2043,13 @@ namespace VTOL.Pages
                     File.Copy(Mod_Adv_Icon_Path, modTempFolderPath + "\\icon.png",true);
                 }
 
-            //    ConvertTaskComplete();
+                    //    ConvertTaskComplete();
 
-                //////////////////////
-                // create README.md //
-                //////////////////////
-
-                if (Description_Box_Advocate.Document.Blocks.Count > 1)
+                    //////////////////////
+                    // create README.md //
+                    //////////////////////
+                   
+                    if (Description_Box_Advocate.Document.Blocks.Count > 1)
                 {
                         TextRange textRange = new TextRange(
                // TextPointer to the start of content in the RichTextBox.
@@ -2149,7 +2160,7 @@ namespace VTOL.Pages
                 //P.OutputDataReceived += (sender, args) => sb.AppendLine(args.Data);
                 //P.ErrorDataReceived += (sender, args) => sb.AppendLine(args.Data);
                 //P.StartInfo.UseShellExecute = false;
-                P.StartInfo.FileName = Properties.Settings.Default.RePakPath;
+                P.StartInfo.FileName = Mod_Adv_Repak_Path;
                 P.StartInfo.Arguments = "\"" + repakTempFolderPath + "\\map.json\"";
                 P.Start();
                 //P.BeginOutputReadLine();
@@ -2191,12 +2202,15 @@ namespace VTOL.Pages
             }
             catch (Exception ex)
             {
-                
-                SnackBar.Appearance = ControlAppearance.Danger;
-                SnackBar.Title = "ERROR";
-                SnackBar.Message = "There was an unhandled error during conversion!\n\n" + ex.Message + "\n\n" + ex.StackTrace;
-                SnackBar.Show();
+
+                    Error_Dialog.ButtonLeftName ="Ok";
+                    Error_Dialog.ButtonRightName = "Report";
+
+                    Error_Dialog.Title = "ERROR";
+                    Error_Dialog.Message = "There was an unhandled error during conversion!\n\n" + ex.Message + "\n\n" + ex.StackTrace;
+                    Error_Dialog.Show();
                     Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                    Logger.Error(ex,$"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
                     return;
             }
@@ -2235,6 +2249,7 @@ namespace VTOL.Pages
                 SnackBar.Message = ex.Message;
                 SnackBar.Show();
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                Logger.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
             }
 
@@ -2287,6 +2302,7 @@ namespace VTOL.Pages
                 SnackBar.Message = ex.Message;
                 SnackBar.Show();
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                Logger.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
             }
             return false;
@@ -2689,8 +2705,7 @@ private readonly Dictionary<string, string> weaponNameToPath = new()
                 openFileDialog.RestoreDirectory = true;
                 if (openFileDialog.ShowDialog() == true)
                 {
-                    Mod_Adv_Skin_Path = openFileDialog.FileName;
-                    if (!File.Exists(Mod_Adv_Skin_Path))
+                    if (!File.Exists(openFileDialog.FileName))
                     {
 
                         SnackBar.Icon = SymbolRegular.ErrorCircle20;
@@ -2703,6 +2718,8 @@ private readonly Dictionary<string, string> weaponNameToPath = new()
                     }
                     else
                     {
+                        Mod_Adv_Skin_Path = openFileDialog.FileName;
+
                         if (Path.GetExtension(Mod_Adv_Skin_Path).Contains("zip") || Path.GetExtension(Mod_Adv_Skin_Path).Contains("Zip"))
                         {
                             SnackBar.Appearance = ControlAppearance.Info;
@@ -2942,20 +2959,22 @@ private readonly Dictionary<string, string> weaponNameToPath = new()
             System.Windows.Forms.DialogResult res = dialog.ShowDialog();
             if (res == System.Windows.Forms.DialogResult.OK)
             {
-                Mod_Adv_Output_Path = dialog.SelectedPath;
-                if (!Directory.Exists(Mod_Adv_Output_Path))
+                if (!Directory.Exists(dialog.SelectedPath))
                 {
                     SnackBar.Icon = SymbolRegular.ErrorCircle20;
                     SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
                     SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Output_Button_Click_NotAnOutputDirectory;
                     SnackBar.Show();
+                    Output_Box.Background = Brushes.IndianRed;
 
                     return;
 
                 }
                 else
                 {
+                    Mod_Adv_Output_Path = dialog.SelectedPath;
                     Output_Box_Advocate.Text = Mod_Adv_Output_Path;
+                    Output_Box_Advocate.Background = Brushes.Transparent;
 
                 }
             }
@@ -2965,5 +2984,7 @@ private readonly Dictionary<string, string> weaponNameToPath = new()
         {
             Convert();
         }
+
+       
     }
 }

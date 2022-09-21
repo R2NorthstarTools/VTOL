@@ -148,11 +148,7 @@ namespace VTOL.Pages
 
             Check_Reverse(false);
             _Completed_Mod_call = true;
-            Log.Logger = new LoggerConfiguration()
-               .MinimumLevel.Debug()
-               .WriteTo.Console()
-               .WriteTo.File("logs/myapp.txt", rollingInterval: RollingInterval.Day)
-               .CreateLogger();
+           
         }
 
         public class Card_

@@ -30,6 +30,7 @@ namespace VTOL
     /// </summary>
     public partial class MainWindow : Window
     {
+
         //Merge Complete
         private Wpf.Ui.Appearance.ThemeType ThemeType = Wpf.Ui.Appearance.ThemeType.Dark;
         bool Profile_card = false;

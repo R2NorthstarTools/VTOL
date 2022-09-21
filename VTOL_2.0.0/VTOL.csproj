@@ -70,6 +70,7 @@
     <None Remove="Fonts\Segoe-UI-Variable-Static-Text-Semilight.ttf" />
     <None Remove="Fonts\Segoe-UI-Variable-Static-Text.ttf" />
     <None Remove="Fonts\SegoeUI-VF.ttf" />
+    <None Remove="NLog.config" />
     <None Remove="Resources\Backgrounds\5005323-titanfall-2-games-2018-games-hd-4k.jpg" />
     <None Remove="Resources\Backgrounds\6._The_Beacon_-_1.png" />
     <None Remove="Resources\Backgrounds\62f29d37d6baf.jpg" />
@@ -215,41 +216,34 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AltoHttp" Version="1.5.2" />
     <PackageReference Include="Aspose.Zip" Version="22.8.0" />
     <PackageReference Include="BCnEncoder.Net" Version="2.1.0" />
     <PackageReference Include="BCnEncoder.Net.ImageSharp" Version="1.1.1" />
-    <PackageReference Include="BugsRadar" Version="1.0.0.1" />
     <PackageReference Include="ByteSize" Version="2.1.1" />
     <PackageReference Include="DotNetZip" Version="1.16.0" />
-    <PackageReference Include="Downloader" Version="2.3.8" />
-    <PackageReference Include="FluentScheduler" Version="5.5.1" />
+    <PackageReference Include="Downloader" Version="2.4.0" />
     <PackageReference Include="HandyControls" Version="3.4.2" />
-    <PackageReference Include="Hangfire" Version="1.7.31" />
     <PackageReference Include="Iconic.Zlib.Netstandard" Version="1.0.0" />
     <PackageReference Include="Json.Net" Version="1.0.33" />
     <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
     <PackageReference Include="Magick.NET-Q16-AnyCPU" Version="12.1.0" />
     <PackageReference Include="Microsoft.Build" Version="17.3.1" />
-    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.1343.22" />
     <PackageReference Include="MSBuild.Microsoft.VisualStudio.Web.targets" Version="14.0.0.3" />
     <PackageReference Include="NBug" Version="1.2.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="NLog" Version="5.0.4" />
+    <PackageReference Include="NLog.Targets.Syslog" Version="7.0.0" />
     <PackageReference Include="Notification.Wpf" Version="6.1.0.5" />
     <PackageReference Include="Octokit" Version="2.0.1" />
     <PackageReference Include="Ookii.Dialogs.Wpf" Version="5.0.1" />
     <PackageReference Include="Parallax.WPF" Version="1.0.8" />
     <PackageReference Include="Pfim" Version="0.11.1" />
-    <PackageReference Include="PortableDownloader" Version="1.3.27" />
-    <PackageReference Include="PortableStorage" Version="1.2.70" />
     <PackageReference Include="Prism.Wpf" Version="8.1.97" />
     <PackageReference Include="Serilog" Version="2.12.0-dev-01479" />
     <PackageReference Include="Serilog.Settings.Configuration" Version="3.3.0" />
-    <PackageReference Include="Serilog.Sinks.Console" Version="4.1.0" />
     <PackageReference Include="Serilog.Sinks.FastConsole" Version="2.1.0" />
     <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
     <PackageReference Include="SixLabors.ImageSharp" Version="2.1.3" />
-    <PackageReference Include="Soluling" Version="1.0.52" />
     <PackageReference Include="Syncfusion.SfImageEditor.WPF" Version="20.2.0.48" />
     <PackageReference Include="Syncfusion.SfSkinManager.WPF" Version="20.2.0.48" />
     <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
@@ -261,6 +255,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="NLog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(1).jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
