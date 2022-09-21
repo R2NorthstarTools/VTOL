@@ -38,6 +38,8 @@ namespace VTOL
         public string DocumentsFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
         const string UriScheme = "ror2mm://";
         const string FriendlyName = "Sample Protocol";
+        public TlsPaperTrailLogger logger2 = new TlsPaperTrailLogger("logs5.papertrailapp.com", 38137);
+
         static void Main(string[] args)
         {
            

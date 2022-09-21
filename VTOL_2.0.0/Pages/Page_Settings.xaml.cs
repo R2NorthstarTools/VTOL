@@ -29,7 +29,6 @@ namespace VTOL.Pages
         public MainWindow Main = GetMainWindow();
         User_Settings User_Settings_Vars = null;
         string DocumentsFolder = null;
-        TlsPaperTrailLogger logger2 = new TlsPaperTrailLogger("logs5.papertrailapp.com", 38137);
 
         public enum Language
         {
@@ -200,9 +199,9 @@ namespace VTOL.Pages
         }
              catch (Exception ex)
             {
-                logger2.Open();
-                logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + "From - " + Assembly.GetExecutingAssembly().GetName().Version.ToString());
-                logger2.Close();
+                Main.logger2.Open();
+                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + "From - " + Assembly.GetExecutingAssembly().GetName().Version.ToString());
+                Main.logger2.Close();
 
 
 
