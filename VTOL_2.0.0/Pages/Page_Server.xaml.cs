@@ -8,6 +8,7 @@ using System.Globalization;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -91,6 +92,8 @@ namespace VTOL.Pages
     /// </summary>
     public partial class Page_Server : Page
     {
+        TlsPaperTrailLogger logger2 = new TlsPaperTrailLogger("logs5.papertrailapp.com", 38137);
+
         private List<string> Game_Modes_List = new List<string>();
         private List<string> Game_MAP_List = new List<string>();
         private List<string> Game_WEAPON_List = new List<string>();
@@ -344,7 +347,9 @@ namespace VTOL.Pages
                 SnackBar.Show();
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
-
+                logger2.Open();
+                logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + "From - " + Assembly.GetExecutingAssembly().GetName().Version.ToString());
+                logger2.Close();
 
             }
         }
@@ -382,7 +387,9 @@ namespace VTOL.Pages
             {
 
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-
+                logger2.Open();
+                logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + "From - " + Assembly.GetExecutingAssembly().GetName().Version.ToString());
+                logger2.Close();
 
 
             }
@@ -411,7 +418,9 @@ namespace VTOL.Pages
             catch (Exception ex)
             {
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-
+                logger2.Open();
+                logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + "From - " + Assembly.GetExecutingAssembly().GetName().Version.ToString());
+                logger2.Close();
 
             }
             return false;
@@ -449,6 +458,9 @@ namespace VTOL.Pages
             }
             catch (Exception ex)
             {
+                logger2.Open();
+                logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + "From - " + Assembly.GetExecutingAssembly().GetName().Version.ToString());
+                logger2.Close();
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
             }
             return null;
@@ -573,6 +585,9 @@ namespace VTOL.Pages
             }
             catch (Exception ex)
             {
+                logger2.Open();
+                logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + "From - " + Assembly.GetExecutingAssembly().GetName().Version.ToString());
+                logger2.Close();
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
 
@@ -659,6 +674,9 @@ namespace VTOL.Pages
             }
             catch (Exception ex)
             {
+                logger2.Open();
+                logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + "From - " + Assembly.GetExecutingAssembly().GetName().Version.ToString());
+                logger2.Close();
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
 
@@ -718,6 +736,9 @@ namespace VTOL.Pages
             }
             catch (Exception ex)
             {
+                logger2.Open();
+                logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + "From - " + Assembly.GetExecutingAssembly().GetName().Version.ToString());
+                logger2.Close();
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
 
@@ -838,6 +859,9 @@ namespace VTOL.Pages
             }
             catch (Exception ex)
             {
+                logger2.Open();
+                logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + "From - " + Assembly.GetExecutingAssembly().GetName().Version.ToString());
+                logger2.Close();
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
 
@@ -1110,6 +1134,9 @@ namespace VTOL.Pages
             }
             catch (Exception ex)
             {
+                logger2.Open();
+                logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + "From - " + Assembly.GetExecutingAssembly().GetName().Version.ToString());
+                logger2.Close();
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
 
@@ -1465,6 +1492,9 @@ namespace VTOL.Pages
             }
             catch (Exception ex)
             {
+                logger2.Open();
+                logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + "From - " + Assembly.GetExecutingAssembly().GetName().Version.ToString());
+                logger2.Close();
 
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
@@ -1486,6 +1516,9 @@ namespace VTOL.Pages
             }
             catch (System.IO.FileNotFoundException e)
             {
+                logger2.Open();
+                logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + e.Message + Environment.NewLine + "From - " + Assembly.GetExecutingAssembly().GetName().Version.ToString());
+                logger2.Close();
                 Log.Error(e, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
 
@@ -1679,7 +1712,9 @@ namespace VTOL.Pages
             }
             catch (Exception ex)
             {
-
+                logger2.Open();
+                logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + "From - " + Assembly.GetExecutingAssembly().GetName().Version.ToString());
+                logger2.Close();
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
 
@@ -1895,6 +1930,9 @@ namespace VTOL.Pages
             }
             catch (Exception ex)
             {
+                logger2.Open();
+                logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + "From - " + Assembly.GetExecutingAssembly().GetName().Version.ToString());
+                logger2.Close();
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
 
@@ -2007,6 +2045,9 @@ namespace VTOL.Pages
             }
             catch (Exception ex)
             {
+                logger2.Open();
+                logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + "From - " + Assembly.GetExecutingAssembly().GetName().Version.ToString());
+                logger2.Close();
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
 
@@ -2111,7 +2152,9 @@ namespace VTOL.Pages
 
             catch (Exception e)
             {
-
+                logger2.Open();
+                logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + e.Message + Environment.NewLine + "From - " + Assembly.GetExecutingAssembly().GetName().Version.ToString());
+                logger2.Close();
                 //Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
 
                 //Write_To_Log("The process failed: " + e.ToString());
@@ -2293,7 +2336,9 @@ namespace VTOL.Pages
             }
             catch (Exception ex)
             {
-
+                logger2.Open();
+                logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + "From - " + Assembly.GetExecutingAssembly().GetName().Version.ToString());
+                logger2.Close();
                 SnackBar.Appearance = ControlAppearance.Danger;
                 SnackBar.Title = "ERROR";
                 SnackBar.Message = VTOL.Resources.Languages.Language.Page_Server_OnKeyDownHandler_Dedi_Arg_AutoSaveFailed;
@@ -2329,6 +2374,9 @@ namespace VTOL.Pages
             }
             catch (Exception ex)
             {
+                logger2.Open();
+                logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + "From - " + Assembly.GetExecutingAssembly().GetName().Version.ToString());
+                logger2.Close();
                 SnackBar.Appearance = ControlAppearance.Danger;
                 SnackBar.Title = "ERROR";
                 SnackBar.Message = VTOL.Resources.Languages.Language.Page_Server_OnKeyDownHandler_Dedi_Arg_AutoSaveFailed;

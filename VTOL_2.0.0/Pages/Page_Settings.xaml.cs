@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using System.IO;
 using System.Threading;
 using System.Globalization;
+using System.Reflection;
 
 namespace VTOL.Pages
 {
@@ -28,6 +29,7 @@ namespace VTOL.Pages
         public MainWindow Main = GetMainWindow();
         User_Settings User_Settings_Vars = null;
         string DocumentsFolder = null;
+        TlsPaperTrailLogger logger2 = new TlsPaperTrailLogger("logs5.papertrailapp.com", 38137);
 
         public enum Language
         {
@@ -144,6 +146,7 @@ namespace VTOL.Pages
 
         private void Settings_LostFocus(object sender, RoutedEventArgs e)
         {
+            try { 
             User_Settings_Vars.MasterServerUrl = Settings_.Master_Server_Url;
             Properties.Settings.Default.Auto_Close_VTOL_on_Launch = Settings_.Minimize_On_Launch;
             Properties.Settings.Default.Save();
@@ -169,7 +172,7 @@ namespace VTOL.Pages
                     User_Settings_Vars.Language = "ko";
 
                     break;
-              
+
                 default:
                     User_Settings_Vars.Language = "en";
 
@@ -178,7 +181,7 @@ namespace VTOL.Pages
 
             }
 
-           
+
 
 
             User_Settings_Vars.Auto_Close_VTOL = Settings_.Minimize_On_Launch;
@@ -194,7 +197,16 @@ namespace VTOL.Pages
                 StreamWriter.WriteLine(User_Settings_Json_Strings);
                 StreamWriter.Close();
             }
+        }
+             catch (Exception ex)
+            {
+                logger2.Open();
+                logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + "From - " + Assembly.GetExecutingAssembly().GetName().Version.ToString());
+                logger2.Close();
 
+
+
+            }
         }
 
         private void Settings_MouseMove(object sender, MouseEventArgs e)
