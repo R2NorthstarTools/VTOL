@@ -226,7 +226,17 @@ namespace VTOL.Properties {
                 this["Backup_arg_Files"] = value;
             }
         }
-
-        public string RePakPath { get; internal set; }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Master_Server_Check {
+            get {
+                return ((bool)(this["Master_Server_Check"]));
+            }
+            set {
+                this["Master_Server_Check"] = value;
+            }
+        }
     }
 }

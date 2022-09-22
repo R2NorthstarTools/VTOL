@@ -277,8 +277,8 @@
 
                 <TextBlock HorizontalAlignment="Left" Margin="34,129,0,0" TextWrapping="Wrap" Text="{x:Static properties:Language.Page_Home_NorthstarInstallation}" VerticalAlignment="Top" Height="14" Width="148" Foreground="{DynamicResource TextFillColorSecondaryBrush}"
  FontFamily="Segoe UI" Grid.Column="1"/>
-                <TextBox x:Name="Directory_Box" Text="------------------------------------------------------------------------------------------" Margin="32,158,2,0" VerticalAlignment="Top" Height="35" IsReadOnly="True" UndoLimit="0" Grid.Column="1" ToolTip="Current Titanfall 2 Path" />
-                <ui:Button x:Name="Update_Northstar_Button" Padding="6" Appearance="Secondary" FontSize="14" Height="40" Margin="32,216,40,0" VerticalAlignment="Top" HorizontalAlignment="Stretch" Content="Update Northstar" Grid.ColumnSpan="2" Grid.Column="1" Click="Update_Northstar_Button_Click" ToolTip="{x:Static properties:Language.Page_Home_UpdateNorthstar}" />
+                <TextBox x:Name="Directory_Box" Text="------------------------------------------------------------------------------------------" Margin="32,158,2,0" VerticalAlignment="Top" Height="35" IsReadOnly="True" UndoLimit="0" Grid.Column="1" ToolTip="{x:Static properties:Language.Page_Home_CurrentTitanfall2Path}" />
+                <ui:Button x:Name="Update_Northstar_Button" Padding="6" Appearance="Secondary" FontSize="14" Height="40" Margin="32,216,40,0" VerticalAlignment="Top" HorizontalAlignment="Stretch" Content="{x:Static properties:Language.Page_Home_INIT_UpdateNorthstar}" Grid.ColumnSpan="2" Grid.Column="1" Click="Update_Northstar_Button_Click" ToolTip="{x:Static properties:Language.Page_Home_UpdateNorthstar}" />
                 <ProgressBar x:Name="ProgressBar" Margin="32,261,40,21" Grid.Column="1" Grid.ColumnSpan="2" Foreground="{Binding Source={x:Static SystemParameters.WindowGlassBrush}}" Opacity="0" >
 
                 </ProgressBar>

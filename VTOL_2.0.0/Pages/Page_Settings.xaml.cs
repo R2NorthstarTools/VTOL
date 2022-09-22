@@ -36,7 +36,8 @@ namespace VTOL.Pages
             French,
             Chinese,
             Italian,
-            Korean
+            Korean,
+            German
         }
         public class PropertyGridDemoModel
         {
@@ -88,7 +89,10 @@ namespace VTOL.Pages
                         Lang = Language.Korean;
 
                         break;
+                    case "de":
+                        Lang = Language.German;
 
+                        break;
                     default:
                         Lang = Language.English;
 
@@ -171,8 +175,11 @@ namespace VTOL.Pages
                     User_Settings_Vars.Language = "ko";
 
                     break;
+                        case "German":
+                    User_Settings_Vars.Language = "de";
 
-                default:
+                        break;
+                    default:
                     User_Settings_Vars.Language = "en";
 
                     break;

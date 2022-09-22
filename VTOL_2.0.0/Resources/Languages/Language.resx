@@ -423,4 +423,70 @@
   <data name="Page_Home_OriginClientRunning" xml:space="preserve">
     <value>Origin Client Running</value>
   </data>
+  <data name="Page_Tools_Content" xml:space="preserve">
+    <value>Content</value>
+  </data>
+  <data name="Page_Tools_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Page_Tools_Version" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="Page_Tools_Webpage" xml:space="preserve">
+    <value>Webpage</value>
+  </data>
+  <data name="Page_Tools_Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Page_Tools_Dependencies" xml:space="preserve">
+    <value>Dependencies</value>
+  </data>
+  <data name="Page_Tools_OutputDirectory" xml:space="preserve">
+    <value>Output Directory</value>
+  </data>
+  <data name="Page_Tools_Icon" xml:space="preserve">
+    <value>Icon</value>
+  </data>
+  <data name="Page_Tools_Item" xml:space="preserve">
+    <value>Item</value>
+  </data>
+  <data name="Page_Tools_DragAndDropOrClickToPopulateTheMaps" xml:space="preserve">
+    <value>Drag and Drop or Click to populate the Maps</value>
+  </data>
+  <data name="Page_Tools_LocateSkinContent" xml:space="preserve">
+    <value>Locate Skin Content</value>
+  </data>
+  <data name="Page_Tools_TestReadmeText" xml:space="preserve">
+    <value>Test Readme Text</value>
+  </data>
+  <data name="Page_Tools_VersionNumber" xml:space="preserve">
+    <value>Version Number</value>
+  </data>
+  <data name="Page_Tools_AuthorName" xml:space="preserve">
+    <value>Author Name</value>
+  </data>
+  <data name="Page_Tools_SkinName" xml:space="preserve">
+    <value>Skin Name</value>
+  </data>
+  <data name="Page_Tools_Locate_Repak_Exe" xml:space="preserve">
+    <value>Locate_Repak_Exe</value>
+  </data>
+  <data name="Page_Mods_Call_Mods_From_Folder_PleaseOpenYourFolderAt" xml:space="preserve">
+    <value>Please Open your Folder at - </value>
+  </data>
+  <data name="Page_Mods_Call_Mods_From_Folder_AndManuallyRepairTheMod" xml:space="preserve">
+    <value> and Manually repair the mod - </value>
+  </data>
+  <data name="Page_Mods_Call_Mods_From_Folder_ThereIsAnIssueDetectedWithYourMod" xml:space="preserve">
+    <value>There is an Issue Detected with your Mod!</value>
+  </data>
+  <data name="Page_Mods_Call_Mods_From_Folder_ModCount" xml:space="preserve">
+    <value>Mod Count: </value>
+  </data>
+  <data name="Page_Home_INIT_InvalidInstallPathPleaseManuallyLocateTheCorrectFolder" xml:space="preserve">
+    <value>Invalid Install Path, Please manually locate the correct folder!</value>
+  </data>
+  <data name="Page_Home_CurrentTitanfall2Path" xml:space="preserve">
+    <value>Current Titanfall 2 Path</value>
+  </data>
 </root>

@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
+Project("{840C416C-B8F3-42BC-B0DD-F6BB14C9F8CB}") = "VTOL_Installer", "..\VTOL_Installer\VTOL_Installer.aiproj", "{62A6F658-4928-4B6E-A78E-EC5932C7D556}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		ActiveDirectoryBuild|Any CPU = ActiveDirectoryBuild|Any CPU
@@ -77,6 +79,48 @@ Global
 		{7C81C7A2-470D-459F-86CE-D7B242D9E163}.Release|x64.Build.0 = Release|x64
 		{7C81C7A2-470D-459F-86CE-D7B242D9E163}.Release|x86.ActiveCfg = Release|x86
 		{7C81C7A2-470D-459F-86CE-D7B242D9E163}.Release|x86.Build.0 = Release|x86
+		{62A6F658-4928-4B6E-A78E-EC5932C7D556}.ActiveDirectoryBuild|Any CPU.ActiveCfg = DefaultBuild
+		{62A6F658-4928-4B6E-A78E-EC5932C7D556}.ActiveDirectoryBuild|Any CPU.Build.0 = DefaultBuild
+		{62A6F658-4928-4B6E-A78E-EC5932C7D556}.ActiveDirectoryBuild|x64.ActiveCfg = DefaultBuild
+		{62A6F658-4928-4B6E-A78E-EC5932C7D556}.ActiveDirectoryBuild|x64.Build.0 = DefaultBuild
+		{62A6F658-4928-4B6E-A78E-EC5932C7D556}.ActiveDirectoryBuild|x86.ActiveCfg = DefaultBuild
+		{62A6F658-4928-4B6E-A78E-EC5932C7D556}.ActiveDirectoryBuild|x86.Build.0 = DefaultBuild
+		{62A6F658-4928-4B6E-A78E-EC5932C7D556}.All|Any CPU.ActiveCfg = DefaultBuild
+		{62A6F658-4928-4B6E-A78E-EC5932C7D556}.All|Any CPU.Build.0 = DefaultBuild
+		{62A6F658-4928-4B6E-A78E-EC5932C7D556}.All|x64.ActiveCfg = DefaultBuild
+		{62A6F658-4928-4B6E-A78E-EC5932C7D556}.All|x64.Build.0 = DefaultBuild
+		{62A6F658-4928-4B6E-A78E-EC5932C7D556}.All|x86.ActiveCfg = DefaultBuild
+		{62A6F658-4928-4B6E-A78E-EC5932C7D556}.All|x86.Build.0 = DefaultBuild
+		{62A6F658-4928-4B6E-A78E-EC5932C7D556}.Debug|Any CPU.ActiveCfg = DefaultBuild
+		{62A6F658-4928-4B6E-A78E-EC5932C7D556}.Debug|Any CPU.Build.0 = DefaultBuild
+		{62A6F658-4928-4B6E-A78E-EC5932C7D556}.Debug|x64.ActiveCfg = DefaultBuild
+		{62A6F658-4928-4B6E-A78E-EC5932C7D556}.Debug|x64.Build.0 = DefaultBuild
+		{62A6F658-4928-4B6E-A78E-EC5932C7D556}.Debug|x86.ActiveCfg = DefaultBuild
+		{62A6F658-4928-4B6E-A78E-EC5932C7D556}.Debug|x86.Build.0 = DefaultBuild
+		{62A6F658-4928-4B6E-A78E-EC5932C7D556}.DefaultBuild|Any CPU.ActiveCfg = DefaultBuild
+		{62A6F658-4928-4B6E-A78E-EC5932C7D556}.DefaultBuild|Any CPU.Build.0 = DefaultBuild
+		{62A6F658-4928-4B6E-A78E-EC5932C7D556}.DefaultBuild|x64.ActiveCfg = DefaultBuild
+		{62A6F658-4928-4B6E-A78E-EC5932C7D556}.DefaultBuild|x64.Build.0 = DefaultBuild
+		{62A6F658-4928-4B6E-A78E-EC5932C7D556}.DefaultBuild|x86.ActiveCfg = DefaultBuild
+		{62A6F658-4928-4B6E-A78E-EC5932C7D556}.DefaultBuild|x86.Build.0 = DefaultBuild
+		{62A6F658-4928-4B6E-A78E-EC5932C7D556}.MsiBuild_1|Any CPU.ActiveCfg = DefaultBuild
+		{62A6F658-4928-4B6E-A78E-EC5932C7D556}.MsiBuild_1|Any CPU.Build.0 = DefaultBuild
+		{62A6F658-4928-4B6E-A78E-EC5932C7D556}.MsiBuild_1|x64.ActiveCfg = DefaultBuild
+		{62A6F658-4928-4B6E-A78E-EC5932C7D556}.MsiBuild_1|x64.Build.0 = DefaultBuild
+		{62A6F658-4928-4B6E-A78E-EC5932C7D556}.MsiBuild_1|x86.ActiveCfg = DefaultBuild
+		{62A6F658-4928-4B6E-A78E-EC5932C7D556}.MsiBuild_1|x86.Build.0 = DefaultBuild
+		{62A6F658-4928-4B6E-A78E-EC5932C7D556}.MsiBuild|Any CPU.ActiveCfg = DefaultBuild
+		{62A6F658-4928-4B6E-A78E-EC5932C7D556}.MsiBuild|Any CPU.Build.0 = DefaultBuild
+		{62A6F658-4928-4B6E-A78E-EC5932C7D556}.MsiBuild|x64.ActiveCfg = DefaultBuild
+		{62A6F658-4928-4B6E-A78E-EC5932C7D556}.MsiBuild|x64.Build.0 = DefaultBuild
+		{62A6F658-4928-4B6E-A78E-EC5932C7D556}.MsiBuild|x86.ActiveCfg = DefaultBuild
+		{62A6F658-4928-4B6E-A78E-EC5932C7D556}.MsiBuild|x86.Build.0 = DefaultBuild
+		{62A6F658-4928-4B6E-A78E-EC5932C7D556}.Release|Any CPU.ActiveCfg = DefaultBuild
+		{62A6F658-4928-4B6E-A78E-EC5932C7D556}.Release|Any CPU.Build.0 = DefaultBuild
+		{62A6F658-4928-4B6E-A78E-EC5932C7D556}.Release|x64.ActiveCfg = DefaultBuild
+		{62A6F658-4928-4B6E-A78E-EC5932C7D556}.Release|x64.Build.0 = DefaultBuild
+		{62A6F658-4928-4B6E-A78E-EC5932C7D556}.Release|x86.ActiveCfg = DefaultBuild
+		{62A6F658-4928-4B6E-A78E-EC5932C7D556}.Release|x86.Build.0 = DefaultBuild
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

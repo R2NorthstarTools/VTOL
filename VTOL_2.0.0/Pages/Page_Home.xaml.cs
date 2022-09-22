@@ -284,7 +284,7 @@ public class InstalledApplications
 
             DataContext = this;
             /////////////////////
-            Toggle_MS_BT(Master_Server_Check);
+            Toggle_MS_BT(Properties.Settings.Default.Master_Server_Check);
             INIT();
             if (Check_Process_Running("OriginClientService") == true)
             {
@@ -712,7 +712,7 @@ public class InstalledApplications
 
                         SnackBar.Appearance = ControlAppearance.Danger;
                         SnackBar.Title = "WARNING!";
-                        SnackBar.Message = "Invalid Install Path, Please manually locate the correct folder!";
+                        SnackBar.Message = VTOL.Resources.Languages.Language.Page_Home_INIT_InvalidInstallPathPleaseManuallyLocateTheCorrectFolder;
                         SnackBar.Show();
                         Current_Install_Folder = "NODATA";
 
@@ -809,7 +809,7 @@ public class InstalledApplications
                         {
                             SnackBar.Appearance = ControlAppearance.Danger;
                             SnackBar.Title = "WARNING!";
-                            SnackBar.Message = "Invalid Install Path, Please manually locate the correct folder!";
+                            SnackBar.Message = VTOL.Resources.Languages.Language.Page_Home_INIT_InvalidInstallPathPleaseManuallyLocateTheCorrectFolder;
                             SnackBar.Show();
                             return;
 
@@ -819,7 +819,7 @@ public class InstalledApplications
                     {
                         SnackBar.Appearance = ControlAppearance.Danger;
                         SnackBar.Title = "WARNING!";
-                        SnackBar.Message = "Invalid Install Path, Please manually locate the correct folder!";
+                        SnackBar.Message = VTOL.Resources.Languages.Language.Page_Home_INIT_InvalidInstallPathPleaseManuallyLocateTheCorrectFolder;
                         SnackBar.Show();
                         return;
 
@@ -922,7 +922,7 @@ public class InstalledApplications
                 {
 
 
-                    Update_Northstar_Button.Content = VTOL.Resources.Languages.Language.Page_Home_INIT_UpdateNorthstar;
+                    Update_Northstar_Button.Content = VTOL.Resources.Languages.Language.Page_Home_UpdateNorthstar;
                 }
                 else
                 {
@@ -1268,6 +1268,8 @@ public class InstalledApplications
                         Master_Server_Check_Toggle.IsChecked = true;
                         Master_Server_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#B2037F10");
                         Master_Server_Card.Icon = SymbolRegular.PlugConnected20;
+                        Properties.Settings.Default.Master_Server_Check = true;
+                        Properties.Settings.Default.Save();
                         if (TimePowerChart.Opacity < 1)
                         {
                             DoubleAnimation da = new DoubleAnimation
@@ -1290,7 +1292,8 @@ public class InstalledApplications
                         Master_Server_Check_Toggle.IsChecked = false;
                         Master_Server_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#99630000");
                         Master_Server_Card.Icon = SymbolRegular.PlugDisconnected20;
-
+                        Properties.Settings.Default.Master_Server_Check = false;
+                        Properties.Settings.Default.Save();
                         if (TimePowerChart.Opacity > 0)
                         {
                             DoubleAnimation da = new DoubleAnimation
@@ -1303,7 +1306,7 @@ public class InstalledApplications
                             TimePowerChart.BeginAnimation(OpacityProperty, da);
 
                         }
-
+                        
 
                     }
                 });
@@ -1360,7 +1363,7 @@ public class InstalledApplications
 
                 worker_o.RunWorkerAsync();
 
-                if (Master_Server_Check == true)
+                if (Properties.Settings.Default.Master_Server_Check == true)
                 {
                     if (Fail_Counter_Ping != 5)
                     {
@@ -2419,6 +2422,27 @@ public class InstalledApplications
 
 
         }
+        protected virtual bool IsFileLocked(FileInfo file)
+        {
+            try
+            {
+                using (FileStream stream = file.Open(FileMode.Open, FileAccess.Read, FileShare.None))
+                {
+                    stream.Close();
+                }
+            }
+            catch (IOException)
+            {
+                //the file is unavailable because it is:
+                //still being written to
+                //or being processed by another thread
+                //or does not exist (has already been processed)
+                return true;
+            }
+
+            //file is not locked
+            return false;
+        }
         private async Task Read_Latest_Release(string address, string json_name = "temp.json", bool Parse = true, bool Log_Msgs = true)
         {
             if (address != null)
@@ -2442,31 +2466,36 @@ public class InstalledApplications
                 if (Directory.Exists(DocumentsFolder + @"\VTOL_DATA\temp"))
                 {
                     saveAsyncFile(s, DocumentsFolder + @"\VTOL_DATA\temp\" + json_name, false, false);
-                    if (Log_Msgs == true)
+                    FileInfo File = new FileInfo(DocumentsFolder + @"\VTOL_DATA\temp\" + json_name);
+                    int attempts = 0;
+
+                    while (IsFileLocked(File) == true && attempts != 5)
                     {
-                        //  Send_Info_Notif("\nJson Download completed!");
-                        //  Send_Info_Notif("\nParsing Latest Release........");
+
+
+                        await Task.Delay(1000);
+                        attempts++;
                     }
-                    if (Parse == true)
-                    {
-                        Thread.Sleep(100);
-                        Parse_Release();
-                    }
+                    Parse_Release();
+                    
 
                 }
                 else
                 {
                     Directory.CreateDirectory(DocumentsFolder + @"\VTOL_DATA\temp\");
                     saveAsyncFile(s, DocumentsFolder + @"\VTOL_DATA\temp\" + json_name, false, false);
-                    if (Log_Msgs == true)
+                    FileInfo File = new FileInfo(DocumentsFolder + @"\VTOL_DATA\temp\" + json_name);
+                    int attempts = 0;
+
+                    while (IsFileLocked(File) == true && attempts != 5)
                     {
-                        // Send_Info_Notif("\nJson Download completed!");
-                        //    Send_Info_Notif("\nParsing Latest Release........");
+
+
+                        await Task.Delay(1000);
+                        attempts++;
                     }
-                    if (Parse == true)
-                    {
-                        Parse_Release();
-                    }
+                    Parse_Release();
+                    
                 }
 
             }
@@ -2500,23 +2529,23 @@ public class InstalledApplications
                     {
 
                         using StreamWriter file = new(Filename, append: true);
-                        file.WriteLineAsync(Text);
+                        file.WriteLine(Text);
                         file.Close();
                     }
                     else
                     {
 
-                        File.WriteAllTextAsync(Filename, string.Empty);
+                        File.WriteAllText(Filename, string.Empty);
 
-                        File.WriteAllTextAsync(Filename, Text);
+                        File.WriteAllText(Filename, Text);
 
                     }
                 }
                 else
                 {
-                    File.WriteAllTextAsync(Filename, string.Empty);
+                    File.WriteAllText(Filename, string.Empty);
 
-                    File.WriteAllTextAsync(Filename, Text);
+                    File.WriteAllText(Filename, Text);
 
                 }
             });

@@ -27,6 +27,7 @@ using System.Windows.Threading;
 using Wpf.Ui;
 using Wpf.Ui.Common.Interfaces;
 using Path = System.IO.Path;
+using VTOL;
 
 namespace VTOL.Pages
 {
@@ -259,7 +260,7 @@ namespace VTOL.Pages
 
                                 DispatchIfNecessary(() => {
 
-                                    Mod_Count_Label.Content = "Mod Count: " + subDirs.Length;
+                                    Mod_Count_Label.Content = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_ModCount + subDirs.Length;
                                 });
                                 foreach (System.IO.DirectoryInfo dirInfo in subDirs)
                                 {
@@ -289,10 +290,10 @@ namespace VTOL.Pages
 
                                         }
                                         int Flag_mod = 0;
-                                        string ToolTip_Dynamic = "There is an Issue Detected with your Mod!";
+                                        string ToolTip_Dynamic = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_ThereIsAnIssueDetectedWithYourMod;
                                         if (!File.Exists(dirInfo.FullName + @"\Locked_Folder" + @"\mod.json"))
                                         {
-                                            ToolTip_Dynamic = "Please Open your Folder at - " + dirInfo.Parent +  " and Manually repair the mod - " + dirInfo.Name;
+                                            ToolTip_Dynamic = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_PleaseOpenYourFolderAt + dirInfo.Parent + VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_AndManuallyRepairTheMod + dirInfo.Name;
                                             Flag_mod = 100;
                                         }
                                         Final_List.Add(new Card_ { Mod_Name_ = dirInfo.Name.Trim(), Mod_Date_ = dirInfo.CreationTime.ToString(), Is_Active_Color = "#B29A0404", Size__ = dirInfo.LastAccessTime.ToString(), En_Di = "Enable", Mod_Path_ = dirInfo.FullName, Flag = Flag_mod, Error_Tooltip = ToolTip_Dynamic });
@@ -301,11 +302,12 @@ namespace VTOL.Pages
                                     else
                                     {
                                         int Flag_mod = 0;
-                                        string ToolTip_Dynamic = "There is an Issue Detected with your Mod!";
+                                        string ToolTip_Dynamic = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_ThereIsAnIssueDetectedWithYourMod;
 
                                         if (!File.Exists(dirInfo.FullName + @"\mod.json"))
                                         {
-                                            ToolTip_Dynamic = "Please Open your Folder at - " + dirInfo.Parent + " and Manually repair the mod - " + dirInfo.Name;
+
+                                            ToolTip_Dynamic = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_PleaseOpenYourFolderAt + dirInfo.Parent + VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_AndManuallyRepairTheMod + dirInfo.Name;
 
                                             Flag_mod = 100;
                                         }
