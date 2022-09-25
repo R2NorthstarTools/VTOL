@@ -423,4 +423,100 @@
   <data name="Page_Home_OriginClientRunning" xml:space="preserve">
     <value>运行Origin客户端</value>
   </data>
+  <data name="Page_Tools_Content" xml:space="preserve">
+    <value>内容</value>
+  </data>
+  <data name="Page_Tools_Name" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="Page_Tools_Version" xml:space="preserve">
+    <value>版本</value>
+  </data>
+  <data name="Page_Tools_Webpage" xml:space="preserve">
+    <value>网页</value>
+  </data>
+  <data name="Page_Tools_Description" xml:space="preserve">
+    <value>简介</value>
+  </data>
+  <data name="Page_Tools_Dependencies" xml:space="preserve">
+    <value>依赖</value>
+  </data>
+  <data name="Page_Tools_OutputDirectory" xml:space="preserve">
+    <value>输出目录</value>
+  </data>
+  <data name="Page_Tools_Icon" xml:space="preserve">
+    <value>图标</value>
+  </data>
+  <data name="Page_Tools_Item" xml:space="preserve">
+    <value>物品</value>
+  </data>
+  <data name="Page_Tools_DragAndDropOrClickToPopulateTheMaps" xml:space="preserve">
+    <value>拖动或单击以添加地图</value>
+  </data>
+  <data name="Page_Tools_LocateSkinContent" xml:space="preserve">
+    <value>选择皮肤路径</value>
+  </data>
+  <data name="Page_Tools_TestReadmeText" xml:space="preserve">
+    <value>测试Readme文字</value>
+  </data>
+  <data name="Page_Tools_VersionNumber" xml:space="preserve">
+    <value>版本号</value>
+  </data>
+  <data name="Page_Tools_AuthorName" xml:space="preserve">
+    <value>作者</value>
+  </data>
+  <data name="Page_Tools_SkinName" xml:space="preserve">
+    <value>皮肤名称</value>
+  </data>
+  <data name="Page_Tools_Locate_Repak_Exe" xml:space="preserve">
+    <value>选择Repack路径</value>
+  </data>
+  <data name="Page_Mods_Call_Mods_From_Folder_PleaseOpenYourFolderAt" xml:space="preserve">
+    <value>请前往路径 - </value>
+  </data>
+  <data name="Page_Mods_Call_Mods_From_Folder_AndManuallyRepairTheMod" xml:space="preserve">
+    <value> 并手动修复该Mod -</value>
+  </data>
+  <data name="Page_Mods_Call_Mods_From_Folder_ThereIsAnIssueDetectedWithYourMod" xml:space="preserve">
+    <value>在您的Mod中发现问题!</value>
+  </data>
+  <data name="Page_Mods_Call_Mods_From_Folder_ModCount" xml:space="preserve">
+    <value>Mod数量:</value>
+  </data>
+  <data name="Page_Home_INIT_InvalidInstallPathPleaseManuallyLocateTheCorrectFolder" xml:space="preserve">
+    <value>安装目录错误，请手动选择正确的目录！</value>
+  </data>
+  <data name="Page_Home_CurrentTitanfall2Path" xml:space="preserve">
+    <value>当前 Titanfall 2 路径</value>
+  </data>
+  <data name="Page_Tools_PackageAsADDSSkin" xml:space="preserve">
+    <value>包装为DDS皮肤文件</value>
+  </data>
+  <data name="Page_Server_Load_Files__ReloadArguments" xml:space="preserve">
+    <value>重新载入参数</value>
+  </data>
+  <data name="Page_Skins_MakingYourOwnSkin" xml:space="preserve">
+    <value>创建你的皮肤</value>
+  </data>
+  <data name="Page_Tools_OutputAsAThunderstoreMod" xml:space="preserve">
+    <value>输出为Thunderstore模组</value>
+  </data>
+  <data name="Page_Tools_CreateSkin" xml:space="preserve">
+    <value>创建皮肤</value>
+  </data>
+  <data name="Page_Tools_ConvertSkin" xml:space="preserve">
+    <value>转换皮肤</value>
+  </data>
+  <data name="Page_Tools_LocateTheModZipManually" xml:space="preserve">
+    <value>手动选择Mod压缩包</value>
+  </data>
+  <data name="Page_Tools_LocateRepakExe" xml:space="preserve">
+    <value>选择Repak路径</value>
+  </data>
+  <data name="Page_Tools_ChooseYourItem" xml:space="preserve">
+    <value>选择你的物品</value>
+  </data>
+  <data name="Page_Server_StartupArgumentsNorthstarClient" xml:space="preserve">
+    <value>Northstar 客户端启动选项</value>
+  </data>
 </root>

@@ -37,7 +37,8 @@ namespace VTOL.Pages
             Chinese,
             Italian,
             Korean,
-            German
+            German,
+            Russian
         }
         public class PropertyGridDemoModel
         {
@@ -92,6 +93,9 @@ namespace VTOL.Pages
                     case "de":
                         Lang = Language.German;
 
+                        break;
+                    case "ru":
+                        Lang = Language.Russian;
                         break;
                     default:
                         Lang = Language.English;
@@ -179,6 +183,10 @@ namespace VTOL.Pages
                     User_Settings_Vars.Language = "de";
 
                         break;
+                    case "Russian":
+                        User_Settings_Vars.Language = "ru";
+
+                        break;
                     default:
                     User_Settings_Vars.Language = "en";
 
@@ -207,8 +215,8 @@ namespace VTOL.Pages
              catch (Exception ex)
             {
                 Main.logger2.Open();
-                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + "From - " + Assembly.GetExecutingAssembly().GetName().Version.ToString());
-                Main.logger2.Close();
+                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source +Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine);
+Main.logger2.Close();
 
 
 

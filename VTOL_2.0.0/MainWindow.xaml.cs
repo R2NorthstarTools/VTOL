@@ -22,6 +22,7 @@ using VTOL.Scripts;
 using System.Globalization;
 using Serilog;
 using System.Threading;
+using System.Reflection;
 
 namespace VTOL
 {
@@ -134,6 +135,9 @@ namespace VTOL
                     case "en":
                         language = "en-EN";
                         break;
+                    case "ru":
+                        language = "ru-RU";
+                        break;
                     default:
                         language = "en-EN";
                         break;
@@ -146,7 +150,8 @@ namespace VTOL
                 Thread.CurrentThread.CurrentCulture = culture;
 
                 Wpf.Ui.Appearance.Theme.Apply(
-            Wpf.Ui.Appearance.ThemeType.Unknown,     // Theme type
+            Wpf.Ui.Appearance.ThemeType.Unknown,     
+            // Theme type
   Wpf.Ui.Appearance.BackgroundType.None, // Background type
   true                                  // Whether to change accents automatically
 );
@@ -164,7 +169,9 @@ namespace VTOL
             {
                 MessageBox.Show("Exception Encountered! - " + ex.Message);
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-
+                logger2.Open();
+                logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine);
+                logger2.Close();
             }
 
 

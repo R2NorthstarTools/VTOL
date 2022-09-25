@@ -10,7 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{840C416C-B8F3-42BC-B0DD-F6BB14C9F8CB}") = "VTOL_Installer", "..\VTOL_Installer\VTOL_Installer.aiproj", "{62A6F658-4928-4B6E-A78E-EC5932C7D556}"
+Project("{840C416C-B8F3-42BC-B0DD-F6BB14C9F8CB}") = "VTOL_Installer", "..\..\VTOl_Installer\VTOL_Installer.aiproj", "{62A6F658-4928-4B6E-A78E-EC5932C7D556}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -126,10 +126,10 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		RESX_ConfirmAddLanguageFile = True
-		RESX_AutoCreateNewLanguageFiles = True
-		RESX_SortFileContentOnSave = False
-		SolutionGuid = {1862E3F8-0CCC-449D-BE89-3988BDA1CEC8}
 		RESX_PrefixFieldType = Both
+		SolutionGuid = {1862E3F8-0CCC-449D-BE89-3988BDA1CEC8}
+		RESX_SortFileContentOnSave = False
+		RESX_AutoCreateNewLanguageFiles = True
+		RESX_ConfirmAddLanguageFile = True
 	EndGlobalSection
 EndGlobal

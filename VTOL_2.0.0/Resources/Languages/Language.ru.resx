@@ -117,408 +117,407 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Page_Home_IndicatesIfOriginIsRunningClickToLaunchIfInactive" xml:space="preserve">
-    <value>Indique si Origin est lancé (cliquer pour lancer si inactif)</value>
-  </data>
   <data name="PleaseWaitAsVTOLRestarts" xml:space="preserve">
-    <value>Veuillez attendre le redémarrage de VTOL !</value>
+    <value>Пожалуйста подождите, пока VTOL перезапустится!</value>
   </data>
   <data name="Page_Skins_Install_Skin_From_Path_TheSkin" xml:space="preserve">
-    <value>Le skin - </value>
+    <value>Скин -</value>
   </data>
   <data name="Page_Skins_Install_Skin_From_Path_HasBeenInstalled" xml:space="preserve">
-    <value> - a été installé</value>
+    <value> - был установлен</value>
   </data>
   <data name="Page_Skins_Drag_Drop_Area_Drop_IsNotASkinZip" xml:space="preserve">
-    <value>n'est pas un fichier zip de skin ! </value>
+    <value>не является .zip файлом со скином!</value>
   </data>
   <data name="Page_Skins_Drag_Drop_Area_Drop_DragToInstall" xml:space="preserve">
-    <value>Glisser-déposer pour installer</value>
+    <value>Перетащите для установки</value>
   </data>
   <data name="Page_Skins_Drag_Drop_Area_Drop_CompatibleSkinSFound" xml:space="preserve">
-    <value>Skin(s) compatible(s) trouvé(s) : </value>
+    <value>Совместимый(е) скин(ы) найден(ы) :</value>
   </data>
   <data name="Page_Skins_Browse_Click_CompatibleSkinFoundAt" xml:space="preserve">
-    <value>Skin compatible trouvé à : </value>
+    <value>Совместимый скин найден в : </value>
   </data>
   <data name="Page_Skins_Browse_Click_IsNotASkinZip" xml:space="preserve">
-    <value>n'est pas un fichier zip de skin !</value>
+    <value>не является .zip файлом со скином!</value>
   </data>
   <data name="Page_Skins_OPEN_WEBPAGE_OpeningTheFollowingURL" xml:space="preserve">
-    <value>Ouverture de l'URL suivante - </value>
+    <value>Открываем следующий URL - </value>
   </data>
   <data name="Page_Home_Auto_Install__NORTHSTARISNOTINSTALLEDANDAUTOINSTALLFAILED" xml:space="preserve">
-    <value>NORTHSTAR N'EST PAS INSTALLÉ ET L'INSTALLATION AUTOMATIQUE A ÉCHOUÉ !</value>
+    <value>NORTHSTAR НЕ УСТАНОВЛЕН И АВТОЗАГРУЗКА БЫЛА НЕУДАЧНОЙ!</value>
   </data>
   <data name="Page_Home_INIT_NORTHSTARAUTOINSTALLWILLNOWBEGINPLEASEWAITABOUT30SECONDS" xml:space="preserve">
-    <value>L'INSTALLATION AUTOMATIQUE DE NORTHSTAR VA COMMENCER, VEUILLEZ ATTENDRE 30 SECONDES !</value>
+    <value>АВТОУСТАНОВКА NORTHSTAR НАЧАЛАСЬ, ПОДОЖДИТЕ ПРИМЕРНО 30 СЕКУНД!</value>
   </data>
   <data name="Page_Home_timer_Tick_MasterServerCheckedAndTimedOutTooMuchTurningOffMasterServerChecks" xml:space="preserve">
-    <value>Trop de vérifications infructueuses du serveur maître. Désactivations des vérifications du serveur maître</value>
+    <value>Слишком много попыток проверки главного сервера! Отключение проверки главного сервера.</value>
   </data>
   <data name="Page_Home_Origin_Client_Card_Click_TheOriginClientIsAlreadyRunning" xml:space="preserve">
-    <value>Le client Origin est déjà en cours d'exécution!</value>
+    <value>Клиент Origin уже запущен!</value>
   </data>
   <data name="Page_Home_Browse_Titanfall_Button_Click_IsValidAndHasBeenSet" xml:space="preserve">
-    <value>est valide et a été appliqué</value>
+    <value>действителен и был установлен</value>
   </data>
   <data name="Page_Home_Browse_Titanfall_Button_Click_TheLocation" xml:space="preserve">
-    <value>L'emplacement - ' </value>
+    <value>Директория - ' </value>
   </data>
   <data name="Page_Home_Browse_Titanfall_Button_Click_IsNotValid" xml:space="preserve">
-    <value>n'est pas valide</value>
+    <value> неверная</value>
   </data>
   <data name="Browse_Titanfall_Button_Click_TheLocation" xml:space="preserve">
-    <value>L'emplacement - ' </value>
+    <value>Директория - ' </value>
   </data>
   <data name="Check_Integrity_Of_NSINSTALL_DirectoryCheckFailed" xml:space="preserve">
-    <value>La vérification du dossier a échoué</value>
+    <value>Проверка директории провалена!</value>
   </data>
   <data name="Read_Latest_Release_InvalidReleaseDonwloadURL" xml:space="preserve">
-    <value>URL de téléchargement de la version invalide !</value>
+    <value>Неверная ссылка на загрузку Northstar!</value>
   </data>
   <data name="Parse_Release_ReleaseNotFound" xml:space="preserve">
-    <value>Impossible de trouver la version !</value>
+    <value>Релиз не найден!</value>
   </data>
   <data name="Unpack_To_Location_InstallationComplete" xml:space="preserve">
-    <value>L'installation est terminée !</value>
+    <value>Установка завершена!</value>
   </data>
   <data name="Check_For_New_Northstar_Install_UpdateAvailableDownloadingAndInstallingNow" xml:space="preserve">
-    <value>Téléchargement et installation de la mise à jour !</value>
+    <value>Доступно обновление, начинается загрузка и установка!</value>
   </data>
   <data name="Check_For_New_Northstar_Install_ReleaseCandidateDetected" xml:space="preserve">
-    <value>Version de test détectée</value>
+    <value>release candidate detected</value>
+    <comment>I couldn’t translate this</comment>
   </data>
   <data name="Unpack_To_Location_TheFile" xml:space="preserve">
-    <value>Le fichier - </value>
+    <value> Файл - </value>
   </data>
   <data name="Unpack_To_Location_WasNotFound" xml:space="preserve">
-    <value>n'a pas été trouvé !</value>
+    <value> не был найден!</value>
   </data>
   <data name="Page_Home_Unpack_To_Location_WasNotFound" xml:space="preserve">
-    <value>n'a pas été trouvé !</value>
+    <value>не был найден!</value>
   </data>
   <data name="Page_Home_Unpack_To_Location_TheFile" xml:space="preserve">
-    <value>Le fichier - </value>
+    <value>Файл -</value>
   </data>
   <data name="Page_Home_Unpack_To_Location_IsNotAZip" xml:space="preserve">
-    <value>n'est pas un fichier zip !</value>
+    <value>не является .zip файлом!</value>
   </data>
   <data name="Page_Home_Run_Origin_CouldNotFindEAOriginInstallPleaseStartManuallyOrRepairYourInstallation" xml:space="preserve">
-    <value>Impossible de trouver l'installation d'EA Origin, veuillez lancer manuellement ou réparer votre installation !</value>
+    <value>Не найдена установка EA Origin, пожалуйста запустите вручную или почините вашу установку!</value>
   </data>
   <data name="Page_Home_INIT_InstallNorthstar" xml:space="preserve">
-    <value>Installer Northstar</value>
+    <value>Установить Northstar</value>
   </data>
   <data name="Page_Home_INIT_UpdateNorthstar" xml:space="preserve">
-    <value>Mettre à jour Northstar</value>
+    <value>Обновить Northstar</value>
   </data>
   <data name="Page_Tools_Save_Mod_Click_NoValidZipFileToPackWasFound" xml:space="preserve">
-    <value>Aucun fichier zip valide n'a été trouvé</value>
+    <value>.zip файл для запаковки не был найден!</value>
   </data>
   <data name="Page_Tools_Icon_Image_MouseDown_InvalidImageSizeMustBe256x256" xml:space="preserve">
-    <value>Les dimensions de l'image doivent être 256x256!</value>
+    <value>Неверный размер картинки! Размер картинки должен быть 256 на 256.</value>
   </data>
   <data name="Page_Tools_Locate_Zip_Click_InvalidZipFound" xml:space="preserve">
-    <value>Fichier zip invalide trouvé</value>
+    <value>Найден неверный .zip файл!</value>
   </data>
   <data name="Page_Tools_Locate_Zip_Click_ValidZipFound" xml:space="preserve">
-    <value>Fichier zip valide trouvé</value>
+    <value>Найден верный .zip файл!</value>
   </data>
   <data name="Page_Tools_Output_Button_Click_NotAnOutputDirectory" xml:space="preserve">
-    <value>Pas un dossier de sortie</value>
+    <value>Неверная директория экспорта!</value>
   </data>
   <data name="Page_Tools_create_Manifest_OneOfTheManifestInputsAreEmpty" xml:space="preserve">
-    <value>L’une des entrées du manifeste est vide</value>
+    <value>Один из входных данных манифеста пуст!</value>
   </data>
   <data name="Page_Tools_Save_Mod_Click_NoValidOutputPathFound" xml:space="preserve">
-    <value>Aucun chemin de sortie valide n'a été trouvé</value>
+    <value>Не найдена верная директория экспорта!</value>
   </data>
   <data name="Page_Tools_Save_Mod_Click_SuccessfullyPackedAllItemsTo" xml:space="preserve">
-    <value>Tous les fichiers ont été compressés avec succès à l’emplacement -</value>
+    <value>Все данные успешно запакованы в -</value>
   </data>
   <data name="Page_Tools_Save_Mod_Click_NoValidModICONFound" xml:space="preserve">
-    <value>Aucune icône de mod valide trouvé</value>
+    <value>Не найдена верная иконка мода!</value>
   </data>
   <data name="Page_Tools_Icon_Image_MouseDown_NotAValidPNGImage" xml:space="preserve">
-    <value>N'est pas une image PNG valide</value>
+    <value>Файл не является картинкой формата .png</value>
   </data>
   <data name="Page_Tools_Icon_Image_MouseDown_ValidImageFoundAt" xml:space="preserve">
-    <value>Image valide trouvée à - </value>
+    <value>Найдена верная картинка в - </value>
   </data>
   <data name="Page_Tools_Icon_Image_MouseDown_ThatWasNotAProperPNG" xml:space="preserve">
-    <value>N'est pas une image PNG</value>
+    <value>Это не была допустимая картинка!</value>
   </data>
   <data name="Page_Tools_Image_Icon_Drop_InvalidImageSizeMustBeSmallerThan2048X2048" xml:space="preserve">
-    <value>Les dimensions de l'image doivent être inférieures à 2048x2048</value>
+    <value>Неверный размер картинки! Размер картинки должен быть меньше 2048 на 2048.</value>
   </data>
   <data name="Page_Tools_ProcessSkin_SkinNameNotSet" xml:space="preserve">
-    <value>Aucun nom de skin paramétré !</value>
+    <value>Имя скина не установлено!</value>
   </data>
   <data name="Page_Tools_ProcessSkin_ItemNotSet" xml:space="preserve">
-    <value>Item non paramétré !</value>
+    <value>Предмет не выбран!</value>
   </data>
   <data name="Page_Tools_ProcessSkin_OutputPathIsNotSet" xml:space="preserve">
-    <value>Chemin de sortie non paramétré !</value>
+    <value>Директория экспорта не установлена!</value>
   </data>
   <data name="Page_Tools_ProcessSkin_MapsAreNotSet" xml:space="preserve">
-    <value>Maps non paramétrées !</value>
+    <value>Наложение текстур не установлено!</value>
   </data>
   <data name="Page_Tools_ProcessSkin_GeneratedTheSkinSuccessfully" xml:space="preserve">
-    <value>Le skin a correctement été généré !</value>
+    <value>Скин успешно сгенерирован!</value>
   </data>
   <data name="Page_Thunderstore_Unpack_To_Location_Custom_HasBeenDownloadedAndInstalled" xml:space="preserve">
-    <value>a été téléchargé et installé</value>
+    <value> был загружен и установлен!</value>
   </data>
   <data name="Page_Server_Launch_Northstar_Dedicated_Click_CouldNotFindDedicatedBat" xml:space="preserve">
-    <value>Impossible de trouver le fichier bat dédié !</value>
+    <value>Не удалось найти выделенный .bat файл</value>
   </data>
   <data name="Page_Server_OnKeyDownHandler_Dedi_Arg_Saved" xml:space="preserve">
-    <value>Sauvegardé</value>
+    <value>Сохранено!</value>
   </data>
   <data name="Page_Server_OnKeyDownHandler_Dedi_Arg_AutoSaveFailed" xml:space="preserve">
-    <value>La sauvegarde automatique a échoué</value>
+    <value>Автосохранение неуспешно!</value>
   </data>
   <data name="Page_Server_Validate_Combo_Box_CannotReadInput" xml:space="preserve">
-    <value>Impossible de lire</value>
+    <value>Не удается прочитать входные данные!</value>
   </data>
   <data name="Page_Server_Read_Convar_args_CannotSetThePath" xml:space="preserve">
-    <value>Impossible de changer le chemin</value>
+    <value>Невозможно установить директорию</value>
   </data>
   <data name="Page_Server_Launch_Northstar_Advanced_Click_CouldNotFindNorthstarExe" xml:space="preserve">
-    <value>Northstar.exe n'a pas été trouvé !</value>
+    <value>Northstar.exe не найден!</value>
   </data>
   <data name="Page_Server_StartupArgumentsNorthstarDedicatedClient" xml:space="preserve">
-    <value>Arguments de démarrage du client dédié Northstar</value>
+    <value>Аргументы запуска Выделенный клиент Northstar</value>
   </data>
   <data name="Page_Home_WelcomeTo" xml:space="preserve">
-    <value>Bienvenue sur</value>
+    <value>Добро пожаловать в</value>
   </data>
   <data name="Page_Home_CustomModdingAndServerFramework" xml:space="preserve">
-    <value>Logiciel de modding et d’hébergement de serveurs</value>
+    <value>Пользовательский моддинг и серверная платформа</value>
   </data>
   <data name="Page_Home_LaunchTitanfall2Northstar" xml:space="preserve">
-    <value>Lancer Northstar Titanfall2</value>
+    <value>Запустить Titanfall 2 Northstar</value>
   </data>
   <data name="Page_Home_MasterServer" xml:space="preserve">
-    <value>Serveur maître</value>
+    <value>Главный Сервер</value>
   </data>
   <data name="Page_Home_ToggleChecking" xml:space="preserve">
-    <value>Basculer la vérification</value>
+    <value>Включить/выключить проверку</value>
+  </data>
+  <data name="Page_Home_IndicatesIfOriginIsRunningClickToLaunchIfInactive" xml:space="preserve">
+    <value>Указывает, запущен ли Origin (нажмите кнопку запуска, если он не запущен).</value>
   </data>
   <data name="Page_Home_ShowsThePingLatencyOverTime" xml:space="preserve">
-    <value>Affiche le ping et la latence en fonction du temps</value>
+    <value>Показывает пинг и задержку.</value>
   </data>
   <data name="Page_Home_OpenTitanfall2Folder" xml:space="preserve">
-    <value>Ouvrir le dossier de Titanfall 2</value>
+    <value>Открыть папку с Titanfall 2</value>
   </data>
   <data name="Page_Home_LocateTitanfall2Install" xml:space="preserve">
-    <value>Trouver le dossier de Titanfall 2</value>
+    <value>Найти установку Titanfall 2</value>
   </data>
   <data name="Page_Home_ManuallyChangeTheTitanfall2InstallDirectory" xml:space="preserve">
-    <value>Changer manuellement le dossier d'installation de Titanfall 2</value>
+    <value>Вручную изменить директорию установки Titanfall 2</value>
   </data>
   <data name="Page_Home_UpdateNorthstar" xml:space="preserve">
-    <value>Mettre à jour Northstar</value>
+    <value>Обновить Northstar</value>
   </data>
   <data name="Page_Home_NorthstarInstallation" xml:space="preserve">
-    <value>Installation de Northstar</value>
+    <value>Установка Northstar</value>
   </data>
   <data name="Page_Home_LaunchNorthstar" xml:space="preserve">
-    <value>Lancer Northstar</value>
+    <value>Запустить Northstar</value>
   </data>
   <data name="Page_Home_Install_NS_METHOD_SequenceContainsNoElements" xml:space="preserve">
-    <value>La séquence ne contient aucun élément</value>
+    <value>Последовательность не содержит элементов</value>
   </data>
   <data name="MainWindow_MainWindow_VTOLSYSTEMSFAILEDTOFINDYOURDOCUMENTSFOLDER" xml:space="preserve">
-    <value>Les systèmes VTOL n'ont pas pu trouver le dossier Documents</value>
+    <value>VTOL НЕ УДАЛОСЬ НАЙТИ ПАПКУ «ДОКУМЕНТЫ»</value>
   </data>
   <data name="Page_Mods_RightClickForContextMenu" xml:space="preserve">
-    <value>Clic droit pour afficher le menu contextuel</value>
+    <value>Щелкните правой кнопкой мыши для контекстного меню</value>
   </data>
   <data name="Page_Mods_ListedHereAreTheModsThatAreCurrentlyInstalled" xml:space="preserve">
-    <value>Liste des mods installés.</value>
+    <value>Здесь перечислены установленные моды.</value>
   </data>
   <data name="Page_About_AboutVTOLAndDocumentationOnItsUse" xml:space="preserve">
-    <value>Documentation d'usage et à propos de VTOL</value>
+    <value>О VTOL и документации по его использованию</value>
   </data>
   <data name="Page_About_ABOUT" xml:space="preserve">
-    <value>À propos</value>
+    <value>О VTOL</value>
   </data>
   <data name="Page_About_CheckForUpdate" xml:space="preserve">
-    <value>Vérifier les mises à jour</value>
+    <value>Проверить наличие обновлений</value>
   </data>
   <data name="Page_About_ConfigureUpdates" xml:space="preserve">
-    <value>Configurer les mises à jour</value>
+    <value>Настройка обновлений</value>
   </data>
   <data name="Page_About_DefualtTextboxText" xml:space="preserve">
-    <value>Champ de texte par défaut</value>
+    <value>Обычный текст текстового поля</value>
   </data>
   <data name="Page_Mods_MODS" xml:space="preserve">
-    <value>MODS</value>
+    <value>МОДЫ</value>
   </data>
   <data name="Page_Mods_Filter" xml:space="preserve">
-    <value>Filtres</value>
+    <value>Фильтр</value>
   </data>
   <data name="Page_Server_LoadFiles" xml:space="preserve">
-    <value>Charger les fichiers</value>
+    <value>Загрузить файлы</value>
   </data>
   <data name="Page_Server_ImportServerConfig" xml:space="preserve">
-    <value>Importer une configuration serveur</value>
+    <value>Импортировать конфигурацию сервера</value>
   </data>
   <data name="Page_Server_LaunchNorthstarDedicatedServer" xml:space="preserve">
-    <value>Lancer le serveur dédié Northstar</value>
+    <value>Запустить выделенный сервер Northstar</value>
   </data>
   <data name="Page_Server_LaunchNorthstarClient" xml:space="preserve">
-    <value>Lancer le client Northstar</value>
+    <value>Запустить Клиент Northstar</value>
   </data>
   <data name="Page_Server_ConfigureImportAndExportDedicatedServerAndClientSettings" xml:space="preserve">
-    <value>Configurer, importer et exporter les paramètres client et serveur dédié</value>
+    <value>Настройка, импорт и экспорт настроек выделенного сервера и клиента.</value>
   </data>
   <data name="Page_Server_SERVER" xml:space="preserve">
-    <value>SERVEUR</value>
+    <value>СЕРВЕР</value>
   </data>
   <data name="Page_Server_LaunchNorthstarDedicatedClient" xml:space="preserve">
-    <value>Lancer le client dédié Northstar</value>
+    <value>Запустить выделенный клиент Northstar</value>
   </data>
   <data name="Page_Server_ExportServerConfig" xml:space="preserve">
-    <value>Exporter la configuration serveur</value>
+    <value>Экспортировать конфигурацию сервера</value>
   </data>
   <data name="Page_Settings_FineTuneAndConfigureVTOLHere" xml:space="preserve">
-    <value>Configuration de VTOL</value>
+    <value>Настраивайте VTOL и прочее здесь.</value>
   </data>
   <data name="Page_Settings_SETTINGS" xml:space="preserve">
-    <value>PARAMÈTRES</value>
+    <value>НАСТРОЙКИ</value>
   </data>
   <data name="Page_Skins_InstallDDSForamttedSkinsHere" xml:space="preserve">
-    <value>Installer des skins au format DDS</value>
+    <value>Установите скины формата DDS здесь.</value>
   </data>
   <data name="Page_Skins_SKINS" xml:space="preserve">
-    <value>SKINS</value>
+    <value>СКИНЫ</value>
   </data>
   <data name="Page_Skins_InstallSkin" xml:space="preserve">
-    <value>Installer des skins</value>
+    <value>Установить скин</value>
   </data>
   <data name="Page_Skins_OpenTheFAQPage" xml:space="preserve">
-    <value>Ouvrir la page FAQ</value>
+    <value>Открыть страницу часто задаваемых вопросов</value>
   </data>
   <data name="Page_Skins_OpenAGuidePage" xml:space="preserve">
-    <value>Ouvrir la page Guide</value>
+    <value>Открыть страницу руководства</value>
   </data>
   <data name="Page_Skins_Browse" xml:space="preserve">
-    <value>Parcourir</value>
+    <value>Просматривать</value>
   </data>
   <data name="Page_Thunderstore_TheseAreTheCollectionOfModsHostedOnTheThunderStoreModPlatform" xml:space="preserve">
-    <value>Liste des mods hébergés sur la plateforme de mods Thunderstore</value>
+    <value>Здесь находятся моды, размещенные на платформе Thunderstore.</value>
   </data>
   <data name="Page_Thunderstore_THUNDERSTORE" xml:space="preserve">
     <value>THUNDERSTORE</value>
   </data>
   <data name="Page_Tools_ToolsForEaseOfDevelopmentOnTheNorthstarClient" xml:space="preserve">
-    <value>Outils pour faciliter le développement du client Northstar</value>
+    <value>Инструменты для облегчения разработки на клиенте Northstar.</value>
   </data>
   <data name="Page_Tools_TOOLS" xml:space="preserve">
-    <value>OUTILS</value>
+    <value>ИНСТРУМЕНТЫ</value>
   </data>
   <data name="Page_Home_OriginClientRunning" xml:space="preserve">
-    <value>Client Origin en cours d'exécution</value>
+    <value>Клиент Origin запущен</value>
   </data>
   <data name="Page_Tools_Content" xml:space="preserve">
-    <value>Contenu</value>
+    <value>Содержание</value>
   </data>
   <data name="Page_Tools_Name" xml:space="preserve">
-    <value>Nom</value>
+    <value>Имя</value>
   </data>
   <data name="Page_Tools_Version" xml:space="preserve">
-    <value>Version</value>
+    <value>Версия</value>
   </data>
   <data name="Page_Tools_Webpage" xml:space="preserve">
-    <value>Page web</value>
+    <value>Веб-Страница</value>
   </data>
   <data name="Page_Tools_Description" xml:space="preserve">
-    <value>Description</value>
+    <value>Описание</value>
   </data>
   <data name="Page_Tools_Dependencies" xml:space="preserve">
-    <value>Dépendances</value>
+    <value>Зависимости</value>
   </data>
   <data name="Page_Tools_OutputDirectory" xml:space="preserve">
-    <value>Dossier de sortie</value>
+    <value>Директория экспорта</value>
   </data>
   <data name="Page_Tools_Icon" xml:space="preserve">
-    <value>Icône</value>
+    <value>Иконка</value>
   </data>
   <data name="Page_Tools_Item" xml:space="preserve">
-    <value>Élement</value>
+    <value>Предмет</value>
   </data>
   <data name="Page_Tools_DragAndDropOrClickToPopulateTheMaps" xml:space="preserve">
-    <value>Glisser-déposer ou cliquer pour actualiser la liste des maps</value>
-    <comment>à vérifier</comment>
+    <value>Перетащите или щелкните, чтобы заполнить пустые бланки</value>
   </data>
   <data name="Page_Tools_LocateSkinContent" xml:space="preserve">
-    <value>Trouver le contenu du skin</value>
+    <value>Найти содержимое скина</value>
   </data>
   <data name="Page_Tools_TestReadmeText" xml:space="preserve">
-    <value>Tester le texte du readme</value>
+    <value>test readme text</value>
   </data>
   <data name="Page_Tools_VersionNumber" xml:space="preserve">
-    <value>Numéro de version</value>
+    <value>Номер версии</value>
   </data>
   <data name="Page_Tools_AuthorName" xml:space="preserve">
-    <value>Nom de l'auteur</value>
+    <value>Имя автора</value>
   </data>
   <data name="Page_Tools_SkinName" xml:space="preserve">
-    <value>Nom du skin</value>
+    <value>Название скина</value>
   </data>
   <data name="Page_Tools_Locate_Repak_Exe" xml:space="preserve">
-    <value>Localiser_Repak_exe</value>
-    <comment>underscores ?</comment>
+    <value>Locate_Repak_Exe</value>
   </data>
   <data name="Page_Mods_Call_Mods_From_Folder_PleaseOpenYourFolderAt" xml:space="preserve">
-    <value>Veuillez ouvrir le dossier à -</value>
+    <value>Пожалуйста, откройте папку - </value>
   </data>
   <data name="Page_Mods_Call_Mods_From_Folder_AndManuallyRepairTheMod" xml:space="preserve">
-    <value>et réparer manuellement le mod -</value>
+    <value>И вручную почините мод - </value>
   </data>
   <data name="Page_Mods_Call_Mods_From_Folder_ThereIsAnIssueDetectedWithYourMod" xml:space="preserve">
-    <value>Un problème a été détecté avec votre mod !</value>
+    <value>Обнаружена проблема с вашим модом!</value>
   </data>
   <data name="Page_Mods_Call_Mods_From_Folder_ModCount" xml:space="preserve">
-    <value>Nombre de mods : </value>
+    <value>Количество модов:</value>
   </data>
   <data name="Page_Home_INIT_InvalidInstallPathPleaseManuallyLocateTheCorrectFolder" xml:space="preserve">
-    <value>Chemin d'installation invalide, veuillez localiser manuellement le dossier correct !</value>
-  </data>
-  <data name="Page_Server_Load_Files__ReloadArguments" xml:space="preserve">
-    <value>Arguments de rechargement</value>
-  </data>
-  <data name="Page_Server_StartupArgumentsNorthstarClient" xml:space="preserve">
-    <value>Arguments de démarrage Client Northstar</value>
-  </data>
-  <data name="Page_Skins_MakingYourOwnSkin" xml:space="preserve">
-    <value>Fabriquer sa propre peau</value>
-  </data>
-  <data name="Page_Tools_ConvertSkin" xml:space="preserve">
-    <value>Convertir la peau</value>
-  </data>
-  <data name="Page_Tools_CreateSkin" xml:space="preserve">
-    <value>Créer une peau</value>
-  </data>
-  <data name="Page_Tools_LocateRepakExe" xml:space="preserve">
-    <value>Localiser Repak Exe</value>
-  </data>
-  <data name="Page_Tools_LocateTheModZipManually" xml:space="preserve">
-    <value>Localisez le Mod Zip manuellement</value>
-  </data>
-  <data name="Page_Tools_PackageAsADDSSkin" xml:space="preserve">
-    <value>Paquet comme peau de DDS ?</value>
-  </data>
-  <data name="Page_Tools_OutputAsAThunderstoreMod" xml:space="preserve">
-    <value>Sortie en tant que Thunderstore Mod</value>
-  </data>
-  <data name="Page_Tools_ChooseYourItem" xml:space="preserve">
-    <value>Choisissez votre article</value>
+    <value>Недопустимый путь установки, пожалуйста, вручную найдите правильную папку!</value>
   </data>
   <data name="Page_Home_CurrentTitanfall2Path" xml:space="preserve">
-    <value>Chemin actuel de Titanfall 2</value>
+    <value>Текущий путь к Titanfall 2</value>
+  </data>
+  <data name="Page_Tools_PackageAsADDSSkin" xml:space="preserve">
+    <value>Запаковать как DDS скин?</value>
+  </data>
+  <data name="Page_Server_Load_Files__ReloadArguments" xml:space="preserve">
+    <value>Перезагрузить аргументы</value>
+  </data>
+  <data name="Page_Skins_MakingYourOwnSkin" xml:space="preserve">
+    <value>Создание собственного скина</value>
+  </data>
+  <data name="Page_Tools_OutputAsAThunderstoreMod" xml:space="preserve">
+    <value>Опубликовать в Thunderstore</value>
+  </data>
+  <data name="Page_Tools_CreateSkin" xml:space="preserve">
+    <value>Создать скин</value>
+  </data>
+  <data name="Page_Tools_ConvertSkin" xml:space="preserve">
+    <value>Конвертировать скин</value>
+  </data>
+  <data name="Page_Tools_LocateTheModZipManually" xml:space="preserve">
+    <value>Найдите .zip файл с модом вручную</value>
+  </data>
+  <data name="Page_Tools_LocateRepakExe" xml:space="preserve">
+    <value>Найти Repak Exe</value>
+  </data>
+  <data name="Page_Tools_ChooseYourItem" xml:space="preserve">
+    <value>Выберите предмет</value>
+  </data>
+  <data name="Page_Server_StartupArgumentsNorthstarClient" xml:space="preserve">
+    <value>Аргументы запуска Northstar клиент</value>
   </data>
 </root>

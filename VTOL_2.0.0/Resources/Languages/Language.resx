@@ -489,4 +489,34 @@
   <data name="Page_Home_CurrentTitanfall2Path" xml:space="preserve">
     <value>Current Titanfall 2 Path</value>
   </data>
+  <data name="Page_Tools_PackageAsADDSSkin" xml:space="preserve">
+    <value>Package as a DDS Skin?</value>
+  </data>
+  <data name="Page_Server_Load_Files__ReloadArguments" xml:space="preserve">
+    <value>Reload Arguments</value>
+  </data>
+  <data name="Page_Skins_MakingYourOwnSkin" xml:space="preserve">
+    <value>Making Your Own Skin</value>
+  </data>
+  <data name="Page_Tools_OutputAsAThunderstoreMod" xml:space="preserve">
+    <value>Output As a Thunderstore Mod</value>
+  </data>
+  <data name="Page_Tools_CreateSkin" xml:space="preserve">
+    <value>Create Skin</value>
+  </data>
+  <data name="Page_Tools_ConvertSkin" xml:space="preserve">
+    <value>Convert Skin</value>
+  </data>
+  <data name="Page_Tools_LocateTheModZipManually" xml:space="preserve">
+    <value>Locate the Mod Zip manually</value>
+  </data>
+  <data name="Page_Tools_LocateRepakExe" xml:space="preserve">
+    <value>Locate Repak Exe</value>
+  </data>
+  <data name="Page_Tools_ChooseYourItem" xml:space="preserve">
+    <value>Choose Your Item</value>
+  </data>
+  <data name="Page_Server_StartupArgumentsNorthstarClient" xml:space="preserve">
+    <value>Startup Arguments Northstar Client</value>
+  </data>
 </root>

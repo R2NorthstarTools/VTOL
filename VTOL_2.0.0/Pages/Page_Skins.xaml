@@ -63,7 +63,7 @@
                 BlurRadius="4"/>
             </ui:CardAction.Effect>
         </ui:CardAction>
-        <ui:CardAction x:Name="Making_Your_Own" Content="Making Your Own Skin" Margin="33,380,50,0" VerticalAlignment="Top" ClickMode="Press" Grid.Row="1" AllowDrop="False" Foreground="White" BorderThickness="2,2,1,1" BorderBrush="{x:Null}" Height="100" FontWeight="Bold" Click="Making_Your_Own_Click" Grid.Column="1" ToolTip="{x:Static properties:Language.Page_Skins_OpenAGuidePage}">
+        <ui:CardAction x:Name="Making_Your_Own" Content="{x:Static properties:Language.Page_Skins_MakingYourOwnSkin}" Margin="33,380,50,0" VerticalAlignment="Top" ClickMode="Press" Grid.Row="1" AllowDrop="False" Foreground="White" BorderThickness="2,2,1,1" BorderBrush="{x:Null}" Height="100" FontWeight="Bold" Click="Making_Your_Own_Click" Grid.Column="1" ToolTip="{x:Static properties:Language.Page_Skins_OpenAGuidePage}">
             <ui:CardAction.Background>
                 <ImageBrush ImageSource="/Resources/Backgrounds/Skin_How_To_BG.png" Stretch="UniformToFill"/>
             </ui:CardAction.Background>

@@ -15,7 +15,12 @@
       "ProjectGuid": "d2444053-357b-41bd-8352-db82bdd54419",
       "DisplayName": "VTOL_Installer",
       "ColorIndex": 1
+    },
+    "62a6f658-4928-4b6e-a78e-ec5932c7d556": {
+      "ProjectGuid": "62a6f658-4928-4b6e-a78e-ec5932c7d556",
+      "DisplayName": "VTOL_Installer",
+      "ColorIndex": 2
     }
   },
-  "NextColorIndex": 2
+  "NextColorIndex": 3
 }
