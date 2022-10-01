@@ -210,10 +210,7 @@ namespace VTOL.Pages
             try
             {
                 Final_List.Clear();
-                //Enabled_ListBox.ItemsSource = null;
-                //Disabled_ListBox.ItemsSource = null;
-                //Mod_Directory_List_Active.Clear();
-                //Mod_Directory_List_InActive.Clear();
+             
 
 
 
@@ -221,16 +218,7 @@ namespace VTOL.Pages
 
                 if (User_Settings_Vars.NorthstarInstallLocation == null || User_Settings_Vars.NorthstarInstallLocation == "" || !Directory.Exists(User_Settings_Vars.NorthstarInstallLocation))
                 {
-                    //HandyControl.Controls.Growl.AskGlobal("Could Not find That Install Location !!!, please renavigate to the Correct Install Path!", isConfirmed =>
-                    //{
-                    //    install_Prompt = isConfirmed;
-                    //    return true;
-                    //});
-
-                    //if (install_Prompt == true)
-                    //{
-                    //    //  Select_Main();
-                    //}
+                 
 
 
 
@@ -248,8 +236,7 @@ namespace VTOL.Pages
                             System.IO.DirectoryInfo rootDirs = new DirectoryInfo(@NS_Mod_Dir);
                             if (!Directory.Exists(NS_Mod_Dir))
                             {
-                                //Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_MOD_DIRECTORY_EMPTY"));
-                                //Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_NS_NOT_INSTALLED_PROPERLY"));
+                               
 
                             }
                             else if (IsValidPath(NS_Mod_Dir) == true)
@@ -277,9 +264,7 @@ namespace VTOL.Pages
                                     else if (Template_traverse(dirInfo, "Locked_Folder") == true)
                                     {
 
-                                        //ModList_Disabled.Add(dirInfo.Name);
-                                        //Snack.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
-                                        //Snack.ShowAsync(dirInfo.Name, dirInfo.CreationTime.ToString());
+                                      
                                         if (Directory.Exists(dirInfo + @"\Locked_Folder") && Page_Home.IsDirectoryEmpty(new DirectoryInfo(dirInfo + @"\Locked_Folder")))
                                         {
 
@@ -326,13 +311,11 @@ namespace VTOL.Pages
                             else
                             {
 
-                                //Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_NS_NOT_INSTALLED_PROPERLY"));
                             }
                         }
                         else
                         {
 
-                            //Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_NS_NOT_INSTALLED"));
 
 
                         }
@@ -341,7 +324,6 @@ namespace VTOL.Pages
                     else
                     {
 
-                        //Send_Error_Notif(GetTextResource("NOTIF_FATALL_GAME_PATH_INVALID"));
 
                     }
                 }
@@ -365,14 +347,12 @@ Main.logger2.Close();
                 System.IO.DirectoryInfo[] subDirs = null;
                 subDirs = root.GetDirectories();
                 var last = subDirs.Last();
-                //Log_Box.AppendText(last.FullName + "sdsdsdsd");
                 foreach (System.IO.DirectoryInfo dirInfo in subDirs)
                 {
                     outt = dirInfo.FullName;
                     if (dirInfo.Name.Contains(Search))
                     {
-                        // ////Console.WriteLine("Found Folder");
-                        ////Console.WriteLine(dirInfo.FullName);
+                        
                         return true;
 
                     }
@@ -383,19 +363,16 @@ Main.logger2.Close();
                     else
                     {
 
-                        ////Console.WriteLine("Trying again at " + dirInfo);
 
                     }
                     if (dirInfo == null)
                     {
-                        ////Console.WriteLine(dirInfo.FullName + "This is not a valid Folder????!");
                         continue;
 
                     }
                     // Resursive call for each subdirectory.
                 }
 
-                ////Console.WriteLine("\nCould not Find the Install at " + root + " - Continuing Traversal");
 
             }
             catch (Exception e)
@@ -409,12 +386,10 @@ Main.logger2.Close();
                 {
                     System.IO.DirectoryInfo Dir = new DirectoryInfo(outt);
 
-                    ////Console.WriteLine("Empty Folder at - "+ outt);
                     if (IsDirectoryEmpty(Dir))
                     {
                         Directory.Delete(outt, true);
                     }
-                    //   Delete_empty_Folders(outt);
                 }
                 else
                 {
@@ -424,11 +399,8 @@ Main.logger2.Close();
                     {
                         Directory.Delete(outt, true);
                     }
-                    //Write_To_Log(ErrorManager(e));
 
-                    //Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
                 }
-                // Log_Box.AppendText("\nCould not Find the Install at " +root+ " - Continuing Traversal");
             }
 
 
@@ -467,7 +439,6 @@ Main.logger2.Close();
                 Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source +Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine);
 Main.logger2.Close();
                 isValid = false;
-                //Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
             }
 
             return isValid;
@@ -702,7 +673,6 @@ Main.logger2.Close();Log.Error(ex, $"A crash happened at {DateTime.Now.ToString(
                 if (_Completed_Mod_call == true)
                 {
 
-                    //Call_Mods_From_Folder();
                     if (Reverse_ == false)
                 {
                     if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Name"))
@@ -712,12 +682,10 @@ Main.logger2.Close();Log.Error(ex, $"A crash happened at {DateTime.Now.ToString(
                         Search_Bar_Suggest_Mods.Text = "~Search";
 
 
-                        //Final_List = ModList_Enabled.Join(ModList_Disabled);
                         var sorted = Final_List.OrderBy(ob => ob.Mod_Name_).ToArray();
 
                         Mod_List_Box.ItemsSource = sorted;
 
-                        //Enabled_ListBox.Refresh();
                         Mod_List_Box.Refresh();
 
 
@@ -771,12 +739,10 @@ Main.logger2.Close();Log.Error(ex, $"A crash happened at {DateTime.Now.ToString(
                         Search_Bar_Suggest_Mods.Text = "~Search";
 
 
-                        //Final_List = ModList_Enabled.Join(ModList_Disabled);
                         var sorted = Final_List.OrderBy(ob => ob.Mod_Name_).ToArray().Reverse();
 
                         Mod_List_Box.ItemsSource = sorted;
 
-                        //Enabled_ListBox.Refresh();
                         Mod_List_Box.Refresh();
 
                     }

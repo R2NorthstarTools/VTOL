@@ -115,7 +115,7 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to About VTOL and Documentation On its Use.
+        ///   Looks up a localized string similar to About VTOL and Documentation On its Use..
         /// </summary>
         public static string Page_About_AboutVTOLAndDocumentationOnItsUse {
             get {
