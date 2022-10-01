@@ -22,7 +22,7 @@ Total Downloads Since First Release:
 
 <p align="center">
  <a href="https://northstar.tf">
-  <img src="https://user-images.githubusercontent.com/23240514/166421617-9bd58fee-e1ff-4924-b4aa-9ecad7e31516.png" alt="Northstar Logo Here">
+  <img src="https://user-images.githubusercontent.com/23240514/193386634-44f657dc-5733-4d86-a1c4-227520789d9d.png" alt="Northstar Logo Here">
  </a>
 </p>
 
@@ -54,6 +54,12 @@ Total Downloads Since First Release:
 * Install Skins From the Thunderstore Mod Browser
 
 * Use the Tools To pack Thunderstore Compatible Mod Packages
+
+*Use the tools to access Adocate
+
+*Use the tools to create dds based skins
+
+
 ### Contribute
 * _Suggestions/bug reports are highly appreciated. Please create a new [issue](https://github.com/BigSpice/VTOL/issues/new) and fill out the fields._
 ### Installation and updates
