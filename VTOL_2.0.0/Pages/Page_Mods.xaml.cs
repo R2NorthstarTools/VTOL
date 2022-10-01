@@ -696,14 +696,16 @@ Main.logger2.Close();Log.Error(ex, $"A crash happened at {DateTime.Now.ToString(
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            try { 
-            if (_Completed_Mod_call == true)
+            try
             {
-                //Call_Mods_From_Folder();
 
-                if (Reverse_ == false)
+                if (_Completed_Mod_call == true)
                 {
-                    if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim() == "Name")
+
+                    //Call_Mods_From_Folder();
+                    if (Reverse_ == false)
+                {
+                    if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Name"))
                     {
 
 
@@ -720,10 +722,8 @@ Main.logger2.Close();Log.Error(ex, $"A crash happened at {DateTime.Now.ToString(
 
 
                     }
-                    else if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim() == "Date")
+                    else if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Date"))
                     {
-
-                        Mod_List_Box.ItemsSource = null;
 
                         Search_Bar_Suggest_Mods.Text = "~Search";
 
@@ -735,7 +735,7 @@ Main.logger2.Close();Log.Error(ex, $"A crash happened at {DateTime.Now.ToString(
                         Mod_List_Box.Refresh();
 
                     }
-                    else if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim() == "Status")
+                    else if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Status"))
                     {
 
                         Search_Bar_Suggest_Mods.Text = "~Search";
@@ -763,7 +763,7 @@ Main.logger2.Close();Log.Error(ex, $"A crash happened at {DateTime.Now.ToString(
                 else
                 {
 
-                    if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim() == "Name")
+                    if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Name"))
                     {
 
 
@@ -780,7 +780,7 @@ Main.logger2.Close();Log.Error(ex, $"A crash happened at {DateTime.Now.ToString(
                         Mod_List_Box.Refresh();
 
                     }
-                    else if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim() == "Date")
+                    else if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Date"))
                     {
 
 
@@ -794,7 +794,7 @@ Main.logger2.Close();Log.Error(ex, $"A crash happened at {DateTime.Now.ToString(
                         Mod_List_Box.Refresh();
 
                     }
-                    else if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim() == "Status")
+                    else if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Status"))
                     {
 
                         Search_Bar_Suggest_Mods.Text = "~Search";
