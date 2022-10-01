@@ -55,9 +55,9 @@ Total Downloads Since First Release:
 
 * Use the Tools To pack Thunderstore Compatible Mod Packages
 
-*Use the tools to access Adocate
+* Use the tools to access Adocate
 
-*Use the tools to create dds based skins
+* Use the tools to create dds based skins
 
 
 ### Contribute
