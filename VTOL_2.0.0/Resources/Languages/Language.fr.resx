@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Page_Home_IndicatesIfOriginIsRunningClickToLaunchIfInactive" xml:space="preserve">
-    <value>Indique si Origin est lancé (cliquer pour lancer si inactif)</value>
+    <value>Im not scared you are</value>
   </data>
   <data name="PleaseWaitAsVTOLRestarts" xml:space="preserve">
     <value>Veuillez attendre le redémarrage de VTOL !</value>

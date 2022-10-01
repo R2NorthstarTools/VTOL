@@ -3090,9 +3090,13 @@ Main.logger2.Close();
         {
             try
             {
-                 Install_NS_METHOD();
+                  Install_NS_METHOD();
 
-
+                //InfoBar_Test_1.Message = "sdsd";
+                //InfoBar_Test_1.IsOpen = true;
+                //InfoBar_Test_1.Title = "Les Goo";
+                //InfoBar_Test_1.Severity = Wpf.Ui.Controls.InfoBarSeverity.Success;
+                //InfoBar_Test_1.Background = Brushes.Green;
             }
 
             catch (Exception ex)

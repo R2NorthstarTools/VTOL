@@ -142,7 +142,7 @@
 
 
             <Button x:Name="Discord_Button" Template="{DynamicResource ButtonControlTemplate1}"
-                  Background="#FF202044" Margin="0,333,3,0" VerticalAlignment="Top" Height="30" HorizontalAlignment="Right" Width="57" Click="Discord_Button_Click" ToolTip="Discord" 
+                  Background="#FF202044" Margin="0,333,41,0" VerticalAlignment="Top" Height="30" HorizontalAlignment="Right" Width="57" Click="Discord_Button_Click" ToolTip="Discord" 
                           
                   >
                 <Border  Width="35" HorizontalAlignment="Center" VerticalAlignment="Center" Height="21">
@@ -401,7 +401,7 @@
 
             </Grid>
             <Button x:Name="GIT_Button"
-                Background="#99000000" Margin="0,333,61,0" VerticalAlignment="Top" Height="30" 
+                Background="#99000000" Margin="0,333,103,0" VerticalAlignment="Top" Height="30" 
                           Template="{DynamicResource ButtonControlTemplate1}" HorizontalAlignment="Right" Width="57" Click="GIT_Button_Click" ToolTip="Gitbook"
                   >
 
@@ -421,7 +421,11 @@
             <!--<ui:Dialog x:Name="Dialog" />-->
             <ui:Snackbar />
             <!--<hc:LoadingCircle HorizontalAlignment="Left" Margin="1535,-180,0,0" VerticalAlignment="Top"/>-->
+            <ui:InfoBar x:Name="InfoBar_Test_1" Height="70"  Margin="38,10,41,0" VerticalAlignment="Top">
+               
 
+            </ui:InfoBar>
         </Grid>
+
     </ScrollViewer>
 </Page>

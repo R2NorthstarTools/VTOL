@@ -161,7 +161,7 @@
         </ui:Dialog>
         <ui:Dialog x:Name="DialogF" Grid.ColumnSpan="3" Grid.RowSpan="3" DialogHeight="250" Foreground="White" FontStretch="SemiCondensed" FontFamily="Segoe UI Semibold" ButtonRightClick="DialogF_ButtonRightClick" ButtonLeftClick="DialogF_ButtonLeftClick" Drop="Mod_List_Box_Drop" PreviewDragEnter="Mod_List_Box_PreviewDragEnter" PreviewDragLeave="Mod_List_Box_PreviewDragLeave" AllowDrop="True"/>
         <Border x:Name="Drag_Drop_Overlay_Mods" Grid.ColumnSpan="3" Background="#99000000" Visibility="Hidden" HorizontalAlignment="Right" Width="1148" Drop="Mod_List_Box_Drop" PreviewDragOver="Drag_Drop_Overlay_Mods_PreviewDragOver" AllowDrop="True">
-            <ui:SymbolIcon Content="SymbolIcon" Height="18" Width="16" Symbol="ArrowDownload48" RenderTransformOrigin="0.5,0.5" >
+            <ui:SymbolIcon  Height="18" Width="16" Symbol="ArrowDownload48" RenderTransformOrigin="0.5,0.5" >
                 <ui:SymbolIcon.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform ScaleX="6" ScaleY="6"/>

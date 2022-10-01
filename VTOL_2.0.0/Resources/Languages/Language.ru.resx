@@ -184,7 +184,7 @@
     <value>Доступно обновление, начинается загрузка и установка!</value>
   </data>
   <data name="Check_For_New_Northstar_Install_ReleaseCandidateDetected" xml:space="preserve">
-    <value>release candidate detected</value>
+    <value>release_candidate_detected (I couldn’t translate this)</value>
     <comment>I couldn’t translate this</comment>
   </data>
   <data name="Unpack_To_Location_TheFile" xml:space="preserve">
