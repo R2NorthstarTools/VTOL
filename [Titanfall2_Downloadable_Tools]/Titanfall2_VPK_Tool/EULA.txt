@@ -1,0 +1,37 @@
+Cra0kalo.com (Cra0kalo) hereby gives you a non-exclusive license to use the Titanfall VPK Tool (the "Software.")
+For beta evaluation, the license is granted, and is time-limited.
+For final release you are granted a personal single-user license.
+
+Warnings:
+You may be banned for using the repacker in this tool ( very unlikely ), but I accept no responsibility if you are. USE AT OWN RISK.
+
+You may:
+- use the Software on any single computer;
+- copy the Software for archival purposes, provided any copy contains all of the original Software's proprietary notices.
+
+You may not:
+- permit other individuals to use the Software except under the terms listed above;
+- modify, translate, reverse engineer, decompile, disassemble (except to the extent applicable laws specifically prohibit such restriction),
+- create derivative works based on the Software;
+- copy the Software (except as specified above);
+- rent, lease, transfer or otherwise transfer rights to the Software;
+- remove any proprietary notices or labels on the Software.
+
+You must:
+- Provide credit (to Cra0kalo) for work derived from the use of this tool.
+
+TERMINATION.
+The license will terminate automatically if you fail to comply with the limitations described above. On termination, you must destroy all copies of the Software and Documentation.
+
+DISCLAIMER OF WARRANTY
+---------------------------------------------
+The Software is provided on an AS IS basis, without warranty of any kind, including without limitation the warranties of merchantability, fitness for a particular purpose and non-infringement.
+The entire risk as to the quality and performance of the Software is borne by you.
+Should the Software prove defective, you and not Cra0kalo assume the entire cost of any service and repair.
+
+CRA0KALO IS NOT RESPONSIBLE FOR ANY INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES OF ANY CHARACTER INCLUDING, WITHOUT LIMITATION, DAMAGES FOR LOSS OF GOODWILL, WORK STOPPAGE, COMPUTER FAILURE OR MALFUNCTION, OR ANY AND ALL OTHER COMMERCIAL DAMAGES OR LOSSES. THE USER IS RESPONSIBLE FOR HIS/HER ACTIONS.
+
+This software does not ship with any copyrighted assets. Any content generated from this tool are properties of their respective owners.
+
+Title, ownership rights and intellectual property rights in and to the Software shall remain with Cra0kalo. The Software is protected by international copyright treaties.
+

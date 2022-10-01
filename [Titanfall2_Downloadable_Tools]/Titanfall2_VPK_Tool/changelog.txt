@@ -1,0 +1,71 @@
+BSPInspect
+1.0
+-Initial public beta release
+
+
+Titanfall VPKTool
+3.4
+-Added experimental Xbox360(BPK) archive support
+-Added BSPInspect tool(beta)
+3.3
+-Fixed extract all dialog window saving incorrect folder path location.
+-Fixed issue with application settings save
+-Removed debug SelectedPath/InitialDirectory constants
+-Implemented additional audio patcher (fixes extraction errors for good!)
+3.2
+-Fixed extraction of the root elements showing up in a folder called RootDir
+-Reworked repacker once again (added compression option SLOW!)
+-Optimized repacking code (faster CRC32 calculation) (Repacks a LOT faster)
+-Removed check of filesizes in repacker
+-Added Debug log generation for repacking
+-Updated sound lookup table (should fix all 6ch sounds)
+3.1
+-Major bug fix with VPK structure reading
+-Added support for foreign localization vpks
+-Implemented fallback extraction mechanism for files which fail to export (refer to blogpost for more info)
+-Fixed bug with sound patching that would not fix certain sound files
+-Fixed 6 channel sound file patchs
+-Fixed file associations causing the extracted files to be 0bytes
+-Reworked repacker code
+-Reworked sound patching
+-Reworked memory handling fixes ('System.OutOfMemoryException') exception errors
+-Various UI fixes
+3.0
+-Added "View Export Folder" option to export dialog for faster access
+-Added extraction log to keep track of what failed and what got extracted successfully
+-Added Recent Files option to the File menu.
+-Added Repacking support(beta)
+-Added Drag N Drop option for extracting folders (thanks again to Master131 for his help)
+-Updated tool for the public release of the game
+-Updated tool to use a single executable, great for portability
+-Sound export improved actually reads wav.acache and extracts the wavs properly(thanks to JP Neufeld for his lookup table!!!)
+-Improved extraction logic
+-Tool now removes sharp sound at the beginning and end of each wav file
+-Fixed an issue with unhandled exceptions crashing the error window or not displaying the error window at all
+-Fixed a UI bug where extraction window displays the ok button while extracting
+-Fixed a rare case where extraction doesn't work after extraction window has been closed
+-Fixed "extract all" not working after cancelling the extract
+-Fixed output extraction dialog window not saving history of previous extract location
+-Fixed auto-update check logic
+-Removed verbose debugging information
+2.4
+-Added Localization support for vpks
+-Updated VPK Parsing logic
+-Added option to patch sounds on export (Yes thats right sound extraction works now!)
+2.3
+-Patch VTF Option now auto-detects ATI2N textures and converts them. (Those broken normalmaps)
+-Fixed bug with flipped normals in ATI2N Tool's tga export
+2.2
+-Fixed UI issues with root folders not displaying it's child folder content
+-Fixed issue with extraction of single item not displaying output folder dialogbox
+-UI speed improvements
+-Updated ATI2Normal tool to export to TGA (thanks to Master131)
+2.1
+-Added ATI2Normal Tool for converting normal maps that are broken to DDS(Direct Draw Format)
+2.0
+-Added extraction code
+-Extraction now works for most things besides sounds
+1.1
+-UI fixes
+1.0
+-Initial Release
