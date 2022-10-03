@@ -400,13 +400,48 @@
                         <TextBox x:Name="Zip_Box_Advocate_Copy" Margin="149,220,149,0" TextWrapping="NoWrap" Text="RePak path" VerticalAlignment="Top" Background="#FF171717" Foreground="White" SelectionTextBrush="White" CaretBrush="White" FontSize="11" IsReadOnly="True" IsUndoEnabled="False"/>
                         <Label  Content="RePak" Margin="152,194,0,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="16" HorizontalAlignment="Left"/>
                         <Button x:Name="Locate_Repak_Exe"  Height="30" Margin="149,256,149,0" VerticalAlignment="Top"  BorderBrush="{x:Null}" Content="{x:Static properties:Language.Page_Tools_LocateRepakExe}" Padding="0,0,0,0" ToolTip="{x:Static properties:Language.Page_Tools_LocateTheModZipManually}" HorizontalAlignment="Stretch" Background="#FF383838" Click="Locate_Repak_Exe_Click" />
-                        <hc:TextBox TextWrapping="Wrap" Text="Advocate is a tool that converts a typical DDS skin that requires installation using the Titanfall 2 Skin Tool into a thunderstore-compatible Northstar mod. Advocate requires RePak to function, as it is used to create the RPak files that the Northstar mod uses." Margin="149,5,152,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="13" Height="64" BorderThickness="0,0,0,0" OverridesDefaultStyle="False" IsReadOnlyCaretVisible="True" IsInactiveSelectionHighlightEnabled="True"/>
+                        <hc:TextBox TextWrapping="Wrap" Text="Advocate is a tool that converts a typical DDS skin that requires installation using the Titanfall 2 Skin Tool into a thunderstore-compatible Northstar mod. Advocate requires RePak to function, as it is used to create the RPak files that the Northstar mod uses." Margin="149,1,152,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="13" Height="64" BorderThickness="0,0,0,0" OverridesDefaultStyle="False" IsReadOnlyCaretVisible="True" IsInactiveSelectionHighlightEnabled="True" Foreground="#FFCECECE"/>
                     </Grid>
 
                 </hc:ScrollViewer>
             </TabItem>
-            <!--<TabItem Header="RePak">
-            </TabItem>-->
+            <TabItem Header="Addon Tools">
+                <hc:ScrollViewer  MouseDown="ScrollViewer_MouseDown" Height="514" Padding="9,9,9,9">
+
+
+                    <Grid  >
+                        <Border BorderThickness="1" Margin="27,12,0,315" Background="#FF404240" CornerRadius="9,9,9,9" HorizontalAlignment="Left" Width="473" Height="304">
+                            <Grid  >
+                                <Label Margin="12,10,8,266" Content="LEGION+" FontSize="18" Foreground="White"/>
+                                <Border CornerRadius="15,15,15,15" Margin="10,41,10,94">
+                                    <Border.Background>
+                                        <ImageBrush Stretch="UniformToFill" ImageSource="/Resources/Resource_Static/Leigon+.png" TileMode="None"/>
+                                    </Border.Background>
+                                </Border>
+                                <ui:Button  VerticalAlignment="Top" Icon="Open24" HorizontalAlignment="Stretch"  Background="#97FFD767" Margin="10,214,10,0" Content="Open Folder"/>
+                                <ui:Button  VerticalAlignment="Top" Icon="ArrowDown32" HorizontalAlignment="Stretch"  Background="#FF005D42" Margin="10,249,10,0" Height="44" Content="Install"/>
+
+                            </Grid  >
+
+                        </Border>
+                        <Border BorderThickness="1" Margin="528,12,0,315" Background="#FF404240" CornerRadius="9,9,9,9" Height="304" HorizontalAlignment="Left" Width="473">
+                            <Grid  >
+                                <Label Margin="12,10,8,266" Content="HARMONY VPK" FontSize="18" Foreground="White"/>
+                                <Border CornerRadius="15,15,15,15" Margin="10,41,10,94">
+                                    <Border.Background>
+                                        <ImageBrush Stretch="UniformToFill" ImageSource="/Resources/Resource_Static/harmony.png" TileMode="None"/>
+                                    </Border.Background>
+                                </Border>
+                                <ui:Button  VerticalAlignment="Top" Icon="Open24" HorizontalAlignment="Stretch"  Background="#97FFD767" Margin="10,214,10,0" Content="Open Folder"/>
+                                <ui:Button  VerticalAlignment="Top" Icon="ArrowDown32" HorizontalAlignment="Stretch"  Background="#FF005D42" Margin="10,249,10,0" Height="44" Content="Install"/>
+
+                            </Grid>
+
+                        </Border>
+
+                    </Grid>
+                </hc:ScrollViewer>
+            </TabItem>
         </TabControl>
         <!--<ui:Dialog x:Name="Error_Dialog" />-->
 

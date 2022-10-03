@@ -211,6 +211,8 @@
     <None Remove="Resources\Icons\Main_UI\VTOL_32.ico" />
     <None Remove="Resources\Icons\Main_UI\VTOL_multires.ico" />
     <None Remove="Resources\Icons\Titanfall2_Icon.ico" />
+    <None Remove="Resources\Resource_Static\harmony.png" />
+    <None Remove="Resources\Resource_Static\Leigon+.png" />
     <None Remove="Resources\Resource_Static\Northstar_Server_Vals_Aug_2022.json" />
     <None Remove="Resources\Resource_Static\NO_TEXTURE.png" />
   </ItemGroup>
@@ -580,6 +582,12 @@
 
   <ItemGroup>
     <Resource Include="Resources\Backgrounds\alternator.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Resource_Static\harmony.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Resource_Static\Leigon+.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Resource_Static\NO_TEXTURE.png">
