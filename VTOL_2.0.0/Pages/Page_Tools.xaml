@@ -64,11 +64,11 @@
 
                             </FlowDocument>
                         </RichTextBox>
-                        <Button x:Name="Output_Button"  Height="35" Margin="0,1055,92,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Content="{x:Static properties:Language.Page_Tools_OutputDirectory}" Padding="0,0,0,0" Width="180" RenderTransformOrigin="0.411,0.429" HorizontalAlignment="Right" ToolTip="Manually Specify the Output Directory" Click="Output_Button_Click" Background="#FF383838" Grid.Column="2"/>
+                        <Button x:Name="Output_Button"  Height="35" Margin="0,1055,92,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Content="{x:Static properties:Language.Page_Tools_OutputDirectory}" Padding="0,0,0,0" Width="180" RenderTransformOrigin="0.411,0.429" HorizontalAlignment="Right" ToolTip="Manually Specify the Output Directory" Click="Output_Button_Click" Background="#FF383838" Grid.Column="2" ClickMode="Press"/>
                         <TextBox x:Name="Output_Box" Margin="92,1055,277,0" TextWrapping="Wrap" Text="Output zip" VerticalAlignment="Top" Background="#FF171717" Foreground="White" SelectionTextBrush="White" CaretBrush="White" Grid.ColumnSpan="3"/>
                         <!--<Button x:Name="Editor"  Height="30" Margin="281,476,281,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Content="Editor" Padding="0,0,0,0" Click="Editor_Copy_Click" ToolTip="Open The In Built Image Editor" HorizontalAlignment="Stretch" LayoutUpdated="Editor_LayoutUpdated" Visibility="Collapsed" />-->
 
-                        <Button x:Name="Save_Mod"  Height="39" Margin="92,1130,92,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Content="{x:Static properties:Language.Page_Tools_OutputAsAThunderstoreMod}" Padding="0,0,0,0" HorizontalAlignment="Stretch" ToolTip="Save the mod to the Specified Path" Click="Save_Mod_Click" Background="#FF383838" Grid.ColumnSpan="3" />
+                        <Button x:Name="Save_Mod"  Height="39" Margin="92,1130,92,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Content="{x:Static properties:Language.Page_Tools_OutputAsAThunderstoreMod}" Padding="0,0,0,0" HorizontalAlignment="Stretch" ToolTip="Save the mod to the Specified Path" Click="Save_Mod_Click" Background="#FF383838" Grid.ColumnSpan="3" ClickMode="Press" />
                         <Label Content="{x:Static properties:Language.Page_Tools_Name}" Width="98" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Normal" FontFamily="Gadugi" Height="19" Padding="0,0,0,0" Margin="226,719,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                         <Label Content="{x:Static properties:Language.Page_Tools_Version}" Width="98" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Normal" FontFamily="Gadugi" Height="19" Padding="0,0,0,0" Margin="226,778,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                         <Label Content="{x:Static properties:Language.Page_Tools_Webpage}" Width="98" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Normal" FontFamily="Gadugi" Height="20" Padding="0,0,0,0" Margin="226,832,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
@@ -246,7 +246,7 @@
 
                         <Label Margin="387,1022,0,0" Content="Emmision" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Width="256"></Label>
 
-                        <Button  Height="35" Margin="0,1074,138,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Content="{x:Static properties:Language.Page_Tools_OutputDirectory}" Padding="0,0,0,0" Width="229" RenderTransformOrigin="0.411,0.429" HorizontalAlignment="Right" Background="#FF383838" Click="Button_Click"/>
+                        <Button  Height="35" Margin="0,1074,138,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Content="{x:Static properties:Language.Page_Tools_OutputDirectory}" Padding="0,0,0,0" Width="229" RenderTransformOrigin="0.411,0.429" HorizontalAlignment="Right" Background="#FF383838" Click="Button_Click" ClickMode="Press"/>
                         <TextBox x:Name="Output_Directory"  Margin="108,1074,377,0" TextWrapping="Wrap" Text="Output Directory" VerticalAlignment="Top" Background="#FF171717" Foreground="White" SelectionTextBrush="White" CaretBrush="White"/>
                         <hc:ProgressButton x:Name="Output_Bt_W_Progress" Height="37" Margin="108,1125,138,0" VerticalAlignment="Top"  BorderBrush="{x:Null}" Content="{x:Static properties:Language.Page_Tools_CreateSkin}" Padding="0,0,0,0" HorizontalAlignment="Stretch" Click="Output_Bt_W_Progress_Click" Background="#FF383838" ClickMode="Press" />
                         <Label Margin="110,62,0,0" Content="{x:Static properties:Language.Page_Tools_Name}" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Height="21" VerticalAlignment="Top" HorizontalAlignment="Left" Width="173" FontSize="14"/>
@@ -344,7 +344,7 @@
                         <Label  Content="256x256~(.png)" Margin="0,583,0,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="10" HorizontalAlignment="Center"/>
                         <Label  Content="ReadMe.md" Margin="0,792,0,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="10" HorizontalAlignment="Center"/>
 
-                        <Button x:Name="Locate_Zip_Advocate"  Height="30" Margin="149,141,149,0" VerticalAlignment="Top"  BorderBrush="{x:Null}" Content="{x:Static properties:Language.Page_Tools_LocateSkinContent}" Padding="0,0,0,0" ToolTip="Locate the Mod Zip manually" HorizontalAlignment="Stretch" Background="#FF383838" Click="Locate_Zip_Advocate_Click" />
+                        <Button x:Name="Locate_Zip_Advocate"  Height="30" Margin="149,141,149,0" VerticalAlignment="Top"  BorderBrush="{x:Null}" Content="{x:Static properties:Language.Page_Tools_LocateSkinContent}" Padding="0,0,0,0" ToolTip="Locate the Mod Zip manually" HorizontalAlignment="Stretch" Background="#FF383838" Click="Locate_Zip_Advocate_Click" ClickMode="Press" />
                         <ui:SymbolIcon Margin="0,446,0,0" VerticalAlignment="Top" Symbol="Add16" RenderTransformOrigin="0.5,0.5" Opacity="0.6">
                             <ui:SymbolIcon.RenderTransform>
                                 <TransformGroup>
@@ -372,11 +372,11 @@
 
                             </FlowDocument>
                         </RichTextBox>
-                        <Button x:Name="Output_Button_Advocate"  Height="35" Margin="0,1025,100,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Content="{x:Static properties:Language.Page_Tools_OutputDirectory}" Padding="0,0,0,0" Width="180" RenderTransformOrigin="0.411,0.429" HorizontalAlignment="Right" ToolTip="Manually Specify the Output Directory" Click="Output_Button_Advocate_Click" Background="#FF383838"/>
+                        <Button x:Name="Output_Button_Advocate"  Height="35" Margin="0,1025,100,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Content="{x:Static properties:Language.Page_Tools_OutputDirectory}" Padding="0,0,0,0" Width="180" RenderTransformOrigin="0.411,0.429" HorizontalAlignment="Right" ToolTip="Manually Specify the Output Directory" Click="Output_Button_Advocate_Click" Background="#FF383838" ClickMode="Press"/>
                         <TextBox x:Name="Output_Box_Advocate" Margin="84,1025,285,0" TextWrapping="Wrap" Text="Output Path" VerticalAlignment="Top" Background="#FF171717" Foreground="White" SelectionTextBrush="White" CaretBrush="White"/>
                         <!--<Button x:Name="Editor"  Height="30" Margin="281,476,281,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Content="Editor" Padding="0,0,0,0" Click="Editor_Copy_Click" ToolTip="Open The In Built Image Editor" HorizontalAlignment="Stretch" LayoutUpdated="Editor_LayoutUpdated" Visibility="Collapsed" />-->
 
-                        <Button x:Name="Save_Mod_Advocate"  Height="39" Margin="84,1089,100,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Content="{x:Static properties:Language.Page_Tools_ConvertSkin}" Padding="0,0,0,0" HorizontalAlignment="Stretch" ToolTip="Save the mod to the Specified Path" Click="Save_Mod_Advocate_Click" Background="#FF383838" />
+                        <Button x:Name="Save_Mod_Advocate"  Height="39" Margin="84,1089,100,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Content="{x:Static properties:Language.Page_Tools_ConvertSkin}" Padding="0,0,0,0" HorizontalAlignment="Stretch" ToolTip="Save the mod to the Specified Path" Click="Save_Mod_Advocate_Click" Background="#FF383838" ClickMode="Press" />
                         <Label Content="{x:Static properties:Language.Page_Tools_VersionNumber}" Width="113" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Normal" FontFamily="Gadugi" Height="19" Padding="0,0,0,0" Margin="211,854,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                         <Label Content="{x:Static properties:Language.Page_Tools_AuthorName}" Width="113" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Normal" FontFamily="Gadugi" Height="20" Padding="0,0,0,0" Margin="211,908,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                         <Label Content="{x:Static properties:Language.Page_Tools_SkinName}" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Normal" FontFamily="Gadugi" Height="17" Padding="0,0,0,0" Margin="211,967,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="115"/>
@@ -399,7 +399,7 @@
                         <Label  Content="{x:Static properties:Language.Page_Tools_Icon}" Margin="0,301,0,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="16" HorizontalAlignment="Center"/>
                         <TextBox x:Name="Zip_Box_Advocate_Copy" Margin="149,220,149,0" TextWrapping="NoWrap" Text="RePak path" VerticalAlignment="Top" Background="#FF171717" Foreground="White" SelectionTextBrush="White" CaretBrush="White" FontSize="11" IsReadOnly="True" IsUndoEnabled="False"/>
                         <Label  Content="RePak" Margin="152,194,0,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="16" HorizontalAlignment="Left"/>
-                        <Button x:Name="Locate_Repak_Exe"  Height="30" Margin="149,256,149,0" VerticalAlignment="Top"  BorderBrush="{x:Null}" Content="{x:Static properties:Language.Page_Tools_LocateRepakExe}" Padding="0,0,0,0" ToolTip="{x:Static properties:Language.Page_Tools_LocateTheModZipManually}" HorizontalAlignment="Stretch" Background="#FF383838" Click="Locate_Repak_Exe_Click" />
+                        <Button x:Name="Locate_Repak_Exe"  Height="30" Margin="149,256,149,0" VerticalAlignment="Top"  BorderBrush="{x:Null}" Content="{x:Static properties:Language.Page_Tools_LocateRepakExe}" Padding="0,0,0,0" ToolTip="{x:Static properties:Language.Page_Tools_LocateTheModZipManually}" HorizontalAlignment="Stretch" Background="#FF383838" Click="Locate_Repak_Exe_Click" ClickMode="Press" />
                         <hc:TextBox TextWrapping="Wrap" Text="Advocate is a tool that converts a typical DDS skin that requires installation using the Titanfall 2 Skin Tool into a thunderstore-compatible Northstar mod. Advocate requires RePak to function, as it is used to create the RPak files that the Northstar mod uses." Margin="149,1,152,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="13" Height="64" BorderThickness="0,0,0,0" OverridesDefaultStyle="False" IsReadOnlyCaretVisible="True" IsInactiveSelectionHighlightEnabled="True" Foreground="#FFCECECE"/>
                     </Grid>
 
@@ -409,33 +409,149 @@
                 <hc:ScrollViewer  MouseDown="ScrollViewer_MouseDown" Height="514" Padding="9,9,9,9">
 
 
-                    <Grid  >
-                        <Border BorderThickness="1" Margin="27,12,0,315" Background="#FF404240" CornerRadius="9,9,9,9" HorizontalAlignment="Left" Width="473" Height="304">
+                    <Grid Height="1027"  >
+                        <Border BorderThickness="1" Margin="31,33,0,690" Background="#FF404240" CornerRadius="5,5,5,5" HorizontalAlignment="Left" Width="473" Height="304">
                             <Grid  >
-                                <Label Margin="12,10,8,266" Content="LEGION+" FontSize="18" Foreground="White"/>
-                                <Border CornerRadius="15,15,15,15" Margin="10,41,10,94">
+
+                                <Label Margin="10,180,0,88" Content="LEGION+" FontSize="22" Foreground="White" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Width="297" Background="{x:Null}"/>
+                                <Border CornerRadius="5,5,9,9" Margin="0,0,0,127">
+                                    <ui:Button Margin="447,0,0,0" VerticalAlignment="Top" Background="#CC3E3E3E" BorderBrush="{x:Null}" Height="24" Icon="BookInformation24" Padding="0,0,0,0" Width="24" ClickMode="Press"></ui:Button>
                                     <Border.Background>
                                         <ImageBrush Stretch="UniformToFill" ImageSource="/Resources/Resource_Static/Leigon+.png" TileMode="None"/>
                                     </Border.Background>
                                 </Border>
-                                <ui:Button  VerticalAlignment="Top" Icon="Open24" HorizontalAlignment="Stretch"  Background="#97FFD767" Margin="10,214,10,0" Content="Open Folder"/>
-                                <ui:Button  VerticalAlignment="Top" Icon="ArrowDown32" HorizontalAlignment="Stretch"  Background="#FF005D42" Margin="10,249,10,0" Height="44" Content="Install"/>
+                                <ui:Button  VerticalAlignment="Top" Icon="Open24" HorizontalAlignment="Stretch"  Background="#FFAF7800" Margin="312,161,10,0" Content="Open Folder" Foreground="White" BorderBrush="#029C9C9C" OverridesDefaultStyle="False" ClickMode="Press" Appearance="Primary" IconFilled="True" IconForeground="White">
+                                    <ui:Button.MouseOverBackground>
+                                        <SolidColorBrush Color="#FF795300" Opacity="0.9"/>
+                                    </ui:Button.MouseOverBackground>
+                                    <ui:Button.PressedBackground>
+                                        <SolidColorBrush Color="#FFCE8D00" Opacity="0.7"/>
+                                    </ui:Button.PressedBackground>
+                                </ui:Button>
+                                <ui:Button  VerticalAlignment="Top" Icon="ArrowDown32" HorizontalAlignment="Stretch"  Background="#FF005D42" Margin="10,237,10,0" Height="55" Content="Install" BorderBrush="{x:Null}" ClickMode="Press"/>
+                                <Label Margin="10,211,421,68" Content="V2.3.1" FontSize="14" Foreground="#FFB7B7B7" HorizontalContentAlignment="Center" Background="{x:Null}"/>
 
                             </Grid  >
 
                         </Border>
-                        <Border BorderThickness="1" Margin="528,12,0,315" Background="#FF404240" CornerRadius="9,9,9,9" Height="304" HorizontalAlignment="Left" Width="473">
+                        <Border BorderThickness="1" Margin="528,33,0,690" Background="#FF404240" CornerRadius="5,5,5,5" HorizontalAlignment="Left" Width="473" Height="304">
                             <Grid  >
-                                <Label Margin="12,10,8,266" Content="HARMONY VPK" FontSize="18" Foreground="White"/>
-                                <Border CornerRadius="15,15,15,15" Margin="10,41,10,94">
+
+                                <Label Margin="10,180,0,88" Content="HARMONY VPK" FontSize="22" Foreground="White" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Width="297" Background="{x:Null}"/>
+                                <Border CornerRadius="5,5,9,9" Margin="0,0,0,127">
+                                    <ui:Button Margin="447,0,0,0" VerticalAlignment="Top" Background="#CC3E3E3E" BorderBrush="{x:Null}" Height="24" Icon="BookInformation24" Padding="0,0,0,0" Width="24" ClickMode="Press"></ui:Button>
                                     <Border.Background>
                                         <ImageBrush Stretch="UniformToFill" ImageSource="/Resources/Resource_Static/harmony.png" TileMode="None"/>
                                     </Border.Background>
                                 </Border>
-                                <ui:Button  VerticalAlignment="Top" Icon="Open24" HorizontalAlignment="Stretch"  Background="#97FFD767" Margin="10,214,10,0" Content="Open Folder"/>
-                                <ui:Button  VerticalAlignment="Top" Icon="ArrowDown32" HorizontalAlignment="Stretch"  Background="#FF005D42" Margin="10,249,10,0" Height="44" Content="Install"/>
+                                <ui:Button  VerticalAlignment="Top" Icon="Open24" HorizontalAlignment="Stretch"  Background="#FFAF7800" Margin="312,161,10,0" Content="Open Folder" Foreground="White" BorderBrush="#029C9C9C" OverridesDefaultStyle="False" ClickMode="Press" Appearance="Primary" IconFilled="True" IconForeground="White">
+                                    <ui:Button.MouseOverBackground>
+                                        <SolidColorBrush Color="#FF795300" Opacity="0.9"/>
+                                    </ui:Button.MouseOverBackground>
+                                    <ui:Button.PressedBackground>
+                                        <SolidColorBrush Color="#FFCE8D00" Opacity="0.7"/>
+                                    </ui:Button.PressedBackground>
+                                </ui:Button>
+                                <ui:Button  VerticalAlignment="Top" Icon="ArrowDown32" HorizontalAlignment="Stretch"  Background="#FF005D42" Margin="10,237,10,0" Height="55" Content="Install" BorderBrush="{x:Null}" ClickMode="Press"/>
+                                <Label Margin="10,211,421,68" Content="V1.2.0" FontSize="14" Foreground="#FFB7B7B7" HorizontalContentAlignment="Center" Background="{x:Null}"/>
 
-                            </Grid>
+                            </Grid  >
+
+                        </Border>
+                        <Border BorderThickness="1" Margin="31,370,0,353" Background="#FF404240" CornerRadius="5,5,5,5" HorizontalAlignment="Left" Width="473" Height="304">
+                            <Grid  >
+
+                                <Label Margin="10,180,0,88" Content="CROWBAR" FontSize="22" Foreground="White" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Width="297" Background="{x:Null}"/>
+                                <Border CornerRadius="5,5,9,9" Margin="0,0,0,127">
+                                    <ui:Button Margin="447,0,0,0" VerticalAlignment="Top" Background="#CC3E3E3E" BorderBrush="{x:Null}" Height="24" Icon="BookInformation24" Padding="0,0,0,0" Width="24" ClickMode="Press"></ui:Button>
+                                    <Border.Background>
+                                        <ImageBrush Stretch="UniformToFill" ImageSource="/Resources/Resource_Static/Crowbar.png" TileMode="None"/>
+                                    </Border.Background>
+                                </Border>
+                                <ui:Button  VerticalAlignment="Top" Icon="Open24" HorizontalAlignment="Stretch"  Background="#FFAF7800" Margin="312,161,10,0" Content="Open Folder" Foreground="White" BorderBrush="#029C9C9C" OverridesDefaultStyle="False" ClickMode="Press" Appearance="Primary" IconFilled="True" IconForeground="White">
+                                    <ui:Button.MouseOverBackground>
+                                        <SolidColorBrush Color="#FF795300" Opacity="0.9"/>
+                                    </ui:Button.MouseOverBackground>
+                                    <ui:Button.PressedBackground>
+                                        <SolidColorBrush Color="#FFCE8D00" Opacity="0.7"/>
+                                    </ui:Button.PressedBackground>
+                                </ui:Button>
+                                <ui:Button  VerticalAlignment="Top" Icon="ArrowDown32" HorizontalAlignment="Stretch"  Background="#FF005D42" Margin="10,237,10,0" Height="55" Content="Install" BorderBrush="{x:Null}" ClickMode="Press"/>
+                                <Label Margin="10,211,421,68" Content="V0.7.2" FontSize="14" Foreground="#FFB7B7B7" HorizontalContentAlignment="Center" Background="{x:Null}"/>
+
+                            </Grid  >
+
+                        </Border>
+                        <Border BorderThickness="1" Margin="528,370,0,353" Background="#FF404240" CornerRadius="5,5,5,5" HorizontalAlignment="Left" Width="473" Height="304">
+                            <Grid  >
+
+                                <Label Margin="10,180,0,88" Content="RePak" FontSize="22" Foreground="White" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Width="297" Background="{x:Null}"/>
+                                <Border CornerRadius="5,5,9,9" Margin="0,0,0,127">
+                                    <ui:Button Margin="447,0,0,0" VerticalAlignment="Top" Background="#CC3E3E3E" BorderBrush="{x:Null}" Height="24" Icon="BookInformation24" Padding="0,0,0,0" Width="24" ClickMode="Press"></ui:Button>
+                                    <Border.Background>
+                                        <ImageBrush Stretch="UniformToFill" ImageSource="/Resources/Resource_Static/VTF_EDIT.png" TileMode="None"/>
+                                    </Border.Background>
+                                </Border>
+                                <ui:Button  VerticalAlignment="Top" Icon="Open24" HorizontalAlignment="Stretch"  Background="#FFAF7800" Margin="312,161,10,0" Content="Open Folder" Foreground="White" BorderBrush="#029C9C9C" OverridesDefaultStyle="False" ClickMode="Press" Appearance="Primary" IconFilled="True" IconForeground="White">
+                                    <ui:Button.MouseOverBackground>
+                                        <SolidColorBrush Color="#FF795300" Opacity="0.9"/>
+                                    </ui:Button.MouseOverBackground>
+                                    <ui:Button.PressedBackground>
+                                        <SolidColorBrush Color="#FFCE8D00" Opacity="0.7"/>
+                                    </ui:Button.PressedBackground>
+                                </ui:Button>
+                                <ui:Button  VerticalAlignment="Top" Icon="ArrowDown32" HorizontalAlignment="Stretch"  Background="#FF005D42" Margin="10,237,10,0" Height="55" Content="Install" BorderBrush="{x:Null}" ClickMode="Press"/>
+                                <Label Margin="10,211,421,68" Content="V1.0.1" FontSize="14" Foreground="#FFB7B7B7" HorizontalContentAlignment="Center" Background="{x:Null}"/>
+
+                            </Grid  >
+
+                        </Border>
+                        <Border BorderThickness="1" Margin="31,701,0,22" Background="#FF404240" CornerRadius="5,5,5,5" HorizontalAlignment="Left" Width="473" Height="304">
+                            <Grid  >
+
+                                <Label Margin="10,180,0,88" Content="VTF-EDIT" FontSize="22" Foreground="White" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Width="297" Background="{x:Null}"/>
+                                <Border CornerRadius="5,5,9,9" Margin="0,0,0,127">
+                                    <ui:Button Margin="447,0,0,0" VerticalAlignment="Top" Background="#CC3E3E3E" BorderBrush="{x:Null}" Height="24" Icon="BookInformation24" Padding="0,0,0,0" Width="24" ClickMode="Press"></ui:Button>
+                                    <Border.Background>
+                                        <ImageBrush Stretch="UniformToFill" ImageSource="/Resources/Resource_Static/Leigon+.png" TileMode="None"/>
+                                    </Border.Background>
+                                </Border>
+                                <ui:Button  VerticalAlignment="Top" Icon="Open24" HorizontalAlignment="Stretch"  Background="#FFAF7800" Margin="312,161,10,0" Content="Open Folder" Foreground="White" BorderBrush="#029C9C9C" OverridesDefaultStyle="False" ClickMode="Press" Appearance="Primary" IconFilled="True" IconForeground="White">
+                                    <ui:Button.MouseOverBackground>
+                                        <SolidColorBrush Color="#FF795300" Opacity="0.9"/>
+                                    </ui:Button.MouseOverBackground>
+                                    <ui:Button.PressedBackground>
+                                        <SolidColorBrush Color="#FFCE8D00" Opacity="0.7"/>
+                                    </ui:Button.PressedBackground>
+                                </ui:Button>
+                                <ui:Button  VerticalAlignment="Top" Icon="ArrowDown32" HorizontalAlignment="Stretch"  Background="#FF005D42" Margin="10,237,10,0" Height="55" Content="Install" BorderBrush="{x:Null}" ClickMode="Press"/>
+                                <Label Margin="10,211,421,68" Content="V1.3.3" FontSize="14" Foreground="#FFB7B7B7" HorizontalContentAlignment="Center" Background="{x:Null}"/>
+
+                            </Grid  >
+
+                        </Border>
+                        <Border BorderThickness="1" Margin="528,701,0,22" Background="#FF404240" CornerRadius="5,5,5,5" HorizontalAlignment="Left" Width="473" Height="304">
+                            <Grid  >
+
+                                <Label Margin="10,180,0,88" Content="TITANFALL2 VPK TOOL" FontSize="22" Foreground="White" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Width="297" Background="{x:Null}"/>
+                                <Border CornerRadius="5,5,9,9" Margin="0,0,0,127">
+                                    <ui:Button Margin="447,0,0,0" VerticalAlignment="Top" Background="#CC3E3E3E" BorderBrush="{x:Null}" Height="24" Icon="BookInformation24" Padding="0,0,0,0" Width="24" ClickMode="Press"></ui:Button>
+                                    <Border.Background>
+                                        <ImageBrush Stretch="UniformToFill" ImageSource="/Resources/Resource_Static/Leigon+.png" TileMode="None"/>
+                                    </Border.Background>
+                                </Border>
+                                <ui:Button  VerticalAlignment="Top" Icon="Open24" HorizontalAlignment="Stretch"  Background="#FFAF7800" Margin="312,161,10,0" Content="Open Folder" Foreground="White" BorderBrush="#029C9C9C" OverridesDefaultStyle="False" ClickMode="Press" Appearance="Primary" IconFilled="True" IconForeground="White">
+                                    <ui:Button.MouseOverBackground>
+                                        <SolidColorBrush Color="#FF795300" Opacity="0.9"/>
+                                    </ui:Button.MouseOverBackground>
+                                    <ui:Button.PressedBackground>
+                                        <SolidColorBrush Color="#FFCE8D00" Opacity="0.7"/>
+                                    </ui:Button.PressedBackground>
+                                </ui:Button>
+                                <ui:Button  VerticalAlignment="Top" Icon="ArrowDown32" HorizontalAlignment="Stretch"  Background="#FF005D42" Margin="10,237,10,0" Height="55" Content="Install" BorderBrush="{x:Null}" ClickMode="Press"/>
+                                <Label Margin="10,211,421,68" Content="V3.4.0" FontSize="14" Foreground="#FFB7B7B7" HorizontalContentAlignment="Center" Background="{x:Null}"/>
+
+                            </Grid  >
 
                         </Border>
 
@@ -443,6 +559,7 @@
                 </hc:ScrollViewer>
             </TabItem>
         </TabControl>
+
         <!--<ui:Dialog x:Name="Error_Dialog" />-->
 
     </Grid>

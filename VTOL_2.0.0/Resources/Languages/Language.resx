@@ -519,4 +519,7 @@
   <data name="Page_Server_StartupArgumentsNorthstarClient" xml:space="preserve">
     <value>Startup Arguments Northstar Client</value>
   </data>
+  <data name="Page_Thunderstore_CardAction_Click_DoYouWantToInstallTheseAndTheMod" xml:space="preserve">
+    <value>Do You want To install These and the Mod -</value>
+  </data>
 </root>

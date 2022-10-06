@@ -211,10 +211,12 @@
     <None Remove="Resources\Icons\Main_UI\VTOL_32.ico" />
     <None Remove="Resources\Icons\Main_UI\VTOL_multires.ico" />
     <None Remove="Resources\Icons\Titanfall2_Icon.ico" />
+    <None Remove="Resources\Resource_Static\Crowbar.png" />
     <None Remove="Resources\Resource_Static\harmony.png" />
     <None Remove="Resources\Resource_Static\Leigon+.png" />
     <None Remove="Resources\Resource_Static\Northstar_Server_Vals_Aug_2022.json" />
     <None Remove="Resources\Resource_Static\NO_TEXTURE.png" />
+    <None Remove="Resources\Resource_Static\VTF_EDIT.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -425,6 +427,9 @@
     <Content Include="Resources\Icons\Main_UI\settings.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\Resource_Static\Crowbar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Content Include="Resources\Resource_Static\Northstar_Server_Vals_Aug_2022.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -591,6 +596,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Resource_Static\NO_TEXTURE.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Resource_Static\VTF_EDIT.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

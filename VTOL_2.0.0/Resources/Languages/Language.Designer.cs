@@ -801,6 +801,15 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do You want To install These and the Mod -.
+        /// </summary>
+        public static string Page_Thunderstore_CardAction_Click_DoYouWantToInstallTheseAndTheMod {
+            get {
+                return ResourceManager.GetString("Page_Thunderstore_CardAction_Click_DoYouWantToInstallTheseAndTheMod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to These are the Collection of Mods Hosted On the ThunderStore Mod platform..
         /// </summary>
         public static string Page_Thunderstore_TheseAreTheCollectionOfModsHostedOnTheThunderStoreModPlatform {

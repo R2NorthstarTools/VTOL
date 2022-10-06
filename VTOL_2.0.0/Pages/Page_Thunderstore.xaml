@@ -83,7 +83,7 @@
 
 
 
-                        <Image x:Name="Ts_Image" Source="{Binding Icon}" Stretch="Fill" Height="Auto" GotFocus="Ts_Image_GotFocus" LostFocus="Ts_Image_LostFocus" MouseEnter="Ts_Image_MouseEnter" Width="Auto" HorizontalAlignment="Center"/>
+                        <Image x:Name="Ts_Image" Source="{Binding Icon}" Stretch="UniformToFill" Height="Auto" GotFocus="Ts_Image_GotFocus" LostFocus="Ts_Image_LostFocus" MouseEnter="Ts_Image_MouseEnter" Width="Auto" HorizontalAlignment="Center" SnapsToDevicePixels="True"/>
 
 
 
@@ -158,7 +158,7 @@
                             </ui:SymbolIcon>
                             <TextBlock TextAlignment="Center" Text="{Binding Downloads}" Margin="164,231,0,0"  FontSize="11" Background="{x:Null}" Foreground="#FFC7C7C7" FontWeight="Normal" Height="13" HorizontalAlignment="Left" VerticalAlignment="Top" Width="54"/>
                             <TextBlock TextAlignment="Center" Text="{Binding Rating}" Margin="38,231,0,0"  FontSize="11" Background="{x:Null}" Foreground="#FFC7C7C7" FontWeight="Normal" Height="13" HorizontalAlignment="Left" VerticalAlignment="Top" Width="54"/>
-                            <ui:CardAction Content="Dependencies" Height="33" Margin="-11,128,-11,0" VerticalAlignment="Top" Padding="2,0,0,0" RenderTransformOrigin="0.5,0.5" Icon="ReceiptPlay20" Click="CardAction_Click" Tag="{Binding FullName}" IsEnabled="False" IconForeground="White" ToolTip="{Binding Dependencies}" Foreground="White" Focusable="False" IsTabStop="False" ClickMode="Press">
+                            <ui:CardAction Content="{x:Static properties:Language.Page_Tools_Dependencies}" Height="33" Margin="-11,128,-11,0" VerticalAlignment="Top" Padding="2,0,0,0" RenderTransformOrigin="0.5,0.5" Icon="ReceiptPlay20" Click="CardAction_Click" Tag="{Binding FullName}" IsEnabled="False" IconForeground="White" ToolTip="{Binding Dependencies}" Foreground="White" Focusable="False" IsTabStop="False" ClickMode="Press" SnapsToDevicePixels="True">
                                 <ui:CardAction.RenderTransform>
                                     <TransformGroup>
                                         <ScaleTransform ScaleX="0.85" ScaleY="0.85"/>
@@ -212,7 +212,7 @@
 
 
         <!--<ui:Dialog x:Name="Dialog" SnapsToDevicePixels="False"  />-->
-        <ui:Dialog x:Name="Dialog" ButtonRightClick="Dialog_ButtonRightClick" Foreground="White" Focusable="False" ButtonLeftClick="Dialog_ButtonLeftClick"/>
+        <ui:Dialog x:Name="Dialog" ButtonRightClick="Dialog_ButtonRightClick" Foreground="White" Focusable="False" ButtonLeftClick="Dialog_ButtonLeftClick" SnapsToDevicePixels="False"/>
         <ui:ProgressRing x:Name="Loading_Ring" Width="120" Height="120" Foreground="#FF009468"  IsIndeterminate="True"  Visibility="Visible" Margin="514,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"></ui:ProgressRing>
         <Label x:Name="Filter_Label" Margin="0,140,283,0" Background="{x:Null}" Foreground="#CCFFFFFF" Content="Filter" VerticalContentAlignment="Center" VerticalAlignment="Top" FontSize="14" IsHitTestVisible="False" Height="20" Padding="0,0,0,0" IsEnabled="False" HorizontalAlignment="Right" Width="155"/>
     </Grid>

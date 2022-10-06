@@ -1423,7 +1423,7 @@ Main.logger2.Close();
                 var Tag_Data_ = ((Wpf.Ui.Controls.CardAction)sender).ToolTip.ToString();
                 var Name_Data = ((Wpf.Ui.Controls.CardAction)sender).Tag.ToString();
                
-               string Tag_Data = "\n" + (Tag_Data_.Replace(",", "\n").Replace(" ", "") + "\n\nDo You want To install These and the Mod -\n" + Name_Data  +   "?").Trim();
+               string Tag_Data = "\n" + (Tag_Data_.Replace(",", "\n").Replace(" ", "") + "\n\n"+VTOL.Resources.Languages.Language.Page_Thunderstore_CardAction_Click_DoYouWantToInstallTheseAndTheMod+"\n" + Name_Data  +   "?").Trim();
                 if (Tag_Data.Count() > 5)
             {
                 Dialog.Title = Name_Data + " - Dependencies";
