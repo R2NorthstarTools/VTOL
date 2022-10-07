@@ -522,4 +522,28 @@
   <data name="Page_Thunderstore_CardAction_Click_DoYouWantToInstallTheseAndTheMod" xml:space="preserve">
     <value>Do You want To install These and the Mod -</value>
   </data>
+  <data name="MainWindow_Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="MainWindow_Mods" xml:space="preserve">
+    <value>Mods</value>
+  </data>
+  <data name="MainWindow_Skins" xml:space="preserve">
+    <value>Skins</value>
+  </data>
+  <data name="MainWindow_Server" xml:space="preserve">
+    <value>Server</value>
+  </data>
+  <data name="MainWindow_Tools" xml:space="preserve">
+    <value>Tools</value>
+  </data>
+  <data name="MainWindow_About" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="MainWindow_Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Page_Tools_OpenFolder" xml:space="preserve">
+    <value>Open Folder</value>
+  </data>
 </root>

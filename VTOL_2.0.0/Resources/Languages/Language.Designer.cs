@@ -97,11 +97,74 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to About.
+        /// </summary>
+        public static string MainWindow_About {
+            get {
+                return ResourceManager.GetString("MainWindow_About", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Home.
+        /// </summary>
+        public static string MainWindow_Home {
+            get {
+                return ResourceManager.GetString("MainWindow_Home", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to VTOL SYSTEMS FAILED TO FIND YOUR DOCUMENTS FOLDER.
         /// </summary>
         public static string MainWindow_MainWindow_VTOLSYSTEMSFAILEDTOFINDYOURDOCUMENTSFOLDER {
             get {
                 return ResourceManager.GetString("MainWindow_MainWindow_VTOLSYSTEMSFAILEDTOFINDYOURDOCUMENTSFOLDER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mods.
+        /// </summary>
+        public static string MainWindow_Mods {
+            get {
+                return ResourceManager.GetString("MainWindow_Mods", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Server.
+        /// </summary>
+        public static string MainWindow_Server {
+            get {
+                return ResourceManager.GetString("MainWindow_Server", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        public static string MainWindow_Settings {
+            get {
+                return ResourceManager.GetString("MainWindow_Settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skins.
+        /// </summary>
+        public static string MainWindow_Skins {
+            get {
+                return ResourceManager.GetString("MainWindow_Skins", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tools.
+        /// </summary>
+        public static string MainWindow_Tools {
+            get {
+                return ResourceManager.GetString("MainWindow_Tools", resourceCulture);
             }
         }
         
@@ -1040,6 +1103,15 @@ namespace VTOL.Resources.Languages {
         public static string Page_Tools_Name {
             get {
                 return ResourceManager.GetString("Page_Tools_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open Folder.
+        /// </summary>
+        public static string Page_Tools_OpenFolder {
+            get {
+                return ResourceManager.GetString("Page_Tools_OpenFolder", resourceCulture);
             }
         }
         

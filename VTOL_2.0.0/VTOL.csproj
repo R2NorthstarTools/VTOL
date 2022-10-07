@@ -216,6 +216,8 @@
     <None Remove="Resources\Resource_Static\Leigon+.png" />
     <None Remove="Resources\Resource_Static\Northstar_Server_Vals_Aug_2022.json" />
     <None Remove="Resources\Resource_Static\NO_TEXTURE.png" />
+    <None Remove="Resources\Resource_Static\Rexx_Cat.jpg" />
+    <None Remove="Resources\Resource_Static\Titanfall_2_Vpk_Tool_.png" />
     <None Remove="Resources\Resource_Static\VTF_EDIT.png" />
   </ItemGroup>
 
@@ -427,6 +429,9 @@
     <Content Include="Resources\Icons\Main_UI\settings.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\Resource_Static\Rexx_Cat.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Resource_Static\Crowbar.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -596,6 +601,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Resource_Static\NO_TEXTURE.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Resource_Static\Titanfall_2_Vpk_Tool_.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Resource_Static\VTF_EDIT.png">

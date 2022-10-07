@@ -405,7 +405,7 @@
 
                 </hc:ScrollViewer>
             </TabItem>
-            <TabItem Header="Addon Tools">
+            <TabItem Header="External Tools">
                 <hc:ScrollViewer  MouseDown="ScrollViewer_MouseDown" Height="514" Padding="9,9,9,9">
 
 
@@ -420,7 +420,7 @@
                                         <ImageBrush Stretch="UniformToFill" ImageSource="/Resources/Resource_Static/Leigon+.png" TileMode="None"/>
                                     </Border.Background>
                                 </Border>
-                                <ui:Button  VerticalAlignment="Top" Icon="Open24" HorizontalAlignment="Stretch"  Background="#FFAF7800" Margin="312,161,10,0" Content="Open Folder" Foreground="White" BorderBrush="#029C9C9C" OverridesDefaultStyle="False" ClickMode="Press" Appearance="Primary" IconFilled="True" IconForeground="White">
+                                <ui:Button  VerticalAlignment="Top" Icon="Open24" HorizontalAlignment="Stretch"  Background="#FFAF7800" Margin="312,161,10,0" Content="{x:Static properties:Language.Page_Tools_OpenFolder}" Foreground="White" BorderBrush="#029C9C9C" OverridesDefaultStyle="False" ClickMode="Press" Appearance="Primary" IconFilled="True" IconForeground="White">
                                     <ui:Button.MouseOverBackground>
                                         <SolidColorBrush Color="#FF795300" Opacity="0.9"/>
                                     </ui:Button.MouseOverBackground>
@@ -444,7 +444,7 @@
                                         <ImageBrush Stretch="UniformToFill" ImageSource="/Resources/Resource_Static/harmony.png" TileMode="None"/>
                                     </Border.Background>
                                 </Border>
-                                <ui:Button  VerticalAlignment="Top" Icon="Open24" HorizontalAlignment="Stretch"  Background="#FFAF7800" Margin="312,161,10,0" Content="Open Folder" Foreground="White" BorderBrush="#029C9C9C" OverridesDefaultStyle="False" ClickMode="Press" Appearance="Primary" IconFilled="True" IconForeground="White">
+                                <ui:Button  VerticalAlignment="Top" Icon="Open24" HorizontalAlignment="Stretch"  Background="#FFAF7800" Margin="312,161,10,0" Content="{x:Static properties:Language.Page_Tools_OpenFolder}" Foreground="White" BorderBrush="#029C9C9C" OverridesDefaultStyle="False" ClickMode="Press" Appearance="Primary" IconFilled="True" IconForeground="White">
                                     <ui:Button.MouseOverBackground>
                                         <SolidColorBrush Color="#FF795300" Opacity="0.9"/>
                                     </ui:Button.MouseOverBackground>
@@ -468,7 +468,7 @@
                                         <ImageBrush Stretch="UniformToFill" ImageSource="/Resources/Resource_Static/Crowbar.png" TileMode="None"/>
                                     </Border.Background>
                                 </Border>
-                                <ui:Button  VerticalAlignment="Top" Icon="Open24" HorizontalAlignment="Stretch"  Background="#FFAF7800" Margin="312,161,10,0" Content="Open Folder" Foreground="White" BorderBrush="#029C9C9C" OverridesDefaultStyle="False" ClickMode="Press" Appearance="Primary" IconFilled="True" IconForeground="White">
+                                <ui:Button  VerticalAlignment="Top" Icon="Open24" HorizontalAlignment="Stretch"  Background="#FFAF7800" Margin="312,161,10,0" Content="{x:Static properties:Language.Page_Tools_OpenFolder}" Foreground="White" BorderBrush="#029C9C9C" OverridesDefaultStyle="False" ClickMode="Press" Appearance="Primary" IconFilled="True" IconForeground="White">
                                     <ui:Button.MouseOverBackground>
                                         <SolidColorBrush Color="#FF795300" Opacity="0.9"/>
                                     </ui:Button.MouseOverBackground>
@@ -489,10 +489,10 @@
                                 <Border CornerRadius="5,5,9,9" Margin="0,0,0,127">
                                     <ui:Button Margin="447,0,0,0" VerticalAlignment="Top" Background="#CC3E3E3E" BorderBrush="{x:Null}" Height="24" Icon="BookInformation24" Padding="0,0,0,0" Width="24" ClickMode="Press"></ui:Button>
                                     <Border.Background>
-                                        <ImageBrush Stretch="UniformToFill" ImageSource="/Resources/Resource_Static/VTF_EDIT.png" TileMode="None"/>
+                                        <ImageBrush Stretch="UniformToFill" ImageSource="/Resources/Resource_Static/Rexx_Cat.jpg" TileMode="None"/>
                                     </Border.Background>
                                 </Border>
-                                <ui:Button  VerticalAlignment="Top" Icon="Open24" HorizontalAlignment="Stretch"  Background="#FFAF7800" Margin="312,161,10,0" Content="Open Folder" Foreground="White" BorderBrush="#029C9C9C" OverridesDefaultStyle="False" ClickMode="Press" Appearance="Primary" IconFilled="True" IconForeground="White">
+                                <ui:Button  VerticalAlignment="Top" Icon="Open24" HorizontalAlignment="Stretch"  Background="#FFAF7800" Margin="312,161,10,0" Content="{x:Static properties:Language.Page_Tools_OpenFolder}" Foreground="White" BorderBrush="#029C9C9C" OverridesDefaultStyle="False" ClickMode="Press" Appearance="Primary" IconFilled="True" IconForeground="White">
                                     <ui:Button.MouseOverBackground>
                                         <SolidColorBrush Color="#FF795300" Opacity="0.9"/>
                                     </ui:Button.MouseOverBackground>
@@ -513,10 +513,10 @@
                                 <Border CornerRadius="5,5,9,9" Margin="0,0,0,127">
                                     <ui:Button Margin="447,0,0,0" VerticalAlignment="Top" Background="#CC3E3E3E" BorderBrush="{x:Null}" Height="24" Icon="BookInformation24" Padding="0,0,0,0" Width="24" ClickMode="Press"></ui:Button>
                                     <Border.Background>
-                                        <ImageBrush Stretch="UniformToFill" ImageSource="/Resources/Resource_Static/Leigon+.png" TileMode="None"/>
+                                        <ImageBrush Stretch="UniformToFill" ImageSource="/Resources/Resource_Static/VTF_EDIT.png" TileMode="None"/>
                                     </Border.Background>
                                 </Border>
-                                <ui:Button  VerticalAlignment="Top" Icon="Open24" HorizontalAlignment="Stretch"  Background="#FFAF7800" Margin="312,161,10,0" Content="Open Folder" Foreground="White" BorderBrush="#029C9C9C" OverridesDefaultStyle="False" ClickMode="Press" Appearance="Primary" IconFilled="True" IconForeground="White">
+                                <ui:Button  VerticalAlignment="Top" Icon="Open24" HorizontalAlignment="Stretch"  Background="#FFAF7800" Margin="312,161,10,0" Content="{x:Static properties:Language.Page_Tools_OpenFolder}" Foreground="White" BorderBrush="#029C9C9C" OverridesDefaultStyle="False" ClickMode="Press" Appearance="Primary" IconFilled="True" IconForeground="White">
                                     <ui:Button.MouseOverBackground>
                                         <SolidColorBrush Color="#FF795300" Opacity="0.9"/>
                                     </ui:Button.MouseOverBackground>
@@ -533,14 +533,14 @@
                         <Border BorderThickness="1" Margin="528,701,0,22" Background="#FF404240" CornerRadius="5,5,5,5" HorizontalAlignment="Left" Width="473" Height="304">
                             <Grid  >
 
-                                <Label Margin="10,180,0,88" Content="TITANFALL2 VPK TOOL" FontSize="22" Foreground="White" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Width="297" Background="{x:Null}"/>
+                                <Label Margin="10,180,0,88" Content="TITANFALL 2 VPK TOOL" FontSize="22" Foreground="White" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Width="297" Background="{x:Null}"/>
                                 <Border CornerRadius="5,5,9,9" Margin="0,0,0,127">
                                     <ui:Button Margin="447,0,0,0" VerticalAlignment="Top" Background="#CC3E3E3E" BorderBrush="{x:Null}" Height="24" Icon="BookInformation24" Padding="0,0,0,0" Width="24" ClickMode="Press"></ui:Button>
                                     <Border.Background>
-                                        <ImageBrush Stretch="UniformToFill" ImageSource="/Resources/Resource_Static/Leigon+.png" TileMode="None"/>
+                                        <ImageBrush Stretch="UniformToFill" ImageSource="/Resources/Resource_Static/Titanfall_2_Vpk_Tool_.png" TileMode="None"/>
                                     </Border.Background>
                                 </Border>
-                                <ui:Button  VerticalAlignment="Top" Icon="Open24" HorizontalAlignment="Stretch"  Background="#FFAF7800" Margin="312,161,10,0" Content="Open Folder" Foreground="White" BorderBrush="#029C9C9C" OverridesDefaultStyle="False" ClickMode="Press" Appearance="Primary" IconFilled="True" IconForeground="White">
+                                <ui:Button  VerticalAlignment="Top" Icon="Open24" HorizontalAlignment="Stretch"  Background="#FFAF7800" Margin="312,161,10,0" Content="{x:Static properties:Language.Page_Tools_OpenFolder}" Foreground="White" BorderBrush="#029C9C9C" OverridesDefaultStyle="False" ClickMode="Press" Appearance="Primary" IconFilled="True" IconForeground="White">
                                     <ui:Button.MouseOverBackground>
                                         <SolidColorBrush Color="#FF795300" Opacity="0.9"/>
                                     </ui:Button.MouseOverBackground>

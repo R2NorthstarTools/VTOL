@@ -136,34 +136,34 @@ xmlns:notifications="clr-namespace:Notification.Wpf.Controls;assembly=Notificati
           >
             <ui:NavigationCompact.Items>
                 <ui:NavigationItem x:Name="Home"
-                    Content="Home"
+                    Content="{x:Static properties:Language.MainWindow_Home}"
                     Icon="Home24" PageTag="Home" PageType="{x:Type Pages:Page_Home}"
                     />
                 <ui:NavigationSeparator />
                 <ui:NavigationItem x:Name="Mods"
-                    Content="Mods"
+                    Content="{x:Static properties:Language.MainWindow_Mods}"
                     Icon="FolderOpen16" PageType="{x:Type Pages:Page_Mods}"
                                 
 
                     />
                 <ui:NavigationItem x:Name="Browse"
-                    Content="Browse"
+                    Content="{x:Static properties:Language.Page_Skins_Browse}"
                     Icon="BoxSearch20" FontSize="10" PageType="{x:Type Pages:Page_Thunderstore}"
                     />
                 <ui:NavigationItem x:Name="Skins"
-                    Content="Skins"
+                    Content="{x:Static properties:Language.MainWindow_Skins}"
                     Icon="InkStroke20" FontSize="10" PageType="{x:Type Pages:Page_Skins}"
                     />
                 <ui:NavigationItem x:Name="Server"
-                    Content="Server"
+                    Content="{x:Static properties:Language.MainWindow_Server}"
                     Icon="ServerPlay20" FontSize="10" PageType="{x:Type Pages:Page_Server}"
                     />
                 <ui:NavigationItem x:Name="Tools"
-                    Content="Tools"
+                    Content="{x:Static properties:Language.MainWindow_Tools}"
                     Icon="Toolbox12" FontSize="10" PageType="{x:Type Pages:Page_Tools}"
                     />
                 <ui:NavigationItem x:Name="About"
-                    Content="About"
+                    Content="{x:Static properties:Language.MainWindow_About}"
                     Icon="BookInformation20" FontSize="10" PageType="{x:Type Pages:Page_About}"
                     />
 
@@ -171,7 +171,7 @@ xmlns:notifications="clr-namespace:Notification.Wpf.Controls;assembly=Notificati
             <ui:NavigationCompact.Footer>
                 <ui:NavigationSeparator />
                 <ui:NavigationItem x:Name="Settings"
-                    Content="Settings"
+                    Content="{x:Static properties:Language.MainWindow_Settings}"
                     Icon="Options16" PageType="{x:Type Pages:Page_Settings}"
                    />
                 <!--  A navigation element that does not point to the page can be used as a button.  -->
