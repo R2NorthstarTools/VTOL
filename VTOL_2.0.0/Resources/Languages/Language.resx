@@ -546,4 +546,19 @@
   <data name="Page_Tools_OpenFolder" xml:space="preserve">
     <value>Open Folder</value>
   </data>
+  <data name="Page_Tools_WebPage_" xml:space="preserve">
+    <value>WebPage</value>
+  </data>
+  <data name="Page_Tools_Check_For_Tools_Launch" xml:space="preserve">
+    <value>Launch</value>
+  </data>
+  <data name="Page_Tools_Check_For_Tools_Install" xml:space="preserve">
+    <value>Install</value>
+  </data>
+  <data name="Page_Tools_Download_Zip_To_Path_DownloadingAndInstalling" xml:space="preserve">
+    <value>Downloading and Installing </value>
+  </data>
+  <data name="Page_Tools_Locate_Repak_Exe_Click_ExeLocated" xml:space="preserve">
+    <value>Exe Located!</value>
+  </data>
 </root>

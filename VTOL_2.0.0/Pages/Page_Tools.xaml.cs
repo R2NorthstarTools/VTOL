@@ -2709,12 +2709,18 @@ private readonly Dictionary<string, string> weaponNameToPath = new()
                 if (Tabs.SelectedValue.ToString().Contains("External Tools"))
                 {
                     Check_For_Tools();
+                    fade_dav(false);
+
                 }
                 else if (Tabs.SelectedValue.ToString().Contains("Advocate"))
                 {
                     fade_dav(true);
-
-                }
+                    if (Directory.Exists(Tools_Dir + @"RePak") && File.Exists(Tools_Dir + @"RePak\" + "RePak.exe") && !File.Exists(Mod_Adv_Repak_Path))
+                    {
+                        Mod_Adv_Repak_Path = Tools_Dir + @"RePak\" + "RePak.exe";
+                        Zip_Box_Advocate_Copy.Text = Mod_Adv_Repak_Path;
+                    }
+                    }
                 else
                 {
                     fade_dav(false);
@@ -2978,7 +2984,7 @@ Main.logger2.Close();
                         {
                             SnackBar.Appearance = ControlAppearance.Info;
                             SnackBar.Title = "INFO";
-                            SnackBar.Message = "Exe Located!";
+                            SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Locate_Repak_Exe_Click_ExeLocated;
                             SnackBar.Show();
                             Zip_Box_Advocate_Copy.Text = Mod_Adv_Repak_Path;
 
@@ -3086,7 +3092,7 @@ Main.logger2.Close();
             {
                 DispatchIfNecessary(() =>
                 {
-                    SnackBar.Message = "Downloading and Installing " + Sub_Name;
+                    SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Download_Zip_To_Path_DownloadingAndInstalling + Sub_Name;
                     SnackBar.Title = "INFO";
                     SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
                     SnackBar.Show();
@@ -3137,7 +3143,7 @@ Main.logger2.Close();
             await Task.Run(() =>
             {
                 DispatchIfNecessary(() => {
-                    SnackBar.Message = "Opening the Following URL - " + URL;
+                    SnackBar.Message = VTOL.Resources.Languages.Language.Page_Skins_OPEN_WEBPAGE_OpeningTheFollowingURL + URL;
                     SnackBar.Title = "INFO";
                     SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
                     SnackBar.Show();
@@ -3165,7 +3171,7 @@ Main.logger2.Close();
                         //Legion+
                         if(Directory.Exists(Tools_Dir + @"LEGION+") && File.Exists(Tools_Dir + @"LEGION+\" + "LegionPlus.exe"))
                         {
-                            LEGION_INSTALL.Content = "Launch";
+                            LEGION_INSTALL.Content = VTOL.Resources.Languages.Language.Page_Tools_Check_For_Tools_Launch;
                             LEGION_INSTALL.Icon = SymbolRegular.Open28;
                             LEGION_INSTALL.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF005D42");
                             LEGION_INSTALL_FOLDER.IsEnabled = true;
@@ -3178,14 +3184,14 @@ Main.logger2.Close();
                             LEGION_INSTALL_FOLDER.IsEnabled = false;
                             LEGION_INSTALL_FOLDER.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF3A3A3A");
 
-                            LEGION_INSTALL.Content = "Install";
+                            LEGION_INSTALL.Content = VTOL.Resources.Languages.Language.Page_Tools_Check_For_Tools_Install;
                             LEGION_INSTALL.Icon = SymbolRegular.ArrowDown32;
                             LEGION_INSTALL.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF5B0606");
                         }
                         //HARMONY_INSTALL
                         if (Directory.Exists(Tools_Dir + @"Harmony_VPK") && File.Exists(Tools_Dir + @"Harmony_VPK\" + "Harmony.VPK.Tool.exe"))
                         {
-                            HARMONY_INSTALL.Content = "Launch";
+                            HARMONY_INSTALL.Content = VTOL.Resources.Languages.Language.Page_Tools_Check_For_Tools_Launch;
                             HARMONY_INSTALL.Icon = SymbolRegular.Open28;
                             HARMONY_INSTALL.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF005D42");
                             HARMONY_INSTALL_FOLDER.IsEnabled = true;
@@ -3198,14 +3204,14 @@ Main.logger2.Close();
                             HARMONY_INSTALL_FOLDER.IsEnabled = false;
                             HARMONY_INSTALL_FOLDER.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF3A3A3A");
 
-                            HARMONY_INSTALL.Content = "Install";
+                            HARMONY_INSTALL.Content = VTOL.Resources.Languages.Language.Page_Tools_Check_For_Tools_Install;
                             HARMONY_INSTALL.Icon = SymbolRegular.ArrowDown32;
                             HARMONY_INSTALL.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF5B0606");
                         }
                         //CROWBAR_INSTALL
                         if (Directory.Exists(Tools_Dir + @"CrowBar") && File.Exists(Tools_Dir + @"CrowBar\" + "Crowbar.exe"))
                         {
-                            CROWBAR_INSTALL.Content = "Launch";
+                            CROWBAR_INSTALL.Content = VTOL.Resources.Languages.Language.Page_Tools_Check_For_Tools_Launch;
                             CROWBAR_INSTALL.Icon = SymbolRegular.Open28;
                             CROWBAR_INSTALL.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF005D42");
                             CROWBAR_INSTALL_FOLDER.IsEnabled = true;
@@ -3218,14 +3224,14 @@ Main.logger2.Close();
                             CROWBAR_INSTALL_FOLDER.IsEnabled = false;
                             CROWBAR_INSTALL_FOLDER.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF3A3A3A");
 
-                            CROWBAR_INSTALL.Content = "Install";
+                            CROWBAR_INSTALL.Content = VTOL.Resources.Languages.Language.Page_Tools_Check_For_Tools_Install;
                             CROWBAR_INSTALL.Icon = SymbolRegular.ArrowDown32;
                             CROWBAR_INSTALL.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF5B0606");
                         }
                         //REPAK_INSTALL
                         if (Directory.Exists(Tools_Dir + @"RePak") && File.Exists(Tools_Dir + @"RePak\" + "RePak.exe"))
                         {
-                            REPAK_INSTALL.Content = "Launch";
+                            REPAK_INSTALL.Content = VTOL.Resources.Languages.Language.Page_Tools_Check_For_Tools_Launch;
                             REPAK_INSTALL.Icon = SymbolRegular.Open28;
                             REPAK_INSTALL.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF005D42");
                             REPAK_INSTALL_FOLDER.IsEnabled = true;
@@ -3238,14 +3244,14 @@ Main.logger2.Close();
                             REPAK_INSTALL_FOLDER.IsEnabled = false;
                             REPAK_INSTALL_FOLDER.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF3A3A3A");
 
-                            REPAK_INSTALL.Content = "Install";
+                            REPAK_INSTALL.Content = VTOL.Resources.Languages.Language.Page_Tools_Check_For_Tools_Install;
                             REPAK_INSTALL.Icon = SymbolRegular.ArrowDown32;
                             REPAK_INSTALL.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF5B0606");
                         }
                         //VTF_EDIT_INSTALL
                         if (Directory.Exists(Tools_Dir + @"VTF_Edit") && File.Exists(Tools_Dir + @"VTF_Edit\" + "VTFEdit.exe"))
                         {
-                            VTF_EDIT_INSTALL.Content = "Launch";
+                            VTF_EDIT_INSTALL.Content = VTOL.Resources.Languages.Language.Page_Tools_Check_For_Tools_Launch;
                             VTF_EDIT_INSTALL.Icon = SymbolRegular.Open28;
                             VTF_EDIT_INSTALL.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF005D42");
                             VTF_TOOL_FOLDER.IsEnabled = true;
@@ -3258,14 +3264,14 @@ Main.logger2.Close();
                             VTF_TOOL_FOLDER.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF3A3A3A");
 
                             VTF_TOOL_FOLDER.IsEnabled = false;
-                            VTF_EDIT_INSTALL.Content = "Install";
+                            VTF_EDIT_INSTALL.Content = VTOL.Resources.Languages.Language.Page_Tools_Check_For_Tools_Install;
                             VTF_EDIT_INSTALL.Icon = SymbolRegular.ArrowDown32;
                             VTF_EDIT_INSTALL.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF5B0606");
                         }
                         //VPK_TOOL_INSTALL
                         if (Directory.Exists(Tools_Dir + @"Titanfall2_VPK_Tool") && File.Exists(Tools_Dir + @"Titanfall2_VPK_Tool\" + "TitanFall VPK Tool.exe"))
                         {
-                            VPK_TOOL_INSTALL.Content = "Launch";
+                            VPK_TOOL_INSTALL.Content = VTOL.Resources.Languages.Language.Page_Tools_Check_For_Tools_Launch;
                             VPK_TOOL_INSTALL.Icon = SymbolRegular.Open28;
                             VPK_TOOL_INSTALL.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF005D42");
                             VPK_TOOL_FOLDER.IsEnabled = true;
@@ -3277,7 +3283,7 @@ Main.logger2.Close();
                         {
                             VPK_TOOL_FOLDER.IsEnabled = false;
                             VPK_TOOL_FOLDER.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF3A3A3A");
-                            VPK_TOOL_INSTALL.Content = "Install";
+                            VPK_TOOL_INSTALL.Content = VTOL.Resources.Languages.Language.Page_Tools_Check_For_Tools_Install;
                             VPK_TOOL_INSTALL.Icon = SymbolRegular.ArrowDown32;
                             VPK_TOOL_INSTALL.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF5B0606");
                         }

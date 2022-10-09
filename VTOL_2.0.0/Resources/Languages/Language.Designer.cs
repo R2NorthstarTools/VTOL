@@ -909,6 +909,24 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Install.
+        /// </summary>
+        public static string Page_Tools_Check_For_Tools_Install {
+            get {
+                return ResourceManager.GetString("Page_Tools_Check_For_Tools_Install", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Launch.
+        /// </summary>
+        public static string Page_Tools_Check_For_Tools_Launch {
+            get {
+                return ResourceManager.GetString("Page_Tools_Check_For_Tools_Launch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Choose Your Item.
         /// </summary>
         public static string Page_Tools_ChooseYourItem {
@@ -968,6 +986,15 @@ namespace VTOL.Resources.Languages {
         public static string Page_Tools_Description {
             get {
                 return ResourceManager.GetString("Page_Tools_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Downloading and Installing .
+        /// </summary>
+        public static string Page_Tools_Download_Zip_To_Path_DownloadingAndInstalling {
+            get {
+                return ResourceManager.GetString("Page_Tools_Download_Zip_To_Path_DownloadingAndInstalling", resourceCulture);
             }
         }
         
@@ -1049,6 +1076,15 @@ namespace VTOL.Resources.Languages {
         public static string Page_Tools_Locate_Repak_Exe {
             get {
                 return ResourceManager.GetString("Page_Tools_Locate_Repak_Exe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exe Located!.
+        /// </summary>
+        public static string Page_Tools_Locate_Repak_Exe_Click_ExeLocated {
+            get {
+                return ResourceManager.GetString("Page_Tools_Locate_Repak_Exe_Click_ExeLocated", resourceCulture);
             }
         }
         
@@ -1292,6 +1328,15 @@ namespace VTOL.Resources.Languages {
         public static string Page_Tools_Webpage {
             get {
                 return ResourceManager.GetString("Page_Tools_Webpage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WebPage.
+        /// </summary>
+        public static string Page_Tools_WebPage_ {
+            get {
+                return ResourceManager.GetString("Page_Tools_WebPage_", resourceCulture);
             }
         }
         

@@ -415,7 +415,7 @@
 
                                 <Label Margin="10,180,0,88" Content="LEGION+" FontSize="22" Foreground="White" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Width="297" Background="{x:Null}"/>
                                 <Border CornerRadius="5,5,9,9" Margin="0,0,0,127">
-                                    <ui:Button x:Name="LEGION_INSTALL_PAGE"  Margin="447,0,0,0" VerticalAlignment="Top" Background="#CC3E3E3E" BorderBrush="{x:Null}" Height="24" Icon="BookInformation24" Padding="0,0,0,0" Width="24" ClickMode="Press" Click="LEGION_INSTALL_PAGE_Click"></ui:Button>
+                                    <ui:Button ToolTip="{x:Static properties:Language.Page_Tools_WebPage_}"  x:Name="LEGION_INSTALL_PAGE"  Margin="447,0,0,0" VerticalAlignment="Top" Background="#CC3E3E3E" BorderBrush="{x:Null}" Height="24" Icon="BookInformation24" Padding="0,0,0,0" Width="24" ClickMode="Press" Click="LEGION_INSTALL_PAGE_Click"></ui:Button>
                                     <Border.Background>
                                         <ImageBrush Stretch="UniformToFill" ImageSource="/Resources/Resource_Static/Leigon+.png" TileMode="None"/>
                                     </Border.Background>
@@ -439,7 +439,7 @@
 
                                 <Label Margin="10,180,0,88" Content="HARMONY VPK" FontSize="22" Foreground="White" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Width="297" Background="{x:Null}"/>
                                 <Border CornerRadius="5,5,9,9" Margin="0,0,0,127">
-                                    <ui:Button x:Name="HARMONY_INSTALL_PAGE" Margin="447,0,0,0" VerticalAlignment="Top" Background="#CC3E3E3E" BorderBrush="{x:Null}" Height="24" Icon="BookInformation24" Padding="0,0,0,0" Width="24" ClickMode="Press" Click="HARMONY_INSTALL_PAGE_Click"></ui:Button>
+                                    <ui:Button ToolTip="{x:Static properties:Language.Page_Tools_WebPage_}"  x:Name="HARMONY_INSTALL_PAGE" Margin="447,0,0,0" VerticalAlignment="Top" Background="#CC3E3E3E" BorderBrush="{x:Null}" Height="24" Icon="BookInformation24" Padding="0,0,0,0" Width="24" ClickMode="Press" Click="HARMONY_INSTALL_PAGE_Click"></ui:Button>
                                     <Border.Background>
                                         <ImageBrush Stretch="UniformToFill" ImageSource="/Resources/Resource_Static/harmony.png" TileMode="None"/>
                                     </Border.Background>
@@ -463,7 +463,7 @@
 
                                 <Label Margin="10,180,0,88" Content="CROWBAR" FontSize="22" Foreground="White" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Width="297" Background="{x:Null}"/>
                                 <Border CornerRadius="5,5,9,9" Margin="0,0,0,127">
-                                    <ui:Button x:Name="CROWBAR_INSTALL_PAGE" Margin="447,0,0,0" VerticalAlignment="Top" Background="#CC3E3E3E" BorderBrush="{x:Null}" Height="24" Icon="BookInformation24" Padding="0,0,0,0" Width="24" ClickMode="Press" Click="CROWBAR_INSTALL_PAGE_Click"></ui:Button>
+                                    <ui:Button ToolTip="{x:Static properties:Language.Page_Tools_WebPage_}" x:Name="CROWBAR_INSTALL_PAGE" Margin="447,0,0,0" VerticalAlignment="Top" Background="#CC3E3E3E" BorderBrush="{x:Null}" Height="24" Icon="BookInformation24" Padding="0,0,0,0" Width="24" ClickMode="Press" Click="CROWBAR_INSTALL_PAGE_Click"></ui:Button>
                                     <Border.Background>
                                         <ImageBrush Stretch="UniformToFill" ImageSource="/Resources/Resource_Static/Crowbar.png" TileMode="None"/>
                                     </Border.Background>
@@ -487,7 +487,7 @@
 
                                 <Label Margin="10,180,0,88" Content="RePak" FontSize="22" Foreground="White" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Width="297" Background="{x:Null}"/>
                                 <Border CornerRadius="5,5,9,9" Margin="0,0,0,127">
-                                    <ui:Button x:Name="REPAK_INSTALL_PAGE" Margin="447,0,0,0" VerticalAlignment="Top" Background="#CC3E3E3E" BorderBrush="{x:Null}" Height="24" Icon="BookInformation24" Padding="0,0,0,0" Width="24" ClickMode="Press" Click="REPAK_INSTALL_PAGE_Click"></ui:Button>
+                                    <ui:Button ToolTip="{x:Static properties:Language.Page_Tools_WebPage_}" x:Name="REPAK_INSTALL_PAGE" Margin="447,0,0,0" VerticalAlignment="Top" Background="#CC3E3E3E" BorderBrush="{x:Null}" Height="24" Icon="BookInformation24" Padding="0,0,0,0" Width="24" ClickMode="Press" Click="REPAK_INSTALL_PAGE_Click"></ui:Button>
                                     <Border.Background>
                                         <ImageBrush Stretch="UniformToFill" ImageSource="/Resources/Resource_Static/Rexx_Cat.jpg" TileMode="None"/>
                                     </Border.Background>
@@ -511,7 +511,7 @@
 
                                 <Label Margin="10,180,0,88" Content="VTF-EDIT" FontSize="22" Foreground="White" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Width="297" Background="{x:Null}"/>
                                 <Border CornerRadius="5,5,9,9" Margin="0,0,0,127">
-                                    <ui:Button  x:Name="VTF_TOOL_PAGE" Margin="447,0,0,0" VerticalAlignment="Top" Background="#CC3E3E3E" BorderBrush="{x:Null}" Height="24" Icon="BookInformation24" Padding="0,0,0,0" Width="24" ClickMode="Press" Click="VTF_TOOL_PAGE_Click"></ui:Button>
+                                    <ui:Button ToolTip="{x:Static properties:Language.Page_Tools_WebPage_}"  x:Name="VTF_TOOL_PAGE" Margin="447,0,0,0" VerticalAlignment="Top" Background="#CC3E3E3E" BorderBrush="{x:Null}" Height="24" Icon="BookInformation24" Padding="0,0,0,0" Width="24" ClickMode="Press" Click="VTF_TOOL_PAGE_Click"></ui:Button>
                                     <Border.Background>
                                         <ImageBrush Stretch="UniformToFill" ImageSource="/Resources/Resource_Static/VTF_EDIT.png" TileMode="None"/>
                                     </Border.Background>
@@ -535,7 +535,7 @@
 
                                 <Label Margin="10,180,0,88" Content="TITANFALL 2 VPK TOOL" FontSize="22" Foreground="White" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Width="297" Background="{x:Null}"/>
                                 <Border CornerRadius="5,5,9,9" Margin="0,0,0,127">
-                                    <ui:Button x:Name="VPK_TOOL_PAGE" Margin="447,0,0,0" VerticalAlignment="Top" Background="#CC3E3E3E" BorderBrush="{x:Null}" Height="24" Icon="BookInformation24" Padding="0,0,0,0" Width="24" ClickMode="Press" Click="VPK_TOOL_PAGE_Click"></ui:Button>
+                                    <ui:Button ToolTip="{x:Static properties:Language.Page_Tools_WebPage_}" x:Name="VPK_TOOL_PAGE" Margin="447,0,0,0" VerticalAlignment="Top" Background="#CC3E3E3E" BorderBrush="{x:Null}" Height="24" Icon="BookInformation24" Padding="0,0,0,0" Width="24" ClickMode="Press" Click="VPK_TOOL_PAGE_Click"></ui:Button>
                                     <Border.Background>
                                         <ImageBrush Stretch="UniformToFill" ImageSource="/Resources/Resource_Static/Titanfall_2_Vpk_Tool_.png" TileMode="None"/>
                                     </Border.Background>
