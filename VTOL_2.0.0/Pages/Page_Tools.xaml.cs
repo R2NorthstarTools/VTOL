@@ -43,6 +43,7 @@ using System.Windows.Media.Animation;
 using System.Text.RegularExpressions;
 using NLog;
 using System.Reflection;
+using Downloader;
 
 namespace VTOL.Pages
 {
@@ -395,11 +396,12 @@ namespace VTOL.Pages
         string SelectedGame = null;
         string SelectedWeapon = null;
         int ImageNumber = 0;
+        public string Tools_Dir;
         public Page_Tools()
         { 
             InitializeComponent();
 
-            SnackBar = Main.Snackbar;
+        SnackBar = Main.Snackbar;
             Mod_dependencies.Text = "northstar-Northstar-" + Properties.Settings.Default.Version.Remove(0, 1);
             Paragraph paragraph = new Paragraph();
             Description_Box.Document.Blocks.Clear();
@@ -561,7 +563,8 @@ namespace VTOL.Pages
             Items_List.ItemsSource = lcv;
             Output_Directory.Text = Environment.CurrentDirectory;
             Output_Box.Text = Environment.CurrentDirectory;
-            
+            Tools_Dir = Main.User_Settings_Vars.NorthstarInstallLocation + @"VTOL_ExternalTools\";
+
         }
         private static MainWindow GetMainWindow()
         {
@@ -2701,8 +2704,11 @@ private readonly Dictionary<string, string> weaponNameToPath = new()
             if (Tabs.SelectedItem.ToString() != null)
             {
 
-
-                if (Tabs.SelectedValue.ToString().Contains("Advocate Content"))
+                if (Tabs.SelectedValue.ToString().Contains("External Tools"))
+                {
+                    Check_For_Tools();
+                }
+                else if (Tabs.SelectedValue.ToString().Contains("Advocate"))
                 {
                     fade_dav(true);
 
@@ -2711,8 +2717,8 @@ private readonly Dictionary<string, string> weaponNameToPath = new()
                 {
                     fade_dav(false);
                 }
+               
 
-                
             }
 
 
@@ -3020,7 +3026,246 @@ Main.logger2.Close();
         {
             Convert();
         }
+        void Open_Folder(string Folder)
+        {
 
-       
+            try
+            {
+
+                Process.Start("explorer.exe", Folder);
+
+
+            }
+            catch (Exception ex)
+            {
+                Main.logger2.Open();
+                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine);
+                Main.logger2.Close();
+                Main.logger2.Open();
+                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine);
+                Main.logger2.Close(); Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+
+            }
+        }
+        async Task Download_Zip_To_Path(string Sub_Name, string URL)
+        {
+            await Task.Run(() =>
+            {
+                DispatchIfNecessary(() =>
+                {
+                    if (Directory.Exists(Tools_Dir))
+                    {
+                        if (!Directory.Exists(Tools_Dir+ Sub_Name))
+                        {
+                            Directory.CreateDirectory(Tools_Dir +  Sub_Name);
+                        }
+                        IDownload downloader = DownloadBuilder.New()
+            .WithUrl(URL)
+            .WithDirectory(Tools_Dir + Sub_Name)
+            .WithFileName(Sub_Name + ".zip")
+            .WithConfiguration(new DownloadConfiguration())
+
+            .Build();
+                        ZipFile_ zipFile = new ZipFile_(Tools_Dir + Sub_Name+@"\" +Sub_Name + ".zip");
+
+                        zipFile.ExtractAll(Tools_Dir + Sub_Name, Ionic.Zip.ExtractExistingFileAction.OverwriteSilently);
+                        Check_For_Tools();
+                    }
+                });
+            });
+                }
+                    public async void Check_For_Tools()
+        {
+
+            await Task.Run(async () => //Task.Run automatically unwraps nested Task types!
+            {
+                DispatchIfNecessary(() =>
+                {
+
+                    if (Directory.Exists(Tools_Dir))
+                    {
+                        //Legion+
+                        if(Directory.Exists(Tools_Dir + @"LEGION+") && File.Exists(Tools_Dir + @"LEGION+\" + "LegionPlus.exe"))
+                        {
+                            LEGION_INSTALL.Content = "Launch";
+                            LEGION_INSTALL.Icon = SymbolRegular.Open28;
+                            LEGION_INSTALL.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF005D42");
+                            LEGION_INSTALL_FOLDER.IsEnabled = true;
+
+
+                        }
+                        else
+                        {
+                            LEGION_INSTALL_FOLDER.IsEnabled = false;
+                            LEGION_INSTALL_FOLDER.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF3A3A3A");
+
+                            LEGION_INSTALL.Content = "Install";
+                            LEGION_INSTALL.Icon = SymbolRegular.ArrowDown32;
+                            LEGION_INSTALL.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF5B0606");
+                        }
+                        //HARMONY_INSTALL
+                        if (Directory.Exists(Tools_Dir + @"Harmony_VPK") && File.Exists(Tools_Dir + @"Harmony_VPK\" + "Harmony.VPK.Tool.exe"))
+                        {
+                            HARMONY_INSTALL.Content = "Launch";
+                            HARMONY_INSTALL.Icon = SymbolRegular.Open28;
+                            HARMONY_INSTALL.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF005D42");
+                            HARMONY_INSTALL_FOLDER.IsEnabled = true;
+
+
+                        }
+                        else
+                        {
+                            HARMONY_INSTALL_FOLDER.IsEnabled = false;
+                            HARMONY_INSTALL_FOLDER.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF3A3A3A");
+
+                            HARMONY_INSTALL.Content = "Install";
+                            HARMONY_INSTALL.Icon = SymbolRegular.ArrowDown32;
+                            HARMONY_INSTALL.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF5B0606");
+                        }
+                        //CROWBAR_INSTALL
+                        if (Directory.Exists(Tools_Dir + @"CrowBar") && File.Exists(Tools_Dir + @"CrowBar\" + "Crowbar.exe"))
+                        {
+                            CROWBAR_INSTALL.Content = "Launch";
+                            CROWBAR_INSTALL.Icon = SymbolRegular.Open28;
+                            CROWBAR_INSTALL.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF005D42");
+                            CROWBAR_INSTALL_FOLDER.IsEnabled = true;
+
+
+                        }
+                        else
+                        {
+                            CROWBAR_INSTALL_FOLDER.IsEnabled = false;
+                            CROWBAR_INSTALL_FOLDER.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF3A3A3A");
+
+                            CROWBAR_INSTALL.Content = "Install";
+                            CROWBAR_INSTALL.Icon = SymbolRegular.ArrowDown32;
+                            CROWBAR_INSTALL.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF5B0606");
+                        }
+                        //REPAK_INSTALL
+                        if (Directory.Exists(Tools_Dir + @"RePak") && File.Exists(Tools_Dir + @"RePak\" + "RePak.exe"))
+                        {
+                            REPAK_INSTALL.Content = "Launch";
+                            REPAK_INSTALL.Icon = SymbolRegular.Open28;
+                            REPAK_INSTALL.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF005D42");
+                            REPAK_INSTALL_FOLDER.IsEnabled = true;
+
+
+                        }
+                        else
+                        {
+                            REPAK_INSTALL_FOLDER.IsEnabled = false;
+                            REPAK_INSTALL_FOLDER.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF3A3A3A");
+
+                            REPAK_INSTALL.Content = "Install";
+                            REPAK_INSTALL.Icon = SymbolRegular.ArrowDown32;
+                            REPAK_INSTALL.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF5B0606");
+                        }
+                        //VTF_EDIT_INSTALL
+                        if (Directory.Exists(Tools_Dir + @"VTF_Edit") && File.Exists(Tools_Dir + @"VTF_Edit\" + "VTFEdit.exe"))
+                        {
+                            VTF_EDIT_INSTALL.Content = "Launch";
+                            VTF_EDIT_INSTALL.Icon = SymbolRegular.Open28;
+                            VTF_EDIT_INSTALL.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF005D42");
+                            VTF_TOOL_FOLDER.IsEnabled = true;
+
+
+                        }
+                        else
+                        {
+                            VTF_TOOL_FOLDER.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF3A3A3A");
+
+                            VTF_TOOL_FOLDER.IsEnabled = false;
+                            VTF_EDIT_INSTALL.Content = "Install";
+                            VTF_EDIT_INSTALL.Icon = SymbolRegular.ArrowDown32;
+                            VTF_EDIT_INSTALL.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF5B0606");
+                        }
+                        //VPK_TOOL_INSTALL
+                        if (Directory.Exists(Tools_Dir + @"Titanfall2_VPK_Tool") && File.Exists(Tools_Dir + @"Titanfall2_VPK_Tool\" + "TitanFall VPK Tool.exe"))
+                        {
+                            VPK_TOOL_INSTALL.Content = "Launch";
+                            VPK_TOOL_INSTALL.Icon = SymbolRegular.Open28;
+                            VPK_TOOL_INSTALL.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF005D42");
+                            VPK_TOOL_FOLDER.IsEnabled = true;
+
+
+                        }
+                        else
+                        {
+                            VPK_TOOL_FOLDER.IsEnabled = false;
+                            VPK_TOOL_FOLDER.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF3A3A3A");
+                            VPK_TOOL_INSTALL.Content = "Install";
+                            VPK_TOOL_INSTALL.Icon = SymbolRegular.ArrowDown32;
+                            VPK_TOOL_INSTALL.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF5B0606");
+                        }
+                    }
+                    else
+                    {
+
+                        Directory.CreateDirectory(Tools_Dir);
+                        Check_For_Tools();
+
+                    }
+                });
+
+
+            });
+        }
+        private void LEGION_INSTALL_Click(object sender, RoutedEventArgs e)
+        {
+            //Download_Zip_To_Path();
+        }
+
+        private void LEGION_INSTALL_FOLDER_Click(object sender, RoutedEventArgs e)
+        {
+            if (Directory.Exists(Tools_Dir + @"LEGION+") )
+            {
+                Open_Folder(Tools_Dir + @"LEGION+");
+            }
+        }
+
+        private void HARMONY_INSTALL_FOLDER_Click(object sender, RoutedEventArgs e)
+        {
+            if (Directory.Exists(Tools_Dir + @"Harmony_VPK"))
+            {
+                Open_Folder(Tools_Dir + @"Harmony_VPK");
+            }
+
+        }
+
+        private void CROWBAR_INSTALL_FOLDER_Click(object sender, RoutedEventArgs e)
+        {
+
+            if (Directory.Exists(Tools_Dir + @"CrowBar"))
+            {
+                Open_Folder(Tools_Dir + @"CrowBar");
+            }
+        }
+
+        private void REPAK_INSTALL_FOLDER_Click(object sender, RoutedEventArgs e)
+        {
+
+            if (Directory.Exists(Tools_Dir + @"RePak"))
+            {
+                Open_Folder(Tools_Dir + @"RePak");
+            }
+        }
+
+        private void VTF_TOOL_FOLDER_Click(object sender, RoutedEventArgs e)
+        {
+
+            if (Directory.Exists(Tools_Dir + @"VTF_Edit"))
+            {
+                Open_Folder(Tools_Dir + @"VTF_Edit");
+            }
+        }
+
+        private void VPK_TOOL_FOLDER_Click(object sender, RoutedEventArgs e)
+        {
+
+            if (Directory.Exists(Tools_Dir + @"Titanfall2_VPK_Tool"))
+            {
+                Open_Folder(Tools_Dir + @"Titanfall2_VPK_Tool");
+            }
+        }
     }
 }

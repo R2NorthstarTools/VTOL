@@ -283,7 +283,7 @@
 
                 </ProgressBar>
                 <ui:Button x:Name="Browse_Titanfall_Button" Padding="6" Appearance="Secondary" FontSize="14" Height="36" Margin="71,158,40,0" VerticalAlignment="Top" HorizontalAlignment="Stretch" Content="{x:Static properties:Language.Page_Home_LocateTitanfall2Install}" Grid.Column="2" Click="Browse_Titanfall_Button_Click" ToolTip="{x:Static properties:Language.Page_Home_ManuallyChangeTheTitanfall2InstallDirectory}" />
-                <ui:Button x:Name="Browse_Titanfall_Install" Padding="6" Appearance="Secondary" FontSize="14" Height="36" Margin="15,158,0,0" VerticalAlignment="Top"  Grid.Column="2"  Icon="Open24" Width="51" ToolTip="{x:Static properties:Language.Page_Home_OpenTitanfall2Folder}" Click="Browse_Titanfall_Install_Click"/>
+                <ui:Button x:Name="Browse_Titanfall_Install" Padding="6" Appearance="Secondary" FontSize="14" Height="36" Margin="15,158,0,0" VerticalAlignment="Top"  Grid.Column="2"  Icon="OpenFolder28" Width="51" ToolTip="{x:Static properties:Language.Page_Home_OpenTitanfall2Folder}" Click="Browse_Titanfall_Install_Click"/>
 
                 <Grid Grid.ColumnSpan="3">
 
