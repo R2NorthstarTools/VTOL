@@ -44,6 +44,7 @@ using System.Text.RegularExpressions;
 using NLog;
 using System.Reflection;
 using Downloader;
+using System.ComponentModel;
 
 namespace VTOL.Pages
 {
@@ -51,7 +52,7 @@ namespace VTOL.Pages
     /// Interaction logic for Page_Tools.xaml
     /// </summary>
     /// 
-
+    
     internal class DdsHandler
     {
         // dds file structure
@@ -384,6 +385,7 @@ namespace VTOL.Pages
         public string Name { get; set; }
         public string Category { get; set; }
     }
+    
     public partial class Page_Tools : Page
     {
 
@@ -3026,6 +3028,36 @@ Main.logger2.Close();
         {
             Convert();
         }
+        async void Start_Exe(string path)
+        {
+            try
+            {
+                await Task.Run(() =>
+            {
+               
+
+                    System.Diagnostics.Process.Start(new ProcessStartInfo
+                    {
+                        FileName = path,
+                        UseShellExecute = true
+                    });
+
+            });
+            }
+                catch (Exception ex)
+                {
+                    Main.logger2.Open();
+                    Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine);
+                    Main.logger2.Close();
+                    Main.logger2.Open();
+                    Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine);
+                    Main.logger2.Close(); Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+
+                }
+          
+
+            
+        }
         void Open_Folder(string Folder)
         {
 
@@ -3049,10 +3081,16 @@ Main.logger2.Close();
         }
         async Task Download_Zip_To_Path(string Sub_Name, string URL)
         {
+           
             await Task.Run(() =>
             {
                 DispatchIfNecessary(() =>
                 {
+                    SnackBar.Message = "Downloading and Installing " + Sub_Name;
+                    SnackBar.Title = "INFO";
+                    SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
+                    SnackBar.Show();
+                    Thread.Sleep(1000);
                     if (Directory.Exists(Tools_Dir))
                     {
                         if (!Directory.Exists(Tools_Dir+ Sub_Name))
@@ -3066,22 +3104,62 @@ Main.logger2.Close();
             .WithConfiguration(new DownloadConfiguration())
 
             .Build();
-                        ZipFile_ zipFile = new ZipFile_(Tools_Dir + Sub_Name+@"\" +Sub_Name + ".zip");
+                        downloader.DownloadFileCompleted += delegate (object sender, AsyncCompletedEventArgs e)
+                        {
 
-                        zipFile.ExtractAll(Tools_Dir + Sub_Name, Ionic.Zip.ExtractExistingFileAction.OverwriteSilently);
-                        Check_For_Tools();
+
+                            downloader_DownloadCompleted(sender,e,Sub_Name, URL);
+                        };
+
+                        downloader.StartAsync();
+
+                      
                     }
                 });
             });
-                }
-                    public async void Check_For_Tools()
+        }
+        void downloader_DownloadCompleted(object sender, AsyncCompletedEventArgs e, string Sub_Name, string URL)
         {
+              ZipFile_ zipFile = new ZipFile_(Tools_Dir + Sub_Name+@"\" +Sub_Name + ".zip");
+
+             zipFile.ExtractAll(Tools_Dir, Ionic.Zip.ExtractExistingFileAction.OverwriteSilently);
+            
+            Check_For_Tools();
+            
+            if (File.Exists(Tools_Dir + Sub_Name + @"\" + Sub_Name + ".zip"))
+            {
+
+                File.Delete(Tools_Dir + Sub_Name + @"\" + Sub_Name + ".zip");
+            }
+        }
+        async Task OPEN_WEBPAGE(string URL)
+        {
+            await Task.Run(() =>
+            {
+                DispatchIfNecessary(() => {
+                    SnackBar.Message = "Opening the Following URL - " + URL;
+                    SnackBar.Title = "INFO";
+                    SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
+                    SnackBar.Show();
+                });
+
+                Thread.Sleep(1000);
+                System.Diagnostics.Process.Start(new ProcessStartInfo
+                {
+                    FileName = URL,
+                    UseShellExecute = true
+                });
+            });
+        }
+        public async void Check_For_Tools()
+        {
+
 
             await Task.Run(async () => //Task.Run automatically unwraps nested Task types!
             {
                 DispatchIfNecessary(() =>
                 {
-
+                   
                     if (Directory.Exists(Tools_Dir))
                     {
                         //Legion+
@@ -3091,6 +3169,7 @@ Main.logger2.Close();
                             LEGION_INSTALL.Icon = SymbolRegular.Open28;
                             LEGION_INSTALL.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF005D42");
                             LEGION_INSTALL_FOLDER.IsEnabled = true;
+                            LEGION_INSTALL_FOLDER.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFAF7800");
 
 
                         }
@@ -3110,6 +3189,7 @@ Main.logger2.Close();
                             HARMONY_INSTALL.Icon = SymbolRegular.Open28;
                             HARMONY_INSTALL.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF005D42");
                             HARMONY_INSTALL_FOLDER.IsEnabled = true;
+                            HARMONY_INSTALL_FOLDER.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFAF7800");
 
 
                         }
@@ -3129,6 +3209,7 @@ Main.logger2.Close();
                             CROWBAR_INSTALL.Icon = SymbolRegular.Open28;
                             CROWBAR_INSTALL.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF005D42");
                             CROWBAR_INSTALL_FOLDER.IsEnabled = true;
+                            CROWBAR_INSTALL_FOLDER.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFAF7800");
 
 
                         }
@@ -3148,6 +3229,7 @@ Main.logger2.Close();
                             REPAK_INSTALL.Icon = SymbolRegular.Open28;
                             REPAK_INSTALL.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF005D42");
                             REPAK_INSTALL_FOLDER.IsEnabled = true;
+                            REPAK_INSTALL_FOLDER.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFAF7800");
 
 
                         }
@@ -3167,6 +3249,7 @@ Main.logger2.Close();
                             VTF_EDIT_INSTALL.Icon = SymbolRegular.Open28;
                             VTF_EDIT_INSTALL.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF005D42");
                             VTF_TOOL_FOLDER.IsEnabled = true;
+                            VTF_TOOL_FOLDER.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFAF7800");
 
 
                         }
@@ -3186,6 +3269,7 @@ Main.logger2.Close();
                             VPK_TOOL_INSTALL.Icon = SymbolRegular.Open28;
                             VPK_TOOL_INSTALL.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF005D42");
                             VPK_TOOL_FOLDER.IsEnabled = true;
+                            VPK_TOOL_FOLDER.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFAF7800");
 
 
                         }
@@ -3210,10 +3294,7 @@ Main.logger2.Close();
 
             });
         }
-        private void LEGION_INSTALL_Click(object sender, RoutedEventArgs e)
-        {
-            //Download_Zip_To_Path();
-        }
+       
 
         private void LEGION_INSTALL_FOLDER_Click(object sender, RoutedEventArgs e)
         {
@@ -3266,6 +3347,131 @@ Main.logger2.Close();
             {
                 Open_Folder(Tools_Dir + @"Titanfall2_VPK_Tool");
             }
+        }
+        private void LEGION_INSTALL_Click(object sender, RoutedEventArgs e)
+        {
+            if (Directory.Exists(Tools_Dir + @"LEGION+") && File.Exists(Tools_Dir + @"LEGION+\" + "LegionPlus.exe"))
+            {
+                Start_Exe(Tools_Dir + @"LEGION+\" + "LegionPlus.exe");
+
+            }
+            else
+            {
+                Download_Zip_To_Path("LEGION+", "https://github.com/BigSpice/VTOL/raw/master/%5BTitanfall2_Downloadable_Tools%5D/LEGION%2B.zip");
+
+
+            }
+
+        }
+
+        private void HARMONY_INSTALL_Click(object sender, RoutedEventArgs e)
+        {
+            if (Directory.Exists(Tools_Dir + @"Harmony_VPK") && File.Exists(Tools_Dir + @"Harmony_VPK\" + "Harmony.VPK.Tool.exe"))
+            {
+                Start_Exe(Tools_Dir + @"Harmony_VPK\" + "Harmony.VPK.Tool.exe");
+
+            }
+            else
+            {
+                Download_Zip_To_Path("Harmony_VPK", "https://github.com/BigSpice/VTOL/raw/master/%5BTitanfall2_Downloadable_Tools%5D/Harmony_VPK.zip");
+
+
+            }
+        }
+
+        private void CROWBAR_INSTALL_Click(object sender, RoutedEventArgs e)
+        {
+            if (Directory.Exists(Tools_Dir + @"CrowBar") && File.Exists(Tools_Dir + @"CrowBar\" + "Crowbar.exe"))
+            {
+                Start_Exe(Tools_Dir + @"CrowBar\" + "Crowbar.exe");
+
+            }
+            else
+            {
+                Download_Zip_To_Path("CrowBar", "https://github.com/BigSpice/VTOL/raw/master/%5BTitanfall2_Downloadable_Tools%5D/CrowBar.zip");
+
+
+            }
+        }
+
+        private void REPAK_INSTALL_Click(object sender, RoutedEventArgs e)
+        {
+            if (Directory.Exists(Tools_Dir + @"RePak") && File.Exists(Tools_Dir + @"RePak\" + "RePak.exe"))
+            {
+                Start_Exe(Tools_Dir + @"RePak\" + "RePak.exe");
+
+            }
+            else
+            {
+                Download_Zip_To_Path("RePak", "https://github.com/BigSpice/VTOL/raw/master/%5BTitanfall2_Downloadable_Tools%5D/RePak.zip");
+
+
+            }
+        }
+
+        private void VTF_EDIT_INSTALL_Click(object sender, RoutedEventArgs e)
+        {
+            if (Directory.Exists(Tools_Dir + @"VTF_Edit") && File.Exists(Tools_Dir + @"VTF_Edit\" + "VTFEdit.exe"))
+            {
+                Start_Exe(Tools_Dir + @"VTF_Edit\" + "VTFEdit.exe");
+
+            }
+            else
+            {
+                Download_Zip_To_Path("VTF_Edit", "https://github.com/BigSpice/VTOL/raw/master/%5BTitanfall2_Downloadable_Tools%5D/VTF_Edit.zip");
+
+
+            }
+        }
+
+        private void VPK_TOOL_INSTALL_Click(object sender, RoutedEventArgs e)
+        {
+            if (Directory.Exists(Tools_Dir + @"Titanfall2_VPK_Tool") && File.Exists(Tools_Dir + @"Titanfall2_VPK_Tool\" + "TitanFall VPK Tool.exe"))
+            {
+                Start_Exe(Tools_Dir + @"Titanfall2_VPK_Tool\" + "TitanFall VPK Tool.exe");
+
+            }
+            else
+            {
+                Download_Zip_To_Path("Titanfall2_VPK_Tool", "https://github.com/BigSpice/VTOL/raw/master/%5BTitanfall2_Downloadable_Tools%5D/Titanfall2_VPK_Tool.zip");
+
+
+            }
+        }
+
+        private void LEGION_INSTALL_PAGE_Click(object sender, RoutedEventArgs e)
+        {
+            OPEN_WEBPAGE("https://wiki.modme.co/wiki/apps/Legion.html");
+        }
+
+        private void HARMONY_INSTALL_PAGE_Click(object sender, RoutedEventArgs e)
+        {
+            OPEN_WEBPAGE("https://github.com/harmonytf/HarmonyVPKTool");
+
+        }
+
+        private void CROWBAR_INSTALL_PAGE_Click(object sender, RoutedEventArgs e)
+        {
+            OPEN_WEBPAGE("https://steamcommunity.com/groups/CrowbarTool");
+
+        }
+
+        private void REPAK_INSTALL_PAGE_Click(object sender, RoutedEventArgs e)
+        {
+            OPEN_WEBPAGE("https://github.com/ASpoonPlaysGames/RePak");
+
+        }
+
+        private void VTF_TOOL_PAGE_Click(object sender, RoutedEventArgs e)
+        {
+            OPEN_WEBPAGE("https://gamebanana.com/tools/95");
+
+        }
+
+        private void VPK_TOOL_PAGE_Click(object sender, RoutedEventArgs e)
+        {
+            OPEN_WEBPAGE("https://github.com/Wanty5883/Titanfall2/tree/master/tools");
+
         }
     }
 }
