@@ -1219,8 +1219,9 @@ logger2.Close();
                         var myJsonString = File.ReadAllText(mod_Json);
                         var myJObject = JObject.Parse(myJsonString);
                         string name = "Name: " + myJObject.SelectToken("Name").Value<string>();
-                        string Content =  "Description: " + myJObject.SelectToken("Description").Value<string>() + Environment.NewLine + "Version: " + myJObject.SelectToken("Version").Value<string>();
-                       
+                        string version = "Version: " + myJObject.SelectToken("Version").Value<string>();
+                        string Description =  "Description: " + myJObject.SelectToken("Description").Value<string>();
+                        string Content = Description + Environment.NewLine + version;
                         DialogF.ButtonLeftName = "OK";
                         DialogF.ButtonLeftAppearance = Wpf.Ui.Common.ControlAppearance.Success;
                         DialogF.ButtonRightName = "Open Folder";
