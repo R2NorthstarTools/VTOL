@@ -549,6 +549,15 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reverse Filter Order.
+        /// </summary>
+        public static string Page_Mods_ReverseFilterOrder {
+            get {
+                return ResourceManager.GetString("Page_Mods_ReverseFilterOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to RightClick for Context Menu.
         /// </summary>
         public static string Page_Mods_RightClickForContextMenu {
@@ -1067,6 +1076,15 @@ namespace VTOL.Resources.Languages {
         public static string Page_Tools_Item {
             get {
                 return ResourceManager.GetString("Page_Tools_Item", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Launch Arguments.
+        /// </summary>
+        public static string Page_Tools_LaunchArguments {
+            get {
+                return ResourceManager.GetString("Page_Tools_LaunchArguments", resourceCulture);
             }
         }
         

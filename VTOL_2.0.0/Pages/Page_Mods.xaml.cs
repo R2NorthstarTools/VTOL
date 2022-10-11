@@ -697,7 +697,7 @@ Main.logger2.Close();Log.Error(ex, $"A crash happened at {DateTime.Now.ToString(
 
 
 
-                        var sorted = Final_List.OrderBy(ob => Convert.ToDateTime(ob.Mod_Date_)).ToArray().Reverse();
+                        var sorted = Final_List.OrderByDescending(ob => Convert.ToDateTime(ob.Mod_Date_)).ToArray();
 
                         Mod_List_Box.ItemsSource = sorted;
                         Mod_List_Box.Refresh();
@@ -739,7 +739,7 @@ Main.logger2.Close();Log.Error(ex, $"A crash happened at {DateTime.Now.ToString(
                         Search_Bar_Suggest_Mods.Text = "~Search";
 
 
-                        var sorted = Final_List.OrderBy(ob => ob.Mod_Name_).ToArray().Reverse();
+                        var sorted = Final_List.OrderByDescending(ob => ob.Mod_Name_).ToArray();
 
                         Mod_List_Box.ItemsSource = sorted;
 
@@ -766,7 +766,7 @@ Main.logger2.Close();Log.Error(ex, $"A crash happened at {DateTime.Now.ToString(
                         Search_Bar_Suggest_Mods.Text = "~Search";
 
 
-                        var sorted = Final_List.OrderBy(ob => ob.En_Di).ToArray().Reverse();
+                        var sorted = Final_List.OrderByDescending(ob => ob.En_Di).ToArray();
                         Mod_List_Box.ItemsSource = sorted;
                         Mod_List_Box.Refresh();
 
@@ -777,7 +777,7 @@ Main.logger2.Close();Log.Error(ex, $"A crash happened at {DateTime.Now.ToString(
                         Search_Bar_Suggest_Mods.Text = "~Search";
 
 
-                        var sorted = Final_List.OrderBy(ob => ob.Mod_Name_).ToArray().Reverse();
+                        var sorted = Final_List.OrderByDescending(ob => ob.Mod_Name_).ToArray();
 
                         Mod_List_Box.ItemsSource = sorted;
 
@@ -851,7 +851,7 @@ Main.logger2.Close();Log.Error(ex, $"A crash happened at {DateTime.Now.ToString(
                             }
                             else if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Date"))
                             {
-                                return Final_List.OrderBy(ob => ob.Mod_Date_).ToArray().Reverse();
+                                return Final_List.OrderByDescending(ob => ob.Mod_Date_).ToArray();
 
                             }
                             else if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Status"))
@@ -887,7 +887,7 @@ Main.logger2.Close();Log.Error(ex, $"A crash happened at {DateTime.Now.ToString(
 
                             if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Name"))
                             {
-                                return Final_List.OrderBy(ob => ob.Mod_Name_).Reverse();
+                                return Final_List.OrderByDescending(ob => ob.Mod_Name_);
                             }
                             else if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Date"))
                             {
@@ -897,12 +897,12 @@ Main.logger2.Close();Log.Error(ex, $"A crash happened at {DateTime.Now.ToString(
                             else if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Status"))
                             {
 
-                                return Final_List.OrderBy(ob => ob.En_Di).Reverse();
+                                return Final_List.OrderByDescending(ob => ob.En_Di);
 
                             }
                             else
                             {
-                                return Final_List.OrderBy(ob => ob.Mod_Name_).Reverse();
+                                return Final_List.OrderByDescending(ob => ob.Mod_Name_);
 
                             }
                         
@@ -911,7 +911,7 @@ Main.logger2.Close();Log.Error(ex, $"A crash happened at {DateTime.Now.ToString(
 
 
                 }
-                return Final_List.OrderBy(ob => ob.Mod_Name_).Reverse();
+                return Final_List.OrderByDescending(ob => ob.Mod_Name_);
 
             }
             catch (Exception ex)
@@ -922,7 +922,7 @@ Main.logger2.Close();
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
             }
-            return Final_List.OrderBy(ob => ob.Mod_Name_).Reverse();
+            return Final_List.OrderByDescending(ob => ob.Mod_Name_);
 
         }
         private void Search_Bar_Suggest_Mods_TextChanged(object sender, TextChangedEventArgs e)
@@ -986,14 +986,15 @@ Main.logger2.Close();
                         if (Reverse_ == true)
                         {
                             Reverse_ = false;
-                            padd.Appearance = Wpf.Ui.Common.ControlAppearance.Secondary;
+
+                            padd.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#0FFFFFFF");
 
                         }
                         else
                         {
 
                             Reverse_ = true;
-                            padd.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
+                            padd.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF4CAF50");
 
                         }
                     }
@@ -1001,13 +1002,13 @@ Main.logger2.Close();
                     {
                         if (Reverse_ == true)
                         {
-                            padd.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
+                            padd.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF4CAF50");
 
 
                         }
                         else
                         {
-                            padd.Appearance = Wpf.Ui.Common.ControlAppearance.Secondary;
+                            padd.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#0FFFFFFF");
 
 
                         }
@@ -1018,8 +1019,8 @@ Main.logger2.Close();
             catch (Exception ex)
             {
                 Main.logger2.Open();
-                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source +Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine);
-Main.logger2.Close();
+                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine);
+                Main.logger2.Close();
 
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 

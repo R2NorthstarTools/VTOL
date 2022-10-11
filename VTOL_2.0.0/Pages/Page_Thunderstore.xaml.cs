@@ -2408,11 +2408,11 @@ Main.logger2.Close();
                     Thunderstore_List.ItemsSource = null;
                     if (Search_Filters.SelectedItems != null && Search_Filters.SelectedItems.Count > 0) /*|| Options_List.Contains(Search_Filters.SelectedItem))*/
                     {
-                        Filter_Label.Visibility = Visibility.Hidden;
+                        Category_Label.Visibility = Visibility.Hidden;
                     }
                     else
                     {
-                        Filter_Label.Visibility = Visibility.Visible;
+                        Category_Label.Visibility = Visibility.Visible;
 
                     }
                     Console.WriteLine(String.Join(",", Current_Mod_Filter_Tags));
@@ -2560,7 +2560,16 @@ Main.logger2.Close();
 
         private void Sort_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(page_loaded == true)
+            if (Sort.SelectedItem != null && Sort.SelectedItem.ToString().Length > 1) /*|| Options_List.Contains(Search_Filters.SelectedItem))*/
+            {
+                Sort_Label.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                Sort_Label.Visibility = Visibility.Visible;
+
+            }
+            if (page_loaded == true)
             {
                 Thunderstore_List.ItemsSource = null;
 
@@ -2568,9 +2577,9 @@ Main.logger2.Close();
                 BackgroundWorker worker = new BackgroundWorker();
                 worker.DoWork += (sender, e) =>
                 {
+                    
 
-                   
-                        Call_Ts_Mods();
+                    Call_Ts_Mods();
 
 
                     
@@ -2595,6 +2604,16 @@ Main.logger2.Close();
                 _timer.Stop();
                 _timer.Start();
             
+        }
+
+        private void Grid_GotFocus(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Sort_LostFocus(object sender, RoutedEventArgs e)
+        {
+
         }
     }
         

@@ -3479,5 +3479,10 @@ Main.logger2.Close();
             OPEN_WEBPAGE("https://github.com/Wanty5883/Titanfall2/tree/master/tools");
 
         }
+
+        private void LEGION_INSTALL_STARTUP_ARGS_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

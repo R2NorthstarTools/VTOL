@@ -89,7 +89,7 @@
                     </Popup>
 
                     <Button x:Name="Dedicated_Btn" Height="40" Margin="594,175,50,0" BorderBrush="White" Background="#FF282C50" VerticalAlignment="Top" HorizontalAlignment="Stretch" Content="{x:Static properties:Language.Page_Server_LaunchNorthstarDedicatedServer}" Click="Dedicated_Btn_Click" />
-                    <hc:TextBox x:Name="Arg_Box_Dedi" Height="86" TextWrapping="Wrap" VerticalAlignment="Top" Margin="594,82,50,0" KeyDown="OnKeyDownHandler_Dedi_Arg" LostFocus="Arg_Box_Dedi_LostFocus"/>
+                    <hc:TextBox x:Name="Arg_Box_Dedi" Height="86" TextWrapping="Wrap" VerticalAlignment="Top" Margin="594,82,50,0" KeyDown="OnKeyDownHandler_Dedi_Arg" LostFocus="Arg_Box_Dedi_LostFocus" BorderBrush="{x:Null}"/>
                     <Label  Height="35" BorderBrush="{x:Null}" Background="{x:Null}" Margin="594,44,50,0" VerticalAlignment="Top" Content="{x:Static properties:Language.Page_Server_StartupArgumentsNorthstarDedicatedClient}" FontSize="14" HorizontalContentAlignment="Center" Padding="0,0,0,0" VerticalContentAlignment="Center"/>
                     <Label Height="35" Margin="32,44,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Background="{x:Null}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{x:Static properties:Language.Page_Server_StartupArgumentsNorthstarClient}" FontSize="14" HorizontalAlignment="Left" Width="406"/>
 

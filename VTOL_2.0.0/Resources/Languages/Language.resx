@@ -561,4 +561,10 @@
   <data name="Page_Tools_Locate_Repak_Exe_Click_ExeLocated" xml:space="preserve">
     <value>Exe Located!</value>
   </data>
+  <data name="Page_Tools_LaunchArguments" xml:space="preserve">
+    <value>Launch Arguments</value>
+  </data>
+  <data name="Page_Mods_ReverseFilterOrder" xml:space="preserve">
+    <value>Reverse Filter Order</value>
+  </data>
 </root>
