@@ -57,7 +57,7 @@
             <ComboBoxItem Name="Status">Status</ComboBoxItem>
         </ComboBox>
 
-        <ui:TextBox x:Name="Search_Bar_Suggest_Mods" Margin="65,133,5,0" TextWrapping="NoWrap" Height="36" VerticalAlignment="Top"  Text="~Search"  BorderThickness="0,0,0,0" Icon="Search48" KeyDown="Search_Bar_Suggest_Mods_KeyDown" GotFocus="Search_Bar_Suggest_Mods_GotFocus" VirtualizingPanel.ScrollUnit="Pixel" LostFocus="Search_Bar_Suggest_Mods_LostFocus" TextChanged="Search_Bar_Suggest_Mods_TextChanged" Background="{x:Null}" Grid.ColumnSpan="2" />
+        <ui:TextBox x:Name="Search_Bar_Suggest_Mods" Margin="65,133,5,0" TextWrapping="NoWrap" Height="36" VerticalAlignment="Top"  Text="~Search"  BorderThickness="0,0,0,0" Icon="Search48" KeyDown="Search_Bar_Suggest_Mods_KeyDown" GotFocus="Search_Bar_Suggest_Mods_GotFocus" VirtualizingPanel.ScrollUnit="Pixel" LostFocus="Search_Bar_Suggest_Mods_LostFocus" TextChanged="Search_Bar_Suggest_Mods_TextChanged" Background="{x:Null}" Grid.ColumnSpan="2" Foreground="#34FFFFFF" IconForeground="#34FFFFFF" />
 
         <ListBox x:Name="Mod_List_Box"  Margin="65,174,5,65" ItemsSource="{Binding Final_List}"  VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.ScrollUnit="Pixel" Grid.ColumnSpan="2" GotFocus="Mod_List_Box_GotFocus" IsSynchronizedWithCurrentItem="True" Loaded="Mod_List_Box_Loaded"  >
             <!--d:ItemsSource="{d:SampleData ItemCount=50}"-->

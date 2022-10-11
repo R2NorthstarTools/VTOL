@@ -567,4 +567,10 @@
   <data name="Page_Mods_ReverseFilterOrder" xml:space="preserve">
     <value>Reverse Filter Order</value>
   </data>
+  <data name="Page_Thunderstore_Sort" xml:space="preserve">
+    <value>Sort</value>
+  </data>
+  <data name="Page_Thunderstore_Category" xml:space="preserve">
+    <value>Category</value>
+  </data>
 </root>

@@ -809,6 +809,8 @@ Main.logger2.Close();Log.Error(ex, $"A crash happened at {DateTime.Now.ToString(
             {
                 Search_Bar_Suggest_Mods.Text = "";
             }
+            Search_Bar_Suggest_Mods.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFFFFFFF");
+            Search_Bar_Suggest_Mods.IconForeground = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFFFFFFF");
         }
 
         private void Search_Bar_Suggest_Mods_LostFocus(object sender, RoutedEventArgs e)
@@ -819,7 +821,8 @@ Main.logger2.Close();Log.Error(ex, $"A crash happened at {DateTime.Now.ToString(
             {
                 Search_Bar_Suggest_Mods.Text = "~Search";
             }
-
+            Search_Bar_Suggest_Mods.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#34FFFFFF");
+            Search_Bar_Suggest_Mods.IconForeground = (SolidColorBrush)new BrushConverter().ConvertFrom("#34FFFFFF");
         }
         IEnumerable<Card_> Keep_List_State(bool Searching, bool reverse = false)
         {

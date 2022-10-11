@@ -882,6 +882,24 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Category.
+        /// </summary>
+        public static string Page_Thunderstore_Category {
+            get {
+                return ResourceManager.GetString("Page_Thunderstore_Category", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sort.
+        /// </summary>
+        public static string Page_Thunderstore_Sort {
+            get {
+                return ResourceManager.GetString("Page_Thunderstore_Sort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to These are the Collection of Mods Hosted On the ThunderStore Mod platform..
         /// </summary>
         public static string Page_Thunderstore_TheseAreTheCollectionOfModsHostedOnTheThunderStoreModPlatform {
