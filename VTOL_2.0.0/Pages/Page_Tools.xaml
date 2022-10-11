@@ -559,6 +559,11 @@
                     </Grid>
                 </hc:ScrollViewer>
             </TabItem>
+            <TabItem Header="Profile">
+                <Grid   Height="514">
+                    
+                </Grid>
+            </TabItem>
         </TabControl>
 
         <!--<ui:Dialog x:Name="Error_Dialog" />-->
