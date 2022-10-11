@@ -23,14 +23,22 @@
         </Storyboard>
     </Page.Resources>
     <Grid  Focusable="True" OverridesDefaultStyle="True" ClipToBounds="True" Unloaded="Grid_Unloaded">
-        <ui:TextBox x:Name="Search_Bar_Suggest_Mods"  TextWrapping="NoWrap" Height="33"  Text="~Search"  BorderThickness="0,0,0,0" Icon="Search48"  GotFocus="Search_Bar_Suggest_Mods_GotFocus" LostFocus="Search_Bar_Suggest_Mods_LostFocus"  Background="{x:Null}" TextChanged="Search_Bar_Suggest_Mods_TextChanged" Padding="0,8,0,7" Margin="44,136,538,0" VerticalAlignment="Top" />
-        <ComboBox Margin="0,136,352,0" Background="{x:Null}" BorderThickness="0,0,0,1" Height="33" VerticalAlignment="Top" BorderBrush="#82FFFFFF" Padding="143,16,10,8" HorizontalAlignment="Right" Width="186"/>
+        <ui:TextBox x:Name="Search_Bar_Suggest_Mods"  TextWrapping="NoWrap" Height="33"  Text="~Search"  BorderThickness="0,0,0,0" Icon="Search48"  GotFocus="Search_Bar_Suggest_Mods_GotFocus" LostFocus="Search_Bar_Suggest_Mods_LostFocus"  Background="{x:Null}" TextChanged="Search_Bar_Suggest_Mods_TextChanged" Padding="0,8,0,7" Margin="48,136,606,0" VerticalAlignment="Top" KeyUp="Search_Bar_Suggest_Mods_KeyUp" />
+        <ComboBox x:Name="Sort" Margin="544,136,389,0" Background="{x:Null}" BorderThickness="0,0,0,1" Height="36" VerticalAlignment="Top" BorderBrush="#82FFFFFF" SelectedIndex="-1" SelectionChanged="Sort_SelectionChanged" Padding="10,9,10,4.3" VerticalContentAlignment="Bottom" MinHeight="0" ScrollViewer.VerticalScrollBarVisibility="Auto" IsTextSearchEnabled="False">
+            <ComboBoxItem Name="Name">Name</ComboBoxItem>
+            <ComboBoxItem Name="Rating">Rating</ComboBoxItem>
+            <ComboBoxItem Name="Date">Date</ComboBoxItem>
+            <ComboBoxItem Name="File_Size">File Size</ComboBoxItem>
+            <ComboBoxItem Name="Downloads">Downloads</ComboBoxItem>
 
-        <hc:CheckComboBox x:Name="Search_Filters" ItemsSource="{Binding Final_List}"  Height="34" VerticalAlignment="Top" SelectedIndex="-1" ShowClearButton="True" Cursor="Hand" Padding="0,0,0,3" BorderThickness="0,0,0,1" BorderBrush="#FF999999" Background="#00000000" SelectionChanged="Search_Filters_SelectionChanged" hc:InfoElement.Placeholder="Filters" ToolTip="Filter Thunderstore List" ShowSelectAllButton="True" ScrollViewer.CanContentScroll="False" Margin="0,135,35,0" HorizontalAlignment="Right" Width="317"  />
+        </ComboBox>
+        <ui:Button x:Name="padd" Content="" VerticalAlignment="Top" Height="35" Padding="0,0,0,0" Icon="ArrowSortDownLines20" BorderBrush="{x:Null}"  Width="36" HorizontalAlignment="Right" ToolTip="Reverse Filter Order" Margin="0,135,353,0" Click="padd_Click" Background="#07FFFFFF" MouseOverBackground="#4CFFFFFF"/>
+
+        <hc:CheckComboBox x:Name="Search_Filters" ItemsSource="{Binding Final_List}"  Height="34" VerticalAlignment="Top" SelectedIndex="-1" ShowClearButton="True" Cursor="Hand" Padding="5,5,5,3" BorderThickness="0,0,0,1" BorderBrush="#FF999999" Background="#00000000" SelectionChanged="Search_Filters_SelectionChanged" hc:InfoElement.Placeholder="Filters" ToolTip="Filter Thunderstore List" ScrollViewer.CanContentScroll="False" Margin="0,135,35,0" HorizontalAlignment="Right" Width="317" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Center"  />
 
 
 
-        <Label x:Name="Filter_Label" Margin="0,138,267,0" Background="{x:Null}" Foreground="#34FFFFFF" Content="Category" VerticalContentAlignment="Top" VerticalAlignment="Top" FontSize="14" IsHitTestVisible="False" Height="20" Padding="0,0,0,0" IsEnabled="False" HorizontalAlignment="Right" Width="75" HorizontalContentAlignment="Left"/>
+        <Label x:Name="Filter_Label" Margin="0,143,270,0" Background="{x:Null}" Foreground="#34FFFFFF" Content="Category" VerticalContentAlignment="Top" VerticalAlignment="Top" FontSize="14" IsHitTestVisible="False" Height="20" Padding="0,0,0,0" IsEnabled="False" HorizontalAlignment="Right" Width="75" HorizontalContentAlignment="Left"/>
 
         <Label Content="{x:Static properties:Language.Page_Thunderstore_TheseAreTheCollectionOfModsHostedOnTheThunderStoreModPlatform}" Margin="50,0,0,573" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="410"/>
         <Label Content="{x:Static properties:Language.Page_Thunderstore_THUNDERSTORE}" Margin="50,0,357,594" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Background="{x:Null}" Foreground="White" FontSize="22" FontWeight="Bold" Height="28" VerticalAlignment="Bottom"/>
