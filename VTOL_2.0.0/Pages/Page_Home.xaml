@@ -178,7 +178,7 @@
                 <Image Source="/Resources/Icons/Main_UI/northstar_icon_ZfV_icon.png" Width="69" RenderTransformOrigin="0.5,0.5">
                     <Image.RenderTransform>
                         <TransformGroup>
-                            <ScaleTransform ScaleX="0.9"/>
+                            <ScaleTransform ScaleX="0.95"/>
                             <SkewTransform/>
                             <RotateTransform/>
                             <TranslateTransform/>
