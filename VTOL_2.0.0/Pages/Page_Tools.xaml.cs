@@ -1924,14 +1924,14 @@ Main.logger2.Close();
                 return;
             }
 
-            // make some variables that are useful at various points
-            string tempFolderPath = Path.GetTempPath();
-            string skinTempFolderPath = Path.GetFullPath(tempFolderPath + "/Skin");
-            string modTempFolderPath = Path.GetFullPath(tempFolderPath + "/Mod");
-            string repakTempFolderPath = Path.GetFullPath(tempFolderPath + "/RePak");
+                // the temp path is appended with the current date and time to prevent duplicates
+                string tempFolderPath = Path.GetTempPath() + "/Advocate/" + DateTime.Now.ToString("yyyyMMdd-THHmmss");
+                string skinTempFolderPath = Path.GetFullPath(tempFolderPath + "/Skin");
+                string modTempFolderPath = Path.GetFullPath(tempFolderPath + "/Mod");
+                string repakTempFolderPath = Path.GetFullPath(tempFolderPath + "/RePak");
 
-            // try convert stuff, if we get a weird exception, don't crash preferably
-            try
+                // try convert stuff, if we get a weird exception, don't crash preferably
+                try
             {
                 /////////////////////////////
                 // create temp directories //
@@ -2130,8 +2130,17 @@ Main.logger2.Close();
                 List<string> textures = new();
                 bool isFirst = true;
                 foreach (string skinPath in Directory.GetDirectories(skinTempFolderPath))
-                {
-                    foreach (string resolution in Directory.GetDirectories(skinPath).OrderBy(path => int.Parse(Path.GetFileName(path))))
+                    {// some skins have random files and folders in here, like images and stuff, so I have to do sorting in an annoying way
+                        List<string> parsedDirs = new();
+                        foreach (string dir in Directory.GetDirectories(skinPath))
+                        {
+                            // only add to the list of dirs
+                            if (int.TryParse(Path.GetFileName(dir), out int val))
+                            {
+                                parsedDirs.Add(dir);
+                            }
+                        }
+                        foreach (string resolution in Directory.GetDirectories(skinPath).OrderBy(path => int.Parse(Path.GetFileName(path))))
                     {
                         if (int.TryParse(Path.GetFileName(resolution), out int res))
                         {
@@ -2243,21 +2252,24 @@ Main.logger2.Close();
             }
             finally
             {
-                /////////////
-                // cleanup //
-                /////////////
+                    /////////////
+                    // cleanup //
+                    /////////////
 
 
-                // delete temp folders
-                if (Directory.Exists(modTempFolderPath))
-                    Directory.Delete(modTempFolderPath, true);
-
-                if (Directory.Exists(repakTempFolderPath))
-                    Directory.Delete(repakTempFolderPath, true);
-
-                if (Directory.Exists(skinTempFolderPath))
-                    Directory.Delete(skinTempFolderPath, true);
-            }
+                    // delete temp folders
+                    // delete temp folders
+                    try
+                    {
+                        // delete temp folders
+                        if (Directory.Exists(tempFolderPath))
+                            Directory.Delete(tempFolderPath, true);
+                    }
+                    catch (Exception ex)
+                    {
+                       
+                    }
+                }
 
 
             // everything is done and good
