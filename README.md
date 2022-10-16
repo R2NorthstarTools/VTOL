@@ -180,6 +180,13 @@ Under this tool, it makes it seamless and easy to add and create fully compatibl
 
 ![image](https://user-images.githubusercontent.com/23240514/188321794-e95ba16d-1e8a-4185-88b0-ce2be0ced378.png)
 # Troubleshooting
+
+* If you cannot Open VTOL 
+
+Please make sure you have .net 6.0 desktop Runtime x64 and x86 installed - https://dotnet.microsoft.com/en-us/download/dotnet/6.0
+![image](https://user-images.githubusercontent.com/23240514/196021121-d6b6f974-7c58-4199-8802-26672883da9c.png)
+
+
 * If you see one of the following error messages
 Simply click "Yes" and the application will attempt to fix the issue.
 
