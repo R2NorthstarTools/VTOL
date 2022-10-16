@@ -3301,7 +3301,7 @@ Main.logger2.Close();
                             VPK_TOOL_INSTALL.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF5B0606");
                         }
                         //MDL_TOOL_INSTALL
-                        if (Directory.Exists(Tools_Dir + @"Titanfall2_VPK_Tool") && File.Exists(Tools_Dir + @"Titanfall2_VPK_Tool\" + "TitanFall VPK Tool.exe"))
+                        if (Directory.Exists(Tools_Dir + @"MDL_SHIT") && File.Exists(Tools_Dir + @"MDL_SHIT\" + "mdlshit.exe"))
                         {
                             MDL_TOOL_INSTALL.Content = VTOL.Resources.Languages.Language.Page_Tools_Check_For_Tools_Launch;
                             MDL_TOOL_INSTALL.Icon = SymbolRegular.Open28;
