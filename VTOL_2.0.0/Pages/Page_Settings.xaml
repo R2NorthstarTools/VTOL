@@ -13,9 +13,9 @@
 
     <Grid>
         <Image Source="/Resources/Icons/Main_UI/settings.png" Margin="621,81,-237,-155" Opacity="0.05" IsHitTestVisible="False"/>
-        <Label Content="{x:Static properties:Language.Page_Settings_FineTuneAndConfigureVTOLHere}" Margin="50,0,0,573" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="410"/>
+        <Label Content="{x:Static properties:Language.Page_Settings_FineTuneAndConfigureVTOLHere}" Margin="50,0,0,573" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="505"/>
         <Label Content="{x:Static properties:Language.Page_Settings_SETTINGS}" Margin="50,0,357,594" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Background="{x:Null}" Foreground="White" FontSize="22" FontWeight="Bold" Height="28" VerticalAlignment="Bottom"/>
-        <hc:PropertyGrid x:Name="Settings" Margin="50,108,50,0" BorderBrush="#59BDBDBD" BorderThickness="1,1,1,1" SelectedObject="{Binding Settings_}" LayoutUpdated="Settings_LayoutUpdated" MaxTitleWidth="500" Height="520" ShowSortButton="False" OverridesDefaultStyle="True" Grid.IsSharedSizeScope="True" ScrollViewer.CanContentScroll="True" UseLayoutRounding="True" VerticalAlignment="Top" VerticalContentAlignment="Center" LostFocus="Settings_LostFocus" MouseMove="Settings_MouseMove" MouseLeave="Settings_MouseLeave"  />
+        <hc:PropertyGrid x:Name="Settings" Margin="50,108,50,0" BorderBrush="#59BDBDBD" BorderThickness="1,1,1,1" SelectedObject="{Binding Settings_}" LayoutUpdated="Settings_LayoutUpdated" MaxTitleWidth="500" Height="520" ShowSortButton="False" Grid.IsSharedSizeScope="True" ScrollViewer.CanContentScroll="True" UseLayoutRounding="True" VerticalAlignment="Top" VerticalContentAlignment="Center" LostFocus="Settings_LostFocus" MouseMove="Settings_MouseMove" MouseLeave="Settings_MouseLeave" ClipToBounds="True"  />
 
     </Grid>
 </Page>

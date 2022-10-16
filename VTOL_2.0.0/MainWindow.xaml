@@ -22,7 +22,7 @@ xmlns:notifications="clr-namespace:Notification.Wpf.Controls;assembly=Notificati
         Title="MainWindow" Height="700" Width="1200" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" Background="Black" AllowDrop="True"  
         
         >
-
+ 
     <Window.Resources>
 
         <SolidColorBrush x:Key="Button_HOVER" Color="#FF2C4C4C" />

@@ -55,10 +55,7 @@ namespace VTOL.Pages
 
             public bool Minimize_On_Launch { get; set; }
 
-            //[Category("Profile")]
-            //public bool Boolean { get; set; }
-            //[Category("Advanced")]
-            //public bool Boolean_ { get; set; }
+          
         }
         public Page_Settings()
         {

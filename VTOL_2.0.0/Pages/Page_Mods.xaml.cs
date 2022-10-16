@@ -149,7 +149,6 @@ namespace VTOL.Pages
 
 
 
-            Check_Reverse(false);
             _Completed_Mod_call = true;
            
         }
@@ -664,138 +663,154 @@ Main.logger2.Close();Log.Error(ex, $"A crash happened at {DateTime.Now.ToString(
                 
             }
         }
-
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        public void ComboBox_Actions()
         {
             try
             {
-
-                if (_Completed_Mod_call == true)
+                if (Filter.SelectedItem != null)
                 {
+                    if (_Completed_Mod_call == true)
+                        {
 
-                    if (Reverse_ == false)
-                {
-                    if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Name"))
-                    {
-
-
-                        Search_Bar_Suggest_Mods.Text = "~Search";
-
-
-                        var sorted = Final_List.OrderBy(ob => ob.Mod_Name_).ToArray();
-
-                        Mod_List_Box.ItemsSource = sorted;
-
-                        Mod_List_Box.Refresh();
+                        if (Reverse_ == false)
+                        {
+                        
+                            if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Name"))
+                            {
 
 
+                                Search_Bar_Suggest_Mods.Text = "~Search";
+
+
+                                var sorted = Final_List.OrderBy(ob => ob.Mod_Name_).ToArray();
+
+                                Mod_List_Box.ItemsSource = sorted;
+
+                                Mod_List_Box.Refresh();
+
+
+                            }
+                            else if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Date"))
+                            {
+
+                                Search_Bar_Suggest_Mods.Text = "~Search";
+
+
+
+                                var sorted = Final_List.OrderByDescending(ob => Convert.ToDateTime(ob.Mod_Date_)).ToArray();
+
+                                Mod_List_Box.ItemsSource = sorted;
+                                Mod_List_Box.Refresh();
+
+                            }
+                            else if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Status"))
+                            {
+
+                                Search_Bar_Suggest_Mods.Text = "~Search";
+
+
+                                var sorted = Final_List.OrderBy(ob => ob.En_Di).ToArray();
+                                Mod_List_Box.ItemsSource = sorted;
+                                Mod_List_Box.Refresh();
+
+                            }
+                            else
+                            {
+
+                                Search_Bar_Suggest_Mods.Text = "~Search";
+
+
+                                var sorted = Final_List.OrderBy(ob => ob.Mod_Name_).ToArray();
+
+                                Mod_List_Box.ItemsSource = sorted;
+
+                                Mod_List_Box.Refresh();
+
+                            }
+                        }
+                        else
+                        {
+
+                            if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Name"))
+                            {
+
+
+
+                                Search_Bar_Suggest_Mods.Text = "~Search";
+
+
+                                var sorted = Final_List.OrderByDescending(ob => ob.Mod_Name_).ToArray();
+
+                                Mod_List_Box.ItemsSource = sorted;
+
+                                Mod_List_Box.Refresh();
+
+                            }
+                            else if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Date"))
+                            {
+
+
+                                Search_Bar_Suggest_Mods.Text = "~Search";
+
+
+
+                                var sorted = Final_List.OrderBy(ob => Convert.ToDateTime(ob.Mod_Date_)).ToArray();
+
+                                Mod_List_Box.ItemsSource = sorted;
+                                Mod_List_Box.Refresh();
+
+                            }
+                            else if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Status"))
+                            {
+
+                                Search_Bar_Suggest_Mods.Text = "~Search";
+
+
+                                var sorted = Final_List.OrderByDescending(ob => ob.En_Di).ToArray();
+                                Mod_List_Box.ItemsSource = sorted;
+                                Mod_List_Box.Refresh();
+
+                            }
+                            else
+                            {
+
+                                Search_Bar_Suggest_Mods.Text = "~Search";
+
+
+                                var sorted = Final_List.OrderByDescending(ob => ob.Mod_Name_).ToArray();
+
+                                Mod_List_Box.ItemsSource = sorted;
+
+                                Mod_List_Box.Refresh();
+
+                            }
+
+                        }
                     }
-                    else if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Date"))
-                    {
-
-                        Search_Bar_Suggest_Mods.Text = "~Search";
-
-
-
-                        var sorted = Final_List.OrderByDescending(ob => Convert.ToDateTime(ob.Mod_Date_)).ToArray();
-
-                        Mod_List_Box.ItemsSource = sorted;
-                        Mod_List_Box.Refresh();
-
-                    }
-                    else if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Status"))
-                    {
-
-                        Search_Bar_Suggest_Mods.Text = "~Search";
-
-
-                        var sorted = Final_List.OrderBy(ob => ob.En_Di).ToArray();
-                        Mod_List_Box.ItemsSource = sorted;
-                        Mod_List_Box.Refresh();
-
-                    }
-                    else
-                    {
-
-                        Search_Bar_Suggest_Mods.Text = "~Search";
-
-
-                        var sorted = Final_List.OrderBy(ob => ob.Mod_Name_).ToArray();
-
-                        Mod_List_Box.ItemsSource = sorted;
-
-                        Mod_List_Box.Refresh();
-
-                    }
-                }
-                else
-                {
-
-                    if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Name"))
-                    {
-
-
-
-                        Search_Bar_Suggest_Mods.Text = "~Search";
-
-
-                        var sorted = Final_List.OrderByDescending(ob => ob.Mod_Name_).ToArray();
-
-                        Mod_List_Box.ItemsSource = sorted;
-
-                        Mod_List_Box.Refresh();
-
-                    }
-                    else if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Date"))
-                    {
-
-
-                        Search_Bar_Suggest_Mods.Text = "~Search";
-
-
-
-                        var sorted = Final_List.OrderBy(ob => Convert.ToDateTime(ob.Mod_Date_)).ToArray();
-
-                        Mod_List_Box.ItemsSource = sorted;
-                        Mod_List_Box.Refresh();
-
-                    }
-                    else if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Status"))
-                    {
-
-                        Search_Bar_Suggest_Mods.Text = "~Search";
-
-
-                        var sorted = Final_List.OrderByDescending(ob => ob.En_Di).ToArray();
-                        Mod_List_Box.ItemsSource = sorted;
-                        Mod_List_Box.Refresh();
-
-                    }
-                    else
-                    {
-
-                        Search_Bar_Suggest_Mods.Text = "~Search";
-
-
-                        var sorted = Final_List.OrderByDescending(ob => ob.Mod_Name_).ToArray();
-
-                        Mod_List_Box.ItemsSource = sorted;
-
-                        Mod_List_Box.Refresh();
-
-                    }
-
                 }
             }
-        }
             catch (Exception ex)
             {
-                 Main.logger2.Open();
-                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source +Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine);
-Main.logger2.Close();Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-               
+                Main.logger2.Open();
+                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine);
+                Main.logger2.Close(); Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+
             }
-}
+        }
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBox_Actions();
+            if(Filter.SelectedIndex != -1)
+            {
+                Filter_Label.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                Filter_Label.Visibility = Visibility.Visible;
+
+            }
+
+        }
 
         private void Search_Bar_Suggest_Mods_KeyDown(object sender, KeyEventArgs e)
         {
@@ -809,6 +824,12 @@ Main.logger2.Close();Log.Error(ex, $"A crash happened at {DateTime.Now.ToString(
             {
                 Search_Bar_Suggest_Mods.Text = "";
             }
+
+
+
+
+
+
             Search_Bar_Suggest_Mods.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFFFFFFF");
             Search_Bar_Suggest_Mods.IconForeground = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFFFFFFF");
         }
@@ -847,7 +868,8 @@ Main.logger2.Close();Log.Error(ex, $"A crash happened at {DateTime.Now.ToString(
                        
                         else
                         {
-
+                            if (Filter.SelectedItem != null)
+                         {
                             if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Name"))
                             {
                                 return Final_List.OrderBy(ob => ob.Mod_Name_).ToArray();
@@ -868,6 +890,12 @@ Main.logger2.Close();Log.Error(ex, $"A crash happened at {DateTime.Now.ToString(
                                 return Final_List.OrderBy(ob => ob.Mod_Name_).ToArray();
 
                             }
+                        }
+                        else
+                        {
+                            return Final_List.OrderBy(ob => ob.Mod_Name_).ToArray();
+
+                        }
                         
                     }
                 }
@@ -886,7 +914,8 @@ Main.logger2.Close();Log.Error(ex, $"A crash happened at {DateTime.Now.ToString(
 
                     else
                     {
-                       
+                        if (Filter.SelectedItem != null)
+                        {
 
                             if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Name"))
                             {
@@ -908,9 +937,9 @@ Main.logger2.Close();Log.Error(ex, $"A crash happened at {DateTime.Now.ToString(
                                 return Final_List.OrderByDescending(ob => ob.Mod_Name_);
 
                             }
-                        
-                    }
 
+                        }
+                    }
 
 
                 }
@@ -1072,10 +1101,7 @@ Main.logger2.Close();
 
                     if (rg.IsMatch(Name_))
                     {
-                        // Create a Regex  
-                        //Uri uri = new Uri("/Pages/Page_Thunderstore.xaml", UriKind.Relative);
-                        //this.NavigationService.Navigate(uri);
-                        //go to thunderstore with name query
+                      
 
                         BackgroundWorker worker = new BackgroundWorker();
                         worker.DoWork += (sender, e) =>
@@ -1525,14 +1551,6 @@ Main.logger2.Close();Log.Error(ex, $"A crash happened at {DateTime.Now.ToString(
                         }
                     }
                 
-    //                ListBoxItem myListBoxItem =
-    //(ListBoxItem)(Mod_List_Box.ItemContainerGenerator.ContainerFromItem(Mod_List_Box.Items.CurrentItem));
-
-
-              
-
-
-
 
                 }
 
@@ -1883,6 +1901,11 @@ Main.logger2.Close();Log.Error(ex, $"A crash happened at {DateTime.Now.ToString(
                 }
             }
 
+        }
+
+        private void Page_Unloaded(object sender, RoutedEventArgs e)
+        {
+            Filter.SelectedIndex = -1;
         }
     }
 }

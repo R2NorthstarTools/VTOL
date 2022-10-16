@@ -633,7 +633,6 @@ Main.logger2.Close();
                         SnackBar.Title = "ERROR";
                         SnackBar.Message =VTOL.Resources.Languages.Language.Page_Server_Read_Convar_args_CannotSetThePath;
                         SnackBar.Show();
-                        //Send_Warning_Notif(GetTextResource("NOTIF_WARN_CANNOT_SET_PATH"));
 
                     }
 
@@ -651,9 +650,7 @@ Main.logger2.Close();
                 {
                     //Console.WriteLine(String.Format(" array[{0}] = {1}", i, intake[i]));
                 }
-                //Console.WriteLine("\n\n\n");
-                //   Send_Warning_Notif(intake[Array.FindIndex(intake, element => element.Contains(Convar_Name))].ToString());
-
+             
                 if (Array.Exists(intake, element => element.StartsWith(Convar_Name)))
                 {
 
@@ -666,7 +663,6 @@ Main.logger2.Close();
                 }
                 else
                 {
-                    //  Send_Error_Notif("CONVAR NOT FOUND-"+ Convar_Name);
 
                     return null;
                 }
@@ -817,13 +813,11 @@ Main.logger2.Close();
                     }
 
                     String x = String.Join(" ", intermid.ToArray());
-                    //  ClearFile(RootFolder +@"\" + "ns_startup_args_dedi.txt");
 
                     using (StreamWriter sw = new StreamWriter(RootFolder, false, Encoding.UTF8, 65536))
                     {
                         sw.WriteLine(Regex.Replace(x, @"\s+", " ").Replace("+ ", "+"));
                     }
-                    //Send_Success_Notif(GetTextResource("NOTIF_SUCCESS_GROUP_VAR_THE_VARIABLE") + var_Name + GetTextResource("NOTIF_SUCCESS_GROUP_VAR_HAS_BEEN_FOUND_VALUE") + var_Value);
 
 
                 }
@@ -835,7 +829,6 @@ Main.logger2.Close();
                     string[] intermid_ = null;
                     foreach (string line in intake_)
                     {
-                        //  intermid_ = line.Split('+');
                         intermid_ = Regex.Split(line, pattern);
 
                     }
@@ -844,16 +837,12 @@ Main.logger2.Close();
 
 
                     String x = String.Join(" ", intermid_.ToArray());
-                    //x.Replace(System.Environment.NewLine, "replacement text");
-                    //  File.WriteAllText(RootFolder, String.Empty);
-                    // ClearFile(RootFolder +@"\" + "ns_startup_args_dedi.txt");
+                   
                     using (StreamWriter sw = new StreamWriter(RootFolder, false, Encoding.UTF8, 65536))
                     {
                         sw.WriteLine(Regex.Replace(x, @"\s+", " "));
                     }
-                    // File.WriteAllText(GetFile(RootFolder, "ns_startup_args_dedi.txt").First(), x);
-                    //Send_Warning_Notif(GetTextResource("NOTIF_WARN_GROUP_VAR_NOT_FOUND_INFILE") + var_Name + GetTextResource("NOTIF_WARN_GROUP_VAR_SAVED_VALUE") + var_Value + "]");
-
+                   
                 }
             }
             catch (Exception ex)
@@ -1028,7 +1017,6 @@ Main.logger2.Close();
                                 {
                                     if (val.Count() > 5)
                                     {
-                                        //Send_Warning_Notif(GetTextResource("NOTIF_WARN_PORT_TOO_lONG"));
                                         Text_Box.Background = Brushes.Red;
                                     }
                                     else
@@ -1061,7 +1049,6 @@ Main.logger2.Close();
                                                 }
                                                 else
                                                 {
-                                                    //Send_Warning_Notif(GetTextResource("NOTIF_WARN_ERROR_AT") + name + "]");
                                                     Text_Box.Background = Brushes.Red;
                                                     Text_Box.Text = null;
 
@@ -1075,7 +1062,6 @@ Main.logger2.Close();
                                 {
                                     if (val.Count() > 5)
                                     {
-                                        //Send_Warning_Notif(GetTextResource("NOTIF_WARN_PORT_TOO_lONG"));
                                         Text_Box.Background = Brushes.Red;
                                     }
                                     else
@@ -1103,13 +1089,11 @@ Main.logger2.Close();
                                                 if (val == null || val == "")
                                                 {
 
-                                                    //Send_Warning_Notif(GetTextResource("NOTIF_WARN_GROUP_CVAR_EMTPY_VALUE") + name + GetTextResource("NOTIF_WARN_GROUP_CVAR_REMOVED"));
                                                     Write_Startup_Arg_To_File(name, val, false, true, Ns_dedi_File);
 
                                                 }
                                                 else
                                                 {
-                                                    //Send_Warning_Notif(GetTextResource("NOTIF_WARN_GROUP_CVAR_ERROR_AT") + name + "]");
                                                     Text_Box.Background = Brushes.Red;
                                                     Text_Box.Text = null;
 
@@ -1201,7 +1185,6 @@ Main.logger2.Close();
                 string type = Split[0];
                 string name = Split[1];
                 string ARG = Split[2];
-                // string list = String.Join(" ", comboBox.SelectedItems.Cast<String>().ToArray());
                 if (ARG == "CONVAR")
                 {
                     if (type == "LIST")
@@ -1238,8 +1221,6 @@ Main.logger2.Close();
                     {
 
 
-                        //   Send_Success_Notif("Convar");
-                        //      Read_Convar_args(name, Convar_File);
                         string import = null;
                         this.Dispatcher.Invoke(() =>
                         {
@@ -1258,7 +1239,6 @@ Main.logger2.Close();
                                 comboBox.SelectedItems.Add(item);
 
 
-                                //Send_Error_Notif(item);
                             }
                             comboBox.Foreground = Brushes.White;
 

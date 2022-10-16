@@ -71,6 +71,7 @@
     <None Remove="Fonts\Segoe-UI-Variable-Static-Text.ttf" />
     <None Remove="Fonts\SegoeUI-VF.ttf" />
     <None Remove="NLog.config" />
+    <None Remove="README.md" />
     <None Remove="Resources\Backgrounds\5005323-titanfall-2-games-2018-games-hd-4k.jpg" />
     <None Remove="Resources\Backgrounds\6._The_Beacon_-_1.png" />
     <None Remove="Resources\Backgrounds\62f29d37d6baf.jpg" />
@@ -214,6 +215,7 @@
     <None Remove="Resources\Resource_Static\Crowbar.png" />
     <None Remove="Resources\Resource_Static\harmony.png" />
     <None Remove="Resources\Resource_Static\Leigon+.png" />
+    <None Remove="Resources\Resource_Static\MDL_SHIT_Banner.png" />
     <None Remove="Resources\Resource_Static\Northstar_Server_Vals_Aug_2022.json" />
     <None Remove="Resources\Resource_Static\NO_TEXTURE.png" />
     <None Remove="Resources\Resource_Static\Rexx_Cat.jpg" />
@@ -232,15 +234,19 @@
     <PackageReference Include="Iconic.Zlib.Netstandard" Version="1.0.0" />
     <PackageReference Include="Json.Net" Version="1.0.33" />
     <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
-    <PackageReference Include="Magick.NET-Q16-AnyCPU" Version="12.1.0" />
-    <PackageReference Include="Microsoft.Build" Version="17.3.1" />
+    <PackageReference Include="Magick.NET-Q16-AnyCPU" Version="12.2.0" />
+    <PackageReference Include="MdXaml" Version="1.16.0" />
+    <PackageReference Include="MdXaml.Html" Version="1.16.0" />
+    <PackageReference Include="MdXaml.Plugins" Version="1.16.0" />
+    <PackageReference Include="MdXaml.Svg" Version="1.16.0" />
+    <PackageReference Include="Microsoft.Build" Version="17.3.2" />
     <PackageReference Include="MSBuild.Microsoft.VisualStudio.Web.targets" Version="14.0.0.3" />
     <PackageReference Include="NBug" Version="1.2.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="NLog" Version="5.0.4" />
     <PackageReference Include="NLog.Targets.Syslog" Version="7.0.0" />
     <PackageReference Include="Notification.Wpf" Version="6.1.0.5" />
-    <PackageReference Include="Octokit" Version="3.0.0" />
+    <PackageReference Include="Octokit" Version="4.0.0" />
     <PackageReference Include="Ookii.Dialogs.Wpf" Version="5.0.1" />
     <PackageReference Include="Parallax.WPF" Version="1.0.8" />
     <PackageReference Include="Pfim" Version="0.11.1" />
@@ -250,8 +256,8 @@
     <PackageReference Include="Serilog.Sinks.FastConsole" Version="2.1.0" />
     <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
     <PackageReference Include="SixLabors.ImageSharp" Version="2.1.3" />
-    <PackageReference Include="Syncfusion.SfImageEditor.WPF" Version="20.2.0.50" />
-    <PackageReference Include="Syncfusion.SfSkinManager.WPF" Version="20.2.0.50" />
+    <PackageReference Include="Syncfusion.SfImageEditor.WPF" Version="20.3.0.49" />
+    <PackageReference Include="Syncfusion.SfSkinManager.WPF" Version="20.3.0.49" />
     <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
     <PackageReference Include="System.Management" Version="6.0.0" />
     <PackageReference Include="System.Threading.Tasks.Dataflow" Version="6.0.0" />
@@ -264,6 +270,9 @@
     <Resource Include="NLog.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <EmbeddedResource Include="README.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(1).jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -427,6 +436,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Icons\Main_UI\settings.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Resource_Static\MDL_SHIT_Banner.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Resource Include="Resources\Resource_Static\Rexx_Cat.jpg">

@@ -43,7 +43,7 @@ namespace VTOL
 
         static void Main(string[] args)
         {
-           
+
             if (args.Length > 0)
             {
                 if (Uri.TryCreate(args[0], UriKind.Absolute, out var uri) &&
@@ -57,101 +57,111 @@ namespace VTOL
         {
             try
             {
-               
+
                 InitializeComponent();
 
 
 
                 //System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo("fr-FR");
                 //System.Threading.Thread.CurrentThread.CurrentCulture = new CultureInfo("fr-FR");
-               
+
 
                 if (Directory.Exists(DocumentsFolder))
-            {
-
-                if (!File.Exists(DocumentsFolder + @"\VTOL_DATA\Settings\User_Settings.Json"))
                 {
-                    Directory.CreateDirectory(DocumentsFolder + @"\VTOL_DATA\Settings");
-                    dynamic User_Settings_Json = new JObject();
-                    User_Settings_Json.Current_Version = "NODATA";
-                    User_Settings_Json.Theme = "NODATA";
-                    User_Settings_Json.Master_Server_Url = "Northstar.tf";
-                    User_Settings_Json.Profile_Path = "R2Northstar";
-                    User_Settings_Json.Repo = "Northstar";
-                    User_Settings_Json.Language = "NODATA";
-                    User_Settings_Json.Repo_Url = "https://api.github.com/repos/R2Northstar/Northstar/releases/latest";
-                    User_Settings_Json.Northstar_Install_Location = "NODATA";
-                    User_Settings_Json.MasterServer_URL_CN = "nscn.wolf109909.top";
-                    User_Settings_Json.Current_REPO_URL_CN = "https://nscn.wolf109909.top/version/query";
-                    User_Settings_Json.Author = "R2Northstar";
-                    User_Settings_Vars.Auto_Update_Northstar = true;
-                    User_Settings_Vars.Auto_Close_VTOL = true;
-                    var User_Settings_Json_String = Newtonsoft.Json.JsonConvert.SerializeObject(User_Settings_Json);
 
-                    using (var StreamWriter = new StreamWriter(DocumentsFolder + @"\VTOL_DATA\Settings\User_Settings.Json", true))
+                    if (!File.Exists(DocumentsFolder + @"\VTOL_DATA\Settings\User_Settings.Json"))
                     {
-                        StreamWriter.WriteLine(User_Settings_Json_String.ToString());
-                        StreamWriter.Close();
+                        Directory.CreateDirectory(DocumentsFolder + @"\VTOL_DATA\Settings");
+                        dynamic User_Settings_Json = new JObject();
+                        User_Settings_Json.Current_Version = "NODATA";
+                        User_Settings_Json.Theme = "NODATA";
+                        User_Settings_Json.Master_Server_Url = "Northstar.tf";
+                        User_Settings_Json.Profile_Path = "R2Northstar";
+                        User_Settings_Json.Repo = "Northstar";
+                        User_Settings_Json.Language = "NODATA";
+                        User_Settings_Json.Repo_Url = "https://api.github.com/repos/R2Northstar/Northstar/releases/latest";
+                        User_Settings_Json.Northstar_Install_Location = "NODATA";
+                        User_Settings_Json.MasterServer_URL_CN = "nscn.wolf109909.top";
+                        User_Settings_Json.Current_REPO_URL_CN = "https://nscn.wolf109909.top/version/query";
+                        User_Settings_Json.Author = "R2Northstar";
+                        User_Settings_Vars.Auto_Update_Northstar = true;
+                        User_Settings_Vars.Auto_Close_VTOL = true;
+                        var User_Settings_Json_String = Newtonsoft.Json.JsonConvert.SerializeObject(User_Settings_Json);
+
+                        using (var StreamWriter = new StreamWriter(DocumentsFolder + @"\VTOL_DATA\Settings\User_Settings.Json", true))
+                        {
+                            StreamWriter.WriteLine(User_Settings_Json_String.ToString());
+                            StreamWriter.Close();
+                        }
+                        User_Settings_Vars = User_Settings.FromJson(User_Settings_Json_String);
                     }
-                    User_Settings_Vars = User_Settings.FromJson(User_Settings_Json_String);
+                    else
+                    {
+                        string User_Settings_String = System.IO.File.ReadAllText(DocumentsFolder + @"\VTOL_DATA\Settings\User_Settings.Json");
+
+                        User_Settings_Vars = User_Settings.FromJson(User_Settings_String);
+
+
+
+                    }
+
                 }
                 else
                 {
-                    string User_Settings_String = System.IO.File.ReadAllText(DocumentsFolder + @"\VTOL_DATA\Settings\User_Settings.Json");
-
-                    User_Settings_Vars = User_Settings.FromJson(User_Settings_String);
-
-
+                    MessageBox.Show("VTOL SYSTEMS FAILED TO FIND YOUR DOCUMENTS FOLDER");
+                    Application.Current.Shutdown();
 
                 }
-
-            }
-            else
-            {
-                MessageBox.Show("VTOL SYSTEMS FAILED TO FIND YOUR DOCUMENTS FOLDER");
-                Application.Current.Shutdown();
-
-            }
-                // ProfileManager Profile_ = new ProfileManager();
-                //  Profile_.InitializeProfiles(null);
-                string language = "en-EN";
-                switch (User_Settings_Vars.Language)
+                if (User_Settings_Vars != null)
                 {
-                    case "fr":
-                        language = "fr-FR";
-                        break;
-                    case "it":
-                        language = "it-IT";
-                        break;
-                    case "de":
-                        language = "de-DE";
-                        break;
-                    case "zh":
-                        language = "zh-CHT";
-                        break;
-                    case "ko":
-                        language = "ko-KR";
-                        break;
-                    case "en":
-                        language = "en-EN";
-                        break;
-                    case "ru":
-                        language = "ru-RU";
-                        break;
-                    default:
-                        language = "en-EN";
-                        break;
+
+                    // ProfileManager Profile_ = new ProfileManager();
+                    //  Profile_.InitializeProfiles(null);
+                    string language = "en-EN";
+                    switch (User_Settings_Vars.Language)
+                    {
+                        case "fr":
+                            language = "fr-FR";
+                            break;
+                        case "it":
+                            language = "it-IT";
+                            break;
+                        case "de":
+                            language = "de-DE";
+                            break;
+                        case "zh":
+                            language = "zh-CHT";
+                            break;
+                        case "ko":
+                            language = "ko-KR";
+                            break;
+                        case "en":
+                            language = "en-EN";
+                            break;
+                        case "ru":
+                            language = "ru-RU";
+                            break;
+                        default:
+                            language = "en-EN";
+                            break;
+
+                    }
+
+                    CultureInfo ui_culture = new CultureInfo(language);
+                    CultureInfo culture = new CultureInfo(language);
+
+                    Thread.CurrentThread.CurrentUICulture = ui_culture;
+                    Thread.CurrentThread.CurrentCulture = culture;
+                }
+                else
+                {
+
+                    Send_Danger_Notif("Could Not Read User Settings, Please Run as Admin or Repair/Clean your Installation", 10000);
 
                 }
-                CultureInfo ui_culture = new CultureInfo(language);
-                CultureInfo culture = new CultureInfo(language);
-
-                Thread.CurrentThread.CurrentUICulture = ui_culture;
-                Thread.CurrentThread.CurrentCulture = culture;
-
                 Wpf.Ui.Appearance.Theme.Apply(
-            Wpf.Ui.Appearance.ThemeType.Unknown,     
-            // Theme type
+            Wpf.Ui.Appearance.ThemeType.Unknown,
+  // Theme type
   Wpf.Ui.Appearance.BackgroundType.None, // Background type
   true                                  // Whether to change accents automatically
 );
@@ -161,11 +171,10 @@ namespace VTOL
 
 
 
+            }
 
-        }
 
-
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show("Exception Encountered! - " + ex.Message);
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
@@ -179,7 +188,7 @@ namespace VTOL
 
 
         }
-      
+
         public static void RegisterUriScheme()
         {
             using (var key = Registry.CurrentUser.CreateSubKey("SOFTWARE\\Classes\\" + UriScheme))
@@ -226,10 +235,10 @@ namespace VTOL
 
         }
 
-        public void Send_Danger_Notif(string Input_Message)
+        public void Send_Danger_Notif(string Input_Message, int time)
         {
 
-
+            Snackbar.Timeout = time;
             Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Danger;
             Snackbar.Show("Danger", Input_Message, Wpf.Ui.Common.SymbolRegular.Warning24);
         }
@@ -290,10 +299,10 @@ namespace VTOL
             if (Wpf.Ui.Appearance.Theme.GetAppTheme() == ThemeType)
             {
 
-                Wpf.Ui.Appearance.Theme.Apply(
- Wpf.Ui.Appearance.ThemeType.Light,     // Theme type
- Wpf.Ui.Appearance.BackgroundType.Mica, // Background type
- true                                  // Whether to change accents automatically
+				Wpf.Ui.Appearance.Theme.Apply(
+Wpf.Ui.Appearance.ThemeType.Light, // Theme type
+Wpf.Ui.Appearance.BackgroundType.Mica, // Background type
+true // Whether to change accents automatically
 );
                 Main_Win_Control.Background = Brushes.White;
 
@@ -326,12 +335,12 @@ namespace VTOL
         {
             //Dialog.Hide();
         }
-       
-        
 
 
 
-       
+
+
+
         private void RootFrame_GotFocus(object sender, RoutedEventArgs e)
         {
         }

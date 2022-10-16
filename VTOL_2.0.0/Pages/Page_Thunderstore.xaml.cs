@@ -692,7 +692,6 @@ Main.logger2.Close();
 
         private void Search_Bar_Suggest_Mods_LostFocus(object sender, RoutedEventArgs e)
         {
-            //  Search_Bar_Suggest_Mods.Text = "Search";
             Search_Bar_Suggest_Mods.IsReadOnly = true;
             if (Search_Bar_Suggest_Mods.Text.Trim() == "")
             {
@@ -706,8 +705,6 @@ Main.logger2.Close();
             Grid Card;
             if (sender.GetType() == typeof(Grid))
             {
-                //                ContentPresenter myListBoxItem =
-                //(ContentPresenter)(Thunderstore_List.ItemContainerGenerator.ContainerFromItem(Thunderstore_List.Items.CurrentItem));
                 Card = sender as Grid;
 
                 HandyControl.Controls.SimplePanel GridPanel_ = FindVisualChild<HandyControl.Controls.SimplePanel>(Card);
@@ -1389,7 +1386,6 @@ Main.logger2.Close();
 Main.logger2.Close();
 
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-                //Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
 
             }
             return null;
@@ -1432,13 +1428,7 @@ Main.logger2.Close();
 
         }
 
-        private void DownloadProgressCallback4(object sender, System.Net.DownloadProgressChangedEventArgs e)
-        {
-            // Displays the operation identifier, and the transfer progress.
-            //////Console.WriteLine("{0}    downloaded {1} of {2} bytes. {3} % complete...", (string)e.UserState, e.BytesReceived,e.TotalBytesToReceive,e.ProgressPercentage);
-
-            //Mod_Progress_BAR.Value = e.ProgressPercentage;
-        }
+     
         string Convert_To_Size(int size)
         {
             string[] sizes = { "B", "KB", "MB", "GB", "TB" };
@@ -1477,12 +1467,7 @@ Main.logger2.Close();
                 Progress_Bar.Value = (e.ProgressPercentage);
             });
 
-            //lblTotalBytesReceived.Text = string.Format("{0} / {1}",
-            //e.TotalBytesReceived.ToHumanReadableSize(),
-            //    downloader.Info.Length > 0 ? downloader.Info.Length.ToHumanReadableSize() : "Unknown");
-            //lblProgress.Text = e.Progress.ToString("0.00") + "%";
-            //lblSpeed.Text = e.SpeedInBytes.ToHumanReadableSize() + "/s";
-            //progressBar.Value = (int)(e.Progress * 100);
+           
         }
         
         void downloader_DownloadCompleted(object sender, AsyncCompletedEventArgs e, ProgressBar Progress_Bar, string Mod_Name, string Location, bool Skin_Install, bool NS_CANDIDATE_INSTALL)
@@ -1509,7 +1494,6 @@ Main.logger2.Close();
                 {
                     string[] words = url.Split("|");
 
-                    //HttpDownloader downloader = new HttpDownloader(url, path);
                     IDownload downloader = DownloadBuilder.New()
     .WithUrl(words[0])
     .WithDirectory(path)
@@ -1524,10 +1508,7 @@ Main.logger2.Close();
 
 
 
-                        //download.DownloadProgressChanged += DownloadProgressChanged;
-                        //download.DownloadFileCompleted += DownloadFileCompleted;
-                        //download.DownloadStarted += DownloadStarted;
-                        //download.ChunkDownloadProgressChanged += ChunkDownloadProgressChanged;
+                    
                         downloader.DownloadProgressChanged += delegate (object sender2, Downloader.DownloadProgressChangedEventArgs e2)
                         {
                             
@@ -1535,10 +1516,7 @@ Main.logger2.Close();
                     };
                     }
                     var Destinfo = new DirectoryInfo(User_Settings_Vars.NorthstarInstallLocation);
-                    //downloader.ErrorOccured += delegate (object sender3, ErrorEventArgs e3)
-                    //{
-                    //    downloader_ErrorOccured(sender3, e3);
-                    //};
+                   
 
                     downloader.DownloadFileCompleted += delegate (object sender4, AsyncCompletedEventArgs e4)
                     {
@@ -1551,7 +1529,6 @@ Main.logger2.Close();
 
 
 
-                        //downloader.Start();
                     }
                 });
             });
@@ -1609,7 +1586,6 @@ Main.logger2.Close();
                 var queue = new SerialQueue();
 
 
-                //Console.WriteLine(String.Join("\n\n\n", Links));
 
 
 
@@ -1751,7 +1727,6 @@ Main.logger2.Close();
                             Clear_Folder(Destination);
                         }
                         string fileExt = System.IO.Path.GetExtension(Target_Zip);
-                        ////Console.WriteLine("It only works if i have this line :(");
 
                         if (fileExt == ".zip")
                         {
@@ -1794,15 +1769,13 @@ Main.logger2.Close();
                                 {
                                     string searchQuery3 = "*" + "mod.json" + "*";
 
-                                    //  string[] list = Directory.GetFiles(Destination, "*mod.json*",
-                                    //      SearchOption.AllDirectories);
+                                  
                                     var Destinfo = new DirectoryInfo(Destination);
 
 
                                     var Script = Destinfo.GetFiles(searchQuery3, SearchOption.AllDirectories);
                                     Destinfo.Attributes &= ~FileAttributes.ReadOnly;
                                     Console.WriteLine(Script.Length.ToString());
-                                    //foreach(var File in Script)
                                     if (Script.Length != 0)
                                     {
                                         var File_ = Script.FirstOrDefault();
@@ -2565,8 +2538,8 @@ Main.logger2.Close();
 
         private void Sort_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Sort.SelectedItem != null && Sort.SelectedItem.ToString().Length > 1) /*|| Options_List.Contains(Search_Filters.SelectedItem))*/
-            {
+            if (Sort.SelectedItem != null && Sort.SelectedItem.ToString().Length > 1)
+            { 
                 Sort_Label.Visibility = Visibility.Hidden;
             }
             else

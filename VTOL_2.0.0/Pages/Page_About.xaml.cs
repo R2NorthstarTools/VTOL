@@ -18,7 +18,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Path = System.IO.Path;
-
+using MdXaml;
+using MdXaml.Plugins;
 namespace VTOL.Pages
 {
     /// <summary>
@@ -35,61 +36,7 @@ namespace VTOL.Pages
 
         async Task Set_About()
         {
-
-            About_BOX.IsReadOnly = true;
-            Paragraph paragraph = new Paragraph();
-            SnackBar = Main.Snackbar;
-
-
-            string Text = @"-This Application Installs The Northstar Launcher Created by BobTheBob and can install the countless Mods Authored by the many Titanfall2 Modders.
-Current Features:
-Easily install, update and launch Northstar
-
-Manage installed Northstar mods
-
-Downloading and installing Northstar mods from a GitHub/GitLab repository
-
-Installing downloaded Northstar mods (.zip files)
-
-Easily install custom Weapon/Pilot Skins
-
-Easily start a Northstar Dedicated Server
-
-Thunderstore Mod Browser
-
-Create custom servers using this application to fine tune setups.
-
-Manage dedicated Northstar servers.
-
-Use the Tools To pack Thunderstore Compatible Mod Packages
-
-Install Skins From the Thunderstore Mod Browser
-
-
--Please do suggest any new features and/or improvements through the Git issue tracker, or by sending me a personal message.
-Thank you again to all you Pilots, Hope we wreak havoc on the Frontier for years to come.
-More Instructions at this link: https://github.com/BigSpice/VTOL/blob/master/README.md
-
-Gif image used in Northstar is by @Smurfson.
-
-Big Thanks to - 
-@Ralley111
-@MysteriousRSA
-@emma-miler
-@wolf109909
-@laundmo
-@SamLam140330
-@ConnorDoesDev
-@ScureX
-@rrrfffrrr
-@themoonisacheese
-@xamionex
-Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/Ju1cy ";
-
-            About_BOX.Document.Blocks.Clear();
-            Run run = new Run(Text);
-            paragraph.Inlines.Add(run);
-            About_BOX.Document.Blocks.Add(paragraph);
+          
 
 
 
@@ -121,6 +68,9 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
         {
             InitializeComponent();
             string Header = Path.GetFullPath(Path.Combine(System.Reflection.Assembly.GetExecutingAssembly().Location, @"../"));
+            string markdownTxt = System.IO.File.ReadAllText(Directory.GetParent(System.Reflection.Assembly.GetExecutingAssembly().Location.ToString()).FullName + "/README.md");
+
+            MarkDown_Display.Markdown = markdownTxt;
 
             updaterModulePath = Path.Combine(Header, "VTOL_Updater.exe");
             if (!File.Exists(updaterModulePath))

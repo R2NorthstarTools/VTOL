@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:VTOL.Pages"
+         
         mc:Ignorable="d" 
       KeepAlive="True"
       xmlns:hc="https://handyorg.github.io/handycontrol"
@@ -409,8 +410,8 @@
                 <hc:ScrollViewer  MouseDown="ScrollViewer_MouseDown" Height="514" Padding="9,9,9,9">
 
 
-                    <Grid Height="1027"  >
-                        <Border BorderThickness="1" Margin="31,33,0,690" Background="#FF404240" CornerRadius="5,5,5,5" HorizontalAlignment="Left" Width="473" Height="304">
+                    <Grid Height="1402"  >
+                        <Border BorderThickness="1" Margin="31,-377,0,690" Background="#FF404240" CornerRadius="5,5,5,5" HorizontalAlignment="Left" Width="473" Height="304">
                             <Grid  >
 
                                 <Label Margin="10,180,0,88" Content="LEGION+" FontSize="22" Foreground="White" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Width="297" Background="{x:Null}"/>
@@ -421,9 +422,8 @@
                                         <ImageBrush Stretch="UniformToFill" ImageSource="/Resources/Resource_Static/Leigon+.png" TileMode="None"/>
                                     </Border.Background>
                                 </Border>
-                               
+
                                 <ui:Button ToolTip="{x:Static properties:Language.Page_Tools_WebPage_}"  x:Name="LEGION_INSTALL_PAGE"  Margin="447,0,0,0" VerticalAlignment="Top" Background="#CC3E3E3E" BorderBrush="{x:Null}" Height="24" Icon="BookInformation24" Padding="0,0,0,0" Width="24" ClickMode="Press" Click="LEGION_INSTALL_PAGE_Click"></ui:Button>
-                                <ui:Button ToolTip="{x:Static properties:Language.Page_Tools_WebPage_}"  x:Name="LEGION_INSTALL_STARTUP_ARGS"  Margin="447,24,0,0" VerticalAlignment="Top" Background="#CC3E3E3E" BorderBrush="{x:Null}" Height="24" Icon="Settings28" Padding="0,0,0,0" Width="24" ClickMode="Press" Click="LEGION_INSTALL_STARTUP_ARGS_Click"></ui:Button>
 
                                 <ui:Button x:Name="LEGION_INSTALL_FOLDER"   VerticalAlignment="Top" Icon="Open24" HorizontalAlignment="Stretch"  Background="#FFAF7800" Margin="312,161,10,0" Content="{x:Static properties:Language.Page_Tools_OpenFolder}" Foreground="White" BorderBrush="#029C9C9C" OverridesDefaultStyle="False" ClickMode="Press" Appearance="Primary" IconFilled="True" IconForeground="White" Click="LEGION_INSTALL_FOLDER_Click">
                                     <ui:Button.MouseOverBackground>
@@ -439,7 +439,7 @@
                             </Grid  >
 
                         </Border>
-                        <Border BorderThickness="1" Margin="528,33,0,690" Background="#FF404240" CornerRadius="5,5,5,5" HorizontalAlignment="Left" Width="473" Height="304">
+                        <Border BorderThickness="1" Margin="528,-377,0,690" Background="#FF404240" CornerRadius="5,5,5,5" HorizontalAlignment="Left" Width="473" Height="304">
                             <Grid  >
 
                                 <Label Margin="10,180,0,88" Content="HARMONY VPK" FontSize="22" Foreground="White" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Width="297" Background="{x:Null}"/>
@@ -463,7 +463,7 @@
                             </Grid  >
 
                         </Border>
-                        <Border BorderThickness="1" Margin="31,362,0,361" Background="#FF404240" CornerRadius="5,5,5,5" HorizontalAlignment="Left" Width="473" Height="304">
+                        <Border BorderThickness="1" Margin="31,-48,0,361" Background="#FF404240" CornerRadius="5,5,5,5" HorizontalAlignment="Left" Width="473" Height="304">
                             <Grid  >
 
                                 <Label Margin="10,180,0,88" Content="CROWBAR" FontSize="22" Foreground="White" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Width="297" Background="{x:Null}"/>
@@ -487,25 +487,28 @@
                             </Grid  >
 
                         </Border>
-                        <Border BorderThickness="1" Margin="528,362,0,361" Background="#FF404240" CornerRadius="5,5,5,5" HorizontalAlignment="Left" Width="473" Height="304">
+                        <Border BorderThickness="1" Margin="528,-48,0,361" Background="#FF404240" CornerRadius="5,5,5,5" HorizontalAlignment="Left" Width="473" Height="304">
                             <Grid  >
 
                                 <Label Margin="10,180,0,88" Content="RePak" FontSize="22" Foreground="White" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Width="297" Background="{x:Null}"/>
-                                <Border CornerRadius="5,5,9,9" Margin="0,0,0,127">
+                                <Border  CornerRadius="5,5,9,9" Margin="0,0,0,127">
+
                                     <ui:Button ToolTip="{x:Static properties:Language.Page_Tools_WebPage_}" x:Name="REPAK_INSTALL_PAGE" Margin="447,0,0,0" VerticalAlignment="Top" Background="#CC3E3E3E" BorderBrush="{x:Null}" Height="24" Icon="BookInformation24" Padding="0,0,0,0" Width="24" ClickMode="Press" Click="REPAK_INSTALL_PAGE_Click"></ui:Button>
                                     <Border.Background>
                                         <ImageBrush Stretch="UniformToFill" ImageSource="/Resources/Resource_Static/Rexx_Cat.jpg" TileMode="None"/>
                                     </Border.Background>
                                 </Border>
-                                <Border  Margin="0,0,0,127" Background="#E5000000" >
+                                <Border CornerRadius="5,5,9,9" x:Name="Launch_Args_Window" Margin="0,0,0,127" Background="#E5000000" Visibility="Hidden" >
                                     <Grid>
                                         <Label Margin="28,62,235,87" Content="{x:Static properties:Language.Page_Tools_LaunchArguments}" FontSize="14" ScrollViewer.CanContentScroll="True" VerticalContentAlignment="Bottom"/>
-                                        <ui:TextBox x:Name="Startup_Args_RpAk" Margin="28,88,28,0" VerticalAlignment="Top" Height="30"></ui:TextBox>
+                                        <ui:TextBox x:Name="Startup_Args_RpAk" Margin="28,88,28,0" VerticalAlignment="Top" Height="30" TextChanged="Startup_Args_RpAk_TextChanged" Padding="0,0,0,0" LostFocus="Startup_Args_RpAk_LostFocus"></ui:TextBox>
 
 
                                     </Grid>
 
                                 </Border>
+                                <ui:Button ToolTip="Advanced"  x:Name="Advanced_Repak"  Margin="447,23,0,0" VerticalAlignment="Top" Background="#CC3E3E3E" BorderBrush="{x:Null}" Height="24" Icon="Settings28" Padding="0,0,0,0" Width="24" ClickMode="Press" Click="Advanced_Repak_Click"></ui:Button>
+
                                 <ui:Button x:Name="REPAK_INSTALL_FOLDER"  VerticalAlignment="Top" Icon="Open24" HorizontalAlignment="Stretch"  Background="#FFAF7800" Margin="312,161,10,0" Content="{x:Static properties:Language.Page_Tools_OpenFolder}" Foreground="White" BorderBrush="#029C9C9C" OverridesDefaultStyle="False" ClickMode="Press" Appearance="Primary" IconFilled="True" IconForeground="White" Click="REPAK_INSTALL_FOLDER_Click">
                                     <ui:Button.MouseOverBackground>
                                         <SolidColorBrush Color="#FF795300" Opacity="0.9"/>
@@ -520,7 +523,7 @@
                             </Grid  >
 
                         </Border>
-                        <Border BorderThickness="1" Margin="31,701,0,22" Background="#FF404240" CornerRadius="5,5,5,5" HorizontalAlignment="Left" Width="473" Height="304">
+                        <Border BorderThickness="1" Margin="31,270,0,22" Background="#FF404240" CornerRadius="5,5,5,5" HorizontalAlignment="Left" Width="473" Height="304">
                             <Grid  >
 
                                 <Label Margin="10,180,0,88" Content="VTF-EDIT" FontSize="22" Foreground="White" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Width="297" Background="{x:Null}"/>
@@ -544,7 +547,7 @@
                             </Grid  >
 
                         </Border>
-                        <Border BorderThickness="1" Margin="528,701,0,22" Background="#FF404240" CornerRadius="5,5,5,5" HorizontalAlignment="Left" Width="473" Height="304">
+                        <Border BorderThickness="1" Margin="528,270,0,22" Background="#FF404240" CornerRadius="5,5,5,5" HorizontalAlignment="Left" Width="473" Height="304">
                             <Grid  >
 
                                 <Label Margin="10,180,0,88" Content="TITANFALL 2 VPK TOOL" FontSize="22" Foreground="White" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Width="297" Background="{x:Null}"/>
@@ -569,12 +572,61 @@
                             </Grid  >
 
                         </Border>
+                        <Border BorderThickness="1" Margin="31,1000,0,94" Background="#FF404240" CornerRadius="5,5,5,5" HorizontalAlignment="Left" Width="473" Height="304">
+                            <Grid  >
 
+                                <Label Margin="10,180,0,88" Content="MDL-SHIT" FontSize="22" Foreground="White" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Width="297" Background="{x:Null}"/>
+                                <Border CornerRadius="5,5,9,9" Margin="0,0,0,127">
+                                    <ui:Button ToolTip="{x:Static properties:Language.Page_Tools_WebPage_}" x:Name="MDL_TOOL_PAGE" Margin="447,0,0,0" VerticalAlignment="Top" Background="#CC3E3E3E" BorderBrush="{x:Null}" Height="24" Icon="BookInformation24" Padding="0,0,0,0" Width="24" ClickMode="Press" Click="MDL_TOOL_PAGE_Click" ></ui:Button>
+                                    <Border.Background>
+                                        <ImageBrush Stretch="UniformToFill" ImageSource="/Resources/Resource_Static/MDL_SHIT_Banner.png" TileMode="None"/>
+                                    </Border.Background>
+                                </Border>
+                                <ui:Button x:Name="MDL_TOOL_FOLDER" VerticalAlignment="Top" Icon="Open24" HorizontalAlignment="Stretch"  Background="#FFAF7800" Margin="312,161,10,0" Content="{x:Static properties:Language.Page_Tools_OpenFolder}" Foreground="White" BorderBrush="#029C9C9C" OverridesDefaultStyle="False" ClickMode="Press" Appearance="Primary" IconFilled="True" IconForeground="White" Click="MDL_TOOL_FOLDER_Click">
+                                    <ui:Button.MouseOverBackground>
+                                        <SolidColorBrush Color="#FF795300" Opacity="0.9"/>
+                                    </ui:Button.MouseOverBackground>
+                                    <ui:Button.PressedBackground>
+                                        <SolidColorBrush Color="#FFCE8D00" Opacity="0.7"/>
+                                    </ui:Button.PressedBackground>
+
+                                </ui:Button>
+                                <ui:Button x:Name="MDL_TOOL_INSTALL"  VerticalAlignment="Top" Icon="ArrowDown32" HorizontalAlignment="Stretch"  Background="#FF5B0606" Margin="10,237,10,0" Height="55" Content="Install" BorderBrush="{x:Null}" ClickMode="Press" Click="MDL_TOOL_INSTALL_Click"/>
+                                <Label Margin="10,211,421,68" Content="V2.0.1" FontSize="14" Foreground="#FFB7B7B7" HorizontalContentAlignment="Center" Background="{x:Null}"/>
+
+                            </Grid  >
+
+                        </Border>
                     </Grid>
                 </hc:ScrollViewer>
             </TabItem>
             <TabItem Header="Profile">
                 <Grid   Height="514">
+                    <Button x:Name="Create_New_Profile"  Height="40" Margin="0,87,523,0" VerticalAlignment="Top"  BorderBrush="{x:Null}" Content="Create New Profile" Padding="0,0,0,0" ToolTip="Locate the Mod Zip manually" HorizontalAlignment="Right" Background="#FF383838" ClickMode="Press" Width="430" Click="Create_New_Profile_Click" />
+                    <ListBox x:Name="Profile_list" Margin="93,131,93,87" Background="#FF2F2F2F">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border Margin="93,132,93,337" Background="#FF101010">
+                                    <DockPanel>
+                                        <TextBox Width="356" HorizontalAlignment="Left" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Center" DockPanel.Dock="Left" Height="25" MinHeight="25" MinWidth="356" Background="#FF1F1F1F" Margin="14,0,0,0" BorderBrush="{x:Null}" BorderThickness="0,0,0,0" OverridesDefaultStyle="False">
+
+                                        </TextBox>
+                                        <Button Height="30" Width="144" Content="Select Profile" Padding="0,0,0,0" Margin="119,0,8,0"></Button>
+                                        <Button Height="30" Width="108" Content="Rename" Padding="0,0,0,0" Margin="0,0,8,0"></Button>
+
+                                        <Button Height="30" Width="92" Content="Delete" Padding="0,0,0,0"></Button>
+
+                                    </DockPanel>
+
+
+                                </Border>
+                            </DataTemplate>
+
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+                    <Button x:Name="Import_Profile"  Height="40" Margin="0,87,93,0" VerticalAlignment="Top"  BorderBrush="{x:Null}" Content="Import Profile" Padding="0,0,0,0" ToolTip="Locate the Mod Zip manually" HorizontalAlignment="Right" Background="#FF383838" ClickMode="Press" Width="430" />
+                    <Button x:Name="Export_Profile"  Height="35" Margin="0,432,0,0" VerticalAlignment="Top"  BorderBrush="{x:Null}" Content="Export Profile" Padding="0,0,0,0" ToolTip="Locate the Mod Zip manually" HorizontalAlignment="Center" Background="#FF025249" ClickMode="Press" Width="860" />
 
                 </Grid>
             </TabItem>

@@ -21,62 +21,7 @@
 
 
     <Page.Resources>
-        <!--<Storyboard x:Key="BackgroundRotation" RepeatBehavior="Forever">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="BackGroundImageHolder">
-                <EasingDoubleKeyFrame KeyTime="0:0:4" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:4.5" Value="0.1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:5" Value="1"/>
-
-                <EasingDoubleKeyFrame KeyTime="0:0:9" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:9.5" Value="0.1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:10" Value="1"/>
-
-                <EasingDoubleKeyFrame KeyTime="0:0:14" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:14.5" Value="0.1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:15" Value="1"/>
-
-                <EasingDoubleKeyFrame KeyTime="0:0:19" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:19.5" Value="0.1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:20" Value="1"/>
-
-                <EasingDoubleKeyFrame KeyTime="0:0:24" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:24.5" Value="0.1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:25" Value="1"/>
-            </DoubleAnimationUsingKeyFrames>
-            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Source"   Storyboard.TargetName="BackGroundImageHolder"
-                                                  >
-                <DiscreteObjectKeyFrame KeyTime="0:0:4.5">
-                    <DiscreteObjectKeyFrame.Value>
-                        <BitmapImage UriSource="pack://application:,,,/Parallax.WPF.Demo;component/Static/yorick.jpg"/>
-                    </DiscreteObjectKeyFrame.Value>
-                </DiscreteObjectKeyFrame>
-
-                <DiscreteObjectKeyFrame KeyTime="0:0:9.5">
-                    <DiscreteObjectKeyFrame.Value>
-                        <BitmapImage UriSource="pack://application:,,,/Parallax.WPF.Demo;component/Static/thresh.jpg"/>
-                    </DiscreteObjectKeyFrame.Value>
-                </DiscreteObjectKeyFrame>
-
-                <DiscreteObjectKeyFrame KeyTime="0:0:14.5">
-                    <DiscreteObjectKeyFrame.Value>
-                        <BitmapImage UriSource="pack://application:,,,/Parallax.WPF.Demo;component/Static/hecarim.jpg"/>
-                    </DiscreteObjectKeyFrame.Value>
-                </DiscreteObjectKeyFrame>
-
-                <DiscreteObjectKeyFrame KeyTime="0:0:19.5">
-                    <DiscreteObjectKeyFrame.Value>
-                        <BitmapImage UriSource="pack://application:,,,/Parallax.WPF.Demo;component/Static/beastslayer.jpg"/>
-                    </DiscreteObjectKeyFrame.Value>
-                </DiscreteObjectKeyFrame>
-                <DiscreteObjectKeyFrame KeyTime="0:0:24.5">
-                    <DiscreteObjectKeyFrame.Value>
-                        <BitmapImage UriSource="pack://application:,,,/Parallax.WPF.Demo;component/Static/riven.jpg"/>
-                    </DiscreteObjectKeyFrame.Value>
-                </DiscreteObjectKeyFrame>
-
-            </ObjectAnimationUsingKeyFrames>
-        </Storyboard>-->
-
+        
 
 
         <SolidColorBrush x:Key="Theme_Black_Transparent" Color="#FF040404" Opacity="0.9"/>
@@ -113,11 +58,7 @@
             </ControlTemplate.Triggers>
         </ControlTemplate>
     </Page.Resources>
-    <!--<Page.Triggers>
-        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
-            <BeginStoryboard x:Name="BackgroundRotation_BeginStoryboard" Storyboard="{StaticResource BackgroundRotation}"/>
-        </EventTrigger>
-    </Page.Triggers>-->
+   
     <ScrollViewer x:Name="Scroller" ScrollChanged="Scroller_ScrollChanged" VerticalScrollBarVisibility="Hidden">
 
         <Grid Background="{ui:ThemeResource}" Height="660">
@@ -158,7 +99,6 @@
                     </Image>
                 </Border>
             </Button>
-            <!--<ui:Dialog x:Name="Dialog" SnapsToDevicePixels="False"  />-->
             <TextBlock HorizontalAlignment="Left" Margin="36,109,0,0" TextWrapping="Wrap" Text="{x:Static properties:Language.Page_Home_WelcomeTo}" VerticalAlignment="Top" Height="23" Width="182" Foreground="White" FontSize="18" FontFamily="Segoe UI"/>
             <DockPanel Margin="34,138,0,462" HorizontalAlignment="Left" Width="568"
           
@@ -238,16 +178,7 @@
             </ui:Button>
             <Label Content="{x:Static properties:Language.Page_Home_LaunchTitanfall2Northstar}" Background="{x:Null}" Foreground="White" Margin="65,287,0,0" Padding="0,0,0,0" VerticalAlignment="Top" Width="276" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="24" FontSize="14" IsHitTestVisible="False"/>
 
-            <!-- To be put under settings-->
-            <!--<Label Content="Profile:" Background="{x:Null}" Foreground="White" Margin="48,205,0,0" Padding="0,0,0,0" VerticalAlignment="Top" Width="276" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="24" FontSize="12" IsHitTestVisible="False"/>
-
-            <ComboBox x:Name="Profile_Selection" Margin="48,229,780,0" BorderBrush="{x:Null}" Background="#C1424242" SelectedIndex="0"  VerticalAlignment="Top" SelectionChanged="Profile_Selection_SelectionChanged" Height="34" Padding="10,5,10,7" >
-                <ComboBoxItem Name="Northstar">Northstar</ComboBoxItem>
-                <ComboBoxItem Name="NorthstarCN">NorthstarCN</ComboBoxItem>
-                <ComboBoxItem Name="Status">+</ComboBoxItem>
-            </ComboBox>-->
-            <!--<Label Content="Launch Titanfall 2 Northstar" Background="{x:Null}" Foreground="White" Margin="39,336,0,0" Padding="0,0,0,0" VerticalAlignment="Top" Width="276" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="24" FontSize="14" IsHitTestVisible="False"/>-->
-
+         
 
 
             <Grid Background="{DynamicResource TextFillColorInverseBrush}" Margin="0,366,0,0">
@@ -304,7 +235,6 @@
 
                             <lvc:CartesianChart.AxisX>
 
-                                <!--a small visual improvement, lets hide the first points (x = 0, x=1) to get better animations-->
 
                                 <lvc:Axis MinValue="1"/>
                             </lvc:CartesianChart.AxisX>
@@ -344,57 +274,7 @@
                         </ui:CardAction.RenderTransform>
                     </ui:CardAction>
 
-                    <!--<Border BorderBrush="#FFB4B4B4"  BorderThickness="1" Margin="37,22,0,0" CornerRadius="5" Background="{DynamicResource SystemFillColorAttentionBackgroundBrush}" Height="79" VerticalAlignment="Top" HorizontalAlignment="Left" Width="155">-->
-                    <!--<Border.BitmapEffect>
-                            <BlurBitmapEffect Radius="10" KernelType="Gaussian"/>
-
-                        </Border.BitmapEffect>-->
-
-                    <!--<Grid x:Name="Border">
-                            <Grid.Resources>
-                                <Style TargetType="lvc:LineSeries">
-                                    <Setter Property="StrokeThickness" Value="3"></Setter>
-                                    <Setter Property="Stroke" Value="{DynamicResource TextFillColorSecondaryBrush}"></Setter>
-                                    <Setter Property="Fill" Value="{DynamicResource Bg_Chart}"></Setter>
-                                    <Setter Property="PointGeometrySize" Value="1"></Setter>
-                                    <Setter Property="LineSmoothness" Value="1"></Setter>
-                                </Style>
-                                <Style TargetType="lvc:Axis">
-                                    <Setter Property="ShowLabels" Value="False"></Setter>
-                                    <Setter Property="IsEnabled" Value="False"></Setter>
-                                </Style>
-                            </Grid.Resources>
-
-                            <TextBlock x:Name="X" HorizontalAlignment="Center" Margin="0,2,0,0" TextWrapping="Wrap" Text="Master Server Status" Width="111" Foreground="{DynamicResource TextFillColorSecondaryBrush}" FontFamily="Segoe UI" VerticalAlignment="Top"/>
-
-
-
-
-                            -->
-                    <!--<Border Grid.Row="0" Grid.RowSpan="3" Background="#CE2156" ></Border>-->
-                    <!--
-
-                            <lvc:CartesianChart x:Name="TimePowerChart" Series="{Binding LastHourSeries}" Hoverable="False" DataTooltip="{x:Null}" Margin="0,18,0,0" HorizontalAlignment="Center"  Width="178" Height="59" VerticalAlignment="Top"  IsEnabled="False" IsHitTestVisible="False" Foreground="{x:Null}" Background="{DynamicResource SystemFillColorNeutralBrush}"  Zoom="X" ScrollBarFill="{x:Null}" Loaded="TimePowerChart_Loaded">
-                                <lvc:CartesianChart.BitmapEffect >
-                                    <BlurBitmapEffect x:Name="Chart_Blur_Effect" KernelType="Gaussian" Radius="15">
-                                        
-                                    </BlurBitmapEffect>
-                                    
-                                </lvc:CartesianChart.BitmapEffect>
-                                
-                                <lvc:CartesianChart.AxisX>
-                                    -->
-                    <!--a small visual improvement, lets hide the first points (x = 0, x=1) to get better animations-->
-                    <!--
-                                    <lvc:Axis MinValue="1"  Position="RightTop"></lvc:Axis>
-                                </lvc:CartesianChart.AxisX>
-                            </lvc:CartesianChart>
-
-
-                        </Grid>-->
-
-
-                    <!--</Border>-->
+                  
                 </Grid>
 
 
@@ -418,9 +298,7 @@
                     </Image>
                 </Border>
             </Button>
-            <!--<ui:Dialog x:Name="Dialog" />-->
             <ui:Snackbar />
-            <!--<hc:LoadingCircle HorizontalAlignment="Left" Margin="1535,-180,0,0" VerticalAlignment="Top"/>-->
             <ui:InfoBar x:Name="InfoBar_Test_1" Height="70"  Margin="38,10,41,0" VerticalAlignment="Top">
                
 

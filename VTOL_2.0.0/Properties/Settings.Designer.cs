@@ -238,5 +238,17 @@ namespace VTOL.Properties {
                 this["Master_Server_Check"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string RePak_Launch_Args {
+            get {
+                return ((string)(this["RePak_Launch_Args"]));
+            }
+            set {
+                this["RePak_Launch_Args"] = value;
+            }
+        }
     }
 }

@@ -402,7 +402,7 @@ namespace VTOL.Pages
         public Page_Tools()
         { 
             InitializeComponent();
-
+            Startup_Args_RpAk.Text = Properties.Settings.Default.RePak_Launch_Args;
         SnackBar = Main.Snackbar;
             Mod_dependencies.Text = "northstar-Northstar-" + Properties.Settings.Default.Version.Remove(0, 1);
             Paragraph paragraph = new Paragraph();
@@ -3034,19 +3034,32 @@ Main.logger2.Close();
         {
             Convert();
         }
-        async void Start_Exe(string path)
+        async void Start_Exe(string path, string Args = null)
         {
             try
             {
                 await Task.Run(() =>
             {
-               
 
+                if(Args != null && Args.Trim() != "")
+                {
+                    System.Diagnostics.Process.Start(new ProcessStartInfo
+                    {
+                        Arguments = Args,
+                        FileName = path,
+                        UseShellExecute = true
+                    }); ;
+
+                }
+                else
+                {
                     System.Diagnostics.Process.Start(new ProcessStartInfo
                     {
                         FileName = path,
                         UseShellExecute = true
-                    });
+                    }); ;
+                }
+                
 
             });
             }
@@ -3287,6 +3300,25 @@ Main.logger2.Close();
                             VPK_TOOL_INSTALL.Icon = SymbolRegular.ArrowDown32;
                             VPK_TOOL_INSTALL.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF5B0606");
                         }
+                        //MDL_TOOL_INSTALL
+                        if (Directory.Exists(Tools_Dir + @"Titanfall2_VPK_Tool") && File.Exists(Tools_Dir + @"Titanfall2_VPK_Tool\" + "TitanFall VPK Tool.exe"))
+                        {
+                            MDL_TOOL_INSTALL.Content = VTOL.Resources.Languages.Language.Page_Tools_Check_For_Tools_Launch;
+                            MDL_TOOL_INSTALL.Icon = SymbolRegular.Open28;
+                            MDL_TOOL_INSTALL.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF005D42");
+                            MDL_TOOL_FOLDER.IsEnabled = true;
+                            MDL_TOOL_FOLDER.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFAF7800");
+
+
+                        }
+                        else
+                        {
+                            MDL_TOOL_FOLDER.IsEnabled = false;
+                            MDL_TOOL_FOLDER.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF3A3A3A");
+                            MDL_TOOL_INSTALL.Content = VTOL.Resources.Languages.Language.Page_Tools_Check_For_Tools_Install;
+                            MDL_TOOL_INSTALL.Icon = SymbolRegular.ArrowDown32;
+                            MDL_TOOL_INSTALL.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF5B0606");
+                        }
                     }
                     else
                     {
@@ -3404,7 +3436,7 @@ Main.logger2.Close();
         {
             if (Directory.Exists(Tools_Dir + @"RePak") && File.Exists(Tools_Dir + @"RePak\" + "RePak.exe"))
             {
-                Start_Exe(Tools_Dir + @"RePak\" + "RePak.exe");
+                Start_Exe(Tools_Dir + @"RePak\" + "RePak.exe", Properties.Settings.Default.RePak_Launch_Args);
 
             }
             else
@@ -3479,10 +3511,72 @@ Main.logger2.Close();
             OPEN_WEBPAGE("https://github.com/Wanty5883/Titanfall2/tree/master/tools");
 
         }
+        private void MDL_TOOL_PAGE_Click(object sender, RoutedEventArgs e)
+        {
+            OPEN_WEBPAGE("https://github.com/headassbtw/mdlshit-binaries");
 
+        }
         private void LEGION_INSTALL_STARTUP_ARGS_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void Create_New_Profile_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Startup_Args_RpAk_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Properties.Settings.Default.RePak_Launch_Args = Startup_Args_RpAk.Text;
+            Properties.Settings.Default.Save();
+        }
+
+        private void Advanced_Repak_Click(object sender, RoutedEventArgs e)
+        {
+            if (Launch_Args_Window.Visibility == Visibility.Visible)
+            {
+                Launch_Args_Window.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                Launch_Args_Window.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void Startup_Args_RpAk_LostFocus(object sender, RoutedEventArgs e)
+        {
+            Startup_Args_RpAk.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#34FFFFFF");
+          
+        }
+
+        private void Startup_Args_RpAk_GotFocus(object sender, RoutedEventArgs e)
+        {
+            Startup_Args_RpAk.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFFFFFFF");
+           
+        }
+
+        private void MDL_TOOL_INSTALL_Click(object sender, RoutedEventArgs e)
+        {
+            if (Directory.Exists(Tools_Dir + @"MDL_SHIT") && File.Exists(Tools_Dir + @"MDL_SHIT\" + "mdlshit.exe"))
+            {
+                Start_Exe(Tools_Dir + @"MDL_SHIT\" + "mdlshit.exe");
+
+            }
+            else
+            {
+                Download_Zip_To_Path("MDL_SHIT", "https://github.com/BigSpice/VTOL/raw/master/%5BTitanfall2_Downloadable_Tools%5D/MDL_SHIT.zip");
+
+
+            }
+        }
+
+        private void MDL_TOOL_FOLDER_Click(object sender, RoutedEventArgs e)
+        {
+            if (Directory.Exists(Tools_Dir + @"MDL_SHIT"))
+            {
+                Open_Folder(Tools_Dir + @"MDL_SHIT");
+            }
         }
     }
 }

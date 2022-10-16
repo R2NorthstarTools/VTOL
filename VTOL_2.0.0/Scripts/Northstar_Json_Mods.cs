@@ -25,12 +25,10 @@ namespace VTOL
         public static Northstar_Json_Mods FromJson(string json)
         {
 
-            // List<Northstar_Json_Mods> oMycustomclassname = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Northstar_Json_Mods>>(json);
             Northstar_Json_Mods oMycustomclassname = JsonConvert.DeserializeObject<Northstar_Json_Mods>(json)!;
 
             return oMycustomclassname;
 
-            //return JsonSerializer.Deserialize<Thunderstore_V1[]>(json);
         }
 
 
