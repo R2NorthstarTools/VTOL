@@ -337,7 +337,7 @@
     <value>Tasto destro per aprire il menù contestuale</value>
   </data>
   <data name="Page_Mods_ListedHereAreTheModsThatAreCurrentlyInstalled" xml:space="preserve">
-    <value>Lista delle mods installate.</value>
+    <value>Lista delle mod installate.</value>
   </data>
   <data name="Page_About_AboutVTOLAndDocumentationOnItsUse" xml:space="preserve">
     <value>Documentazione sull'uso e info di VTOL</value>
@@ -518,5 +518,59 @@
   </data>
   <data name="Page_Server_StartupArgumentsNorthstarClient" xml:space="preserve">
     <value>Comandi di avvio del Client Northstar</value>
+  </data>
+  <data name="Page_Thunderstore_CardAction_Click_DoYouWantToInstallTheseAndTheMod" xml:space="preserve">
+    <value>Vuoi installare questi e la Mod -</value>
+  </data>
+  <data name="MainWindow_Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="MainWindow_Mods" xml:space="preserve">
+    <value>Mod</value>
+  </data>
+  <data name="MainWindow_Skins" xml:space="preserve">
+    <value>Skin</value>
+  </data>
+  <data name="MainWindow_Server" xml:space="preserve">
+    <value>Server</value>
+  </data>
+  <data name="MainWindow_Tools" xml:space="preserve">
+    <value>Strumenti</value>
+  </data>
+  <data name="MainWindow_About" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="MainWindow_Settings" xml:space="preserve">
+    <value>Impostazioni</value>
+  </data>
+  <data name="Page_Tools_OpenFolder" xml:space="preserve">
+    <value>Apri Cartella</value>
+  </data>
+  <data name="Page_Tools_WebPage_" xml:space="preserve">
+    <value>WebPage</value>
+  </data>
+  <data name="Page_Tools_Check_For_Tools_Launch" xml:space="preserve">
+    <value>Avvia</value>
+  </data>
+  <data name="Page_Tools_Check_For_Tools_Install" xml:space="preserve">
+    <value>Installa</value>
+  </data>
+  <data name="Page_Tools_Download_Zip_To_Path_DownloadingAndInstalling" xml:space="preserve">
+    <value>Scaricando e installando</value>
+  </data>
+  <data name="Page_Tools_Locate_Repak_Exe_Click_ExeLocated" xml:space="preserve">
+    <value>Exe Trovato!</value>
+  </data>
+  <data name="Page_Tools_LaunchArguments" xml:space="preserve">
+    <value>Comandi di Avvio</value>
+  </data>
+  <data name="Page_Mods_ReverseFilterOrder" xml:space="preserve">
+    <value>Inverti Ordine Filtro</value>
+  </data>
+  <data name="Page_Thunderstore_Sort" xml:space="preserve">
+    <value>Ordina</value>
+  </data>
+  <data name="Page_Thunderstore_Category" xml:space="preserve">
+    <value>Categoria</value>
   </data>
 </root>
