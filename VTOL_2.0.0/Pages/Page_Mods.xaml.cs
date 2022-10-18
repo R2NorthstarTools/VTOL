@@ -36,6 +36,8 @@ namespace VTOL.Pages
         public string Mod_Name;
         public string Mod_Date;
         public string En_Di;
+        public bool Is_Active;
+
         public string Is_Active_Color;
         public string Size__;
         public string Mod_Path;
@@ -62,6 +64,12 @@ namespace VTOL.Pages
 
             get { return En_Di; }
             set { En_Di = value; NotifyPropertyChanged("En_Di"); }
+        }
+        public bool Is_Active_
+        {
+
+            get { return Is_Active; }
+            set { Is_Active = value; NotifyPropertyChanged("Is_Active"); }
         }
         public string Is_Active_Color_
         {
@@ -160,7 +168,7 @@ namespace VTOL.Pages
             public string Mod_Name_ { get; set; }
             public string Mod_Date_ { get; set; }
             public string En_Di { get; set; }
-
+            public bool Is_Active_ { get; set; }
             public string Is_Active_Color { get; set; }
 
             public string Size__ { get; set; }
@@ -280,7 +288,7 @@ namespace VTOL.Pages
                                             ToolTip_Dynamic = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_PleaseOpenYourFolderAt + dirInfo.Parent + VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_AndManuallyRepairTheMod + dirInfo.Name;
                                             Flag_mod = 100;
                                         }
-                                        Final_List.Add(new Card_ { Mod_Name_ = dirInfo.Name.Trim(), Mod_Date_ = dirInfo.CreationTime.ToString(), Is_Active_Color = "#B29A0404", Size__ = dirInfo.LastAccessTime.ToString(), En_Di = "Enable", Mod_Path_ = dirInfo.FullName, Flag = Flag_mod, Error_Tooltip = ToolTip_Dynamic });
+                                        Final_List.Add(new Card_ { Mod_Name_ = dirInfo.Name.Trim(), Mod_Date_ = dirInfo.CreationTime.ToString(), Is_Active_Color = "#B29A0404", Size__ = dirInfo.LastAccessTime.ToString(), En_Di = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_Enable, Is_Active_ = true, Mod_Path_ = dirInfo.FullName, Flag = Flag_mod, Error_Tooltip = ToolTip_Dynamic });
 
                                     }
                                     else
@@ -296,7 +304,7 @@ namespace VTOL.Pages
                                             Flag_mod = 100;
                                         }
 
-                                        Final_List.Add(new Card_ { Mod_Name_ = dirInfo.Name.Trim(), Mod_Date_ = dirInfo.CreationTime.ToString(), Is_Active_Color = "#B2049A28", Size__ = dirInfo.LastAccessTime.ToString(), En_Di = "Disable", Mod_Path_ = dirInfo.FullName, Flag = Flag_mod, Error_Tooltip = ToolTip_Dynamic });
+                                        Final_List.Add(new Card_ { Mod_Name_ = dirInfo.Name.Trim(), Mod_Date_ = dirInfo.CreationTime.ToString(), Is_Active_Color = "#B2049A28", Size__ = dirInfo.LastAccessTime.ToString(), En_Di = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_Disable_ ,Is_Active_ = false, Mod_Path_ = dirInfo.FullName, Flag = Flag_mod, Error_Tooltip = ToolTip_Dynamic });
 
 
                                     }
@@ -709,7 +717,7 @@ Main.logger2.Close();Log.Error(ex, $"A crash happened at {DateTime.Now.ToString(
                                 Search_Bar_Suggest_Mods.Text = "~Search";
 
 
-                                var sorted = Final_List.OrderBy(ob => ob.En_Di).ToArray();
+                                var sorted = Final_List.OrderBy(ob => ob.Is_Active_).ToArray();
                                 Mod_List_Box.ItemsSource = sorted;
                                 Mod_List_Box.Refresh();
 
@@ -766,7 +774,7 @@ Main.logger2.Close();Log.Error(ex, $"A crash happened at {DateTime.Now.ToString(
                                 Search_Bar_Suggest_Mods.Text = "~Search";
 
 
-                                var sorted = Final_List.OrderByDescending(ob => ob.En_Di).ToArray();
+                                var sorted = Final_List.OrderByDescending(ob => ob.Is_Active_).ToArray();
                                 Mod_List_Box.ItemsSource = sorted;
                                 Mod_List_Box.Refresh();
 
@@ -882,7 +890,7 @@ Main.logger2.Close();Log.Error(ex, $"A crash happened at {DateTime.Now.ToString(
                             else if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Status"))
                             {
 
-                                return Final_List.OrderBy(ob => ob.En_Di).ToArray();
+                                return Final_List.OrderBy(ob => ob.Is_Active_).ToArray();
 
                             }
                             else
@@ -929,7 +937,7 @@ Main.logger2.Close();Log.Error(ex, $"A crash happened at {DateTime.Now.ToString(
                             else if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Status"))
                             {
 
-                                return Final_List.OrderByDescending(ob => ob.En_Di);
+                                return Final_List.OrderByDescending(ob => ob.Is_Active_);
 
                             }
                             else
@@ -1253,7 +1261,7 @@ logger2.Close();
                         string Content = Description + Environment.NewLine + version;
                         DialogF.ButtonLeftName = "OK";
                         DialogF.ButtonLeftAppearance = Wpf.Ui.Common.ControlAppearance.Success;
-                        DialogF.ButtonRightName = "Open Folder";
+                        DialogF.ButtonRightName =VTOL.Resources.Languages.Language.Page_Mods_Open_Mod_Info_OpenFolder;
 
                         DialogF.ButtonRightAppearance = Wpf.Ui.Common.ControlAppearance.Secondary;
                         DialogF.Title = name;

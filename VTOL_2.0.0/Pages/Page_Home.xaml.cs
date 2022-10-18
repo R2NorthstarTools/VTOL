@@ -2464,6 +2464,7 @@ Main.logger2.Close();
 
                 s = s.Replace("[", "");
                 s = s.Replace("]", "");
+
                 if (Directory.Exists(DocumentsFolder + @"\VTOL_DATA\temp"))
                 {
                     saveAsyncFile(s, DocumentsFolder + @"\VTOL_DATA\temp\" + json_name, false, false);

@@ -573,4 +573,13 @@
   <data name="Page_Thunderstore_Category" xml:space="preserve">
     <value>Categoria</value>
   </data>
+  <data name="Page_Mods_Call_Mods_From_Folder_Disable_" xml:space="preserve">
+    <value>Disattivare</value>
+  </data>
+  <data name="Page_Mods_Call_Mods_From_Folder_Enable" xml:space="preserve">
+    <value>Abilitazione</value>
+  </data>
+  <data name="Page_Tools_LocateModContent" xml:space="preserve">
+    <value>Individuare il contenuto della mod</value>
+  </data>
 </root>

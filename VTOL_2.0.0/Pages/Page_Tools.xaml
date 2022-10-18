@@ -38,7 +38,7 @@
                         <Label  Content="{x:Static properties:Language.Page_Tools_Content}" Margin="152,79,0,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="16" HorizontalAlignment="Left"/>
                         <Label  Content="256x256~(.png)" Margin="14,468,0,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="10" HorizontalAlignment="Left" Grid.Column="2"/>
                         <Label  Content="ReadMe.md" Margin="23,677,0,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="10" HorizontalAlignment="Left" Grid.Column="2"/>
-                        <Button x:Name="Locate_Zip"  Height="30" Margin="149,141,149,0" VerticalAlignment="Top"  BorderBrush="{x:Null}" Content="Locate Mod Content" Padding="0,0,0,0" Click="Locate_Zip_Click" ToolTip="Locate the Mod Zip manually" HorizontalAlignment="Stretch" Background="#FF383838" Grid.ColumnSpan="3" />
+                        <Button x:Name="Locate_Zip"  Height="30" Margin="149,141,149,0" VerticalAlignment="Top"  BorderBrush="{x:Null}" Content="{x:Static properties:Language.Page_Tools_LocateModContent}" Padding="0,0,0,0" Click="Locate_Zip_Click" ToolTip="{x:Static properties:Language.Page_Tools_LocateTheModZipManually}" HorizontalAlignment="Stretch" Background="#FF383838" Grid.ColumnSpan="3" />
 
                         <ui:SymbolIcon Margin="42,333,0,0" VerticalAlignment="Top" Symbol="Add16" RenderTransformOrigin="0.5,0.5" Opacity="0.6" Grid.Column="2" HorizontalAlignment="Left">
                             <ui:SymbolIcon.RenderTransform>

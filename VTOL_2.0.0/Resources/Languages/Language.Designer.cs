@@ -495,6 +495,24 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Disable.
+        /// </summary>
+        public static string Page_Mods_Call_Mods_From_Folder_Disable_ {
+            get {
+                return ResourceManager.GetString("Page_Mods_Call_Mods_From_Folder_Disable_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable.
+        /// </summary>
+        public static string Page_Mods_Call_Mods_From_Folder_Enable {
+            get {
+                return ResourceManager.GetString("Page_Mods_Call_Mods_From_Folder_Enable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mod Count: .
         /// </summary>
         public static string Page_Mods_Call_Mods_From_Folder_ModCount {
@@ -522,11 +540,29 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string Page_Mods_Delete {
+            get {
+                return ResourceManager.GetString("Page_Mods_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Filter.
         /// </summary>
         public static string Page_Mods_Filter {
             get {
                 return ResourceManager.GetString("Page_Mods_Filter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Info.
+        /// </summary>
+        public static string Page_Mods_Info {
+            get {
+                return ResourceManager.GetString("Page_Mods_Info", resourceCulture);
             }
         }
         
@@ -545,6 +581,15 @@ namespace VTOL.Resources.Languages {
         public static string Page_Mods_MODS {
             get {
                 return ResourceManager.GetString("Page_Mods_MODS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  &quot;Open Folder.
+        /// </summary>
+        public static string Page_Mods_Open_Mod_Info_OpenFolder {
+            get {
+                return ResourceManager.GetString("Page_Mods_Open_Mod_Info_OpenFolder", resourceCulture);
             }
         }
         
@@ -1139,6 +1184,15 @@ namespace VTOL.Resources.Languages {
         public static string Page_Tools_Locate_Zip_Click_ValidZipFound {
             get {
                 return ResourceManager.GetString("Page_Tools_Locate_Zip_Click_ValidZipFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Locate Mod Content.
+        /// </summary>
+        public static string Page_Tools_LocateModContent {
+            get {
+                return ResourceManager.GetString("Page_Tools_LocateModContent", resourceCulture);
             }
         }
         

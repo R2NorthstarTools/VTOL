@@ -520,4 +520,13 @@
   <data name="Page_Server_StartupArgumentsNorthstarClient" xml:space="preserve">
     <value>Аргументы запуска Northstar клиент</value>
   </data>
+  <data name="Page_Mods_Call_Mods_From_Folder_Enable" xml:space="preserve">
+    <value>Включить</value>
+  </data>
+  <data name="Page_Mods_Call_Mods_From_Folder_Disable_" xml:space="preserve">
+    <value>Отключить</value>
+  </data>
+  <data name="Page_Tools_LocateModContent" xml:space="preserve">
+    <value>Найти содержимое модификации</value>
+  </data>
 </root>

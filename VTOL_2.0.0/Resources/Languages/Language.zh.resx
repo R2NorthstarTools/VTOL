@@ -519,4 +519,13 @@
   <data name="Page_Server_StartupArgumentsNorthstarClient" xml:space="preserve">
     <value>Northstar 客户端启动选项</value>
   </data>
+  <data name="Page_Mods_Call_Mods_From_Folder_Enable" xml:space="preserve">
+    <value>启用</value>
+  </data>
+  <data name="Page_Mods_Call_Mods_From_Folder_Disable_" xml:space="preserve">
+    <value>禁用</value>
+  </data>
+  <data name="Page_Tools_LocateModContent" xml:space="preserve">
+    <value>定位修改内容</value>
+  </data>
 </root>

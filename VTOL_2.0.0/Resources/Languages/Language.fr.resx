@@ -521,4 +521,13 @@
   <data name="Page_Home_CurrentTitanfall2Path" xml:space="preserve">
     <value>Chemin actuel de Titanfall 2</value>
   </data>
+  <data name="Page_Mods_Call_Mods_From_Folder_Enable" xml:space="preserve">
+    <value>Activer</value>
+  </data>
+  <data name="Page_Mods_Call_Mods_From_Folder_Disable_" xml:space="preserve">
+    <value>Désactiver</value>
+  </data>
+  <data name="Page_Tools_LocateModContent" xml:space="preserve">
+    <value>Localiser le contenu du mod</value>
+  </data>
 </root>

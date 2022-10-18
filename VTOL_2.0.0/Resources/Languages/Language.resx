@@ -573,4 +573,22 @@
   <data name="Page_Thunderstore_Category" xml:space="preserve">
     <value>Category</value>
   </data>
+  <data name="Page_Mods_Info" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="Page_Mods_Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Page_Mods_Open_Mod_Info_OpenFolder" xml:space="preserve">
+    <value> "Open Folder</value>
+  </data>
+  <data name="Page_Mods_Call_Mods_From_Folder_Enable" xml:space="preserve">
+    <value>Enable</value>
+  </data>
+  <data name="Page_Mods_Call_Mods_From_Folder_Disable_" xml:space="preserve">
+    <value>Disable</value>
+  </data>
+  <data name="Page_Tools_LocateModContent" xml:space="preserve">
+    <value>Locate Mod Content</value>
+  </data>
 </root>
