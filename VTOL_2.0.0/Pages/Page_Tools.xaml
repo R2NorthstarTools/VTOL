@@ -602,7 +602,7 @@
                     </Grid>
                 </hc:ScrollViewer>
             </TabItem>
-            <TabItem Header="Profile">
+            <!--<TabItem Header="Profile">
                 <Grid   Height="514">
                     <Button x:Name="Create_New_Profile"  Height="40" Margin="0,87,523,0" VerticalAlignment="Top"  BorderBrush="{x:Null}" Content="Create New Profile" Padding="0,0,0,0" ToolTip="Locate the Mod Zip manually" HorizontalAlignment="Right" Background="#FF383838" ClickMode="Press" Width="430" Click="Create_New_Profile_Click" />
                     <ListBox x:Name="Profile_list" Margin="93,131,93,87" Background="#FF2F2F2F">
@@ -631,7 +631,7 @@
                     <Button x:Name="Export_Profile"  Height="35" Margin="0,432,0,0" VerticalAlignment="Top"  BorderBrush="{x:Null}" Content="Export Profile" Padding="0,0,0,0" ToolTip="Locate the Mod Zip manually" HorizontalAlignment="Center" Background="#FF025249" ClickMode="Press" Width="860" />
 
                 </Grid>
-            </TabItem>
+            </TabItem>-->
         </TabControl>
 
         <!--<ui:Dialog x:Name="Error_Dialog" />-->

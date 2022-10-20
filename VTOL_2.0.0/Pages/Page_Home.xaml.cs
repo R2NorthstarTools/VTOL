@@ -2563,6 +2563,7 @@ Main.logger2.Close();
                     var myJObject = JObject.Parse(myJsonString);
 
 
+                    
                     current_Northstar_version_Url = myJObject.SelectToken("assets.browser_download_url").Value<string>();
                     Properties.Settings.Default.Version = myJObject.SelectToken("tag_name").Value<string>();
                     Properties.Settings.Default.Save();
