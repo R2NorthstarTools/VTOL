@@ -537,13 +537,7 @@ Main.logger2.Close();
                 Warn_Close_EA = Properties.Settings.Default.Warning_Close_EA;
                 Minimize_On_Launch = Properties.Settings.Default.Auto_Close_VTOL_on_Launch;
 
-                //  Skin_Mod_Pack_Check.IsChecked = Properties.Settings.Default.PackageAsSkin;
-                //Mod_dependencies.Text = "northstar-Northstar-" + Properties.Settings.Default.Version.Remove(0, 1);
                 DataContext = this;
-
-                //Write_To_Log("", true);
-                //LOG_BOX.IsReadOnly = true;
-
 
                 string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
@@ -551,7 +545,6 @@ Main.logger2.Close();
                 string Header = Path.GetFullPath(Path.Combine(System.Reflection.Assembly.GetExecutingAssembly().Location, @"../"));
                 updaterModulePath = Path.Combine(Header, "VTOL_Updater.exe");
 
-                Console.WriteLine("1");
 
 
 
@@ -559,43 +552,10 @@ Main.logger2.Close();
 
 
 
-                //Task.WaitAll(Set_About(), Select_Main(), getProcessorInfo());
 
                 if (User_Settings_Vars != null)
                 {
 
-                    //try
-                    //{
-
-                    //    if (User_Settings_Vars.Language != "NODATA")
-                    //    {
-                    //        CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(User_Settings_Vars.Language);
-                    //        ResourceDictionary dict = new ResourceDictionary();
-                    //        dict.Source = new Uri(@"Resources\Languages\Language." + User_Settings_Vars.Language + ".resx", UriKind.Relative);
-
-                    //        this.Resources.MergedDictionaries.Add(dict);
-
-                    //    }
-                    //    else
-                    //    {
-
-                    //        CultureInfo ci = CultureInfo.InstalledUICulture;
-
-                    //        CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(ci.TwoLetterISOLanguageName);
-                    //        ResourceDictionary dict = new ResourceDictionary();
-                    //        dict.Source = new Uri(@"Resources\Languages\Language." + ci.TwoLetterISOLanguageName + ".resx", UriKind.Relative);
-
-                    //        this.Resources.MergedDictionaries.Add(dict);
-                    //    }
-                    //}
-                    //catch (Exception ex)
-                    //{
-                    //    ResourceDictionary dict = new ResourceDictionary();
-                    //    dict.Source = new Uri(@"Resources\Languages\Language.resx", UriKind.Relative);
-
-                    //    this.Resources.MergedDictionaries.Add(dict);
-                    //}
-                    Console.WriteLine("2");
 
 
 
@@ -719,7 +679,6 @@ Main.logger2.Close();
                         SnackBar.Show();
                         Current_Install_Folder = "NODATA";
 
-                        return;
 
                     }
                     
@@ -737,13 +696,11 @@ Main.logger2.Close();
                 else
                 {
 
-                    Console.WriteLine("INVALID_FOLDER_ON_AUTO_CHECK");
 
                     Current_Install_Folder = InstalledApplications.GetApplictionInstallPath("Titanfall2");
                     string Path = Auto_Find_And_verify().Replace(@"\\", @"\").Replace("/", @"\");
                     if (IsValidPath(Path))
                     {
-                        Console.WriteLine("PATH???");
 
                         Console.WriteLine(Path);    
 
@@ -755,7 +712,6 @@ Main.logger2.Close();
                             string fix = Current_Install_Folder + @"\";
                             User_Settings_Vars.NorthstarInstallLocation = fix;
                             Current_Install_Folder = fix.Replace(@"\\", @"\").Replace("/", @"\");
-                            Console.WriteLine("Replaced2");
 
                         }
                         Auto_Install_(false);
@@ -769,7 +725,6 @@ Main.logger2.Close();
                             {
                                 try
                                 {
-                                    Console.WriteLine("I Look");
 
                                     NSExe = Get_And_Set_Filepaths(Current_Install_Folder, "NorthstarLauncher.exe");
                                     if (!File.Exists(NSExe))
@@ -779,7 +734,6 @@ Main.logger2.Close();
                                         SnackBar.Message = "VTOL Auto Install Failed, The Folder Titanfall 2 is in may be locked or inaccasiable to VTOL";
                                         SnackBar.Show();
 
-                                        return;
                                     }
                                     }
                                 catch (Exception ex)
@@ -788,19 +742,11 @@ Main.logger2.Close();
                                     Main.logger2.Open();
                                      Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source +Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
 Main.logger2.Close();
-                                    SnackBar.Appearance = ControlAppearance.Danger;
-                                    SnackBar.Title = "WARNING!";
-                                    SnackBar.Message = VTOL.Resources.Languages.Language.Page_Home_Auto_Install__NORTHSTARISNOTINSTALLEDANDAUTOINSTALLFAILED;
-                                    SnackBar.ShowAsync();
-                                    return;
+                                    
 
                                 }
                             }
-                            else
-                            {
-                                Console.WriteLine("Found");
-
-                            }
+                           
                             Directory_Box.Text = Current_Install_Folder;
 
                             Main.User_Settings_Vars = User_Settings_Vars;
@@ -819,7 +765,6 @@ Main.logger2.Close();
                             SnackBar.Title = "WARNING!";
                             SnackBar.Message = VTOL.Resources.Languages.Language.Page_Home_INIT_InvalidInstallPathPleaseManuallyLocateTheCorrectFolder;
                             SnackBar.Show();
-                            return;
 
                         }
                     }
@@ -829,7 +774,6 @@ Main.logger2.Close();
                         SnackBar.Title = "WARNING!";
                         SnackBar.Message = VTOL.Resources.Languages.Language.Page_Home_INIT_InvalidInstallPathPleaseManuallyLocateTheCorrectFolder;
                         SnackBar.Show();
-                        return;
 
                     }
                 }
@@ -1444,8 +1388,7 @@ Main.logger2.Close();
                     Method = HttpMethod.Head
                    
                 };
-                request.Headers.UserAgent.TryParseAdd(@"VTOL\VTOL-" + Assembly.GetExecutingAssembly().GetName().Version.ToString());
-
+                request.Headers.Add("VTOL", "VTOL/" + Assembly.GetExecutingAssembly().GetName().Version.ToString());
                 var result = await httpClient.SendAsync(request);
 
                 if (result.IsSuccessStatusCode == true)
