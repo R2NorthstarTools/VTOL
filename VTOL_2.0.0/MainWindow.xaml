@@ -204,7 +204,7 @@ xmlns:notifications="clr-namespace:Notification.Wpf.Controls;assembly=Notificati
                 <StackPanel Orientation="Horizontal"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Top" Height="30" Width="67" Margin="0,-2,0,0">
-
+                  
                     <Button x:Name="MaximizeButton" Template="{DynamicResource ButtonControlTemplate1}"
                     KeyboardNavigation.IsTabStop="False" Height="34" Width="34" BorderThickness="0,0,0,0" Click="MaximizeButton_Click" Background="#99464646" Padding="0,0,0,0" Margin="1,0,1,0"
                    
