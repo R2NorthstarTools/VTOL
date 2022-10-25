@@ -226,8 +226,7 @@ logger2.Close();
 
             InitializeComponent();
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
-            webClient.Proxy = null;
-            WebRequest.DefaultWebProxy = null;
+         
 
 
             User_Settings_Vars = Main.User_Settings_Vars;
@@ -1443,7 +1442,10 @@ Main.logger2.Close();
                 {
                     RequestUri = new Uri(hostUrl),
                     Method = HttpMethod.Head
+                   
                 };
+                request.Headers.UserAgent.TryParseAdd(@"VTOL\VTOL-" + Assembly.GetExecutingAssembly().GetName().Version.ToString());
+
                 var result = await httpClient.SendAsync(request);
 
                 if (result.IsSuccessStatusCode == true)
@@ -2457,6 +2459,8 @@ Main.logger2.Close();
 
                 }
                 WebClient client = new WebClient();
+                webClient.Proxy = null;
+                WebRequest.DefaultWebProxy = null;
                 Uri uri1 = new Uri(address);
                 client.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)");
                 Stream data = client.OpenRead(address);
@@ -2693,6 +2697,8 @@ Main.logger2.Close();
             try
                 {
                     webClient = new WebClient();
+                    webClient.Proxy = null;
+                    WebRequest.DefaultWebProxy = null;
                     DispatchIfNecessary(() =>
                     {
 

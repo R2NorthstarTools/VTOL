@@ -34,7 +34,7 @@ xmlns:mdplug="clr-namespace:MdXaml.Plugins;assembly=MdXaml.Plugins"
 
         <Label Content="{x:Static properties:Language.Page_About_AboutVTOLAndDocumentationOnItsUse}" Margin="50,0,0,573" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="590"/>
         <Label Content="{x:Static properties:Language.Page_About_ABOUT}" Margin="50,0,357,594" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Background="{x:Null}" Foreground="White" FontSize="22" FontWeight="Bold" Height="28" VerticalAlignment="Bottom"/>
-        <!--<RichTextBox x:Name="About_BOX" Margin="50,116,50,0" Background="#FF101010" Height="444" VerticalAlignment="Top" BorderBrush="#FF101010" SelectionTextBrush="{x:Null}" SelectionBrush="#FF101010" CaretBrush="#FF101010" AutomationProperties.HelpText="Log Area" FontFamily="Segoe UI" OverridesDefaultStyle="False">
+        <RichTextBox x:Name="About_BOX" Margin="50,116,50,0" Background="#FF101010" Height="444" VerticalAlignment="Top" BorderBrush="#FF101010" SelectionTextBrush="{x:Null}" SelectionBrush="#FF101010" CaretBrush="#FF101010" AutomationProperties.HelpText="Log Area" FontFamily="Segoe UI" OverridesDefaultStyle="False">
             <FlowDocument>
                 <Paragraph>
                     <Run Text="{x:Static properties:Language.Page_About_DefualtTextboxText}"/>
@@ -42,10 +42,10 @@ xmlns:mdplug="clr-namespace:MdXaml.Plugins;assembly=MdXaml.Plugins"
                 </Paragraph>
 
             </FlowDocument>
-        </RichTextBox>-->
-        <Border Margin="50,116,50,110" Background="#FF2B2B2B"></Border>
+        </RichTextBox>
+        <!--<Border Margin="50,116,50,110" Background="#FF2B2B2B"></Border>
 
-        <mdxam:MarkdownScrollViewer x:Name="MarkDown_Display" Margin="50,116,50,110" Background="#FF505050" Foreground="White" />
+        <mdxam:MarkdownScrollViewer x:Name="MarkDown_Display" Margin="50,116,50,110" Background="#FF505050" Foreground="White" />-->
         <ui:Button x:Name="Cofigure" Content="{x:Static properties:Language.Page_About_ConfigureUpdates}" Height="45" Margin="182,590,594,0" VerticalAlignment="Top" Icon="Settings32" HorizontalAlignment="Stretch" Click="Button_Click" Background="#FF383838"/>
         <ui:Button x:Name="Check" Content="{x:Static properties:Language.Page_About_CheckForUpdate}" Height="45" Margin="0,590,182,0" VerticalAlignment="Top" Icon="DatabaseSearch24" HorizontalAlignment="Right" Width="372" Click="Check_Click" Background="#FF383838"/>
     </Grid>

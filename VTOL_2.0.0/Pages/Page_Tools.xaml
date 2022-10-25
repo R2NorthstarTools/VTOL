@@ -594,7 +594,7 @@
 
                                 </ui:Button>
                                 <ui:Button x:Name="MDL_TOOL_INSTALL"  VerticalAlignment="Top" Icon="ArrowDown32" HorizontalAlignment="Stretch"  Background="#FF5B0606" Margin="10,237,10,0" Height="55" Content="Install" BorderBrush="{x:Null}" ClickMode="Press" Click="MDL_TOOL_INSTALL_Click"/>
-                                <Label Margin="10,211,421,68" Content="V2.0.1" FontSize="14" Foreground="#FFB7B7B7" HorizontalContentAlignment="Center" Background="{x:Null}"/>
+                                <Label Margin="10,211,421,68" Content="V2.0.2" FontSize="14" Foreground="#FFB7B7B7" HorizontalContentAlignment="Center" Background="{x:Null}"/>
 
                             </Grid  >
 

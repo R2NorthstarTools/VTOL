@@ -3508,7 +3508,7 @@ Main.logger2.Close();
 
         private void REPAK_INSTALL_PAGE_Click(object sender, RoutedEventArgs e)
         {
-            OPEN_WEBPAGE("https://github.com/ASpoonPlaysGames/RePak");
+            OPEN_WEBPAGE("https://github.com/r-ex/RePak");
 
         }
 
