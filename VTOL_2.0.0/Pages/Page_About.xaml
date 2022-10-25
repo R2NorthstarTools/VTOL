@@ -6,19 +6,12 @@
       xmlns:local="clr-namespace:VTOL.Pages"
       mc:Ignorable="d" 
    xmlns:properties="clr-namespace:VTOL.Resources.Languages"
-        xmlns:mdxam="clr-namespace:MdXaml;assembly=MdXaml"
-xmlns:mdplug="clr-namespace:MdXaml.Plugins;assembly=MdXaml.Plugins"
-             xmlns:mdhtml="clr-namespace:MdXaml.Html;assembly=MdXaml.Html"
-             xmlns:mdsvg="clr-namespace:MdXaml.Svg;assembly=MdXaml.Svg"
-
+            
       KeepAlive="True"
       d:DesignHeight="670" d:DesignWidth="1148"
       Title="Page_About">
     <Page.Resources>
-        <mdplug:MdXamlPlugins x:Key="MdXamlPlugins">
-            <mdhtml:HtmlPluginSetup/>
-            <mdsvg:SvgPluginSetup/>
-        </mdplug:MdXamlPlugins>
+       
     </Page.Resources>
     <Grid >
         <Image Source="/Resources/Icons/Main_UI/info-large.png" Margin="465,-35,-602,-590" Opacity="0.1" IsHitTestVisible="False" IsEnabled="False" AllowDrop="False" Stretch="Uniform" MinWidth="250" MinHeight="251" RenderTransformOrigin="0.5,0.5">

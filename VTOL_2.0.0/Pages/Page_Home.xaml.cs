@@ -59,7 +59,7 @@ namespace VTOL.Pages
     {
         if (invalidRegStr == null)
         {
-            var invalidChars = System.Text.RegularExpressions.Regex.Escape(new string(System.IO.Path.GetInvalidFileNameChars()));
+            var invalidChars = System.Text.RegularExpressions.Regex.Escape(new string(Path.GetInvalidFileNameChars()));
             invalidRegStr = string.Format(@"([{0}]*\.+$)|([{0}]+)", invalidChars);
         }
 
@@ -994,7 +994,7 @@ Main.logger2.Close();
                 }
 
             }
-            catch (System.IO.FileNotFoundException ex)
+            catch (FileNotFoundException ex)
             {
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
                 Main.logger2.Open();
@@ -1014,13 +1014,13 @@ Main.logger2.Close();
         {
             try
             {
-                if (System.IO.Path.GetExtension(file).ToLower() != ".lnk")
+                if (Path.GetExtension(file).ToLower() != ".lnk")
                 {
                     throw new Exception("Supplied file must be a .LNK file");
                 }
 
                 FileStream fileStream = File.Open(file, FileMode.Open, FileAccess.Read);
-                using (System.IO.BinaryReader fileReader = new BinaryReader(fileStream))
+                using (BinaryReader fileReader = new BinaryReader(fileStream))
                 {
                     fileStream.Seek(0x14, SeekOrigin.Begin);     // Seek to flags
                     uint flags = fileReader.ReadUInt32();        // Read flags
@@ -1186,17 +1186,17 @@ Main.logger2.Close();
             //}
 
         }
-        public bool Template_traverse(System.IO.DirectoryInfo root, String Search)
+        public bool Template_traverse(DirectoryInfo root, String Search)
         {
 
             string outt = "";
             try
             {
-                System.IO.DirectoryInfo[] subDirs = null;
+                DirectoryInfo[] subDirs = null;
                 subDirs = root.GetDirectories();
                 var last = subDirs.Last();
                 //Log_Box.AppendText(last.FullName + "sdsdsdsd");
-                foreach (System.IO.DirectoryInfo dirInfo in subDirs)
+                foreach (DirectoryInfo dirInfo in subDirs)
                 {
                     outt = dirInfo.FullName;
                     if (dirInfo.Name.Contains(Search))
@@ -1237,7 +1237,7 @@ Main.logger2.Close();
 
                 if (ex.Message == "Sequence contains no elements")
                 {
-                    System.IO.DirectoryInfo Dir = new DirectoryInfo(outt);
+                   DirectoryInfo Dir = new DirectoryInfo(outt);
 
                     ////Console.WriteLine("Empty Folder at - "+ outt);
                     if (IsDirectoryEmpty(Dir))
@@ -1248,7 +1248,7 @@ Main.logger2.Close();
                 }
                 else
                 {
-                    System.IO.DirectoryInfo Dir = new DirectoryInfo(outt);
+                   DirectoryInfo Dir = new DirectoryInfo(outt);
 
                     if (IsDirectoryEmpty(Dir))
                     {
@@ -1693,7 +1693,7 @@ Main.logger2.Close();
                     ProcessStartInfo procStartInfo = new ProcessStartInfo();
                     Process process = new Process();
                     procStartInfo.FileName = NSExe;
-                    procStartInfo.WorkingDirectory = System.IO.Path.GetDirectoryName(NSExe);
+                    procStartInfo.WorkingDirectory =Path.GetDirectoryName(NSExe);
 
 
 
@@ -1829,10 +1829,10 @@ Main.logger2.Close();
                 //This local Version and the Version on GitHub are equal.
             }
         }
-        void WalkDirectoryTree(System.IO.DirectoryInfo root, String Search)
+        void WalkDirectoryTree(DirectoryInfo root, String Search)
         {
 
-            System.IO.DirectoryInfo[] subDirs = null;
+          DirectoryInfo[] subDirs = null;
 
             try
             {
@@ -2732,7 +2732,7 @@ Main.logger2.Close();
                             {
                                 if (Directory.Exists(Current_Install_Folder + @"ns_startup_args.txt"))
                                 {
-                                    System.IO.File.Copy(Current_Install_Folder + @"ns_startup_args.txt", Current_Install_Folder + @"TempCopyFolder\ns_startup_args.txt", true);
+                                   File.Copy(Current_Install_Folder + @"ns_startup_args.txt", Current_Install_Folder + @"TempCopyFolder\ns_startup_args.txt", true);
                                 }
                                 if (Directory.Exists(Current_Install_Folder + @"ns_startup_args_dedi.txt"))
                                 {
@@ -2742,14 +2742,14 @@ Main.logger2.Close();
                             else
                             {
 
-                                System.IO.Directory.CreateDirectory(Current_Install_Folder + @"TempCopyFolder");
+                                Directory.CreateDirectory(Current_Install_Folder + @"TempCopyFolder");
                                 if (Directory.Exists(Current_Install_Folder + @"ns_startup_args.txt"))
                                 {
-                                    System.IO.File.Copy(Current_Install_Folder + @"ns_startup_args.txt", Current_Install_Folder + @"TempCopyFolder\ns_startup_args.txt", true);
+                                   File.Copy(Current_Install_Folder + @"ns_startup_args.txt", Current_Install_Folder + @"TempCopyFolder\ns_startup_args.txt", true);
                                 }
                                 if (Directory.Exists(Current_Install_Folder + @"ns_startup_args_dedi.txt"))
                                 {
-                                    System.IO.File.Copy(Current_Install_Folder + @"ns_startup_args_dedi.txt", Current_Install_Folder + @"TempCopyFolder\ns_startup_args_dedi.txt", true);
+                                    File.Copy(Current_Install_Folder + @"ns_startup_args_dedi.txt", Current_Install_Folder + @"TempCopyFolder\ns_startup_args_dedi.txt", true);
                                 }
                             }
                             Directory.CreateDirectory(DocumentsFolder + @"\VTOL_DATA\Releases\");
@@ -2975,7 +2975,7 @@ Main.logger2.Close();
                 }
                 if (File.Exists(nrml))
                 {
-                    System.IO.File.Copy(nrml, Current_Install_Folder + @"TempCopyFolder\ns_startup_args.txt", true);
+                    File.Copy(nrml, Current_Install_Folder + @"TempCopyFolder\ns_startup_args.txt", true);
                 }
 
 
@@ -2985,7 +2985,7 @@ Main.logger2.Close();
                 if (File.Exists(cfg))
                 {
 
-                    System.IO.File.Copy(cfg, Current_Install_Folder + @"TempCopyFolder\autoexec_ns_server.cfg", true);
+                   File.Copy(cfg, Current_Install_Folder + @"TempCopyFolder\autoexec_ns_server.cfg", true);
 
 
 
@@ -2997,7 +2997,7 @@ Main.logger2.Close();
                 {
 
 
-                    System.IO.File.Copy(dedi, Current_Install_Folder + @"TempCopyFolder\ns_startup_args_dedi.txt", true);
+                   File.Copy(dedi, Current_Install_Folder + @"TempCopyFolder\ns_startup_args_dedi.txt", true);
 
 
                 }
@@ -3008,7 +3008,7 @@ Main.logger2.Close();
             {
                 Console.WriteLine("Destination_E1-" + Destination_Zip);
 
-                string fileExt = System.IO.Path.GetExtension(Target_Zip);
+                string fileExt = Path.GetExtension(Target_Zip);
 
                 if (fileExt == ".zip")
                 {
@@ -3025,17 +3025,17 @@ Main.logger2.Close();
                             if (File.Exists(Current_Install_Folder + @"TempCopyFolder\ns_startup_args.txt"))
                             {
 
-                                System.IO.File.Copy(Current_Install_Folder + @"TempCopyFolder\ns_startup_args.txt", Current_Install_Folder + @"ns_startup_args.txt", true);
+                              File.Copy(Current_Install_Folder + @"TempCopyFolder\ns_startup_args.txt", Current_Install_Folder + @"ns_startup_args.txt", true);
                             }
 
 
                             if (File.Exists(Current_Install_Folder + @"TempCopyFolder\autoexec_ns_server.cfg"))
                             {
-                                System.IO.File.Copy(Current_Install_Folder + @"TempCopyFolder\autoexec_ns_server.cfg", Current_Install_Folder + User_Settings_Vars.Profile_Path + @"\mods\Northstar.CustomServers\mod\cfg\autoexec_ns_server.cfg", true);
+                                File.Copy(Current_Install_Folder + @"TempCopyFolder\autoexec_ns_server.cfg", Current_Install_Folder + User_Settings_Vars.Profile_Path + @"\mods\Northstar.CustomServers\mod\cfg\autoexec_ns_server.cfg", true);
                             }
                             if (File.Exists(Current_Install_Folder + @"TempCopyFolder\ns_startup_args_dedi.txt"))
                             {
-                                System.IO.File.Copy(Current_Install_Folder + @"TempCopyFolder\ns_startup_args_dedi.txt", Current_Install_Folder + @"ns_startup_args_dedi.txt", true);
+                               File.Copy(Current_Install_Folder + @"TempCopyFolder\ns_startup_args_dedi.txt", Current_Install_Folder + @"ns_startup_args_dedi.txt", true);
                             }
 
                         }

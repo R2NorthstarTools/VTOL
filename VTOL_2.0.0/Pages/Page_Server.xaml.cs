@@ -1493,7 +1493,7 @@ Main.logger2.Close();
                 }
 
             }
-            catch (System.IO.FileNotFoundException e)
+            catch (FileNotFoundException e)
             {
                 Main.logger2.Open();
                 Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + e.Message + Environment.NewLine + "From - " + Assembly.GetExecutingAssembly().GetName().Version.ToString());
@@ -2055,7 +2055,7 @@ Main.logger2.Close();
                     ProcessStartInfo procStartInfo = new ProcessStartInfo();
                     Process process = new Process();
                     procStartInfo.FileName = User_Settings_Vars.NorthstarInstallLocation + @"r2ds.bat";
-                    procStartInfo.WorkingDirectory = System.IO.Path.GetDirectoryName(Get_And_Set_Filepaths(User_Settings_Vars.NorthstarInstallLocation, "NorthstarLauncher.exe"));
+                    procStartInfo.WorkingDirectory = Path.GetDirectoryName(Get_And_Set_Filepaths(User_Settings_Vars.NorthstarInstallLocation, "NorthstarLauncher.exe"));
 
 
                     // procStartInfo.Arguments = "-dedicated -multiple";
@@ -2169,7 +2169,7 @@ Main.logger2.Close();
                     ProcessStartInfo procStartInfo = new ProcessStartInfo();
                     Process process = new Process();
                     procStartInfo.FileName = NSExe;
-                    procStartInfo.WorkingDirectory = System.IO.Path.GetDirectoryName(NSExe);
+                    procStartInfo.WorkingDirectory = Path.GetDirectoryName(NSExe);
                     ;
 
                     // procStartInfo.Arguments = args;
@@ -2231,7 +2231,7 @@ Main.logger2.Close();
                     ProcessStartInfo procStartInfo = new ProcessStartInfo();
                     Process process = new Process();
                     procStartInfo.FileName = User_Settings_Vars.NorthstarInstallLocation + @"r2ds.bat";
-                    procStartInfo.WorkingDirectory = System.IO.Path.GetDirectoryName(Get_And_Set_Filepaths(User_Settings_Vars.NorthstarInstallLocation, "NorthstarLauncher.exe"));
+                    procStartInfo.WorkingDirectory = Path.GetDirectoryName(Get_And_Set_Filepaths(User_Settings_Vars.NorthstarInstallLocation, "NorthstarLauncher.exe"));
 
 
                     // procStartInfo.Arguments = "-dedicated -multiple";

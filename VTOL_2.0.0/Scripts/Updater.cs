@@ -215,7 +215,7 @@ namespace VTOL
 
                 // //  using (StreamReader Reader = new StreamReader(x))
                 //  {
-                string json = System.IO.File.ReadAllText(DocumentsFolder + @"\VTOL_DATA\VARS\Thunderstore.json");
+                string json =File.ReadAllText(DocumentsFolder + @"\VTOL_DATA\VARS\Thunderstore.json");
                 Thunderstore = Thunderstore_V1.FromJson(json);
                 //  }
                 if (File.Exists(DocumentsFolder + @"\VTOL_DATA\VARS\Thunderstore.json"))

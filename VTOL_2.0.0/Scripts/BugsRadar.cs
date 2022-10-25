@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.IO;
 namespace VTOL.Scripts
 {
     public class BugsRadar_
@@ -79,7 +79,7 @@ namespace VTOL.Scripts
                 req.ContentType = "application/x-www-form-urlencoded";
                 byte[] sentData = System.Text.Encoding.GetEncoding(65001).GetBytes(Data);
                 req.ContentLength = sentData.Length;
-                System.IO.Stream sendStream = req.GetRequestStream();
+                Stream sendStream = req.GetRequestStream();
                 sendStream.Write(sentData, 0, sentData.Length);
                 sendStream.Close();
             }

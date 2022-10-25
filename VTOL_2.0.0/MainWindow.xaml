@@ -10,7 +10,6 @@
              xmlns:properties="clr-namespace:VTOL.Resources.Languages"
 
           xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-xmlns:notifications="clr-namespace:Notification.Wpf.Controls;assembly=Notification.Wpf"
 
         xmlns:hc="https://handyorg.github.io/handycontrol" x:Name="Main_Win_Control" x:Class="VTOL.MainWindow"
         UseLayoutRounding="True"
@@ -276,7 +275,6 @@ xmlns:notifications="clr-namespace:Notification.Wpf.Controls;assembly=Notificati
             </Grid>-->
         </Grid>
 
-        <notifications:NotificationArea x:Name="WindowArea" MaxItems="8" Grid.ColumnSpan="2" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Foreground="White" Margin="0,0,0,0" IsReversed="False" ScrollViewer.VerticalScrollBarVisibility="Disabled" AllowDrop="False"/>
 
         <ui:Snackbar x:Name="Snackbar" Grid.Column="1" Margin="197,608,197,0" VerticalAlignment="Top" MessageForeground="White" IconForeground="White"  Timeout="5000"  Height="60"  Content="" Icon="Info24" FontSize="14" AllowDrop="False"  />
         <!--<hc:Badge Content="" HorizontalAlignment="Left" Margin="37,114,0,0" VerticalAlignment="Top" BadgeMargin="0,0,0,0" Status="Processing" Height="10" Foreground="{x:Null}" Background="{Binding Source={x:Static SystemParameters.WindowGlassBrush}}" BorderBrush="{x:Null}"/>

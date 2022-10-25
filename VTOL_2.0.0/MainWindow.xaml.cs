@@ -17,7 +17,6 @@ using System.Windows.Shapes;
 using Parallax;
 using Newtonsoft.Json.Linq;
 using Microsoft.Win32;
-using NBug;
 using VTOL.Scripts;
 using System.Globalization;
 using Serilog;
@@ -97,7 +96,7 @@ namespace VTOL
                     }
                     else
                     {
-                        string User_Settings_String = System.IO.File.ReadAllText(DocumentsFolder + @"\VTOL_DATA\Settings\User_Settings.Json");
+                        string User_Settings_String = File.ReadAllText(DocumentsFolder + @"\VTOL_DATA\Settings\User_Settings.Json");
 
                         User_Settings_Vars = User_Settings.FromJson(User_Settings_String);
 

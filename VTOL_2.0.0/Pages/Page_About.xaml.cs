@@ -18,8 +18,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Path = System.IO.Path;
-using MdXaml;
-using MdXaml.Plugins;
+
 namespace VTOL.Pages
 {
     /// <summary>
