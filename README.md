@@ -26,8 +26,7 @@ Total Downloads Since First Release:
  </a>
 </p>
 
-![image](https://user-images.githubusercontent.com/23240514/188515341-e1dc6dbf-e52c-4d56-b608-eb44743df26c.png)
-
+![image](https://user-images.githubusercontent.com/23240514/198705469-2a8209fd-e470-4184-a681-abb66a154daf.png)
 
 <!---![VTOL_Showcase_Trim](https://user-images.githubusercontent.com/23240514/157264628-43601f3e-1066-42ce-8564-e2554bd5799f.gif)<br /><br /><br />--->
 
