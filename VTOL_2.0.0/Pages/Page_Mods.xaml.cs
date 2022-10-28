@@ -262,8 +262,7 @@ namespace VTOL.Pages
                                     {
                                         if (Page_Home.IsDirectoryEmpty(new DirectoryInfo(dirInfo.FullName)) == true)
                                         {
-                                            Directory.Delete(dirInfo.FullName, true);
-
+                                            TryDeleteDirectoryAsync(dirInfo.FullName, true);
 
                                         }
 
@@ -277,13 +276,12 @@ namespace VTOL.Pages
 
 
 
-                                            Directory.Delete(dirInfo + @"\Locked_Folder");
-
+                                            TryDeleteDirectoryAsync(dirInfo + @"\Locked_Folder");
 
                                         }
                                         int Flag_mod = 0;
                                         string ToolTip_Dynamic = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_ThereIsAnIssueDetectedWithYourMod;
-                                        if (!File.Exists(dirInfo.FullName + @"\Locked_Folder" + @"\mod.json"))
+                                        if (!File.Exists(dirInfo.FullName + @"\Locked_Folder" + @"\mod.json") )
                                         {
                                             ToolTip_Dynamic = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_PleaseOpenYourFolderAt + dirInfo.Parent + VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_AndManuallyRepairTheMod + dirInfo.Name;
                                             Flag_mod = 100;
@@ -315,24 +313,12 @@ namespace VTOL.Pages
                                     ApplyDataBinding();
                                 });
                             }
-                            else
-                            {
-
-                            }
+                            
                         }
-                        else
-                        {
-
-
-
-                        }
+                        
                     }
 
-                    else
-                    {
-
-
-                    }
+                   
                 }
             }
             catch (Exception ex)
@@ -344,6 +330,187 @@ Main.logger2.Close();
             }
 
 
+        }
+        
+             public async Task<bool> TryDeleteDirectoryAsync(
+string directoryPath, bool overwrite = true,
+int maxRetries = 10,
+int millisecondsDelay = 30)
+        {
+            if (directoryPath == null)
+                throw new ArgumentNullException(directoryPath);
+            if (maxRetries < 1)
+                throw new ArgumentOutOfRangeException(nameof(maxRetries));
+            if (millisecondsDelay < 1)
+                throw new ArgumentOutOfRangeException(nameof(millisecondsDelay));
+
+            for (int i = 0; i < maxRetries; ++i)
+            {
+                try
+                {
+                    if (Directory.Exists(directoryPath))
+                    {
+                        Directory.Delete(directoryPath, overwrite);
+                    }
+
+                    return true;
+                }
+                catch (IOException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+            }
+
+            return false;
+        }
+        public bool TryDeleteDirectory(
+string directoryPath, bool overwrite = true,
+int maxRetries = 10,
+int millisecondsDelay = 300)
+        {
+            if (directoryPath == null)
+                throw new ArgumentNullException(directoryPath);
+            if (maxRetries < 1)
+                throw new ArgumentOutOfRangeException(nameof(maxRetries));
+            if (millisecondsDelay < 1)
+                throw new ArgumentOutOfRangeException(nameof(millisecondsDelay));
+
+            for (int i = 0; i < maxRetries; ++i)
+            {
+                try
+                {
+                    if (Directory.Exists(directoryPath))
+                    {
+                        Directory.Delete(directoryPath, overwrite);
+                    }
+
+                    return true;
+                }
+                catch (IOException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+            }
+
+            return false;
+        }
+        public bool TryCreateDirectory(
+   string directoryPath,
+   int maxRetries = 10,
+   int millisecondsDelay = 200)
+        {
+            if (directoryPath == null)
+                throw new ArgumentNullException(directoryPath);
+            if (maxRetries < 1)
+                throw new ArgumentOutOfRangeException(nameof(maxRetries));
+            if (millisecondsDelay < 1)
+                throw new ArgumentOutOfRangeException(nameof(millisecondsDelay));
+
+            for (int i = 0; i < maxRetries; ++i)
+            {
+                try
+                {
+                    
+                        Directory.CreateDirectory(directoryPath);
+
+                    if (Directory.Exists(directoryPath))
+                    {
+
+                        return true;
+                    }
+                  
+
+                }
+                catch (IOException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+            }
+
+            return false;
+        }
+        public bool TryMoveFile(
+   string Origin, string Destination, bool overwrite = true,
+   int maxRetries = 10,
+   int millisecondsDelay = 200)
+        {
+            if (Origin == null)
+                throw new ArgumentNullException(Origin);
+            if (maxRetries < 1)
+                throw new ArgumentOutOfRangeException(nameof(maxRetries));
+            if (millisecondsDelay < 1)
+                throw new ArgumentOutOfRangeException(nameof(millisecondsDelay));
+
+            for (int i = 0; i < maxRetries; ++i)
+            {
+                try
+                {
+                    if (File.Exists(Origin))
+                    {
+                        File.Move(Origin, Destination, overwrite);
+                    }
+
+                    return true;
+                }
+                catch (IOException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+            }
+
+            return false;
+        }
+        public bool TryCopyFile(
+  string Origin, string Destination, bool overwrite = true,
+  int maxRetries = 10,
+  int millisecondsDelay = 300)
+        {
+            if (Origin == null)
+                throw new ArgumentNullException(Origin);
+            if (maxRetries < 1)
+                throw new ArgumentOutOfRangeException(nameof(maxRetries));
+            if (millisecondsDelay < 1)
+                throw new ArgumentOutOfRangeException(nameof(millisecondsDelay));
+
+            for (int i = 0; i < maxRetries; ++i)
+            {
+                try
+                {
+                    if (File.Exists(Origin))
+                    {
+                        File.Copy(Origin, Destination, true);
+                    }
+                    Thread.Sleep(millisecondsDelay);
+
+                    return true;
+                }
+                catch (IOException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+            }
+
+            return false;
         }
         public bool Template_traverse(System.IO.DirectoryInfo root, String Search)
         {
@@ -395,7 +562,7 @@ Main.logger2.Close();
 
                     if (IsDirectoryEmpty(Dir))
                     {
-                        Directory.Delete(outt, true);
+                        TryDeleteDirectory(outt, true);
                     }
                 }
                 else
@@ -404,7 +571,7 @@ Main.logger2.Close();
 
                     if (IsDirectoryEmpty(Dir))
                     {
-                        Directory.Delete(outt, true);
+                        TryDeleteDirectory(outt, true);
                     }
 
                 }
@@ -466,6 +633,7 @@ Main.logger2.Close();
 
                 var sorted = Keep_List_State(false, Reverse_);
                 Mod_List_Box.ItemsSource = sorted;
+
                     _Completed_Mod_call = true;
 
 
@@ -481,38 +649,7 @@ Main.logger2.Close();Log.Error(ex, $"A crash happened at {DateTime.Now.ToString(
                
             }
         }
-        private static void MoveFiles(string sourceDir, string targetDir)
-        {
-            TlsPaperTrailLogger logger2 = new TlsPaperTrailLogger("logs5.papertrailapp.com", 38137);
-
-            try
-            {
-
-                System.IO.DirectoryInfo Targ = new DirectoryInfo(targetDir);
-            System.IO.DirectoryInfo src = new DirectoryInfo(sourceDir);
-
-            if (!Page_Home.IsDirectoryEmpty(Targ))
-            {
-                if (!Page_Home.IsDirectoryEmpty(src))
-                {
-                    IEnumerable<FileInfo> files = Directory.GetFiles(sourceDir).Select(f => new FileInfo(f));
-                    foreach (var file in files)
-                    {
-                        File.Move(file.FullName, Path.Combine(targetDir, file.Name), true);
-                    }
-
-                }
-
-            }
-            }
-            catch (Exception ex)
-            {
-                 logger2.Open();
-               logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source +Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine);
-logger2.Close();Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-               
-            }
-        }
+       
         public void Move_Mods(string val, bool Enable_Disable)
         {
 
@@ -523,50 +660,69 @@ logger2.Close();Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy
                 {
 
 
-                    if (Enable_Disable == false)
-                    {
+                  
                         if (val != null)
-                        {
-                            System.IO.DirectoryInfo rootDirs = new DirectoryInfo(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\mods\" + val);
+                    {
+                        DirectoryInfo rootDirs = new DirectoryInfo(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\mods\" + val);
 
-                            if (!Page_Home.IsDirectoryEmpty(rootDirs))
+                        if (!Page_Home.IsDirectoryEmpty(rootDirs))
                             {
-
-                                if (Directory.Exists(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\mods\" + val + @"\Locked_Folder"))
+                            if(Enable_Disable == true)
+                            {
+                                if (File.Exists(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\mods\" + val + @"\Locked_Folder" + @"\mod.json"))
                                 {
+                                    TryMoveFile(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\mods\" + val + @"\Locked_Folder" + @"\mod.json", User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\mods\" + val + @"\mod.json", true);
 
-                                    if (File.Exists(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\mods\" + val + @"\mod.json"))
+                                   DirectoryInfo Locked = new DirectoryInfo(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\mods\" + val + @"\Locked_Folder");
+                                    if (Page_Home.IsDirectoryEmpty(Locked))
                                     {
-                                        File.Move(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\mods\" + val + @"\mod.json", User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\mods\" + val + @"\Locked_Folder" + @"\mod.json", true);
 
+                                        TryDeleteDirectory(Locked.FullName);
 
                                     }
-                                    else
-                                    {
-                                        MoveFiles(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\mods\" + val, User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\mods\" + val + @"\Locked_Folder");
-
-                                    }
+                                   
 
                                 }
                                 else
                                 {
 
-                                    Directory.CreateDirectory(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\mods\" + val + @"\Locked_Folder");
-                                    if (File.Exists(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\mods\" + val + @"\mod.json"))
-                                    {
-                                        File.Move(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\mods\" + val + @"\mod.json", User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\mods\" + val + @"\Locked_Folder" + @"\mod.json", true);
+                                    Snackbar.Title = "ERROR";
+                                    Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Caution;
+                                    Snackbar.Message = "File" + val + " Could not be Edited.";
+                                    Snackbar.Show();
+                                }
 
+                               
+                               
+                               
 
-                                    }
-                                    else
-                                    {
-                                        MoveFiles(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\mods\" + val, User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\mods\" + val + @"\Locked_Folder");
+                            }
+                            else
+                            {
+                                if (File.Exists(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\mods\" + val + @"\mod.json"))
+                                {
+                                    TryCreateDirectory(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\mods\" + val + @"\Locked_Folder");
 
-                                    }
+                                    TryMoveFile(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\mods\" + val + @"\mod.json", User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\mods\" + val + @"\Locked_Folder" + @"\mod.json", true);
+                                   
+
 
                                 }
+                                else
+                                {
+                                    Snackbar.Title = "ERROR";
+                                    Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Caution;
+                                    Snackbar.Message = "File" + val + " Could not be Edited.";
+                                    Snackbar.Show();
+                                }
+
+
                             }
+
+
+
                         }
+                        
 
 
 
@@ -585,8 +741,8 @@ logger2.Close();Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy
                     {
 
 
-                        System.IO.DirectoryInfo rootDirs = new DirectoryInfo(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\mods\" + val);
-                        System.IO.DirectoryInfo Locked = new DirectoryInfo(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\mods\" + val + @"\Locked_Folder");
+                        DirectoryInfo rootDirs = new DirectoryInfo(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\mods\" + val);
+                      DirectoryInfo Locked = new DirectoryInfo(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\mods\" + val + @"\Locked_Folder");
 
                         if (!Page_Home.IsDirectoryEmpty(rootDirs))
                         {
@@ -595,11 +751,11 @@ logger2.Close();Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy
                                 if (Page_Home.IsDirectoryEmpty(Locked))
                                 {
 
-                                    Directory.Delete(Locked.FullName);
+                                    TryDeleteDirectory(Locked.FullName);
 
                                 }
-                                MoveFiles(Locked.FullName, rootDirs.FullName);
-                                Directory.Delete(Locked.FullName);
+                                TryMoveFile(Locked.FullName, rootDirs.FullName);
+                                TryDeleteDirectory(Locked.FullName);
 
                             }
 
@@ -636,14 +792,12 @@ Main.logger2.Close();Log.Error(ex, $"A crash happened at {DateTime.Now.ToString(
                     if (Name_ != null)
                     {
 
-
-                        if (Button_.Tag == "Enable")
+                        if (Button_.Tag.ToString() == "Enable")
                         {
 
 
                             Move_Mods(Name_, true);
-                            Call_Mods_From_Folder();
-
+                           
 
 
                         }
@@ -651,7 +805,7 @@ Main.logger2.Close();Log.Error(ex, $"A crash happened at {DateTime.Now.ToString(
                         {
 
                             Move_Mods(Name_, false);
-                            Call_Mods_From_Folder();
+                            
                         }
 
                     }
@@ -659,8 +813,12 @@ Main.logger2.Close();Log.Error(ex, $"A crash happened at {DateTime.Now.ToString(
 
 
 
+                Call_Mods_From_Folder();
 
+                DispatchIfNecessary(() => {
 
+                    ApplyDataBinding();
+                });
 
             }
             catch (Exception ex)
@@ -858,100 +1016,115 @@ Main.logger2.Close();Log.Error(ex, $"A crash happened at {DateTime.Now.ToString(
             try
             {
 
-
-                if (reverse == false)
+                if (Filter.SelectedItem != null)
                 {
-
-                    if (Searching == true)
+                    if (_Completed_Mod_call == true)
                     {
 
-
-
-
-                        return Final_List.Where(ob => ob.Mod_Name_.ToLower().Contains(Search_Bar_Suggest_Mods.Text.ToLower()));
-
-                    }
-
-                    
-                       
-                        else
+                        if (Reverse_ == false)
                         {
-                            if (Filter.SelectedItem != null)
-                         {
+
                             if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Name"))
                             {
+
+
+                                Search_Bar_Suggest_Mods.Text = "~Search";
+
+
                                 return Final_List.OrderBy(ob => ob.Mod_Name_).ToArray();
+
+
+
+
                             }
                             else if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Date"))
                             {
-                                return Final_List.OrderByDescending(ob => ob.Mod_Date_).ToArray();
+
+                                Search_Bar_Suggest_Mods.Text = "~Search";
+
+
+
+                                return Final_List.OrderByDescending(ob => Convert.ToDateTime(ob.Mod_Date_)).ToArray();
+
+
 
                             }
                             else if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Status"))
                             {
+
+                                Search_Bar_Suggest_Mods.Text = "~Search";
+
 
                                 return Final_List.OrderBy(ob => ob.Is_Active_).ToArray();
 
+
                             }
                             else
                             {
+
+                                Search_Bar_Suggest_Mods.Text = "~Search";
+
+
                                 return Final_List.OrderBy(ob => ob.Mod_Name_).ToArray();
+
+
 
                             }
                         }
                         else
                         {
-                            return Final_List.OrderBy(ob => ob.Mod_Name_).ToArray();
-
-                        }
-                        
-                    }
-                }
-                else
-                {
-
-                    if (Searching == true)
-                    {
-
-
-
-
-                        return Final_List.Where(ob => ob.Mod_Name_.ToLower().Contains(Search_Bar_Suggest_Mods.Text.ToLower())).Reverse();
-
-                    }
-
-                    else
-                    {
-                        if (Filter.SelectedItem != null)
-                        {
 
                             if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Name"))
                             {
-                                return Final_List.OrderByDescending(ob => ob.Mod_Name_);
+
+
+
+                                Search_Bar_Suggest_Mods.Text = "~Search";
+
+
+                                return Final_List.OrderByDescending(ob => ob.Mod_Name_).ToArray();
+
+
+
                             }
                             else if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Date"))
                             {
-                                return Final_List.OrderBy(ob => ob.Mod_Date_);
+
+
+                                Search_Bar_Suggest_Mods.Text = "~Search";
+
+
+
+                                return Final_List.OrderBy(ob => Convert.ToDateTime(ob.Mod_Date_)).ToArray();
+
+
 
                             }
                             else if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Status"))
                             {
 
-                                return Final_List.OrderByDescending(ob => ob.Is_Active_);
+                                Search_Bar_Suggest_Mods.Text = "~Search";
+
+
+                                return Final_List.OrderByDescending(ob => ob.Is_Active_).ToArray();
 
                             }
                             else
                             {
-                                return Final_List.OrderByDescending(ob => ob.Mod_Name_);
+
+                                Search_Bar_Suggest_Mods.Text = "~Search";
+
+
+                                return Final_List.OrderByDescending(ob => ob.Mod_Name_).ToArray();
+
+
 
                             }
 
                         }
                     }
-
-
                 }
-                return Final_List.OrderByDescending(ob => ob.Mod_Name_);
+                return Final_List.OrderBy(ob => ob.Mod_Name_);
 
             }
             catch (Exception ex)
@@ -1254,12 +1427,12 @@ logger2.Close();
                     if (mod_Json != null && File.Exists(mod_Json))
                     {
                         var myJsonString = File.ReadAllText(mod_Json);
-                        var myJObject = JObject.Parse(myJsonString);
-                        string name = "Name: " + myJObject.SelectToken("Name").Value<string>();
-                        string version = "Version: " + myJObject.SelectToken("Version").Value<string>();
-                        string Description =  "Description: " + myJObject.SelectToken("Description").Value<string>();
+                        dynamic myJObject = JObject.Parse(myJsonString);
+                        string name = "Name: " + myJObject.Name;
+                        string version = "Version: " + myJObject.Version;
+                        string Description = "Description: " + myJObject.Description;
                         string Content = Description + Environment.NewLine + version;
-                        DialogF.ButtonLeftName = "OK";
+                        DialogF.ButtonLeftName = "Ok";
                         DialogF.ButtonLeftAppearance = Wpf.Ui.Common.ControlAppearance.Success;
                         DialogF.ButtonRightName =VTOL.Resources.Languages.Language.Page_Mods_Open_Mod_Info_OpenFolder;
 
@@ -1473,7 +1646,7 @@ Main.logger2.Close(); Log.Error(ex, $"A crash happened at {DateTime.Now.ToString
             }
             else
                 {
-                    Directory.Delete(temp_Dir, true);
+                    TryDeleteDirectory(temp_Dir, true);
 
                     Dialog.Hide();
 
@@ -1653,9 +1826,31 @@ Main.logger2.Close();Log.Error(ex, $"A crash happened at {DateTime.Now.ToString(
         }
 
         private void DialogF_ButtonLeftClick(object sender, RoutedEventArgs e)
-        {
+        {            
+            
             DialogF.Hide();
 
+            //DispatchIfNecessary(() =>
+            //{
+
+            //    Wpf.Ui.Controls.Dialog _Dialog;
+            //    _Dialog = sender as Wpf.Ui.Controls.Dialog;
+            //    Page_Thunderstore p = new Page_Thunderstore();
+            //    // p.InitializeComponent();
+            //    p.Thunderstore_List.ItemsSource = null;
+
+
+
+
+
+            //    p.Call_Ts_Mods(true, Search_: true, SearchQuery: _Dialog.Title);
+            //    p.Search_Bar_Suggest_Mods.Text = _Dialog.Title.ToString();
+
+
+
+            //    p.Thunderstore_List.Refresh();
+            //    Main.RootNavigation.Navigate(typeof(VTOL.Pages.Page_Thunderstore));
+            //});
         }
 
         private void Dialog_ButtonRightClick(object sender, RoutedEventArgs e)
@@ -1725,7 +1920,7 @@ Main.logger2.Close();Log.Error(ex, $"A crash happened at {DateTime.Now.ToString(
 
                     if (!Directory.Exists(Destination))
                     {
-                        Directory.CreateDirectory(Destination);
+                       TryCreateDirectory(Destination);
                     }
                     if (Directory.Exists(Destination))
                     {
@@ -1758,7 +1953,7 @@ Main.logger2.Close();Log.Error(ex, $"A crash happened at {DateTime.Now.ToString(
 
 
 
-                                Directory.CreateDirectory(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder");
+                               TryCreateDirectory(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder");
                                 if (Directory.Exists(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder"))
                                 {
                                     CopyFilesRecursively(firstFolder, Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder");
@@ -1768,7 +1963,7 @@ Main.logger2.Close();Log.Error(ex, $"A crash happened at {DateTime.Now.ToString(
 
                                     Clear_Folder(Destination);
                                     CopyFilesRecursively(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder", Destination);
-                                    Directory.Delete(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder", true);
+                                    TryDeleteDirectory(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder", true);
 
                                 }
                                 Console.WriteLine("Unpacked - " + Destination);

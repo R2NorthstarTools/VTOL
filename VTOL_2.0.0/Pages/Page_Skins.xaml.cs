@@ -145,7 +145,7 @@ namespace VTOL.Pages
                     else
                     {
 
-                        Directory.CreateDirectory(User_Settings_Vars.NorthstarInstallLocation+ @"Skins_Unpack_Mod_MNGR");
+                       TryCreateDirectory(User_Settings_Vars.NorthstarInstallLocation+ @"Skins_Unpack_Mod_MNGR");
                         current_skin_folder = User_Settings_Vars.NorthstarInstallLocation+ @"Skins_Unpack_Mod_MNGR";
 
                             ZipFile zipFile = new ZipFile(Zip_Path);
@@ -262,7 +262,7 @@ namespace VTOL.Pages
                 {
                     dir_.Delete(true);
                 }
-                Directory.Delete(current_skin_folder);
+                TryDeleteDirectory(current_skin_folder);
 
                     Task.Delay(500).Wait();
 
@@ -617,7 +617,146 @@ Main.logger2.Close();
             OPEN_WEBPAGE("https://titanfall-skin-group.gitbook.io/titanfall-2-skin-creation/");
 
         }
+        public bool TryDeleteDirectory(
+string directoryPath, bool overwrite = true,
+int maxRetries = 10,
+int millisecondsDelay = 30)
+        {
+            if (directoryPath == null)
+                throw new ArgumentNullException(directoryPath);
+            if (maxRetries < 1)
+                throw new ArgumentOutOfRangeException(nameof(maxRetries));
+            if (millisecondsDelay < 1)
+                throw new ArgumentOutOfRangeException(nameof(millisecondsDelay));
 
+            for (int i = 0; i < maxRetries; ++i)
+            {
+                try
+                {
+                    if (Directory.Exists(directoryPath))
+                    {
+                        Directory.Delete(directoryPath, overwrite);
+                    }
+
+                    return true;
+                }
+                catch (IOException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+            }
+
+            return false;
+        }
+        public bool TryCreateDirectory(
+   string directoryPath,
+   int maxRetries = 10,
+   int millisecondsDelay = 30)
+        {
+            if (directoryPath == null)
+                throw new ArgumentNullException(directoryPath);
+            if (maxRetries < 1)
+                throw new ArgumentOutOfRangeException(nameof(maxRetries));
+            if (millisecondsDelay < 1)
+                throw new ArgumentOutOfRangeException(nameof(millisecondsDelay));
+
+            for (int i = 0; i < maxRetries; ++i)
+            {
+                try
+                {
+                    if (Directory.Exists(directoryPath))
+                    {
+                        Directory.CreateDirectory(directoryPath);
+                    }
+
+                    return true;
+                }
+                catch (IOException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+            }
+
+            return false;
+        }
+        public bool TryMoveFile(
+   string Origin, string Destination, bool overwrite = true,
+   int maxRetries = 10,
+   int millisecondsDelay = 30)
+        {
+            if (Origin == null)
+                throw new ArgumentNullException(Origin);
+            if (maxRetries < 1)
+                throw new ArgumentOutOfRangeException(nameof(maxRetries));
+            if (millisecondsDelay < 1)
+                throw new ArgumentOutOfRangeException(nameof(millisecondsDelay));
+
+            for (int i = 0; i < maxRetries; ++i)
+            {
+                try
+                {
+                    if (Directory.Exists(Origin))
+                    {
+                        File.Move(Origin, Destination, true);
+                    }
+
+                    return true;
+                }
+                catch (IOException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+            }
+
+            return false;
+        }
+        public bool TryCopyFile(
+  string Origin, string Destination, bool overwrite = true,
+  int maxRetries = 10,
+  int millisecondsDelay = 30)
+        {
+            if (Origin == null)
+                throw new ArgumentNullException(Origin);
+            if (maxRetries < 1)
+                throw new ArgumentOutOfRangeException(nameof(maxRetries));
+            if (millisecondsDelay < 1)
+                throw new ArgumentOutOfRangeException(nameof(millisecondsDelay));
+
+            for (int i = 0; i < maxRetries; ++i)
+            {
+                try
+                {
+                    if (Directory.Exists(Origin))
+                    {
+                        File.Copy(Origin, Destination, true);
+                    }
+
+                    return true;
+                }
+                catch (IOException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+            }
+
+            return false;
+        }
         private void FAQ_Click(object sender, RoutedEventArgs e)
         {
             OPEN_WEBPAGE("https://r2northstar.gitbook.io/r2northstar-wiki/faq");

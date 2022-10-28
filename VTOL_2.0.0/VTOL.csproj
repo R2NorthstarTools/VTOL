@@ -131,6 +131,13 @@
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper %2848%29.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper %2849%29.png" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper %285%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper %2851%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper %2852%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper %2853%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper %2854%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper %2855%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper %2856%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper %286%29.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper %286%29.png" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper %287%29.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper %288%29.jpg" />
@@ -180,6 +187,7 @@
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper%2848%29.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper%2849%29.png" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%285%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper%2850%29.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%286%29.png" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%287%29.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%288%29.jpg" />
@@ -436,6 +444,30 @@
     </Content>
     <Content Include="Resources\Resource_Static\MDL_SHIT_Banner.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper (51).jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper (52).jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper (53).jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper (54).jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper (55).jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper (56).jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper (6).jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper(50).jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Resource Include="Resources\Resource_Static\Rexx_Cat.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

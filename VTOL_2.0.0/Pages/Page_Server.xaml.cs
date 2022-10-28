@@ -11,6 +11,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -1806,7 +1807,7 @@ Main.logger2.Close();
                 }
                 else
                 {
-                    Directory.CreateDirectory(User_Settings_Vars.NorthstarInstallLocation + @"VTOL_Dedicated_Workspace");
+                   TryCreateDirectory(User_Settings_Vars.NorthstarInstallLocation + @"VTOL_Dedicated_Workspace");
                     string extractPath = Path.GetFullPath(User_Settings_Vars.NorthstarInstallLocation + @"VTOL_Dedicated_Workspace");
 
 
@@ -1928,7 +1929,11 @@ Main.logger2.Close();
                     string strRootDirectory = Path.GetDirectoryName(filesToZip[0]);
 
                     // Set up a temporary directory to save the files to (that we will eventually zip up)
-                    DirectoryInfo dirTemp = Directory.CreateDirectory(strRootDirectory + "/" + DateTime.Now.ToString("yyyyMMddhhmmss"));
+
+                    string x = strRootDirectory + "/" + DateTime.Now.ToString("yyyyMMddhhmmss");
+                    TryCreateDirectory(x);
+                    DirectoryInfo dirTemp = new DirectoryInfo(x);
+                        
 
                     // Copy all files to the temporary directory
                     foreach (string strFilePath in filesToZip)
@@ -1997,7 +2002,7 @@ Main.logger2.Close();
                 }
                 else
                 {
-                    Directory.CreateDirectory(User_Settings_Vars.NorthstarInstallLocation + @"VTOL_Dedicated_Workspace");
+                   TryCreateDirectory(User_Settings_Vars.NorthstarInstallLocation + @"VTOL_Dedicated_Workspace");
 
                     if (File.Exists(Ns_dedi_File) && File.Exists(Convar_File))
                     {
@@ -2145,6 +2150,151 @@ Main.logger2.Close();
             return "Exited with No Due to Missing Or Inaccurate Path";
 
 
+        }
+        public bool TryDeleteDirectory(
+string directoryPath, bool overwrite = true,
+int maxRetries = 10,
+int millisecondsDelay = 300)
+        {
+            if (directoryPath == null)
+                throw new ArgumentNullException(directoryPath);
+            if (maxRetries < 1)
+                throw new ArgumentOutOfRangeException(nameof(maxRetries));
+            if (millisecondsDelay < 1)
+                throw new ArgumentOutOfRangeException(nameof(millisecondsDelay));
+
+            for (int i = 0; i < maxRetries; ++i)
+            {
+                try
+                {
+                    if (Directory.Exists(directoryPath))
+                    {
+                        Directory.Delete(directoryPath, overwrite);
+                    }
+
+                    return true;
+                }
+                catch (IOException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+            }
+
+            return false;
+        }
+        public bool TryCreateDirectory(
+   string directoryPath,
+   int maxRetries = 10,
+   int millisecondsDelay = 200)
+        {
+            if (directoryPath == null)
+                throw new ArgumentNullException(directoryPath);
+            if (maxRetries < 1)
+                throw new ArgumentOutOfRangeException(nameof(maxRetries));
+            if (millisecondsDelay < 1)
+                throw new ArgumentOutOfRangeException(nameof(millisecondsDelay));
+
+            for (int i = 0; i < maxRetries; ++i)
+            {
+                try
+                {
+
+                    Directory.CreateDirectory(directoryPath);
+
+                    if (Directory.Exists(directoryPath))
+                    {
+
+                        return true;
+                    }
+
+
+                }
+                catch (IOException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+            }
+
+            return false;
+        }
+        public bool TryMoveFile(
+   string Origin, string Destination, bool overwrite = true,
+   int maxRetries = 10,
+   int millisecondsDelay = 200)
+        {
+            if (Origin == null)
+                throw new ArgumentNullException(Origin);
+            if (maxRetries < 1)
+                throw new ArgumentOutOfRangeException(nameof(maxRetries));
+            if (millisecondsDelay < 1)
+                throw new ArgumentOutOfRangeException(nameof(millisecondsDelay));
+
+            for (int i = 0; i < maxRetries; ++i)
+            {
+                try
+                {
+                    if (File.Exists(Origin))
+                    {
+                        File.Move(Origin, Destination, overwrite);
+                    }
+
+                    return true;
+                }
+                catch (IOException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+            }
+
+            return false;
+        }
+        public bool TryCopyFile(
+  string Origin, string Destination, bool overwrite = true,
+  int maxRetries = 10,
+  int millisecondsDelay = 300)
+        {
+            if (Origin == null)
+                throw new ArgumentNullException(Origin);
+            if (maxRetries < 1)
+                throw new ArgumentOutOfRangeException(nameof(maxRetries));
+            if (millisecondsDelay < 1)
+                throw new ArgumentOutOfRangeException(nameof(millisecondsDelay));
+
+            for (int i = 0; i < maxRetries; ++i)
+            {
+                try
+                {
+                    if (File.Exists(Origin))
+                    {
+                        File.Copy(Origin, Destination, true);
+                    }
+                    Thread.Sleep(millisecondsDelay);
+
+                    return true;
+                }
+                catch (IOException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+            }
+
+            return false;
         }
         private void Launch_Northstar_Advanced_Click(object sender, RoutedEventArgs e)
         {

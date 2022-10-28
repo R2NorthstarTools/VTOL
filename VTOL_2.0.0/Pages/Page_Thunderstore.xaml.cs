@@ -115,7 +115,151 @@ namespace VTOL.Pages
             }
         }
         string current_skin_folder = null;
+        public bool TryDeleteDirectory(
+ string directoryPath, bool overwrite = true,
+ int maxRetries = 10,
+ int millisecondsDelay = 300)
+        {
+            if (directoryPath == null)
+                throw new ArgumentNullException(directoryPath);
+            if (maxRetries < 1)
+                throw new ArgumentOutOfRangeException(nameof(maxRetries));
+            if (millisecondsDelay < 1)
+                throw new ArgumentOutOfRangeException(nameof(millisecondsDelay));
 
+            for (int i = 0; i < maxRetries; ++i)
+            {
+                try
+                {
+                    if (Directory.Exists(directoryPath))
+                    {
+                        Directory.Delete(directoryPath, overwrite);
+                    }
+
+                    return true;
+                }
+                catch (IOException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+            }
+
+            return false;
+        }
+        public bool TryCreateDirectory(
+   string directoryPath,
+   int maxRetries = 10,
+   int millisecondsDelay = 200)
+        {
+            if (directoryPath == null)
+                throw new ArgumentNullException(directoryPath);
+            if (maxRetries < 1)
+                throw new ArgumentOutOfRangeException(nameof(maxRetries));
+            if (millisecondsDelay < 1)
+                throw new ArgumentOutOfRangeException(nameof(millisecondsDelay));
+
+            for (int i = 0; i < maxRetries; ++i)
+            {
+                try
+                {
+
+                    Directory.CreateDirectory(directoryPath);
+
+                    if (Directory.Exists(directoryPath))
+                    {
+
+                        return true;
+                    }
+
+
+                }
+                catch (IOException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+            }
+
+            return false;
+        }
+        public bool TryMoveFile(
+   string Origin, string Destination, bool overwrite = true,
+   int maxRetries = 10,
+   int millisecondsDelay = 200)
+        {
+            if (Origin == null)
+                throw new ArgumentNullException(Origin);
+            if (maxRetries < 1)
+                throw new ArgumentOutOfRangeException(nameof(maxRetries));
+            if (millisecondsDelay < 1)
+                throw new ArgumentOutOfRangeException(nameof(millisecondsDelay));
+
+            for (int i = 0; i < maxRetries; ++i)
+            {
+                try
+                {
+                    if (File.Exists(Origin))
+                    {
+                        File.Move(Origin, Destination, overwrite);
+                    }
+
+                    return true;
+                }
+                catch (IOException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+            }
+
+            return false;
+        }
+        public bool TryCopyFile(
+  string Origin, string Destination, bool overwrite = true,
+  int maxRetries = 10,
+  int millisecondsDelay = 300)
+        {
+            if (Origin == null)
+                throw new ArgumentNullException(Origin);
+            if (maxRetries < 1)
+                throw new ArgumentOutOfRangeException(nameof(maxRetries));
+            if (millisecondsDelay < 1)
+                throw new ArgumentOutOfRangeException(nameof(millisecondsDelay));
+
+            for (int i = 0; i < maxRetries; ++i)
+            {
+                try
+                {
+                    if (File.Exists(Origin))
+                    {
+                        File.Copy(Origin, Destination, true);
+                    }
+                    Thread.Sleep(millisecondsDelay);
+
+                    return true;
+                }
+                catch (IOException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+            }
+
+            return false;
+        }
         public void Install_Skin_From_Path(string Zip_Path)
         {
 
@@ -140,7 +284,7 @@ namespace VTOL.Pages
                     else
                     {
 
-                        Directory.CreateDirectory(User_Settings_Vars.NorthstarInstallLocation + @"Skins_Unpack_Mod_MNGR");
+                       TryCreateDirectory(User_Settings_Vars.NorthstarInstallLocation + @"Skins_Unpack_Mod_MNGR");
                         current_skin_folder = User_Settings_Vars.NorthstarInstallLocation + @"Skins_Unpack_Mod_MNGR";
 
                         ZipFile zipFile = new ZipFile(Zip_Path);
@@ -255,7 +399,7 @@ namespace VTOL.Pages
                 {
                     dir_.Delete(true);
                 }
-                Directory.Delete(current_skin_folder);
+                TryDeleteDirectory(current_skin_folder);
 
 
 
@@ -946,6 +1090,146 @@ Main.logger2.Close();
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
             }
+        }
+        public bool TryDeleteDirectory(
+string directoryPath, bool overwrite = true,
+int maxRetries = 10,
+int millisecondsDelay = 30)
+        {
+            if (directoryPath == null)
+                throw new ArgumentNullException(directoryPath);
+            if (maxRetries < 1)
+                throw new ArgumentOutOfRangeException(nameof(maxRetries));
+            if (millisecondsDelay < 1)
+                throw new ArgumentOutOfRangeException(nameof(millisecondsDelay));
+
+            for (int i = 0; i < maxRetries; ++i)
+            {
+                try
+                {
+                    if (Directory.Exists(directoryPath))
+                    {
+                        Directory.Delete(directoryPath, overwrite);
+                    }
+
+                    return true;
+                }
+                catch (IOException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+            }
+
+            return false;
+        }
+        public bool TryCreateDirectory(
+   string directoryPath,
+   int maxRetries = 10,
+   int millisecondsDelay = 30)
+        {
+            if (directoryPath == null)
+                throw new ArgumentNullException(directoryPath);
+            if (maxRetries < 1)
+                throw new ArgumentOutOfRangeException(nameof(maxRetries));
+            if (millisecondsDelay < 1)
+                throw new ArgumentOutOfRangeException(nameof(millisecondsDelay));
+
+            for (int i = 0; i < maxRetries; ++i)
+            {
+                try
+                {
+                    
+                        Directory.CreateDirectory(directoryPath);
+                    
+
+                    return true;
+                }
+                catch (IOException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+            }
+
+            return false;
+        }
+        public bool TryMoveFile(
+    string Origin, string Destination, bool overwrite = true,
+    int maxRetries = 10,
+    int millisecondsDelay = 200)
+        {
+            if (Origin == null)
+                throw new ArgumentNullException(Origin);
+            if (maxRetries < 1)
+                throw new ArgumentOutOfRangeException(nameof(maxRetries));
+            if (millisecondsDelay < 1)
+                throw new ArgumentOutOfRangeException(nameof(millisecondsDelay));
+
+            for (int i = 0; i < maxRetries; ++i)
+            {
+                try
+                {
+                    if (File.Exists(Origin))
+                    {
+                        File.Move(Origin, Destination, overwrite);
+                    }
+
+                    return true;
+                }
+                catch (IOException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+            }
+
+            return false;
+        }
+        public bool TryCopyFile(
+  string Origin, string Destination, bool overwrite = true,
+  int maxRetries = 10,
+  int millisecondsDelay = 300)
+        {
+            if (Origin == null)
+                throw new ArgumentNullException(Origin);
+            if (maxRetries < 1)
+                throw new ArgumentOutOfRangeException(nameof(maxRetries));
+            if (millisecondsDelay < 1)
+                throw new ArgumentOutOfRangeException(nameof(millisecondsDelay));
+
+            for (int i = 0; i < maxRetries; ++i)
+            {
+                try
+                {
+                    if (File.Exists(Origin))
+                    {
+                        File.Copy(Origin, Destination, true);
+                    }
+                    Thread.Sleep(millisecondsDelay);
+
+                    return true;
+                }
+                catch (IOException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+            }
+
+            return false;
         }
         public List<Grid_> orderlist(List<Grid_> List)
         {
@@ -1687,7 +1971,7 @@ Main.logger2.Close();
             //Now Create all of the directories
             foreach (string dirPath in Directory.GetDirectories(sourcePath, "*", SearchOption.AllDirectories))
             {
-                Directory.CreateDirectory(dirPath.Replace(sourcePath, targetPath));
+               Directory.CreateDirectory(dirPath.Replace(sourcePath, targetPath));
             }
 
             //Copy all the files & Replaces any files with the same name
@@ -1718,7 +2002,7 @@ Main.logger2.Close();
 
                     if (!Directory.Exists(Destination))
                     {
-                        Directory.CreateDirectory(Destination);
+                       TryCreateDirectory(Destination);
                     }
                     if (Directory.Exists(Destination))
                     {
@@ -1791,7 +2075,7 @@ Main.logger2.Close();
 
 
 
-                                            Directory.CreateDirectory(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder");
+                                           TryCreateDirectory(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder");
                                             if (Directory.Exists(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder"))
                                             {
                                                 CopyFilesRecursively(firstFolder, Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder");
@@ -1801,7 +2085,7 @@ Main.logger2.Close();
 
                                                 Clear_Folder(Destination);
                                                 CopyFilesRecursively(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder", Destination);
-                                                Directory.Delete(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder", true);
+                                                TryDeleteDirectory(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder", true);
 
                                             }
                                             Console.WriteLine("Unpacked - " + Destination);
@@ -1849,24 +2133,24 @@ Main.logger2.Close();
                                 {
                                     if (Directory.Exists(User_Settings_Vars.NorthstarInstallLocation  + User_Settings_Vars.Profile_Path + @"\mods\Northstar.Client\Locked_Folder"))
                                     {
-                                        Directory.Delete(User_Settings_Vars.NorthstarInstallLocation  + User_Settings_Vars.Profile_Path + @"\mods\Northstar.Client\Locked_Folder", true);
+                                        TryDeleteDirectory(User_Settings_Vars.NorthstarInstallLocation  + User_Settings_Vars.Profile_Path + @"\mods\Northstar.Client\Locked_Folder", true);
 
                                     }
                                     if (Directory.Exists(User_Settings_Vars.NorthstarInstallLocation  + User_Settings_Vars.Profile_Path + @"\mods\Northstar.Custom\Locked_Folder"))
                                     {
-                                        Directory.Delete(User_Settings_Vars.NorthstarInstallLocation  + User_Settings_Vars.Profile_Path + @"\mods\Northstar.Custom\Locked_Folder", true);
+                                        TryDeleteDirectory(User_Settings_Vars.NorthstarInstallLocation  + User_Settings_Vars.Profile_Path + @"\mods\Northstar.Custom\Locked_Folder", true);
 
 
                                     }
                                     if (Directory.Exists(User_Settings_Vars.NorthstarInstallLocation  + User_Settings_Vars.Profile_Path + @"\mods\Northstar.CustomServers\Locked_Folder"))
                                     {
-                                        Directory.Delete(User_Settings_Vars.NorthstarInstallLocation  + User_Settings_Vars.Profile_Path + @"\mods\Northstar.CustomServers\Locked_Folder", true);
+                                        TryDeleteDirectory(User_Settings_Vars.NorthstarInstallLocation  + User_Settings_Vars.Profile_Path + @"\mods\Northstar.CustomServers\Locked_Folder", true);
 
 
                                     }
                                     if (!Directory.Exists(User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder"))
                                     {
-                                        Directory.CreateDirectory(User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder");
+                                       TryCreateDirectory(User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder");
                                     }
 
                                     if (do_not_overwrite_Ns_file == true)
@@ -1874,7 +2158,7 @@ Main.logger2.Close();
                                       
                                             if (File.Exists(User_Settings_Vars.NorthstarInstallLocation + @"ns_startup_args.txt"))
                                             {
-                                                System.IO.File.Copy(User_Settings_Vars.NorthstarInstallLocation + @"ns_startup_args.txt",User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder\ns_startup_args.txt", true);
+                                               TryCopyFile(User_Settings_Vars.NorthstarInstallLocation + @"ns_startup_args.txt",User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder\ns_startup_args.txt", true);
                                             }
 
                                         
@@ -1884,7 +2168,7 @@ Main.logger2.Close();
                                         if (File.Exists(User_Settings_Vars.NorthstarInstallLocation +  User_Settings_Vars.Profile_Path + @"\mods\Northstar.CustomServers\mod\cfg\autoexec_ns_server.cfg"))
                                         {
 
-                                            System.IO.File.Copy(User_Settings_Vars.NorthstarInstallLocation +  User_Settings_Vars.Profile_Path + @"\mods\Northstar.CustomServers\mod\cfg\autoexec_ns_server.cfg", User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder\autoexec_ns_server.cfg", true);
+                                            TryCopyFile(User_Settings_Vars.NorthstarInstallLocation +  User_Settings_Vars.Profile_Path + @"\mods\Northstar.CustomServers\mod\cfg\autoexec_ns_server.cfg", User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder\autoexec_ns_server.cfg", true);
 
 
 
@@ -1896,7 +2180,7 @@ Main.logger2.Close();
                                         {
 
 
-                                            System.IO.File.Copy(User_Settings_Vars.NorthstarInstallLocation + @"ns_startup_args_dedi.txt", User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder\ns_startup_args_dedi.txt", true);
+                                          TryCopyFile(User_Settings_Vars.NorthstarInstallLocation + @"ns_startup_args_dedi.txt", User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder\ns_startup_args_dedi.txt", true);
 
 
                                         }
@@ -1938,14 +2222,14 @@ Main.logger2.Close();
 
                                             }
                                             Console.WriteLine("Unpacked - " + Destination);
-                                             Directory.Delete(Destination,true);
+                                             TryDeleteDirectory(Destination,true);
 
                                         if (do_not_overwrite_Ns_file == true)
                                         {
                                           
                                                 if (File.Exists(User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder\ns_startup_args.txt"))
                                                 {
-                                                    System.IO.File.Copy(User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder\ns_startup_args.txt", User_Settings_Vars.NorthstarInstallLocation + @"ns_startup_args.txt", true);
+                                                   TryCopyFile(User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder\ns_startup_args.txt", User_Settings_Vars.NorthstarInstallLocation + @"ns_startup_args.txt", true);
                                                 }
 
                                             
@@ -1955,7 +2239,7 @@ Main.logger2.Close();
                                             if (File.Exists(User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder\autoexec_ns_server.cfg"))
                                             {
 
-                                                System.IO.File.Copy (User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder\autoexec_ns_server.cfg",User_Settings_Vars.NorthstarInstallLocation + User_Settings_Vars.Profile_Path + @"\mods\Northstar.CustomServers\mod\cfg\autoexec_ns_server.cfg",true);
+                                               TryCopyFile (User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder\autoexec_ns_server.cfg",User_Settings_Vars.NorthstarInstallLocation + User_Settings_Vars.Profile_Path + @"\mods\Northstar.CustomServers\mod\cfg\autoexec_ns_server.cfg",true);
 
 
 
@@ -1967,7 +2251,7 @@ Main.logger2.Close();
                                             {
 
 
-                                                System.IO.File.Copy(User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder\ns_startup_args_dedi.txt", User_Settings_Vars.NorthstarInstallLocation + @"ns_startup_args_dedi.txt", true);
+                                                TryCopyFile(User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder\ns_startup_args_dedi.txt", User_Settings_Vars.NorthstarInstallLocation + @"ns_startup_args_dedi.txt", true);
 
 
                                             }
@@ -2059,7 +2343,7 @@ Main.logger2.Close();
 
 
 
-                                            Directory.CreateDirectory(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder");
+                                           TryCreateDirectory(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder");
                                             if (Directory.Exists(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder"))
                                             {
                                                 CopyFilesRecursively(firstFolder, Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder");
@@ -2069,7 +2353,7 @@ Main.logger2.Close();
 
                                                 Clear_Folder(Destination);
                                                 CopyFilesRecursively(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder", Destination);
-                                                Directory.Delete(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder", true);
+                                                TryDeleteDirectory(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder", true);
 
                                             }
                                             Console.WriteLine("Unpacked - " + Destination);
@@ -2226,7 +2510,7 @@ Main.logger2.Close();
 
                 if (Directory.Exists(Destination) && Destination != "")
                 {
-                    Directory.Delete(Destination, true);
+                    TryDeleteDirectory(Destination, true);
                 }
             });
         }

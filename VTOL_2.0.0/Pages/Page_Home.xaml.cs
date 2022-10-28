@@ -266,6 +266,7 @@ logger2.Close();
             
             Random random = new Random();
             BitmapImage bitmap = new BitmapImage();
+          
             bitmap.BeginInit();
             bitmap.UriSource = new Uri(_Images[random.Next(0, _Images.Count - 1)]);
             bitmap.EndInit();
@@ -714,8 +715,18 @@ Main.logger2.Close();
                             Current_Install_Folder = fix.Replace(@"\\", @"\").Replace("/", @"\");
 
                         }
-                        Auto_Install_(false);
+                        if (Directory.Exists(Current_Install_Folder))
+                        {
+                            Auto_Install_(false);
+                        }
+                        else
+                        {
 
+                            SnackBar.Appearance = ControlAppearance.Danger;
+                            SnackBar.Title = "WARNING!";
+                            SnackBar.Message = VTOL.Resources.Languages.Language.Page_Home_INIT_InvalidInstallPathPleaseManuallyLocateTheCorrectFolder;
+                            SnackBar.Show();
+                        }
                         if (File.Exists(Current_Install_Folder + "Titanfall2.exe") && Current_Install_Folder != "NODATA")
                         {
 
@@ -797,8 +808,7 @@ Main.logger2.Close();
                 {
                     try
                     {
-
-                        Directory.Delete(Current_Install_Folder + @"Skins_Unpack_Mod_MNGR", true);
+                        TryDeleteDirectory(Current_Install_Folder + @"Skins_Unpack_Mod_MNGR", true);
                     }
                     catch (Exception ex)
                     {
@@ -865,7 +875,7 @@ Main.logger2.Close();
                 //        File.Delete(@"C:\ProgramData\VTOL_DATA\VARS\Language.txt");
 
                 //    }
-                //    Directory.Delete(@"C:\ProgramData\VTOL_DATA", true);
+                //    TryDeleteDirectory(@"C:\ProgramData\VTOL_DATA", true);
                    
                 //}
 
@@ -887,6 +897,7 @@ Main.logger2.Close();
             }
             catch (Exception ex)
             {
+                MessageBox.Show("x");
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
                 Main.logger2.Open();
                  Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source +Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
@@ -894,6 +905,7 @@ Main.logger2.Close();
 
             }
         }
+
         public bool IsValidPath(string path, bool allowRelativePaths = false)
         {
             bool isValid = true;
@@ -1186,7 +1198,7 @@ Main.logger2.Close();
                     ////Console.WriteLine("Empty Folder at - "+ outt);
                     if (IsDirectoryEmpty(Dir))
                     {
-                        Directory.Delete(outt, true);
+                        TryDeleteDirectory(outt, true);
                     }
                     //   Delete_empty_Folders(outt);
                 }
@@ -1196,7 +1208,7 @@ Main.logger2.Close();
 
                     if (IsDirectoryEmpty(Dir))
                     {
-                        Directory.Delete(outt, true);
+                        TryDeleteDirectory(outt, true);
                     }
                     //Write_To_Log(ErrorManager(e));
 
@@ -1867,10 +1879,8 @@ Main.logger2.Close();
         }
         public static bool IsDirectoryEmpty(DirectoryInfo directory)
         {
-            FileInfo[] files = directory.GetFiles();
-            DirectoryInfo[] subdirs = directory.GetDirectories();
-
-            return (files.Length == 0 && subdirs.Length == 0);
+            int num = Directory.GetFiles(directory.FullName).Length + Directory.GetDirectories(directory.FullName).Length;
+            return num == 0;
         }
         public static bool IsAdministrator()
         {
@@ -2434,7 +2444,7 @@ Main.logger2.Close();
                 }
                 else
                 {
-                    Directory.CreateDirectory(DocumentsFolder + @"\VTOL_DATA\temp\");
+                   TryCreateDirectory(DocumentsFolder + @"\VTOL_DATA\temp\");
                     saveAsyncFile(s, DocumentsFolder + @"\VTOL_DATA\temp\" + json_name, false, false);
                     FileInfo File = new FileInfo(DocumentsFolder + @"\VTOL_DATA\temp\" + json_name);
                     int attempts = 0;
@@ -2652,7 +2662,7 @@ Main.logger2.Close();
                     if (Directory.Exists(Current_Install_Folder + @"TempCopyFolder"))
                 {
 
-                        Directory.Delete(Current_Install_Folder + @"TempCopyFolder", true);
+                        TryDeleteDirectory(Current_Install_Folder + @"TempCopyFolder", true);
                     
                     
                 }
@@ -2675,27 +2685,27 @@ Main.logger2.Close();
                             {
                                 if (Directory.Exists(Current_Install_Folder + @"ns_startup_args.txt"))
                                 {
-                                   File.Copy(Current_Install_Folder + @"ns_startup_args.txt", Current_Install_Folder + @"TempCopyFolder\ns_startup_args.txt", true);
+                                   TryCopyFile(Current_Install_Folder + @"ns_startup_args.txt", Current_Install_Folder + @"TempCopyFolder\ns_startup_args.txt", true);
                                 }
                                 if (Directory.Exists(Current_Install_Folder + @"ns_startup_args_dedi.txt"))
                                 {
-                                    System.IO.File.Copy(Current_Install_Folder + @"ns_startup_args_dedi.txt", Current_Install_Folder + @"TempCopyFolder\ns_startup_args_dedi.txt", true);
+                                        TryCopyFile(Current_Install_Folder + @"ns_startup_args_dedi.txt", Current_Install_Folder + @"TempCopyFolder\ns_startup_args_dedi.txt", true);
                                 }
                             }
                             else
                             {
 
-                                Directory.CreateDirectory(Current_Install_Folder + @"TempCopyFolder");
+                               TryCreateDirectory(Current_Install_Folder + @"TempCopyFolder");
                                 if (Directory.Exists(Current_Install_Folder + @"ns_startup_args.txt"))
                                 {
-                                   File.Copy(Current_Install_Folder + @"ns_startup_args.txt", Current_Install_Folder + @"TempCopyFolder\ns_startup_args.txt", true);
+                                   TryCopyFile(Current_Install_Folder + @"ns_startup_args.txt", Current_Install_Folder + @"TempCopyFolder\ns_startup_args.txt", true);
                                 }
                                 if (Directory.Exists(Current_Install_Folder + @"ns_startup_args_dedi.txt"))
                                 {
-                                    File.Copy(Current_Install_Folder + @"ns_startup_args_dedi.txt", Current_Install_Folder + @"TempCopyFolder\ns_startup_args_dedi.txt", true);
+                                    TryCopyFile(Current_Install_Folder + @"ns_startup_args_dedi.txt", Current_Install_Folder + @"TempCopyFolder\ns_startup_args_dedi.txt", true);
                                 }
                             }
-                            Directory.CreateDirectory(DocumentsFolder + @"\VTOL_DATA\Releases\");
+                           TryCreateDirectory(DocumentsFolder + @"\VTOL_DATA\Releases\");
                             webClient.DownloadFileAsync(new Uri(current_Northstar_version_Url), DocumentsFolder + @"\VTOL_DATA\Releases\Northstar_Release.zip");
                             webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadProgressCallback_Progress_Window);
                                 while (unpack_flg == false)
@@ -2710,7 +2720,7 @@ Main.logger2.Close();
                             else
                         {
 
-                            Directory.CreateDirectory(DocumentsFolder + @"\VTOL_DATA\Releases\");
+                           TryCreateDirectory(DocumentsFolder + @"\VTOL_DATA\Releases\");
                             webClient.DownloadFileAsync(new Uri(current_Northstar_version_Url), DocumentsFolder + @"\VTOL_DATA\Releases\Northstar_Release.zip");
                             webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadProgressCallback_Progress_Window);
                                 while (unpack_flg == false)
@@ -2729,7 +2739,7 @@ Main.logger2.Close();
                     else
                     {
 
-                        Directory.CreateDirectory(DocumentsFolder + @"\VTOL_DATA\Releases\");
+                       TryCreateDirectory(DocumentsFolder + @"\VTOL_DATA\Releases\");
                         webClient.DownloadFileAsync(new Uri(current_Northstar_version_Url), DocumentsFolder + @"\VTOL_DATA\Releases\Northstar_Release.zip");
                         webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadProgressCallback_Progress_Window);
                            
@@ -2772,38 +2782,56 @@ Main.logger2.Close();
             }
                 });
         }
-        public IEnumerable<string> GetFile(string directory, string Search)
-        {
-            List<string> files = new List<string>();
 
-            try
+        public string GetFile(string directory, string Search,
+   int maxRetries = 10,
+   int millisecondsDelay = 30)
+        {
+            if (directory == null)
+                throw new ArgumentNullException(directory);
+            if (maxRetries < 1)
+                throw new ArgumentOutOfRangeException(nameof(maxRetries));
+            if (millisecondsDelay < 1)
+                throw new ArgumentOutOfRangeException(nameof(millisecondsDelay));
+
+            for (int i = 0; i < maxRetries; ++i)
             {
-                if (Directory.Exists(directory))
+                try
                 {
+                    List<string> files = new List<string>();
+
                     files.AddRange(Directory.GetFiles(directory, Search, SearchOption.AllDirectories));
                     if (files.Count >= 1)
                     {
-                        return files;
+                        return files.FirstOrDefault();
 
                     }
                     else
                     {
-                        return null;
+                        return "";
                     }
+
                 }
-
-
+                catch (IOException)
+                {
+                     Thread.Sleep(millisecondsDelay);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                    Main.logger2.Open();
+                    Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
+                    Main.logger2.Close();
+                }
             }
-            catch (Exception ex)
-            {
-                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-                 Main.logger2.Open();
-                 Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source +Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-Main.logger2.Close();
-            }
+
             return null;
-
         }
+        
         private void DownloadProgressCallback_Progress_Window(object sender, DownloadProgressChangedEventArgs e)
         {
 
@@ -2885,63 +2913,213 @@ Main.logger2.Close();
 
             }
         }
+        public bool TryDeleteDirectory(
+string directoryPath, bool overwrite = true,
+int maxRetries = 10,
+int millisecondsDelay = 300)
+        {
+            if (directoryPath == null)
+                throw new ArgumentNullException(directoryPath);
+            if (maxRetries < 1)
+                throw new ArgumentOutOfRangeException(nameof(maxRetries));
+            if (millisecondsDelay < 1)
+                throw new ArgumentOutOfRangeException(nameof(millisecondsDelay));
 
+            for (int i = 0; i < maxRetries; ++i)
+            {
+                try
+                {
+                    if (Directory.Exists(directoryPath))
+                    {
+                        Directory.Delete(directoryPath, overwrite);
+                    }
+
+                    return true;
+                }
+                catch (IOException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+            }
+
+            return false;
+        }
+        public bool TryCreateDirectory(
+   string directoryPath,
+   int maxRetries = 10,
+   int millisecondsDelay = 200)
+        {
+            if (directoryPath == null)
+                throw new ArgumentNullException(directoryPath);
+            if (maxRetries < 1)
+                throw new ArgumentOutOfRangeException(nameof(maxRetries));
+            if (millisecondsDelay < 1)
+                throw new ArgumentOutOfRangeException(nameof(millisecondsDelay));
+
+            for (int i = 0; i < maxRetries; ++i)
+            {
+                try
+                {
+
+                    Directory.CreateDirectory(directoryPath);
+
+                    if (Directory.Exists(directoryPath))
+                    {
+
+                        return true;
+                    }
+
+
+                }
+                catch (IOException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+            }
+
+            return false;
+        }
+        public bool TryMoveFile(
+   string Origin, string Destination, bool overwrite = true,
+   int maxRetries = 10,
+   int millisecondsDelay = 200)
+        {
+            if (Origin == null)
+                throw new ArgumentNullException(Origin);
+            if (maxRetries < 1)
+                throw new ArgumentOutOfRangeException(nameof(maxRetries));
+            if (millisecondsDelay < 1)
+                throw new ArgumentOutOfRangeException(nameof(millisecondsDelay));
+
+            for (int i = 0; i < maxRetries; ++i)
+            {
+                try
+                {
+                    if (File.Exists(Origin))
+                    {
+                        File.Move(Origin, Destination, overwrite);
+                    }
+
+                    return true;
+                }
+                catch (IOException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+            }
+
+            return false;
+        }
+        public bool TryCopyFile(
+  string Origin, string Destination, bool overwrite = true,
+  int maxRetries = 10,
+  int millisecondsDelay = 300)
+        {
+            if (Origin == null)
+                throw new ArgumentNullException(Origin);
+            if (maxRetries < 1)
+                throw new ArgumentOutOfRangeException(nameof(maxRetries));
+            if (millisecondsDelay < 1)
+                throw new ArgumentOutOfRangeException(nameof(millisecondsDelay));
+
+            for (int i = 0; i < maxRetries; ++i)
+            {
+                try
+                {
+                    if (File.Exists(Origin))
+                    {
+                        File.Copy(Origin, Destination, true);
+                    }
+                    Thread.Sleep(millisecondsDelay);
+
+                    return true;
+                }
+                catch (IOException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+            }
+
+            return false;
+        }
         private void Unpack_To_Location(string Target_Zip, string Destination_Zip)
         {
             unpack_flg = false;
             if (Directory.Exists(Current_Install_Folder + User_Settings_Vars.Profile_Path + @"\mods\Northstar.Client\Locked_Folder"))
             {
-                Directory.Delete(Current_Install_Folder + User_Settings_Vars.Profile_Path + @"\mods\Northstar.Client\Locked_Folder", true);
+                TryDeleteDirectory(Current_Install_Folder + User_Settings_Vars.Profile_Path + @"\mods\Northstar.Client\Locked_Folder", true);
 
             }
             if (Directory.Exists(Current_Install_Folder + User_Settings_Vars.Profile_Path + @"\mods\Northstar.Custom\Locked_Folder"))
             {
-                Directory.Delete(Current_Install_Folder + User_Settings_Vars.Profile_Path + @"\mods\Northstar.Custom\Locked_Folder", true);
+                TryDeleteDirectory(Current_Install_Folder + User_Settings_Vars.Profile_Path + @"\mods\Northstar.Custom\Locked_Folder", true);
 
 
 
             }
             if (Directory.Exists(Current_Install_Folder + User_Settings_Vars.Profile_Path + @"\mods\Northstar.CustomServers\Locked_Folder"))
             {
-                Directory.Delete(Current_Install_Folder + User_Settings_Vars.Profile_Path + @"\mods\Northstar.CustomServers\Locked_Folder", true);
+                TryDeleteDirectory(Current_Install_Folder + User_Settings_Vars.Profile_Path + @"\mods\Northstar.CustomServers\Locked_Folder", true);
 
 
             }
-            string nrml = GetFile(Current_Install_Folder , @"ns_startup_args.txt").First();
-            string cfg = GetFile(Current_Install_Folder , @"autoexec_ns_server.cfg").First();
-            string dedi = GetFile(Current_Install_Folder , @"ns_startup_args_dedi.txt").First();
+            string nrml = GetFile(Current_Install_Folder , @"ns_startup_args.txt");
+            string cfg = GetFile(Current_Install_Folder, @"autoexec_ns_server.cfg");
+            string dedi = GetFile(Current_Install_Folder , @"ns_startup_args_dedi.txt");
             if (do_not_overwrite_Ns_file == true)
             {
                 if (!Directory.Exists(Current_Install_Folder + @"TempCopyFolder"))
                 {
-                        Directory.CreateDirectory(Current_Install_Folder + @"TempCopyFolder");
+                       TryCreateDirectory(Current_Install_Folder + @"TempCopyFolder");
                 }
-                if (File.Exists(nrml))
+                if (IsValidPath(nrml))
                 {
-                    File.Copy(nrml, Current_Install_Folder + @"TempCopyFolder\ns_startup_args.txt", true);
-                }
-
-
-
-
-
-                if (File.Exists(cfg))
-                {
-
-                   File.Copy(cfg, Current_Install_Folder + @"TempCopyFolder\autoexec_ns_server.cfg", true);
-
-
-
+                    if (File.Exists(nrml))
+                    {
+                        TryCopyFile(nrml, Current_Install_Folder + @"TempCopyFolder\ns_startup_args.txt", true);
+                    }
                 }
 
 
 
-                if (File.Exists(dedi))
+
+
+                if (IsValidPath(cfg))
                 {
+                    if (File.Exists(cfg))
+                    {
+                        TryCopyFile(cfg, Current_Install_Folder + @"TempCopyFolder\autoexec_ns_server.cfg", true);
 
 
-                   File.Copy(dedi, Current_Install_Folder + @"TempCopyFolder\ns_startup_args_dedi.txt", true);
+                    }
+                }
 
+
+
+                if (IsValidPath(dedi))
+                {
+                    if (File.Exists(dedi))
+                    {
+
+
+                        TryCopyFile(dedi, Current_Install_Folder + @"TempCopyFolder\ns_startup_args_dedi.txt", true);
+                    }
 
                 }
 
@@ -2968,17 +3146,17 @@ Main.logger2.Close();
                             if (File.Exists(Current_Install_Folder + @"TempCopyFolder\ns_startup_args.txt"))
                             {
 
-                              File.Copy(Current_Install_Folder + @"TempCopyFolder\ns_startup_args.txt", Current_Install_Folder + @"ns_startup_args.txt", true);
+                              TryCopyFile(Current_Install_Folder + @"TempCopyFolder\ns_startup_args.txt", Current_Install_Folder + @"ns_startup_args.txt", true);
                             }
 
 
                             if (File.Exists(Current_Install_Folder + @"TempCopyFolder\autoexec_ns_server.cfg"))
                             {
-                                File.Copy(Current_Install_Folder + @"TempCopyFolder\autoexec_ns_server.cfg", Current_Install_Folder + User_Settings_Vars.Profile_Path + @"\mods\Northstar.CustomServers\mod\cfg\autoexec_ns_server.cfg", true);
+                                TryCopyFile(Current_Install_Folder + @"TempCopyFolder\autoexec_ns_server.cfg", Current_Install_Folder + User_Settings_Vars.Profile_Path + @"\mods\Northstar.CustomServers\mod\cfg\autoexec_ns_server.cfg", true);
                             }
                             if (File.Exists(Current_Install_Folder + @"TempCopyFolder\ns_startup_args_dedi.txt"))
                             {
-                               File.Copy(Current_Install_Folder + @"TempCopyFolder\ns_startup_args_dedi.txt", Current_Install_Folder + @"ns_startup_args_dedi.txt", true);
+                               TryCopyFile(Current_Install_Folder + @"TempCopyFolder\ns_startup_args_dedi.txt", Current_Install_Folder + @"ns_startup_args_dedi.txt", true);
                             }
 
                         }
@@ -2988,7 +3166,7 @@ Main.logger2.Close();
 
                         if (Directory.Exists(Current_Install_Folder + @"TempCopyFolder"))
                         {
-                               Directory.Delete(Current_Install_Folder + @"TempCopyFolder", true);
+                               TryDeleteDirectory(Current_Install_Folder + @"TempCopyFolder", true);
                         }
                         DispatchIfNecessary(() =>
                         {

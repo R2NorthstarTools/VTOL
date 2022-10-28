@@ -190,7 +190,7 @@ namespace VTOL.Pages
 
         public void Save(string path)
         {
-            Directory.CreateDirectory(Path.GetDirectoryName(path));
+           Directory.CreateDirectory(Path.GetDirectoryName(path));
             BinaryWriter writer = new(new FileStream(path, FileMode.Create));
             try
             {
@@ -802,6 +802,151 @@ Main.logger2.Close();
                 }
             });
         }
+        public bool TryDeleteDirectory(
+string directoryPath, bool overwrite = true,
+int maxRetries = 10,
+int millisecondsDelay = 300)
+        {
+            if (directoryPath == null)
+                throw new ArgumentNullException(directoryPath);
+            if (maxRetries < 1)
+                throw new ArgumentOutOfRangeException(nameof(maxRetries));
+            if (millisecondsDelay < 1)
+                throw new ArgumentOutOfRangeException(nameof(millisecondsDelay));
+
+            for (int i = 0; i < maxRetries; ++i)
+            {
+                try
+                {
+                    if (Directory.Exists(directoryPath))
+                    {
+                        Directory.Delete(directoryPath, overwrite);
+                    }
+
+                    return true;
+                }
+                catch (IOException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+            }
+
+            return false;
+        }
+        public bool TryCreateDirectory(
+   string directoryPath,
+   int maxRetries = 10,
+   int millisecondsDelay = 200)
+        {
+            if (directoryPath == null)
+                throw new ArgumentNullException(directoryPath);
+            if (maxRetries < 1)
+                throw new ArgumentOutOfRangeException(nameof(maxRetries));
+            if (millisecondsDelay < 1)
+                throw new ArgumentOutOfRangeException(nameof(millisecondsDelay));
+
+            for (int i = 0; i < maxRetries; ++i)
+            {
+                try
+                {
+
+                    Directory.CreateDirectory(directoryPath);
+
+                    if (Directory.Exists(directoryPath))
+                    {
+
+                        return true;
+                    }
+
+
+                }
+                catch (IOException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+            }
+
+            return false;
+        }
+        public bool TryMoveFile(
+   string Origin, string Destination, bool overwrite = true,
+   int maxRetries = 10,
+   int millisecondsDelay = 200)
+        {
+            if (Origin == null)
+                throw new ArgumentNullException(Origin);
+            if (maxRetries < 1)
+                throw new ArgumentOutOfRangeException(nameof(maxRetries));
+            if (millisecondsDelay < 1)
+                throw new ArgumentOutOfRangeException(nameof(millisecondsDelay));
+
+            for (int i = 0; i < maxRetries; ++i)
+            {
+                try
+                {
+                    if (File.Exists(Origin))
+                    {
+                        File.Move(Origin, Destination, overwrite);
+                    }
+
+                    return true;
+                }
+                catch (IOException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+            }
+
+            return false;
+        }
+        public bool TryCopyFile(
+  string Origin, string Destination, bool overwrite = true,
+  int maxRetries = 10,
+  int millisecondsDelay = 300)
+        {
+            if (Origin == null)
+                throw new ArgumentNullException(Origin);
+            if (maxRetries < 1)
+                throw new ArgumentOutOfRangeException(nameof(maxRetries));
+            if (millisecondsDelay < 1)
+                throw new ArgumentOutOfRangeException(nameof(millisecondsDelay));
+
+            for (int i = 0; i < maxRetries; ++i)
+            {
+                try
+                {
+                    if (File.Exists(Origin))
+                    {
+                        File.Copy(Origin, Destination, true);
+                    }
+                    Thread.Sleep(millisecondsDelay);
+
+                    return true;
+                }
+                catch (IOException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+            }
+
+            return false;
+        }
         private void Save_Mod_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -813,7 +958,7 @@ Main.logger2.Close();
                         if (Directory.Exists(Current_Output_Dir))
                         {
                             FileInfo Dir = new FileInfo(Current_Mod_To_Pack);
-                            Directory.CreateDirectory(Current_Output_Dir + @"\"  + Mod_name.Text.Trim());
+                           TryCreateDirectory(Current_Output_Dir + @"\"  + Mod_name.Text.Trim());
                             if (Directory.Exists(Current_Output_Dir + @"\"  + Mod_name.Text.Trim()))
                             {
                                 GenerateThumbImage(Mod_Icon_Path, Current_Output_Dir + @"\" + Mod_name.Text.Trim() + @"\" + "icon.png", 256, 256);
@@ -831,9 +976,9 @@ Main.logger2.Close();
                                 {
                                     if (!Directory.Exists(Current_Output_Dir + @"\"  + Mod_name.Text.Trim() + @"\"  + "mods" + @"\" ))
                                     {
-                                        Directory.CreateDirectory(Current_Output_Dir + @"\"  + Mod_name.Text.Trim() + @"\"  + "mods" + @"\" );
+                                       TryCreateDirectory(Current_Output_Dir + @"\"  + Mod_name.Text.Trim() + @"\"  + "mods" + @"\" );
                                     }
-                                    File.Copy(Current_Mod_To_Pack, Current_Output_Dir + @"\"  + Mod_name.Text.Trim() + @"\"  + "mods" + @"\"  + Dir.Name, true);
+                                    TryCopyFile(Current_Mod_To_Pack, Current_Output_Dir + @"\"  + Mod_name.Text.Trim() + @"\"  + "mods" + @"\"  + Dir.Name, true);
 
 
                                 }
@@ -841,7 +986,7 @@ Main.logger2.Close();
                                 {
                                     if (!Directory.Exists(Current_Output_Dir + @"\"  + Mod_name.Text.Trim() + @"\"  + "mods" + @"\" ))
                                     {
-                                        Directory.CreateDirectory(Current_Output_Dir + @"\"  + Mod_name.Text.Trim() + @"\"  + "mods" + @"\" );
+                                       TryCreateDirectory(Current_Output_Dir + @"\"  + Mod_name.Text.Trim() + @"\"  + "mods" + @"\" );
 
                                     }
                                     ZipFile_ zipFile = new ZipFile_(Current_Mod_To_Pack);
@@ -880,7 +1025,7 @@ Main.logger2.Close();
 
                         if (File.Exists(Current_Output_Dir + @"\" + Mod_name.Text.Trim() + ".zip"))
                         {
-                            Directory.Delete(Current_Output_Dir + @"\" + Mod_name.Text.Trim(), true);
+                            TryDeleteDirectory(Current_Output_Dir + @"\" + Mod_name.Text.Trim(), true);
                         }
                         SnackBar.Appearance = ControlAppearance.Success;
                         SnackBar.Title = "SUCCESS";
@@ -1938,13 +2083,13 @@ Main.logger2.Close();
 
                     //
                 // directory for unzipped file
-                Directory.CreateDirectory(skinTempFolderPath);
+               TryCreateDirectory(skinTempFolderPath);
 
                 // directory for TS-compliant mod
-                Directory.CreateDirectory(modTempFolderPath);
+               TryCreateDirectory(modTempFolderPath);
 
                 // directory for RePak things
-                Directory.CreateDirectory(repakTempFolderPath);
+               TryCreateDirectory(repakTempFolderPath);
 
 
                 ///////////////////////////////
@@ -1974,7 +2119,7 @@ Main.logger2.Close();
                 ////////////////////////////////////
 
 
-                Directory.CreateDirectory(modTempFolderPath + "\\mods\\" + Mod_Adv_Author_name + "." + Mod_Adv_Skin_Name + "\\paks");
+               TryCreateDirectory(modTempFolderPath + "\\mods\\" + Mod_Adv_Author_name + "." + Mod_Adv_Skin_Name + "\\paks");
 
 
                 /////////////////////
@@ -2067,7 +2212,7 @@ Main.logger2.Close();
                   
 
                     // copy png over
-                    File.Copy(Mod_Adv_Icon_Path, modTempFolderPath + "\\icon.png",true);
+                    TryCopyFile(Mod_Adv_Icon_Path, modTempFolderPath + "\\icon.png",true);
                 }
 
                     //    ConvertTaskComplete();
@@ -2166,7 +2311,7 @@ Main.logger2.Close();
                                 }
                                 isFirst = false;
                                 // copy file
-                                Directory.CreateDirectory(Directory.GetParent($"{repakTempFolderPath}\\assets\\{texturePath}.dds").FullName);
+                               TryCreateDirectory(Directory.GetParent($"{repakTempFolderPath}\\assets\\{texturePath}.dds").FullName);
 
                                 DdsHandler handler = new(texture);
                                 handler.Convert();
@@ -2233,7 +2378,7 @@ Main.logger2.Close();
                 ////////////////////////////////////
 
 
-                File.Move(tempFolderPath + "\\" + Mod_Adv_Author_name + "." + Mod_Adv_Skin_Name + ".zip", Mod_Adv_Output_Path + "\\" + Mod_Adv_Author_name + "." + Mod_Adv_Skin_Name + ".zip", true);
+                TryMoveFile(tempFolderPath + "\\" + Mod_Adv_Author_name + "." + Mod_Adv_Skin_Name + ".zip", Mod_Adv_Output_Path + "\\" + Mod_Adv_Author_name + "." + Mod_Adv_Skin_Name + ".zip", true);
 
             }
             catch (Exception ex)
@@ -3125,7 +3270,7 @@ Main.logger2.Close();
                     {
                         if (!Directory.Exists(Tools_Dir+ Sub_Name))
                         {
-                            Directory.CreateDirectory(Tools_Dir +  Sub_Name);
+                           TryCreateDirectory(Tools_Dir +  Sub_Name);
                         }
                         IDownload downloader = DownloadBuilder.New()
             .WithUrl(URL)
@@ -3334,7 +3479,7 @@ Main.logger2.Close();
                     else
                     {
 
-                        Directory.CreateDirectory(Tools_Dir);
+                       TryCreateDirectory(Tools_Dir);
                         Check_For_Tools();
 
                     }
