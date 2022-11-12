@@ -306,7 +306,60 @@ logger2.Close();
             
 
         }
+        public bool TryUnzipFile(
+string Zip_Path, string Destination, bool overwrite = true,
+int maxRetries = 10,
+int millisecondsDelay = 150)
+        {
+            if (Zip_Path == null)
+                throw new ArgumentNullException(Zip_Path);
+            if (maxRetries < 1)
+                throw new ArgumentOutOfRangeException(nameof(maxRetries));
+            if (millisecondsDelay < 1)
+                throw new ArgumentOutOfRangeException(nameof(millisecondsDelay));
 
+            for (int i = 0; i < maxRetries; ++i)
+            {
+                try
+                {
+                    ZipFile zipFile = new ZipFile(Zip_Path);
+
+                    zipFile.ExtractAll(Destination, Ionic.Zip.ExtractExistingFileAction.OverwriteSilently);
+
+                    return true;
+                }
+                catch (IOException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (Ionic.Zip.BadReadException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (Ionic.Zip.BadCrcException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (Ionic.Zip.BadStateException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (Ionic.Zip.ZipException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (Exception)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+            }
+
+            return false;
+        }
         public string[] FindFirstFiles(string path, string searchPattern)
         {
             try
@@ -822,12 +875,12 @@ Main.logger2.Close();
 
 
                 }
-                
+
 
                 //if (Directory.Exists(@"C:\ProgramData\VTOL_DATA"))
                 //{
 
-                    
+
 
 
                 //    if (File.Exists(@"C:\ProgramData\VTOL_DATA\VARS\AUTHOR.txt"))
@@ -876,9 +929,12 @@ Main.logger2.Close();
 
                 //    }
                 //    TryDeleteDirectory(@"C:\ProgramData\VTOL_DATA", true);
-                   
-                //}
 
+                //}
+                if (User_Settings_Vars.NorthstarInstallLocation != Current_Install_Folder)
+                {
+                    User_Settings_Vars.NorthstarInstallLocation = Current_Install_Folder;
+                }
 
                 if (NS_Installed == true)
                 {
@@ -2850,12 +2906,10 @@ Main.logger2.Close();
                 webClient = null;
                 if (File.Exists(DocumentsFolder + @"\VTOL_DATA\Releases\NorthStar_Release.zip"))
                 {
-                    Fade_In_Fade_Out_Control(false);
 
                     DispatchIfNecessary(() =>
                     {
-
-                        ProgressBar.Value = 0;
+                        ProgressBar.IsIndeterminate = true;
 
                     });
                     if (!Current_Install_Folder.EndsWith(@"\"))
@@ -2863,26 +2917,34 @@ Main.logger2.Close();
                         string fix = Current_Install_Folder + @"\";
                         User_Settings_Vars.NorthstarInstallLocation = fix;
                         Current_Install_Folder = fix.Replace(@"\\", @"\").Replace("/", @"\");
-                        Console.WriteLine("Replaced3");
 
                     }
-                    if (Directory.Exists(Current_Install_Folder)) { 
-                    Unpack_To_Location(DocumentsFolder + @"\VTOL_DATA\Releases\NorthStar_Release.zip", Current_Install_Folder);
-                    }
-                    else if(Directory.Exists(User_Settings_Vars.NorthstarInstallLocation))
+                   
+                    if(Directory.Exists(Current_Install_Folder))
                     {
                         if (!User_Settings_Vars.NorthstarInstallLocation.EndsWith(@"\"))
                         {
                             string fix = User_Settings_Vars.NorthstarInstallLocation + @"\";
                             User_Settings_Vars.NorthstarInstallLocation = fix.Replace(@"\\", @"\").Replace("/", @"\");
-                            Console.WriteLine("Replaced3");
 
+                        }
+                        if (User_Settings_Vars.NorthstarInstallLocation != Current_Install_Folder)
+                        {
+                            User_Settings_Vars.NorthstarInstallLocation = Current_Install_Folder;
                         }
                         Unpack_To_Location(DocumentsFolder + @"\VTOL_DATA\Releases\NorthStar_Release.zip", User_Settings_Vars.NorthstarInstallLocation);
 
 
                     }else
-                    {
+
+                        DispatchIfNecessary(() =>
+                        
+                        {
+                            Fade_In_Fade_Out_Control(false);
+
+                            ProgressBar.Value = 0;
+
+                        });
                         SnackBar.Appearance = ControlAppearance.Danger;
                         SnackBar.Title = "ERROR!";
                         SnackBar.Message = "Install Location Is Invalid";
@@ -2891,7 +2953,7 @@ Main.logger2.Close();
                     }
                 }
 
-            }
+            
 
             catch (Exception ex)
             {
@@ -2906,6 +2968,8 @@ Main.logger2.Close();
                 DispatchIfNecessary(() =>
                 {
                     Fade_In_Fade_Out_Control(false);
+                   
+                        ProgressBar.Value = 0;
 
 
                 });
@@ -3060,116 +3124,119 @@ int millisecondsDelay = 300)
         }
         private void Unpack_To_Location(string Target_Zip, string Destination_Zip)
         {
-            unpack_flg = false;
-            if (Directory.Exists(Current_Install_Folder + User_Settings_Vars.Profile_Path + @"\mods\Northstar.Client\Locked_Folder"))
+            try
             {
-                TryDeleteDirectory(Current_Install_Folder + User_Settings_Vars.Profile_Path + @"\mods\Northstar.Client\Locked_Folder", true);
-
-            }
-            if (Directory.Exists(Current_Install_Folder + User_Settings_Vars.Profile_Path + @"\mods\Northstar.Custom\Locked_Folder"))
-            {
-                TryDeleteDirectory(Current_Install_Folder + User_Settings_Vars.Profile_Path + @"\mods\Northstar.Custom\Locked_Folder", true);
-
-
-
-            }
-            if (Directory.Exists(Current_Install_Folder + User_Settings_Vars.Profile_Path + @"\mods\Northstar.CustomServers\Locked_Folder"))
-            {
-                TryDeleteDirectory(Current_Install_Folder + User_Settings_Vars.Profile_Path + @"\mods\Northstar.CustomServers\Locked_Folder", true);
-
-
-            }
-            string nrml = GetFile(Current_Install_Folder , @"ns_startup_args.txt");
-            string cfg = GetFile(Current_Install_Folder, @"autoexec_ns_server.cfg");
-            string dedi = GetFile(Current_Install_Folder , @"ns_startup_args_dedi.txt");
-            if (do_not_overwrite_Ns_file == true)
-            {
-                if (!Directory.Exists(Current_Install_Folder + @"TempCopyFolder"))
+                unpack_flg = false;
+                if (Directory.Exists(Current_Install_Folder + User_Settings_Vars.Profile_Path + @"\mods\Northstar.Client\Locked_Folder"))
                 {
-                       TryCreateDirectory(Current_Install_Folder + @"TempCopyFolder");
+                    TryDeleteDirectory(Current_Install_Folder + User_Settings_Vars.Profile_Path + @"\mods\Northstar.Client\Locked_Folder", true);
+
                 }
-                if (IsValidPath(nrml))
+                if (Directory.Exists(Current_Install_Folder + User_Settings_Vars.Profile_Path + @"\mods\Northstar.Custom\Locked_Folder"))
                 {
-                    if (File.Exists(nrml))
+                    TryDeleteDirectory(Current_Install_Folder + User_Settings_Vars.Profile_Path + @"\mods\Northstar.Custom\Locked_Folder", true);
+
+
+
+                }
+                if (Directory.Exists(Current_Install_Folder + User_Settings_Vars.Profile_Path + @"\mods\Northstar.CustomServers\Locked_Folder"))
+                {
+                    TryDeleteDirectory(Current_Install_Folder + User_Settings_Vars.Profile_Path + @"\mods\Northstar.CustomServers\Locked_Folder", true);
+
+
+                }
+                string nrml = GetFile(Current_Install_Folder, @"ns_startup_args.txt");
+                string cfg = GetFile(Current_Install_Folder, @"autoexec_ns_server.cfg");
+                string dedi = GetFile(Current_Install_Folder, @"ns_startup_args_dedi.txt");
+                if (do_not_overwrite_Ns_file == true)
+                {
+                    if (!Directory.Exists(Current_Install_Folder + @"TempCopyFolder"))
                     {
-                        TryCopyFile(nrml, Current_Install_Folder + @"TempCopyFolder\ns_startup_args.txt", true);
+                        TryCreateDirectory(Current_Install_Folder + @"TempCopyFolder");
                     }
-                }
-
-
-
-
-
-                if (IsValidPath(cfg))
-                {
-                    if (File.Exists(cfg))
+                    if (IsValidPath(nrml))
                     {
-                        TryCopyFile(cfg, Current_Install_Folder + @"TempCopyFolder\autoexec_ns_server.cfg", true);
-
-
-                    }
-                }
-
-
-
-                if (IsValidPath(dedi))
-                {
-                    if (File.Exists(dedi))
-                    {
-
-
-                        TryCopyFile(dedi, Current_Install_Folder + @"TempCopyFolder\ns_startup_args_dedi.txt", true);
-                    }
-
-                }
-
-            }
-
-            if (File.Exists(Target_Zip) && Directory.Exists(Destination_Zip))
-            {
-                Console.WriteLine("Destination_E1-" + Destination_Zip);
-
-                string fileExt = Path.GetExtension(Target_Zip);
-
-                if (fileExt == ".zip")
-                {
-                    ZipFile zipFile = new ZipFile(Target_Zip);
-
-                    zipFile.ExtractAll(Destination_Zip, Ionic.Zip.ExtractExistingFileAction.OverwriteSilently);
-
-
-                    if (do_not_overwrite_Ns_file == true)
-                    {
-
-                        if (Directory.Exists(Current_Install_Folder + @"TempCopyFolder\"))
+                        if (File.Exists(nrml))
                         {
-                            if (File.Exists(Current_Install_Folder + @"TempCopyFolder\ns_startup_args.txt"))
-                            {
-
-                              TryCopyFile(Current_Install_Folder + @"TempCopyFolder\ns_startup_args.txt", Current_Install_Folder + @"ns_startup_args.txt", true);
-                            }
+                            TryCopyFile(nrml, Current_Install_Folder + @"TempCopyFolder\ns_startup_args.txt", true);
+                        }
+                    }
 
 
-                            if (File.Exists(Current_Install_Folder + @"TempCopyFolder\autoexec_ns_server.cfg"))
-                            {
-                                TryCopyFile(Current_Install_Folder + @"TempCopyFolder\autoexec_ns_server.cfg", Current_Install_Folder + User_Settings_Vars.Profile_Path + @"\mods\Northstar.CustomServers\mod\cfg\autoexec_ns_server.cfg", true);
-                            }
-                            if (File.Exists(Current_Install_Folder + @"TempCopyFolder\ns_startup_args_dedi.txt"))
-                            {
-                               TryCopyFile(Current_Install_Folder + @"TempCopyFolder\ns_startup_args_dedi.txt", Current_Install_Folder + @"ns_startup_args_dedi.txt", true);
-                            }
+
+
+
+                    if (IsValidPath(cfg))
+                    {
+                        if (File.Exists(cfg))
+                        {
+                            TryCopyFile(cfg, Current_Install_Folder + @"TempCopyFolder\autoexec_ns_server.cfg", true);
+
 
                         }
                     }
 
-                        
+
+
+                    if (IsValidPath(dedi))
+                    {
+                        if (File.Exists(dedi))
+                        {
+
+
+                            TryCopyFile(dedi, Current_Install_Folder + @"TempCopyFolder\ns_startup_args_dedi.txt", true);
+                        }
+
+                    }
+
+                }
+
+                if (File.Exists(Target_Zip) && Directory.Exists(Destination_Zip))
+                {
+                    Console.WriteLine("Destination_E1-" + Destination_Zip);
+
+                    string fileExt = Path.GetExtension(Target_Zip);
+
+                    if (fileExt == ".zip")
+                    {
+
+                        TryUnzipFile(Target_Zip, Destination_Zip);
+
+
+                        if (do_not_overwrite_Ns_file == true)
+                        {
+
+                            if (Directory.Exists(Current_Install_Folder + @"TempCopyFolder\"))
+                            {
+                                if (File.Exists(Current_Install_Folder + @"TempCopyFolder\ns_startup_args.txt"))
+                                {
+
+                                    TryCopyFile(Current_Install_Folder + @"TempCopyFolder\ns_startup_args.txt", Current_Install_Folder + @"ns_startup_args.txt", true);
+                                }
+
+
+                                if (File.Exists(Current_Install_Folder + @"TempCopyFolder\autoexec_ns_server.cfg"))
+                                {
+                                    TryCopyFile(Current_Install_Folder + @"TempCopyFolder\autoexec_ns_server.cfg", Current_Install_Folder + User_Settings_Vars.Profile_Path + @"\mods\Northstar.CustomServers\mod\cfg\autoexec_ns_server.cfg", true);
+                                }
+                                if (File.Exists(Current_Install_Folder + @"TempCopyFolder\ns_startup_args_dedi.txt"))
+                                {
+                                    TryCopyFile(Current_Install_Folder + @"TempCopyFolder\ns_startup_args_dedi.txt", Current_Install_Folder + @"ns_startup_args_dedi.txt", true);
+                                }
+
+                            }
+                        }
+
+
 
                         if (Directory.Exists(Current_Install_Folder + @"TempCopyFolder"))
                         {
-                               TryDeleteDirectory(Current_Install_Folder + @"TempCopyFolder", true);
+                            TryDeleteDirectory(Current_Install_Folder + @"TempCopyFolder", true);
                         }
                         DispatchIfNecessary(() =>
                         {
+                            Fade_In_Fade_Out_Control(false);
+                            ProgressBar.Value = 0;
                             Mouse.OverrideCursor = null;
 
 
@@ -3181,45 +3248,87 @@ int millisecondsDelay = 300)
 
                         });
 
-                       
-                    
 
+
+
+                    }
+                    else
+                    {
+                        if (!File.Exists(Target_Zip))
+                        {
+                            Fade_In_Fade_Out_Control(false);
+
+                            DispatchIfNecessary(() =>
+                            {
+                                ProgressBar.Value = 0;
+
+                            });
+                            //Send_Error_Notif(GetTextResource("NOTIF_ERROR_ZIP_NOT_EXIST"));
+                            Log.Error("The File - " + Target_Zip + "Was not Found!");
+                            SnackBar.Appearance = ControlAppearance.Danger;
+                            SnackBar.Title = "ERROR!";
+                            SnackBar.Message = VTOL.Resources.Languages.Language.Unpack_To_Location_TheFile + Target_Zip + VTOL.Resources.Languages.Language.Unpack_To_Location_WasNotFound;
+                            SnackBar.Show();
+
+                        }
+                        if (!Directory.Exists(Destination_Zip))
+                        {
+                            Fade_In_Fade_Out_Control(false);
+
+                            DispatchIfNecessary(() =>
+                            {
+                                ProgressBar.Value = 0;
+
+                            });
+                            SnackBar.Appearance = ControlAppearance.Danger;
+                            SnackBar.Title = "ERROR!";
+                            SnackBar.Message = VTOL.Resources.Languages.Language.Unpack_To_Location_TheFile + Destination_Zip + VTOL.Resources.Languages.Language.Page_Home_Unpack_To_Location_WasNotFound;
+                            SnackBar.Show();
+                            //Send_Error_Notif(GetTextResource("NOTIF_ERROR_ZIP_NOT_EXIST_CHECK_PATH"));
+                            Log.Error("The File - " + Destination_Zip + "Was not Found!");
+
+                        }
+                    }
                 }
                 else
                 {
-                    if (!File.Exists(Target_Zip))
-                    {
-                        //Send_Error_Notif(GetTextResource("NOTIF_ERROR_ZIP_NOT_EXIST"));
-                        Log.Error("The File - " +Target_Zip+ "Was not Found!");
-                        SnackBar.Appearance = ControlAppearance.Danger;
-                        SnackBar.Title = "ERROR!";
-                        SnackBar.Message =VTOL.Resources.Languages.Language.Unpack_To_Location_TheFile + Target_Zip +VTOL.Resources.Languages.Language.Unpack_To_Location_WasNotFound;
-                        SnackBar.Show();
+                    Fade_In_Fade_Out_Control(false);
 
-                    }
-                    if (!Directory.Exists(Destination_Zip))
+                    DispatchIfNecessary(() =>
                     {
-                        SnackBar.Appearance = ControlAppearance.Danger;
-                        SnackBar.Title = "ERROR!";
-                        SnackBar.Message =VTOL.Resources.Languages.Language.Unpack_To_Location_TheFile + Destination_Zip + VTOL.Resources.Languages.Language.Page_Home_Unpack_To_Location_WasNotFound;
-                        SnackBar.Show();
-                        //Send_Error_Notif(GetTextResource("NOTIF_ERROR_ZIP_NOT_EXIST_CHECK_PATH"));
-                        Log.Error("The File - " + Destination_Zip + "Was not Found!");
+                        ProgressBar.Value = 0;
 
-                    }
+                    });
+                    Log.Error("The File - " + Target_Zip + "is not a zip!");
+                    SnackBar.Appearance = ControlAppearance.Danger;
+                    SnackBar.Title = "ERROR!";
+                    SnackBar.Message = VTOL.Resources.Languages.Language.Page_Home_Unpack_To_Location_TheFile + Target_Zip + VTOL.Resources.Languages.Language.Page_Home_Unpack_To_Location_IsNotAZip;
+                    SnackBar.Show();
+                    // Main_Window.SelectedTab = Main;
+                    //Send_Error_Notif(GetTextResource("NOTIF_ERROR_OBJ_NOT_ZIP"));
+
                 }
             }
-            else
+            catch (Exception ex)
             {
-                Log.Error("The File - " + Target_Zip + "is not a zip!");
-                SnackBar.Appearance = ControlAppearance.Danger;
-                SnackBar.Title = "ERROR!";
-                SnackBar.Message = VTOL.Resources.Languages.Language.Page_Home_Unpack_To_Location_TheFile + Target_Zip + VTOL.Resources.Languages.Language.Page_Home_Unpack_To_Location_IsNotAZip;
-                SnackBar.Show();
-                // Main_Window.SelectedTab = Main;
-                //Send_Error_Notif(GetTextResource("NOTIF_ERROR_OBJ_NOT_ZIP"));
+                Fade_In_Fade_Out_Control(false);
+
+                DispatchIfNecessary(() =>
+                {
+                    ProgressBar.Value = 0;
+
+                });
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                Main.logger2.Open();
+                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
+                Main.logger2.Close();
+
+
 
             }
+
+           
+            
         }
 
         private void Update_Northstar_Button_Click(object sender, RoutedEventArgs e)

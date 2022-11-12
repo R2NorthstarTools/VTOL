@@ -61,7 +61,7 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The Location - &apos; .
+        ///   Looks up a localized string similar to The Location - .
         /// </summary>
         public static string Browse_Titanfall_Button_Click_TheLocation {
             get {
@@ -223,7 +223,7 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to    Is not Valid.
+        ///   Looks up a localized string similar to  Is not Valid.
         /// </summary>
         public static string Page_Home_Browse_Titanfall_Button_Click_IsNotValid {
             get {
@@ -241,7 +241,7 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The Location - &apos; .
+        ///   Looks up a localized string similar to The Location - .
         /// </summary>
         public static string Page_Home_Browse_Titanfall_Button_Click_TheLocation {
             get {
@@ -322,7 +322,7 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to launch +Northstar&quot; .
+        ///   Looks up a localized string similar to launch +Northstar.
         /// </summary>
         public static string Page_Home_LaunchNorthstar {
             get {
@@ -385,7 +385,7 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  The Origin Client Is already Running!.
+        ///   Looks up a localized string similar to The Origin Client Is already Running!.
         /// </summary>
         public static string Page_Home_Origin_Client_Card_Click_TheOriginClientIsAlreadyRunning {
             get {
@@ -459,7 +459,7 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Was not Found!.
+        ///   Looks up a localized string similar to  Was not Found!.
         /// </summary>
         public static string Page_Home_Unpack_To_Location_WasNotFound {
             get {
@@ -585,7 +585,7 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  &quot;Open Folder.
+        ///   Looks up a localized string similar to Open Folder.
         /// </summary>
         public static string Page_Mods_Open_Mod_Info_OpenFolder {
             get {
@@ -720,7 +720,7 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  Cannot Set The path.
+        ///   Looks up a localized string similar to Cannot Set The path.
         /// </summary>
         public static string Page_Server_Read_Convar_args_CannotSetThePath {
             get {
@@ -792,7 +792,7 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  Compatible Skin Found at : .
+        ///   Looks up a localized string similar to Compatible Skin Found at : .
         /// </summary>
         public static string Page_Skins_Browse_Click_CompatibleSkinFoundAt {
             get {
@@ -801,7 +801,7 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to   is Not a Skin Zip!.
+        ///   Looks up a localized string similar to  is Not a Skin Zip!.
         /// </summary>
         public static string Page_Skins_Browse_Click_IsNotASkinZip {
             get {
@@ -1467,7 +1467,7 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  The File - .
+        ///   Looks up a localized string similar to The File - .
         /// </summary>
         public static string Unpack_To_Location_TheFile {
             get {

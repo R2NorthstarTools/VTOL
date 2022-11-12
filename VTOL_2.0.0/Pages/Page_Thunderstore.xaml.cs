@@ -224,6 +224,7 @@ namespace VTOL.Pages
 
             return false;
         }
+
         public bool TryCopyFile(
   string Origin, string Destination, bool overwrite = true,
   int maxRetries = 10,
@@ -260,6 +261,61 @@ namespace VTOL.Pages
 
             return false;
         }
+
+        public bool TryUnzipFile(
+string Zip_Path, string Destination, bool overwrite = true,
+int maxRetries = 10,
+int millisecondsDelay = 150)
+        {
+            if (Zip_Path == null)
+                throw new ArgumentNullException(Zip_Path);
+            if (maxRetries < 1)
+                throw new ArgumentOutOfRangeException(nameof(maxRetries));
+            if (millisecondsDelay < 1)
+                throw new ArgumentOutOfRangeException(nameof(millisecondsDelay));
+
+            for (int i = 0; i < maxRetries; ++i)
+            {
+                try
+                {
+                    ZipFile zipFile = new ZipFile(Zip_Path);
+
+                    zipFile.ExtractAll(Destination, Ionic.Zip.ExtractExistingFileAction.OverwriteSilently);
+
+                    return true;
+                }
+                catch (IOException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (Ionic.Zip.BadReadException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (Ionic.Zip.BadCrcException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (Ionic.Zip.BadStateException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (Ionic.Zip.ZipException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (Exception)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+            }
+
+            return false;
+        }
         public void Install_Skin_From_Path(string Zip_Path)
         {
 
@@ -275,9 +331,9 @@ namespace VTOL.Pages
                     {
 
                         current_skin_folder = User_Settings_Vars.NorthstarInstallLocation + @"Skins_Unpack_Mod_MNGR";
-                        ZipFile zipFile = new ZipFile(Zip_Path);
 
-                        zipFile.ExtractAll(User_Settings_Vars.NorthstarInstallLocation + @"Skins_Unpack_Mod_MNGR", Ionic.Zip.ExtractExistingFileAction.OverwriteSilently);
+                        TryUnzipFile(Zip_Path, User_Settings_Vars.NorthstarInstallLocation + @"Skins_Unpack_Mod_MNGR");
+                       
                         //Skin_Path = Current_Install_Folder + @"\Skins_Unpack_Mod_MNGR";
 
                     }
@@ -287,9 +343,8 @@ namespace VTOL.Pages
                        TryCreateDirectory(User_Settings_Vars.NorthstarInstallLocation + @"Skins_Unpack_Mod_MNGR");
                         current_skin_folder = User_Settings_Vars.NorthstarInstallLocation + @"Skins_Unpack_Mod_MNGR";
 
-                        ZipFile zipFile = new ZipFile(Zip_Path);
-
-                        zipFile.ExtractAll(User_Settings_Vars.NorthstarInstallLocation + @"Skins_Unpack_Mod_MNGR", Ionic.Zip.ExtractExistingFileAction.OverwriteSilently);
+                       
+                        TryUnzipFile(Zip_Path, User_Settings_Vars.NorthstarInstallLocation + @"Skins_Unpack_Mod_MNGR");
 
                     }
                 }
@@ -560,6 +615,7 @@ Main.logger2.Close();
             Options_List.Add("Language: EN");
             Options_List.Add("Language: CN");
             Options_List.Add("DDS");
+            Options_List.Add("Maps");
 
             Search_Filters.ItemsSource = Options_List;
             _timer.Elapsed += TextInput_OnKeyUpDone;
@@ -875,7 +931,7 @@ Main.logger2.Close();
         }
         
         
-           public async Task Call_Ts_Mods(bool hard_refresh = true, List<string> Filter_Type = null, bool Search_ = false, string SearchQuery = "#")
+           public async Task Call_Ts_Mods(bool hard_refresh = true, List<string> Filter_Type = null, bool Search_ = false, string SearchQuery = "#",bool tickle = false)
         {
            
             
@@ -883,14 +939,14 @@ Main.logger2.Close();
                 try
                 {
                
-
+              
 
                     DispatchIfNecessary(() => {
                         Loading_Ring.Visibility = Visibility.Visible;
 
                     });
-
-                    List<Grid_> List = null;
+               
+                List<Grid_> List = null;
                 _updater = new Updater("https://northstar.thunderstore.io/api/v1/package/");
 
                 var NON_UI = new Thread(() =>
@@ -902,19 +958,32 @@ Main.logger2.Close();
                         {
                             if (Search_ == false)
                             {
+                                if(tickle == false)
+                                {
+                                    DispatchIfNecessary(() => {
+                                        List = orderlist(LoadListViewData(Filter_Type, Search_, SearchQuery.Replace(" ", "_")));
 
-                                DispatchIfNecessary(() => {
-                                    List = orderlist(LoadListViewData(Filter_Type, Search_, SearchQuery.Replace(" ", "_")));
+                                    });
+                                }
+                                else
+                                {
+                                    DispatchIfNecessary(() => {
 
-                                                                    });
+                                        List = orderlist(LoadListViewData(Filter_Type, Search_, SearchQuery.Replace(" ", "_")));
+                                    });
+
+
+                                }
+
 
 
                             }
                             else
                             {
+                               
                                 List = LoadListViewData(Filter_Type, Search_, SearchQuery.Replace(" ", "_"));
-
-                            }
+                            
+            }
 
 
 
@@ -928,23 +997,32 @@ Main.logger2.Close();
                             if (_updater.Thunderstore.Count() > 0)
                             {
 
-                                if (Search_ == false)
+                                if (Search_ == false )
                                 {
-                                    DispatchIfNecessary(() => {
+
+                                    if (tickle == false)
+                                    {
+                                        DispatchIfNecessary(() => {
+                                            List = orderlist(LoadListViewData(Filter_Type, Search_, SearchQuery.Replace(" ", "_")));
+
+                                        });
+                                    }
+                                    else
+                                    {
                                         List = orderlist(LoadListViewData(Filter_Type, Search_, SearchQuery.Replace(" ", "_")));
 
-                                
 
-                                });
-                            }
+                                    }
+                                }
                             else
-                            {
-                                List = LoadListViewData(Filter_Type, Search_, SearchQuery.Replace(" ", "_"));
+                                {
+                                        List = orderlist(LoadListViewData(Filter_Type, Search_, SearchQuery.Replace(" ", "_")));
+
+
+                                }
+
 
                             }
-
-
-                        }
                         }
                     }
                 });
@@ -1989,6 +2067,96 @@ Main.logger2.Close();
                 }
             }
         }
+        public bool TryUnzipFile(
+string Zip_Path, string Destination, bool overwrite = true,
+int maxRetries = 10,
+int millisecondsDelay = 150)
+        {
+            if (Zip_Path == null)
+                throw new ArgumentNullException(Zip_Path);
+            if (maxRetries < 1)
+                throw new ArgumentOutOfRangeException(nameof(maxRetries));
+            if (millisecondsDelay < 1)
+                throw new ArgumentOutOfRangeException(nameof(millisecondsDelay));
+
+            for (int i = 0; i < maxRetries; ++i)
+            {
+                try
+                {
+                    ZipFile zipFile = new ZipFile(Zip_Path);
+
+                    zipFile.ExtractAll(Destination, Ionic.Zip.ExtractExistingFileAction.OverwriteSilently);
+
+                    return true;
+                }
+                catch (IOException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (Ionic.Zip.BadReadException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (Ionic.Zip.BadCrcException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (Ionic.Zip.BadStateException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (Ionic.Zip.ZipException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (Exception)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+            }
+
+            return false;
+        }
+        public bool TryDeleteFile(
+string Origin,
+int maxRetries = 10,
+int millisecondsDelay = 300)
+        {
+            if (Origin == null)
+                throw new ArgumentNullException(Origin);
+            if (maxRetries < 1)
+                throw new ArgumentOutOfRangeException(nameof(maxRetries));
+            if (millisecondsDelay < 1)
+                throw new ArgumentOutOfRangeException(nameof(millisecondsDelay));
+
+            for (int i = 0; i < maxRetries; ++i)
+            {
+                try
+                {
+                    if (File.Exists(Origin))
+                    {
+                        File.Delete(Origin);
+                    }
+                    Thread.Sleep(millisecondsDelay);
+
+                    return true;
+                }
+                catch (IOException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+            }
+
+            return false;
+        }
         public async Task Unpack_To_Location_Custom(string Target_Zip, string Destination, ProgressBar Progress_Bar, bool Clean_Thunderstore = false, bool clean_normal = false, bool Skin_Install = false,bool NS_CANDIDATE_INSTALL = false)
         {
             //ToDo Check if url or zip location
@@ -2014,33 +2182,31 @@ Main.logger2.Close();
 
                         if (fileExt == ".zip")
                         {
-                            ZipFile zipFile = new ZipFile(Target_Zip);
+                           
+                            TryUnzipFile(Target_Zip, Destination);
 
-                            zipFile.ExtractAll(Destination, Ionic.Zip.ExtractExistingFileAction.OverwriteSilently);
-                            
                             if (Clean_Thunderstore == true)
                             {
-
 
 
                                 // Check if file exists with its full path    
                                 if (File.Exists(Path.Combine(Destination, "icon.png")))
                                 {
                                     // If file found, delete it    
-                                    File.Delete(Path.Combine(Destination, "icon.png"));
+                                    TryDeleteFile(Path.Combine(Destination, "icon.png"));
                                 }
                                 else {/* Send_Warning_Notif(GetTextResource("NOTIF_WARN_CLEANUP_FILES_NOT_FOUND"));*/ }
                                 if (File.Exists(Path.Combine(Destination, "manifest.json")))
                                 {
                                     // If file found, delete it    
-                                    File.Delete(Path.Combine(Destination, "manifest.json"));
+                                    TryDeleteFile(Path.Combine(Destination, "manifest.json"));
                                 }
                                 else { /*Send_Warning_Notif(GetTextResource("NOTIF_WARN_CLEANUP_FILES_NOT_FOUND"));*/ }
 
                                 if (File.Exists(Path.Combine(Destination, "README.md")))
                                 {
                                     // If file found, delete it    
-                                    File.Delete(Path.Combine(Destination, "README.md"));
+                                    TryDeleteFile(Path.Combine(Destination, "README.md"));
                                 }
                                 else { /*Send_Warning_Notif(GetTextResource("NOTIF_WARN_CLEANUP_FILES_NOT_FOUND"));*/ }
 
@@ -2582,10 +2748,11 @@ Main.logger2.Close();
                 {
 
 
+
                     if (init == true)
                     {
 
-                        if (Search_Bar_Suggest_Mods.Text.Trim() != "" && Search_Bar_Suggest_Mods.Text.Trim() != "~Search")
+                        if (Search_Bar_Suggest_Mods.Text.Trim() != "" && Search_Bar_Suggest_Mods.Text.Trim() != "~Search" && Search_Bar_Suggest_Mods.Text != null && Search_Bar_Suggest_Mods.Text.Length != 0)
                         {
                             Thunderstore_List.ItemsSource = null;
 
@@ -2597,7 +2764,6 @@ Main.logger2.Close();
 
 
 
-                            Thunderstore_List.Refresh();
 
 
 
@@ -2606,27 +2772,18 @@ Main.logger2.Close();
                         }
                         else
                         {
+
                             Thunderstore_List.ItemsSource = null;
 
 
 
 
 
-
-
-
-                            Call_Ts_Mods();
-
-
-
-
-
-
-
-
-
+                            Call_Ts_Mods(true, Search_: true, SearchQuery: Search_Bar_Suggest_Mods.Text);
 
                         }
+
+
 
                     }
                 });
@@ -2644,8 +2801,9 @@ Main.logger2.Close();
         }
             private void Search_Bar_Suggest_Mods_TextChanged(object sender, TextChangedEventArgs e)
         {
-           
-        }
+          
+
+            }
 
         private void Grid_Unloaded(object sender, RoutedEventArgs e)
         {

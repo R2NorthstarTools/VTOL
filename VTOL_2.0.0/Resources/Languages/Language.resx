@@ -136,10 +136,10 @@
     <value>Compatible Skin(s) Found : </value>
   </data>
   <data name="Page_Skins_Browse_Click_CompatibleSkinFoundAt" xml:space="preserve">
-    <value> Compatible Skin Found at : </value>
+    <value>Compatible Skin Found at : </value>
   </data>
   <data name="Page_Skins_Browse_Click_IsNotASkinZip" xml:space="preserve">
-    <value>  is Not a Skin Zip!</value>
+    <value> is Not a Skin Zip!</value>
   </data>
   <data name="Page_Skins_OPEN_WEBPAGE_OpeningTheFollowingURL" xml:space="preserve">
     <value>Opening the Following URL - </value>
@@ -154,19 +154,19 @@
     <value>Master Server Checked And Timed Out too much. Turning off Master Server Checks</value>
   </data>
   <data name="Page_Home_Origin_Client_Card_Click_TheOriginClientIsAlreadyRunning" xml:space="preserve">
-    <value> The Origin Client Is already Running!</value>
+    <value>The Origin Client Is already Running!</value>
   </data>
   <data name="Page_Home_Browse_Titanfall_Button_Click_IsValidAndHasBeenSet" xml:space="preserve">
     <value>  is Valid and has been Set</value>
   </data>
   <data name="Page_Home_Browse_Titanfall_Button_Click_TheLocation" xml:space="preserve">
-    <value>The Location - ' </value>
+    <value>The Location - </value>
   </data>
   <data name="Page_Home_Browse_Titanfall_Button_Click_IsNotValid" xml:space="preserve">
-    <value>   Is not Valid</value>
+    <value> Is not Valid</value>
   </data>
   <data name="Browse_Titanfall_Button_Click_TheLocation" xml:space="preserve">
-    <value>The Location - ' </value>
+    <value>The Location - </value>
   </data>
   <data name="Check_Integrity_Of_NSINSTALL_DirectoryCheckFailed" xml:space="preserve">
     <value>Directory Check Failed</value>
@@ -187,13 +187,13 @@
     <value>Release Candidate Detected</value>
   </data>
   <data name="Unpack_To_Location_TheFile" xml:space="preserve">
-    <value> The File - </value>
+    <value>The File - </value>
   </data>
   <data name="Unpack_To_Location_WasNotFound" xml:space="preserve">
     <value> Was not Found!</value>
   </data>
   <data name="Page_Home_Unpack_To_Location_WasNotFound" xml:space="preserve">
-    <value>Was not Found!</value>
+    <value> Was not Found!</value>
   </data>
   <data name="Page_Home_Unpack_To_Location_TheFile" xml:space="preserve">
     <value>The File - </value>
@@ -280,7 +280,7 @@
     <value>Cannot Read Input</value>
   </data>
   <data name="Page_Server_Read_Convar_args_CannotSetThePath" xml:space="preserve">
-    <value> Cannot Set The path</value>
+    <value>Cannot Set The path</value>
   </data>
   <data name="Page_Server_Launch_Northstar_Advanced_Click_CouldNotFindNorthstarExe" xml:space="preserve">
     <value>Could Not Find Northstar.exe!</value>
@@ -325,7 +325,7 @@
     <value>Northstar Installation </value>
   </data>
   <data name="Page_Home_LaunchNorthstar" xml:space="preserve">
-    <value>launch +Northstar" </value>
+    <value>launch +Northstar</value>
   </data>
   <data name="Page_Home_Install_NS_METHOD_SequenceContainsNoElements" xml:space="preserve">
     <value>Sequence contains no elements</value>
@@ -580,7 +580,7 @@
     <value>Delete</value>
   </data>
   <data name="Page_Mods_Open_Mod_Info_OpenFolder" xml:space="preserve">
-    <value> "Open Folder</value>
+    <value>Open Folder</value>
   </data>
   <data name="Page_Mods_Call_Mods_From_Folder_Enable" xml:space="preserve">
     <value>Enable</value>

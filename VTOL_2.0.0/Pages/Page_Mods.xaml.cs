@@ -512,6 +512,42 @@ int millisecondsDelay = 300)
 
             return false;
         }
+        public bool TryDeleteFile(
+string Origin,
+int maxRetries = 10,
+int millisecondsDelay = 300)
+        {
+            if (Origin == null)
+                throw new ArgumentNullException(Origin);
+            if (maxRetries < 1)
+                throw new ArgumentOutOfRangeException(nameof(maxRetries));
+            if (millisecondsDelay < 1)
+                throw new ArgumentOutOfRangeException(nameof(millisecondsDelay));
+
+            for (int i = 0; i < maxRetries; ++i)
+            {
+                try
+                {
+                    if (File.Exists(Origin))
+                    {
+                        File.Delete(Origin);
+                    }
+                    Thread.Sleep(millisecondsDelay);
+
+                    return true;
+                }
+                catch (IOException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+            }
+
+            return false;
+        }
         public bool Template_traverse(System.IO.DirectoryInfo root, String Search)
         {
 
@@ -1010,7 +1046,8 @@ Main.logger2.Close();Log.Error(ex, $"A crash happened at {DateTime.Now.ToString(
             }
             Search_Bar_Suggest_Mods.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#34FFFFFF");
             Search_Bar_Suggest_Mods.IconForeground = (SolidColorBrush)new BrushConverter().ConvertFrom("#34FFFFFF");
-        }
+        }                                   
+
         IEnumerable<Card_> Keep_List_State(bool Searching, bool reverse = false)
         {
             try
@@ -1021,110 +1058,497 @@ Main.logger2.Close();Log.Error(ex, $"A crash happened at {DateTime.Now.ToString(
                     if (_Completed_Mod_call == true)
                     {
 
-                        if (Reverse_ == false)
+
+                        switch (Reverse_)
                         {
-
-                            if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Name"))
-                            {
-
-
-                                Search_Bar_Suggest_Mods.Text = "~Search";
-
-
-                                return Final_List.OrderBy(ob => ob.Mod_Name_).ToArray();
+                            case true:
+                                switch (Searching)
+                                {
+                                    case true:
+                                        if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Name"))
+                                        {
 
 
 
 
-                            }
-                            else if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Date"))
-                            {
 
-                                Search_Bar_Suggest_Mods.Text = "~Search";
+                                            return Final_List.Where(ob => ob.Mod_Name_.ToLower().Contains(Search_Bar_Suggest_Mods.Text.ToLower())).OrderByDescending(ob => ob.Mod_Name_).ToArray();
 
 
-
-                                return Final_List.OrderByDescending(ob => Convert.ToDateTime(ob.Mod_Date_)).ToArray();
+                                        }
+                                        else if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Date"))
+                                        {
 
 
 
-                            }
-                            else if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Status"))
-                            {
 
-                                Search_Bar_Suggest_Mods.Text = "~Search";
-
-
-                                return Final_List.OrderBy(ob => ob.Is_Active_).ToArray();
-
-
-                            }
-                            else
-                            {
-
-                                Search_Bar_Suggest_Mods.Text = "~Search";
-
-
-                                return Final_List.OrderBy(ob => ob.Mod_Name_).ToArray();
+                                            return Final_List.Where(ob => ob.Mod_Name_.ToLower().Contains(Search_Bar_Suggest_Mods.Text.ToLower())).OrderBy(ob => Convert.ToDateTime(ob.Mod_Date_)).ToArray();
 
 
 
-                            }
+
+                                        }
+                                        else if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Status"))
+                                        {
+
+                                            return Final_List.Where(ob => ob.Mod_Name_.ToLower().Contains(Search_Bar_Suggest_Mods.Text.ToLower())).OrderByDescending(ob => ob.Is_Active_).ToArray();
+
+
+
+                                        }
+                                        else
+                                        {
+
+
+                                            return Final_List.Where(ob => ob.Mod_Name_.ToLower().Contains(Search_Bar_Suggest_Mods.Text.ToLower())).OrderByDescending(ob => ob.Mod_Name_).ToArray();
+
+
+
+
+                                        }
+                                        break;
+
+                                    case false:
+                                        if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Name"))
+                                        {
+
+
+
+
+
+                                            return Final_List.OrderByDescending(ob => ob.Mod_Name_).ToArray();
+
+
+
+                                        }
+                                        else if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Date"))
+                                        {
+
+
+
+
+
+                                            return Final_List.OrderBy(ob => Convert.ToDateTime(ob.Mod_Date_)).ToArray();
+
+
+
+                                        }
+                                        else if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Status"))
+                                        {
+
+
+
+                                            return Final_List.OrderByDescending(ob => ob.Is_Active_).ToArray();
+
+                                        }
+                                        else
+                                        {
+
+
+
+                                            return Final_List.OrderByDescending(ob => ob.Mod_Name_).ToArray();
+
+
+
+                                        }
+                                        break;
+
+                                    default:
+                                        if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Name"))
+                                        {
+
+
+
+
+
+                                            return Final_List.OrderByDescending(ob => ob.Mod_Name_).ToArray();
+
+
+
+                                        }
+                                        else if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Date"))
+                                        {
+
+
+
+
+
+                                            return Final_List.OrderBy(ob => Convert.ToDateTime(ob.Mod_Date_)).ToArray();
+
+
+
+                                        }
+                                        else if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Status"))
+                                        {
+
+
+
+                                            return Final_List.OrderByDescending(ob => ob.Is_Active_).ToArray();
+
+                                        }
+                                        else
+                                        {
+
+
+
+                                            return Final_List.OrderByDescending(ob => ob.Mod_Name_).ToArray();
+
+
+
+                                        }
+                                        break;
+
+
+                                }
+                                break;
+
+                            case false:
+                                switch (Searching)
+                                {
+                                    case true:
+                                        if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Name"))
+                                        {
+
+
+
+
+
+
+
+
+
+
+
+                                            return Final_List.Where(ob => ob.Mod_Name_.ToLower().Contains(Search_Bar_Suggest_Mods.Text.ToLower())).OrderBy(ob => ob.Mod_Name_).ToArray();
+
+
+
+
+                                        }
+                                        else if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Date"))
+                                        {
+
+
+                                            return Final_List.Where(ob => ob.Mod_Name_.ToLower().Contains(Search_Bar_Suggest_Mods.Text.ToLower())).OrderByDescending(ob => Convert.ToDateTime(ob.Mod_Date_)).ToArray();
+
+
+
+
+
+                                        }
+                                        else if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Status"))
+                                        {
+
+
+                                            return Final_List.Where(ob => ob.Mod_Name_.ToLower().Contains(Search_Bar_Suggest_Mods.Text.ToLower())).OrderBy(ob => ob.Is_Active_).ToArray();
+
+
+
+                                        }
+                                        else
+                                        {
+
+
+                                            return Final_List.Where(ob => ob.Mod_Name_.ToLower().Contains(Search_Bar_Suggest_Mods.Text.ToLower())).OrderBy(ob => ob.Mod_Name_).ToArray();
+
+
+
+
+                                        }
+                                        break;
+
+                                    case false:
+                                        if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Name"))
+                                        {
+
+
+
+
+
+
+
+
+
+
+
+                                            return Final_List.OrderBy(ob => ob.Mod_Name_).ToArray();
+
+
+
+
+                                        }
+                                        else if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Date"))
+                                        {
+
+
+
+
+                                            return Final_List.OrderByDescending(ob => Convert.ToDateTime(ob.Mod_Date_)).ToArray();
+
+
+
+                                        }
+                                        else if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Status"))
+                                        {
+
+
+
+                                            return Final_List.OrderBy(ob => ob.Is_Active_).ToArray();
+
+
+                                        }
+                                        else
+                                        {
+
+
+
+                                            return Final_List.OrderBy(ob => ob.Mod_Name_).ToArray();
+
+
+
+                                        }
+                                        break;
+
+                                    default:
+                                        if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Name"))
+                                        {
+
+
+
+
+
+
+
+
+
+
+
+                                            return Final_List.OrderBy(ob => ob.Mod_Name_).ToArray();
+
+
+
+
+                                        }
+                                        else if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Date"))
+                                        {
+
+
+
+
+                                            return Final_List.OrderByDescending(ob => Convert.ToDateTime(ob.Mod_Date_)).ToArray();
+
+
+
+                                        }
+                                        else if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Status"))
+                                        {
+
+
+
+                                            return Final_List.OrderBy(ob => ob.Is_Active_).ToArray();
+
+
+                                        }
+                                        else
+                                        {
+
+
+
+                                            return Final_List.OrderBy(ob => ob.Mod_Name_).ToArray();
+
+
+
+                                        }
+                                        break;
+
+
+                                }
+                                break;
+
+                            default:
+                                switch (Searching)
+                                {
+                                    case true:
+                                        if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Name"))
+                                        {
+
+
+
+
+
+
+
+
+
+
+
+                                            return Final_List.Where(ob => ob.Mod_Name_.ToLower().Contains(Search_Bar_Suggest_Mods.Text.ToLower())).OrderBy(ob => ob.Mod_Name_).ToArray();
+
+
+
+
+                                        }
+                                        else if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Date"))
+                                        {
+
+
+                                            return Final_List.Where(ob => ob.Mod_Name_.ToLower().Contains(Search_Bar_Suggest_Mods.Text.ToLower())).OrderByDescending(ob => Convert.ToDateTime(ob.Mod_Date_)).ToArray();
+
+
+
+
+
+                                        }
+                                        else if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Status"))
+                                        {
+
+
+                                            return Final_List.Where(ob => ob.Mod_Name_.ToLower().Contains(Search_Bar_Suggest_Mods.Text.ToLower())).OrderBy(ob => ob.Is_Active_).ToArray();
+
+
+
+                                        }
+                                        else
+                                        {
+
+
+                                            return Final_List.Where(ob => ob.Mod_Name_.ToLower().Contains(Search_Bar_Suggest_Mods.Text.ToLower())).OrderBy(ob => ob.Mod_Name_).ToArray();
+
+
+
+
+                                        }
+                                        break;
+
+                                    case false:
+                                        if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Name"))
+                                        {
+
+
+
+
+
+
+
+
+
+
+
+                                            return Final_List.OrderBy(ob => ob.Mod_Name_).ToArray();
+
+
+
+
+                                        }
+                                        else if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Date"))
+                                        {
+
+
+
+
+                                            return Final_List.OrderByDescending(ob => Convert.ToDateTime(ob.Mod_Date_)).ToArray();
+
+
+
+                                        }
+                                        else if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Status"))
+                                        {
+
+
+
+                                            return Final_List.OrderBy(ob => ob.Is_Active_).ToArray();
+
+
+                                        }
+                                        else
+                                        {
+
+
+
+                                            return Final_List.OrderBy(ob => ob.Mod_Name_).ToArray();
+
+
+
+                                        }
+                                        break;
+
+                                    default:
+                                        if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Name"))
+                                        {
+
+
+
+
+
+
+
+
+
+
+
+                                            return Final_List.OrderBy(ob => ob.Mod_Name_).ToArray();
+
+
+
+
+                                        }
+                                        else if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Date"))
+                                        {
+
+
+
+
+                                            return Final_List.OrderByDescending(ob => Convert.ToDateTime(ob.Mod_Date_)).ToArray();
+
+
+
+                                        }
+                                        else if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Status"))
+                                        {
+
+
+
+                                            return Final_List.OrderBy(ob => ob.Is_Active_).ToArray();
+
+
+                                        }
+                                        else
+                                        {
+
+
+
+                                            return Final_List.OrderBy(ob => ob.Mod_Name_).ToArray();
+
+
+
+                                        }
+                                        break;
+
+
+                                }
+
+                                break;
+
                         }
-                        else
-                        {
-
-                            if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Name"))
-                            {
-
-
-
-                                Search_Bar_Suggest_Mods.Text = "~Search";
-
-
-                                return Final_List.OrderByDescending(ob => ob.Mod_Name_).ToArray();
-
-
-
-                            }
-                            else if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Date"))
-                            {
-
-
-                                Search_Bar_Suggest_Mods.Text = "~Search";
-
-
-
-                                return Final_List.OrderBy(ob => Convert.ToDateTime(ob.Mod_Date_)).ToArray();
-
-
-
-                            }
-                            else if (Filter.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Status"))
-                            {
-
-                                Search_Bar_Suggest_Mods.Text = "~Search";
-
-
-                                return Final_List.OrderByDescending(ob => ob.Is_Active_).ToArray();
-
-                            }
-                            else
-                            {
-
-                                Search_Bar_Suggest_Mods.Text = "~Search";
-
-
-                                return Final_List.OrderByDescending(ob => ob.Mod_Name_).ToArray();
-
-
-
-                            }
-
-                        }
+                      
                     }
                 }
-                return Final_List.OrderBy(ob => ob.Mod_Name_);
+                switch (Searching)
+                {
+                    case true:
+                        return Final_List.Where(ob => ob.Mod_Name_.ToLower().Contains(Search_Bar_Suggest_Mods.Text.ToLower())).OrderBy(ob => ob.Mod_Name_).ToArray();
+
+                        break;
+                    case false:
+                        return Final_List.OrderBy(ob => ob.Mod_Name_);
+
+                        break;
+
+                    default:
+                        return Final_List.OrderBy(ob => ob.Mod_Name_);
+
+                        break;
+                }
 
             }
             catch (Exception ex)
@@ -1907,7 +2331,61 @@ Main.logger2.Close();Log.Error(ex, $"A crash happened at {DateTime.Now.ToString(
                 }
             }
         }
-       void Install_Mod_Zip(string Target_Zip, string Destination)
+        public bool TryUnzipFile(
+string Zip_Path, string Destination, bool overwrite = true,
+int maxRetries = 10,
+int millisecondsDelay = 150)
+        {
+            if (Zip_Path == null)
+                throw new ArgumentNullException(Zip_Path);
+            if (maxRetries < 1)
+                throw new ArgumentOutOfRangeException(nameof(maxRetries));
+            if (millisecondsDelay < 1)
+                throw new ArgumentOutOfRangeException(nameof(millisecondsDelay));
+
+            for (int i = 0; i < maxRetries; ++i)
+            {
+                try
+                {
+                    ZipFile zipFile = new ZipFile(Zip_Path);
+
+                    zipFile.ExtractAll(Destination, Ionic.Zip.ExtractExistingFileAction.OverwriteSilently);
+
+                    return true;
+                }
+                catch (IOException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (Ionic.Zip.BadReadException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (Ionic.Zip.BadCrcException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (Ionic.Zip.BadStateException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (Ionic.Zip.ZipException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (Exception)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+            }
+
+            return false;
+        }
+        void Install_Mod_Zip(string Target_Zip, string Destination)
         {
 
 
@@ -1924,9 +2402,9 @@ Main.logger2.Close();Log.Error(ex, $"A crash happened at {DateTime.Now.ToString(
                     }
                     if (Directory.Exists(Destination))
                     {
-                        ZipFile zipFile = new ZipFile(Target_Zip);
+                        TryUnzipFile(Target_Zip, Destination);
 
-                        zipFile.ExtractAll(Destination, Ionic.Zip.ExtractExistingFileAction.OverwriteSilently);
+                    
                         string searchQuery3 = "*" + "mod.json" + "*";
 
 
