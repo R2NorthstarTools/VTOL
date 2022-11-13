@@ -416,6 +416,7 @@ namespace VTOL.Pages
 //Example image, remove me before publishing!
 //![Imgur](https://i.imgur.com/hdnNWZQ.jpeg)");
             Mod_Adv_Repak_Path = Properties.Settings.Default.REpak_Folder_Path;
+            Zip_Box_Advocate_Copy.Text = Mod_Adv_Repak_Path;
 
             paragraph.Inlines.Add(run);
             Description_Box.Document.Blocks.Add(paragraph);
@@ -2883,6 +2884,7 @@ private readonly Dictionary<string, string> weaponNameToPath = new()
                         Mod_Adv_Repak_Path = Tools_Dir + @"RePak\" + "RePak.exe";
                         Zip_Box_Advocate_Copy.Text = Mod_Adv_Repak_Path;
                     }
+
                     }
                 else
                 {
