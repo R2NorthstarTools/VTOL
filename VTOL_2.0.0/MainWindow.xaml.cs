@@ -506,13 +506,13 @@ true // Whether to change accents automatically
                 string path = User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\logs\";
 
 
-                    if (Directory.Exists(path))
+                    if (Directory.Exists(path) )
                 {
                        
 
                         string pattern = "*.txt";
                         var dirInfo = new DirectoryInfo(path);
-                        var file = (from f in dirInfo.GetFiles(pattern) orderby f.LastWriteTime descending select f).First();
+                        var file = (from f in dirInfo.GetFiles(pattern) orderby f.LastWriteTime descending select f).FirstOrDefault();
                         string p = file.FullName;
                         string args = string.Format("/e, /select, \"{0}\"", p);
 

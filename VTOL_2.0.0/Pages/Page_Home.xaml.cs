@@ -1394,7 +1394,7 @@ int millisecondsDelay = 150)
 
                         Cntr = Directory.GetFiles(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\logs\").Length;
 
-                        if (Cntr != Properties.Settings.Default.LOG_Folder_Counter)
+                        if (Cntr != Properties.Settings.Default.LOG_Folder_Counter && Cntr != 0)
                         {
                             Main.Log_Folder_warning.Visibility = Visibility.Visible;
 
@@ -2999,12 +2999,12 @@ Main.logger2.Close();
                             Fade_In_Fade_Out_Control(false);
 
                             ProgressBar.Value = 0;
-
+                            SnackBar.Appearance = ControlAppearance.Danger;
+                            SnackBar.Title = "ERROR!";
+                            SnackBar.Message = "Install Location Is Invalid";
+                            SnackBar.Show();
                         });
-                        SnackBar.Appearance = ControlAppearance.Danger;
-                        SnackBar.Title = "ERROR!";
-                        SnackBar.Message = "Install Location Is Invalid";
-                        SnackBar.Show();
+                       
                         return;
                     }
                 }
