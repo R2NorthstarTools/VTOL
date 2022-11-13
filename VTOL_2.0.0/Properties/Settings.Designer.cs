@@ -262,5 +262,17 @@ namespace VTOL.Properties {
                 this["LOG_Folder_Counter"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string REpak_Folder_Path {
+            get {
+                return ((string)(this["REpak_Folder_Path"]));
+            }
+            set {
+                this["REpak_Folder_Path"] = value;
+            }
+        }
     }
 }

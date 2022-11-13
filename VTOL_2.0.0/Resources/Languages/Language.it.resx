@@ -133,10 +133,10 @@
     <value>Trascina per installare</value>
   </data>
   <data name="Page_Skins_Drag_Drop_Area_Drop_CompatibleSkinSFound" xml:space="preserve">
-    <value>Skin compatibili trovate:</value>
+    <value>Skin compatibili trovate :</value>
   </data>
   <data name="Page_Skins_Browse_Click_CompatibleSkinFoundAt" xml:space="preserve">
-    <value> Skin compatibile trovata in:</value>
+    <value> Skin compatibile trovata in :</value>
   </data>
   <data name="Page_Skins_Browse_Click_IsNotASkinZip" xml:space="preserve">
     <value> non è un file zip di una skin!</value>
@@ -160,13 +160,13 @@
     <value> è valido ed è stato applicato</value>
   </data>
   <data name="Page_Home_Browse_Titanfall_Button_Click_TheLocation" xml:space="preserve">
-    <value>La posizione - '</value>
+    <value>La posizione - </value>
   </data>
   <data name="Page_Home_Browse_Titanfall_Button_Click_IsNotValid" xml:space="preserve">
     <value> non è valida</value>
   </data>
   <data name="Browse_Titanfall_Button_Click_TheLocation" xml:space="preserve">
-    <value>La posizione - '</value>
+    <value>La posizione - </value>
   </data>
   <data name="Check_Integrity_Of_NSINSTALL_DirectoryCheckFailed" xml:space="preserve">
     <value>Verifica del percorso fallita</value>
@@ -289,7 +289,7 @@
     <value>Comandi di avvio del Client Northstar dedicato</value>
   </data>
   <data name="Page_Home_WelcomeTo" xml:space="preserve">
-    <value>Benvenuto a</value>
+    <value>Benvenuto in</value>
   </data>
   <data name="Page_Home_CustomModdingAndServerFramework" xml:space="preserve">
     <value>Custom Mod e Server Framework</value>
@@ -322,10 +322,10 @@
     <value>Aggiorna +Northstar</value>
   </data>
   <data name="Page_Home_NorthstarInstallation" xml:space="preserve">
-    <value>Installazione di Northstar</value>
+    <value>Installazione Northstar</value>
   </data>
   <data name="Page_Home_LaunchNorthstar" xml:space="preserve">
-    <value>Avvia +Northstar"</value>
+    <value>Avvia +Northstar</value>
   </data>
   <data name="Page_Home_Install_NS_METHOD_SequenceContainsNoElements" xml:space="preserve">
     <value>La sequenza non contiene elementi</value>
@@ -340,7 +340,7 @@
     <value>Lista delle mod installate.</value>
   </data>
   <data name="Page_About_AboutVTOLAndDocumentationOnItsUse" xml:space="preserve">
-    <value>Documentazione sull'uso e info di VTOL</value>
+    <value>Documentazione sull'uso e info di VTOL.</value>
   </data>
   <data name="Page_About_ABOUT" xml:space="preserve">
     <value>INFO</value>
@@ -367,7 +367,7 @@
     <value>Importa la configurazione del server</value>
   </data>
   <data name="Page_Server_LaunchNorthstarDedicatedServer" xml:space="preserve">
-    <value>Avvia il server dedicato di Northstar</value>
+    <value>Avvia server dedicato</value>
   </data>
   <data name="Page_Server_LaunchNorthstarClient" xml:space="preserve">
     <value>Avvia il Client Northstar</value>
@@ -406,7 +406,7 @@
     <value>Apri il manuale d'uso</value>
   </data>
   <data name="Page_Skins_Browse" xml:space="preserve">
-    <value>Naviga</value>
+    <value>Apri</value>
   </data>
   <data name="Page_Thunderstore_TheseAreTheCollectionOfModsHostedOnTheThunderStoreModPlatform" xml:space="preserve">
     <value>Lista delle mod ospitate sulla piattaforma Thunderstore</value>
@@ -415,7 +415,7 @@
     <value>THUNDERSTORE</value>
   </data>
   <data name="Page_Tools_ToolsForEaseOfDevelopmentOnTheNorthstarClient" xml:space="preserve">
-    <value>Strumenti per facilitare lo sviluppo del Client Northstar</value>
+    <value>Strumenti per facilitare la programmazione nel Client Northstar</value>
   </data>
   <data name="Page_Tools_TOOLS" xml:space="preserve">
     <value>STRUMENTI</value>
@@ -433,7 +433,7 @@
     <value>Versione</value>
   </data>
   <data name="Page_Tools_Webpage" xml:space="preserve">
-    <value>Pagina Web</value>
+    <value>Webpage</value>
   </data>
   <data name="Page_Tools_Description" xml:space="preserve">
     <value>Descrizione</value>
@@ -496,7 +496,7 @@
     <value>Ricarica parametri</value>
   </data>
   <data name="Page_Skins_MakingYourOwnSkin" xml:space="preserve">
-    <value>Creando la tua skin</value>
+    <value>Crea la tua skin</value>
   </data>
   <data name="Page_Tools_OutputAsAThunderstoreMod" xml:space="preserve">
     <value>Salva come Thunderstore Mod</value>
@@ -556,7 +556,7 @@
     <value>Installa</value>
   </data>
   <data name="Page_Tools_Download_Zip_To_Path_DownloadingAndInstalling" xml:space="preserve">
-    <value>Scaricando e installando</value>
+    <value>Scaricando ed installando</value>
   </data>
   <data name="Page_Tools_Locate_Repak_Exe_Click_ExeLocated" xml:space="preserve">
     <value>Exe Trovato!</value>
@@ -574,12 +574,24 @@
     <value>Categoria</value>
   </data>
   <data name="Page_Mods_Call_Mods_From_Folder_Disable_" xml:space="preserve">
-    <value>Disattivare</value>
+    <value>Disattiva</value>
   </data>
   <data name="Page_Mods_Call_Mods_From_Folder_Enable" xml:space="preserve">
-    <value>Abilitazione</value>
+    <value>Attiva</value>
   </data>
   <data name="Page_Tools_LocateModContent" xml:space="preserve">
-    <value>Individuare il contenuto della mod</value>
+    <value>Individua il contenuto della mod</value>
+  </data>
+  <data name="Page_Mods_Info" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="Page_Mods_Delete" xml:space="preserve">
+    <value>Cancella</value>
+  </data>
+  <data name="Page_Mods_Open_Mod_Info_OpenFolder" xml:space="preserve">
+    <value>Apri Cartella</value>
+  </data>
+  <data name="MainWindow_NewLogChangesHaveBeenDetectedPleaseClickMeToOpenYourLogsFolder" xml:space="preserve">
+    <value>Sono state rilevate nuove modifiche ai Log, clicca qui per aprire la cartella dei Log.</value>
   </data>
 </root>

@@ -415,6 +415,8 @@ namespace VTOL.Pages
     YOUR DESCRIPTION
 //Example image, remove me before publishing!
 //![Imgur](https://i.imgur.com/hdnNWZQ.jpeg)");
+            Mod_Adv_Repak_Path = Properties.Settings.Default.REpak_Folder_Path;
+
             paragraph.Inlines.Add(run);
             Description_Box.Document.Blocks.Add(paragraph);
             List<Item> items = new List<Item>();
@@ -1992,7 +1994,7 @@ Main.logger2.Close();
         public void Convert()
         {
             try {
-
+             
                 Mod_Adv_Version_Num = Mod_version_number_Advocate.Text;
                 Mod_Adv_Author_name = Mod_Author_Name_Advocate.Text;
                 Mod_Adv_Skin_Name = Mod_Skin_Name_Advocate.Text;
@@ -2876,6 +2878,8 @@ private readonly Dictionary<string, string> weaponNameToPath = new()
                     fade_dav(true);
                     if (Directory.Exists(Tools_Dir + @"RePak") && File.Exists(Tools_Dir + @"RePak\" + "RePak.exe") && !File.Exists(Mod_Adv_Repak_Path))
                     {
+                        Properties.Settings.Default.REpak_Folder_Path = Tools_Dir + @"RePak\" + "RePak.exe"; ;
+                        Properties.Settings.Default.Save();
                         Mod_Adv_Repak_Path = Tools_Dir + @"RePak\" + "RePak.exe";
                         Zip_Box_Advocate_Copy.Text = Mod_Adv_Repak_Path;
                     }
@@ -3126,6 +3130,7 @@ Main.logger2.Close();
                 if (openFileDialog.ShowDialog() == true)
                 {
                     Mod_Adv_Repak_Path = openFileDialog.FileName;
+                  
                     if (!File.Exists(Mod_Adv_Repak_Path))
                     {
 
@@ -3141,6 +3146,8 @@ Main.logger2.Close();
                     {
                         if (Path.GetExtension(Mod_Adv_Repak_Path).Contains("exe"))
                         {
+                            Properties.Settings.Default.REpak_Folder_Path = openFileDialog.FileName;
+                            Properties.Settings.Default.Save();
                             SnackBar.Appearance = ControlAppearance.Info;
                             SnackBar.Title = "INFO";
                             SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Locate_Repak_Exe_Click_ExeLocated;
