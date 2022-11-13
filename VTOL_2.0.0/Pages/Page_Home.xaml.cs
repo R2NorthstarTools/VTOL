@@ -1484,7 +1484,7 @@ int millisecondsDelay = 150)
             catch (Exception ex)
             {
                  
-
+                //i dont need to log this
             }
         }
 
