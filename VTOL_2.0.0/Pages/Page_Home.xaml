@@ -59,9 +59,9 @@
         </ControlTemplate>
     </Page.Resources>
    
-    <ScrollViewer x:Name="Scroller" ScrollChanged="Scroller_ScrollChanged" VerticalScrollBarVisibility="Hidden">
+    <ScrollViewer x:Name="Scroller" ScrollChanged="Scroller_ScrollChanged" VerticalScrollBarVisibility="Hidden" UseLayoutRounding="True">
 
-        <Grid Background="{ui:ThemeResource}" Height="660">
+        <Grid Background="{ui:ThemeResource}" Height="660" UseLayoutRounding="True">
 
             <Image x:Name="Image" Source="/Resources/Backgrounds/62f29dba743d3.jpg" Stretch="UniformToFill" MouseEnter="Image_MouseEnter" Visibility="Visible" 
                         

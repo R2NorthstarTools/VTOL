@@ -10,7 +10,7 @@
 	          xmlns:cntrls="clr-namespace:VTOL"
 
       d:DesignHeight="670" d:DesignWidth="1148"
-      Title="Page_Thunderstore">
+      Title="Page_Thunderstore" UseLayoutRounding="True">
     <Page.Resources>
         <local:NegatingConverter x:Key="NegatingConverter" />
         <Storyboard x:Key="slide">
@@ -22,7 +22,7 @@
                                      RepeatBehavior="Forever"/>
         </Storyboard>
     </Page.Resources>
-    <Grid  Focusable="True" OverridesDefaultStyle="True" ClipToBounds="True" Unloaded="Grid_Unloaded" GotFocus="Grid_GotFocus">
+    <Grid  Focusable="True" OverridesDefaultStyle="True" ClipToBounds="True" Unloaded="Grid_Unloaded" GotFocus="Grid_GotFocus" UseLayoutRounding="True">
         <ui:TextBox x:Name="Search_Bar_Suggest_Mods"  TextWrapping="NoWrap" Height="36"  Text="~Search"  BorderThickness="0,0,0,0" Icon="Search48"  GotFocus="Search_Bar_Suggest_Mods_GotFocus" LostFocus="Search_Bar_Suggest_Mods_LostFocus"  Background="{x:Null}" TextChanged="Search_Bar_Suggest_Mods_TextChanged" Padding="0,8,0,7" Margin="48,135,547,0" VerticalAlignment="Top" KeyUp="Search_Bar_Suggest_Mods_KeyUp" Foreground="#34FFFFFF" IconForeground="#34FFFFFF" />
         <ComboBox x:Name="Sort" Margin="0,136,320,0" Background="{x:Null}" BorderThickness="0,0,0,1" Height="36" VerticalAlignment="Top" BorderBrush="#82FFFFFF" SelectedIndex="-1" SelectionChanged="Sort_SelectionChanged" Padding="10,9,10,4.3" VerticalContentAlignment="Bottom" MinHeight="0" ScrollViewer.VerticalScrollBarVisibility="Auto" IsTextSearchEnabled="False" LostFocus="Sort_LostFocus" Width="224" UseLayoutRounding="True" Grid.IsSharedSizeScope="True" HorizontalAlignment="Right" MinWidth="225">
             <ComboBoxItem Name="Name">Name</ComboBoxItem>
@@ -48,8 +48,7 @@
 
         </Image>
 
-        <ui:VirtualizingItemsControl x:Name="Thunderstore_List"  VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.ScrollUnit="Pixel" ItemsSource="{Binding itemsList}"  Margin="35,174,35,54" Background="#994E4E4E" ScrollViewer.CanContentScroll="True" Foreground="White" Width="1078" Height="445" CacheLengthUnit="Pixel" Padding="0,0,0,5">
-
+        <ui:VirtualizingItemsControl x:Name="Thunderstore_List"  VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.ScrollUnit="Pixel" ItemsSource="{Binding itemsList}"  Margin="35,174,35,0" ScrollViewer.CanContentScroll="True" Foreground="White" Width="1078" Height="445" CacheLengthUnit="Pixel" UseLayoutRounding="True" ScrollViewer.VerticalScrollBarVisibility="Visible" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Top" Background="#E85A5A5A">
             <!--<ui:CardExpander
             HorizontalContentAlignment="Center"
           
@@ -94,33 +93,38 @@
             </ui:CardExpander>-->
             <ui:VirtualizingItemsControl.ItemTemplate>
                 <DataTemplate>
-
-                    <Grid  Margin="3,3,3,8" Width="255" Height="286" HorizontalAlignment="Center" MouseMove="StackPanel_GotFocus" MouseEnter="Grid_MouseEnter" MouseLeave="Grid_MouseLeave">
-
+                    <Grid  Margin="3,3,3,8" Width="255" Height="286" HorizontalAlignment="Center" MouseMove="StackPanel_GotFocus" MouseEnter="Grid_MouseEnter" MouseLeave="Grid_MouseLeave" UseLayoutRounding="True">
 
 
 
-                        <Image x:Name="Ts_Image" Source="{Binding Icon}" Stretch="UniformToFill" Height="Auto" GotFocus="Ts_Image_GotFocus" LostFocus="Ts_Image_LostFocus" MouseEnter="Ts_Image_MouseEnter" Width="Auto" HorizontalAlignment="Center" SnapsToDevicePixels="True"/>
+                        <Border CornerRadius="5,5,5,5" >
+                            <Border.Background>
+                                <ImageBrush  ImageSource="{Binding Icon}" Stretch="UniformToFill"  />
+
+                            </Border.Background>
+                        </Border>
+                        <!--<Image x:Name="Ts_Image" Source="{Binding Icon}" Stretch="UniformToFill" Height="Auto" GotFocus="Ts_Image_GotFocus" LostFocus="Ts_Image_LostFocus" MouseEnter="Ts_Image_MouseEnter" Width="Auto" HorizontalAlignment="Center" RenderOptions.BitmapScalingMode="NearestNeighbor" UseLayoutRounding="True"/>-->
 
 
 
-                        <Border  Width="255" Margin="0,205,0,0" HorizontalAlignment="Center" Background="#BF000000" CornerRadius="5,5,0,0" ></Border>
+                        <Border  Width="255" Margin="0,205,0,0" HorizontalAlignment="Center" Background="#BF000000" CornerRadius="9,9,4,4" ></Border>
                         <StackPanel Margin="0,205,0,0" >
 
 
 
 
-                            <TextBlock TextWrapping="WrapWithOverflow"   TextTrimming="CharacterEllipsis" 
+                            <TextBlock TextWrapping="Wrap"   TextTrimming="CharacterEllipsis" 
                                        Text="{Binding Name}" 
-                                       HorizontalAlignment="Left" FontSize="16" Width="252" TextAlignment="Left" FontStretch="Normal" FontWeight="Bold" Height="33" Margin="5,0,0,0" Background="{x:Null}" />
+                                       HorizontalAlignment="Left" FontSize="16" Width="245" TextAlignment="Left" FontStretch="Normal" FontWeight="Bold" Height="48" Margin="5,1,0,0" Background="{x:Null}" />
 
                             <!--<hc:RunningBlock Content="{Binding Name}" FontSize="20"   Runaway="True" IsRunning="False" AutoRun="True" IsEnabled="False" IsHitTestVisible="False" IsTabStop="False" Focusable="False" Foreground="White" OverridesDefaultStyle="True" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>-->
 
 
 
-                            <TextBlock TextAlignment="Left" Text="{Binding Tag}" Margin="5,6,5,6"  FontSize="12" Background="{x:Null}" Foreground="#FFFFF1E6" Width="250" HorizontalAlignment="Left" FontStyle="Italic" TextWrapping="Wrap" Height="19"/>
+                            <TextBlock TextAlignment="Left" Text="{Binding Tag}" Margin="5,-4,5,6"  FontSize="12" Background="{x:Null}" Foreground="#FFFFF1E6" Width="245" HorizontalAlignment="Left" FontStyle="Italic" TextWrapping="Wrap" Height="32"/>
 
                         </StackPanel>
+
                         <hc:SimplePanel Background="Black" Opacity="0">
                             <Border Background="#991B1B1B">
                                 <ProgressBar Value="0" SmallChange="0.1" Foreground="#6600714F" Height="286" Background="{x:Null}" IsHitTestVisible="False" IsTabStop="False"/>
@@ -132,7 +136,7 @@
                                             
 
                             </Rectangle>-->
-                            <TextBlock TextAlignment="Left" Text="{Binding owner, StringFormat={}{0:From :}}" Margin="10,3,10,0"  FontSize="14" Background="{x:Null}" Foreground="#FFABABAB" VerticalAlignment="Top" Height="19"/>
+                            <TextBlock TextAlignment="Left" Text="{Binding owner, StringFormat={}{0:From :}}" Margin="10,8,10,0"  FontSize="14" Background="{x:Null}" Foreground="#FFABABAB" VerticalAlignment="Top" Height="19"/>
 
 
 
@@ -140,7 +144,7 @@
                                 <TextBlock  Name="tbmarquee"  Foreground="White" Text="{Binding description}"  TextWrapping="Wrap" FontSize="14" Width="235" Height="94" Padding="5,5,5,5" ScrollViewer.CanContentScroll="True" ></TextBlock>
                             </Canvas>
 
-                            <ui:Button x:Name="Install_Bttn_Thunderstore" Margin="130,250,10,0" Background="#FF005D42" HorizontalAlignment="Stretch" Height="29" Content="Install" FontSize="14" Icon="ArrowDownload16" BorderBrush="{x:Null}" VerticalAlignment="Top" Padding="0,0,0,0" Tag="{Binding download_url}" Click="Install_Bttn_Thunderstore_Click" ToolTip ="{Binding Tag}"/>
+                            <ui:Button x:Name="Install_Bttn_Thunderstore" Margin="130,250,10,0" Background="#FF005D42" HorizontalAlignment="Stretch" Height="29" Content="Install" FontSize="14" Icon="ArrowDownload16" BorderBrush="{x:Null}" VerticalAlignment="Top" Padding="0,0,0,0" Tag="{Binding download_url}" Click="Install_Bttn_Thunderstore_Click" ToolTip ="{Binding Tag}" ToolTipService.IsEnabled="False"/>
                             <TextBlock TextAlignment="Left" Text="{Binding date_created}" Margin="10,161,10,107" Background="{x:Null}" Foreground="#FFC7C7C7" FontSize="11" RenderTransformOrigin="0.5,0.5">
                                 <TextBlock.RenderTransform>
                                     <TransformGroup>
@@ -190,9 +194,10 @@
 
                     </Grid>
 
+
                 </DataTemplate>
             </ui:VirtualizingItemsControl.ItemTemplate>
-          
+
 
             <!--<ListBox.ItemContainerStyle>
                 <Style TargetType="ListBoxItem">

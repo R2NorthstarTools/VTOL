@@ -202,8 +202,8 @@
 
                 <StackPanel Orientation="Horizontal"
                     HorizontalAlignment="Center"
-                    VerticalAlignment="Top" Height="30" Width="104" Margin="0,-2,0,0">
-                    <ui:Button x:Name="Log_Folder_warning" Template="{DynamicResource ButtonControlTemplate1}" Background="#99464646" Padding="0,0,0,0" KeyboardNavigation.IsTabStop="False" Height="35" Width="35" BorderThickness="0,0,0,0" ClickMode="Press" ToolTip="A New Log Has been Detected! , Please Click me to open Your Logs Folder!" Visibility="Visible" Click="Log_Folder_warning_Click" 
+                    VerticalAlignment="Top" Height="30" Width="110" Margin="0,-2,0,0">
+                    <ui:Button x:Name="Log_Folder_warning" Template="{DynamicResource ButtonControlTemplate1}" Background="#99464646" Padding="0,0,0,0" KeyboardNavigation.IsTabStop="False" Height="35" Width="35" BorderThickness="0,0,0,0" ClickMode="Press" ToolTip="{x:Static properties:Language.MainWindow_NewLogChangesHaveBeenDetectedPleaseClickMeToOpenYourLogsFolder}" Visibility="Hidden" Click="Log_Folder_warning_Click" 
 >
                         <Button.LayoutTransform>
                             <TransformGroup>
@@ -233,7 +233,7 @@
                         </ui:SymbolIcon>
                     </ui:Button>
                     <Button x:Name="MaximizeButton" Template="{DynamicResource ButtonControlTemplate1}"
-                    KeyboardNavigation.IsTabStop="False" Height="34" Width="34" BorderThickness="0,0,0,0" Click="MaximizeButton_Click" Background="#99464646" Padding="0,0,0,0" Margin="10,0,1,0" ClickMode="Press"
+                    KeyboardNavigation.IsTabStop="False" Height="34" Width="34" BorderThickness="0,0,0,0" Click="MaximizeButton_Click" Background="#99464646" Padding="0,0,0,0" Margin="14,0,1,0" ClickMode="Press"
                    
                      >
                         <Button.LayoutTransform>
@@ -275,39 +275,13 @@
                     </Button>
                 </StackPanel>
             </Grid>
-            <Border  PreviewMouseLeftButtonDown="Grid_PreviewMouseLeftButtonDown" Margin="0,-7,109,0" Background="#00000000" />
-            <!--<Grid
-            x:Name="RootWelcomeGrid"
-            Grid.Row="1"
-            Visibility="Hidden">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Grid Grid.Column="0">
-                    <Image
-                    MaxWidth="180"
-                    RenderOptions.BitmapScalingMode="HighQuality"
-                   Source="/Resources/Icons/Main_UI/Northstar-512.ico" />
-                </Grid>
-                <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                    <ui:ProgressRing IsIndeterminate="True" />
-                    <TextBlock
-                    Margin="0,12,0,0"
-                    FontSize="16"
-                    FontWeight="Medium"
-                    Text="Preparing app for you."
-                    TextAlignment="Center"
-                    TextWrapping="Wrap" />
-                </StackPanel>
-            </Grid>-->
+            <Border  PreviewMouseLeftButtonDown="Grid_PreviewMouseLeftButtonDown" Margin="0,-7,115,0" Background="#00000000" />
+           
         </Grid>
 
 
         <ui:Snackbar x:Name="Snackbar" Grid.Column="1" Margin="197,608,197,0" VerticalAlignment="Top" MessageForeground="White" IconForeground="White"  Timeout="5000"  Height="60"  Content="" Icon="Info24" FontSize="14" AllowDrop="False"  />
-        <!--<hc:Badge Content="" HorizontalAlignment="Left" Margin="37,114,0,0" VerticalAlignment="Top" BadgeMargin="0,0,0,0" Status="Processing" Height="10" Foreground="{x:Null}" Background="{Binding Source={x:Static SystemParameters.WindowGlassBrush}}" BorderBrush="{x:Null}"/>
-        <hc:Badge Content="" HorizontalAlignment="Left" Margin="37,175,0,0" VerticalAlignment="Top" BadgeMargin="0,0,0,0" Status="Processing" Height="10" Foreground="{x:Null}" Background="{Binding Source={x:Static SystemParameters.WindowGlassBrush}}" BorderBrush="{x:Null}"/>-->
-
+       
     </Grid>
 
 

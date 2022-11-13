@@ -13,8 +13,8 @@
 
       Title="Page_Tools">
 
-    <Grid >
-        <Image x:Name="Icon_Bg" Source="/Resources/Icons/Main_UI/Tools-Silhouette-Transparent.png" Margin="602,199,-112,-192" Opacity="0.2" IsHitTestVisible="False" IsEnabled="False" AllowDrop="False" Stretch="Uniform" MinWidth="250" MinHeight="251"/>
+    <Grid UseLayoutRounding="True" >
+        <Image x:Name="Icon_Bg" Source="/Resources/Icons/Main_UI/Tools-Silhouette-Transparent.png" Margin="602,199,-112,-192" Opacity="0.2" IsHitTestVisible="False" IsEnabled="False" AllowDrop="False" Stretch="Uniform" MinWidth="250" MinHeight="251" UseLayoutRounding="True" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
 
         <Label Content="{x:Static properties:Language.Page_Tools_ToolsForEaseOfDevelopmentOnTheNorthstarClient}" Margin="50,0,0,573" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="590"/>
         <Label Content="{x:Static properties:Language.Page_Tools_TOOLS}" Margin="50,0,357,594" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Background="{x:Null}" Foreground="White" FontSize="22" FontWeight="Bold" Height="28" VerticalAlignment="Bottom"/>
@@ -58,7 +58,7 @@
                         </hc:DashedBorder>
                         <!--<hc:ImageSelector x:Name="Icon_Image" Height="256" VerticalAlignment="Top" Margin="0,212,0,0"  HorizontalAlignment="Center" Width="256" Background="#FF292929" Filter="(.png)|*.png" DefaultExt=".png" OverridesDefaultStyle="True" StrokeThickness="2" ImageSelected="Icon_Image_ImageSelected" IsManipulationEnabled="True" RenderTransformOrigin="0.499,0.502"/>-->
 
-                        <RichTextBox x:Name="Description_Box" Background="#FF373737" Height="151" VerticalAlignment="Top" BorderBrush="{x:Null}" SelectionTextBrush="{x:Null}" CaretBrush="White" AutomationProperties.HelpText="Log Area" Width="802" HorizontalAlignment="Left" AcceptsTab="True" IsDocumentEnabled="True" IsManipulationEnabled="True" FontFamily="Segoe UI" Margin="84,525,0,0" OverridesDefaultStyle="False" Grid.ColumnSpan="3">
+                        <RichTextBox x:Name="Description_Box" Background="#FF373737" Height="151" VerticalAlignment="Top" BorderBrush="{x:Null}" SelectionTextBrush="{x:Null}" CaretBrush="White" AutomationProperties.HelpText="Log Area" AcceptsTab="True" IsDocumentEnabled="True" IsManipulationEnabled="True" FontFamily="Segoe UI" Margin="84,525,84,0" OverridesDefaultStyle="False" Grid.ColumnSpan="3">
                             <FlowDocument>
                                 <Paragraph>
                                     <Run Text="RichTextBox" FontFamily="Segoe UI"/>
@@ -366,7 +366,7 @@
                         </hc:DashedBorder>
                         <!--<hc:ImageSelector x:Name="Icon_Image" Height="256" VerticalAlignment="Top" Margin="0,212,0,0"  HorizontalAlignment="Center" Width="256" Background="#FF292929" Filter="(.png)|*.png" DefaultExt=".png" OverridesDefaultStyle="True" StrokeThickness="2" ImageSelected="Icon_Image_ImageSelected" IsManipulationEnabled="True" RenderTransformOrigin="0.499,0.502"/>-->
 
-                        <RichTextBox x:Name="Description_Box_Advocate" Background="#FF373737" Height="151" VerticalAlignment="Top" BorderBrush="{x:Null}" SelectionTextBrush="{x:Null}" CaretBrush="White" AutomationProperties.HelpText="Log Area" Width="802" HorizontalAlignment="Center" AcceptsTab="True" IsDocumentEnabled="True" IsManipulationEnabled="True" FontFamily="Segoe UI" Margin="0,640,0,0" OverridesDefaultStyle="False">
+                        <RichTextBox x:Name="Description_Box_Advocate" Background="#FF373737" Height="151" VerticalAlignment="Top" BorderBrush="{x:Null}" SelectionTextBrush="{x:Null}" CaretBrush="White" AutomationProperties.HelpText="Log Area" AcceptsTab="True" IsDocumentEnabled="True" IsManipulationEnabled="True" FontFamily="Segoe UI" Margin="84,640,84,0" OverridesDefaultStyle="False">
                             <FlowDocument>
                                 <Paragraph>
                                     <Run Text="{x:Static properties:Language.Page_Tools_TestReadmeText}" FontFamily="Segoe UI"/>
@@ -520,7 +520,7 @@
                                     </ui:Button.PressedBackground>
                                 </ui:Button>
                                 <ui:Button x:Name="REPAK_INSTALL"  VerticalAlignment="Top" Icon="ArrowDown32" HorizontalAlignment="Stretch"  Background="#FF5B0606" Margin="10,237,10,0" Height="55" Content="Install" BorderBrush="{x:Null}" ClickMode="Press" Click="REPAK_INSTALL_Click"/>
-                                <Label Margin="10,211,421,68" Content="V1.1.0" FontSize="14" Foreground="#FFB7B7B7" HorizontalContentAlignment="Center" Background="{x:Null}"/>
+                                <Label Margin="10,211,421,68" Content="V1.2.0" FontSize="14" Foreground="#FFB7B7B7" HorizontalContentAlignment="Center" Background="{x:Null}"/>
 
                             </Grid  >
 
@@ -594,7 +594,7 @@
 
                                 </ui:Button>
                                 <ui:Button x:Name="MDL_TOOL_INSTALL"  VerticalAlignment="Top" Icon="ArrowDown32" HorizontalAlignment="Stretch"  Background="#FF5B0606" Margin="10,237,10,0" Height="55" Content="Install" BorderBrush="{x:Null}" ClickMode="Press" Click="MDL_TOOL_INSTALL_Click"/>
-                                <Label Margin="10,211,421,68" Content="V2.0.2" FontSize="14" Foreground="#FFB7B7B7" HorizontalContentAlignment="Center" Background="{x:Null}"/>
+                                <Label Margin="10,211,421,68" Content="V2.2.0" FontSize="14" Foreground="#FFB7B7B7" HorizontalContentAlignment="Center" Background="{x:Null}"/>
 
                             </Grid  >
 

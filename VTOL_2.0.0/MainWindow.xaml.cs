@@ -521,6 +521,8 @@ true // Whether to change accents automatically
                         info.Arguments = args;
                         Process.Start(info);
                     Properties.Settings.Default.LOG_Folder_Counter = Directory.GetFiles(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\logs\").Length;
+                    Properties.Settings.Default.Save();
+
                     Log_Folder_warning.Visibility = Visibility.Hidden;
                 }
                 

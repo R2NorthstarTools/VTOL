@@ -312,9 +312,10 @@ logger2.Close();
             if (Directory.Exists(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\logs\") && Properties.Settings.Default.LOG_Folder_Counter < 1)
             {
                 Properties.Settings.Default.LOG_Folder_Counter = Directory.GetFiles(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\logs\").Length;
-
+                Properties.Settings.Default.Save();
 
             }
+            Check_Log_Folder();
 
         }
         public bool TryUnzipFile(

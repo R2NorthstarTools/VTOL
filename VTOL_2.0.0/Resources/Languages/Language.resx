@@ -591,4 +591,7 @@
   <data name="Page_Tools_LocateModContent" xml:space="preserve">
     <value>Locate Mod Content</value>
   </data>
+  <data name="MainWindow_NewLogChangesHaveBeenDetectedPleaseClickMeToOpenYourLogsFolder" xml:space="preserve">
+    <value>New log changes have been detected , please click me to open your Logs Folder.</value>
+  </data>
 </root>

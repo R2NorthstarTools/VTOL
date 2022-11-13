@@ -133,6 +133,15 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New log changes have been detected , please click me to open your Logs Folder..
+        /// </summary>
+        public static string MainWindow_NewLogChangesHaveBeenDetectedPleaseClickMeToOpenYourLogsFolder {
+            get {
+                return ResourceManager.GetString("MainWindow_NewLogChangesHaveBeenDetectedPleaseClickMeToOpenYourLogsFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Server.
         /// </summary>
         public static string MainWindow_Server {
