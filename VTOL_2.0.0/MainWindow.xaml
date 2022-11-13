@@ -21,7 +21,7 @@
         Title="MainWindow" Height="700" Width="1200" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" Background="Black" AllowDrop="True"  
         
         >
- 
+
     <Window.Resources>
 
         <SolidColorBrush x:Key="Button_HOVER" Color="#FF2C4C4C" />
@@ -117,7 +117,7 @@
                     </Frame.OpacityMask>
 
                 </Frame>
-              
+
 
             </Grid>
 
@@ -202,10 +202,38 @@
 
                 <StackPanel Orientation="Horizontal"
                     HorizontalAlignment="Center"
-                    VerticalAlignment="Top" Height="30" Width="67" Margin="0,-2,0,0">
-                  
+                    VerticalAlignment="Top" Height="30" Width="104" Margin="0,-2,0,0">
+                    <ui:Button x:Name="Log_Folder_warning" Template="{DynamicResource ButtonControlTemplate1}" Background="#99464646" Padding="0,0,0,0" KeyboardNavigation.IsTabStop="False" Height="35" Width="35" BorderThickness="0,0,0,0" ClickMode="Press" ToolTip="A New Log Has been Detected! , Please Click me to open Your Logs Folder!" Visibility="Visible" Click="Log_Folder_warning_Click" 
+>
+                        <Button.LayoutTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleX="0.85" ScaleY="0.85"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Button.LayoutTransform>
+                        <ui:SymbolIcon Symbol="ErrorCircle24" Foreground="#FFEAB600" RenderTransformOrigin="0.5,0.5">
+                            <ui:SymbolIcon.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform/>
+                                    <TranslateTransform X="0.4" Y="-0.5"/>
+                                </TransformGroup>
+                            </ui:SymbolIcon.RenderTransform>
+                            <ui:SymbolIcon.LayoutTransform>
+                                <TransformGroup>
+                                    <ScaleTransform ScaleX="1.4" ScaleY="1.4"/>
+                                    <SkewTransform/>
+                                    <RotateTransform/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </ui:SymbolIcon.LayoutTransform>
+                        </ui:SymbolIcon>
+                    </ui:Button>
                     <Button x:Name="MaximizeButton" Template="{DynamicResource ButtonControlTemplate1}"
-                    KeyboardNavigation.IsTabStop="False" Height="34" Width="34" BorderThickness="0,0,0,0" Click="MaximizeButton_Click" Background="#99464646" Padding="0,0,0,0" Margin="1,0,1,0"
+                    KeyboardNavigation.IsTabStop="False" Height="34" Width="34" BorderThickness="0,0,0,0" Click="MaximizeButton_Click" Background="#99464646" Padding="0,0,0,0" Margin="10,0,1,0" ClickMode="Press"
                    
                      >
                         <Button.LayoutTransform>
@@ -230,7 +258,7 @@
                     </Button>
                     <Button x:Name="CloseButton"
                     KeyboardNavigation.IsTabStop="False" Template="{DynamicResource ButtonControlTemplate1}"
-                    Command="{Binding ApplicationCommands.Close}" Background="Red" Width="36" BorderThickness="1,0,0,0" Height="35" Padding="0,0,0,0" Click="CloseButton_Click" BorderBrush="{x:Null}" Margin="4,0,0,0" 
+                    Command="{Binding ApplicationCommands.Close}" Background="Red" Width="36" BorderThickness="1,0,0,0" Height="35" Padding="0,0,0,0" Click="CloseButton_Click" BorderBrush="{x:Null}" Margin="2,0,0,0" ClickMode="Press" 
                           
                   >
                         <Button.LayoutTransform>
@@ -247,7 +275,7 @@
                     </Button>
                 </StackPanel>
             </Grid>
-            <Border  PreviewMouseLeftButtonDown="Grid_PreviewMouseLeftButtonDown" Margin="0,-7,67,0" Background="#00000000" />
+            <Border  PreviewMouseLeftButtonDown="Grid_PreviewMouseLeftButtonDown" Margin="0,-7,109,0" Background="#00000000" />
             <!--<Grid
             x:Name="RootWelcomeGrid"
             Grid.Row="1"

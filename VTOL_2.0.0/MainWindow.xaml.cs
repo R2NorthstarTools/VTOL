@@ -22,6 +22,7 @@ using System.Globalization;
 using Serilog;
 using System.Threading;
 using System.Reflection;
+using System.Diagnostics;
 
 namespace VTOL
 {
@@ -39,9 +40,9 @@ namespace VTOL
         const string UriScheme = "ror2mm://";
         const string FriendlyName = "Sample Protocol";
         public TlsPaperTrailLogger logger2 = new TlsPaperTrailLogger("logs5.papertrailapp.com", 38137);
-
         static void Main(string[] args)
         {
+           
 
             if (args.Length > 0)
             {
@@ -496,6 +497,41 @@ true // Whether to change accents automatically
         private void Profile_Browse_Btn_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void Log_Folder_warning_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string path = User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\logs\";
+
+
+                    if (Directory.Exists(path))
+                {
+                       
+
+                        string pattern = "*.txt";
+                        var dirInfo = new DirectoryInfo(path);
+                        var file = (from f in dirInfo.GetFiles(pattern) orderby f.LastWriteTime descending select f).First();
+                        string p = file.FullName;
+                        string args = string.Format("/e, /select, \"{0}\"", p);
+
+                        ProcessStartInfo info = new ProcessStartInfo();
+                        info.FileName = "explorer";
+                        info.Arguments = args;
+                        Process.Start(info);
+                    Properties.Settings.Default.LOG_Folder_Counter = Directory.GetFiles(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\logs\").Length;
+                    Log_Folder_warning.Visibility = Visibility.Hidden;
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+
+
+
+            }
         }
     }
 }

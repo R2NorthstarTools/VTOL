@@ -250,5 +250,17 @@ namespace VTOL.Properties {
                 this["RePak_Launch_Args"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
+        public int LOG_Folder_Counter {
+            get {
+                return ((int)(this["LOG_Folder_Counter"]));
+            }
+            set {
+                this["LOG_Folder_Counter"] = value;
+            }
+        }
     }
 }
