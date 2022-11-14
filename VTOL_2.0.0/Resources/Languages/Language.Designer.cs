@@ -792,6 +792,25 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A Change in Language was detected \nVTOL requires a restart to display these changes. \nWould You like to restart now?..
+        /// </summary>
+        public static string Page_Settings_Settings_LostFocus_AChangeInLanguageWasDetectedNVTOLRequiresARestartToDisplayTheseChangesNWouldYouLikeToRestartNow {
+            get {
+                return ResourceManager.GetString("Page_Settings_Settings_LostFocus_AChangeInLanguageWasDetectedNVTOLRequiresARestar" +
+                        "tToDisplayTheseChangesNWouldYouLikeToRestartNow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restart.
+        /// </summary>
+        public static string Page_Settings_Settings_LostFocus_Restart {
+            get {
+                return ResourceManager.GetString("Page_Settings_Settings_LostFocus_Restart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Browse.
         /// </summary>
         public static string Page_Skins_Browse {

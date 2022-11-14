@@ -17,6 +17,8 @@ using System.IO;
 using System.Threading;
 using System.Globalization;
 using System.Reflection;
+using Wpf.Ui.Common;
+using System.Diagnostics;
 
 namespace VTOL.Pages
 {
@@ -29,6 +31,8 @@ namespace VTOL.Pages
         public MainWindow Main = GetMainWindow();
         User_Settings User_Settings_Vars = null;
         string DocumentsFolder = null;
+        Language curr_lang;
+        Wpf.Ui.Controls.Snackbar SnackBar;
 
         public enum Language
         {
@@ -63,6 +67,7 @@ namespace VTOL.Pages
             User_Settings_Vars = Main.User_Settings_Vars;
             DocumentsFolder = Main.DocumentsFolder;
             Language Lang = Language.English;
+            SnackBar = Main.Snackbar;
             if (User_Settings_Vars.Language != null)
             {
                 switch (User_Settings_Vars.Language)
@@ -102,6 +107,8 @@ namespace VTOL.Pages
 
                 }
             }
+          curr_lang = Lang;
+
             Settings_ = new PropertyGridDemoModel
             {
                 Language = Lang,
@@ -154,7 +161,8 @@ namespace VTOL.Pages
             User_Settings_Vars.MasterServerUrl = Settings_.Master_Server_Url;
             Properties.Settings.Default.Auto_Close_VTOL_on_Launch = Settings_.Minimize_On_Launch;
             Properties.Settings.Default.Save();
-            switch (Settings_.Language.ToString())
+               
+                switch (Settings_.Language.ToString())
             {
                 case "English":
                     User_Settings_Vars.Language = "en";
@@ -203,13 +211,28 @@ namespace VTOL.Pages
             Properties.Settings.Default.Backup_arg_Files = Settings_.Do_Not_Overwrite_Config_Files;
             Properties.Settings.Default.Save();
             string User_Settings_Json_Strings = Newtonsoft.Json.JsonConvert.SerializeObject(User_Settings_Vars);
-            using (var StreamWriter = new StreamWriter(DocumentsFolder + @"\VTOL_DATA\Settings\User_Settings.Json", false))
-            {
-                StreamWriter.WriteLine(User_Settings_Json_Strings);
-                StreamWriter.Close();
+                using (var StreamWriter = new StreamWriter(DocumentsFolder + @"\VTOL_DATA\Settings\User_Settings.Json", false))
+                {
+                    StreamWriter.WriteLine(User_Settings_Json_Strings);
+                    StreamWriter.Close();
+                }
+                DispatchIfNecessary(() =>
+                {
+
+                    if (curr_lang.ToString() != Settings_.Language.ToString())
+                    {
+                        Dialog_.ButtonLeftName = VTOL.Resources.Languages.Language.Page_Settings_Settings_LostFocus_Restart;
+                        Dialog_.ButtonRightName = "NO";
+                        Dialog_.ButtonRightAppearance = ControlAppearance.Secondary;
+                        Dialog_.ButtonLeftAppearance = ControlAppearance.Success;
+                        Dialog_.Content = VTOL.Resources.Languages.Language.Page_Settings_Settings_LostFocus_AChangeInLanguageWasDetectedNVTOLRequiresARestartToDisplayTheseChangesNWouldYouLikeToRestartNow;
+                        Dialog_.Show();
+
+                    }
+                });
+
             }
-        }
-             catch (Exception ex)
+            catch (Exception ex)
             {
                 Main.logger2.Open();
                  Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source +Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
@@ -227,7 +250,46 @@ Main.logger2.Close();
 
         private void Settings_MouseLeave(object sender, MouseEventArgs e)
         {
-           
+
         }
+
+        private void Dialog__ButtonLeftClick(object sender, RoutedEventArgs e)
+        {
+            Restart();
+        }
+        public void DispatchIfNecessary(Action action)
+        {
+            if (!Dispatcher.CheckAccess())
+                Dispatcher.Invoke(action);
+            else
+                action.Invoke();
+        }
+        async void Restart()
+        {
+            DispatchIfNecessary(() =>
+            {
+
+
+                SnackBar.Appearance = ControlAppearance.Info;
+                SnackBar.Title = "INFO";
+                SnackBar.Message = VTOL.Resources.Languages.Language.PleaseWaitAsVTOLRestarts;
+                SnackBar.Show();
+            });
+
+            await Task.Delay(2000);
+            var currentExecutablePath = Process.GetCurrentProcess().MainModule.FileName;
+            Process.Start(currentExecutablePath);
+            Application.Current.Shutdown();
+        }
+        private void Dialog_ButtonRightClick(object sender, RoutedEventArgs e)
+        {
+            DispatchIfNecessary(() =>
+            {
+                curr_lang = Settings_.Language;
+                Dialog_.Hide();
+            });
+        }
+
+        
     }
 }
