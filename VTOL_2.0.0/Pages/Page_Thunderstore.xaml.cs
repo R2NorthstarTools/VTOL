@@ -1427,8 +1427,11 @@ int millisecondsDelay = 30)
                         {
                             continue;
                         }
-
-                        int rating = _updater.Thunderstore[i].RatingScore;
+                    if (_updater.Thunderstore[i].IsDeprecated == true)
+                    {
+                        continue;
+                    }
+                    int rating = _updater.Thunderstore[i].RatingScore;
 
                         Tags = String.Join(" , ", _updater.Thunderstore[i].Categories);
 
