@@ -792,12 +792,21 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A Change in Language was detected \nVTOL requires a restart to display these changes. \nWould You like to restart now?..
+        ///   Looks up a localized string similar to @A Change in Language was detected @VTOL requires a restart to display these changes. @Would You like to restart now?..
         /// </summary>
         public static string Page_Settings_Settings_LostFocus_AChangeInLanguageWasDetectedNVTOLRequiresARestartToDisplayTheseChangesNWouldYouLikeToRestartNow {
             get {
                 return ResourceManager.GetString("Page_Settings_Settings_LostFocus_AChangeInLanguageWasDetectedNVTOLRequiresARestar" +
                         "tToDisplayTheseChangesNWouldYouLikeToRestartNow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -Language Change Detected-.
+        /// </summary>
+        public static string Page_Settings_Settings_LostFocus_LanguageChangeDetected {
+            get {
+                return ResourceManager.GetString("Page_Settings_Settings_LostFocus_LanguageChangeDetected", resourceCulture);
             }
         }
         

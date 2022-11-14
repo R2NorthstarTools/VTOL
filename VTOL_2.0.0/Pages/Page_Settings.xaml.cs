@@ -222,10 +222,12 @@ namespace VTOL.Pages
                     if (curr_lang.ToString() != Settings_.Language.ToString())
                     {
                         Dialog_.ButtonLeftName = VTOL.Resources.Languages.Language.Page_Settings_Settings_LostFocus_Restart;
-                        Dialog_.ButtonRightName = "NO";
+                        Dialog_.ButtonRightName = "No";
                         Dialog_.ButtonRightAppearance = ControlAppearance.Secondary;
                         Dialog_.ButtonLeftAppearance = ControlAppearance.Success;
-                        Dialog_.Content = VTOL.Resources.Languages.Language.Page_Settings_Settings_LostFocus_AChangeInLanguageWasDetectedNVTOLRequiresARestartToDisplayTheseChangesNWouldYouLikeToRestartNow;
+                        Dialog_.Title = VTOL.Resources.Languages.Language.Page_Settings_Settings_LostFocus_LanguageChangeDetected;
+
+                        Dialog_.Content = (VTOL.Resources.Languages.Language.Page_Settings_Settings_LostFocus_AChangeInLanguageWasDetectedNVTOLRequiresARestartToDisplayTheseChangesNWouldYouLikeToRestartNow).Replace("@", System.Environment.NewLine);
                         Dialog_.Show();
 
                     }

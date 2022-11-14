@@ -20,9 +20,9 @@
 	  <RepositoryUrl>https://github.com/BigSpice/VTOL</RepositoryUrl>
 	  <RepositoryType>git</RepositoryType>
 	  <PackageTags>mod;installer;modmanager;northstar-client;titanfall2</PackageTags>
-	  <AssemblyVersion>2.0.5</AssemblyVersion>
-	  <FileVersion>2.0.5</FileVersion>
-	  <Version>2.0.5</Version>
+	  <AssemblyVersion>2.0.6</AssemblyVersion>
+	  <FileVersion>2.0.6</FileVersion>
+	  <Version>2.0.6</Version>
 	  <EnableNETAnalyzers>False</EnableNETAnalyzers>
 	  <ErrorReport>none</ErrorReport>
 

@@ -595,9 +595,12 @@
     <value>New log changes have been detected , please click me to open your Logs Folder.</value>
   </data>
   <data name="Page_Settings_Settings_LostFocus_AChangeInLanguageWasDetectedNVTOLRequiresARestartToDisplayTheseChangesNWouldYouLikeToRestartNow" xml:space="preserve">
-    <value>A Change in Language was detected \nVTOL requires a restart to display these changes. \nWould You like to restart now?.</value>
+    <value>@A Change in Language was detected @VTOL requires a restart to display these changes. @Would You like to restart now?.</value>
   </data>
   <data name="Page_Settings_Settings_LostFocus_Restart" xml:space="preserve">
     <value>Restart</value>
+  </data>
+  <data name="Page_Settings_Settings_LostFocus_LanguageChangeDetected" xml:space="preserve">
+    <value>-Language Change Detected-</value>
   </data>
 </root>
