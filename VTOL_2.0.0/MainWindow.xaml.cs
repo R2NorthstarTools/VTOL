@@ -40,6 +40,7 @@ namespace VTOL
         const string UriScheme = "ror2mm://";
         const string FriendlyName = "Sample Protocol";
         public TlsPaperTrailLogger logger2 = new TlsPaperTrailLogger("logs5.papertrailapp.com", 38137);
+        public bool Is_Focused = true;
         static void Main(string[] args)
         {
            
@@ -510,7 +511,7 @@ true // Whether to change accents automatically
                 {
                        
 
-                        string pattern = "*.txt";
+                        string pattern = "*.dmp";
                         var dirInfo = new DirectoryInfo(path);
                         var file = (from f in dirInfo.GetFiles(pattern) orderby f.LastWriteTime descending select f).FirstOrDefault();
                         string p = file.FullName;
@@ -520,7 +521,7 @@ true // Whether to change accents automatically
                         info.FileName = "explorer";
                         info.Arguments = args;
                         Process.Start(info);
-                    Properties.Settings.Default.LOG_Folder_Counter = Directory.GetFiles(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\logs\").Length;
+                    Properties.Settings.Default.LOG_Folder_Counter = Directory.GetFiles(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\logs\").Where(s => s.EndsWith(".dmp")).Count();
                     Properties.Settings.Default.Save();
 
                     Log_Folder_warning.Visibility = Visibility.Hidden;
@@ -534,6 +535,28 @@ true // Whether to change accents automatically
 
 
             }
+        }
+
+        private void Main_Win_Control_GotFocus(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Main_Win_Control_LostFocus(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Main_Win_Control_Deactivated(object sender, EventArgs e)
+        {
+            Is_Focused = false;
+        }
+
+
+        private void Main_Win_Control_Activated(object sender, EventArgs e)
+        {
+            Is_Focused = true;
+
         }
     }
 }

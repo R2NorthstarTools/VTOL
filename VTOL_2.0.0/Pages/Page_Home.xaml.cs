@@ -221,6 +221,8 @@ logger2.Close();
         private Page_Thunderstore Page_Thunderstore;
         private bool unpack_flg = false;
         public int Admin_Warn_Flag = 0;
+        System.Drawing.Point cursorPoint;
+        int minutesIdle = 0;
         public Page_Home()
         {
 
@@ -228,7 +230,7 @@ logger2.Close();
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
 
 
-
+           
 
             User_Settings_Vars = Main.User_Settings_Vars;
             DocumentsFolder = Main.DocumentsFolder;
@@ -318,6 +320,12 @@ logger2.Close();
             Check_Log_Folder();
 
         }
+        private bool isIdle(int minutes)
+        {
+            return minutesIdle >= minutes;
+        }
+
+      
         public bool TryUnzipFile(
 string Zip_Path, string Destination, bool overwrite = true,
 int maxRetries = 10,
@@ -372,6 +380,7 @@ int millisecondsDelay = 150)
 
             return false;
         }
+       
         public string[] FindFirstFiles(string path, string searchPattern)
         {
             try
@@ -1361,7 +1370,8 @@ int millisecondsDelay = 150)
         {
             if (Check_Process_Running("OriginClientService") == true)
             {
-                DispatchIfNecessary(() => {
+                DispatchIfNecessary(() =>
+                {
                     Origin_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#B2037F10");
                     Origin_Client_Card.IconFilled = true;
                     return;
@@ -1373,7 +1383,8 @@ int millisecondsDelay = 150)
             }
             else
             {
-                DispatchIfNecessary(() => {
+                DispatchIfNecessary(() =>
+                {
                     Origin_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#99630000");
                     Origin_Client_Card.IconFilled = false;
 
@@ -1382,7 +1393,9 @@ int millisecondsDelay = 150)
 
             }
 
+
         }
+
         void Check_Log_Folder(){
             try
             {
@@ -1423,6 +1436,14 @@ int millisecondsDelay = 150)
         }
             void Log_Changes_Timer_Tick(object sender, EventArgs e)
         {
+           
+            BackgroundWorker worker_o = new BackgroundWorker();
+            worker_o.DoWork += (sender, e) =>
+            {
+                Check_origin_status();
+            };
+
+            worker_o.RunWorkerAsync();
             Check_Log_Folder();
         }
         void timer_Tick(object sender, EventArgs e)
@@ -1430,43 +1451,39 @@ int millisecondsDelay = 150)
 
             try
             {
-
-                BackgroundWorker worker_o = new BackgroundWorker();
-                worker_o.DoWork += (sender, e) =>
+                
+               
+                if (Properties.Settings.Default.Master_Server_Check == true )
                 {
-                    Check_origin_status();
-                };
-
-                worker_o.RunWorkerAsync();
-
-                if (Properties.Settings.Default.Master_Server_Check == true)
-                {
-                    if (Fail_Counter_Ping != 5)
+                    if (Main.Is_Focused == true)
                     {
-                        BackgroundWorker worker = new BackgroundWorker();
-                        worker.DoWork += (sender, e) =>
+                        if (Fail_Counter_Ping != 5)
                         {
-                            PingHost();
+                            BackgroundWorker worker = new BackgroundWorker();
+                            worker.DoWork += (sender, e) =>
+                            {
+                                PingHost();
 
 
-                        };
+                            };
 
-                        worker.RunWorkerAsync();
-
-
-
-                        // Toggle_MS_BT(true);
+                            worker.RunWorkerAsync();
 
 
-                    }
-                    else
-                    {
-                        Wpf.Ui.Controls.Snackbar D = new Wpf.Ui.Controls.Snackbar();
-                        D.Title = "Warning - Home Page!";
-                        D.Appearance = Wpf.Ui.Common.ControlAppearance.Caution;
-                        D.Message = VTOL.Resources.Languages.Language.Page_Home_timer_Tick_MasterServerCheckedAndTimedOutTooMuchTurningOffMasterServerChecks;
-                        D.Show();
-                        Toggle_MS_BT(false);
+
+                            // Toggle_MS_BT(true);
+
+
+                        }
+                        else
+                        {
+                            Wpf.Ui.Controls.Snackbar D = new Wpf.Ui.Controls.Snackbar();
+                            D.Title = "Warning - Home Page!";
+                            D.Appearance = Wpf.Ui.Common.ControlAppearance.Caution;
+                            D.Message = VTOL.Resources.Languages.Language.Page_Home_timer_Tick_MasterServerCheckedAndTimedOutTooMuchTurningOffMasterServerChecks;
+                            D.Show();
+                            Toggle_MS_BT(false);
+                        }
                     }
                 }
                 else

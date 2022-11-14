@@ -18,7 +18,7 @@
         RenderOptions.ClearTypeHint="Enabled"
         mc:Ignorable="d"
 
-        Title="MainWindow" Height="700" Width="1200" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" Background="Black" AllowDrop="True"  
+        Title="MainWindow" Height="700" Width="1200" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" Background="Black" AllowDrop="True" GotFocus="Main_Win_Control_GotFocus" LostFocus="Main_Win_Control_LostFocus" Deactivated="Main_Win_Control_Deactivated" Activated="Main_Win_Control_Activated"  
         
         >
 
