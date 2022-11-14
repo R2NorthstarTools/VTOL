@@ -311,7 +311,7 @@ logger2.Close();
             }
             if (Directory.Exists(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\logs\") && Properties.Settings.Default.LOG_Folder_Counter < 1)
             {
-                Properties.Settings.Default.LOG_Folder_Counter = Directory.GetFiles(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\logs\").Length;
+                Properties.Settings.Default.LOG_Folder_Counter = Directory.GetFiles(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\logs\").Where(s => s.EndsWith(".dmp")).Count();
                 Properties.Settings.Default.Save();
 
             }
@@ -1392,7 +1392,7 @@ int millisecondsDelay = 150)
 
                         int Cntr = 0;
 
-                        Cntr = Directory.GetFiles(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\logs\").Length;
+                        Cntr = Directory.GetFiles(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\logs\").Where(s => s.EndsWith(".dmp")).Count();
 
                         if (Cntr != Properties.Settings.Default.LOG_Folder_Counter && Cntr != 0)
                         {
