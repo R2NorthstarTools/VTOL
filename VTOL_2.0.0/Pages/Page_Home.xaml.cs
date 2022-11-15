@@ -771,10 +771,24 @@ int millisecondsDelay = 150)
                 else
                 {
 
-
+                    string FINAL;
                     Current_Install_Folder = InstalledApplications.GetApplictionInstallPath("Titanfall2");
                     string Path = Auto_Find_And_verify().Replace(@"\\", @"\").Replace("/", @"\");
-                    if (IsValidPath(Path))
+                    if (IsValidPath(Current_Install_Folder))
+                    {
+                        FINAL = Current_Install_Folder;
+                    }
+                    else
+                    {
+                       
+                        FINAL = Path;
+
+                        
+
+                        throw new Exception("Automated Path Finding Failed!");
+
+                    }
+                    if (IsValidPath(FINAL))
                     {
 
                         Console.WriteLine(Path);
@@ -985,7 +999,7 @@ int millisecondsDelay = 150)
 
         public bool IsValidPath(string path, bool allowRelativePaths = false)
         {
-            bool isValid = true;
+            bool isValid = false; ;
 
             try
             {
@@ -1444,7 +1458,6 @@ int millisecondsDelay = 150)
             };
 
             worker_o.RunWorkerAsync();
-            Check_Log_Folder();
         }
         void timer_Tick(object sender, EventArgs e)
         {
@@ -1457,6 +1470,7 @@ int millisecondsDelay = 150)
                 {
                     if (Main.Is_Focused == true)
                     {
+
                         if (Fail_Counter_Ping != 5)
                         {
                             BackgroundWorker worker = new BackgroundWorker();
@@ -1484,6 +1498,18 @@ int millisecondsDelay = 150)
                             D.Show();
                             Toggle_MS_BT(false);
                         }
+                        BackgroundWorker worker2 = new BackgroundWorker();
+                        worker2.DoWork += (sender, e) =>
+                        {
+                            DispatchIfNecessary(() => {
+
+                                Check_Log_Folder();
+
+                            });
+
+                        };
+
+                        worker2.RunWorkerAsync();
                     }
                 }
                 else

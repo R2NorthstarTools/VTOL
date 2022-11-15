@@ -245,6 +245,7 @@ Main.logger2.Close();
             }
         }
 
+
         private void Settings_MouseMove(object sender, MouseEventArgs e)
         {
 
