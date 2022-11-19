@@ -1803,7 +1803,17 @@ int millisecondsDelay = 150)
                     ProcessStartInfo procStartInfo = new ProcessStartInfo();
                     Process process = new Process();
                     procStartInfo.FileName = NSExe;
-                    procStartInfo.WorkingDirectory =Path.GetDirectoryName(NSExe);
+                    procStartInfo.WorkingDirectory = Path.GetDirectoryName(NSExe);
+                    if(Properties.Settings.Default.Hide_Console_Window == true)
+                    {
+                        procStartInfo.CreateNoWindow = true;
+
+                    }
+                    else
+                    {
+                        procStartInfo.CreateNoWindow = false;
+
+                    }
 
 
 
@@ -1834,6 +1844,11 @@ int millisecondsDelay = 150)
             }
             else
             {
+                Launch_Northstar.IsEnabled = false;
+                SnackBar.Message = "ERROR - ON Launch, Could Not Find Northstar.exe!";
+                SnackBar.Title = "FATAL - ERROR";
+                SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Danger;
+                SnackBar.Show();
                 //Dialog.ButtonRightAppearance = ControlAppearance.Danger;
                 //Dialog.ButtonLeftAppearance = ControlAppearance.Dark;
                 //Dialog.ButtonRightName = "Exit";

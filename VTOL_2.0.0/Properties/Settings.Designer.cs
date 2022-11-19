@@ -274,5 +274,17 @@ namespace VTOL.Properties {
                 this["REpak_Folder_Path"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Hide_Console_Window {
+            get {
+                return ((bool)(this["Hide_Console_Window"]));
+            }
+            set {
+                this["Hide_Console_Window"] = value;
+            }
+        }
     }
 }

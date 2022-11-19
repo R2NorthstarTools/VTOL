@@ -33,7 +33,8 @@ namespace VTOL.Pages
         string DocumentsFolder = null;
         Language curr_lang;
         Wpf.Ui.Controls.Snackbar SnackBar;
-
+        string OLD_MSG;
+        string OLD_TITLE;
         public enum Language
         {
             English,
@@ -50,6 +51,7 @@ namespace VTOL.Pages
             public Language Language { get; set; }
             public string Master_Server_Url { get; set; }
             public bool Do_Not_Overwrite_Config_Files { get; set; }
+            public bool Hide_Console_Window { get; set; }
 
             [Category("Github")]
             public string Repo_Url { get; set; }
@@ -59,7 +61,7 @@ namespace VTOL.Pages
 
             public bool Minimize_On_Launch { get; set; }
 
-          
+
         }
         public Page_Settings()
         {
@@ -107,7 +109,7 @@ namespace VTOL.Pages
 
                 }
             }
-          curr_lang = Lang;
+            curr_lang = Lang;
 
             Settings_ = new PropertyGridDemoModel
             {
@@ -115,14 +117,14 @@ namespace VTOL.Pages
                 Master_Server_Url = User_Settings_Vars.MasterServerUrl,
                 Do_Not_Overwrite_Config_Files = Properties.Settings.Default.Backup_arg_Files,
                 Minimize_On_Launch = Properties.Settings.Default.Auto_Close_VTOL_on_Launch,
-
+                Hide_Console_Window = Properties.Settings.Default.Hide_Console_Window,
                 Repo_Url = User_Settings_Vars.RepoUrl,
                 Repo = User_Settings_Vars.Repo,
 
                 Author = User_Settings_Vars.Author,
                 Auto_Update_Northstar = User_Settings_Vars.Auto_Update_Northstar,
 
-        };
+            };
             Settings.SelectedObject = Settings_;
         }
         public static MainWindow GetMainWindow()
@@ -151,41 +153,46 @@ namespace VTOL.Pages
         }
 
         private void Settings_LayoutUpdated(object sender, EventArgs e)
-    {
-            
+        {
+
         }
 
         private void Settings_LostFocus(object sender, RoutedEventArgs e)
         {
-            try { 
-            User_Settings_Vars.MasterServerUrl = Settings_.Master_Server_Url;
-            Properties.Settings.Default.Auto_Close_VTOL_on_Launch = Settings_.Minimize_On_Launch;
-            Properties.Settings.Default.Save();
-               
-                switch (Settings_.Language.ToString())
+            try
             {
-                case "English":
-                    User_Settings_Vars.Language = "en";
+                User_Settings_Vars.MasterServerUrl = Settings_.Master_Server_Url;
+                Properties.Settings.Default.Auto_Close_VTOL_on_Launch = Settings_.Minimize_On_Launch;
+                Properties.Settings.Default.Save();
+                DispatchIfNecessary(() =>
+                {
+                    OLD_MSG = (VTOL.Resources.Languages.Language.Page_Settings_Settings_LostFocus_AChangeInLanguageWasDetectedNVTOLRequiresARestartToDisplayTheseChangesNWouldYouLikeToRestartNow).Replace("@", System.Environment.NewLine);
+                    OLD_TITLE = VTOL.Resources.Languages.Language.Page_Settings_Settings_LostFocus_LanguageChangeDetected;
+                });
+                switch (Settings_.Language.ToString())
+                {
+                    case "English":
+                        User_Settings_Vars.Language = "en";
 
-                    break;
-                case "French":
-                    User_Settings_Vars.Language = "fr";
+                        break;
+                    case "French":
+                        User_Settings_Vars.Language = "fr";
 
-                    break;
-                case "Chinese":
-                    User_Settings_Vars.Language = "zh";
+                        break;
+                    case "Chinese":
+                        User_Settings_Vars.Language = "zh";
 
-                    break;
-                case "Italian":
-                    User_Settings_Vars.Language = "it";
+                        break;
+                    case "Italian":
+                        User_Settings_Vars.Language = "it";
 
-                    break;
-                case "Korean":
-                    User_Settings_Vars.Language = "ko";
+                        break;
+                    case "Korean":
+                        User_Settings_Vars.Language = "ko";
 
-                    break;
-                        case "German":
-                    User_Settings_Vars.Language = "de";
+                        break;
+                    case "German":
+                        User_Settings_Vars.Language = "de";
 
                         break;
                     case "Russian":
@@ -193,24 +200,27 @@ namespace VTOL.Pages
 
                         break;
                     default:
-                    User_Settings_Vars.Language = "en";
+                        User_Settings_Vars.Language = "en";
 
-                    break;
-
-
-            }
+                        break;
 
 
+                }
 
 
-            User_Settings_Vars.Auto_Close_VTOL = Settings_.Minimize_On_Launch;
-            User_Settings_Vars.Author = Settings_.Author;
-            User_Settings_Vars.Repo = Settings_.Repo;
-            User_Settings_Vars.RepoUrl = Settings_.Repo_Url;
-            User_Settings_Vars.Auto_Update_Northstar = Settings_.Auto_Update_Northstar;
-            Properties.Settings.Default.Backup_arg_Files = Settings_.Do_Not_Overwrite_Config_Files;
-            Properties.Settings.Default.Save();
-            string User_Settings_Json_Strings = Newtonsoft.Json.JsonConvert.SerializeObject(User_Settings_Vars);
+
+
+                User_Settings_Vars.Auto_Close_VTOL = Settings_.Minimize_On_Launch;
+                User_Settings_Vars.Author = Settings_.Author;
+                User_Settings_Vars.Repo = Settings_.Repo;
+                User_Settings_Vars.RepoUrl = Settings_.Repo_Url;
+                User_Settings_Vars.Auto_Update_Northstar = Settings_.Auto_Update_Northstar;
+                Properties.Settings.Default.Hide_Console_Window = Settings_.Hide_Console_Window;
+                Properties.Settings.Default.Save();
+
+                Properties.Settings.Default.Backup_arg_Files = Settings_.Do_Not_Overwrite_Config_Files;
+                Properties.Settings.Default.Save();
+                string User_Settings_Json_Strings = Newtonsoft.Json.JsonConvert.SerializeObject(User_Settings_Vars);
                 using (var StreamWriter = new StreamWriter(DocumentsFolder + @"\VTOL_DATA\Settings\User_Settings.Json", false))
                 {
                     StreamWriter.WriteLine(User_Settings_Json_Strings);
@@ -225,9 +235,9 @@ namespace VTOL.Pages
                         Dialog_.ButtonRightName = "No";
                         Dialog_.ButtonRightAppearance = ControlAppearance.Secondary;
                         Dialog_.ButtonLeftAppearance = ControlAppearance.Success;
-                        Dialog_.Title = VTOL.Resources.Languages.Language.Page_Settings_Settings_LostFocus_LanguageChangeDetected;
+                        Dialog_.Title = OLD_TITLE;
 
-                        Dialog_.Content = (VTOL.Resources.Languages.Language.Page_Settings_Settings_LostFocus_AChangeInLanguageWasDetectedNVTOLRequiresARestartToDisplayTheseChangesNWouldYouLikeToRestartNow).Replace("@", System.Environment.NewLine);
+                        Dialog_.Content = OLD_MSG;
                         Dialog_.Show();
 
                     }
@@ -237,8 +247,8 @@ namespace VTOL.Pages
             catch (Exception ex)
             {
                 Main.logger2.Open();
-                 Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source +Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-Main.logger2.Close();
+                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
+                Main.logger2.Close();
 
 
 
@@ -293,6 +303,6 @@ Main.logger2.Close();
             });
         }
 
-        
+
     }
 }
