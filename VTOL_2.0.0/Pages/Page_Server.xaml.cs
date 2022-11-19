@@ -1989,14 +1989,22 @@ Main.logger2.Close();
 
                         ZIP_LIST(files, User_Settings_Vars.NorthstarInstallLocation + @"VTOL_Dedicated_Workspace\Exported_Config.zip", true);
 
-                        //Send_Success_Notif("Exported to " + User_Settings_Vars.NorthstarInstallLocation + @"\VTOL_Dedicated_Workspace/Exported_Config.zip" + " Sucessfully!");
+                        SnackBar.Appearance = ControlAppearance.Success;
+                        SnackBar.Title = "SUCCESS";
+                        SnackBar.Message = "Exported to " + User_Settings_Vars.NorthstarInstallLocation + @"\VTOL_Dedicated_Workspace\Exported_Config.zip" + " Sucessfully!";
+                        SnackBar.Show();
 
 
 
                     }
                     else
                     {
-                        //Send_Error_Notif(GetTextResource("NOTIF_ERROR_SUGGEST_REBROWSE"));
+                        SnackBar.Appearance = ControlAppearance.Danger;
+                        SnackBar.Title = "ERROR";
+                        SnackBar.Message =VTOL.Resources.Languages.Language.Page_Server_Export_Server_Config_Click_PleaseRecheckYourSaveLocation;
+                        SnackBar.Show();
+
+
                         return;
                     }
                 }

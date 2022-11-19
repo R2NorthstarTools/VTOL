@@ -603,4 +603,7 @@
   <data name="Page_Settings_Settings_LostFocus_LanguageChangeDetected" xml:space="preserve">
     <value>-Language Change Detected-</value>
   </data>
+  <data name="Page_Server_Export_Server_Config_Click_PleaseRecheckYourSaveLocation" xml:space="preserve">
+    <value> "Please Recheck your save Location</value>
+  </data>
 </root>

@@ -630,6 +630,15 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to  &quot;Please Recheck your save Location.
+        /// </summary>
+        public static string Page_Server_Export_Server_Config_Click_PleaseRecheckYourSaveLocation {
+            get {
+                return ResourceManager.GetString("Page_Server_Export_Server_Config_Click_PleaseRecheckYourSaveLocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Export Server Config.
         /// </summary>
         public static string Page_Server_ExportServerConfig {
