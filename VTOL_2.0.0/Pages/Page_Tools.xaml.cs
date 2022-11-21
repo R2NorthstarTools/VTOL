@@ -404,7 +404,15 @@ namespace VTOL.Pages
         public Page_Tools()
         { 
             InitializeComponent();
+            string defualt_repak = @"for %%i in ("+'\u0022' + @"%~dp0maps\*" + '\u0022'+ ")  do " + '\u0022'+ @"% ~dp0RePak.exe" + '\u0022' + " "+ '\u0022' + "%%i"+ '\u0022' + Environment.NewLine + "pause";
+            if (Properties.Settings.Default.RePak_Launch_Args == "" || Properties.Settings.Default.RePak_Launch_Args == null)
+            {
+                Startup_Args_RpAk.Text = defualt_repak;
+                Properties.Settings.Default.RePak_Launch_Args = defualt_repak;
+                     Properties.Settings.Default.Save();
+            }
             Startup_Args_RpAk.Text = Properties.Settings.Default.RePak_Launch_Args;
+
         SnackBar = Main.Snackbar;
             Mod_dependencies.Text = "northstar-Northstar-" + Properties.Settings.Default.Version.Remove(0, 1);
             Paragraph paragraph = new Paragraph();
@@ -3209,7 +3217,7 @@ Main.logger2.Close();
                 await Task.Run(() =>
             {
 
-                if(Args != null && Args.Trim() != "")
+                if (Args != null && Args.Trim() != "")
                 {
                     System.Diagnostics.Process.Start(new ProcessStartInfo
                     {
@@ -3227,23 +3235,120 @@ Main.logger2.Close();
                         UseShellExecute = true
                     }); ;
                 }
-                
+
 
             });
             }
-                catch (Exception ex)
+            catch (Exception ex)
+            {
+                Main.logger2.Open();
+                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine);
+                Main.logger2.Close();
+                Main.logger2.Open();
+                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine);
+                Main.logger2.Close(); Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+
+            }
+
+
+
+        }
+        public bool Check_Python_Installation()
+        {
+            string result = "" ;
+
+            ProcessStartInfo pycheck = new ProcessStartInfo();
+            pycheck.FileName = "@python.exe";
+            pycheck.Arguments = "--version";
+            pycheck.UseShellExecute = false;
+            pycheck.RedirectStandardOutput = true;
+            pycheck.CreateNoWindow = true;
+
+            using (Process process = Process.Start(pycheck))
+            {
+                using (StreamReader reader = process.StandardOutput)
                 {
-                    Main.logger2.Open();
-                    Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine);
-                    Main.logger2.Close();
-                    Main.logger2.Open();
-                    Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine);
-                    Main.logger2.Close(); Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                    result = reader.ReadToEnd();
+                    if (result.Contains("python") || result.Contains("."))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
 
                 }
-          
+            }
+            return false;
+        }
+        async void Start_Command_Line(string path,string working_dir,bool Custom_ = false, string args = "")
+        {
+            try
+            {
+                await Task.Run(() =>
+                {
+                    DispatchIfNecessary(() =>
+                    {
+                        string arguments = "";
+                        if (Custom_ == false)
+                        {
+                            arguments = @"/k python " + path;
 
-            
+
+                        }
+                        else
+                        {
+                            arguments = @"/k " + args;
+                        }
+
+
+                        var startInfo = new System.Diagnostics.ProcessStartInfo
+                        {
+                            WorkingDirectory = working_dir,
+                            FileName = "cmd.exe",
+                            Arguments = arguments,
+                            RedirectStandardInput = false,
+                            UseShellExecute = true
+                        };
+                        Process p = new Process();
+                        p.StartInfo = startInfo;
+                        p.Start();
+                        p.WaitForExit();
+
+
+                        //System.Diagnostics.Process.Start(new ProcessStartInfo
+                        //{ 
+                        //    FileName = @"cmd.exe",// Specify exe name.
+                        //    Arguments = "python "+ path,
+                        //    UseShellExecute = true
+                        //});
+
+                        // }
+                        //else
+                        //{
+                        //    SnackBar.Icon = SymbolRegular.ErrorCircle20;
+                        //    SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
+                        //    SnackBar.Message = "Python Installation Invalid, Cannot Start Script -:\n " + path;
+                        //    SnackBar.Show();
+                        //}
+
+
+                    });
+
+                });
+            }
+            catch (Exception ex)
+            {
+                Main.logger2.Open();
+                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine);
+                Main.logger2.Close();
+               
+
+            }
+
+
+
         }
         void Open_Folder(string Folder)
         {
@@ -3260,9 +3365,7 @@ Main.logger2.Close();
                 Main.logger2.Open();
                 Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine);
                 Main.logger2.Close();
-                Main.logger2.Open();
-                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine);
-                Main.logger2.Close(); Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+              
 
             }
         }
@@ -3487,6 +3590,25 @@ Main.logger2.Close();
                             MDL_TOOL_INSTALL.Icon = SymbolRegular.ArrowDown32;
                             MDL_TOOL_INSTALL.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF5B0606");
                         }
+                        //ESMT
+                        if (Directory.Exists(Tools_Dir + @"ESMT_Easy_sound_modding_tool") && File.Exists(Tools_Dir + @"ESMT_Easy_sound_modding_tool\" + "main.py"))
+                        {
+                            ESMT_TOOL_INSTALL.Content = VTOL.Resources.Languages.Language.Page_Tools_Check_For_Tools_Launch;
+                            ESMT_TOOL_INSTALL.Icon = SymbolRegular.Open28;
+                            ESMT_TOOL_INSTALL.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF005D42");
+                            ESMT_TOOL_FOLDER.IsEnabled = true;
+                            ESMT_TOOL_FOLDER.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFAF7800");
+
+
+                        }
+                        else
+                        {
+                            ESMT_TOOL_FOLDER.IsEnabled = false;
+                            ESMT_TOOL_FOLDER.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF3A3A3A");
+                            ESMT_TOOL_INSTALL.Content = VTOL.Resources.Languages.Language.Page_Tools_Check_For_Tools_Install;
+                            ESMT_TOOL_INSTALL.Icon = SymbolRegular.ArrowDown32;
+                            ESMT_TOOL_INSTALL.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF5B0606");
+                        }
                     }
                     else
                     {
@@ -3605,6 +3727,7 @@ Main.logger2.Close();
             if (Directory.Exists(Tools_Dir + @"RePak") && File.Exists(Tools_Dir + @"RePak\" + "RePak.exe"))
             {
                 Start_Exe(Tools_Dir + @"RePak\" + "RePak.exe", Properties.Settings.Default.RePak_Launch_Args);
+              //  Start_Command_Line(Tools_Dir + @"RePak\" + "RePak.exe", Tools_Dir + @"RePak",true, Properties.Settings.Default.RePak_Launch_Args);
 
             }
             else
@@ -3744,6 +3867,39 @@ Main.logger2.Close();
             if (Directory.Exists(Tools_Dir + @"MDL_SHIT"))
             {
                 Open_Folder(Tools_Dir + @"MDL_SHIT");
+            }
+        }
+
+        private void ESMT_TOOL_PAGE_Click(object sender, RoutedEventArgs e)
+        {
+            OPEN_WEBPAGE("https://github.com/Khalmee/ESMT");
+
+        }
+
+        private void ESMT_TOOL_FOLDER_Click(object sender, RoutedEventArgs e)
+        {
+            if (Directory.Exists(Tools_Dir + @"ESMT_Easy_sound_modding_tool"))
+            {
+                Open_Folder(Tools_Dir + @"ESMT_Easy_sound_modding_tool");
+            }
+        }
+
+      
+
+       
+         
+        private void ESMT_TOOL_INSTALL_Click(object sender, RoutedEventArgs e)
+        {
+            if (Directory.Exists(Tools_Dir + @"ESMT_Easy_sound_modding_tool") && File.Exists(Tools_Dir + @"ESMT_Easy_sound_modding_tool\" + "main.py"))
+            {
+                Start_Command_Line(Tools_Dir + @"ESMT_Easy_sound_modding_tool\" + "main.py", Tools_Dir + @"ESMT_Easy_sound_modding_tool");
+
+            }
+            else
+            {
+                Download_Zip_To_Path("MDL_SHIT", "https://github.com/BigSpice/VTOL/raw/master/%5BTitanfall2_Downloadable_Tools%5D/ESMT.zip");
+
+
             }
         }
     }
