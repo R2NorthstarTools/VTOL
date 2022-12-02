@@ -64,7 +64,7 @@
 
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <ui:CardControl Margin="0,4,0,4" Foreground="{x:Null}" IsHitTestVisible="True" AutomationProperties.HelpText="sd" Tag="{Binding Mod_Name_}" MouseRightButtonDown="EXTRA_SETTINGS_Dock_MouseRightButtonDown" Padding="5,5,5,5" Loaded="CardControl_Loaded" IsMouseCaptureWithinChanged="CardControl_IsMouseCaptureWithinChanged" GotFocus="CardControl_GotFocus" MouseMove="CardControl_MouseMove" ClickMode="Press">
+                    <ui:CardControl Margin="0,4,0,4" Foreground="{x:Null}" IsHitTestVisible="True" AutomationProperties.HelpText="sd" Tag="{Binding Mod_Name_}" MouseRightButtonDown="EXTRA_SETTINGS_Dock_MouseRightButtonDown" Padding="5,5,5,5" Loaded="CardControl_Loaded" IsMouseCaptureWithinChanged="CardControl_IsMouseCaptureWithinChanged" GotFocus="CardControl_GotFocus" MouseMove="CardControl_MouseMove" ClickMode="Press" BorderBrush="{x:Null}">
                         <ui:CardControl.Header>
                             <StackPanel Grid.Column="0" VerticalAlignment="Center" Height="56" Width="225" HorizontalAlignment="Left" Margin="6,0,0,0">
 
@@ -81,8 +81,8 @@
                         <Grid Height="60" RenderTransformOrigin="0.5,0.5" Width="435">
 
                             <DockPanel   Height="62" HorizontalAlignment="Right" Margin="0,0,0,-2" Width="435" Opacity="0" IsEnabled="False" Tag="Hidden" AutomationProperties.IsOffscreenBehavior="Offscreen">
-                                <ui:Button x:Name="Info_Btn" Width="58" Height="42" Content="Info"  Background="#FF24ABBD" Tag ="{Binding Mod_Name_}"  ToolTip="{Binding Mod_Name_}" Margin="0,0,1,0" Click="Info_Btn_Click" ClickMode="Press"/>
-                                <ui:Button x:Name="Check_For_Update" Width="121" Height="42" Content="Check For Update" Tag ="{Binding Mod_Name_}" ToolTip="{Binding Mod_Name_}" Margin="0,0,5,0" FontSize="12" Click="Check_For_Update_Click" IsEnabled="False" Visibility="Collapsed">
+                                <ui:Button x:Name="Info_Btn" Width="58" Height="42" Content="Info"  Background="#FF24ABBD" Tag ="{Binding Mod_Name_}"  ToolTip="{Binding Mod_Name_}" Margin="0,0,5,0" Click="Info_Btn_Click" ClickMode="Press"/>
+                                <ui:Button x:Name="Check_For_Update" Width="116" Height="42" Content="Update" Tag ="{Binding Mod_Name_}" ToolTip="{Binding Mod_Name_}" Margin="0,0,5,0" FontSize="12" Click="Check_For_Update_Click" IsEnabled="False" Visibility="Visible">
                                     <ui:Button.Background>
                                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                             <GradientStop Color="#FF0A9A68"/>
@@ -157,9 +157,9 @@
         <Label Content ="{x:Static properties:Language.Page_Mods_RightClickForContextMenu}" Margin="0,605,5,0" Height="16" VerticalAlignment="Top" HorizontalAlignment="Right" Width="368" Padding="0,0,0,0" Grid.Column="1" HorizontalContentAlignment="Right" Foreground="#52FFFFFF" VerticalContentAlignment="Center"/>
 
 
-        <ui:Dialog x:Name="Dialog" Grid.ColumnSpan="3" Grid.RowSpan="3" DialogHeight="250" Foreground="White" FontStretch="SemiCondensed" FontFamily="Segoe UI Semibold" ButtonRightClick="Dialog_ButtonRightClick">
+        <ui:Dialog x:Name="Dialog" Grid.ColumnSpan="3" Grid.RowSpan="3" DialogHeight="250" Foreground="White" FontStretch="SemiCondensed" FontFamily="Segoe UI Semibold" ButtonRightClick="Dialog_ButtonRightClick" Visibility="Hidden">
         </ui:Dialog>
-        <ui:Dialog x:Name="DialogF" Grid.ColumnSpan="3" Grid.RowSpan="3" DialogHeight="250" Foreground="White" FontStretch="SemiCondensed" FontFamily="Segoe UI Semibold" ButtonRightClick="DialogF_ButtonRightClick" ButtonLeftClick="DialogF_ButtonLeftClick" Drop="Mod_List_Box_Drop" PreviewDragEnter="Mod_List_Box_PreviewDragEnter" PreviewDragLeave="Mod_List_Box_PreviewDragLeave" AllowDrop="True"/>
+        <ui:Dialog x:Name="DialogF" Grid.ColumnSpan="3" Grid.RowSpan="3" DialogHeight="250" Foreground="White" FontStretch="SemiCondensed" FontFamily="Segoe UI Semibold" ButtonRightClick="DialogF_ButtonRightClick" ButtonLeftClick="DialogF_ButtonLeftClick" Drop="Mod_List_Box_Drop" PreviewDragEnter="Mod_List_Box_PreviewDragEnter" PreviewDragLeave="Mod_List_Box_PreviewDragLeave" AllowDrop="True" Visibility="Hidden"/>
         <Border x:Name="Drag_Drop_Overlay_Mods" Grid.ColumnSpan="3" Background="#99000000" Visibility="Hidden" HorizontalAlignment="Right" Width="1148" Drop="Mod_List_Box_Drop" PreviewDragOver="Drag_Drop_Overlay_Mods_PreviewDragOver" AllowDrop="True">
             <ui:SymbolIcon  Height="18" Width="16" Symbol="ArrowDownload48" RenderTransformOrigin="0.5,0.5" >
                 <ui:SymbolIcon.RenderTransform>

@@ -136,6 +136,7 @@ namespace VTOL.Pages
         public bool _Completed_Mod_call = false;
         public bool Reverse_ = false;
         Wpf.Ui.Controls.Snackbar Snackbar;
+        Updater _updater;
 
         public Page_Mods()
         {
@@ -547,6 +548,72 @@ int millisecondsDelay = 300)
             }
 
             return false;
+        }
+        public void Check_Updates_List()
+        {
+            try
+            {
+                foreach (Card_ item in Mod_List_Box.Items)
+                {
+
+
+
+                    string Name_ = item.Mod_Name_.ToString();
+                    string pattern = @"[^!]+(?=-)";
+                    Regex rg = new Regex(pattern);
+
+                   
+
+                        BackgroundWorker worker = new BackgroundWorker();
+                        worker.DoWork += (sender, e) =>
+                        {
+
+                                string x = Search_For_Mod_Thunderstore(Name_);
+                               
+
+                                    MessageBox.Show(x);
+
+                                
+
+                            //Page_Thunderstore PP = new Page_Thunderstore();
+                            //Main.RootFrame.Navigate(PP); //FrameContent is the name given to the frame within the xaml.
+                            //PP.Search_Bar_Suggest_Mods.Text = Name_;
+                            //PP.Call_Ts_Mods(true, Search_: true, SearchQuery: Name_);
+                            //PP.Thunderstore_List.Refresh();
+
+                            //DispatchIfNecessary(() =>
+
+                            //{
+                            //});
+
+
+                        };
+
+                        worker.RunWorkerAsync();
+
+
+
+                   
+
+
+                }
+
+
+
+
+
+
+            }
+            catch (Exception ex)
+            {
+                Main.logger2.Open();
+                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
+                Main.logger2.Close();
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+
+            }
+
+          
         }
         public bool Template_traverse(System.IO.DirectoryInfo root, String Search)
         {
@@ -1665,15 +1732,16 @@ Main.logger2.Close();
         }
         private void padd_Click(object sender, RoutedEventArgs e)
         {
-            try { 
-            Mod_List_Box.ItemsSource = null;
+            try {
+                //Mod_List_Box.ItemsSource = null;
 
-            Check_Reverse();
+                //Check_Reverse();
 
-            var sorted = Keep_List_State(false, Reverse_);
+                //var sorted = Keep_List_State(false, Reverse_);
 
-            Mod_List_Box.ItemsSource = sorted;
-            Mod_List_Box.Refresh();
+                //Mod_List_Box.ItemsSource = sorted;
+                //Mod_List_Box.Refresh();
+                Check_Updates_List();
 
             }
             catch (Exception ex)
@@ -2248,7 +2316,46 @@ Main.logger2.Close();Log.Error(ex, $"A crash happened at {DateTime.Now.ToString(
             Open_Folder(_Dialog.Tag.ToString());
 
         }
+        public string Search_For_Mod_Thunderstore(string SearchQuery = "None")
 
+        {
+            try
+            {
+               
+                    _updater = new VTOL.Updater("https://northstar.thunderstore.io/api/v1/package/");
+                    _updater.Download_Cutom_JSON(true);
+
+                
+
+
+                for (int i = 0; i < _updater.Thunderstore.Length; i++)
+                {
+                    List<versions> versions = _updater.Thunderstore[i].versions;
+
+                    string[] subs = SearchQuery.Split('-');
+                    Console.WriteLine(subs[1]);
+                    if (_updater.Thunderstore[i].FullName.Contains(subs[1], StringComparison.OrdinalIgnoreCase) || _updater.Thunderstore[i].Owner.Contains(SearchQuery, StringComparison.OrdinalIgnoreCase))
+                    {
+
+                        return versions.First().DownloadUrl + "|" + _updater.Thunderstore[i].Name + "-" + versions.First().VersionNumber;
+
+                    }
+
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Main.logger2.Open();
+                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
+                Main.logger2.Close();
+
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+
+            }
+            return null;
+        }
         private void DialogF_ButtonLeftClick(object sender, RoutedEventArgs e)
         {            
             

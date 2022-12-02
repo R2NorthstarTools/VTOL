@@ -174,7 +174,7 @@ namespace VTOL
             Thunderstore = Thunderstore_V1.FromJson(json);
             repository = Repository.FromJson(json);
         }
-        public void Download_Cutom_JSON()
+        public void Download_Cutom_JSON(bool _call_from_file = false)
         {
             try
             {
@@ -203,26 +203,52 @@ namespace VTOL
                 StreamReader reader = new StreamReader(data);
                 string s = reader.ReadToEnd();
                  */
-                Uri uri1 = new Uri(address);
-                using (var webClient = new System.Net.WebClient())
+                if (_call_from_file == true)
                 {
+                    if (File.Exists(DocumentsFolder + @"\VTOL_DATA\VARS\Thunderstore.json"))
+                    {
+                        string json = File.ReadAllText(DocumentsFolder + @"\VTOL_DATA\VARS\Thunderstore.json");
+                        Thunderstore = Thunderstore_V1.FromJson(json);
+                    }
+                    else
+                    {
+                        Uri uri1 = new Uri(address);
+                        using (var webClient = new System.Net.WebClient())
+                        {
 
-                    webClient.DownloadFile(uri1, DocumentsFolder + @"\VTOL_DATA\VARS\Thunderstore.json");
+                            webClient.DownloadFile(uri1, DocumentsFolder + @"\VTOL_DATA\VARS\Thunderstore.json");
 
-                    // Now parse with JSON.Net
+                            // Now parse with JSON.Net
+                        }
+                        string json = File.ReadAllText(DocumentsFolder + @"\VTOL_DATA\VARS\Thunderstore.json");
+                        Thunderstore = Thunderstore_V1.FromJson(json);
+
+                    }
+                   
+                }
+                else
+                {
+                    Uri uri1 = new Uri(address);
+                    using (var webClient = new System.Net.WebClient())
+                    {
+
+                        webClient.DownloadFile(uri1, DocumentsFolder + @"\VTOL_DATA\VARS\Thunderstore.json");
+
+                        // Now parse with JSON.Net
+                    }
+                    string json = File.ReadAllText(DocumentsFolder + @"\VTOL_DATA\VARS\Thunderstore.json");
+                    Thunderstore = Thunderstore_V1.FromJson(json);
+                    //if (File.Exists(DocumentsFolder + @"\VTOL_DATA\VARS\Thunderstore.json"))
+                    //{
+
+                    //    File.Delete(DocumentsFolder + @"\VTOL_DATA\VARS\Thunderstore.json");
+                    //}
                 }
 
 
-                // //  using (StreamReader Reader = new StreamReader(x))
-                //  {
-                string json =File.ReadAllText(DocumentsFolder + @"\VTOL_DATA\VARS\Thunderstore.json");
-                Thunderstore = Thunderstore_V1.FromJson(json);
-                //  }
-                if (File.Exists(DocumentsFolder + @"\VTOL_DATA\VARS\Thunderstore.json"))
-                {
 
-                    File.Delete(DocumentsFolder + @"\VTOL_DATA\VARS\Thunderstore.json");
-                }
+
+
             }
             catch (Exception ex)
             {

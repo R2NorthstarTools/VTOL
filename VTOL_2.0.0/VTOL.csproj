@@ -233,6 +233,7 @@
   </ItemGroup>
 
   <ItemGroup>
+	  <PackageReference Include="Magick.NET-Q16-x86" Version="12.2.1" />
 	  <PackageReference Include="Microsoft.NETCore.Targets" Version="3.0.0" PrivateAssets="all" />
     <PackageReference Include="Aspose.Zip" Version="22.9.0" />
     <PackageReference Include="BCnEncoder.Net" Version="2.1.0" />
@@ -244,7 +245,6 @@
     <PackageReference Include="Iconic.Zlib.Netstandard" Version="1.0.0" />
     <PackageReference Include="Json.Net" Version="1.0.33" />
     <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
-    <PackageReference Include="Magick.NET-Q16-AnyCPU" Version="12.2.0" />
     <PackageReference Include="Microsoft.Build" Version="17.3.2" />
     <PackageReference Include="MSBuild.Microsoft.VisualStudio.Web.targets" Version="14.0.0.3" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
