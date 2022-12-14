@@ -606,4 +606,10 @@
   <data name="Page_Server_Export_Server_Config_Click_PleaseRecheckYourSaveLocation" xml:space="preserve">
     <value> "Please Recheck your save Location</value>
   </data>
+  <data name="Page_Home_Page_Home_EAClientRunning" xml:space="preserve">
+    <value>EA Client Running</value>
+  </data>
+  <data name="Page_Home_Origin_Client_Card_Click_TheEAClientIsAlreadyRunning" xml:space="preserve">
+    <value>The EA Client is already running</value>
+  </data>
 </root>

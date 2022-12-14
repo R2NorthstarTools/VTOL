@@ -94,7 +94,7 @@
                     <Label Height="35" Margin="32,44,0,0" VerticalAlignment="Top" BorderBrush="{x:Null}" Background="{x:Null}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{x:Static properties:Language.Page_Server_StartupArgumentsNorthstarClient}" FontSize="14" HorizontalAlignment="Left" Width="406"/>
 
                 </Grid>
-                <Button x:Name="Load_Files" Height="46" Width="916" Margin="0,23,0,0" VerticalAlignment="Top" Content="{x:Static properties:Language.Page_Server_LoadFiles}" BorderBrush="{x:Null}" HorizontalAlignment="Center" Click="Load_Files_Click" Background="#FF383838"  />
+                <Button x:Name="Load_Files" Height="46" Width="916" Margin="0,23,0,0" VerticalAlignment="Top" Content="{x:Static properties:Language.Page_Server_LoadFiles}" BorderBrush="#FF39F1FF" HorizontalAlignment="Center" Click="Load_Files_Click" Background="#FF383838"  />
 
                 <Button x:Name="Import_Server_Config" Height="40" Width="546" Margin="0,8,0,0" VerticalAlignment="Top" Content="{x:Static properties:Language.Page_Server_ImportServerConfig}" BorderBrush="{x:Null}" HorizontalAlignment="Center" Click="Import_Server_Config_Click" Background="#FF383838"  />
 

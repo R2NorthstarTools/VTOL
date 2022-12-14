@@ -55,7 +55,7 @@ namespace VTOL.Pages
             public string Master_Server_Url { get; set; }
             public bool Do_Not_Overwrite_Config_Files { get; set; }
             public bool Hide_Console_Window { get; set; }
-            public bool Start_As_Admin { get; set; }
+            public bool Restart_As_Admin { get; set; }
             public bool Enable_EA_APP_Usage { get; set; }
             [Category("Github")]
             public string Repo_Url { get; set; }
@@ -366,7 +366,7 @@ namespace VTOL.Pages
 
             try
             {
-                if (Settings_.Start_As_Admin == true)
+                if (Settings_.Restart_As_Admin == true)
                 {
                     timer.Stop();
 
@@ -417,6 +417,8 @@ namespace VTOL.Pages
 
         private void Settings_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
+           
+
             timer.Start();
 
         }

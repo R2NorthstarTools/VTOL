@@ -22,7 +22,11 @@
 
 
     <Page.Resources>
-        
+        <Style TargetType="Image">
+
+            <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality" />
+        </Style>
+
 
 
         <SolidColorBrush x:Key="Theme_Black_Transparent" Color="#FF040404" Opacity="0.9"/>
@@ -116,7 +120,7 @@
      BlurRadius="4"/>
                     </TextBlock.Effect>
                 </TextBlock>
-                <Image Source="/Resources/Icons/Main_UI/northstar_icon_ZfV_icon.png" Width="69" RenderTransformOrigin="0.5,0.5">
+                <Image Source="/Resources/Icons/Main_UI/northstar_icon_ZfV_icon.png" Width="69" RenderTransformOrigin="0.5,0.5" >
                     <Image.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform ScaleX="0.95"/>
@@ -264,16 +268,12 @@
                         </ui:ToggleSwitch>
 
                     </ui:CardControl>
-                    <ui:CardAction x:Name="Origin_Client_Card" Content="{x:Static properties:Language.Page_Home_OriginClientRunning}" Icon="FoodToast16"  Height="68" Margin="0,44,40,0" Background="{DynamicResource Bg_Chart_Red}" VerticalAlignment="Top" Grid.Column="2" RenderTransformOrigin="0.5,0.5"  Foreground="{DynamicResource TextOnAccentFillColorSelectedTextBrush}" BorderBrush="{x:Null}" Click="Origin_Client_Card_Click" ClickMode="Press" ToolTip="{x:Static properties:Language.Page_Home_IndicatesIfOriginIsRunningClickToLaunchIfInactive}">
-                        <ui:CardAction.RenderTransform>
-                            <TransformGroup>
-                                <ScaleTransform/>
-                                <SkewTransform AngleX="0"/>
-                                <RotateTransform/>
-                                <TranslateTransform X="0"/>
-                            </TransformGroup>
-                        </ui:CardAction.RenderTransform>
-                    </ui:CardAction>
+                    <ui:CardControl x:Name="EA_ORGIGIN_Client_Card" Content=""  Height="68" Margin="0,44,40,0" Background="{DynamicResource Bg_Chart_Red}" VerticalAlignment="Top" Grid.Column="2"   Foreground="{DynamicResource TextOnAccentFillColorSelectedTextBrush}" BorderBrush="{x:Null}" Click="Origin_Client_Card_Click" ClickMode="Press" ToolTip="{x:Static properties:Language.Page_Home_IndicatesIfOriginIsRunningClickToLaunchIfInactive}" HorizontalContentAlignment="Left" VerticalContentAlignment="Stretch" FontWeight="Regular" Loaded="EA_ORGIGIN_Client_Card_Loaded">
+                        <ui:CardControl.Header>
+                            <Image x:Name="CLIENT_CARD_IMAGE" Source="/Resources/Icons/Origin.ico" Height="34" Width="28" HorizontalAlignment="Left" RenderOptions.BitmapScalingMode="HighQuality"/>
+                        </ui:CardControl.Header>
+
+                    </ui:CardControl>
 
                   
                 </Grid>

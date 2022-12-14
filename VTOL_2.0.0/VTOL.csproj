@@ -203,6 +203,7 @@
     <None Remove="Resources\Backgrounds\titanfall-2-monarch-uhd-4k-wallpaper.jpg" />
     <None Remove="Resources\Backgrounds\titanfall-2-screen.jpg" />
     <None Remove="Resources\Backgrounds\_.jpg" />
+    <None Remove="Resources\Icons\EA.ico" />
     <None Remove="Resources\Icons\GitHub-Mark-32px.png" />
     <None Remove="Resources\Icons\GitHub-Mark-Light-32px.png" />
     <None Remove="Resources\Icons\Main_UI\advocate_announcement_1.png" />
@@ -221,6 +222,7 @@
     <None Remove="Resources\Icons\Main_UI\VTOL_24.ico" />
     <None Remove="Resources\Icons\Main_UI\VTOL_32.ico" />
     <None Remove="Resources\Icons\Main_UI\VTOL_multires.ico" />
+    <None Remove="Resources\Icons\Origin.ico" />
     <None Remove="Resources\Icons\Titanfall2_Icon.ico" />
     <None Remove="Resources\Resource_Static\better_frog.png" />
     <None Remove="Resources\Resource_Static\Crowbar.png" />
@@ -483,6 +485,12 @@
     <Content Include="Resources\Backgrounds\_.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\Icons\EA.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Origin.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Resource_Static\better_frog.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>

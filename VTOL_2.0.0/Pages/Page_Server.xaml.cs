@@ -1686,7 +1686,7 @@ Main.logger2.Close();
 
             try
             {
-
+                Load_Files.BorderBrush = Brushes.Transparent;
                 Load_Files_();
 
             }

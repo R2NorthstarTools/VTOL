@@ -394,6 +394,15 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The EA Client is already running.
+        /// </summary>
+        public static string Page_Home_Origin_Client_Card_Click_TheEAClientIsAlreadyRunning {
+            get {
+                return ResourceManager.GetString("Page_Home_Origin_Client_Card_Click_TheEAClientIsAlreadyRunning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The Origin Client Is already Running!.
         /// </summary>
         public static string Page_Home_Origin_Client_Card_Click_TheOriginClientIsAlreadyRunning {
@@ -408,6 +417,15 @@ namespace VTOL.Resources.Languages {
         public static string Page_Home_OriginClientRunning {
             get {
                 return ResourceManager.GetString("Page_Home_OriginClientRunning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to EA Client Running.
+        /// </summary>
+        public static string Page_Home_Page_Home_EAClientRunning {
+            get {
+                return ResourceManager.GetString("Page_Home_Page_Home_EAClientRunning", resourceCulture);
             }
         }
         

@@ -49,6 +49,7 @@ using GameFinder.StoreHandlers.Steam;
 using System.Runtime.InteropServices;
 using GameFinder.RegistryUtils;
 using GameFinder.StoreHandlers.Origin;
+using VTOL.Properties;
 
 namespace VTOL.Pages
 {
@@ -70,9 +71,102 @@ namespace VTOL.Pages
 
         return System.Text.RegularExpressions.Regex.Replace(name, invalidRegStr, "_");
     }
-}
-public class InstalledApplications
+    }
+    public static class FileDirectorySearch
     {
+        public static IEnumerable<string> Search(string searchPath, string searchPattern)
+        {
+            IEnumerable<string> files = GetFileSystemEntries(searchPath, searchPattern);
+
+            foreach (string file in files)
+            {
+                yield return file;
+            }
+
+            IEnumerable<string> directories = GetDirectories(searchPath);
+
+            foreach (string directory in directories)
+            {
+                files = Search(directory, searchPattern);
+
+                foreach (string file in files)
+                {
+                    yield return file;
+                }
+            }
+        }
+
+        private static IEnumerable<string> GetDirectories(string directory)
+        {
+            IEnumerable<string> subDirectories = null;
+            try
+            {
+                subDirectories = Directory.EnumerateDirectories(directory, "*.*", SearchOption.TopDirectoryOnly);
+            }
+            catch (UnauthorizedAccessException)
+            {
+            }
+
+            if (subDirectories != null)
+            {
+                foreach (string subDirectory in subDirectories)
+                {
+                    yield return subDirectory;
+                }
+            }
+        }
+
+        private static IEnumerable<string> GetFileSystemEntries(string directory, string searchPattern)
+        {
+            IEnumerable<string> files = null;
+            try
+            {
+                files = Directory.EnumerateFileSystemEntries(directory, searchPattern, SearchOption.TopDirectoryOnly);
+            }
+            catch (UnauthorizedAccessException)
+            {
+            }
+
+            if (files != null)
+            {
+                foreach (string file in files)
+                {
+                    yield return file;
+                }
+            }
+        }
+    }
+        public class InstalledApplications
+    {
+        public static string checkInstalled_Custom(string findByName)
+        {
+            string displayName;
+            string InstallPath;
+            string registryKey = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
+
+            //64 bits computer
+            RegistryKey key64 = RegistryKey.OpenBaseKey(Microsoft.Win32.RegistryHive.LocalMachine, Microsoft.Win32.RegistryView.Registry64);
+            RegistryKey key = key64.OpenSubKey(registryKey);
+
+            if (key != null)
+            {
+                foreach (RegistryKey subkey in key.GetSubKeyNames().Select(keyName => key.OpenSubKey(keyName)))
+                {
+                    displayName = subkey.GetValue("DisplayName") as string;
+                    if (displayName != null && displayName.Contains(findByName))
+                    {
+
+                        InstallPath = subkey.GetValue("InstallLocation").ToString();
+
+                        return InstallPath; //or displayName
+
+                    }
+                }
+                key.Close();
+            }
+
+            return null;
+        }
 
         public static string GetApplictionInstallPath(string nameOfAppToFind)
         {
@@ -115,6 +209,8 @@ public class InstalledApplications
             string appPATH = @"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall";
             using (RegistryKey rk = Registry.LocalMachine.OpenSubKey(appPATH))
             {
+                 File.WriteAllTextAsync(@"C:\Users\jorda\Downloads\net6-mvvm-demo\WriteText.txt", String.Join("\n", rk.GetSubKeyNames()));
+
                 foreach (string skName in rk.GetSubKeyNames())
                 {
                     using (RegistryKey sk = rk.OpenSubKey(skName))
@@ -137,7 +233,6 @@ public class InstalledApplications
                                     item = displayName.ToString();
                                     if (item.Contains(""))
                                         x = x + displayName.ToString() + "\n";
-                                    // MessageBox.Show(displayName.ToString());
 
                                 }
 
@@ -197,6 +292,10 @@ logger2.Close();
         private bool Master_Server_Check = true;
         bool Warn_Close_EA;
         bool Origin_Client_Running = false;
+        bool EAClient_Running = false;
+        string EA_Location = "";
+        string Origin_Location = "";
+
         public bool NS_Installed;
         private List<string> _Images = new List<string>();
         private string NSExe;
@@ -302,20 +401,57 @@ logger2.Close();
             /////////////////////
             Toggle_MS_BT(Properties.Settings.Default.Master_Server_Check);
             INIT();
-            if (Check_Process_Running("OriginClientService") == true)
+            if (Properties.Settings.Default.EA_APP_SUPPORT == true)
             {
+                EA_ORGIGIN_Client_Card.Content = VTOL.Resources.Languages.Language.Page_Home_Page_Home_EAClientRunning;
+                BitmapImage bitmapx = new BitmapImage();
 
-                Origin_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#B2037F10");
-                Origin_Client_Card.IconFilled = true;
+                bitmapx.BeginInit();
+                bitmapx.UriSource = new Uri(@"pack://application:,,,/Resources/Icons/EA.ico");
+                bitmapx.EndInit();
+                CLIENT_CARD_IMAGE.Source = bitmapx;
+
+                if (Check_Process_Running("EABackgroundService") == true)
+                {
+                    EA_ORGIGIN_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#B2037F10");
+                    EA_ORGIGIN_Client_Card.IconFilled = true;
+
+                }
+                else
+                {
+
+                    EA_ORGIGIN_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#99630000");
+                    EA_ORGIGIN_Client_Card.IconFilled = false;
+
+                }
 
             }
             else
             {
+                BitmapImage bitmapy = new BitmapImage();
 
-                Origin_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#99630000");
-                Origin_Client_Card.IconFilled = false;
+                bitmapy.BeginInit();
+                bitmapy.UriSource = new Uri(@"pack://application:,,,/Resources/Icons/Origin.ico");
+                bitmapy.EndInit();
+                CLIENT_CARD_IMAGE.Source = bitmapy;
+
+                EA_ORGIGIN_Client_Card.Content = VTOL.Resources.Languages.Language.Page_Home_OriginClientRunning;
+                if (Check_Process_Running("OriginClientService") == true)
+                {
+                    EA_ORGIGIN_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#B2037F10");
+                    EA_ORGIGIN_Client_Card.IconFilled = true;
+
+                }
+                else
+                {
+
+                    EA_ORGIGIN_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#99630000");
+                    EA_ORGIGIN_Client_Card.IconFilled = false;
+
+                }
 
             }
+           
             if (Directory.Exists(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\logs\") && Properties.Settings.Default.LOG_Folder_Counter < 1)
             {
                 Properties.Settings.Default.LOG_Folder_Counter = Directory.GetFiles(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\logs\").Where(s => s.EndsWith(".dmp")).Count();
@@ -1536,29 +1672,59 @@ int millisecondsDelay = 150)
 
         async Task Check_origin_status()
         {
-            if (Check_Process_Running("OriginClientService") == true)
+            if (Properties.Settings.Default.EA_APP_SUPPORT == true)
             {
-                DispatchIfNecessary(() =>
+                if (Check_Process_Running("EABackgroundService") == true)
                 {
-                    Origin_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#B2037F10");
-                    Origin_Client_Card.IconFilled = true;
-                    return;
-                });
+                    DispatchIfNecessary(() =>
+                    {
+                        EA_ORGIGIN_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#B2037F10");
+                        EA_ORGIGIN_Client_Card.IconFilled = true;
+                        return;
+                    });
 
 
 
 
+                }
+                else
+                {
+                    DispatchIfNecessary(() =>
+                    {
+                        EA_ORGIGIN_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#99630000");
+                        EA_ORGIGIN_Client_Card.IconFilled = false;
+
+                        return;
+                    });
+
+                }
             }
             else
             {
-                DispatchIfNecessary(() =>
+                if (Check_Process_Running("OriginClientService") == true)
                 {
-                    Origin_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#99630000");
-                    Origin_Client_Card.IconFilled = false;
+                    DispatchIfNecessary(() =>
+                    {
+                        EA_ORGIGIN_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#B2037F10");
+                        EA_ORGIGIN_Client_Card.IconFilled = true;
+                        return;
+                    });
 
-                    return;
-                });
 
+
+
+                }
+                else
+                {
+                    DispatchIfNecessary(() =>
+                    {
+                        EA_ORGIGIN_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#99630000");
+                        EA_ORGIGIN_Client_Card.IconFilled = false;
+
+                        return;
+                    });
+
+                }
             }
 
 
@@ -2218,24 +2384,43 @@ Main.logger2.Close();
             try
             {
 
-                if (Warn_Close_EA == true)
+                if (Properties.Settings.Default.EA_APP_SUPPORT == false)
                 {
-                    if (Check_Process_Running("EABackgroundService", true) == true)
+                    if (Check_Process_Running("OriginClientService") == true)
                     {
-                        //System.Windows.MessageBoxResult result = HandyControl.Controls.MessageBox.Show(new MessageBoxInfo { Message = "Clicking YES Means that the EA Client that the application has detected active, will be Closed Immediately!. Please exit any associated Processes Before proceeding.!", Caption = "WARNING!", Button = MessageBoxButton.YesNo, IconBrushKey = ResourceToken.AccentBrush, IconKey = ResourceToken.AskGeometry, StyleKey = "MessageBoxCustom" });
-                        //if (result == System.Windows.MessageBoxResult.Yes)
-                        //{
-                        //    //Properties.Settings.Default.Warning_Close_EA = false;
-                        //    // Properties.Settings.Default.Save();
-                        //    //Warn_Close_EA = Properties.Settings.Default.Warning_Close_EA;
+                        SnackBar.Appearance = ControlAppearance.Caution;
+                        SnackBar.Title = "WARNING!";
+                        SnackBar.Message = VTOL.Resources.Languages.Language.Page_Home_Origin_Client_Card_Click_TheOriginClientIsAlreadyRunning;
+                        SnackBar.Show();
+                        EA_ORGIGIN_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#B2037F10");
+                        EA_ORGIGIN_Client_Card.IconFilled = true;
 
-                        //    Run_Origin();
+                    }
+                    else
+                    {
+                      
+                            Run_Origin();
 
-                        //}
-                        //else
-                        //{
-                        //    return;
-                        //}
+
+                      
+                        
+
+                    }
+                }
+                else
+                {
+                    if (Check_Process_Running("EABackgroundService") == true)
+                    {
+                        SnackBar.Appearance = ControlAppearance.Caution;
+                        SnackBar.Title = "WARNING!";
+                        SnackBar.Message = VTOL.Resources.Languages.Language.Page_Home_Origin_Client_Card_Click_TheEAClientIsAlreadyRunning;
+                        SnackBar.Show();
+                        EA_ORGIGIN_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#B2037F10");
+                        EA_ORGIGIN_Client_Card.IconFilled = true;
+
+                    }
+                    else
+                    {
                         var NON_UI = new Thread(() =>
                         {
                             Run_Origin();
@@ -2246,209 +2431,280 @@ Main.logger2.Close();
                         NON_UI.Start();
                         NON_UI.Join();
 
+                    }
+                }
+
+
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                Main.logger2.Open();
+                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
+                Main.logger2.Close();
+
+            }
+
+        }
+
+        async void Run_Origin()
+        {
+            try
+            {
+                if (Properties.Settings.Default.EA_APP_SUPPORT == true)
+                {
+                    if (!File.Exists(EA_Location))
+                    {
+                        EA_Location = InstalledApplications.GetApplictionInstallPath("EA app") + @"\EADesktop.exe";
+
+                        if (!File.Exists(EA_Location))
+                        {
+                            string searchfile = "EADesktop.exe";
+                            string searchdir = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
+
+                            IEnumerable<string> filesOrDirectories = FileDirectorySearch.Search(searchdir, searchfile);
+
+                            EA_Location = filesOrDirectories.FirstOrDefault();
+                        }
+                    }
+                    if (File.Exists(EA_Location))
+                    {
+
+                        int fail = 0;
+
+                        ProcessStartInfo procStartInfo = new ProcessStartInfo();
+                        Process process = new Process();
+                        procStartInfo.FileName = EA_Location;
+                        procStartInfo.WorkingDirectory = System.IO.Path.GetDirectoryName(NSExe);
+
+
+                        // procStartInfo.Arguments = args;
+
+                        process.StartInfo = procStartInfo;
+
+                        process.Start();
+                        int id = process.Id;
+                        pid = id;
+                        Process tempProc = Process.GetProcessById(id);
+                        // this.Visible = false;
+                        // Thread.Sleep(5000);
+                        // tempProc.WaitForExit();
+                        // this.Visible = true;
+
+
+                        // Process process = Process.Start(NSExe, Arg_Box.Text);
+                        process.Close();
+
+                        EAClient_Running = Check_Process_Running("EABackgroundService");
+                        fail = 0;
+                        while (!EAClient_Running && fail <= 3)
+                        {
+
+
+                            EAClient_Running = Check_Process_Running("EABackgroundService");
+
+                            await Task.Delay(1000);
+                            fail++;
+                        }
+
+
+                        if (fail >= 3)
+                        {
+                            DispatchIfNecessary(() =>
+                            {
+
+                                EA_ORGIGIN_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#99630000");
+                                EA_ORGIGIN_Client_Card.IconFilled = false;
+                            });
+                            return;
+
+
+                        }
+                        if (EAClient_Running == true)
+                        {
+                            DispatchIfNecessary(() =>
+                            {
+
+                                EA_ORGIGIN_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#B2037F10");
+                                EA_ORGIGIN_Client_Card.IconFilled = true;
+
+                            });
+                            return;
+                        }
 
 
                     }
                     else
                     {
-                        if (Check_Process_Running("OriginClientService") == true)
+                        DispatchIfNecessary(() =>
                         {
-                            SnackBar.Appearance = ControlAppearance.Caution;
+                            SnackBar.Appearance = ControlAppearance.Danger;
                             SnackBar.Title = "WARNING!";
-                            SnackBar.Message =VTOL.Resources.Languages.Language.Page_Home_Origin_Client_Card_Click_TheOriginClientIsAlreadyRunning;
+                            SnackBar.Message = "Could Not find EA install! Please re-install or switch to Origin";
                             SnackBar.Show();
-                            Origin_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#B2037F10");
-                            Origin_Client_Card.IconFilled = true;
 
-                        }
-                        else
-                        {
-                            var NON_UI = new Thread(() =>
-                            {
-                                Run_Origin();
-
-                            });
-                            NON_UI.IsBackground = true;
-
-                            NON_UI.Start();
-                            NON_UI.Join();
-                           
-                        }
+                            EA_ORGIGIN_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#99630000");
+                            EA_ORGIGIN_Client_Card.IconFilled = false;
+                        });
 
                     }
 
+
+
+
+
+
+
                 }
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-                 Main.logger2.Open();
-                 Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source +Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-Main.logger2.Close();
-
-            }
-
-        }
-        async Task Run_Origin()
-        {
-            try
-            {
-                if (Check_Process_Running("EABackgroundService", true) == true)
+                else
                 {
 
-                    Process[] runingProcess = Process.GetProcesses();
-                    string[] origin = {
-                        "QtWebEngineProcess",
-                        "OriginLegacyCompatibility",
-                        "EADesktop",
-                        "EABackgroundService",
-                        "EALauncher",
-                        "Link2EA",
-                        "EALocalHostSvc",
-                        "EAGEP"};
 
-                    for (int i = 0; i < runingProcess.Length; i++)
+                    if (Check_Process_Running("EABackgroundService", true) == true)
                     {
-                        foreach (var x in origin)
-                        {
-                            // compare equivalent process by their name
 
-                            if (runingProcess[i].ProcessName == x)
+
+                        Process[] runingProcess = Process.GetProcesses();
+                        string[] origin = {
+                            "QtWebEngineProcess",
+                            "OriginLegacyCompatibility",
+                            "EADesktop",
+                            "EABackgroundService",
+                            "EALauncher",
+                            "Link2EA",
+                            "EALocalHostSvc",
+                            "EAGEP"};
+
+                        for (int i = 0; i < runingProcess.Length; i++)
+                        {
+                            foreach (var x in origin)
                             {
-                                try
+                                // compare equivalent process by their name
+
+                                if (runingProcess[i].ProcessName == x)
                                 {
-                                    //kill running process
-                                    runingProcess[i].Kill();
-                                }
-                                catch
-                                {
-                                    continue;
+                                    try
+                                    {
+                                        //kill running process
+                                        runingProcess[i].Kill();
+                                    }
+                                    catch
+                                    {
+                                        continue;
+                                    }
                                 }
                             }
+
+
                         }
 
-
                     }
 
-                }
-                else
-                {
-                    if (IsAdministrator() == false)
+                    if (!File.Exists(Origin_Location))
                     {
+                        Origin_Location = InstalledApplications.GetApplictionInstallPath("Origin") + @"\Origin.exe";
 
-                        //System.Windows.MessageBoxResult result = HandyControl.Controls.MessageBox.Show(new MessageBoxInfo { Message = "Not Running In Administrator Mode. Would you like to eleveate the application?", Caption = "ERROR!", Button = MessageBoxButton.YesNo, IconBrushKey = ResourceToken.AccentBrush, IconKey = ResourceToken.AskGeometry, StyleKey = "MessageBoxCustom" });
-                        //if (result == System.Windows.MessageBoxResult.Yes)
-                        //{
-                        //    if (File.Exists((System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().CodeBase).Replace(@"file:\", "")).Trim() + @"\VTOL.exe"))
-                        //    {
-                        //        // this.Close();
+                        if (!File.Exists(Origin_Location))
+                        {
+                            string searchfile = "Origin.exe";
+                            string searchdir = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
 
-                        //        ProcessStartInfo info = new ProcessStartInfo((System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().CodeBase).Replace(@"file:\", "")).Trim() + @"\VTOL.exe");
-                        //        info.UseShellExecute = true;
-                        //        info.Verb = "runas";
-                        //        Process.Start(info);
-                        //        App.Current.Shutdown();
+                            IEnumerable<string> filesOrDirectories = FileDirectorySearch.Search(searchdir, searchfile);
 
-                        //    }
-                        //}
-                        //else
-                        //{
-                        //    return;
-                        //}
+                            Origin_Location = filesOrDirectories.FirstOrDefault();
+                        }
                     }
-
-                }
-
-
-
-
-
-
-
-
-
-                string location = InstalledApplications.GetApplictionInstallPath("Origin") + @"\Origin.exe";
-                if (File.Exists(location))
-                {
-                    //Send_Success_Notif("Starting Origin Client Service!");
-                    //Indicator_Origin_Client.Visibility = Visibility.Hidden;
-                    int fail = 0;
-
-                    ProcessStartInfo procStartInfo = new ProcessStartInfo();
-                    Process process = new Process();
-                    procStartInfo.FileName = location;
-                    procStartInfo.WorkingDirectory = System.IO.Path.GetDirectoryName(NSExe);
-
-
-                    // procStartInfo.Arguments = args;
-
-                    process.StartInfo = procStartInfo;
-
-                    process.Start();
-                    int id = process.Id;
-                    pid = id;
-                    Process tempProc = Process.GetProcessById(id);
-                    // this.Visible = false;
-                    // Thread.Sleep(5000);
-                    // tempProc.WaitForExit();
-                    // this.Visible = true;
-
-
-                    // Process process = Process.Start(NSExe, Arg_Box.Text);
-                    process.Close();
-
-                    Origin_Client_Running = Check_Process_Running("OriginClientService");
-                    fail = 0;
-                    while (!Origin_Client_Running && fail <= 3)
+                    if (File.Exists(Origin_Location))
                     {
-
-
-                        Origin_Client_Running = Check_Process_Running("OriginClientService");
-
-                        Thread.Sleep(1000);
-                        fail++;
-                    }
-                    if (fail >= 3)
-                    {
-                        //Send Failed Message //////////////////
-
-
-                        Origin_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#99630000");
-                        Origin_Client_Card.IconFilled = false;
-
-
-                        ///////////////////
-                        ///////////
-                    }
-                    if (Origin_Client_Running == true)
-                    {
-                        //Origin_Client_Status.Fill = Brushes.LimeGreen;
+                        //Send_Success_Notif("Starting Origin Client Service!");
                         //Indicator_Origin_Client.Visibility = Visibility.Hidden;
-                        Origin_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#B2037F10");
-                        Origin_Client_Card.IconFilled = true;
+                        int fail = 0;
 
+                        ProcessStartInfo procStartInfo = new ProcessStartInfo();
+                        Process process = new Process();
+                        procStartInfo.FileName = Origin_Location;
+                        procStartInfo.WorkingDirectory = System.IO.Path.GetDirectoryName(NSExe);
+
+
+                        // procStartInfo.Arguments = args;
+
+                        process.StartInfo = procStartInfo;
+
+                        process.Start();
+                        int id = process.Id;
+                        pid = id;
+                        Process tempProc = Process.GetProcessById(id);
+                        // this.Visible = false;
+                        // Thread.Sleep(5000);
+                        // tempProc.WaitForExit();
+                        // this.Visible = true;
+
+
+                        // Process process = Process.Start(NSExe, Arg_Box.Text);
+                        process.Close();
+
+                        
+                            Origin_Client_Running = Check_Process_Running("OriginClientService");
+                            fail = 0;
+                            while (!Origin_Client_Running && fail <= 3)
+                            {
+
+
+                                Origin_Client_Running = Check_Process_Running("OriginClientService");
+
+                            await Task.Delay(1000);
+                            fail++;
+                            }
+                            if (fail >= 3)
+                            {
+                            DispatchIfNecessary(() =>
+                            {
+
+                                EA_ORGIGIN_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#99630000");
+                                EA_ORGIGIN_Client_Card.IconFilled = false;
+                            });
+
+
+                            }
+                        if (Origin_Client_Running == true)
+                        {
+                            DispatchIfNecessary(() =>
+                            {
+                                EA_ORGIGIN_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#B2037F10");
+                            EA_ORGIGIN_Client_Card.IconFilled = true;
+                        });
+
+                            }
 
                     }
-                }
-                else
-                {
-                    SnackBar.Appearance = ControlAppearance.Danger;
-                    SnackBar.Title = "WARNING!";
-                    SnackBar.Message =VTOL.Resources.Languages.Language.Page_Home_Run_Origin_CouldNotFindEAOriginInstallPleaseStartManuallyOrRepairYourInstallation;
-                    SnackBar.Show();
-                 
-                    Origin_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#99630000");
-                    Origin_Client_Card.IconFilled = false;
+                    else
+                    {
+                        DispatchIfNecessary(() =>
+                        {
+                            SnackBar.Appearance = ControlAppearance.Danger;
+                            SnackBar.Title = "WARNING!";
+                            SnackBar.Message = VTOL.Resources.Languages.Language.Page_Home_Run_Origin_CouldNotFindEAOriginInstallPleaseStartManuallyOrRepairYourInstallation;
+                            SnackBar.Show();
 
+                            EA_ORGIGIN_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#99630000");
+                            EA_ORGIGIN_Client_Card.IconFilled = false;
+
+                        });
+                    }
 
                 }
+
+                
             }
             catch (Exception ex)
             {
+                DispatchIfNecessary(() =>
+                {
 
-                Origin_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#99630000");
-                Origin_Client_Card.IconFilled = false;
-
+                    EA_ORGIGIN_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#99630000");
+                    EA_ORGIGIN_Client_Card.IconFilled = false;
+                });
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
                  Main.logger2.Open();
                  Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source +Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
@@ -2456,6 +2712,7 @@ Main.logger2.Close();
             }
 
         }
+       
         private void Browse_Titanfall_Button_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -3664,17 +3921,41 @@ Main.logger2.Close();
             Open_Folder(Current_Install_Folder);
         }
 
+        private void EA_ORGIGIN_Client_Card_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (Properties.Settings.Default.EA_APP_SUPPORT == true)
+            {
+                EA_ORGIGIN_Client_Card.Content = VTOL.Resources.Languages.Language.Page_Home_Page_Home_EAClientRunning;
+                BitmapImage bitmapx = new BitmapImage();
 
-       
+                bitmapx.BeginInit();
+                bitmapx.UriSource = new Uri(@"pack://application:,,,/Resources/Icons/EA.ico");
+                bitmapx.EndInit();
+                CLIENT_CARD_IMAGE.Source = bitmapx;
 
+              
+            }
+            else
+            {
+                BitmapImage bitmapy = new BitmapImage();
 
+                bitmapy.BeginInit();
+                bitmapy.UriSource = new Uri(@"pack://application:,,,/Resources/Icons/Origin.ico");
+                bitmapy.EndInit();
+                CLIENT_CARD_IMAGE.Source = bitmapy;
 
+                EA_ORGIGIN_Client_Card.Content = VTOL.Resources.Languages.Language.Page_Home_OriginClientRunning;
+               
 
+            }
 
+            BackgroundWorker worker_o = new BackgroundWorker();
+            worker_o.DoWork += (sender, e) =>
+            {
+                Check_origin_status();
+            };
 
-
-
-
-
+            worker_o.RunWorkerAsync();
+        }
     }
 }
