@@ -8,6 +8,7 @@
                xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
                 xmlns:parallax="clr-namespace:Parallax.WPF.Controls;assembly=Parallax.WPF"
              xmlns:properties="clr-namespace:VTOL.Resources.Languages"
+      xmlns:xf="clr-namespace:XamlFlair;assembly=XamlFlair.WPF"
 
           xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
 
@@ -83,7 +84,6 @@
         </Grid.ColumnDefinitions>
 
 
-
         <Border x:Name="Content_Container_Pages"
             Grid.Column="1"
             CornerRadius="8,0,0,0" Margin="0,35,0,-5" Height="660">
@@ -111,7 +111,7 @@
                 </ui:Breadcrumb>-->
 
                 <!--This is the fat white thing you see-->
-                <Frame x:Name="RootFrame" GotFocus="RootFrame_GotFocus" >
+                <Frame x:Name="RootFrame" GotFocus="RootFrame_GotFocus">
                     <Frame.OpacityMask>
                         <VisualBrush Visual="{Binding ElementName=mask}"/>
                     </Frame.OpacityMask>
@@ -126,51 +126,51 @@
         <!--<ui:Dialog x:Name="Dialog" Grid.Column="1" Margin="0,37,0,0" SnapsToDevicePixels="False" ButtonLeftClick="Dialog_ButtonLeftClick" ButtonRightClick="Dialog_ButtonRightClick" />-->
 
         <!--  This is the main navigation of the application.  -->
-        <ui:NavigationCompact
+        <ui:NavigationCompact 
             x:Name="RootNavigation"
             Grid.Column="0"
             Margin="6,40,6,0"
             Frame="{Binding ElementName=RootFrame}"
-            SelectedPageIndex="0" Navigated="RootNavigation_Navigated" Precache="False" TransitionDuration="420" Orientation="Vertical" LostFocus="RootNavigation_LostFocus" TransitionType="FadeIn" AllowDrop="False" 
+            SelectedPageIndex="0" Navigated="RootNavigation_Navigated" Precache="False" TransitionDuration="420" Orientation="Vertical" LostFocus="RootNavigation_LostFocus" AllowDrop="False" TransitionType="FadeIn" PreviewMouseDown="RootNavigation_PreviewMouseDown" TargetUpdated="RootNavigation_TargetUpdated" SourceUpdated="RootNavigation_SourceUpdated" 
           >
             <ui:NavigationCompact.Items>
                 <ui:NavigationItem x:Name="Home"
                     Content="{x:Static properties:Language.MainWindow_Home}"
-                    Icon="Home24" PageTag="Home" PageType="{x:Type Pages:Page_Home}"
+                    Icon="Home24" PageTag="Home" PageType="{x:Type Pages:Page_Home}" ClickMode="Press" 
                     />
                 <ui:NavigationSeparator />
                 <ui:NavigationItem x:Name="Mods"
                     Content="{x:Static properties:Language.MainWindow_Mods}"
-                    Icon="FolderOpen16" PageType="{x:Type Pages:Page_Mods}"
+                    Icon="FolderOpen16" PageType="{x:Type Pages:Page_Mods}" ClickMode="Press"
                                 
 
                     />
                 <ui:NavigationItem x:Name="Browse"
                     Content="{x:Static properties:Language.Page_Skins_Browse}"
-                    Icon="BoxSearch20" FontSize="10" PageType="{x:Type Pages:Page_Thunderstore}"
+                    Icon="BoxSearch20" FontSize="10" PageType="{x:Type Pages:Page_Thunderstore}" ClickMode="Press"
                     />
                 <ui:NavigationItem x:Name="Skins"
                     Content="{x:Static properties:Language.MainWindow_Skins}"
-                    Icon="InkStroke20" FontSize="10" PageType="{x:Type Pages:Page_Skins}"
+                    Icon="InkStroke20" FontSize="10" PageType="{x:Type Pages:Page_Skins}" ClickMode="Press"
                     />
                 <ui:NavigationItem x:Name="Server"
                     Content="{x:Static properties:Language.MainWindow_Server}"
-                    Icon="ServerPlay20" FontSize="10" PageType="{x:Type Pages:Page_Server}"
+                    Icon="ServerPlay20" FontSize="10" PageType="{x:Type Pages:Page_Server}" ClickMode="Press"
                     />
                 <ui:NavigationItem x:Name="Tools"
                     Content="{x:Static properties:Language.MainWindow_Tools}"
-                    Icon="Toolbox12" FontSize="10" PageType="{x:Type Pages:Page_Tools}"
+                    Icon="Toolbox12" FontSize="10" PageType="{x:Type Pages:Page_Tools}" ClickMode="Press"
                     />
                 <ui:NavigationItem x:Name="About"
                     Content="{x:Static properties:Language.MainWindow_About}"
-                    Icon="BookInformation20" FontSize="10" PageType="{x:Type Pages:Page_About}"
+                    Icon="BookInformation20" FontSize="10" PageType="{x:Type Pages:Page_About}" ClickMode="Press"
                     />
 
             </ui:NavigationCompact.Items>
             <ui:NavigationCompact.Footer>
                 <ui:NavigationSeparator />
                 <ui:NavigationItem x:Name="Settings"
-                    Content="{x:Static properties:Language.MainWindow_Settings}"
+                    Content="{x:Static properties:Language.MainWindow_Settings}" ClickMode="Press"
                     Icon="Options16" PageType="{x:Type Pages:Page_Settings}"
                    />
                 <!--  A navigation element that does not point to the page can be used as a button.  -->
@@ -184,7 +184,7 @@
 
 
 
-        <Grid 
+        <Grid xf:Animations.Primary="{StaticResource FadeIn}"
             Margin="0,7,2,663" ScrollViewer.VerticalScrollBarVisibility="Disabled" Grid.ColumnSpan="2" AllowDrop="False" >
 
             <StatusBar Margin="0,0,554,0" Background="Transparent" BorderThickness="0,0,0,0" HorizontalAlignment="Right" Width="644" Padding="0,0,0,0">
@@ -192,8 +192,15 @@
                     <StackPanel Orientation="Horizontal" Width="398" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center">
 
                         <Image Source="/Resources/Icons/Main_UI/VTOL_multires.ico" Height="30" Width="33" Margin="-11,0,0,0"/>
-                        <TextBlock x:Name="VERSION_TEXT" Text="VTOL - 0.0.0 | Northstar Version 0.0.0" FontWeight="Normal" FontFamily="Segoe UI Variable Static Text" TextDecorations="{x:Null}" FontStyle="Normal" Margin="10,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-
+                        <TextBlock x:Name="VERSION_TEXT" Text="VTOL - 0.0.0 |" FontWeight="Normal" FontFamily="Segoe UI Variable Static Text" TextDecorations="{x:Null}" FontStyle="Normal" Margin="10,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <ui:Button  x:Name="NORTHSTAR_BUTTON" Width="153" Height="21" Content="Northstar Version 0.0.0" Padding="0,0.5,0,0" VerticalAlignment="Stretch" FontSize="12" BorderThickness="1,1,1,1" Margin="5,0,0,-1" Background="#33FFFFFF" VerticalContentAlignment="Stretch" BorderBrush="{x:Null}" Click="NORTHSTAR_BUTTON_Click">
+                            <ui:Button.PressedBackground>
+                                <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.GradientActiveCaptionColorKey}}"/>
+                            </ui:Button.PressedBackground>
+                            <ui:Button.MouseOverBackground>
+                                <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ActiveCaptionColorKey}}"/>
+                            </ui:Button.MouseOverBackground>
+                        </ui:Button>
                     </StackPanel>
                 </StatusBarItem>
             </StatusBar>
@@ -202,7 +209,8 @@
 
                 <StackPanel Orientation="Horizontal"
                     HorizontalAlignment="Center"
-                    VerticalAlignment="Top" Height="30" Width="110" Margin="0,-2,0,0">
+                    VerticalAlignment="Top" Height="30" Width="214" Margin="0,-2,0,0">
+                    <Label x:Name="Admin_Label" Margin="0,0,7,0" Width="100" Content="ADMIN ON" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="0,4,0,4" FontFamily="Segoe UI" Opacity="0.5" Visibility="Hidden" FontStyle="Normal" FontWeight="DemiBold" Foreground="#87FFECAB" FontStretch="Normal"/>
                     <ui:Button x:Name="Log_Folder_warning" Template="{DynamicResource ButtonControlTemplate1}" Background="#99464646" Padding="0,0,0,0" KeyboardNavigation.IsTabStop="False" Height="35" Width="35" BorderThickness="0,0,0,0" ClickMode="Press" ToolTip="{x:Static properties:Language.MainWindow_NewLogChangesHaveBeenDetectedPleaseClickMeToOpenYourLogsFolder}" Visibility="Hidden" Click="Log_Folder_warning_Click" 
 >
                         <Button.LayoutTransform>
@@ -275,13 +283,73 @@
                     </Button>
                 </StackPanel>
             </Grid>
-            <Border  PreviewMouseLeftButtonDown="Grid_PreviewMouseLeftButtonDown" Margin="0,-7,115,0" Background="#00000000" />
-           
+            <Border  PreviewMouseLeftButtonDown="Grid_PreviewMouseLeftButtonDown" Margin="285,-7,115,0" Background="#00000000" />
+            <Border  PreviewMouseLeftButtonDown="Grid_PreviewMouseLeftButtonDown" Margin="0,-7,1073,0" Background="#00000000" RenderTransformOrigin="0.5,0.5" >
+
+            </Border>
+
         </Grid>
 
+        <Border x:Name="Northstar_Dialog" Margin="148,202,200,240" CornerRadius="5" Visibility="Hidden" Grid.Column="1" IsVisibleChanged="Northstar_Dialog_IsVisibleChanged" Opacity="0" LostFocus="Northstar_Dialog_LostFocus" LostMouseCapture="Northstar_Dialog_LostMouseCapture"  >
+            <Grid >
+                <Border Background="#E8000000" >
+                    <Border.Effect>
+
+                        <BlurEffect  KernelType="Gaussian" Radius="3"/>
+                    </Border.Effect>
+                </Border>
+                <DockPanel Margin="0,0,4,221" Height="33" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="33">
+
+                    <Button x:Name="Close_Dialog"
+                    KeyboardNavigation.IsTabStop="False" Template="{DynamicResource ButtonControlTemplate1}"
+                   Background="Red" Width="36" BorderThickness="1,0,0,0" Height="35" Padding="0,0,0,0"  BorderBrush="{x:Null}" Margin="2,0,0,0" ClickMode="Press" Click="Close_Dialog_Click" 
+                          
+                  >
+                        <Button.LayoutTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleX="0.8" ScaleY="0.8"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Button.LayoutTransform>
+                        <Border  Width="35" HorizontalAlignment="Center" VerticalAlignment="Center" Height="21">
+                            <ui:SymbolIcon Symbol="Dismiss16" Foreground="{DynamicResource TextOnAccentFillColorSelectedTextBrush}" />
+                        </Border>
+                    </Button>
+                </DockPanel>
+                <ui:CardAction x:Name="Changelog" Content="Changelog" Margin="33,40,33,0" VerticalAlignment="Top" ClickMode="Press" AllowDrop="False" Foreground="White" BorderThickness="2,2,1,1" BorderBrush="{x:Null}" Height="70" FontWeight="Bold" ToolTip="Changelog" Click="Changelog_Click">
+                    <ui:CardAction.Background>
+                        <ImageBrush ImageSource="/Resources/Backgrounds/_.jpg" Stretch="UniformToFill"/>
+                    </ui:CardAction.Background>
+                    <ui:CardAction.Effect>
+                        <DropShadowEffect
+                ShadowDepth="3"
+                Direction="330"
+                Color="Black"
+                Opacity="0.5"
+                BlurRadius="4"/>
+                    </ui:CardAction.Effect>
+                </ui:CardAction>
+                <ui:CardAction x:Name="Troubleshoot" Content="TroubleShooting Northstar" Margin="33,150,33,0" VerticalAlignment="Top" ClickMode="Press" AllowDrop="False" Foreground="White" BorderThickness="2,2,1,1" BorderBrush="{x:Null}" Height="70" FontWeight="Bold" ToolTip="TroubleShooting Northstar" Click="Troubleshoot_Click">
+                    <ui:CardAction.Background>
+                        <ImageBrush ImageSource="/Resources/Backgrounds/jack.jpg" Stretch="UniformToFill" Opacity="0.52"/>
+                    </ui:CardAction.Background>
+                    <ui:CardAction.Effect>
+                        <DropShadowEffect
+                ShadowDepth="3"
+                Direction="330"
+                Color="Black"
+                Opacity="0.5"
+                BlurRadius="4"/>
+                    </ui:CardAction.Effect>
+                </ui:CardAction>
+
+            </Grid>
+        </Border>
 
         <ui:Snackbar x:Name="Snackbar" Grid.Column="1" Margin="197,608,197,0" VerticalAlignment="Top" MessageForeground="White" IconForeground="White"  Timeout="5000"  Height="60"  Content="" Icon="Info24" FontSize="14" AllowDrop="False"  />
-       
+
     </Grid>
 
 

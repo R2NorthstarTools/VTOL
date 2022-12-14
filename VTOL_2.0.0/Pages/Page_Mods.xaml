@@ -10,7 +10,35 @@
 
       d:DesignHeight="670" d:DesignWidth="1148"
       Title="Page_Mods" KeepAlive="True" Unloaded="Page_Unloaded">
-
+    <Page.Resources>
+        <ControlTemplate x:Key="ButtonControlTemplate1" TargetType="{x:Type Button}">
+            <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True" CornerRadius="20">
+                <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsDefaulted" Value="True">
+                    <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" TargetName="border" Value="#FFBEE6FD"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="#FF3C7FB1"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" TargetName="border" Value="#FFC4E5F6"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="#FF2C628B"/>
+                </Trigger>
+                <Trigger Property="ToggleButton.IsChecked" Value="True">
+                    <Setter Property="Background" TargetName="border" Value="#FFBCDDEE"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="#FF245A83"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" TargetName="border" Value="#FFF4F4F4"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="#FFADB2B5"/>
+                    <Setter Property="Foreground" Value="#FF838383"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </Page.Resources>
     <Grid x:Name="Mod_Grid" Loaded="Mod_Grid_Loaded" Unloaded="Mod_Grid_Unloaded" AllowDrop="True" Drop="Mod_List_Box_Drop"  PreviewDragOver="Drag_Drop_Overlay_Mods_PreviewDragOver">
 
         <Grid.ColumnDefinitions>
@@ -18,6 +46,8 @@
             <ColumnDefinition Width="100*"/>
             <ColumnDefinition Width="15*"/>
         </Grid.ColumnDefinitions>
+
+
         <hc:SimplePanel Grid.ColumnSpan="2" Margin="65,174,0,65">
 
             <hc:SimplePanel.ContextMenu>
@@ -46,7 +76,6 @@
                 </ContextMenu>
             </hc:SimplePanel.ContextMenu>
         </hc:SimplePanel>
-
         <ui:Button x:Name="padd" Content="" VerticalAlignment="Top" Margin="0,93,5,0" Height="33" Padding="0,0,0,0" Icon="ArrowSortDownLines20" BorderBrush="{x:Null}" Click="padd_Click" Grid.Column="1" Width="33" HorizontalAlignment="Right" ToolTip="{x:Static properties:Language.Page_Mods_ReverseFilterOrder}"  MouseOverBackground="#4CFFFFFF"/>
         <Image Source="/Resources/Icons/Main_UI/Northstar-512.ico" Grid.ColumnSpan="3" Margin="640,174,-180,-174" Opacity="0.05" IsHitTestVisible="False">
 
@@ -82,7 +111,7 @@
 
                             <DockPanel   Height="62" HorizontalAlignment="Right" Margin="0,0,0,-2" Width="435" Opacity="0" IsEnabled="False" Tag="Hidden" AutomationProperties.IsOffscreenBehavior="Offscreen">
                                 <ui:Button x:Name="Info_Btn" Width="58" Height="42" Content="Info"  Background="#FF24ABBD" Tag ="{Binding Mod_Name_}"  ToolTip="{Binding Mod_Name_}" Margin="0,0,5,0" Click="Info_Btn_Click" ClickMode="Press"/>
-                                <ui:Button x:Name="Check_For_Update" Width="116" Height="42" Content="Update" Tag ="{Binding Mod_Name_}" ToolTip="{Binding Mod_Name_}" Margin="0,0,5,0" FontSize="12" Click="Check_For_Update_Click" IsEnabled="False" Visibility="Visible">
+                                <ui:Button x:Name="Check_For_Update" Width="116" Height="42" Content="Update" Tag ="{Binding Mod_Name_}" ToolTip="{Binding Mod_Name_}" Margin="0,0,5,0" FontSize="12" Click="Check_For_Update_Click" IsEnabled="False" Visibility="Hidden">
                                     <ui:Button.Background>
                                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                             <GradientStop Color="#FF0A9A68"/>

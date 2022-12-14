@@ -195,12 +195,14 @@
     <None Remove="Resources\Backgrounds\DBG5Qi9U0AEphM7.jpg" />
     <None Remove="Resources\Backgrounds\FAqBg.png" />
     <None Remove="Resources\Backgrounds\HD-wallpaper-titanfall-2-colony-reborn-dlc-titanfall-2-games-2016-games-xbox-games.jpg" />
+    <None Remove="Resources\Backgrounds\jack.jpg" />
     <None Remove="Resources\Backgrounds\Skin_How_To_BG.png" />
     <None Remove="Resources\Backgrounds\TF2_Achievement_BT_Prime.png" />
     <None Remove="Resources\Backgrounds\TF2_TheFoldWeapon_Loadscreen_1.png" />
     <None Remove="Resources\Backgrounds\Thunderstore.png" />
     <None Remove="Resources\Backgrounds\titanfall-2-monarch-uhd-4k-wallpaper.jpg" />
     <None Remove="Resources\Backgrounds\titanfall-2-screen.jpg" />
+    <None Remove="Resources\Backgrounds\_.jpg" />
     <None Remove="Resources\Icons\GitHub-Mark-32px.png" />
     <None Remove="Resources\Icons\GitHub-Mark-Light-32px.png" />
     <None Remove="Resources\Icons\Main_UI\advocate_announcement_1.png" />
@@ -233,6 +235,10 @@
   </ItemGroup>
 
   <ItemGroup>
+	  <PackageReference Include="GameFinder.Common" Version="2.2.2" />
+	  <PackageReference Include="GameFinder.RegistryUtils" Version="2.2.2" />
+	  <PackageReference Include="GameFinder.StoreHandlers.Origin" Version="2.2.2" />
+	  <PackageReference Include="GameFinder.StoreHandlers.Steam" Version="2.2.2" />
 	  <PackageReference Include="Magick.NET-Q16-x86" Version="12.2.1" />
 	  <PackageReference Include="Microsoft.NETCore.Targets" Version="3.0.0" PrivateAssets="all" />
     <PackageReference Include="Aspose.Zip" Version="22.9.0" />
@@ -269,6 +275,7 @@
     <PackageReference Include="Walterlv.Windows.Interop" Version="7.3.1" />
     <PackageReference Include="WPF-UI" Version="2.0.3" />
     <PackageReference Include="XamlAnimatedGif" Version="2.0.3" />
+    <PackageReference Include="XamlFlair.WPF" Version="1.2.13" />
   </ItemGroup>
 
   <ItemGroup>
@@ -469,6 +476,12 @@
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper(50).jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\jack.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\_.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Resource Include="Resources\Resource_Static\better_frog.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

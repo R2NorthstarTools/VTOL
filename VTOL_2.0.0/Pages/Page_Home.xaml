@@ -7,6 +7,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:VTOL"
+
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml" x:Class="VTOL.Pages.Page_Home"
       mc:Ignorable="d" 
         xmlns:parallax="clr-namespace:Parallax.WPF"
@@ -280,7 +281,7 @@
 
 
             </Grid>
-            <Button x:Name="GIT_Button"
+            <Button x:Name="GIT_Button" 
                 Background="#99000000" Margin="0,333,103,0" VerticalAlignment="Top" Height="30" 
                           Template="{DynamicResource ButtonControlTemplate1}" HorizontalAlignment="Right" Width="57" Click="GIT_Button_Click" ToolTip="Gitbook"
                   >

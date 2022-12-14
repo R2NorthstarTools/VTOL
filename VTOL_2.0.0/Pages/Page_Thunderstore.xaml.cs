@@ -33,6 +33,7 @@ using System.Diagnostics;
 using ZipFile = Ionic.Zip.ZipFile;
 using System.Reflection;
 using System.Timers;
+using Newtonsoft.Json.Linq;
 
 namespace VTOL.Pages
 {
@@ -605,7 +606,7 @@ Main.logger2.Close();
             InitializeComponent();
             Check_Reverse(false);
             User_Settings_Vars = Main.User_Settings_Vars;
-            DocumentsFolder = Main.DocumentsFolder;
+            DocumentsFolder = Main.AppDataFolder;
             SnackBar = Main.Snackbar;
             Options_List.Add("Skins");
             Options_List.Add("Mods");
@@ -1238,6 +1239,11 @@ int millisecondsDelay = 30)
 
             return false;
         }
+        async void Load_Installed_Mods()
+        {
+
+
+        }
         public bool TryMoveFile(
     string Origin, string Destination, bool overwrite = true,
     int maxRetries = 10,
@@ -1846,7 +1852,7 @@ Main.logger2.Close();
             }
             else
             {
-                Unpack_To_Location_Custom(Location, User_Settings_Vars.NorthstarInstallLocation  + User_Settings_Vars.Profile_Path + @"\mods\" + Mod_Name, Progress_Bar, true, false, Skin_Install, NS_CANDIDATE_INSTALL);
+                Unpack_To_Location_Custom(Location, User_Settings_Vars.NorthstarInstallLocation  + User_Settings_Vars.Profile_Path + @"\mods\" + Mod_Name, Progress_Bar, true, false, Skin_Install, NS_CANDIDATE_INSTALL,Mod_Name);
             }
           
         }
@@ -2160,7 +2166,7 @@ int millisecondsDelay = 300)
 
             return false;
         }
-        public async Task Unpack_To_Location_Custom(string Target_Zip, string Destination, ProgressBar Progress_Bar, bool Clean_Thunderstore = false, bool clean_normal = false, bool Skin_Install = false,bool NS_CANDIDATE_INSTALL = false)
+        public async Task Unpack_To_Location_Custom(string Target_Zip, string Destination, ProgressBar Progress_Bar, bool Clean_Thunderstore = false, bool clean_normal = false, bool Skin_Install = false,bool NS_CANDIDATE_INSTALL = false ,string mod_name = "~")
         {
             //ToDo Check if url or zip location
             //add drag and drop
@@ -2198,23 +2204,65 @@ int millisecondsDelay = 300)
                                     // If file found, delete it    
                                     TryDeleteFile(Path.Combine(Destination, "icon.png"));
                                 }
-                                else {/* Send_Warning_Notif(GetTextResource("NOTIF_WARN_CLEANUP_FILES_NOT_FOUND"));*/ }
-                                if (File.Exists(Path.Combine(Destination, "manifest.json")))
-                                {
-                                    // If file found, delete it    
-                                    TryDeleteFile(Path.Combine(Destination, "manifest.json"));
-                                }
-                                else { /*Send_Warning_Notif(GetTextResource("NOTIF_WARN_CLEANUP_FILES_NOT_FOUND"));*/ }
+                                /* Send_Warning_Notif(GetTextResource("NOTIF_WARN_CLEANUP_FILES_NOT_FOUND"));*/ 
+                                //if (File.Exists(Path.Combine(Destination, "manifest.json")))
+                                //{
+                                //    // If file found, delete it    
+                                //    TryDeleteFile(Path.Combine(Destination, "manifest.json"));
+                                //}
+                               
 
                                 if (File.Exists(Path.Combine(Destination, "README.md")))
                                 {
                                     // If file found, delete it    
                                     TryDeleteFile(Path.Combine(Destination, "README.md"));
                                 }
-                                else { /*Send_Warning_Notif(GetTextResource("NOTIF_WARN_CLEANUP_FILES_NOT_FOUND"));*/ }
+                               
+
+
+                                //if (File.Exists(Path.Combine(Destination, "manifest.json")) && mod_name != "~")
+                                //{
+                                //    var myJsonString = File.ReadAllText(Path.Combine(Destination, "manifest.json"));
+                                //    string Destinationnew =  Destination.Replace(mod_name, " ");
+
+                                //    dynamic myJObject = JObject.Parse(myJsonString);
+                                //    string name = myJObject.name;
+                                //    string mod_version = "-" + myJObject.version_number;
+                                //    while(mod_version.Count() < 2)
+                                //    {
+
+                                //        mod_version = "-" + myJObject.version;
+                                //        if (mod_version.Count() < 2)
+                                //        {
+                                //            continue;
+
+
+                                //        }
+                                //        else
+                                //        {
+                                //            mod_version = mod_version.TrimEnd('-');
+                                //            Destinationnew = Destinationnew.Trim() + name + mod_version;
 
 
 
+                                //            Destination = Destinationnew;
+
+                                //        }
+
+                                //    }
+                                //    mod_version = mod_version.TrimEnd('-');
+                                //    Destinationnew = Destinationnew.Trim() + name + mod_version;
+                             
+
+
+                                //     Destination = Destinationnew;
+                                //}
+
+                                if (File.Exists(Path.Combine(Destination, "manifest.json")))
+                                {
+                                    // If file found, delete it    
+                                    TryDeleteFile(Path.Combine(Destination, "manifest.json"));
+                                }
 
 
 

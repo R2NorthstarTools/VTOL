@@ -553,50 +553,54 @@ int millisecondsDelay = 300)
         {
             try
             {
-                foreach (Card_ item in Mod_List_Box.Items)
-                {
+               Main.RootFrame.Navigate(new Page_Thunderstore());
+                Main.RootNavigation.SelectedPageIndex = 4;
+                Main.RootNavigation.Refresh();
+                //foreach (Card_ item in Mod_List_Box.Items)
+                //{
 
 
 
-                    string Name_ = item.Mod_Name_.ToString();
-                    string pattern = @"[^!]+(?=-)";
-                    Regex rg = new Regex(pattern);
-
-                   
-
-                        BackgroundWorker worker = new BackgroundWorker();
-                        worker.DoWork += (sender, e) =>
-                        {
-
-                                string x = Search_For_Mod_Thunderstore(Name_);
-                               
-
-                                    MessageBox.Show(x);
-
-                                
-
-                            //Page_Thunderstore PP = new Page_Thunderstore();
-                            //Main.RootFrame.Navigate(PP); //FrameContent is the name given to the frame within the xaml.
-                            //PP.Search_Bar_Suggest_Mods.Text = Name_;
-                            //PP.Call_Ts_Mods(true, Search_: true, SearchQuery: Name_);
-                            //PP.Thunderstore_List.Refresh();
-
-                            //DispatchIfNecessary(() =>
-
-                            //{
-                            //});
-
-
-                        };
-
-                        worker.RunWorkerAsync();
+                //    string Name_ = item.Mod_Name_.ToString();
+                //    string pattern = @"[^!]+(?=-)";
+                //    Regex rg = new Regex(pattern);
 
 
 
-                   
+                //        BackgroundWorker worker = new BackgroundWorker();
+                //        worker.DoWork += (sender, e) =>
+                //        {
 
 
-                }
+                //              //  string x = Search_For_Mod_Thunderstore(Name_);
+
+
+                //                  //  MessageBox.Show(x);
+
+
+
+                //            //Page_Thunderstore PP = new Page_Thunderstore();
+                //            //Main.RootFrame.Navigate(PP); //FrameContent is the name given to the frame within the xaml.
+                //            //PP.Search_Bar_Suggest_Mods.Text = Name_;
+                //            //PP.Call_Ts_Mods(true, Search_: true, SearchQuery: Name_);
+                //            //PP.Thunderstore_List.Refresh();
+
+                //            //DispatchIfNecessary(() =>
+
+                //            //{
+                //            //});
+
+
+                //        };
+
+                //        worker.RunWorkerAsync();
+
+
+
+
+
+
+                //}
 
 
 
@@ -2694,6 +2698,11 @@ int millisecondsDelay = 150)
         private void Page_Unloaded(object sender, RoutedEventArgs e)
         {
             Filter.SelectedIndex = -1;
+        }
+
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

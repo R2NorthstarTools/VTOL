@@ -23,6 +23,7 @@ using Serilog;
 using System.Threading;
 using System.Reflection;
 using System.Diagnostics;
+using System.Security.Principal;
 
 namespace VTOL
 {
@@ -36,23 +37,21 @@ namespace VTOL
         private Wpf.Ui.Appearance.ThemeType ThemeType = Wpf.Ui.Appearance.ThemeType.Dark;
         bool Profile_card = false;
         public User_Settings User_Settings_Vars = new User_Settings();
-        public string DocumentsFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-        const string UriScheme = "ror2mm://";
-        const string FriendlyName = "Sample Protocol";
+        public string AppDataFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData));
+        
+
         public TlsPaperTrailLogger logger2 = new TlsPaperTrailLogger("logs5.papertrailapp.com", 38137);
         public bool Is_Focused = true;
-        static void Main(string[] args)
-        {
-           
 
-            if (args.Length > 0)
-            {
-                if (Uri.TryCreate(args[0], UriKind.Absolute, out var uri) &&
-                    string.Equals(uri.Scheme, UriScheme, StringComparison.OrdinalIgnoreCase))
-                {
-                    Console.WriteLine(args.ToString());
-                }
-            }
+
+
+
+        static void Main(string[] args)
+
+
+        {
+
+
         }
         public MainWindow()
         {
@@ -61,18 +60,16 @@ namespace VTOL
 
                 InitializeComponent();
 
-
-
                 //System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo("fr-FR");
-                //System.Threading.Thread.CurrentThread.CurrentCulture = new CultureInfo("fr-FR");
+                //System.Threading.Thread.CurrentThread.CurrentCulture = new CultureInfo("fr-FR");Do
 
 
-                if (Directory.Exists(DocumentsFolder))
+                if (Directory.Exists(AppDataFolder))
                 {
 
-                    if (!File.Exists(DocumentsFolder + @"\VTOL_DATA\Settings\User_Settings.Json"))
+                    if (!File.Exists(AppDataFolder + @"\VTOL_DATA\Settings\User_Settings.Json"))
                     {
-                       TryCreateDirectory(DocumentsFolder + @"\VTOL_DATA\Settings");
+                        TryCreateDirectory(AppDataFolder + @"\VTOL_DATA\Settings");
                         dynamic User_Settings_Json = new JObject();
                         User_Settings_Json.Current_Version = "NODATA";
                         User_Settings_Json.Theme = "NODATA";
@@ -89,7 +86,7 @@ namespace VTOL
                         User_Settings_Vars.Auto_Close_VTOL = true;
                         var User_Settings_Json_String = Newtonsoft.Json.JsonConvert.SerializeObject(User_Settings_Json);
 
-                        using (var StreamWriter = new StreamWriter(DocumentsFolder + @"\VTOL_DATA\Settings\User_Settings.Json", true))
+                        using (var StreamWriter = new StreamWriter(AppDataFolder + @"\VTOL_DATA\Settings\User_Settings.Json", true))
                         {
                             StreamWriter.WriteLine(User_Settings_Json_String.ToString());
                             StreamWriter.Close();
@@ -98,7 +95,7 @@ namespace VTOL
                     }
                     else
                     {
-                        string User_Settings_String = File.ReadAllText(DocumentsFolder + @"\VTOL_DATA\Settings\User_Settings.Json");
+                        string User_Settings_String = File.ReadAllText(AppDataFolder + @"\VTOL_DATA\Settings\User_Settings.Json");
 
                         User_Settings_Vars = User_Settings.FromJson(User_Settings_String);
 
@@ -171,6 +168,17 @@ namespace VTOL
 
 
 
+                if (IsAdministrator())
+                {
+                    Admin_Label.Visibility = Visibility.Visible;
+                }
+                else
+                {
+
+                    Admin_Label.Visibility = Visibility.Hidden;
+
+                }
+
 
             }
 
@@ -188,6 +196,11 @@ namespace VTOL
 
 
 
+        }
+        public static bool IsAdministrator()
+        {
+            return (new WindowsPrincipal(WindowsIdentity.GetCurrent()))
+                      .IsInRole(WindowsBuiltInRole.Administrator);
         }
         public bool TryDeleteDirectory(
    string directoryPath, bool overwrite = true,
@@ -334,28 +347,7 @@ namespace VTOL
 
             return false;
         }
-        public static void RegisterUriScheme()
-        {
-            using (var key = Registry.CurrentUser.CreateSubKey("SOFTWARE\\Classes\\" + UriScheme))
-            {
-                // Replace typeof(App) by the class that contains the Main method or any class located in the project that produces the exe.
-                // or replace typeof(App).Assembly.Location by anything that gives the full path to the exe
-                string applicationLocation = typeof(App).Assembly.Location;
-
-                key.SetValue("", "URL:" + FriendlyName);
-                key.SetValue("URL Protocol", "");
-
-                using (var defaultIcon = key.CreateSubKey("DefaultIcon"))
-                {
-                    defaultIcon.SetValue("", applicationLocation + ",1");
-                }
-
-                using (var commandKey = key.CreateSubKey(@"shell\open\command"))
-                {
-                    commandKey.SetValue("", "\"" + applicationLocation + "\" \"%1\"");
-                }
-            }
-        }
+       
         public void Send_Success_Notif(string Input_Message)
         {
 
@@ -557,6 +549,124 @@ true // Whether to change accents automatically
         {
             Is_Focused = true;
 
+        }
+        public void DispatchIfNecessary(Action action)
+        {
+            if (!Dispatcher.CheckAccess())
+                Dispatcher.Invoke(action);
+            else
+                action.Invoke();
+        }
+        async Task OPEN_WEBPAGE(string URL)
+        {
+            await Task.Run(() =>
+            {
+                DispatchIfNecessary(() => {
+                    Snackbar.Message = "Opening the Following URL - " + URL;
+                    Snackbar.Title = "INFO";
+                    Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
+                    Snackbar.Show();
+                });
+
+                Thread.Sleep(1000);
+                System.Diagnostics.Process.Start(new ProcessStartInfo
+                {
+                    FileName = URL,
+                    UseShellExecute = true
+                });
+            });
+        }
+        private void NORTHSTAR_BUTTON_Click(object sender, RoutedEventArgs e)
+        {
+            if (Northstar_Dialog.Visibility == Visibility.Visible)
+            {
+
+                Northstar_Dialog.Visibility = Visibility.Collapsed;
+
+            }
+            else
+            {
+                Northstar_Dialog.Visibility = Visibility.Visible;
+            }
+            
+        }
+
+        private void Changelog_Click(object sender, RoutedEventArgs e)
+        {
+            string url = @"https://github.com/R2Northstar/Northstar/releases/tag/v" + NORTHSTAR_BUTTON.Content.ToString().Replace("Northstar Version", "").Replace("-", "").Trim().Replace(" ", "");
+
+            OPEN_WEBPAGE(url);
+        }
+
+        private void Troubleshoot_Click(object sender, RoutedEventArgs e)
+        {
+
+            OPEN_WEBPAGE("https://r2northstar.gitbook.io/r2northstar-wiki/installing-northstar/troubleshooting");
+        }
+
+        private void Close_Dialog_Click(object sender, RoutedEventArgs e)
+        {
+            Northstar_Dialog.Opacity = 0;
+
+            Northstar_Dialog.Visibility = Visibility.Collapsed;
+        }
+
+        private void Northstar_Dialog_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (Northstar_Dialog.Opacity < 1)
+            {
+                DoubleAnimation da = new DoubleAnimation
+                {
+                    From = Northstar_Dialog.Opacity,
+                    To = 1,
+                    Duration = new Duration(TimeSpan.FromSeconds(0.8)),
+                    AutoReverse = false
+                };
+                Northstar_Dialog.BeginAnimation(OpacityProperty, da);
+
+            }
+            else
+            {
+
+                if (Northstar_Dialog.Opacity == 1)
+                {
+                    DoubleAnimation da = new DoubleAnimation
+                    {
+                        From = Northstar_Dialog.Opacity,
+                        To = 0,
+                        Duration = new Duration(TimeSpan.FromSeconds(0.8)),
+                        AutoReverse = false
+                    };
+                    Northstar_Dialog.BeginAnimation(OpacityProperty, da);
+
+                }
+            }
+
+        }
+
+        private void RootNavigation_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+           
+        }
+
+        private void RootNavigation_TargetUpdated(object sender, DataTransferEventArgs e)
+        {
+           
+        }
+
+        private void RootNavigation_SourceUpdated(object sender, DataTransferEventArgs e)
+        {
+           
+        }
+
+        private void Northstar_Dialog_LostFocus(object sender, RoutedEventArgs e)
+        {
+          
+        }
+
+        private void Northstar_Dialog_LostMouseCapture(object sender, MouseEventArgs e)
+        {
+           
         }
     }
 }

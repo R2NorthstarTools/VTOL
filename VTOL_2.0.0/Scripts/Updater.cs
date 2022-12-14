@@ -179,9 +179,9 @@ namespace VTOL
             try
             {
                 // MainWindow Main = new MainWindow();
-                string DocumentsFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                string AppDataFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData));
 
-                string save = DocumentsFolder + @"\VTOL_DATA\VARS\";
+                string save = AppDataFolder + @"\VTOL_DATA\VARS\";
 
 
 
@@ -205,9 +205,9 @@ namespace VTOL
                  */
                 if (_call_from_file == true)
                 {
-                    if (File.Exists(DocumentsFolder + @"\VTOL_DATA\VARS\Thunderstore.json"))
+                    if (File.Exists(AppDataFolder + @"\VTOL_DATA\VARS\Thunderstore.json"))
                     {
-                        string json = File.ReadAllText(DocumentsFolder + @"\VTOL_DATA\VARS\Thunderstore.json");
+                        string json = File.ReadAllText(AppDataFolder + @"\VTOL_DATA\VARS\Thunderstore.json");
                         Thunderstore = Thunderstore_V1.FromJson(json);
                     }
                     else
@@ -216,11 +216,11 @@ namespace VTOL
                         using (var webClient = new System.Net.WebClient())
                         {
 
-                            webClient.DownloadFile(uri1, DocumentsFolder + @"\VTOL_DATA\VARS\Thunderstore.json");
+                            webClient.DownloadFile(uri1, AppDataFolder + @"\VTOL_DATA\VARS\Thunderstore.json");
 
                             // Now parse with JSON.Net
                         }
-                        string json = File.ReadAllText(DocumentsFolder + @"\VTOL_DATA\VARS\Thunderstore.json");
+                        string json = File.ReadAllText(AppDataFolder + @"\VTOL_DATA\VARS\Thunderstore.json");
                         Thunderstore = Thunderstore_V1.FromJson(json);
 
                     }
@@ -232,16 +232,16 @@ namespace VTOL
                     using (var webClient = new System.Net.WebClient())
                     {
 
-                        webClient.DownloadFile(uri1, DocumentsFolder + @"\VTOL_DATA\VARS\Thunderstore.json");
+                        webClient.DownloadFile(uri1, AppDataFolder + @"\VTOL_DATA\VARS\Thunderstore.json");
 
                         // Now parse with JSON.Net
                     }
-                    string json = File.ReadAllText(DocumentsFolder + @"\VTOL_DATA\VARS\Thunderstore.json");
+                    string json = File.ReadAllText(AppDataFolder + @"\VTOL_DATA\VARS\Thunderstore.json");
                     Thunderstore = Thunderstore_V1.FromJson(json);
-                    //if (File.Exists(DocumentsFolder + @"\VTOL_DATA\VARS\Thunderstore.json"))
+                    //if (File.Exists(AppDataFolder + @"\VTOL_DATA\VARS\Thunderstore.json"))
                     //{
 
-                    //    File.Delete(DocumentsFolder + @"\VTOL_DATA\VARS\Thunderstore.json");
+                    //    File.Delete(AppDataFolder + @"\VTOL_DATA\VARS\Thunderstore.json");
                     //}
                 }
 

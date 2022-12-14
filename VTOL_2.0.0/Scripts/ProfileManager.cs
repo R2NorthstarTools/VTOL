@@ -264,7 +264,7 @@ namespace VTOL.Scripts
         public void LoadProfiles()
         {
             // Clear the loaded profiles from RAM, then repopulate it from disk.
-            // Console.WriteLine(string.Join(",",FindFirstFiles(DocumentsFolder + @"\VTOL_DATA\Profiles\", "Profile.Json")));
+            // Console.WriteLine(string.Join(",",FindFirstFiles(AppDataFolder + @"\VTOL_DATA\Profiles\", "Profile.Json")));
             if (files_p.Count() > 0)
             {
                 Console.WriteLine(string.Join(",", files_p));

@@ -19,6 +19,7 @@ using System.Globalization;
 using System.Reflection;
 using Wpf.Ui.Common;
 using System.Diagnostics;
+using System.Windows.Threading;
 
 namespace VTOL.Pages
 {
@@ -35,6 +36,8 @@ namespace VTOL.Pages
         Wpf.Ui.Controls.Snackbar SnackBar;
         string OLD_MSG;
         string OLD_TITLE;
+        DispatcherTimer timer = new DispatcherTimer();
+     
         public enum Language
         {
             English,
@@ -52,7 +55,8 @@ namespace VTOL.Pages
             public string Master_Server_Url { get; set; }
             public bool Do_Not_Overwrite_Config_Files { get; set; }
             public bool Hide_Console_Window { get; set; }
-
+            public bool Start_As_Admin { get; set; }
+            public bool Enable_EA_APP_Usage { get; set; }
             [Category("Github")]
             public string Repo_Url { get; set; }
             public string Repo { get; set; }
@@ -60,14 +64,18 @@ namespace VTOL.Pages
             public bool Auto_Update_Northstar { get; set; }
 
             public bool Minimize_On_Launch { get; set; }
+  
 
 
         }
         public Page_Settings()
         {
             InitializeComponent();
+            timer.Interval = TimeSpan.FromSeconds(0.2);
+            timer.Tick += timer_Tick;
+
             User_Settings_Vars = Main.User_Settings_Vars;
-            DocumentsFolder = Main.DocumentsFolder;
+            DocumentsFolder = Main.AppDataFolder;
             Language Lang = Language.English;
             SnackBar = Main.Snackbar;
             if (User_Settings_Vars.Language != null)
@@ -120,7 +128,7 @@ namespace VTOL.Pages
                 Hide_Console_Window = Properties.Settings.Default.Hide_Console_Window,
                 Repo_Url = User_Settings_Vars.RepoUrl,
                 Repo = User_Settings_Vars.Repo,
-
+                Enable_EA_APP_Usage = Properties.Settings.Default.EA_APP_SUPPORT,
                 Author = User_Settings_Vars.Author,
                 Auto_Update_Northstar = User_Settings_Vars.Auto_Update_Northstar,
 
@@ -216,8 +224,7 @@ namespace VTOL.Pages
                 User_Settings_Vars.RepoUrl = Settings_.Repo_Url;
                 User_Settings_Vars.Auto_Update_Northstar = Settings_.Auto_Update_Northstar;
                 Properties.Settings.Default.Hide_Console_Window = Settings_.Hide_Console_Window;
-                Properties.Settings.Default.Save();
-
+                Properties.Settings.Default.EA_APP_SUPPORT = Settings_.Enable_EA_APP_Usage;
                 Properties.Settings.Default.Backup_arg_Files = Settings_.Do_Not_Overwrite_Config_Files;
                 Properties.Settings.Default.Save();
                 string User_Settings_Json_Strings = Newtonsoft.Json.JsonConvert.SerializeObject(User_Settings_Vars);
@@ -242,7 +249,7 @@ namespace VTOL.Pages
 
                     }
                 });
-
+              
             }
             catch (Exception ex)
             {
@@ -294,6 +301,86 @@ namespace VTOL.Pages
             Process.Start(currentExecutablePath);
             Application.Current.Shutdown();
         }
+
+        async void Restart_As_admin()
+        {
+
+            DispatchIfNecessary(() =>
+            {
+
+
+                SnackBar.Appearance = ControlAppearance.Info;
+                SnackBar.Title = "INFO";
+                SnackBar.Message = "VTOL RESTARTING IN ADMIN MODE";
+                SnackBar.Show();
+            });
+
+            await Task.Delay(1500);
+            var currentExecutablePath = Process.GetCurrentProcess().MainModule.FileName;
+
+            //Process.Start(currentExecutablePath);
+
+
+
+
+            //Public domain; no attribution required.
+            const int ERROR_CANCELLED = 1223; //The operation was canceled by the user.
+
+            ProcessStartInfo info = new ProcessStartInfo(currentExecutablePath);
+            info.UseShellExecute = true;
+            info.Verb = "runas";
+            try
+            {
+                Process.Start(info);
+                Application.Current.Shutdown();
+
+            }
+            catch (Win32Exception ex)
+            {
+                if (ex.NativeErrorCode == ERROR_CANCELLED)
+                {
+                    DispatchIfNecessary(() =>
+                    {
+
+
+                        SnackBar.Appearance = ControlAppearance.Info;
+                        SnackBar.Title = "INFO";
+                        SnackBar.Message = "CANCELLED PERMISSIONS";
+                        SnackBar.Show();
+                    });
+                    return;
+                }
+                
+                else
+                {
+                    throw;
+                }
+            }
+
+
+
+        }
+
+        void timer_Tick(object sender, EventArgs e)
+        {
+
+            try
+            {
+                if (Settings_.Start_As_Admin == true)
+                {
+                    timer.Stop();
+
+                    Restart_As_admin();
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                //i dont need to log this
+            }
+        }
+
         private void Dialog_ButtonRightClick(object sender, RoutedEventArgs e)
         {
             DispatchIfNecessary(() =>
@@ -303,6 +390,35 @@ namespace VTOL.Pages
             });
         }
 
+        private void Settings_MouseDown(object sender, MouseButtonEventArgs e)
+        {
 
+        }
+
+        private void Settings_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+           
+        }
+
+        private void Settings_ManipulationStarted(object sender, ManipulationStartedEventArgs e)
+        {
+        
+        }
+
+        private void Settings_TargetUpdated(object sender, DataTransferEventArgs e)
+        {
+
+        }
+
+        private void Settings_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+
+        }
+
+        private void Settings_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            timer.Start();
+
+        }
     }
 }

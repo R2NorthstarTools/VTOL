@@ -45,6 +45,11 @@ using Serilog;
 using System.Globalization;
 using Ionic.Zip;
 using VTOL.Scripts;
+using GameFinder.StoreHandlers.Steam;
+using System.Runtime.InteropServices;
+using GameFinder.RegistryUtils;
+using GameFinder.StoreHandlers.Origin;
+
 namespace VTOL.Pages
 {
     /// <summary>
@@ -215,7 +220,7 @@ logger2.Close();
         public bool Loaded_ = false;
         public string Current_Ver_ = "NODATA";
         User_Settings User_Settings_Vars = null;
-        string DocumentsFolder = null;
+        string AppDataFolder = null;
         Wpf.Ui.Controls.Snackbar SnackBar;
         WebClient webClient;
         private Page_Thunderstore Page_Thunderstore;
@@ -233,7 +238,7 @@ logger2.Close();
            
 
             User_Settings_Vars = Main.User_Settings_Vars;
-            DocumentsFolder = Main.DocumentsFolder;
+            AppDataFolder = Main.AppDataFolder;
             SnackBar = Main.Snackbar;
             Current_Install_Folder = User_Settings_Vars.NorthstarInstallLocation;
             DispatcherTimer Log_Changes_Timer = new DispatcherTimer();
@@ -293,7 +298,7 @@ logger2.Close();
             //    }
             //});
 
-            DataContext = this;
+            DataContext = this; 
             /////////////////////
             Toggle_MS_BT(Properties.Settings.Default.Master_Server_Check);
             INIT();
@@ -508,13 +513,29 @@ int millisecondsDelay = 150)
 
             }
         }
-        public static String ProductVersion
+        public string ProductVersion
         {
             get
             {
-                return new Version(FileVersionInfo.GetVersionInfo(Assembly.GetCallingAssembly().Location).ProductVersion).ToString();
+                try
+                {
+                    string file = (FileVersionInfo.GetVersionInfo(Assembly.GetCallingAssembly().Location).ProductVersion).ToString();
+                    return file.Substring(0, file.IndexOf("+") + 1).Replace("+", "");
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                    Main.logger2.Open();
+                    Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
+                    Main.logger2.Close();
+
+                }
+                return "0.0.0";
+
             }
         }
+           
+
         async void Auto_Install_(bool resart_ = false)
         {
             await Install_NS_METHOD();
@@ -537,9 +558,11 @@ int millisecondsDelay = 150)
                 DispatchIfNecessary(() =>
                 {
                     Directory_Box.Text = Current_Install_Folder;
-
-                    Main.VERSION_TEXT.Text = "VTOL - " + ProductVersion + " | Northstar Version - " + Current_Ver_.Remove(0, 1);
+                    Main.NORTHSTAR_BUTTON.Content = "Northstar Version - " + Current_Ver_.Remove(0, 1);
+                    Main.VERSION_TEXT.Text = "VTOL - " + ProductVersion + " |";
                     Main.VERSION_TEXT.Refresh();
+                    Main.NORTHSTAR_BUTTON.Refresh();
+
                     NSExe = Get_And_Set_Filepaths(Current_Install_Folder, "NorthstarLauncher.exe");
                 });
                 await Task.Delay(1500);
@@ -569,7 +592,10 @@ int millisecondsDelay = 150)
                 DispatchIfNecessary(() =>
                 {
                     Current_Ver_ = "1.0.0";
-                    Main.VERSION_TEXT.Text = "VTOL - " + ProductVersion + " | Northstar Version - UNKNOWN!";
+                    Main.NORTHSTAR_BUTTON.Content = "Northstar Version - UNKNOWN!";
+                    Main.VERSION_TEXT.Text = "VTOL - " + ProductVersion + " |";
+                    Main.VERSION_TEXT.Refresh();
+                    Main.NORTHSTAR_BUTTON.Refresh();
                     SnackBar.Appearance = ControlAppearance.Danger;
                     SnackBar.Title = "WARNING!";
                     SnackBar.Message = VTOL.Resources.Languages.Language.Page_Home_Auto_Install__NORTHSTARISNOTINSTALLEDANDAUTOINSTALLFAILED;
@@ -580,6 +606,62 @@ int millisecondsDelay = 150)
 
             }
 
+
+        }
+        public string Search_Using_Game_Lib()
+        {
+            try
+            {
+                //////SteamFirst///
+                // use the Windows registry on Windows
+                // Linux doesn't have a registry
+                var handler = RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
+                    ? new SteamHandler(new WindowsRegistry())
+                    : new SteamHandler(null);
+
+                // method 1: iterate over the game-error result
+                SteamGame? steamgame = handler.FindOneGameById(432912, out string[] errors);
+
+                if (steamgame != null && steamgame.Name.Count() > 2)
+                    {
+                        return steamgame.Path;
+                    }
+                    else
+                    {
+                        /////Failed/////
+                        return null;
+
+                    }
+
+                
+
+                ///////Origin////
+                var Origin_handler = new OriginHandler();
+
+                // method 1: iterate over the game-error result
+                foreach (var (game, error) in Origin_handler.FindAllGames())
+                {
+                    if (game.InstallPath.Contains("Titanfall2") || game.InstallPath.Contains("TitanFall2"))
+                    {
+                        return game.InstallPath;
+                    }
+                    else
+                    {
+                        /////Failed/////
+                        return null;
+                    }
+                }
+            }
+
+            catch (Exception ex)
+            {
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                Main.logger2.Open();
+                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
+                Main.logger2.Close();
+
+            }
+            return null;
 
         }
         void Restart()
@@ -648,11 +730,49 @@ int millisecondsDelay = 150)
                     Current_Install_Folder = User_Settings_Vars.NorthstarInstallLocation;
                     Console.WriteLine(Current_Install_Folder);
 
-                    if (!Current_Install_Folder.EndsWith(@"\"))
-                    { string fix = Current_Install_Folder + @"\";
-                        User_Settings_Vars.NorthstarInstallLocation = fix;
-                        Current_Install_Folder = fix.Replace(@"\\", @"\").Replace("/", @"\");
-                        Console.WriteLine("Replaced");
+                    if (IsValidPath(Current_Install_Folder))
+                    {
+                        if (!Current_Install_Folder.EndsWith(@"\"))
+                        {
+                            string fix = Current_Install_Folder + @"\";
+                            User_Settings_Vars.NorthstarInstallLocation = fix;
+
+
+                            Current_Install_Folder = fix.Replace(@"\\", @"\").Replace("/", @"\");
+                            Console.WriteLine("Replaced");
+
+                        }
+                    }
+                    else
+                    {
+                        string FINAL = "";
+                       Current_Install_Folder = InstalledApplications.GetApplictionInstallPath("Titanfall2");
+                        if (IsValidPath(Current_Install_Folder))
+                        {
+                            FINAL = Current_Install_Folder;
+                            if (!Current_Install_Folder.EndsWith(@"\"))
+                            {
+                                string fix = Current_Install_Folder + @"\";
+                                User_Settings_Vars.NorthstarInstallLocation = fix;
+                                Current_Install_Folder = fix.Replace(@"\\", @"\").Replace("/", @"\");
+                            }
+
+                        }
+                        else
+                        {
+
+
+                            SnackBar.Appearance = ControlAppearance.Danger;
+                            SnackBar.Title = "WARNING!";
+                            SnackBar.Message = VTOL.Resources.Languages.Language.Page_Home_INIT_InvalidInstallPathPleaseManuallyLocateTheCorrectFolder;
+                            SnackBar.Show();
+
+                            throw new Exception("Could Not Install Ns after all of it :(");
+
+                            return;
+
+
+                        }
 
                     }
 
@@ -661,15 +781,43 @@ int millisecondsDelay = 150)
                 else
                 {
                     Console.WriteLine("Null_Settings");
-
-                    Current_Install_Folder = User_Settings_Vars.NorthstarInstallLocation;
-
-                    if (!Current_Install_Folder.EndsWith(@"\"))
+                    string FINAL = "";
+                    Current_Install_Folder = InstalledApplications.GetApplictionInstallPath("Titanfall2");
+                    if (IsValidPath(Current_Install_Folder))
                     {
-                        string fix = Current_Install_Folder + @"\";
-                        User_Settings_Vars.NorthstarInstallLocation = fix;
-                        Current_Install_Folder = fix.Replace(@"\\", @"\").Replace("/", @"\");
+                        FINAL = Current_Install_Folder;
+                        if (!Current_Install_Folder.EndsWith(@"\"))
+                        {
+                            string fix = Current_Install_Folder + @"\";
+                            User_Settings_Vars.NorthstarInstallLocation = fix;
+                            Current_Install_Folder = fix.Replace(@"\\", @"\").Replace("/", @"\");
+                            string User_Settings_Json_Strings = Newtonsoft.Json.JsonConvert.SerializeObject(User_Settings_Vars);
+                            using (var StreamWriter = new StreamWriter(AppDataFolder + @"\VTOL_DATA\Settings\User_Settings.Json", false))
+                            {
+                                StreamWriter.WriteLine(User_Settings_Json_Strings);
+                                StreamWriter.Close();
+                            }
+                        }
+
                     }
+                    else
+                    {
+
+                        SnackBar.Appearance = ControlAppearance.Danger;
+                        SnackBar.Title = "WARNING!";
+                        SnackBar.Message = VTOL.Resources.Languages.Language.Page_Home_INIT_InvalidInstallPathPleaseManuallyLocateTheCorrectFolder;
+                        SnackBar.Show();
+
+                        throw new Exception("Could Not Install Ns after all of it :(");
+
+                        return;
+
+
+
+                    }
+
+
+
 
                 }
                 DirectoryInfo Dir = new DirectoryInfo(Current_Install_Folder);
@@ -698,7 +846,14 @@ int millisecondsDelay = 150)
                             Properties.Settings.Default.Version = Current_Ver_;
                             Properties.Settings.Default.Save();
 
-                            Main.VERSION_TEXT.Text = "VTOL - " + ProductVersion + " | Northstar Version - " + Current_Ver_.Remove(0, 1);
+                            Main.NORTHSTAR_BUTTON.Content = "Northstar Version - " + Current_Ver_.Remove(0, 1);
+                            Main.VERSION_TEXT.Text = "VTOL - " + ProductVersion + " |";
+                            Main.VERSION_TEXT.Refresh();
+                            Main.NORTHSTAR_BUTTON.Refresh();
+
+
+
+
                             NSExe = Get_And_Set_Filepaths(Current_Install_Folder, "NorthstarLauncher.exe");
                             Main.VERSION_TEXT.Refresh();
                             Main.User_Settings_Vars = User_Settings_Vars;
@@ -713,7 +868,7 @@ int millisecondsDelay = 150)
 
                             }
                             string User_Settings_Json_Strings = Newtonsoft.Json.JsonConvert.SerializeObject(User_Settings_Vars);
-                            using (var StreamWriter = new StreamWriter(DocumentsFolder + @"\VTOL_DATA\Settings\User_Settings.Json", false))
+                            using (var StreamWriter = new StreamWriter(AppDataFolder + @"\VTOL_DATA\Settings\User_Settings.Json", false))
                             {
                                 StreamWriter.WriteLine(User_Settings_Json_Strings);
                                 StreamWriter.Close();
@@ -850,7 +1005,7 @@ int millisecondsDelay = 150)
 
                             Main.User_Settings_Vars = User_Settings_Vars;
 
-                            using (var StreamWriter = new StreamWriter(DocumentsFolder + @"\VTOL_DATA\Settings\User_Settings.Json", false))
+                            using (var StreamWriter = new StreamWriter(AppDataFolder + @"\VTOL_DATA\Settings\User_Settings.Json", false))
                             {
                                 StreamWriter.WriteLine(User_Settings_Json_Strings_);
                                 StreamWriter.Close();
@@ -1221,7 +1376,7 @@ int millisecondsDelay = 150)
 
             //    User_Settings_Vars.NorthstarInstallLocation = Current_Install_Folder;
             //    string User_Settings_Json_Strings = Newtonsoft.Json.JsonConvert.SerializeObject(User_Settings_Vars);
-            //    using (var StreamWriter = new StreamWriter(DocumentsFolder + @"\VTOL_DATA\Settings\User_Settings.Json", false))
+            //    using (var StreamWriter = new StreamWriter(AppDataFolder + @"\VTOL_DATA\Settings\User_Settings.Json", false))
             //    {
             //        StreamWriter.WriteLine(User_Settings_Json_Strings);
             //        StreamWriter.Close();
@@ -2341,7 +2496,7 @@ Main.logger2.Close();
 
                                 User_Settings_Vars.NorthstarInstallLocation = Current_Install_Folder;
                                 string User_Settings_Json_Strings = Newtonsoft.Json.JsonConvert.SerializeObject(User_Settings_Vars);
-                                using (var StreamWriter = new StreamWriter(DocumentsFolder + @"\VTOL_DATA\Settings\User_Settings.Json", false))
+                                using (var StreamWriter = new StreamWriter(AppDataFolder + @"\VTOL_DATA\Settings\User_Settings.Json", false))
                                 {
                                     StreamWriter.WriteLine(User_Settings_Json_Strings);
                                     StreamWriter.Close();
@@ -2594,10 +2749,10 @@ Main.logger2.Close();
                 s = s.Replace("[", "");
                 s = s.Replace("]", "");
 
-                if (Directory.Exists(DocumentsFolder + @"\VTOL_DATA\temp"))
+                if (Directory.Exists(AppDataFolder + @"\VTOL_DATA\temp"))
                 {
-                    saveAsyncFile(s, DocumentsFolder + @"\VTOL_DATA\temp\" + json_name, false, false);
-                    FileInfo File = new FileInfo(DocumentsFolder + @"\VTOL_DATA\temp\" + json_name);
+                    saveAsyncFile(s, AppDataFolder + @"\VTOL_DATA\temp\" + json_name, false, false);
+                    FileInfo File = new FileInfo(AppDataFolder + @"\VTOL_DATA\temp\" + json_name);
                     int attempts = 0;
 
                     while (IsFileLocked(File) == true && attempts != 5)
@@ -2613,9 +2768,9 @@ Main.logger2.Close();
                 }
                 else
                 {
-                   TryCreateDirectory(DocumentsFolder + @"\VTOL_DATA\temp\");
-                    saveAsyncFile(s, DocumentsFolder + @"\VTOL_DATA\temp\" + json_name, false, false);
-                    FileInfo File = new FileInfo(DocumentsFolder + @"\VTOL_DATA\temp\" + json_name);
+                   TryCreateDirectory(AppDataFolder + @"\VTOL_DATA\temp\");
+                    saveAsyncFile(s, AppDataFolder + @"\VTOL_DATA\temp\" + json_name, false, false);
+                    FileInfo File = new FileInfo(AppDataFolder + @"\VTOL_DATA\temp\" + json_name);
                     int attempts = 0;
 
                     while (IsFileLocked(File) == true && attempts != 5)
@@ -2685,10 +2840,10 @@ Main.logger2.Close();
         {
             try
             {
-                if (File.Exists(DocumentsFolder + @"\VTOL_DATA\temp\" + json_name))
+                if (File.Exists(AppDataFolder + @"\VTOL_DATA\temp\" + json_name))
                 {
 
-                    var myJsonString = File.ReadAllText(DocumentsFolder + @"\VTOL_DATA\temp\" + json_name);
+                    var myJsonString = File.ReadAllText(AppDataFolder + @"\VTOL_DATA\temp\" + json_name);
                     var myJObject = JObject.Parse(myJsonString);
 
 
@@ -2698,7 +2853,7 @@ Main.logger2.Close();
                     Properties.Settings.Default.Save();
                     User_Settings_Vars.CurrentVersion = Properties.Settings.Default.Version;
                     string User_Settings_Json_Strings = Newtonsoft.Json.JsonConvert.SerializeObject(User_Settings_Vars);
-                    using (var StreamWriter = new StreamWriter(DocumentsFolder + @"\VTOL_DATA\Settings\User_Settings.Json", false))
+                    using (var StreamWriter = new StreamWriter(AppDataFolder + @"\VTOL_DATA\Settings\User_Settings.Json", false))
                     {
                         StreamWriter.WriteLine(User_Settings_Json_Strings);
                         StreamWriter.Close();
@@ -2717,11 +2872,11 @@ Main.logger2.Close();
 
                 }
 
-                if (Directory.Exists(DocumentsFolder + @"\VTOL_DATA\temp\" + json_name))
+                if (Directory.Exists(AppDataFolder + @"\VTOL_DATA\temp\" + json_name))
                 {
-                    if (File.Exists(DocumentsFolder + @"\VTOL_DATA\temp\" + json_name))
+                    if (File.Exists(AppDataFolder + @"\VTOL_DATA\temp\" + json_name))
                     {
-                        File.Delete(DocumentsFolder + @"\VTOL_DATA\temp\" + json_name);
+                        File.Delete(AppDataFolder + @"\VTOL_DATA\temp\" + json_name);
                     }
                 }
             }
@@ -2784,11 +2939,14 @@ Main.logger2.Close();
                         Properties.Settings.Default.Version = Current_Ver_;
                         Properties.Settings.Default.Save();
 
-                        Main.VERSION_TEXT.Text = "VTOL - " + ProductVersion + " | Northstar Version - " + Current_Ver_.Remove(0, 1);
-                        NSExe = Get_And_Set_Filepaths(Current_Install_Folder, "NorthstarLauncher.exe");
+                    Main.NORTHSTAR_BUTTON.Content = "Northstar Version - " + Current_Ver_.Remove(0, 1);
+                    Main.VERSION_TEXT.Text = "VTOL - " + ProductVersion + " |";
+                    Main.VERSION_TEXT.Refresh();
+                    Main.NORTHSTAR_BUTTON.Refresh();
+                    NSExe = Get_And_Set_Filepaths(Current_Install_Folder, "NorthstarLauncher.exe");
                         Main.VERSION_TEXT.Refresh();
                         string User_Settings_Json_Strings = Newtonsoft.Json.JsonConvert.SerializeObject(User_Settings_Vars);
-                        using (var StreamWriter = new StreamWriter(DocumentsFolder + @"\VTOL_DATA\Settings\User_Settings.Json", false))
+                        using (var StreamWriter = new StreamWriter(AppDataFolder + @"\VTOL_DATA\Settings\User_Settings.Json", false))
                         {
                             StreamWriter.WriteLine(User_Settings_Json_Strings);
                             StreamWriter.Close();
@@ -2874,8 +3032,8 @@ Main.logger2.Close();
                                     TryCopyFile(Current_Install_Folder + @"ns_startup_args_dedi.txt", Current_Install_Folder + @"TempCopyFolder\ns_startup_args_dedi.txt", true);
                                 }
                             }
-                           TryCreateDirectory(DocumentsFolder + @"\VTOL_DATA\Releases\");
-                            webClient.DownloadFileAsync(new Uri(current_Northstar_version_Url), DocumentsFolder + @"\VTOL_DATA\Releases\Northstar_Release.zip");
+                           TryCreateDirectory(AppDataFolder + @"\VTOL_DATA\Releases\");
+                            webClient.DownloadFileAsync(new Uri(current_Northstar_version_Url), AppDataFolder + @"\VTOL_DATA\Releases\Northstar_Release.zip");
                             webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadProgressCallback_Progress_Window);
                                 while (unpack_flg == false)
                                 {
@@ -2889,8 +3047,8 @@ Main.logger2.Close();
                             else
                         {
 
-                           TryCreateDirectory(DocumentsFolder + @"\VTOL_DATA\Releases\");
-                            webClient.DownloadFileAsync(new Uri(current_Northstar_version_Url), DocumentsFolder + @"\VTOL_DATA\Releases\Northstar_Release.zip");
+                           TryCreateDirectory(AppDataFolder + @"\VTOL_DATA\Releases\");
+                            webClient.DownloadFileAsync(new Uri(current_Northstar_version_Url), AppDataFolder + @"\VTOL_DATA\Releases\Northstar_Release.zip");
                             webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadProgressCallback_Progress_Window);
                                 while (unpack_flg == false)
                                 {
@@ -2908,8 +3066,8 @@ Main.logger2.Close();
                     else
                     {
 
-                       TryCreateDirectory(DocumentsFolder + @"\VTOL_DATA\Releases\");
-                        webClient.DownloadFileAsync(new Uri(current_Northstar_version_Url), DocumentsFolder + @"\VTOL_DATA\Releases\Northstar_Release.zip");
+                       TryCreateDirectory(AppDataFolder + @"\VTOL_DATA\Releases\");
+                        webClient.DownloadFileAsync(new Uri(current_Northstar_version_Url), AppDataFolder + @"\VTOL_DATA\Releases\Northstar_Release.zip");
                         webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadProgressCallback_Progress_Window);
                            
                             while ( unpack_flg == false)
@@ -3017,7 +3175,7 @@ Main.logger2.Close();
             try
             {
                 webClient = null;
-                if (File.Exists(DocumentsFolder + @"\VTOL_DATA\Releases\NorthStar_Release.zip"))
+                if (File.Exists(AppDataFolder + @"\VTOL_DATA\Releases\NorthStar_Release.zip"))
                 {
 
                     DispatchIfNecessary(() =>
@@ -3045,7 +3203,7 @@ Main.logger2.Close();
                         {
                             User_Settings_Vars.NorthstarInstallLocation = Current_Install_Folder;
                         }
-                        Unpack_To_Location(DocumentsFolder + @"\VTOL_DATA\Releases\NorthStar_Release.zip", User_Settings_Vars.NorthstarInstallLocation);
+                        Unpack_To_Location(AppDataFolder + @"\VTOL_DATA\Releases\NorthStar_Release.zip", User_Settings_Vars.NorthstarInstallLocation);
 
 
                     }else

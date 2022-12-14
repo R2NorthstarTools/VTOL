@@ -286,5 +286,17 @@ namespace VTOL.Properties {
                 this["Hide_Console_Window"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool EA_APP_SUPPORT {
+            get {
+                return ((bool)(this["EA_APP_SUPPORT"]));
+            }
+            set {
+                this["EA_APP_SUPPORT"] = value;
+            }
+        }
     }
 }
