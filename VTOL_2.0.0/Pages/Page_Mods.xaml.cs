@@ -1737,15 +1737,15 @@ Main.logger2.Close();
         private void padd_Click(object sender, RoutedEventArgs e)
         {
             try {
-                //Mod_List_Box.ItemsSource = null;
+                Mod_List_Box.ItemsSource = null;
 
-                //Check_Reverse();
+                Check_Reverse();
 
-                //var sorted = Keep_List_State(false, Reverse_);
+                var sorted = Keep_List_State(false, Reverse_);
 
-                //Mod_List_Box.ItemsSource = sorted;
-                //Mod_List_Box.Refresh();
-                Check_Updates_List();
+                Mod_List_Box.ItemsSource = sorted;
+                Mod_List_Box.Refresh();
+                //Check_Updates_List();
 
             }
             catch (Exception ex)
