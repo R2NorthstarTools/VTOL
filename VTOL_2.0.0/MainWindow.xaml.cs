@@ -42,7 +42,8 @@ namespace VTOL
 
         public TlsPaperTrailLogger logger2 = new TlsPaperTrailLogger("logs5.papertrailapp.com", 38137);
         public bool Is_Focused = true;
-
+       // public List<string> Current_Installed_Mods = new List<string>();
+        public HashSet<string> Current_Installed_Mods = new HashSet<string>();
 
 
 

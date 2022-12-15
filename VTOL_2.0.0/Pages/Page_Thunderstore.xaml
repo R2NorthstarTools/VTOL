@@ -48,7 +48,7 @@
 
         </Image>
 
-        <ui:VirtualizingItemsControl x:Name="Thunderstore_List"  VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.ScrollUnit="Pixel" ItemsSource="{Binding itemsList}"  Margin="35,174,35,0" ScrollViewer.CanContentScroll="True" Foreground="White" Width="1078" Height="445" CacheLengthUnit="Pixel" UseLayoutRounding="True" ScrollViewer.VerticalScrollBarVisibility="Visible" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Top" Background="#E85A5A5A">
+        <ui:VirtualizingItemsControl x:Name="Thunderstore_List"  VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.ScrollUnit="Pixel" ItemsSource="{Binding itemsList}"  Margin="35,174,35,0" ScrollViewer.CanContentScroll="True" Foreground="White" Width="1078" Height="445" CacheLengthUnit="Pixel" UseLayoutRounding="True" ScrollViewer.VerticalScrollBarVisibility="Visible" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Top" Background="#E85A5A5A"  >
             <!--<ui:CardExpander
             HorizontalContentAlignment="Center"
           
@@ -93,7 +93,7 @@
             </ui:CardExpander>-->
             <ui:VirtualizingItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Grid  Margin="3,3,3,8" Width="255" Height="286" HorizontalAlignment="Center" MouseMove="StackPanel_GotFocus" MouseEnter="Grid_MouseEnter" MouseLeave="Grid_MouseLeave" UseLayoutRounding="True">
+                    <Grid  Margin="3,3,3,8" Width="255" Height="286" HorizontalAlignment="Center" MouseMove="StackPanel_GotFocus" MouseEnter="Grid_MouseEnter" MouseLeave="Grid_MouseLeave" UseLayoutRounding="True" >
 
 
 
@@ -144,7 +144,7 @@
                                 <TextBlock  Name="tbmarquee"  Foreground="White" Text="{Binding description}"  TextWrapping="Wrap" FontSize="14" Width="235" Height="94" Padding="5,5,5,5" ScrollViewer.CanContentScroll="True" ></TextBlock>
                             </Canvas>
 
-                            <ui:Button x:Name="Install_Bttn_Thunderstore" Margin="130,250,10,0" Background="#FF005D42" HorizontalAlignment="Stretch" Height="29" Content="Install" FontSize="14" Icon="ArrowDownload16" BorderBrush="{x:Null}" VerticalAlignment="Top" Padding="0,0,0,0" Tag="{Binding download_url}" Click="Install_Bttn_Thunderstore_Click" ToolTip ="{Binding Tag}" ToolTipService.IsEnabled="False"/>
+                            <ui:Button x:Name="Install_Bttn_Thunderstore" Margin="130,250,10,0" Background="#FF005D42" HorizontalAlignment="Stretch" Height="29" Content="Install" FontSize="14" Icon="ArrowDownload16" BorderBrush="{x:Null}" VerticalAlignment="Top" Padding="0,0,0,0" Tag="{Binding download_url}" Click="Install_Bttn_Thunderstore_Click" ToolTip ="{Binding Tag}" ToolTipService.IsEnabled="False" AutomationProperties.IsRequiredForForm="False" CommandParameter="{Binding Update_data}"/>
                             <TextBlock TextAlignment="Left" Text="{Binding date_created}" Margin="10,161,10,107" Background="{x:Null}" Foreground="#FFC7C7C7" FontSize="11" RenderTransformOrigin="0.5,0.5">
                                 <TextBlock.RenderTransform>
                                     <TransformGroup>

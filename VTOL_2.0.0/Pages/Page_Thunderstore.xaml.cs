@@ -34,10 +34,59 @@ using ZipFile = Ionic.Zip.ZipFile;
 using System.Reflection;
 using System.Timers;
 using Newtonsoft.Json.Linq;
+using System.Text.RegularExpressions;
 
 namespace VTOL.Pages
 {
-    public class Skin_Processor_
+    class CustomStringComparer : IEqualityComparer<string>
+    {
+        public bool Equals(string x, string y)
+        {
+            return string.Equals(x, y);
+        }
+        public int GetHashCode(string s)
+        {
+            return string.IsNullOrEmpty(s) ? 0 :
+                s.Length + 273133 * (int)s[0];
+        }
+        private CustomStringComparer() { }
+        public static readonly CustomStringComparer Default
+            = new CustomStringComparer();
+    }
+    public static class DependencyObjectExtensions
+    {
+        public static T FirstOrDefaultChild<T>(this DependencyObject parent, Func<T, bool> selector)
+            where T : DependencyObject
+        {
+            T foundChild;
+            return FirstOrDefaultVisualChildWhere(parent, selector, out foundChild) ? foundChild : default(T);
+        }
+
+        private static bool FirstOrDefaultVisualChildWhere<T>(DependencyObject parent, Func<T, bool> selector,
+            out T foundChild) where T : DependencyObject
+        {
+            var count = VisualTreeHelper.GetChildrenCount(parent);
+            for (var i = 0; i < count; i++)
+            {
+                var child = VisualTreeHelper.GetChild(parent, i);
+                var tChild = child as T;
+                if (tChild != null)
+                {
+                    if (!selector(tChild)) continue;
+                    foundChild = tChild;
+                    return true;
+                }
+
+                if (FirstOrDefaultVisualChildWhere(child, selector, out foundChild))
+                {
+                    return true;
+                }
+            }
+            foundChild = default(T);
+            return false;
+        }
+    }
+        public class Skin_Processor_
     {
 
         private MainWindow Main = GetMainWindow();
@@ -836,15 +885,18 @@ Main.logger2.Close();
 
         private void Grid_MouseEnter(object sender, MouseEventArgs e)
         {
+
             Grid Card;
             if (sender.GetType() == typeof(Grid))
             {
+
                 //                ContentPresenter myListBoxItem =
                 //(ContentPresenter)(Thunderstore_List.ItemContainerGenerator.ContainerFromItem(Thunderstore_List.Items.CurrentItem));
                 Card = sender as Grid;
 
                 HandyControl.Controls.SimplePanel GridPanel_ = FindVisualChild<HandyControl.Controls.SimplePanel>(Card);
                 Wpf.Ui.Controls.CardAction Card_Action = FindVisualChild<Wpf.Ui.Controls.CardAction>(Card);
+                Check_Update_Tag(sender);
 
                 if (GridPanel_.Opacity < 1)
                 {
@@ -930,45 +982,48 @@ Main.logger2.Close();
 
             }
         }
-        
-        
-           public async Task Call_Ts_Mods(bool hard_refresh = true, List<string> Filter_Type = null, bool Search_ = false, string SearchQuery = "#",bool tickle = false)
+
+
+        public async Task Call_Ts_Mods(bool hard_refresh = true, List<string> Filter_Type = null, bool Search_ = false, string SearchQuery = "#", bool tickle = false)
         {
-           
-            
 
-                try
+
+
+            try
+            {
+
+
+
+                DispatchIfNecessary(() =>
                 {
-               
-              
+                    Loading_Ring.Visibility = Visibility.Visible;
 
-                    DispatchIfNecessary(() => {
-                        Loading_Ring.Visibility = Visibility.Visible;
+                });
 
-                    });
-               
                 List<Grid_> List = null;
                 _updater = new Updater("https://northstar.thunderstore.io/api/v1/package/");
 
                 var NON_UI = new Thread(() =>
                 {
-                        _updater.Download_Cutom_JSON();
+                    _updater.Download_Cutom_JSON();
                     if (_updater.Thunderstore != null)
                     {
                         if (_updater.Thunderstore.Count() > 0)
                         {
                             if (Search_ == false)
                             {
-                                if(tickle == false)
+                                if (tickle == false)
                                 {
-                                    DispatchIfNecessary(() => {
+                                    DispatchIfNecessary(() =>
+                                    {
                                         List = orderlist(LoadListViewData(Filter_Type, Search_, SearchQuery.Replace(" ", "_")));
 
                                     });
                                 }
                                 else
                                 {
-                                    DispatchIfNecessary(() => {
+                                    DispatchIfNecessary(() =>
+                                    {
 
                                         List = orderlist(LoadListViewData(Filter_Type, Search_, SearchQuery.Replace(" ", "_")));
                                     });
@@ -981,10 +1036,10 @@ Main.logger2.Close();
                             }
                             else
                             {
-                               
+
                                 List = LoadListViewData(Filter_Type, Search_, SearchQuery.Replace(" ", "_"));
-                            
-            }
+
+                            }
 
 
 
@@ -998,12 +1053,13 @@ Main.logger2.Close();
                             if (_updater.Thunderstore.Count() > 0)
                             {
 
-                                if (Search_ == false )
+                                if (Search_ == false)
                                 {
 
                                     if (tickle == false)
                                     {
-                                        DispatchIfNecessary(() => {
+                                        DispatchIfNecessary(() =>
+                                        {
                                             List = orderlist(LoadListViewData(Filter_Type, Search_, SearchQuery.Replace(" ", "_")));
 
                                         });
@@ -1015,9 +1071,9 @@ Main.logger2.Close();
 
                                     }
                                 }
-                            else
+                                else
                                 {
-                                        List = orderlist(LoadListViewData(Filter_Type, Search_, SearchQuery.Replace(" ", "_")));
+                                    List = orderlist(LoadListViewData(Filter_Type, Search_, SearchQuery.Replace(" ", "_")));
 
 
                                 }
@@ -1031,37 +1087,163 @@ Main.logger2.Close();
 
                 NON_UI.Start();
                 NON_UI.Join();
-                DispatchIfNecessary(() => {
+                DispatchIfNecessary(() =>
+                {
 
-                        Thunderstore_List.ItemsSource = List;
-                        Thunderstore_List.Items.Refresh();
-                        Loading_Ring.Visibility = Visibility.Hidden;
+                    Thunderstore_List.ItemsSource = List;
+                    Thunderstore_List.Items.Refresh();
+                    Loading_Ring.Visibility = Visibility.Hidden;
 
-                    });
-
-                   
-
+                });
 
 
 
-                    init = true;
+
+
+
+                init = true;
 
 
 
 
 
             }
-                catch (Exception ex)
+            catch (Exception ex)
             {
                 Main.logger2.Open();
-                 Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source +Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-Main.logger2.Close();
+                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
+                Main.logger2.Close();
 
 
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
             }
         }
+        static int versionCompare(string v1, string v2)
+        {
+            // vnum stores each numeric
 
+            // part of version
+
+            int vnum1 = 0, vnum2 = 0;
+
+            // loop until both string are
+            // processed
+
+            for (int i = 0, j = 0; (i < v1.Length || j < v2.Length);)
+
+            {
+                // storing numeric part of
+                // version 1 in vnum1
+                while (i < v1.Length && v1[i] != '.')
+                {
+
+                    vnum1 = vnum1 * 10 + (v1[i] - '0');
+
+                    i++;
+                }
+                // storing numeric part of
+
+                // version 2 in vnum2
+
+                while (j < v2.Length && v2[j] != '.')
+                {
+                    vnum2 = vnum2 * 10 + (v2[j] - '0');
+                    j++;
+                }
+                if (vnum1 > vnum2)
+                    return 1;
+
+                if (vnum2 > vnum1)
+                    return -1;
+
+                // if equal, reset variables and
+
+                // go for next numeric part
+                vnum1 = vnum2 = 0;
+                i++;
+                j++;
+            }
+
+            return 0;
+
+        }
+        async void Check_Update_Tag(object sender)
+        {
+            DispatchIfNecessary(() =>
+            {
+            Grid Card;
+                
+                    //                ContentPresenter myListBoxItem =
+                    //(ContentPresenter)(Thunderstore_List.ItemContainerGenerator.ContainerFromItem(Thunderstore_List.Items.CurrentItem));
+                    Card = sender as Grid;
+
+                // HandyControl.Controls.SimplePanel GridPanel_ = FindVisualChild<HandyControl.Controls.SimplePanel>(Card);
+                //Wpf.Ui.Controls.Button Button = FindVisualChild<Wpf.Ui.Controls.Button>(Card);
+                HandyControl.Controls.SimplePanel GridPanel_ = FindVisualChild<HandyControl.Controls.SimplePanel>(Card);
+                Wpf.Ui.Controls.Button Button = GridPanel_.FirstOrDefaultChild<Wpf.Ui.Controls.Button>(l => l.Name == "Install_Bttn_Thunderstore");
+                string[] name = Button.CommandParameter.ToString().Replace(" ", "_").Split("|");
+                string Mod_version_current = name[1];
+                //string namex = Regex.Replace(name[0], @"(\d+\.)(\d+\.)(\d)", "");
+               // namex = namex.Replace(" ", "_");
+                    if (Main.Current_Installed_Mods.Count() > 2)
+                        {
+                    //debugging code. keep
+                 //   MessageBox.Show(string.Join("\n", name));
+
+                    //MessageBox.Show(string.Join("\n", Main.Current_Installed_Mods));
+                    //MessageBox.Show(name[0]);
+                  //  MessageBox.Show(Main.Current_Installed_Mods.Contains(name[0]).ToString());
+                  //  MessageBox.Show(Mod_version_current);
+
+                    foreach (var item in Main.Current_Installed_Mods) { 
+
+                        if (Regex.Replace(item, @"(\d+\.)(\d+\.)(\d)", "").TrimEnd('-') == name[0])
+                        {
+                            Regex pattern = new Regex(@"\d+(\.\d+)+");
+                            Match m = pattern.Match(item);
+                            string version = m.Value;
+                            int result = versionCompare(version,Mod_version_current);
+                            switch (result)
+                            {
+
+                                //fix versions
+                                case 1:
+                                    Button.Content = "Re-Install"; 
+                                    Button.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFAD7F1A");
+                                    break;
+                                     case -1:
+                                    Button.Content = "Update";
+                                    Button.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF009817");
+
+                                    break;
+                                    case 0:
+                                    Button.Content = "Re-Install";
+                                    Button.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFAD7F1A");
+
+                                    break;
+                                    default:
+                                    Button.Content = "Install";
+                                    Button.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF005D42");
+
+                                    break;
+                            }
+
+                        }
+                       
+
+
+
+
+
+                    }
+                   
+                        
+
+                    }
+
+                
+            });
+        }
         public static bool ContainsAny(string stringToTest, List<string> substrings)
         {
             if (string.IsNullOrEmpty(stringToTest) || substrings == null)
@@ -1420,7 +1602,7 @@ int millisecondsDelay = 30)
                 string FileSize = "";
                 string Exclude_String = "#";
                 string Dependencies_ = "";
-                
+                string Update_data = "";
               
                     if (Current_Mod_Filter_Tags != null)
                     {
@@ -1508,7 +1690,7 @@ int millisecondsDelay = 30)
                                             FileSize = Convert_To_Size(value);
                                         }
 
-                                itemsList.Add(new Grid_ { Name = _updater.Thunderstore[i].Name.Replace("_", " ") + "-" + versions.First().VersionNumber, Icon = ICON, date_created = _updater.Thunderstore[i].DateCreated.ToString(), description = Descrtiption, owner = _updater.Thunderstore[i].Owner, Rating = rating, download_url = download_url + "|" + _updater.Thunderstore[i].Name + "-" + versions.First().VersionNumber + "|" + Tags + "|" + Dependencies_, Webpage = _updater.Thunderstore[i].PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads, Dependencies = Dependencies_, FullName = _updater.Thunderstore[i].FullName, raw_size = raw_size });
+                                itemsList.Add(new Grid_ { Name = _updater.Thunderstore[i].Name.Replace("_", " ") + "-" + versions.First().VersionNumber, Icon = ICON, date_created = _updater.Thunderstore[i].DateCreated.ToString(), description = Descrtiption, owner = _updater.Thunderstore[i].Owner, Rating = rating, download_url = download_url + "|" + _updater.Thunderstore[i].Name + "-" + versions.First().VersionNumber + "|" + Tags + "|" + Dependencies_, Webpage = _updater.Thunderstore[i].PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads, Dependencies = Dependencies_, FullName = _updater.Thunderstore[i].FullName, raw_size = raw_size, Update_data = _updater.Thunderstore[i].Name+ "|" + versions.First().VersionNumber  });
 
 
 
@@ -1569,7 +1751,7 @@ int millisecondsDelay = 30)
                                     {
                                         FileSize = Convert_To_Size(value);
                                     }
-                                itemsList.Add(new Grid_ { Name = _updater.Thunderstore[i].Name.Replace("_", " ") + "-" + versions.First().VersionNumber, Icon = ICON, date_created = _updater.Thunderstore[i].DateCreated.ToString(), description = Descrtiption, owner = _updater.Thunderstore[i].Owner, Rating = rating, download_url = download_url + "|" + _updater.Thunderstore[i].Name + "-" + versions.First().VersionNumber + "|" + Tags + "|" + Dependencies_, Webpage = _updater.Thunderstore[i].PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads, Dependencies = Dependencies_, FullName = _updater.Thunderstore[i].FullName, raw_size = raw_size });
+                                itemsList.Add(new Grid_ { Name = _updater.Thunderstore[i].Name.Replace("_", " ") + "-" + versions.First().VersionNumber, Icon = ICON, date_created = _updater.Thunderstore[i].DateCreated.ToString(), description = Descrtiption, owner = _updater.Thunderstore[i].Owner, Rating = rating, download_url = download_url + "|" + _updater.Thunderstore[i].Name + "-" + versions.First().VersionNumber + "|" + Tags + "|" + Dependencies_, Webpage = _updater.Thunderstore[i].PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads, Dependencies = Dependencies_, FullName = _updater.Thunderstore[i].FullName, raw_size = raw_size, Update_data = _updater.Thunderstore[i].Name + "|" + versions.First().VersionNumber });
                             }
                         }
                         }
@@ -1631,7 +1813,7 @@ int millisecondsDelay = 30)
                                         FileSize = Convert_To_Size(value);
                                     }
 
-                                    itemsList.Add(new Grid_ { Name = _updater.Thunderstore[i].Name.Replace("_", " ") + "-" + versions.First().VersionNumber, Icon = ICON, date_created = _updater.Thunderstore[i].DateCreated.ToString(), description = Descrtiption, owner = _updater.Thunderstore[i].Owner, Rating = rating, download_url = download_url + "|" + _updater.Thunderstore[i].Name + "-" + versions.First().VersionNumber + "|" + Tags + "|" + Dependencies_, Webpage = _updater.Thunderstore[i].PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads, Dependencies = Dependencies_, FullName = _updater.Thunderstore[i].FullName , raw_size = raw_size });
+                                    itemsList.Add(new Grid_ { Name = _updater.Thunderstore[i].Name.Replace("_", " ") + "-" + versions.First().VersionNumber, Icon = ICON, date_created = _updater.Thunderstore[i].DateCreated.ToString(), description = Descrtiption, owner = _updater.Thunderstore[i].Owner, Rating = rating, download_url = download_url + "|" + _updater.Thunderstore[i].Name + "-" + versions.First().VersionNumber + "|" + Tags + "|" + Dependencies_, Webpage = _updater.Thunderstore[i].PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads, Dependencies = Dependencies_, FullName = _updater.Thunderstore[i].FullName , raw_size = raw_size, Update_data = _updater.Thunderstore[i].Name + "|" + versions.First().VersionNumber });
 
 
 
@@ -1691,7 +1873,7 @@ int millisecondsDelay = 30)
                                 {
                                     FileSize = Convert_To_Size(value);
                                 }
-                            itemsList.Add(new Grid_ { Name = _updater.Thunderstore[i].Name.Replace("_", " ") + "-" + versions.First().VersionNumber, Icon = ICON, date_created = _updater.Thunderstore[i].DateCreated.ToString(), description = Descrtiption, owner = _updater.Thunderstore[i].Owner, Rating = rating, download_url = download_url + "|" + _updater.Thunderstore[i].Name + "-" + versions.First().VersionNumber + "|" + Tags + "|" + Dependencies_, Webpage = _updater.Thunderstore[i].PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads, Dependencies = Dependencies_, FullName = _updater.Thunderstore[i].FullName, raw_size = raw_size });
+                            itemsList.Add(new Grid_ { Name = _updater.Thunderstore[i].Name.Replace("_", " ") + "-" + versions.First().VersionNumber, Icon = ICON, date_created = _updater.Thunderstore[i].DateCreated.ToString(), description = Descrtiption, owner = _updater.Thunderstore[i].Owner, Rating = rating, download_url = download_url + "|" + _updater.Thunderstore[i].Name + "-" + versions.First().VersionNumber + "|" + Tags + "|" + Dependencies_, Webpage = _updater.Thunderstore[i].PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads, Dependencies = Dependencies_, FullName = _updater.Thunderstore[i].FullName, raw_size = raw_size, Update_data = _updater.Thunderstore[i].Name + "|" + versions.First().VersionNumber });
 
                         }
 
@@ -1777,6 +1959,8 @@ Main.logger2.Close();
             public string Downloads { get; set; }
             public string raw_size { get; set; }
             public string raw_date { get; set; }
+            public string Update_data { get; set; }
+
         }
         public class Grid_
         {
@@ -1796,10 +1980,11 @@ Main.logger2.Close();
 
             public string raw_size { get; set; }
             public string raw_date { get; set; }
+            public string Update_data { get; set; }
 
         }
 
-     
+
         string Convert_To_Size(int size)
         {
             string[] sizes = { "B", "KB", "MB", "GB", "TB" };
@@ -2753,7 +2938,7 @@ Main.logger2.Close();
                 Progress_Bar = FindVisualChild<ProgressBar>(_Panel);
                 if (Button.Tag.ToString().Contains("http"))
                 {
-                    Console.WriteLine(Button.Tag.ToString());
+                    MessageBox.Show(Button.Tag.ToString());
                     if (Button.ToolTip.ToString().Contains("DDS"))
                     {
 

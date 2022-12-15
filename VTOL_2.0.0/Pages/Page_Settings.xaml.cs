@@ -52,19 +52,37 @@ namespace VTOL.Pages
         {
             [Category("General")]
             public Language Language { get; set; }
-            public string Master_Server_Url { get; set; }
+            [Category("General")]
             public bool Do_Not_Overwrite_Config_Files { get; set; }
+            [Category("General")]
+
             public bool Hide_Console_Window { get; set; }
+            [Category("General")]
+
             public bool Restart_As_Admin { get; set; }
+            [Category("General")]
+
             public bool Enable_EA_APP_Usage { get; set; }
-            [Category("Github")]
-            public string Repo_Url { get; set; }
-            public string Repo { get; set; }
-            public string Author { get; set; }
-            public bool Auto_Update_Northstar { get; set; }
+            [Category("General")]
 
             public bool Minimize_On_Launch { get; set; }
-  
+            [Category("General")]
+
+            public bool Auto_Update_Northstar { get; set; }
+
+            [Category("Github")]
+            public string Repo_Url { get; set; }
+            [Category("Github")]
+
+            public string Repo { get; set; }
+            [Category("Github")]
+
+            public string Author { get; set; }
+            [Category("Github")]
+
+            public string Master_Server_Url { get; set; }
+
+
 
 
         }
@@ -347,12 +365,15 @@ namespace VTOL.Pages
                         SnackBar.Title = "INFO";
                         SnackBar.Message = "CANCELLED PERMISSIONS";
                         SnackBar.Show();
+                        Settings_.Restart_As_Admin = false;
                     });
                     return;
                 }
                 
                 else
                 {
+                    Settings_.Restart_As_Admin = false;
+
                     throw;
                 }
             }

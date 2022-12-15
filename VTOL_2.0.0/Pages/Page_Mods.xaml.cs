@@ -147,7 +147,7 @@ namespace VTOL.Pages
             BackgroundWorker worker = new BackgroundWorker();
             worker.DoWork += (sender, e) =>
             {
-              Call_Mods_From_Folder();
+            //  Call_Mods_From_Folder();
                 Check_Reverse(false);
 
 
@@ -179,7 +179,7 @@ namespace VTOL.Pages
 
         }
 
-
+       
 
 
 
@@ -259,6 +259,7 @@ namespace VTOL.Pages
                                 });
                                 foreach (System.IO.DirectoryInfo dirInfo in subDirs)
                                 {
+
                                     if (Page_Home.IsDirectoryEmpty(dirInfo))
                                     {
                                         if (Page_Home.IsDirectoryEmpty(new DirectoryInfo(dirInfo.FullName)) == true)
@@ -288,7 +289,6 @@ namespace VTOL.Pages
                                             Flag_mod = 100;
                                         }
                                         Final_List.Add(new Card_ { Mod_Name_ = dirInfo.Name.Trim(), Mod_Date_ = dirInfo.CreationTime.ToString(), Is_Active_Color = "#B29A0404", Size__ = dirInfo.LastAccessTime.ToString(), En_Di = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_Enable, Is_Active_ = true, Mod_Path_ = dirInfo.FullName, Flag = Flag_mod, Error_Tooltip = ToolTip_Dynamic });
-
                                     }
                                     else
                                     {
@@ -307,6 +307,8 @@ namespace VTOL.Pages
 
 
                                     }
+                                    Main.Current_Installed_Mods.Add(dirInfo.Name.Trim());
+
                                 }
                                 Console.WriteLine("Finished_Mod_Load");
                                 DispatchIfNecessary(() => {
@@ -2091,7 +2093,7 @@ Main.logger2.Close();
 
 
 
-            try { 
+            try {
             string FolderDir = Find_Folder(Mod_name, User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\mods");
                 if (Directory.Exists(FolderDir))
                 {
