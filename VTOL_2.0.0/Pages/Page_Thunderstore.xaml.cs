@@ -1269,86 +1269,7 @@ Main.logger2.Close();
             label = res;
             bg_color = bg;
         }
-        async void Check_Update_Tag(HandyControl.Controls.SimplePanel GridPanel_)
-        {
-            DispatchIfNecessary(() =>
-            {
-           
-                
-                  
-
-                // HandyControl.Controls.SimplePanel GridPanel_ = FindVisualChild<HandyControl.Controls.SimplePanel>(Card);
-                //Wpf.Ui.Controls.Button Button = FindVisualChild<Wpf.Ui.Controls.Button>(Card);
-                Wpf.Ui.Controls.Button Button = GridPanel_.FirstOrDefaultChild<Wpf.Ui.Controls.Button>(l => l.Name == "Install_Bttn_Thunderstore");
-                string[] name = Button.CommandParameter.ToString().Replace(" ", "_").Split("|");
-                string Mod_version_current = name[1];
-                //string namex = Regex.Replace(name[0], @"(\d+\.)(\d+\.)(\d)", "");
-               // namex = namex.Replace(" ", "_");
-                    if (Main.Current_Installed_Mods.Count() > 2)
-                        {
-                    //debugging code. keep
-                 //   MessageBox.Show(string.Join("\n", name));
-
-                    //MessageBox.Show(string.Join("\n", Main.Current_Installed_Mods));
-                  //  MessageBox.Show(Main.Current_Installed_Mods.Contains(name[0]).ToString());
-                  //  MessageBox.Show(Mod_version_current);
-
-                    foreach (var item in Main.Current_Installed_Mods) {
-                        //SnackBar.Title = "WARNING";
-                        //SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Danger;
-                        //SnackBar.Message = name[0].ToString();
-                        //SnackBar.Show();
-
-                        if (findString(Regex.Replace(item, @"(\d+\.)(\d+\.)(\d)", "").TrimEnd('-'), name[0], "_"))
-                        {
-                            
-                            Regex pattern = new Regex(@"\d+(\.\d+)+");
-                            Match m = pattern.Match(item);
-                            string version = m.Value;
-                            int result = versionCompare(version,Mod_version_current);
-                            switch (result)
-                            {
-                                //Button.Content = "Re-Install";
-                              //      Button.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFAD7F1A");
-                                
-                                //fix versions
-                                case 1:
-                                    Button.Content = "Install"; 
-                                    Button.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF005D42");
-                                    break;
-                                     case -1:
-                                    Button.Content = "Update";
-                                    Button.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF009817");
-
-                                    break;
-                                    case 0:
-                                    Button.Content = "Re-Install";
-                                    Button.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFAD7F1A");
-
-                                    break;
-                                    default:
-                                    Button.Content = "Install";
-                                    Button.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF005D42");
-
-                                    break;
-                            }
-
-                        }
-                       
-
-
-
-
-
-                    }
-                   
-                        
-
-                    }
-
-                
-            });
-        }
+      
         public static bool ContainsAny(string stringToTest, List<string> substrings)
         {
             if (string.IsNullOrEmpty(stringToTest) || substrings == null)
@@ -2184,6 +2105,8 @@ Main.logger2.Close();
             }
             else
             {
+               
+
                 Unpack_To_Location_Custom(Location, User_Settings_Vars.NorthstarInstallLocation  + User_Settings_Vars.Profile_Path + @"\mods\" + Mod_Name, Progress_Bar, true, false, Skin_Install, NS_CANDIDATE_INSTALL,Mod_Name);
             }
           
@@ -2219,13 +2142,23 @@ Main.logger2.Close();
                     };
                     }
                     var Destinfo = new DirectoryInfo(User_Settings_Vars.NorthstarInstallLocation);
-                   
+
+                        if (!Directory.Exists(Destinfo.FullName + @"NS_Downloaded_Mods\"))
+                        {
+                            Directory.CreateDirectory(Destinfo.FullName + @"NS_Downloaded_Mods\");
+
+                        }
+                        else
+                        {
+
+                            Clear_Folder(Destinfo.FullName + @"NS_Downloaded_Mods\");
+                        }
 
                     downloader.DownloadFileCompleted += delegate (object sender4, AsyncCompletedEventArgs e4)
                     {
                        
 
-                        downloader_DownloadCompleted(sender4, e4, Progress_Bar, words[1], Destinfo.FullName + @"NS_Downloaded_Mods\" + words[1] + ".zip",Skin_Install_,NS_CANDIDATE_INSTALL);
+                        downloader_DownloadCompleted(sender4, e4, Progress_Bar, words[1], Destinfo.FullName + @"NS_Downloaded_Mods\" + Regex.Replace(words[1], @"(\d+\.)(\d+\.)(\d)", "").TrimEnd('-') + ".zip",Skin_Install_,NS_CANDIDATE_INSTALL);
                     };
 
                     downloader.StartAsync();
@@ -2613,7 +2546,7 @@ int millisecondsDelay = 300)
             }
 
         }
-        public async Task Unpack_To_Location_Custom(string Target_Zip, string Destination, ProgressBar Progress_Bar, bool Clean_Thunderstore = false, bool clean_normal = false, bool Skin_Install = false,bool NS_CANDIDATE_INSTALL = false ,string mod_name = "~")
+        public async Task Unpack_To_Location_Custom(string Target_Zip, string Destination, ProgressBar Progress_Bar, bool Clean_Thunderstore = false, bool clean_normal = false, bool Skin_Install = false,bool NS_CANDIDATE_INSTALL = false ,string mod_name ="~")
         {
             //ToDo Check if url or zip location
             //add drag and drop
@@ -2639,7 +2572,7 @@ int millisecondsDelay = 300)
                                     {
                                         Clear_Folder(mod);
 
-                                        TryDeleteDirectory(mod, true);
+                                       TryDeleteDirectory(mod, true);
 
 
                                     }

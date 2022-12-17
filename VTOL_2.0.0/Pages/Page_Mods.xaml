@@ -86,8 +86,8 @@
 
         </Image>
         <ComboBox   x:Name="Filter" Margin="135,93,40,0" BorderBrush="{x:Null}" Background="#C1424242" SelectedIndex="-1"  VerticalAlignment="Top" SelectionChanged="ComboBox_SelectionChanged" Height="33" Padding="10,5,10,7" Grid.Column="1" ToolTip="Filter Mod List " >
-            <ComboBoxItem Name="Name">Name</ComboBoxItem>
             <ComboBoxItem Name="Date">Date</ComboBoxItem>
+            <ComboBoxItem Name="Name">Name</ComboBoxItem>
             <ComboBoxItem Name="Status">Status</ComboBoxItem>
         </ComboBox>
 
