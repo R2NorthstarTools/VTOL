@@ -212,7 +212,62 @@ namespace VTOL.Pages
             else
                 action.Invoke();
         }
-        async void Call_Mods_From_Folder()
+        async void Call_Mods_From_Folder_Lite()
+        {
+
+            try
+            {
+
+                if (User_Settings_Vars.NorthstarInstallLocation != null || User_Settings_Vars.NorthstarInstallLocation != "" || Directory.Exists(User_Settings_Vars.NorthstarInstallLocation))
+                {                                  
+              
+                    if (Directory.Exists(User_Settings_Vars.NorthstarInstallLocation))
+                    {
+
+                       
+                            Main.Current_Installed_Mods.Clear();
+
+                            string NS_Mod_Dir = User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\mods";
+
+                            System.IO.DirectoryInfo rootDirs = new DirectoryInfo(@NS_Mod_Dir);
+                            if (IsValidPath(NS_Mod_Dir) == true)
+                            {
+
+                                System.IO.DirectoryInfo[] subDirs = null;
+                                subDirs = rootDirs.GetDirectories();
+
+                              
+                                foreach (System.IO.DirectoryInfo dirInfo in subDirs)
+                                {
+
+                                   
+                                    Main.Current_Installed_Mods.Add(dirInfo.Name.Trim());
+
+                                }
+                                Console.WriteLine("Finished_Mod_Load");
+                                DispatchIfNecessary(() => {
+
+                                    ApplyDataBinding();
+                                });
+                            }
+
+                        
+
+                    }
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                Main.logger2.Open();
+                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
+                Main.logger2.Close();
+            }
+
+        }
+            async void Call_Mods_From_Folder()
         {
             bool install_Prompt = false;
             try

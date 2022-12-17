@@ -675,7 +675,7 @@ Main.logger2.Close();
             {
 
 
-
+                Call_Mods_From_Folder_Lite();
                 Call_Ts_Mods();
 
 
@@ -2044,16 +2044,16 @@ Main.logger2.Close();
         async Task Download_Zip_To_Path(string url, string path, ProgressBar Progress_Bar = null, bool Skin_Install_ = false, bool NS_CANDIDATE_INSTALL = false)
         {
             await Task.Run(() =>
-            {
+            {//Regex.Replace(item, @"(\d+\.)(\d+\.)(\d)", "").TrimEnd('-')
                 DispatchIfNecessary(() => {
                 if (Directory.Exists(User_Settings_Vars.NorthstarInstallLocation))
                 {
+                       
                     string[] words = url.Split("|");
-
                     IDownload downloader = DownloadBuilder.New()
     .WithUrl(words[0])
     .WithDirectory(path)
-    .WithFileName(words[1] + ".zip")
+    .WithFileName(Regex.Replace(words[1], @"(\d+\.)(\d+\.)(\d)", "").TrimEnd('-') + ".zip")
     .WithConfiguration(new DownloadConfiguration())
 
     .Build();
@@ -2218,24 +2218,41 @@ Main.logger2.Close();
         }
         public static bool IsDirectoryEmpty(DirectoryInfo directory)
         {
+           
+
+            
             FileInfo[] files = directory.GetFiles();
             DirectoryInfo[] subdirs = directory.GetDirectories();
 
             return (files.Length == 0 && subdirs.Length == 0);
-        }
+
+        
+}
+
         private void Clear_Folder(string FolderName)
         {
-            DirectoryInfo dir = new DirectoryInfo(FolderName);
-
-            foreach (FileInfo fi in dir.GetFiles())
+            try
             {
-                fi.Delete();
+                DirectoryInfo dir = new DirectoryInfo(FolderName);
+
+                foreach (FileInfo fi in dir.GetFiles())
+                {
+                    fi.Delete();
+                }
+
+                foreach (DirectoryInfo di in dir.GetDirectories())
+                {
+                    Clear_Folder(di.FullName);
+                    di.Delete();
+                }
             }
-
-            foreach (DirectoryInfo di in dir.GetDirectories())
+            catch (Exception ex)
             {
-                Clear_Folder(di.FullName);
-                di.Delete();
+                Main.logger2.Open();
+                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
+                Main.logger2.Close();
+
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
             }
         }
         private static void CopyFilesRecursively(string sourcePath, string targetPath)
@@ -2314,6 +2331,7 @@ int millisecondsDelay = 150)
             }
 
             return false;
+
         }
         public bool TryDeleteFile(
 string Origin,
@@ -2351,17 +2369,123 @@ int millisecondsDelay = 300)
 
             return false;
         }
+        public bool IsValidPath(string path, bool allowRelativePaths = false)
+        {
+            bool isValid = true;
+
+            try
+            {
+                string fullPath = Path.GetFullPath(path);
+
+                if (allowRelativePaths)
+                {
+                    isValid = Path.IsPathRooted(path);
+                }
+                else
+                {
+                    string root = Path.GetPathRoot(path);
+                    isValid = string.IsNullOrEmpty(root.Trim(new char[] { '\\', '/' })) == false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                Main.logger2.Open();
+                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
+                Main.logger2.Close();
+                isValid = false;
+            }
+
+            return isValid;
+        }
+        async void Call_Mods_From_Folder_Lite()
+        {
+
+            try
+            {
+
+                if (User_Settings_Vars.NorthstarInstallLocation != null || User_Settings_Vars.NorthstarInstallLocation != "" || Directory.Exists(User_Settings_Vars.NorthstarInstallLocation))
+                {
+
+                    if (Directory.Exists(User_Settings_Vars.NorthstarInstallLocation))
+                    {
+
+
+                        Main.Current_Installed_Mods.Clear();
+
+                        string NS_Mod_Dir = User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\mods";
+
+                        System.IO.DirectoryInfo rootDirs = new DirectoryInfo(@NS_Mod_Dir);
+                        if (IsValidPath(NS_Mod_Dir) == true)
+                        {
+
+                            System.IO.DirectoryInfo[] subDirs = null;
+                            subDirs = rootDirs.GetDirectories();
+
+
+                            foreach (System.IO.DirectoryInfo dirInfo in subDirs)
+                            {
+
+
+                                Main.Current_Installed_Mods.Add(dirInfo.Name.Trim());
+
+                            }
+                            
+                        }
+
+
+
+                    }
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                Main.logger2.Open();
+                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
+                Main.logger2.Close();
+            }
+
+        }
         public async Task Unpack_To_Location_Custom(string Target_Zip, string Destination, ProgressBar Progress_Bar, bool Clean_Thunderstore = false, bool clean_normal = false, bool Skin_Install = false,bool NS_CANDIDATE_INSTALL = false ,string mod_name = "~")
         {
             //ToDo Check if url or zip location
             //add drag and drop
 
             try
-            {
+            { 
                 string Dir_Final = null;
+
                 if (File.Exists(Target_Zip))
                 {
+                    if (NS_CANDIDATE_INSTALL == false && Skin_Install == false && Destination.Contains(@"\mods"))
+                    {
+                        if (Main.Current_Installed_Mods.Count() > 2)
+                        {
 
+                            foreach (var item in Main.Current_Installed_Mods)
+                            {
+
+                                if (Regex.Replace(item, @"(\d+\.)(\d+\.)(\d)", "").TrimEnd('-') == Regex.Replace(mod_name, @"(\d+\.)(\d+\.)(\d)", "").TrimEnd('-'))
+                                {
+                                    string mod = User_Settings_Vars.NorthstarInstallLocation + User_Settings_Vars.Profile_Path + @"\mods\" + item;
+                                    if (Directory.Exists(mod))
+                                    {
+                                        Clear_Folder(mod);
+
+                                        TryDeleteDirectory(mod, true);
+
+
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+
+                            
                     if (!Directory.Exists(Destination))
                     {
                        TryCreateDirectory(Destination);
@@ -2497,13 +2621,16 @@ int millisecondsDelay = 300)
                                     }
                                     else if (Script.Length > 1)
                                     {
-                                        foreach (var x in Script)
-                                        {
+                                        //foreach (var x in Script)
+                                        //{
 
-                                            Console.WriteLine(x.FullName);
-                                        }
-                                        Console.WriteLine("MULTIPACK - " + Destination);
-
+                                        //    Console.WriteLine(x.FullName);
+                                        //}
+                                      //  Console.WriteLine("MULTIPACK - " + Destination);
+                                        SnackBar.Title = "WARNING";
+                                        SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Danger;
+                                        SnackBar.Message = "Multiple Mods Detected In the Zip, Fix the Mod -\n" +mod_name +"\n- Manually ";
+                                        SnackBar.Show();
 
 
 
@@ -2515,6 +2642,7 @@ int millisecondsDelay = 300)
                                         //Too many or no mods?
 
                                     }
+                                    Call_Mods_From_Folder_Lite();
                                      DispatchIfNecessary(() => {
                                         if (Progress_Bar != null)
                                         {
@@ -2942,7 +3070,8 @@ Main.logger2.Close();
                     if (Button.ToolTip.ToString().Contains("DDS"))
                     {
 
-                        Download_Zip_To_Path(Button.Tag.ToString(), User_Settings_Vars.NorthstarInstallLocation + @"NS_Downloaded_Mods", Progress_Bar, true);
+
+                            Download_Zip_To_Path(Button.Tag.ToString(), User_Settings_Vars.NorthstarInstallLocation + @"NS_Downloaded_Mods", Progress_Bar, true);
 
                     }
                     else if(Button.Tag.ToString().Contains("Northstar Release Candidate") || Button.Tag.ToString().Contains("NorthstarReleaseCandidate") || (Button.Tag.ToString().Contains("Northstar") && Button.ToolTip.ToString().Count() < 5))
