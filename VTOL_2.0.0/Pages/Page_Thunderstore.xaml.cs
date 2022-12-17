@@ -1558,13 +1558,14 @@ int millisecondsDelay = 30)
                         }
                     else if (Sort.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Installed"))
                     {
-                       
-                        List = List.OrderByDescending(x => x.Button_label.ToString().Contains("Re-Install")).ToList();
 
+                        // List = List.OrderByDescending(x => x.Button_label.ToString().Contains("Re-Install")).ToList();
+                        List = List.Where(item => item.Button_label.ToString().Contains("Re-Install")).OrderBy(ob => ob.Name).ToList();
                     }
                     else if (Sort.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Update"))
                     {
-                        List = List.OrderByDescending(x => x.Button_label.Contains("Update")).ToList();
+                      //  List = List.OrderByDescending(x => x.Button_label.Contains("Update")).ToList();
+                        List = List.Where(item => item.Button_label.ToString().Contains("Update")).OrderBy(ob => ob.Name).ToList();
 
                     }
                     else
@@ -1606,12 +1607,15 @@ int millisecondsDelay = 30)
                     else if (Sort.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Installed"))
                     {
 
-                        List = List.OrderByDescending(x => x.Button_label.ToString().Contains("Re-Install")).ToList();
+                       // List = List.OrderByDescending(x => x.Button_label.ToString().Contains("Re-Install")).ToList();
+                        List = List.Where(item => item.Button_label.ToString().Contains("Re-Install")).OrderByDescending(ob => ob.Name).ToList();
+
 
                     }
                     else if (Sort.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Update"))
                     {
-                        List = List.OrderBy(x => x.Button_label.Contains("Update")).ToList();
+                      //  List = List.OrderBy(x => x.Button_label.Contains("Update")).ToList();
+                        List = List.Where(item => item.Button_label.ToString().Contains("Update")).OrderByDescending(ob => ob.Name).ToList();
 
                     }
                     else
