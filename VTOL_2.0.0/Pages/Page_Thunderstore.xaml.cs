@@ -635,7 +635,7 @@ Main.logger2.Close();
     {
         public MainWindow Main = GetMainWindow();
         // Timer set to elapse after 750ms
-        private Timer _timer = new Timer(750) { Enabled = false };
+        private Timer _timer = new Timer(100) { Enabled = false };
         private List<Grid_> itemsList = new List<Grid_>();
         private List<string> ListOfLink = new List<string>();
         Updater _updater;
@@ -896,14 +896,14 @@ Main.logger2.Close();
 
                 HandyControl.Controls.SimplePanel GridPanel_ = FindVisualChild<HandyControl.Controls.SimplePanel>(Card);
                 Wpf.Ui.Controls.CardAction Card_Action = FindVisualChild<Wpf.Ui.Controls.CardAction>(Card);
-                Check_Update_Tag(sender);
 
                 if (GridPanel_.Opacity < 1)
                 {
                     if(Card_Action != null)
                     {
-                        if(Card_Action.ToolTip.ToString().Replace("northstar-Northstar","").Count() > 1)
-                        { 
+
+                        if (Card_Action.ToolTip.ToString().Replace("northstar-Northstar", "").Count() > 1)
+                        {
                             Card_Action.IsEnabled = true;
                             Card_Action.Icon = Wpf.Ui.Common.SymbolRegular.BoxMultipleCheckmark20;
                             Card_Action.IconForeground = Brushes.LawnGreen;
@@ -914,6 +914,8 @@ Main.logger2.Close();
                             Card_Action.Icon = Wpf.Ui.Common.SymbolRegular.BoxMultiple20;
 
                         }
+                        Check_Update_Tag(GridPanel_);
+
                     }
                     DoubleAnimation da = new DoubleAnimation
                     {
@@ -933,10 +935,10 @@ Main.logger2.Close();
         private void Search_Bar_Suggest_Mods_GotFocus(object sender, RoutedEventArgs e)
         {
             Search_Bar_Suggest_Mods.IsReadOnly = false;
-            if (Search_Bar_Suggest_Mods.Text.Trim() == "~Search")
-            {
-                Search_Bar_Suggest_Mods.Text = "";
-            }
+            //if (Search_Bar_Suggest_Mods.Text.Trim() == "~Search")
+            //{
+            //    Search_Bar_Suggest_Mods.Text = "";
+            //}
             Sort.SelectedIndex = -1;
             Search_Bar_Suggest_Mods.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFFFFFFF");
             Search_Bar_Suggest_Mods.IconForeground = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFFFFFFF");
@@ -946,12 +948,20 @@ Main.logger2.Close();
         private void Search_Bar_Suggest_Mods_LostFocus(object sender, RoutedEventArgs e)
         {
             Search_Bar_Suggest_Mods.IsReadOnly = true;
-            if (Search_Bar_Suggest_Mods.Text.Trim() == "")
-            {
-                Search_Bar_Suggest_Mods.Text = "~Search";
-            }
+
+            clear_box();
             Search_Bar_Suggest_Mods.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#34FFFFFF");
             Search_Bar_Suggest_Mods.IconForeground = (SolidColorBrush)new BrushConverter().ConvertFrom("#34FFFFFF");
+        }
+        async Task clear_box()
+        {
+
+            DispatchIfNecessary(async () =>
+            {
+                await Task.Delay(700);
+                Search_Bar_Suggest_Mods.Text = "";
+
+            });
         }
         private void Grid_MouseLeave(object sender, MouseEventArgs e)
         {
@@ -1167,19 +1177,16 @@ Main.logger2.Close();
             return 0;
 
         }
-        async void Check_Update_Tag(object sender)
+        async void Check_Update_Tag(HandyControl.Controls.SimplePanel GridPanel_)
         {
             DispatchIfNecessary(() =>
             {
-            Grid Card;
+           
                 
-                    //                ContentPresenter myListBoxItem =
-                    //(ContentPresenter)(Thunderstore_List.ItemContainerGenerator.ContainerFromItem(Thunderstore_List.Items.CurrentItem));
-                    Card = sender as Grid;
+                  
 
                 // HandyControl.Controls.SimplePanel GridPanel_ = FindVisualChild<HandyControl.Controls.SimplePanel>(Card);
                 //Wpf.Ui.Controls.Button Button = FindVisualChild<Wpf.Ui.Controls.Button>(Card);
-                HandyControl.Controls.SimplePanel GridPanel_ = FindVisualChild<HandyControl.Controls.SimplePanel>(Card);
                 Wpf.Ui.Controls.Button Button = GridPanel_.FirstOrDefaultChild<Wpf.Ui.Controls.Button>(l => l.Name == "Install_Bttn_Thunderstore");
                 string[] name = Button.CommandParameter.ToString().Replace(" ", "_").Split("|");
                 string Mod_version_current = name[1];
@@ -1191,13 +1198,16 @@ Main.logger2.Close();
                  //   MessageBox.Show(string.Join("\n", name));
 
                     //MessageBox.Show(string.Join("\n", Main.Current_Installed_Mods));
-                    //MessageBox.Show(name[0]);
                   //  MessageBox.Show(Main.Current_Installed_Mods.Contains(name[0]).ToString());
                   //  MessageBox.Show(Mod_version_current);
 
-                    foreach (var item in Main.Current_Installed_Mods) { 
+                    foreach (var item in Main.Current_Installed_Mods) {
+                        //SnackBar.Title = "WARNING";
+                        //SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Danger;
+                        //SnackBar.Message = name[0].ToString();
+                        //SnackBar.Show();
 
-                        if (Regex.Replace(item, @"(\d+\.)(\d+\.)(\d)", "").TrimEnd('-') == name[0])
+                        if (String.Equals(Regex.Replace(item, @"(\d+\.)(\d+\.)(\d)", "").TrimEnd('-'), name[0]))
                         {
                             Regex pattern = new Regex(@"\d+(\.\d+)+");
                             Match m = pattern.Match(item);
@@ -1208,8 +1218,8 @@ Main.logger2.Close();
 
                                 //fix versions
                                 case 1:
-                                    Button.Content = "Re-Install"; 
-                                    Button.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFAD7F1A");
+                                    Button.Content = "Install"; 
+                                    Button.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF005D42");
                                     break;
                                      case -1:
                                     Button.Content = "Update";
@@ -3066,7 +3076,6 @@ Main.logger2.Close();
                 Progress_Bar = FindVisualChild<ProgressBar>(_Panel);
                 if (Button.Tag.ToString().Contains("http"))
                 {
-                    MessageBox.Show(Button.Tag.ToString());
                     if (Button.ToolTip.ToString().Contains("DDS"))
                     {
 
@@ -3102,6 +3111,15 @@ Main.logger2.Close();
             }
 
         }
+        async void Reload_Search()
+        {
+
+
+
+
+
+
+        }
         private void TextInput_OnKeyUpDone(object sender, ElapsedEventArgs e)
         {
             // If we don't stop the timer, it will keep elapsing on repeat.
@@ -3109,49 +3127,60 @@ Main.logger2.Close();
             {
                 _timer.Stop();
 
-                DispatchIfNecessary(() =>
+
+                BackgroundWorker worker = new BackgroundWorker();
+                worker.DoWork += (sender, e) =>
                 {
 
-
-
-                    if (init == true)
+                    DispatchIfNecessary(() =>
                     {
-
-                        if (Search_Bar_Suggest_Mods.Text.Trim() != "" && Search_Bar_Suggest_Mods.Text.Trim() != "~Search" && Search_Bar_Suggest_Mods.Text != null && Search_Bar_Suggest_Mods.Text.Length != 0)
+                        if (init == true)
                         {
-                            Thunderstore_List.ItemsSource = null;
+                            if (Search_Bar_Suggest_Mods.Text.Trim() != "" && Search_Bar_Suggest_Mods.Text != null && Search_Bar_Suggest_Mods.Text.Length != 0)
+                            {
+                                Thunderstore_List.ItemsSource = null;
 
 
 
 
 
-                            Call_Ts_Mods(true, Search_: true, SearchQuery: Search_Bar_Suggest_Mods.Text);
+                                Call_Ts_Mods(false, Search_: true, SearchQuery: Search_Bar_Suggest_Mods.Text);
 
 
 
 
 
+
+
+
+                            }
+                            else
+                            {
+
+                                Thunderstore_List.ItemsSource = null;
+
+
+
+
+
+                                Call_Ts_Mods(true, Search_: true, SearchQuery: Search_Bar_Suggest_Mods.Text);
+
+                            }
 
 
 
                         }
-                        else
-                        {
-
-                            Thunderstore_List.ItemsSource = null;
 
 
+                    });
 
 
+                };
 
-                            Call_Ts_Mods(true, Search_: true, SearchQuery: Search_Bar_Suggest_Mods.Text);
-
-                        }
-
+                worker.RunWorkerAsync();
 
 
-                    }
-                });
+              
             }
             catch (Exception ex)
             {
@@ -3166,9 +3195,10 @@ Main.logger2.Close();
         }
             private void Search_Bar_Suggest_Mods_TextChanged(object sender, TextChangedEventArgs e)
         {
-          
+            _timer.Stop();
+            _timer.Start();
 
-            }
+        }
 
         private void Grid_Unloaded(object sender, RoutedEventArgs e)
         {
@@ -3181,7 +3211,7 @@ Main.logger2.Close();
             Dependency_Download( Dialog.Tag.ToString(), Progress_Cur_Temp);
 
         }
-
+        
         private void Search_Filters_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (page_loaded == true)
@@ -3386,9 +3416,7 @@ Main.logger2.Close();
         private void Search_Bar_Suggest_Mods_KeyUp(object sender, KeyEventArgs e)
         {
            
-                _timer.Stop();
-                _timer.Start();
-            
+               
         }
 
         private void Grid_GotFocus(object sender, RoutedEventArgs e)
