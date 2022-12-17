@@ -914,7 +914,7 @@ Main.logger2.Close();
                             Card_Action.Icon = Wpf.Ui.Common.SymbolRegular.BoxMultiple20;
 
                         }
-                        Check_Update_Tag(GridPanel_);
+                      //  Check_Update_Tag(GridPanel_);
 
                     }
                     DoubleAnimation da = new DoubleAnimation
@@ -1188,9 +1188,10 @@ Main.logger2.Close();
             }
             return false;
         }
-        private string Compare_Mod_To_List(string modname, string Mod_version_current, HashSet<string> list)
+        private void Compare_Mod_To_List(string modname, string Mod_version_current, HashSet<string> list, out System.Windows.Media.SolidColorBrush bg_color, out string label)
         {
-            string res;
+            string res = "Install";
+            System.Windows.Media.SolidColorBrush bg = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF005D42");
 
             DispatchIfNecessary(() =>
             {
@@ -1200,19 +1201,23 @@ Main.logger2.Close();
                     //debugging code. keep
                     //   MessageBox.Show(string.Join("\n", name));
 
-                    //MessageBox.Show(string.Join("\n", Main.Current_Installed_Mods));
-                    //  MessageBox.Show(Main.Current_Installed_Mods.Contains(name[0]).ToString());
-                    //  MessageBox.Show(Mod_version_current);
+                    //MessageBox.Show(string.Join("\n", list));
+                    ////  MessageBox.Show(Main.Current_Installed_Mods.Contains(name[0]).ToString());
+                    ////  MessageBox.Show(Mod_version_current);
+                    //MessageBox.Show(modname);
+                    //MessageBox.Show(Mod_version_current);
 
                     foreach (var item in list)
                     {
                         //SnackBar.Title = "WARNING";
-                        //SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Danger;
+                        //SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Dwanger;
                         //SnackBar.Message = name[0].ToString();
                         //SnackBar.Show();
 
-                        if (findString(Regex.Replace(item, @"(\d+\.)(\d+\.)(\d)", "").TrimEnd('-'), modname, "_"))
+                        if (Regex.Replace(item, @"(\d+\.)(\d+\.)(\d)", "").TrimEnd('-') == modname)
                         {
+                            //MessageBox.Show("yes");
+
                             Regex pattern = new Regex(@"\d+(\.\d+)+");
                             Match m = pattern.Match(item);
                             string version = m.Value;
@@ -1224,29 +1229,27 @@ Main.logger2.Close();
 
                                 //fix versions
                                 case 1:
-                                    res = "Install";
-                                    //   Button.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF005D42");
+                                    res = "Re-Install";
+                                    bg = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFAD7F1A");
                                     break;
                                 case -1:
                                     res = "Update";
-                                    //   Button.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF009817");
+                                    bg = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF009817");
 
                                     break;
                                 case 0:
                                     res = "Re-Install";
-                                    //   Button.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFAD7F1A");
+                                    bg = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFAD7F1A");
 
                                     break;
                                 default:
                                     res = "Install";
-                                    //   Button.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF005D42");
+                                    bg =  (SolidColorBrush)new BrushConverter().ConvertFrom("#FF005D42");
 
                                     break;
                             }
-                            break;
 
                         }
-                        break;
 
 
 
@@ -1263,8 +1266,8 @@ Main.logger2.Close();
 
                 }
             });
-            return null;
-
+            label = res;
+            bg_color = bg;
         }
         async void Check_Update_Tag(HandyControl.Controls.SimplePanel GridPanel_)
         {
@@ -1632,7 +1635,18 @@ int millisecondsDelay = 30)
                             List = List.OrderBy(ob => Convert.ToInt32(ob.Downloads)).ToList();
 
                         }
-                        else
+                    else if (Sort.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Installed"))
+                    {
+                       
+                        List = List.OrderByDescending(x => x.Button_label.ToString().Contains("Re-Install")).ToList();
+
+                    }
+                    else if (Sort.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Update"))
+                    {
+                        List = List.OrderByDescending(x => x.Button_label.Contains("Update")).ToList();
+
+                    }
+                    else
                         {
                         return List;
 
@@ -1667,8 +1681,19 @@ int millisecondsDelay = 30)
                         {
                             List = List.OrderByDescending(ob => Convert.ToInt32(ob.Downloads)).ToList();
 
-                        }
-                        else
+                    }
+                    else if (Sort.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Installed"))
+                    {
+
+                        List = List.OrderByDescending(x => x.Button_label.ToString().Contains("Re-Install")).ToList();
+
+                    }
+                    else if (Sort.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Update"))
+                    {
+                        List = List.OrderBy(x => x.Button_label.Contains("Update")).ToList();
+
+                    }
+                    else
                         {
                         return List;
                     }
@@ -1706,8 +1731,8 @@ int millisecondsDelay = 30)
                 string Dependencies_ = "";
                 string Update_data = "";
                 string Button_label = "";
-              
-                    if (Current_Mod_Filter_Tags != null)
+
+                if (Current_Mod_Filter_Tags != null)
                     {
                         Current_Mod_Filter_Tags = Current_Mod_Filter_Tags.Where(s => !string.IsNullOrWhiteSpace(s)).Distinct().ToList();
                     }
@@ -1792,8 +1817,10 @@ int millisecondsDelay = 30)
                                         {
                                             FileSize = Convert_To_Size(value);
                                         }
-
-                                itemsList.Add(new Grid_ { Name = _updater.Thunderstore[i].Name.Replace("_", " ") + "-" + versions.First().VersionNumber, Icon = ICON, date_created = _updater.Thunderstore[i].DateCreated.ToString(), description = Descrtiption, owner = _updater.Thunderstore[i].Owner, Rating = rating, download_url = download_url + "|" + _updater.Thunderstore[i].Name + "-" + versions.First().VersionNumber + "|" + Tags + "|" + Dependencies_, Webpage = _updater.Thunderstore[i].PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads, Dependencies = Dependencies_, FullName = _updater.Thunderstore[i].FullName, raw_size = raw_size, Update_data = _updater.Thunderstore[i].Name+ "|" + versions.First().VersionNumber });
+                                    System.Windows.Media.SolidColorBrush bg_color;
+                                    string label;
+                                    Compare_Mod_To_List(_updater.Thunderstore[i].Name, versions.First().VersionNumber, Main.Current_Installed_Mods, out bg_color, out label);
+                                    itemsList.Add(new Grid_ { Name = _updater.Thunderstore[i].Name.Replace("_", " ") + "-" + versions.First().VersionNumber, Icon = ICON, date_created = _updater.Thunderstore[i].DateCreated.ToString(), description = Descrtiption, owner = _updater.Thunderstore[i].Owner, Rating = rating, download_url = download_url + "|" + _updater.Thunderstore[i].Name + "-" + versions.First().VersionNumber + "|" + Tags + "|" + Dependencies_, Webpage = _updater.Thunderstore[i].PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads, Dependencies = Dependencies_, FullName = _updater.Thunderstore[i].FullName, raw_size = raw_size, Update_data = _updater.Thunderstore[i].Name+ "|" + versions.First().VersionNumber, Button_label = label, Button_Color = bg_color });
 
 
 
@@ -1854,7 +1881,11 @@ int millisecondsDelay = 30)
                                     {
                                         FileSize = Convert_To_Size(value);
                                     }
-                                itemsList.Add(new Grid_ { Name = _updater.Thunderstore[i].Name.Replace("_", " ") + "-" + versions.First().VersionNumber, Icon = ICON, date_created = _updater.Thunderstore[i].DateCreated.ToString(), description = Descrtiption, owner = _updater.Thunderstore[i].Owner, Rating = rating, download_url = download_url + "|" + _updater.Thunderstore[i].Name + "-" + versions.First().VersionNumber + "|" + Tags + "|" + Dependencies_, Webpage = _updater.Thunderstore[i].PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads, Dependencies = Dependencies_, FullName = _updater.Thunderstore[i].FullName, raw_size = raw_size, Update_data = _updater.Thunderstore[i].Name + "|" + versions.First().VersionNumber });
+                                System.Windows.Media.SolidColorBrush bg_color;
+                                string label;
+                                Compare_Mod_To_List(_updater.Thunderstore[i].Name, versions.First().VersionNumber, Main.Current_Installed_Mods, out bg_color, out label);
+
+                                itemsList.Add(new Grid_ { Name = _updater.Thunderstore[i].Name.Replace("_", " ") + "-" + versions.First().VersionNumber, Icon = ICON, date_created = _updater.Thunderstore[i].DateCreated.ToString(), description = Descrtiption, owner = _updater.Thunderstore[i].Owner, Rating = rating, download_url = download_url + "|" + _updater.Thunderstore[i].Name + "-" + versions.First().VersionNumber + "|" + Tags + "|" + Dependencies_, Webpage = _updater.Thunderstore[i].PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads, Dependencies = Dependencies_, FullName = _updater.Thunderstore[i].FullName, raw_size = raw_size, Update_data = _updater.Thunderstore[i].Name + "|" + versions.First().VersionNumber, Button_label = label, Button_Color = bg_color });
                             }
                         }
                         }
@@ -1915,8 +1946,12 @@ int millisecondsDelay = 30)
                                     {
                                         FileSize = Convert_To_Size(value);
                                     }
+                                System.Windows.Media.SolidColorBrush bg_color;
+                                string label;
+                                Compare_Mod_To_List(_updater.Thunderstore[i].Name, versions.First().VersionNumber, Main.Current_Installed_Mods, out bg_color, out label);
 
-                                    itemsList.Add(new Grid_ { Name = _updater.Thunderstore[i].Name.Replace("_", " ") + "-" + versions.First().VersionNumber, Icon = ICON, date_created = _updater.Thunderstore[i].DateCreated.ToString(), description = Descrtiption, owner = _updater.Thunderstore[i].Owner, Rating = rating, download_url = download_url + "|" + _updater.Thunderstore[i].Name + "-" + versions.First().VersionNumber + "|" + Tags + "|" + Dependencies_, Webpage = _updater.Thunderstore[i].PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads, Dependencies = Dependencies_, FullName = _updater.Thunderstore[i].FullName , raw_size = raw_size, Update_data = _updater.Thunderstore[i].Name + "|" + versions.First().VersionNumber });
+
+                                itemsList.Add(new Grid_ { Name = _updater.Thunderstore[i].Name.Replace("_", " ") + "-" + versions.First().VersionNumber, Icon = ICON, date_created = _updater.Thunderstore[i].DateCreated.ToString(), description = Descrtiption, owner = _updater.Thunderstore[i].Owner, Rating = rating, download_url = download_url + "|" + _updater.Thunderstore[i].Name + "-" + versions.First().VersionNumber + "|" + Tags + "|" + Dependencies_, Webpage = _updater.Thunderstore[i].PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads, Dependencies = Dependencies_, FullName = _updater.Thunderstore[i].FullName , raw_size = raw_size, Update_data = _updater.Thunderstore[i].Name + "|" + versions.First().VersionNumber, Button_label = label, Button_Color = bg_color });
 
 
 
@@ -1958,7 +1993,6 @@ int millisecondsDelay = 30)
 
                                 }
 
-
                                 download_url = versions.First().DownloadUrl;
 
                                 ICON = versions.First().Icon;
@@ -1976,7 +2010,11 @@ int millisecondsDelay = 30)
                                 {
                                     FileSize = Convert_To_Size(value);
                                 }
-                            itemsList.Add(new Grid_ { Name = _updater.Thunderstore[i].Name.Replace("_", " ") + "-" + versions.First().VersionNumber, Icon = ICON, date_created = _updater.Thunderstore[i].DateCreated.ToString(), description = Descrtiption, owner = _updater.Thunderstore[i].Owner, Rating = rating, download_url = download_url + "|" + _updater.Thunderstore[i].Name + "-" + versions.First().VersionNumber + "|" + Tags + "|" + Dependencies_, Webpage = _updater.Thunderstore[i].PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads, Dependencies = Dependencies_, FullName = _updater.Thunderstore[i].FullName, raw_size = raw_size, Update_data = _updater.Thunderstore[i].Name + "|" + versions.First().VersionNumber });
+                            System.Windows.Media.SolidColorBrush bg_color;
+                            string label;
+                            Compare_Mod_To_List(_updater.Thunderstore[i].Name, versions.First().VersionNumber, Main.Current_Installed_Mods,out bg_color,out label);
+
+                            itemsList.Add(new Grid_ { Name = _updater.Thunderstore[i].Name.Replace("_", " ") + "-" + versions.First().VersionNumber, Icon = ICON, date_created = _updater.Thunderstore[i].DateCreated.ToString(), description = Descrtiption, owner = _updater.Thunderstore[i].Owner, Rating = rating, download_url = download_url + "|" + _updater.Thunderstore[i].Name + "-" + versions.First().VersionNumber + "|" + Tags + "|" + Dependencies_, Webpage = _updater.Thunderstore[i].PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads, Dependencies = Dependencies_, FullName = _updater.Thunderstore[i].FullName, raw_size = raw_size, Update_data = _updater.Thunderstore[i].Name + "|" + versions.First().VersionNumber, Button_label = label, Button_Color = bg_color });
 
                         }
 
@@ -2065,6 +2103,8 @@ Main.logger2.Close();
             public string Update_data { get; set; }
 
             public string Button_label { get; set; }
+            public System.Windows.Media.SolidColorBrush Button_Color { get; set; }
+
         }
         public class Grid_
         {
@@ -2087,6 +2127,7 @@ Main.logger2.Close();
             public string Update_data { get; set; }
 
             public string Button_label { get; set; }
+            public System.Windows.Media.SolidColorBrush Button_Color { get; set; }
 
         }
 

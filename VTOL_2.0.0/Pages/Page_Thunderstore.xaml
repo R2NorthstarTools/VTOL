@@ -30,6 +30,8 @@
             <ComboBoxItem Name="Date">Date</ComboBoxItem>
             <ComboBoxItem Name="File_Size">File Size</ComboBoxItem>
             <ComboBoxItem Name="Downloads">Downloads</ComboBoxItem>
+            <ComboBoxItem Name="Update">Updates</ComboBoxItem>
+            <ComboBoxItem Name="ReInstall">Installed</ComboBoxItem>
 
         </ComboBox>
         <ui:Button x:Name="padd" Content="" VerticalAlignment="Top" Height="35" Padding="0,0,0,0" Icon="ArrowSortDownLines20" BorderBrush="{x:Null}"  Width="40" HorizontalAlignment="Right" Margin="0,135,278.3,0" Click="padd_Click" Background="#07FFFFFF" ToolTip="{x:Static properties:Language.Page_Mods_ReverseFilterOrder}" MouseOverBackground="#4CFFFFFF"/>
@@ -144,7 +146,7 @@
                                 <TextBlock  Name="tbmarquee"  Foreground="White" Text="{Binding description}"  TextWrapping="Wrap" FontSize="14" Width="235" Height="94" Padding="5,5,5,5" ScrollViewer.CanContentScroll="True" ></TextBlock>
                             </Canvas>
 
-                            <ui:Button x:Name="Install_Bttn_Thunderstore" Margin="130,250,10,0" Background="#FF005D42" HorizontalAlignment="Stretch" Height="29" Content="Install" FontSize="14" Icon="ArrowDownload16" BorderBrush="{x:Null}" VerticalAlignment="Top" Padding="0,0,0,0" Tag="{Binding download_url}" Click="Install_Bttn_Thunderstore_Click" ToolTip ="{Binding Tag}" ToolTipService.IsEnabled="False" AutomationProperties.IsRequiredForForm="False" CommandParameter="{Binding Update_data}"/>
+                            <ui:Button x:Name="Install_Bttn_Thunderstore" Margin="130,250,10,0" Background="{Binding Button_Color}" HorizontalAlignment="Stretch" Height="29" Content="{Binding Button_label}" FontSize="14" Icon="ArrowDownload16" BorderBrush="{x:Null}" VerticalAlignment="Top" Padding="0,0,0,0" Tag="{Binding download_url}" Click="Install_Bttn_Thunderstore_Click" ToolTip ="{Binding Tag}" ToolTipService.IsEnabled="False" AutomationProperties.IsRequiredForForm="False" CommandParameter="{Binding Update_data}"/>
                             <TextBlock TextAlignment="Left" Text="{Binding date_created}" Margin="10,161,10,107" Background="{x:Null}" Foreground="#FFC7C7C7" FontSize="11" RenderTransformOrigin="0.5,0.5">
                                 <TextBlock.RenderTransform>
                                     <TransformGroup>
