@@ -100,7 +100,7 @@
                 <DataTemplate>
                     <ui:CardControl Margin="0,4,0,4" Foreground="{x:Null}" IsHitTestVisible="True" AutomationProperties.HelpText="sd" Tag="{Binding Mod_Name_}" MouseRightButtonDown="EXTRA_SETTINGS_Dock_MouseRightButtonDown" Padding="5,5,5,5" Loaded="CardControl_Loaded" IsMouseCaptureWithinChanged="CardControl_IsMouseCaptureWithinChanged" GotFocus="CardControl_GotFocus" MouseMove="CardControl_MouseMove" ClickMode="Press" BorderBrush="{x:Null}">
                         <ui:CardControl.Header>
-                            <StackPanel Grid.Column="0" VerticalAlignment="Center" Height="56" Width="225" HorizontalAlignment="Left" Margin="6,0,0,0">
+                            <StackPanel Grid.Column="0" VerticalAlignment="Center" Height="56" Width="314" HorizontalAlignment="Left" Margin="9,0,0,0">
 
                                 <TextBlock
                         FontSize="13"
@@ -114,7 +114,7 @@
                         </ui:CardControl.Header>
                         <Grid Height="60" RenderTransformOrigin="0.5,0.5" Width="435">
 
-                            <DockPanel   Height="62" HorizontalAlignment="Right" Margin="0,0,0,-2" Width="435" Opacity="0" IsEnabled="False" Tag="Hidden" AutomationProperties.IsOffscreenBehavior="Offscreen">
+                            <DockPanel   Height="62" HorizontalAlignment="Left" Margin="113,0,0,-2" Width="322" Opacity="0" IsEnabled="False" Tag="Hidden" AutomationProperties.IsOffscreenBehavior="Offscreen">
                                 <ui:Button x:Name="Info_Btn" Width="58" Height="42" Content="Info"  Background="#FF24ABBD" Tag ="{Binding Mod_Name_}"  ToolTip="{Binding Mod_Name_}" Margin="0,0,5,0" Click="Info_Btn_Click" ClickMode="Press"/>
                                 <ui:Button x:Name="Check_For_Update" Width="116" Height="42" Content="Update" Tag ="{Binding Mod_Name_}" ToolTip="{Binding Mod_Name_}" Margin="0,0,5,0" FontSize="12" Click="Check_For_Update_Click" IsEnabled="False" Visibility="Collapsed">
                                     <ui:Button.Background>
@@ -142,6 +142,7 @@
 
 
                     </ui:CardControl>
+
                 </DataTemplate>
             </ListBox.ItemTemplate>
             <ListBox.ItemContainerStyle>
@@ -179,9 +180,8 @@
 
 
 
-
         </ListBox>
-
+       
 
         <ui:Snackbar x:Name="Snack" Grid.ColumnSpan="3" Margin="24,0,24,24"/>
         <Label Content="{x:Static properties:Language.Page_Mods_ListedHereAreTheModsThatAreCurrentlyInstalled}" Margin="65,0,0,573" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="281" Grid.ColumnSpan="2"/>

@@ -649,7 +649,8 @@ Main.logger2.Close();
         bool do_not_overwrite_Ns_file = true;
         bool page_loaded = false;
         public bool Reverse_ = false;
-       
+        bool search_a_flag = false;
+
         public Page_Thunderstore()
         {
             InitializeComponent();
@@ -666,7 +667,6 @@ Main.logger2.Close();
             Options_List.Add("Language: CN");
             Options_List.Add("DDS");
             Options_List.Add("Maps");
-
             Search_Filters.ItemsSource = Options_List;
             _timer.Elapsed += TextInput_OnKeyUpDone;
 
@@ -934,22 +934,23 @@ Main.logger2.Close();
         }
         private void Search_Bar_Suggest_Mods_GotFocus(object sender, RoutedEventArgs e)
         {
+            if (search_a_flag == true)
+            {
+                clear_box();
+            }
             Search_Bar_Suggest_Mods.IsReadOnly = false;
-            //if (Search_Bar_Suggest_Mods.Text.Trim() == "~Search")
-            //{
-            //    Search_Bar_Suggest_Mods.Text = "";
-            //}
+            
             Sort.SelectedIndex = -1;
             Search_Bar_Suggest_Mods.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFFFFFFF");
             Search_Bar_Suggest_Mods.IconForeground = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFFFFFFF");
+            search_a_flag = false;
 
         }
 
         private void Search_Bar_Suggest_Mods_LostFocus(object sender, RoutedEventArgs e)
         {
             Search_Bar_Suggest_Mods.IsReadOnly = true;
-
-            clear_box();
+            search_a_flag = true;
             Search_Bar_Suggest_Mods.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#34FFFFFF");
             Search_Bar_Suggest_Mods.IconForeground = (SolidColorBrush)new BrushConverter().ConvertFrom("#34FFFFFF");
         }
@@ -958,7 +959,6 @@ Main.logger2.Close();
 
             DispatchIfNecessary(async () =>
             {
-                await Task.Delay(700);
                 Search_Bar_Suggest_Mods.Text = "";
 
             });
@@ -2239,8 +2239,20 @@ Main.logger2.Close();
         
 }
 
-        private void Clear_Folder(string FolderName)
+        private void Clear_Folder(string FolderName, bool overwrite = true, int maxRetries = 10, int millisecondsDelay = 30)
         {
+                if (FolderName == null)
+                    throw new ArgumentNullException(FolderName);
+                if (maxRetries < 1)
+                    throw new ArgumentOutOfRangeException(nameof(maxRetries));
+                if (millisecondsDelay < 1)
+                    throw new ArgumentOutOfRangeException(nameof(millisecondsDelay));
+
+                for (int i = 0; i < maxRetries; ++i)
+                {
+                   
+               
+           
             try
             {
                 DirectoryInfo dir = new DirectoryInfo(FolderName);
@@ -2263,8 +2275,13 @@ Main.logger2.Close();
                 Main.logger2.Close();
 
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                    return;
+
+                }
             }
-        }
+
+                return;
+            }
         private static void CopyFilesRecursively(string sourcePath, string targetPath)
         {
             //Now Create all of the directories
