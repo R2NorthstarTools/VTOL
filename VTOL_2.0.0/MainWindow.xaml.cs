@@ -38,14 +38,15 @@ namespace VTOL
         bool Profile_card = false;
         public User_Settings User_Settings_Vars = new User_Settings();
         public string AppDataFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData));
-        
+        public string DocumentsFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
 
         public TlsPaperTrailLogger logger2 = new TlsPaperTrailLogger("logs5.papertrailapp.com", 38137);
         public bool Is_Focused = true;
        // public List<string> Current_Installed_Mods = new List<string>();
         public HashSet<string> Current_Installed_Mods = new HashSet<string>();
 
-
+        bool failed_folder = false;
 
         static void Main(string[] args)
 
@@ -63,7 +64,26 @@ namespace VTOL
 
                 //System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo("fr-FR");
                 //System.Threading.Thread.CurrentThread.CurrentCulture = new CultureInfo("fr-FR");Do
+                if (Directory.Exists(DocumentsFolder) && Directory.Exists(AppDataFolder))
+                {
+                    if (!Directory.Exists(AppDataFolder + @"\VTOL_DATA\Settings"))
 
+                    {
+                        TryCreateDirectory(AppDataFolder + @"\VTOL_DATA\Settings");
+
+                    }
+
+                    if (File.Exists(DocumentsFolder + @"\VTOL_DATA\Settings\User_Settings.Json") && !File.Exists(AppDataFolder + @"\VTOL_DATA\Settings\User_Settings.Json"))
+                    {
+                       TryCopyFile(DocumentsFolder + @"\VTOL_DATA\Settings\User_Settings.Json", AppDataFolder + @"\VTOL_DATA\Settings\User_Settings.Json");
+
+                        if (File.Exists(AppDataFolder + @"\VTOL_DATA\Settings\User_Settings.Json"))
+                        {
+                            TryDeleteDirectory(DocumentsFolder + @"\VTOL_DATA\",true);
+
+                        }
+                    }
+              }
 
                 if (Directory.Exists(AppDataFolder))
                 {
@@ -107,9 +127,45 @@ namespace VTOL
                 }
                 else
                 {
-                    MessageBox.Show("VTOL SYSTEMS FAILED TO FIND YOUR DOCUMENTS FOLDER");
-                    Application.Current.Shutdown();
+                    failed_folder = true;
+                    MessageBox.Show("VTOL SYSTEMS FAILED TO FIND YOUR APPDATA FOLDER, LOCATE A SAVE DATA FOLDER");
+                    
+                        var folderDlg = new Ookii.Dialogs.Wpf.VistaFolderBrowserDialog();
+                        folderDlg.ShowNewFolderButton = true;
+                        // Show the FolderBrowserDialog.  
+                        var result = folderDlg.ShowDialog();
+                        if (result == true)
+                        {
+                            string path = folderDlg.SelectedPath;
+                            if (path == null || !Directory.Exists(path))
+                            {
+                                MessageBox.Show("INVALID FOLDER");
 
+
+
+
+                            }
+                            else
+                            {
+
+                            Properties.Settings.Default.BACKUP_SAVE_DEST = path + @"\";
+                            Properties.Settings.Default.Save();
+                            MessageBox.Show("RESTARTING TO SET HARD VALUES");
+
+                            Restart();
+                        }
+                        }
+
+
+                            
+                    //Application.Current.Shutdown();
+
+                }
+                if(failed_folder == true)
+                {
+                    AppDataFolder = Properties.Settings.Default.BACKUP_SAVE_DEST;
+
+                  
                 }
                 if (User_Settings_Vars != null)
                 {
@@ -196,6 +252,13 @@ namespace VTOL
 
 
 
+
+        }
+        void Restart()
+        {
+            var currentExecutablePath = Process.GetCurrentProcess().MainModule.FileName;
+            Process.Start(currentExecutablePath);
+            Application.Current.Shutdown();
 
         }
         public static bool IsAdministrator()

@@ -1802,7 +1802,6 @@ Main.logger2.Close();
 
                 Mod_List_Box.ItemsSource = sorted;
                 Mod_List_Box.Refresh();
-                //Check_Updates_List();
 
             }
             catch (Exception ex)

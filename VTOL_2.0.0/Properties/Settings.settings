@@ -71,5 +71,8 @@
     <Setting Name="EA_APP_SUPPORT" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="BACKUP_SAVE_DEST" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

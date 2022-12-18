@@ -821,6 +821,25 @@ int millisecondsDelay = 150)
 
             return (s);
         }
+        async void Restart_App()
+        {
+            await Task.Delay(500);
+
+            DispatchIfNecessary(() =>
+            {
+
+
+                SnackBar.Appearance = ControlAppearance.Info;
+                SnackBar.Title = "INFO";
+                SnackBar.Message = VTOL.Resources.Languages.Language.PleaseWaitAsVTOLRestarts;
+                SnackBar.Show();
+            });
+
+            await Task.Delay(1000);
+            var currentExecutablePath = Process.GetCurrentProcess().MainModule.FileName;
+            Process.Start(currentExecutablePath);
+            Application.Current.Shutdown();
+        }
         void INIT()
         {
             try
@@ -2765,7 +2784,7 @@ Main.logger2.Close();
                                 SnackBar.Title = "SUCCESS";
                                 SnackBar.Message = VTOL.Resources.Languages.Language.Page_Home_Browse_Titanfall_Button_Click_TheLocation+ Current_Install_Folder + VTOL.Resources.Languages.Language.Page_Home_Browse_Titanfall_Button_Click_IsValidAndHasBeenSet;
                                 SnackBar.Show();
-
+                                Restart_App();
                             }
                             else
                             {

@@ -298,5 +298,17 @@ namespace VTOL.Properties {
                 this["EA_APP_SUPPORT"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string BACKUP_SAVE_DEST {
+            get {
+                return ((string)(this["BACKUP_SAVE_DEST"]));
+            }
+            set {
+                this["BACKUP_SAVE_DEST"] = value;
+            }
+        }
     }
 }
