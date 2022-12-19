@@ -994,7 +994,7 @@ Main.logger2.Close();
         }
 
 
-        public async Task Call_Ts_Mods(bool hard_refresh = true, List<string> Filter_Type = null, bool Search_ = false, string SearchQuery = "#", bool tickle = false)
+        public async Task Call_Ts_Mods(bool hard_refresh = true, List<string> Filter_Type = null, bool Search_ = false, string SearchQuery = "#", bool tickle = false,bool clear = true)
         {
 
 
@@ -1002,14 +1002,15 @@ Main.logger2.Close();
             try
             {
 
+                if (clear == true)
+                {
 
-
-                DispatchIfNecessary(() =>
+                    DispatchIfNecessary(() =>
                 {
                     Loading_Ring.Visibility = Visibility.Visible;
 
                 });
-
+                }
                 List<Grid_> List = null;
                 _updater = new Updater("https://northstar.thunderstore.io/api/v1/package/");
 
@@ -3654,7 +3655,6 @@ Main.logger2.Close();
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
-            Thunderstore_List.ItemsSource = null;
             if (page_loaded == true)
             {
                 BackgroundWorker worker = new BackgroundWorker();
@@ -3663,7 +3663,7 @@ Main.logger2.Close();
 
 
                     Call_Mods_From_Folder_Lite();
-                    Call_Ts_Mods();
+                    Call_Ts_Mods(clear:false);
 
 
 

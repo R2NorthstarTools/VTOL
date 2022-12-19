@@ -127,7 +127,7 @@
                                 <ui:Button x:Name="Delete_Btn" Width="76" Height="42" Content="Delete"  Background="#FFB90000" Tag ="{Binding Mod_Name_}"  ToolTip="{Binding Mod_Name_}" Margin="0,0,30,0" Click="Delete_Btn_Click"/>
 
                             </DockPanel>
-                            <ui:Button x:Name="Mod_Btn" Width="112" Height="42" Content="{Binding En_Di}"  Background="{Binding Is_Active_Color}" Tag ="{Binding En_Di}" Click="Mod_Btn_Click" ToolTip="{Binding Mod_Name_}" Margin="0,0,10,0" HorizontalAlignment="Right"/>
+                            <ui:Button x:Name="Mod_Btn" Width="112" Height="42" Content="{Binding Label}"  Background="{Binding Is_Active_Color}" Tag ="{Binding En_Di}" Click="Mod_Btn_Click" ToolTip="{Binding Mod_Name_}" Margin="0,0,10,0" HorizontalAlignment="Right"/>
                             <ui:SymbolIcon RenderTransformOrigin="0.5,0.5" Width="16" HorizontalAlignment="Left" Margin="285,0,0,0" Symbol="Warning12" Foreground="Red" Opacity="{Binding Flag}" ToolTip="{Binding Error_Tooltip}" >
                                 <ui:SymbolIcon.RenderTransform>
                                     <TransformGroup>

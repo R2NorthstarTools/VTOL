@@ -35,8 +35,9 @@ namespace VTOL.Pages
     {
         public string Mod_Name;
         public string Mod_Date;
-        public string En_Di;
+        public string Label;
         public bool Is_Active;
+        public string En_Di;
 
         public string Is_Active_Color;
         public string Size__;
@@ -65,6 +66,13 @@ namespace VTOL.Pages
             get { return En_Di; }
             set { En_Di = value; NotifyPropertyChanged("En_Di"); }
         }
+        public string Label_
+        {
+
+            get { return Label; }
+            set { Label = value; NotifyPropertyChanged("Label"); }
+        }
+
         public bool Is_Active_
         {
 
@@ -175,6 +183,7 @@ namespace VTOL.Pages
             public string Size__ { get; set; }
             public int Flag { get; set; }
             public string Error_Tooltip { get; set; }
+            public string Label  { get; set; }
 
 
         }
@@ -343,7 +352,7 @@ namespace VTOL.Pages
                                             ToolTip_Dynamic = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_PleaseOpenYourFolderAt + dirInfo.Parent + VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_AndManuallyRepairTheMod + dirInfo.Name;
                                             Flag_mod = 100;
                                         }
-                                        Final_List.Add(new Card_ { Mod_Name_ = dirInfo.Name.Trim(), Mod_Date_ = dirInfo.CreationTime.ToString(), Is_Active_Color = "#B29A0404", Size__ = dirInfo.LastAccessTime.ToString(), En_Di = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_Enable, Is_Active_ = true, Mod_Path_ = dirInfo.FullName, Flag = Flag_mod, Error_Tooltip = ToolTip_Dynamic });
+                                        Final_List.Add(new Card_ { Mod_Name_ = dirInfo.Name.Trim(), Mod_Date_ = dirInfo.CreationTime.ToString(), Is_Active_Color = "#B29A0404", Size__ = dirInfo.LastAccessTime.ToString(), En_Di = "Enable", Is_Active_ = true, Mod_Path_ = dirInfo.FullName, Flag = Flag_mod, Error_Tooltip = ToolTip_Dynamic,Label = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_Enable });
                                     }
                                     else
                                     {
@@ -358,7 +367,7 @@ namespace VTOL.Pages
                                             Flag_mod = 100;
                                         }
 
-                                        Final_List.Add(new Card_ { Mod_Name_ = dirInfo.Name.Trim(), Mod_Date_ = dirInfo.CreationTime.ToString(), Is_Active_Color = "#B2049A28", Size__ = dirInfo.LastAccessTime.ToString(), En_Di = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_Disable_ ,Is_Active_ = false, Mod_Path_ = dirInfo.FullName, Flag = Flag_mod, Error_Tooltip = ToolTip_Dynamic });
+                                        Final_List.Add(new Card_ { Mod_Name_ = dirInfo.Name.Trim(), Mod_Date_ = dirInfo.CreationTime.ToString(), Is_Active_Color = "#B2049A28", Size__ = dirInfo.LastAccessTime.ToString(), En_Di ="Disable" ,Is_Active_ = false, Mod_Path_ = dirInfo.FullName, Flag = Flag_mod, Error_Tooltip = ToolTip_Dynamic, Label = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_Disable_ });
 
 
                                     }
@@ -959,8 +968,7 @@ Main.logger2.Close();Log.Error(ex, $"A crash happened at {DateTime.Now.ToString(
                         if (Button_.Tag.ToString() == "Enable")
                         {
 
-
-                            Move_Mods(Name_, true);
+                          Move_Mods(Name_, true);
                            
 
 
