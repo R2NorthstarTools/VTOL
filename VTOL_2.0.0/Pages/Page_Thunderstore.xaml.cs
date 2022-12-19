@@ -1503,6 +1503,41 @@ int millisecondsDelay = 30)
 
             return false;
         }
+        public bool TryMoveFolder(
+   string Origin, string Destination, bool overwrite = true,
+   int maxRetries = 10,
+   int millisecondsDelay = 200)
+        {
+            if (Origin == null)
+                throw new ArgumentNullException(Origin);
+            if (maxRetries < 1)
+                throw new ArgumentOutOfRangeException(nameof(maxRetries));
+            if (millisecondsDelay < 1)
+                throw new ArgumentOutOfRangeException(nameof(millisecondsDelay));
+
+            for (int i = 0; i < maxRetries; ++i)
+            {
+                try
+                {
+                    if (Directory.Exists(Origin))
+                    {
+                        Directory.Move(Origin, Destination);
+                    }
+
+                    return true;
+                }
+                catch (IOException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+            }
+
+            return false;
+        }
         public bool TryCopyFile(
   string Origin, string Destination, bool overwrite = true,
   int maxRetries = 10,
@@ -2601,7 +2636,8 @@ int millisecondsDelay = 300)
             //add drag and drop
 
             try
-            { 
+            {
+               
                 string Dir_Final = null;
 
                 if (File.Exists(Target_Zip))
@@ -2732,7 +2768,7 @@ int millisecondsDelay = 300)
                                     var Script = Destinfo.GetFiles(searchQuery3, SearchOption.AllDirectories);
                                     Destinfo.Attributes &= ~FileAttributes.ReadOnly;
                                     Console.WriteLine(Script.Length.ToString());
-                                    if (Script.Length != 0)
+                                    if (Script.Length != 0 && Script.Length <= 1)
                                     {
                                         var File_ = Script.FirstOrDefault();
 
@@ -2764,45 +2800,67 @@ int millisecondsDelay = 300)
 
 
                                         }
+
+                                        Call_Mods_From_Folder_Lite();
+                                        DispatchIfNecessary(() => {
+                                            if (Progress_Bar != null)
+                                            {
+                                                Progress_Bar.Value = 0;
+                                            }
+
+                                            SnackBar.Title = "SUCCESS";
+                                            SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
+                                            SnackBar.Message = "The Mod " + Path.GetFileNameWithoutExtension(Target_Zip).Replace("_", " ") + VTOL.Resources.Languages.Language.Page_Thunderstore_Unpack_To_Location_Custom_HasBeenDownloadedAndInstalled;
+                                            SnackBar.Show();
+
+
+                                        });
+
                                     }
                                     else if (Script.Length > 1)
                                     {
-                                        //foreach (var x in Script)
-                                        //{
 
-                                        //    Console.WriteLine(x.FullName);
-                                        //}
-                                      //  Console.WriteLine("MULTIPACK - " + Destination);
-                                        SnackBar.Title = "WARNING";
-                                        SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Danger;
-                                        SnackBar.Message = "Multiple Mods Detected In the Zip, Fix the Mod -\n" +mod_name +"\n- Manually ";
-                                        SnackBar.Show();
+                                      
+
+                                           
 
 
+                                            foreach (var File_ in Script)
+                                            {
+                                                FileInfo FolderTemp = new FileInfo(File_.FullName);
 
-
-
-                                    }
-                                    else
-                                    {
-                                        //Too many or no mods?
-
-                                    }
-                                    Call_Mods_From_Folder_Lite();
-                                     DispatchIfNecessary(() => {
-                                        if (Progress_Bar != null)
+                                                DirectoryInfo di = new DirectoryInfo(Directory.GetParent(File_.FullName).ToString());
+                                             if (Directory.Exists(Destination))
                                         {
-                                            Progress_Bar.Value = 0;
+                                                TryCreateDirectory(Destination + @"\" + "Multipack");
+
+                                                TryMoveFolder(di.FullName, Directory.GetParent(Destination).ToString() + @"\" + di.Name);
+
+
+
+                                            }
+
+
                                         }
-                                         
-                                         SnackBar.Title = "SUCCESS";
+                                        Call_Mods_From_Folder_Lite();
+                                        DispatchIfNecessary(() => {
+                                            if (Progress_Bar != null)
+                                            {
+                                                Progress_Bar.Value = 0;
+                                            }
+
+                                            SnackBar.Title = "SUCCESS";
                                         SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
-                                        SnackBar.Message = "The Mod " + Path.GetFileNameWithoutExtension(Target_Zip).Replace("_", " ") + VTOL.Resources.Languages.Language.Page_Thunderstore_Unpack_To_Location_Custom_HasBeenDownloadedAndInstalled;
+                                        SnackBar.Message = "The the multiple Mods in - " + mod_name + " - have been installed Succesfully";
                                         SnackBar.Show();
 
 
-                                    });
+                                        });
 
+
+                                    }
+                                    
+                                  
                                 }
 
                                 else if(NS_CANDIDATE_INSTALL == true)
@@ -3039,23 +3097,43 @@ int millisecondsDelay = 300)
                                     }
                                     else if (Script.Length > 1)
                                     {
-                                        foreach (var x in Script)
+
+
+
+                                        foreach (var File_ in Script)
                                         {
+                                            FileInfo FolderTemp = new FileInfo(File_.FullName);
 
-                                            Console.WriteLine(x.FullName);
+                                            DirectoryInfo di = new DirectoryInfo(Directory.GetParent(File_.FullName).ToString());
+                                            if (Directory.Exists(Destination))
+                                            {
+                                                TryCreateDirectory(Destination + @"\" + "Multipack");
+
+                                                TryMoveFolder(di.FullName, Directory.GetParent(Destination).ToString() + @"\" + di.Name);
+
+                                                // string firstFolder = di.FullName;
+
+
+                                            }
+
+
                                         }
-                                        Console.WriteLine("MULTIPACK - " + Destination);
+                                        Call_Mods_From_Folder_Lite();
+                                        DispatchIfNecessary(() => {
+                                            if (Progress_Bar != null)
+                                            {
+                                                Progress_Bar.Value = 0;
+                                            }
 
-                                       
+                                            SnackBar.Title = "SUCCESS";
+                                            SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
+                                            SnackBar.Message = "The the multiple Mods in - " + mod_name + " - have been installed Succesfully";
+                                            SnackBar.Show();
 
 
-
+                                        });
                                     }
-                                    else
-                                    {
-                                        //Too many or no mods?
-
-                                    }
+                                   
 
                                 }
                                 else
@@ -3160,6 +3238,15 @@ Main.logger2.Close();
             {
                 return new Version(FileVersionInfo.GetVersionInfo(Assembly.GetCallingAssembly().Location).ProductVersion).ToString();
             }
+        }
+        private string Find_Folder(string searchQuery, string folderPath)
+        {
+            searchQuery = "*" + searchQuery + "*";
+
+            var directory = new DirectoryInfo(folderPath);
+
+            var directories = directory.GetDirectories(searchQuery, SearchOption.AllDirectories);
+            return directories[0].ToString();
         }
         async Task Install_Skin_Async_Starter(IEnumerable<string> in_, string Destination = "")
         {
@@ -3567,6 +3654,7 @@ Main.logger2.Close();
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
+            Thunderstore_List.ItemsSource = null;
             if (page_loaded == true)
             {
                 BackgroundWorker worker = new BackgroundWorker();
@@ -3575,16 +3663,32 @@ Main.logger2.Close();
 
 
                     Call_Mods_From_Folder_Lite();
+                    Call_Ts_Mods();
 
 
 
 
 
                 };
+                worker.RunWorkerCompleted += (sender, eventArgs) =>
+                {
 
-                worker.RunWorkerAsync();
+                    Thunderstore_List.Refresh();
+
+
+                };
+             
+          
+           
+            worker.RunWorkerAsync();
             }
 
+        }
+
+        private void Page_Loaded_1(object sender, RoutedEventArgs e)
+        {
+
+            
         }
     }
         

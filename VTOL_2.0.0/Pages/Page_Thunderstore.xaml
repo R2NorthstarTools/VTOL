@@ -10,7 +10,7 @@
 	          xmlns:cntrls="clr-namespace:VTOL"
 
       d:DesignHeight="670" d:DesignWidth="1148"
-      Title="Page_Thunderstore" UseLayoutRounding="True">
+      Title="Page_Thunderstore" UseLayoutRounding="True" Loaded="Page_Loaded_1">
     <Page.Resources>
         <local:NegatingConverter x:Key="NegatingConverter" />
         <Storyboard x:Key="slide">
@@ -129,7 +129,7 @@
 
                         <hc:SimplePanel Background="Black" Opacity="0">
                             <Border Background="#991B1B1B">
-                                <ProgressBar Value="0" SmallChange="0.1" Foreground="#6600714F" Height="286" Background="{x:Null}" IsHitTestVisible="False" IsTabStop="False"/>
+                                <ProgressBar Value="0" SmallChange="0.8" Foreground="#6600714F" Height="286" Background="{x:Null}" IsHitTestVisible="False" IsTabStop="False" Cursor="Wait"/>
                             </Border>
                             <!--<Rectangle  Opacity="0.5" Fill="#FF2B2B2B">
                                 <Rectangle.Effect>
@@ -235,6 +235,16 @@
 
 
         <ui:Dialog x:Name="Dialog" ButtonRightClick="Dialog_ButtonRightClick" Foreground="White" Focusable="False" ButtonLeftClick="Dialog_ButtonLeftClick" SnapsToDevicePixels="False"/>
-        <ui:ProgressRing x:Name="Loading_Ring" Width="120" Height="120" Foreground="#FF009468"  IsIndeterminate="True"  Visibility="Visible" Margin="0,327,0,0" VerticalAlignment="Top" HorizontalAlignment="Center"></ui:ProgressRing>
+        <ui:ProgressRing x:Name="Loading_Ring" Width="120" Height="120"  IsIndeterminate="True"  Visibility="Visible" Margin="0,327,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" IsHitTestVisible="False" IsTabStop="False" Progress="40" OverridesDefaultStyle="False" EngAngle="20">
+            <ui:ProgressRing.Foreground>
+                <RadialGradientBrush SpreadMethod="Pad" Center="1,1" GradientOrigin="1,1" RadiusX="2.8" RadiusY="2.9">
+                    <GradientStop Color="Black"/>
+                    <GradientStop Color="#FF009A49" Offset="1"/>
+                    <GradientStop Color="#DDFF0000"/>
+                    <GradientStop Color="#FF026882"/>
+                    <GradientStop Color="#FF019238" Offset="0.536"/>
+                </RadialGradientBrush>
+            </ui:ProgressRing.Foreground>
+        </ui:ProgressRing>
     </Grid>
 </Page>

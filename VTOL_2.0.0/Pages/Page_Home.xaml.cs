@@ -343,7 +343,7 @@ logger2.Close();
             DispatcherTimer Log_Changes_Timer = new DispatcherTimer();
             DispatcherTimer timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(2);
-            Log_Changes_Timer.Interval = TimeSpan.FromSeconds(60);
+            Log_Changes_Timer.Interval = TimeSpan.FromSeconds(10);
             timer.Tick += timer_Tick;
             Log_Changes_Timer.Tick += Log_Changes_Timer_Tick;
             timer.Start();
@@ -883,7 +883,6 @@ int millisecondsDelay = 150)
                     MasterServer_URL = User_Settings_Vars.MasterServerUrl;
 
                     Current_Install_Folder = User_Settings_Vars.NorthstarInstallLocation;
-                    Console.WriteLine(Current_Install_Folder);
 
                     if (IsValidPath(Current_Install_Folder))
                     {
@@ -902,7 +901,7 @@ int millisecondsDelay = 150)
                     {
                         string FINAL = "";
                        Current_Install_Folder = InstalledApplications.GetApplictionInstallPath("Titanfall2");
-                        if (IsValidPath(Current_Install_Folder))
+                        if (Directory.Exists(Current_Install_Folder))
                         {
                             FINAL = Current_Install_Folder;
                             if (!Current_Install_Folder.EndsWith(@"\"))
@@ -935,12 +934,13 @@ int millisecondsDelay = 150)
                 }
                 else
                 {
+                   
                     Console.WriteLine("Null_Settings");
                     string FINAL = "";
                     Current_Install_Folder = InstalledApplications.GetApplictionInstallPath("Titanfall2");
+
                     if (IsValidPath(Current_Install_Folder))
                     {
-                        FINAL = Current_Install_Folder;
                         if (!Current_Install_Folder.EndsWith(@"\"))
                         {
                             string fix = Current_Install_Folder + @"\";
@@ -957,16 +957,56 @@ int millisecondsDelay = 150)
                     }
                     else
                     {
+                        string Current_Install_Folder_x = Auto_Find_And_verify(InstalledApplications.GetApplictionInstallPath("Steam")).Replace(@"\\", @"\").Replace("/", @"\");
+                    
 
-                        SnackBar.Appearance = ControlAppearance.Danger;
-                        SnackBar.Title = "WARNING!";
-                        SnackBar.Message = VTOL.Resources.Languages.Language.Page_Home_INIT_InvalidInstallPathPleaseManuallyLocateTheCorrectFolder;
-                        SnackBar.Show();
+                         Current_Install_Folder = Auto_Find_And_verify().Replace(@"\\", @"\").Replace("/", @"\");
 
-                        throw new Exception("Could Not Install Ns after all of it :(");
+                        if (IsValidPath(Current_Install_Folder))
+                        {
+                            if (!Current_Install_Folder.EndsWith(@"\"))
+                            {
+                                string fix = Current_Install_Folder + @"\";
+                                User_Settings_Vars.NorthstarInstallLocation = fix;
+                                Current_Install_Folder = fix.Replace(@"\\", @"\").Replace("/", @"\");
+                                string User_Settings_Json_Strings = Newtonsoft.Json.JsonConvert.SerializeObject(User_Settings_Vars);
+                                using (var StreamWriter = new StreamWriter(AppDataFolder + @"\VTOL_DATA\Settings\User_Settings.Json", false))
+                                {
+                                    StreamWriter.WriteLine(User_Settings_Json_Strings);
+                                    StreamWriter.Close();
+                                }
+                            }
 
-                        return;
+                        }
+                        else if(IsValidPath(Current_Install_Folder_x))
+                        {
+                            if (!Current_Install_Folder.EndsWith(@"\"))
+                            {
+                                string fix = Current_Install_Folder + @"\";
+                                User_Settings_Vars.NorthstarInstallLocation = fix;
+                                Current_Install_Folder = fix.Replace(@"\\", @"\").Replace("/", @"\");
+                                string User_Settings_Json_Strings = Newtonsoft.Json.JsonConvert.SerializeObject(User_Settings_Vars);
+                                using (var StreamWriter = new StreamWriter(AppDataFolder + @"\VTOL_DATA\Settings\User_Settings.Json", false))
+                                {
+                                    StreamWriter.WriteLine(User_Settings_Json_Strings);
+                                    StreamWriter.Close();
+                                }
+                            }
 
+                        }
+                        else
+                        {
+
+
+                            SnackBar.Appearance = ControlAppearance.Danger;
+                            SnackBar.Title = "WARNING!";
+                            SnackBar.Message = VTOL.Resources.Languages.Language.Page_Home_INIT_InvalidInstallPathPleaseManuallyLocateTheCorrectFolder;
+                            SnackBar.Show();
+
+                            throw new Exception("Could Not Install Ns after all of it :(");
+
+                            return;
+                        }
 
 
                     }
@@ -1423,10 +1463,9 @@ int millisecondsDelay = 150)
                 return "";
             }
         }
-        private string Auto_Find_And_verify()
+        private string Auto_Find_And_verify(string path = @"C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Steam")
         {
 
-            string path = @"C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Steam";
 
             if (!Directory.Exists(path) || !File.Exists(Path.Combine(path, "Steam.lnk")))
             {
@@ -1440,9 +1479,7 @@ int millisecondsDelay = 150)
                 }
                 catch
                 {
-                    Main.logger2.Open();
-                    Main.logger2.Log("A User with the install - " + Current_Install_Folder + " failed an auto install and verify.");
-                    Main.logger2.Close();
+                   
                 }
 
                 //Titanfall2_Directory_TextBox.Background = Brushes.Red;
@@ -1497,8 +1534,7 @@ int millisecondsDelay = 150)
 
             }
 
-            if (Directory.Exists(@"C:\Program Files (x86)\Origin Games\Titanfall2") && File.Exists(@"C:\Program Files (x86)\Origin Games\Titanfall2\Titanfall2.exe"))
-                return @"C:\Program Files (x86)\Origin Games\Titanfall2";
+           
             //Titanfall2_Directory_TextBox.Background = Brushes.Red;
             //Install_NS_EXE_Textbox.Background = Brushes.Red;
             //Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_GAME_INSTALL_NOT_FOUND"));

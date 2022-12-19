@@ -338,7 +338,7 @@ namespace VTOL.Pages
                                         }
                                         int Flag_mod = 0;
                                         string ToolTip_Dynamic = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_ThereIsAnIssueDetectedWithYourMod;
-                                        if (!File.Exists(dirInfo.FullName + @"\Locked_Folder" + @"\mod.json") )
+                                        if (!File.Exists(dirInfo.FullName + @"\Locked_Folder" + @"\mod.json") && !Directory.Exists(dirInfo.FullName + @"\" + "Multipack"))
                                         {
                                             ToolTip_Dynamic = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_PleaseOpenYourFolderAt + dirInfo.Parent + VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_AndManuallyRepairTheMod + dirInfo.Name;
                                             Flag_mod = 100;
@@ -350,7 +350,7 @@ namespace VTOL.Pages
                                         int Flag_mod = 0;
                                         string ToolTip_Dynamic = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_ThereIsAnIssueDetectedWithYourMod;
 
-                                        if (!File.Exists(dirInfo.FullName + @"\mod.json"))
+                                        if (!File.Exists(dirInfo.FullName + @"\mod.json") && !Directory.Exists(dirInfo.FullName + @"\" + "Multipack"))
                                         {
 
                                             ToolTip_Dynamic = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_PleaseOpenYourFolderAt + dirInfo.Parent + VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_AndManuallyRepairTheMod + dirInfo.Name;

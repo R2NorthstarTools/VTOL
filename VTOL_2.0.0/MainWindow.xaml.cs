@@ -38,7 +38,6 @@ namespace VTOL
         bool Profile_card = false;
         public User_Settings User_Settings_Vars = new User_Settings();
         public string AppDataFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData));
-        public string DocumentsFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 
 
         public TlsPaperTrailLogger logger2 = new TlsPaperTrailLogger("logs5.papertrailapp.com", 38137);
@@ -63,27 +62,32 @@ namespace VTOL
                 InitializeComponent();
 
                 //System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo("fr-FR");
+
                 //System.Threading.Thread.CurrentThread.CurrentCulture = new CultureInfo("fr-FR");Do
-                if (Directory.Exists(DocumentsFolder) && Directory.Exists(AppDataFolder))
-                {
-                    if (!Directory.Exists(AppDataFolder + @"\VTOL_DATA\Settings"))
+                if (!File.Exists(AppDataFolder + @"\VTOL_DATA\Settings\User_Settings.Json"))
+                {    string DocumentsFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 
+                    if (Directory.Exists(DocumentsFolder) && Directory.Exists(AppDataFolder))
                     {
-                        TryCreateDirectory(AppDataFolder + @"\VTOL_DATA\Settings");
+                        if (!Directory.Exists(AppDataFolder + @"\VTOL_DATA\Settings"))
 
-                    }
-
-                    if (File.Exists(DocumentsFolder + @"\VTOL_DATA\Settings\User_Settings.Json") && !File.Exists(AppDataFolder + @"\VTOL_DATA\Settings\User_Settings.Json"))
-                    {
-                       TryCopyFile(DocumentsFolder + @"\VTOL_DATA\Settings\User_Settings.Json", AppDataFolder + @"\VTOL_DATA\Settings\User_Settings.Json");
-
-                        if (File.Exists(AppDataFolder + @"\VTOL_DATA\Settings\User_Settings.Json"))
                         {
-                            TryDeleteDirectory(DocumentsFolder + @"\VTOL_DATA\",true);
+                            TryCreateDirectory(AppDataFolder + @"\VTOL_DATA\Settings");
 
                         }
+
+                        if (File.Exists(DocumentsFolder + @"\VTOL_DATA\Settings\User_Settings.Json") && !File.Exists(AppDataFolder + @"\VTOL_DATA\Settings\User_Settings.Json"))
+                        {
+                            TryCopyFile(DocumentsFolder + @"\VTOL_DATA\Settings\User_Settings.Json", AppDataFolder + @"\VTOL_DATA\Settings\User_Settings.Json");
+
+                            if (File.Exists(AppDataFolder + @"\VTOL_DATA\Settings\User_Settings.Json"))
+                            {
+                                TryDeleteDirectory(DocumentsFolder + @"\VTOL_DATA\", true);
+
+                            }
+                        }
                     }
-              }
+                }
 
                 if (Directory.Exists(AppDataFolder))
                 {
@@ -683,7 +687,7 @@ true // Whether to change accents automatically
                 {
                     From = Northstar_Dialog.Opacity,
                     To = 1,
-                    Duration = new Duration(TimeSpan.FromSeconds(0.8)),
+                    Duration = new Duration(TimeSpan.FromSeconds(0.2)),
                     AutoReverse = false
                 };
                 Northstar_Dialog.BeginAnimation(OpacityProperty, da);
@@ -698,7 +702,7 @@ true // Whether to change accents automatically
                     {
                         From = Northstar_Dialog.Opacity,
                         To = 0,
-                        Duration = new Duration(TimeSpan.FromSeconds(0.8)),
+                        Duration = new Duration(TimeSpan.FromSeconds(0.2)),
                         AutoReverse = false
                     };
                     Northstar_Dialog.BeginAnimation(OpacityProperty, da);
