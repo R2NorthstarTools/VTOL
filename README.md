@@ -4,6 +4,8 @@
 
 <h1  align="center">PLEASE USE THE PORTABLE IF THE INSTALLER FAILS</h1><br>
 
+
+
 <p align="center">
 <a href="https://bit.ly/3B0whP3"><img src="https://user-images.githubusercontent.com/23240514/189295456-52b2bfd1-1759-4c20-931c-ad78b1537f45.png" width="200" alignment="center"></a><br>
 </p>
@@ -29,6 +31,39 @@ Total Downloads Since First Release:
 ![image](https://user-images.githubusercontent.com/23240514/198705469-2a8209fd-e470-4184-a681-abb66a154daf.png)
 
 <!---![VTOL_Showcase_Trim](https://user-images.githubusercontent.com/23240514/157264628-43601f3e-1066-42ce-8564-e2554bd5799f.gif)<br /><br /><br />--->
+
+
+
+
+
+
+
+* If you cannot Open VTOL 
+
+Please make sure you have .net 6.0 desktop Runtime x64 and x86 installed - https://dotnet.microsoft.com/en-us/download/dotnet/6.0
+![image](https://user-images.githubusercontent.com/23240514/196021121-d6b6f974-7c58-4199-8802-26672883da9c.png)
+
+
+* If you see one of the following error messages
+Simply click "Yes" and the application will attempt to fix the issue.
+
+![image](https://user-images.githubusercontent.com/23240514/150569733-e1142d29-54f3-4842-b34a-81520e293f0c.png)
+
+![image](https://user-images.githubusercontent.com/23240514/150570184-6cf29ee6-40a5-4517-839c-3e2dcddcf637.png)
+
+Please Follow this Link to Deeper Read into The error Code should it fail to clear - https://aka.ms/dotnet/app-launch-failed
+![image](https://user-images.githubusercontent.com/23240514/189293562-24ff7a7d-922e-4f6f-b325-c56e8352f36f.png)
+
+
+
+
+
+
+
+
+
+
+
 
 ## Features:
 
@@ -179,22 +214,6 @@ Under this tool, it makes it seamless and easy to add and create fully compatibl
 
 ![image](https://user-images.githubusercontent.com/23240514/188321794-e95ba16d-1e8a-4185-88b0-ce2be0ced378.png)
 # Troubleshooting
-
-* If you cannot Open VTOL 
-
-Please make sure you have .net 6.0 desktop Runtime x64 and x86 installed - https://dotnet.microsoft.com/en-us/download/dotnet/6.0
-![image](https://user-images.githubusercontent.com/23240514/196021121-d6b6f974-7c58-4199-8802-26672883da9c.png)
-
-
-* If you see one of the following error messages
-Simply click "Yes" and the application will attempt to fix the issue.
-
-![image](https://user-images.githubusercontent.com/23240514/150569733-e1142d29-54f3-4842-b34a-81520e293f0c.png)
-
-![image](https://user-images.githubusercontent.com/23240514/150570184-6cf29ee6-40a5-4517-839c-3e2dcddcf637.png)
-
-Please Follow this Link to Deeper Read into The error Code should it fail to clear - https://aka.ms/dotnet/app-launch-failed
-![image](https://user-images.githubusercontent.com/23240514/189293562-24ff7a7d-922e-4f6f-b325-c56e8352f36f.png)
 
 
 Thank you to @ConnorDoesDev and @MysteriousRSA for the massive support in making the application and #Readme more readable.
