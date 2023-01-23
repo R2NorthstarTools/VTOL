@@ -2296,7 +2296,7 @@ Main.logger2.Close();
                     if (Is_Valid_URl(URL))
                     {
                         Links.Add(URL);
-
+                        MessageBox.Show(URL);
 
 
 
@@ -3298,9 +3298,16 @@ Main.logger2.Close();
                 ProgressBar Progress_Bar = null;
                 HandyControl.Controls.SimplePanel _Panel = (HandyControl.Controls.SimplePanel)((Button)sender).Parent;
                 Progress_Bar = FindVisualChild<ProgressBar>(_Panel);
-                if (Button.Tag.ToString().Contains("http"))
+                string tags = Button.ToolTip.ToString();
+                if (tags.Count() < 2)
                 {
-                    if (Button.ToolTip.ToString().Contains("DDS"))
+                    tags = "Mods";
+                }
+
+                if (Button.Tag.ToString().Contains("http")|| Button.Tag.ToString().Contains("https"))
+                {
+
+                    if (tags.Contains("DDS"))
                     {
 
 
@@ -3322,6 +3329,11 @@ Main.logger2.Close();
 
 
                 }
+               
+
+
+
+               
             }
             catch (Exception ex)
             {

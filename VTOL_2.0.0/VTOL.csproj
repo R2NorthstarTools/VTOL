@@ -237,6 +237,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Page Remove="Resources\nl %281%29.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
 	  <PackageReference Include="GameFinder.Common" Version="2.2.2" />
 	  <PackageReference Include="GameFinder.RegistryUtils" Version="2.2.2" />
 	  <PackageReference Include="GameFinder.StoreHandlers.Origin" Version="2.2.2" />
@@ -262,6 +266,7 @@
     <PackageReference Include="Ookii.Dialogs.Wpf" Version="5.0.1" />
     <PackageReference Include="Parallax.WPF" Version="1.0.8" />
     <PackageReference Include="Pfim" Version="0.11.1" />
+    <PackageReference Include="Pixelmaniac.Notifications" Version="1.0.2" />
     <PackageReference Include="Prism.Wpf" Version="8.1.97" />
     <PackageReference Include="Serilog" Version="2.12.0" />
     <PackageReference Include="Serilog.Settings.Configuration" Version="3.4.0" />
@@ -638,6 +643,9 @@
     <Content Include="Resources\Icons\Main_UI\User_Icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\nl (1).xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
     <Resource Include="Resources\Icons\Main_UI\VTOL_16.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>

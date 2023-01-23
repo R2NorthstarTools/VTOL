@@ -67,7 +67,8 @@ namespace VTOL.Pages
 
             public bool Minimize_On_Launch { get; set; }
             [Category("General")]
-
+            public bool Minimize_To_Tray { get; set; }
+            [Category("General")]
             public bool Auto_Update_Northstar { get; set; }
 
             [Category("Github")]
@@ -244,6 +245,8 @@ namespace VTOL.Pages
                 Properties.Settings.Default.Hide_Console_Window = Settings_.Hide_Console_Window;
                 Properties.Settings.Default.EA_APP_SUPPORT = Settings_.Enable_EA_APP_Usage;
                 Properties.Settings.Default.Backup_arg_Files = Settings_.Do_Not_Overwrite_Config_Files;
+                Properties.Settings.Default.Minimize_to_Tray = Settings_.Minimize_To_Tray;
+                Main.minimize_to_tray = Settings_.Minimize_To_Tray;
                 Properties.Settings.Default.Save();
                 string User_Settings_Json_Strings = Newtonsoft.Json.JsonConvert.SerializeObject(User_Settings_Vars);
                 using (var StreamWriter = new StreamWriter(DocumentsFolder + @"\VTOL_DATA\Settings\User_Settings.Json", false))

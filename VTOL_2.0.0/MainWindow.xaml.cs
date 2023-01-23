@@ -24,6 +24,8 @@ using System.Threading;
 using System.Reflection;
 using System.Diagnostics;
 using System.Security.Principal;
+using VTOL.Pages;
+using Pixelmaniac.Notifications;
 
 namespace VTOL
 {
@@ -39,6 +41,7 @@ namespace VTOL
         public User_Settings User_Settings_Vars = new User_Settings();
         public string AppDataFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData));
 
+        public NotificationManager NotificationManager;
 
         public TlsPaperTrailLogger logger2 = new TlsPaperTrailLogger("logs5.papertrailapp.com", 38137);
         public bool Is_Focused = true;
@@ -46,6 +49,7 @@ namespace VTOL
         public HashSet<string> Current_Installed_Mods = new HashSet<string>();
 
         bool failed_folder = false;
+        public bool minimize_to_tray = false;
 
         static void Main(string[] args)
 
@@ -60,6 +64,8 @@ namespace VTOL
             {
 
                 InitializeComponent();
+                NotificationManager =  new NotificationManager();
+                 minimize_to_tray =  Properties.Settings.Default.Minimize_to_Tray;
 
                 //System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo("fr-FR");
 
@@ -260,6 +266,9 @@ namespace VTOL
         }
         void Restart()
         {
+         
+
+           
             var currentExecutablePath = Process.GetCurrentProcess().MainModule.FileName;
             Process.Start(currentExecutablePath);
             Application.Current.Shutdown();
@@ -454,7 +463,11 @@ namespace VTOL
             this.WindowState = WindowState.Minimized;
 
         }
+        public void Maximize()
+        {
+            this.WindowState = WindowState.Maximized;
 
+        }
 
         private void MaximizeButton_Click(object sender, RoutedEventArgs e)
         {
@@ -735,6 +748,138 @@ true // Whether to change accents automatically
         private void Northstar_Dialog_LostMouseCapture(object sender, MouseEventArgs e)
         {
            
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void QuickLaunch_Click(object sender, RoutedEventArgs e)
+        {
+            Page_Home Home = new Pages.Page_Home();
+            Home.Launch_Northstar_();
+        }
+
+        private void Tools__Click(object sender, RoutedEventArgs e)
+        {
+            if (!this.IsVisible)
+            {
+                this.Show();
+            }
+
+            if (this.WindowState == WindowState.Minimized)
+            {
+                this.WindowState = WindowState.Normal;
+            }
+
+            this.Activate();
+            this.Topmost = true;  // important
+            this.Topmost = false; // important
+            this.Focus();         // important
+            RootNavigation.Navigate(typeof(Pages.Page_Tools));
+
+        }
+
+        private void Thunderstore_Click(object sender, RoutedEventArgs e)
+        {
+            if (!this.IsVisible)
+            {
+                this.Show();
+            }
+
+            if (this.WindowState == WindowState.Minimized)
+            {
+                this.WindowState = WindowState.Normal;
+            }
+
+            this.Activate();
+            this.Topmost = true;  // important
+            this.Topmost = false; // important
+            this.Focus();         // important
+            RootNavigation.Navigate(typeof(Pages.Page_Thunderstore));
+
+        }
+
+        private void RestartNorthstar_Click(object sender, RoutedEventArgs e)
+        {
+           
+        }
+
+        private void OpenMods_Click(object sender, RoutedEventArgs e)
+        {
+            if (!this.IsVisible)
+            {
+                this.Show();
+            }
+
+            if (this.WindowState == WindowState.Minimized)
+            {
+                this.WindowState = WindowState.Normal;
+            }
+
+            this.Activate();
+            this.Topmost = true;  // important
+            this.Topmost = false; // important
+            this.Focus();         // important
+            RootNavigation.Navigate(typeof(Pages.Page_Mods));
+
+        }
+
+        private void OpenHome_Click(object sender, RoutedEventArgs e)
+        {
+            if (!this.IsVisible)
+            {
+                this.Show();
+            }
+
+            if (this.WindowState == WindowState.Minimized)
+            {
+                this.WindowState = WindowState.Normal;
+            }
+
+            this.Activate();
+            this.Topmost = true;  // important
+            this.Topmost = false; // important
+            this.Focus();         // important
+            RootNavigation.Navigate(typeof(Pages.Page_Home));
+
+        }
+
+        private void Main_Win_Control_Closed(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Main_Win_Control_StateChanged(object sender, EventArgs e)
+        {
+
+            try {
+            if(minimize_to_tray == true)
+            {
+
+                if (this.WindowState == WindowState.Minimized)
+                    this.Hide();
+
+                base.OnStateChanged(e);
+            }
+        }
+  catch (Exception ex)
+  {
+      Log.Error(ex, $"A crash happened at DEV VERSION{DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+
+
+
+  }
+
+
+}
+
+        private void Reload__Click(object sender, RoutedEventArgs e)
+        {
+
+            Restart();
+        
         }
     }
 }

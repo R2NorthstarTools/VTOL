@@ -612,4 +612,7 @@
   <data name="Page_Home_Origin_Client_Card_Click_TheEAClientIsAlreadyRunning" xml:space="preserve">
     <value>The EA Client is already running</value>
   </data>
+  <data name="MainWindow_Profiles" xml:space="preserve">
+    <value>Profiles</value>
+  </data>
 </root>

@@ -310,5 +310,17 @@ namespace VTOL.Properties {
                 this["BACKUP_SAVE_DEST"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Minimize_to_Tray {
+            get {
+                return ((bool)(this["Minimize_to_Tray"]));
+            }
+            set {
+                this["Minimize_to_Tray"] = value;
+            }
+        }
     }
 }

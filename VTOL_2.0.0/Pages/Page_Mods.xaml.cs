@@ -366,6 +366,26 @@ namespace VTOL.Pages
 
                                             Flag_mod = 100;
                                         }
+                                        else
+                                        {
+                                            //string mod_Json = (dirInfo.FullName + @"\mod.json");
+                                            string mod_Icon = (dirInfo.FullName + @"\icon.png");
+
+                                            //if (File.Exists(mod_Json))
+                                            //{
+                                            //    var myJsonString = File.ReadAllText(mod_Json);
+                                            //    dynamic myJObject = JObject.Parse(myJsonString);
+                                            //    string name = myJObject.Name;
+                                            //    string version = myJObject.Version;
+                                            //   // string Description = myJObject.Description;
+                                            //  //  string Content = Description + Environment.NewLine + version;
+
+                                            //    MessageBox.Show(name + version);
+                                            //}
+
+
+
+                                        }
 
                                         Final_List.Add(new Card_ { Mod_Name_ = dirInfo.Name.Trim(), Mod_Date_ = dirInfo.CreationTime.ToString(), Is_Active_Color = "#B2049A28", Size__ = dirInfo.LastAccessTime.ToString(), En_Di ="Disable" ,Is_Active_ = false, Mod_Path_ = dirInfo.FullName, Flag = Flag_mod, Error_Tooltip = ToolTip_Dynamic, Label = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_Disable_ });
 

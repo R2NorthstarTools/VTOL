@@ -142,6 +142,15 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Profiles.
+        /// </summary>
+        public static string MainWindow_Profiles {
+            get {
+                return ResourceManager.GetString("MainWindow_Profiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Server.
         /// </summary>
         public static string MainWindow_Server {

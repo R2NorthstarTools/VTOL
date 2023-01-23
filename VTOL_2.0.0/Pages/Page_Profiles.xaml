@@ -1,0 +1,45 @@
+﻿<Page
+       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:VTOL.Pages"
+      xmlns:hc="https://handyorg.github.io/handycontrol"
+      xmlns:Languages="clr-namespace:VTOL.Resources.Languages" x:Class="VTOL.Pages.Page_Profiles" 
+      mc:Ignorable="d" 
+      KeepAlive="True"
+      d:DesignHeight="670" d:DesignWidth="1148"
+      Title="Page_Profiles">
+
+    <Grid>
+
+        <Border x:Name="Optional_Settings" >
+            
+            
+        </Border>
+        <Label Content="Change the Entire Application by importing or Exporting Profiles" Margin="50,0,0,573" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="410"/>
+        <Label Content="PROFILES" Margin="50,0,357,594" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Background="{x:Null}" Foreground="White" FontSize="22" FontWeight="Bold" Height="28" VerticalAlignment="Bottom"/>
+        <ListBox x:Name="Profile_List_Box"  Margin="50,111,50,279"   VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.ScrollUnit="Pixel" IsSynchronizedWithCurrentItem="True"  />
+        <ui:Button x:Name="Import_Profile"   Icon="ArrowImport24" Height="30" Margin="0,395,245,0" VerticalAlignment="Top"  BorderBrush="{x:Null}" Content="Import Profile" Padding="0,0,0,0" ToolTip="Import Profile" Background="#FF383838"  ClickMode="Press" HorizontalAlignment="Right" Width="190" Click="Import_Profile_Click" />
+        <ui:Button  x:Name="Export_Profile" Icon="ArrowExportLtr24" Height="30" Margin="0,395,50,0" VerticalAlignment="Top"  BorderBrush="{x:Null}" Content="Export Profile" Padding="0,0,0,0" ToolTip="Export Profile" Background="#FF383838" ClickMode="Press" HorizontalAlignment="Right" Width="190" Click="Export_Profile_Click" />
+        <ui:Button  x:Name="Add_Profile" Icon="Add12" Height="30" Margin="50,395,0,0" VerticalAlignment="Top"  BorderBrush="{x:Null}" Content="Add Profile" Padding="0,0,0,0" ToolTip="Add Profile" Background="#FF383838"  ClickMode="Press" Width="195" />
+        <Label Content="NAME" Margin="53,0,0,166" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="190"/>
+        <Label Content="PROFILE DETAILS" Margin="53,0,354,182" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Background="{x:Null}" Foreground="White" FontSize="16" FontWeight="Bold" Height="28" VerticalAlignment="Bottom"/>
+        <Label Content="NORTHSTAR VERSION" Margin="53,0,0,140" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="190"/>
+        <Label Content="NUMBER OF MODS" Margin="53,0,0,115" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="190"/>
+        <ui:Button  x:Name="NORTHSTAR_BUTTON" Width="190" Content="CLICK TO DISPLAY MOD LIST" Padding="2,0.5,0,0" VerticalAlignment="Bottom" FontSize="12" BorderThickness="0,0,0,0" Margin="53,0,0,85" Background="#33FFFFFF" VerticalContentAlignment="Center" BorderBrush="{x:Null}" Appearance="Dark" HorizontalContentAlignment="Left" Height="19"/>
+        <Label Content="TOTAL SIZE" Margin="53,0,0,59" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="190"/>
+        <ComboBox x:Name="Extra_Menu" Margin="246,397,0,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" BorderThickness="0,0,0,0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" HorizontalAlignment="Left" Background="#FF383838" Height="26" DropDownClosed="ComboBox_DropDownClosed" RenderTransformOrigin="0.5,0.5" MinHeight="26"  >
+            <ComboBox.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleY="1.06"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </ComboBox.RenderTransform>
+            <ComboBoxItem Name="File_Load">From File</ComboBoxItem>
+            <ComboBoxItem Name="URL_Load">From URL</ComboBoxItem>
+        </ComboBox>
+    </Grid>
+</Page>
