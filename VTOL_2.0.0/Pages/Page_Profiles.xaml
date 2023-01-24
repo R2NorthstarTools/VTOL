@@ -12,7 +12,7 @@
       Title="Page_Profiles">
 
     <Grid >
-       
+
         <ProgressBar  x:Name="Progress" Margin="53,435,0,0" Height="12" VerticalAlignment="Top" HorizontalAlignment="Left" Width="1045"></ProgressBar>
         <Label Content="Change the Entire Application by importing or Exporting Profiles" Margin="50,0,0,573" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="410"/>
         <Label Content="PROFILES" Margin="50,0,357,594" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Background="{x:Null}" Foreground="White" FontSize="22" FontWeight="Bold" Height="28" VerticalAlignment="Bottom"/>
@@ -20,12 +20,7 @@
         <ui:Button x:Name="Import_Profile"   Icon="ArrowImport24" Height="30" Margin="0,395,245,0" VerticalAlignment="Top"  BorderBrush="{x:Null}" Content="Import Profile" Padding="0,0,0,0" ToolTip="Import Profile" Background="#FF383838"  ClickMode="Press" HorizontalAlignment="Right" Width="190" Click="Import_Profile_Click" />
         <ui:Button  x:Name="Export_Profile" Icon="ArrowExportLtr24" Height="30" Margin="0,395,50,0" VerticalAlignment="Top"  BorderBrush="{x:Null}" Content="Export Profile" Padding="0,0,0,0" ToolTip="Export Profile" Background="#FF383838" ClickMode="Press" HorizontalAlignment="Right" Width="190" Click="Export_Profile_Click" />
         <ui:Button  x:Name="Add_Profile" Icon="Add12" Height="30" Margin="50,395,0,0" VerticalAlignment="Top"  BorderBrush="{x:Null}" Content="Add Profile" Padding="0,0,0,0" ToolTip="Add Profile" Background="#FF383838"  ClickMode="Press" Width="195" />
-        <Label Content="NAME" Margin="53,0,0,166" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="190"/>
-        <Label Content="PROFILE DETAILS" Margin="53,0,354,182" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Background="{x:Null}" Foreground="White" FontSize="16" FontWeight="Bold" Height="28" VerticalAlignment="Bottom"/>
-        <Label Content="NORTHSTAR VERSION" Margin="53,0,0,140" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="190"/>
-        <Label Content="NUMBER OF MODS" Margin="53,0,0,115" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="190"/>
-        <ui:Button  x:Name="NORTHSTAR_BUTTON" Width="190" Content="CLICK TO DISPLAY MOD LIST" Padding="2,0.5,0,0" VerticalAlignment="Bottom" FontSize="12" BorderThickness="0,0,0,0" Margin="53,0,0,85" Background="#33FFFFFF" VerticalContentAlignment="Center" BorderBrush="{x:Null}" Appearance="Dark" HorizontalContentAlignment="Left" Height="19"/>
-        <Label Content="TOTAL SIZE" Margin="53,0,0,59" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="190"/>
+
         <ComboBox x:Name="Extra_Menu" Margin="246,397,0,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" BorderThickness="0,0,0,0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" HorizontalAlignment="Left" Background="#FF383838" Height="26" DropDownClosed="ComboBox_DropDownClosed" RenderTransformOrigin="0.5,0.5" MinHeight="26"  >
             <ComboBox.RenderTransform>
                 <TransformGroup>
@@ -40,14 +35,92 @@
         </ComboBox>
 
 
-        <Border x:Name="Options_Panel" Background="#B2292929">
+        <Border x:Name="Options_Panel" Background="#B2292929" Visibility="Visible">
             <Grid>
-                <Border x:Name="Add_Profile_Options_Panel">
+                <!--<Border x:Name="Add_Profile_Options_Panel" Visibility="Visible" Margin="406,168,406,168" Background="#FF191919" CornerRadius="7,7,7,7">
                     <Grid>
-                        
+                        <Label x:Name="NAME" Content="Profile1" Margin="194,0,0,273" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Center" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="127"/>
+                        <Label Content="PROFILE DETAILS" Margin="39,3,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" UseLayoutRounding="True" Padding="0,0,0,0" Background="{x:Null}" Foreground="White" FontSize="16" FontWeight="Bold" Height="28" VerticalAlignment="Top" HorizontalAlignment="Left" Width="240"/>
+                        <Label  x:Name="NORTHSTAR_VERSION"  Content="v1.1.2" Margin="194,0,0,247" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Center" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="127"/>
+                        <Label  x:Name="NUMBER_OF_MODS"  Content="84" Margin="194,0,0,222" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Center" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="127"/>
+                        <Label x:Name="TOTAL_SIZE" Content="5GB" Margin="194,0,0,201" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Center" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="127"/>
+                        <Label  Content="NAME" Margin="10,0,0,273" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="190"/>
+                        <Label Content="NORTHSTAR VERSION" Margin="10,0,0,247" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="190"/>
+                        <Label  Content="NUMBER OF MODS" Margin="10,0,0,222" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="190"/>
+                        <Label  Content="TOTAL SIZE" Margin="10,0,0,201" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="190"/>
+                        <Separator HorizontalAlignment="Center" VerticalAlignment="Top" Height="82" Background="#4CFFFFFF" BorderBrush="#4CFFFFFF" Margin="14,22.9,-16,-27" Foreground="{x:Null}" MinHeight="45" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+
+                        <Border Margin="10,149,10,10" BorderBrush="#33BFBFBF" Background="#332F2F2D" BorderThickness="1,1,1,1" Visibility="Visible">
+
+                            <StackPanel>
+                                <Label Margin="0,26,0,0" Content="Name Of Profile" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>
+                                <ui:TextBox Width="286" Height="27" HorizontalContentAlignment="Center" Margin="0,7,0,0" />
+
+                                <CheckBox x:Name="Export_Mods" HorizontalAlignment="Center" ClickMode="Press" Content="Exclude Mod Folder" VerticalAlignment="Center" Margin="0,17,0,0"/>
+
+                            </StackPanel>
+                        </Border>
+
+                    </Grid>
+                </Border>-->
+
+                <Border x:Name="Export_Profile_Options_Panel" Visibility="Hidden" Margin="406,169,406,117" Background="#FF191919" CornerRadius="7,7,7,7">
+                    <Grid>
+                        <Label Content="ADD PROFILE" Margin="0,6,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" UseLayoutRounding="True" Padding="0,0,0,0" Background="{x:Null}" Foreground="White" FontSize="16" FontWeight="Bold" Height="28" VerticalAlignment="Top" HorizontalAlignment="Center" Width="240"/>
+                        <Label  x:Name="NORTHSTAR_VERSION"  Content="v1.1.2" Margin="195,0,0,319" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Center" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="127"/>
+                        <Label  x:Name="NUMBER_OF_MODS"  Content="84" Margin="195,0,0,294" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Center" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="127"/>
+                        <Label x:Name="TOTAL_SIZE" Content="5GB" Margin="195,0,0,273" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Center" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="127"/>
+                        <Label Content="NORTHSTAR VERSION" Margin="15,0,0,319" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="184"/>
+                        <Label  Content="NUMBER OF MODS" Margin="15,0,0,294" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="184"/>
+                        <Label  Content="TOTAL SIZE" Margin="15,0,0,273" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="184"/>
+                        <Separator HorizontalAlignment="Center" VerticalAlignment="Top" Height="82" Background="#4CFFFFFF" BorderBrush="#4CFFFFFF" Margin="15,25,-17,-7" Foreground="{x:Null}" MinHeight="45" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+
+                        <Border Margin="10,123,10,10" BorderBrush="#33BFBFBF" Background="#332F2F2D" BorderThickness="1,1,1,1" Visibility="Visible">
+
+                            <StackPanel Width="314">
+                                <Label Margin="0,6,0,8" Content="Name Of File" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>
+                                <ui:TextBox Width="284" Height="24" HorizontalContentAlignment="Center" />
+
+                                <CheckBox x:Name="Export_Mods" HorizontalAlignment="Center" ClickMode="Press" Content="Exclude Mod Folder" Margin="0,12,0,0" FontSize="12"/>
+                                <Label Margin="0,8,0,8" Content="Save Location" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>
+
+                                <ui:TextBox Width="284" Height="24" HorizontalContentAlignment="Center" Margin="0,-7,0,0" />
+                                <ui:Button HorizontalAlignment="Center" Content="Change Save Location" Width="284" Height="28" Margin="0,7,0,0" ClickMode="Press" Padding="0,0,0,0"></ui:Button>
+
+                                <ui:Button HorizontalAlignment="Center" Content="Save Profile" Width="284" Height="28" Margin="0,18,0,0" BorderBrush="#3F8AFFF2"/>
+                            </StackPanel>
+                        </Border>
+
                     </Grid>
                 </Border>
-                <Border x:Name="Loading_Panel" Margin="409,111,438,280" Width="270" Height="270" CornerRadius="7,7,7,7" Background="#FF191919" >
+                <Border x:Name="Add_Profile_Options_Panel" Visibility="Visible" Margin="406,169,406,261" Background="#FF191919" CornerRadius="7,7,7,7">
+                    <Grid>
+                        <Label Content="IMPORT PROFILE" Margin="0,6,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" UseLayoutRounding="True" Padding="0,0,0,0" Background="{x:Null}" Foreground="White" FontSize="16" FontWeight="Bold" Height="28" VerticalAlignment="Top" HorizontalAlignment="Center" Width="240"/>
+
+                        <Label  x:Name="I_NORTHSTAR_VERSION"  Content="v1.1.2" Margin="195,0,0,163" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Center" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="127"/>
+                        <Label  x:Name="I_NUMBER_OF_MODS"  Content="84" Margin="195,0,0,138" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Center" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="127"/>
+                        <Label x:Name="I_TOTAL_SIZE" Content="5GB" Margin="195,0,0,117" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Center" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="127"/>
+                        <Label Content="NORTHSTAR VERSION" Margin="15,0,0,163" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="184"/>
+                        <Label  Content="NUMBER OF MODS" Margin="15,0,0,138" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="184"/>
+                        <Label  Content="TOTAL SIZE" Margin="15,0,0,117" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="184"/>
+                        <Separator HorizontalAlignment="Center" VerticalAlignment="Top" Height="82" Background="#4CFFFFFF" BorderBrush="#4CFFFFFF" Margin="15,22,-17,-19" Foreground="{x:Null}" MinHeight="45" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                        <Label  Content="NAME" Margin="15,0,0,184" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="190"/>
+                        <Label x:Name="NAME" Content="Profile1" Margin="195,0,0,184" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Center" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="127"/>
+
+                        <Border Margin="10,138,10,4" BorderBrush="#33BFBFBF" Background="#332F2F2D" BorderThickness="1,1,1,1" Visibility="Visible">
+
+                            <StackPanel Width="314" Margin="0,0,0,-1" >
+
+                                <CheckBox x:Name="I_Export_Mods" HorizontalAlignment="Center" ClickMode="Press" Content="Exclude Mod Folder on Import" Margin="0,12,0,0" FontSize="12" Padding="11,6,11,6"/>
+
+                                <ui:Button HorizontalAlignment="Center" Content="Import Profile" Width="284" Height="28" Margin="0,7,0,0" BorderBrush="#3F8AFFF2" Padding="11,0,11,0"/>
+                            </StackPanel>
+                        </Border>
+
+                    </Grid>
+                </Border>
+
+                <Border x:Name="Loading_Panel" Margin="409,111,438,280" Width="270" Height="270" CornerRadius="7,7,7,7" Background="#FF191919" Visibility="Hidden" >
 
                     <Grid>
 
@@ -63,12 +136,12 @@
                     </Grid>
                 </Border>
             </Grid>
-           
-            
+
+
         </Border>
 
 
     </Grid>
 
-    
+
 </Page>
