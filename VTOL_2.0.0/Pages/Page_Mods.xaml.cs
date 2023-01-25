@@ -307,12 +307,8 @@ namespace VTOL.Pages
                             string NS_Mod_Dir = User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\mods";
 
                             System.IO.DirectoryInfo rootDirs = new DirectoryInfo(@NS_Mod_Dir);
-                            if (!Directory.Exists(NS_Mod_Dir))
-                            {
-
-
-                            }
-                            else if (IsValidPath(NS_Mod_Dir) == true)
+                          
+                             if (IsValidPath(NS_Mod_Dir) == true)
                             {
 
                                 System.IO.DirectoryInfo[] subDirs = null;
