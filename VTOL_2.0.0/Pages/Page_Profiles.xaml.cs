@@ -18,8 +18,10 @@
 		using System.Threading;
 		using NLog.Targets;
 		using System.Text.RegularExpressions;
+using HandyControl.Tools;
+using System.Windows.Media.Animation;
 
-		namespace VTOL.Pages
+namespace VTOL.Pages
 		{
 	
 			/// <summary>
@@ -31,8 +33,20 @@
 			{
 				public MainWindow Main = GetMainWindow();
 				string NAME__;
-				bool Skip_Mods =false;
-				class GZipStreamWithProgress : GZipStream
+		int NUMBER_MODS__;
+		string SIZE;
+		string VERSION;
+		string SAVE_NAME__;
+		string SAVE_PATH__;
+		bool Do_Not_save_Mods = false;
+		string[] Folders = new string[] { "R2Northstar", "plugins", "bin" };
+		string[] Files = new string[] { "Northstar.dll", "NorthstarLauncher.exe", "r2ds.bat", "discord_game_sdk.dll" };
+
+		bool Skip_Mods = false;
+				bool processing = false;
+		public CancellationTokenSource _cts = new CancellationTokenSource();
+
+		class GZipStreamWithProgress : GZipStream
 				{
 					public event EventHandler<double> ProgressChanged;
 					public event EventHandler<string> CurrentFileChanged;
@@ -69,7 +83,7 @@
 						CurrentFileChanged?.Invoke(this, file);
 					}
 				}
-				public void UnpackRead_BIN_INFO(string path, string targetDirectory)
+				public void UnpackRead_BIN_INFO(string path)
 				{
 					try
 					{
@@ -133,11 +147,13 @@
 				}
 
 
-				public bool UnpackDirectory(string path, string targetDirectory)
+				public bool UnpackDirectory(string path, string targetDirectory, CancellationToken token)
 					{
 					try
-					{
-						string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+			{
+				
+
+					string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
 
 						//decompress the bin.gz file
 						using (FileStream sourceStream = File.Open(path, FileMode.Open))
@@ -162,68 +178,105 @@
 					   
 							
 								}
-								using (var stream = File.Open(appDataPath + @"\directory_open.bin", FileMode.Open))
-								{
-									var formatter = new BinaryFormatter();
-									var data = (DirectoryData)formatter.Deserialize(stream);
-									string dataAsString = data.ToString();
-									foreach (string folder in data.Folders)
-									{
+					// unpack the "directory.bin" file
+					using (var stream = File.Open(appDataPath + @"\directory_open.bin", FileMode.Open))
+					{
+						var formatter = new BinaryFormatter();
+						var data = (DirectoryData)formatter.Deserialize(stream);
+						string dataAsString = data.ToString();
+						double totalSize = data.Folders.Count() + data.Files.Count();
+						double currentSize = 0;
+						string currentFile = "";
+						foreach (string folder in data.Folders)
+						{	string append = "";
+
 							if (Skip_Mods == true)
 							{
 								if (folder.Contains(@"R2Northstar\mods"))
 								{
-									Console.WriteLine("\nSkipped The Mod -\n" + folder + " \nDue to a Chosen Setting.\n");
+									append = "Skipped - ";
 
+									Console.WriteLine("\nSkipped The Mod -\n" + folder + " \nDue to a Chosen Setting.\n");
 									continue;
 								}
 							}
-										int index = folder.LastIndexOf("Titanfall2");
-										string fileNameUpToWord = folder.Substring(index + "Titanfall2".Length + 1);
-										string targetFolder = System.IO.Path.Combine(targetDirectory, fileNameUpToWord);
-										//MessageBox.Show(fileNameUpToWord + " --> " + targetFolder + " |---S-|\n");
-										Directory.CreateDirectory(targetFolder);
-										System.Threading.Thread.Sleep(50); // to simulate delay
+							string foldername = System.IO.Path.GetFileName(folder);
+							currentFile = foldername;
+							int index = folder.LastIndexOf("Titanfall2");
+							string fileNameUpToWord = folder.Substring(index + "Titanfall2".Length + 1);
+							string targetFolder = System.IO.Path.Combine(targetDirectory, fileNameUpToWord);
+							Directory.CreateDirectory(targetFolder);
+						//	System.Threading.Thread.Sleep(50); // to simulate delay
+							currentSize++;
+							double progress = currentSize / totalSize * 100;
+							int progressInt = (int)Math.Round(progress);
+							DispatchIfNecessary(async () =>
+							{
+								Current_File_Tag.Content = append + currentFile;
+								wave_progress.Text = progressInt + "%";
+								wave_progress.Value = progressInt;
 
+							});
+								if (token.IsCancellationRequested)
+								{
+									return false;
+								}
+								Console.WriteLine("Copying... " + progressInt + "% - " + currentFile);
 						}
 						foreach (string file in data.Files)
-									{
+						{
+							string append = "";
 							if (Skip_Mods == true)
 							{
 								if (file.Contains(@"R2Northstar\mods"))
 								{
+									append = "Skipped - ";
 									Console.WriteLine("\nSkipped The Mod -\n" + file + " \nDue to a Chosen Setting.\n");
 									continue;
 								}
 							}
 							string fileName = System.IO.Path.GetFileName(file);
-										string targetFile = System.IO.Path.Combine(targetDirectory, fileName);
-										string parentFolder = System.IO.Path.GetDirectoryName(file);
-										int index = file.LastIndexOf("Titanfall2");
-										string fileNameUpToWord = file.Substring(index + "Titanfall2".Length + 1);
-										if (System.IO.Path.GetFileName(parentFolder).Contains("Titanfall2"))
-										{
-											TryCopyFile(file, targetFile, true);
-										}
-										else
-										{
-											TryCopyFile(file, System.IO.Path.Combine(targetDirectory, fileNameUpToWord), true);
-										}
-										System.Threading.Thread.Sleep(50); // to simulate delay
+							currentFile = fileName;
+							string targetFile = System.IO.Path.Combine(targetDirectory, fileName);
+							string parentFolder = System.IO.Path.GetDirectoryName(file);
+							int index = file.LastIndexOf("Titanfall2");
+							string fileNameUpToWord = file.Substring(index + "Titanfall2".Length + 1);
+							if (System.IO.Path.GetFileName(parentFolder).Contains("Titanfall2"))
+							{
+								TryCopyFile(file, targetFile, true);
+							}
+							else
+							{
+								TryCopyFile(file, System.IO.Path.Combine(targetDirectory, fileNameUpToWord), true);
+							}
+						//	System.Threading.Thread.Sleep(50); // to simulate delay
+							currentSize++;
+							double progress =  currentSize / totalSize * 100;
+							int progressInt = (int)Math.Round(progress);
+							DispatchIfNecessary(async () =>
+							{
+								Current_File_Tag.Content = append + currentFile;
+								wave_progress.Text = progressInt + "%";
+								wave_progress.Value = progressInt;
 
+							});
+									if(token.IsCancellationRequested)
+                                    {
+										return false;
+                                    }
+									
+							Console.WriteLine("Copying... " + progressInt + "% - " + currentFile);
 						}
 						CheckDirectory(appDataPath + @"\directory_open.bin", targetDirectory);
+					}
 
-									
 
-								}
-					
-
-						}
+				}
 						if (File.Exists(appDataPath + @"\directory_open.bin"))
 					{
 						File.Delete(appDataPath + @"\directory_open.bin");
 					}
+						
 				return true;
 
 			}
@@ -525,27 +578,28 @@
 			return folderNames.Where(folder => Directory.Exists(folder)).ToArray();
 		}
 				public string[] CheckAndRemoveMissingFilesAndFolders(string[] fileAndFolderNames)
-				{
-					var validFilesAndFolders = new List<string>();
+		{
+			
+				var validFilesAndFolders = new List<string>();
 					int totalFiles = fileAndFolderNames.Length;
 					int currentFile = 0;
-					Console.Write("Checking files and folders ---> 0%");
-					Console.CursorVisible = false; // to hide the cursor
+				//	Console.Write("Checking files and folders ---> 0%");
+				//	Console.CursorVisible = false; // to hide the cursor
 					foreach (string fileOrFolderName in fileAndFolderNames)
 					{
 						currentFile++;
 						int progress = (currentFile * 100) / totalFiles;
-						Console.SetCursorPosition(23, Console.CursorTop); // to set cursor position
-						Console.Write(progress + "%");
+				//		Console.SetCursorPosition(23, Console.CursorTop); // to set cursor position
+					//	Console.Write(progress + "%");
 						if (File.Exists(fileOrFolderName) || Directory.Exists(fileOrFolderName))
 						{
 							validFilesAndFolders.Add(fileOrFolderName);
 						}
-						System.Threading.Thread.Sleep(50); // to simulate delay
-					}
-					Console.CursorVisible = true;
-					Console.WriteLine("\nVerification Completed For the group and all its subfolders/files");
-					return validFilesAndFolders.ToArray();
+			
+				}
+				//	Console.CursorVisible = true;
+			
+			return validFilesAndFolders.ToArray();
 				}
 				public static void CheckDirectory(string binFilePath, string targetPath)
 					{
@@ -615,52 +669,104 @@
 
 						}
 					}
-					public  void ListDirectory(string path, string[] includedFolders, string[] includedFiles)
-					 {
-						Console.WriteLine("starting");
-						var allFolders = Directory.GetDirectories(path, "*", SearchOption.AllDirectories);
-						var allFiles = Directory.GetFiles(path, "*", SearchOption.AllDirectories);
+		public bool ListDirectory(string path, string[] includedFolders, string[] includedFiles, CancellationToken token)
+		{
+            try { 
+			while (!token.IsCancellationRequested)
+			{
+                    if (!Directory.Exists(SAVE_PATH__))
+                    {
 
-			
-						var includedFoldersPath = allFolders.Where(f => includedFolders.Any(i => f.StartsWith(System.IO.Path.Combine(path, i))));
+						return false;
+                    }
+
+				Console.WriteLine("Starting");
+				var allFolders = Directory.GetDirectories(path, "*", SearchOption.AllDirectories);
+				var allFiles = Directory.GetFiles(path, "*", SearchOption.AllDirectories);
+				IEnumerable<string> includedFoldersPath = Enumerable.Empty<string>();
+				IEnumerable<string> includedFilesPath = Enumerable.Empty<string>();
 
 
-						var includedFilesPath = allFiles.Where(f => includedFiles.Contains(System.IO.Path.GetFileName(f)) || includedFoldersPath.Any(folder => f.StartsWith(folder)));
-						 string NS_Mod_Dir = Main.User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\mods";
-						System.IO.DirectoryInfo rootDirs = new DirectoryInfo(@NS_Mod_Dir);
-					System.IO.DirectoryInfo[] subDirs = null;
-					subDirs = rootDirs.GetDirectories();
+					if (Skip_Mods == true)
+					{
+						Console.WriteLine("Skipped Mods");
+
+						includedFoldersPath = allFolders.Where(f => !f.Contains("R2Northstar\\mods") && includedFolders.Any(i => f.StartsWith(System.IO.Path.Combine(path, i))));
+
+						 includedFilesPath = allFiles.Where(f => !f.Contains("R2Northstar\\mods") && includedFiles.Contains(System.IO.Path.GetFileName(f)) || includedFoldersPath.Any(folder => f.StartsWith(folder)));
+
+					}
+					else
+					{					
+					 includedFoldersPath = allFolders.Where(f => includedFolders.Any(i => f.StartsWith(System.IO.Path.Combine(path, i))));
+					 includedFilesPath = allFiles.Where(f => includedFiles.Contains(System.IO.Path.GetFileName(f)) || includedFoldersPath.Any(folder => f.StartsWith(folder)));
+
+					}
+					string NS_Mod_Dir = Main.User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\mods";
+
+					
 					var data = new DirectoryData
-						{
-							Folders = CheckAndRemoveMissingFilesAndFolders(includedFoldersPath.Select(f => f).ToArray()),
-							Files = CheckAndRemoveMissingFilesAndFolders(includedFilesPath.Select(f => f).ToArray()),
-							NORTHSTAR_VERSION = Main.User_Settings_Vars.CurrentVersion,
-							NAME = "PROFILE",
-							MOD_COUNT = subDirs.Length,
-							TOTAL_SIZE_OF_FOLDERS = FileSizeCalculator.Pack(path, includedFolders, includedFiles)
+				{
+					Folders = CheckAndRemoveMissingFilesAndFolders(includedFoldersPath.Select(f => f).ToArray()),
+					Files = CheckAndRemoveMissingFilesAndFolders(includedFilesPath.Select(f => f).ToArray()),
+					NORTHSTAR_VERSION = VERSION,
+					NAME = SAVE_NAME__,
+					MOD_COUNT = NUMBER_MODS__,
+					TOTAL_SIZE_OF_FOLDERS = SIZE
 
-						};
-						using (var stream = File.Open(@"D:\Games\Titanfall2\R2Northstar\mods\directory.bin", FileMode.Create))
-						{
-						var formatter = new BinaryFormatter();               
-						formatter.Serialize(stream, data);               
-						}
-			   
-						//compress the bin file
-						using (FileStream sourceStream = File.Open(@"D:\Games\Titanfall2\R2Northstar\mods\directory.bin", FileMode.Open))
-						using (FileStream targetStream = File.Create(@"D:\Games\Titanfall2\R2Northstar\mods\directory.bin.gz"))
-						using (GZipStreamWithProgress compressionStream = new GZipStreamWithProgress(targetStream, CompressionMode.Compress))
-						{            
-						sourceStream.CopyTo(compressionStream);
-						}
+				};
+					if (token.IsCancellationRequested)
+						return false;
+
+					using (var stream = File.Open(SAVE_PATH__ + @"\"+EnforceWindowsStringName(SAVE_NAME__)+".bin", FileMode.Create))
+				{
+					var formatter = new BinaryFormatter();
+					formatter.Serialize(stream, data);
+				}
+					if (token.IsCancellationRequested)
+						return false;
+					//compress the bin file
+					using (FileStream sourceStream = File.Open(SAVE_PATH__ + @"\" + EnforceWindowsStringName(SAVE_NAME__) + ".bin", FileMode.Open))
+				using (FileStream targetStream = File.Create(SAVE_PATH__ + @"\" + EnforceWindowsStringName(SAVE_NAME__) + ".bin.gz"))
+				using (GZipStreamWithProgress compressionStream = new GZipStreamWithProgress(targetStream, CompressionMode.Compress))
+				{
+					sourceStream.CopyTo(compressionStream);
 				}
 
 
+                }
+
+
+
+				CancelWork();
+				return true;
+
+		
+
+			}
+			catch (OperationCanceledException)
+			{
+				Console.WriteLine("Cancelled!");
+				return false;
+
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine("An error occurred: " + ex.Message);
+				return false;
+
+			}
+
+			return false;
+
+		}
 
 
 
 
-				[Serializable]
+
+
+		[Serializable]
 				public class DirectoryData
 				{
 					public string[] Folders { get; set; }
@@ -675,76 +781,140 @@
 						return string.Join(" ", Folders.Concat(Files));
 					}
 				}
-				private async void Pack(string target_directory, string[] folders_, string[] files_)
+
+
+		public string EnforceWindowsStringName(string input)
+		{
+			// Replace spaces with underscores
+			input = input.Replace(" ", "_");
+
+			// Remove any invalid characters
+			input = Regex.Replace(input, @"[^a-zA-Z0-9_]", "");
+
+			// Remove any leading or trailing underscores
+			input = input.Trim('_');
+
+			// Ensure the first character is a letter or number
+			if (!char.IsLetterOrDigit(input[0]))
+			{
+				input = "_" + input;
+			}
+
+			return input;
+		}
+		private async void Pack(string target_directory, string[] folders_, string[] files_)
+		{
+			_cts = new CancellationTokenSource();
+			var token = _cts.Token;
+
+			DispatchIfNecessary(async () =>
+			{
+				// Perform the long-running operation on a background thread
+				try
+				{
+					bool result = false;
+					var result_ = await Task.Run(() =>
+					{
+						while (!token.IsCancellationRequested)
+						{
+							// Check the token's cancellation status
+							token.ThrowIfCancellationRequested();
+							// Add your long running operation here
+							result = ListDirectory(target_directory, folders_, files_, token);
+						}
+						return result;
+					}, token);
+					if (result == true)
+					{
+						Console.WriteLine(result);
+						Console.WriteLine("Complete!");
+					}
+					else
+					{
+						Console.WriteLine(result);
+						Console.WriteLine("Failed!");
+					}
+				}
+				catch (OperationCanceledException)
+				{
+					// Handle the cancellation
+					Console.WriteLine("Cancelled!");
+				}
+				finally
+				{
+					wave_progress.Visibility = Visibility.Visible;
+					Circe_progress.Visibility = Visibility.Hidden;
+					Loading_Panel.Visibility = Visibility.Hidden;
+					Options_Panel.Visibility = Visibility.Hidden;
+					Add_Profile_Options_Panel.Visibility = Visibility.Hidden;
+					Export_Profile_Options_Panel.Visibility = Visibility.Hidden;
+				}
+			});
+		}
+			private async void UnpackandCheck(string vtol_profiles_file_bin, string Target_Dir)
+		{
+			Add_Profile_Options_Panel.Visibility = Visibility.Hidden;
+			Console.WriteLine("Unpacking!");
+
+			if (File.Exists(vtol_profiles_file_bin))
+			{
+				Console.WriteLine("Found!");
+
+				Loading_Panel.Visibility = Visibility.Visible;
+				_cts = new CancellationTokenSource();
+				var token = _cts.Token;
+
+				try
 				{
 					// Display a message to the user indicating that the operation has started
-
 					DispatchIfNecessary(async () =>
 					{
-
 						// Perform the long-running operation on a background thread
 						var result = await Task.Run(() =>
 						{
-
-
-						ListDirectory(target_directory, folders_, files_);
-
-							return "Operation completed!";
+							return UnpackDirectory(vtol_profiles_file_bin, Target_Dir, token);
 						});
-						Console.WriteLine(result);
 
+						if (result == true)
+						{
+							Console.WriteLine(result);
+							Console.WriteLine("Complete!");
+						}
+						else
+						{
+							Console.WriteLine(result);
+							Console.WriteLine("Failed!");
+						}
 
+						Loading_Panel.Visibility = Visibility.Hidden;
+						Options_Panel.Visibility = Visibility.Hidden;
 					});
-					// Update the UI with the result of the operation
 				}
-			private async void UnpackandCheck(string vtol_profiles_file_bin,string Target_Dir)
+				catch (OperationCanceledException)
 				{
-					Add_Profile_Options_Panel.Visibility = Visibility.Hidden;
-					Console.WriteLine("Unpacking!");
+					Console.WriteLine("Cancelled!");
+				}
+			}
+		}
 
-					if (File.Exists(vtol_profiles_file_bin))
-					{
+		public void CancelWork()
+		{
+			_cts?.Cancel();
 
-						Console.WriteLine("Found!");
-
-						Loading_Panel.Visibility = Visibility.Visible;
-
-						// Display a message to the user indicating that the operation has started
-						DispatchIfNecessary(async () =>
-						{
-						// Perform the long-running operation on a background thread
-						var result = await Task.Run(() =>
-							{
-								return UnpackDirectory(vtol_profiles_file_bin, Target_Dir);
-
-							});
-							if(result == true)
-							{
-								Console.WriteLine(result);
-								Console.WriteLine("Complete!");
-								Loading_Panel.Visibility = Visibility.Hidden;
-
-
-							}
-							else
-							{
-								Console.WriteLine(result);
-								Console.WriteLine("Failed!");
-
-							}
-							Loading_Panel.Visibility = Visibility.Hidden;
-							Options_Panel.Visibility = Visibility.Hidden;
-
-						});
-
-					}
+		}
+		public Page_Profiles()
+				{
 			
-					// Update the UI with the result of the operation
-				}
-			public Page_Profiles()
-				{
-					InitializeComponent();
-				}
+
+			InitializeComponent();
+			if (!Directory.Exists(Main.User_Settings_Vars.NorthstarInstallLocation + "VTOL_profiles"))
+			{
+
+				Directory.CreateDirectory(Main.User_Settings_Vars.NorthstarInstallLocation + "VTOL_profiles");
+			}
+			SAVE_PATH__ = Main.User_Settings_Vars.NorthstarInstallLocation + "VTOL_profiles";
+			Profile_Location.Text = SAVE_PATH__;
+		}
 				public static MainWindow GetMainWindow()
 				{
 					MainWindow mainWindow = null;
@@ -782,22 +952,89 @@
 						}
 					}
 				}
-				private void Export_Profile_Click(object sender, RoutedEventArgs e)
-				{
-					Options_Panel.Visibility = Visibility.Visible;
-					Export_Profile_Options_Panel.Visibility = Visibility.Visible;
-		   
+		public async void FadeControl(UIElement control, bool? show = null, double duration = 0.5)
+		{
+			DispatchIfNecessary(async () =>
+			{
+				// Determine the target visibility
+				Visibility targetVisibility;
+			if (show == true)
+			{
+				targetVisibility = Visibility.Visible;
+			}
+			else if (show == false)
+			{
+				targetVisibility = Visibility.Collapsed;
+			}
+			else
+			{
+				targetVisibility = control.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
+			}
 
+			// Check if the control is already at the target visibility
+			if (control.Visibility == targetVisibility)
+				return;
+
+			// Create a DoubleAnimation to animate the control's opacity
+			DoubleAnimation da = new DoubleAnimation
+			{
+				From = control.Opacity,
+				To = targetVisibility == Visibility.Visible ? 1 : 0,
+				Duration = new Duration(TimeSpan.FromSeconds(duration)),
+				AutoReverse = false
+			};
+
+			// Start the animation
+			control.BeginAnimation(OpacityProperty, da);
+
+			// Update the control's visibility
+			control.Visibility = targetVisibility;
+
+			// Wait for the animation to finish
+			await Task.Delay((int)(duration * 1000));
+			});
+		}
+		
+		public  void Export(string path,string[] includedFolders, string[] includedFiles){
+			
+				Profile_Name.Text = SAVE_NAME__;
+				Profile_Location.Text = SAVE_PATH__;
+			string NS_Mod_Dir = Main.User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\mods";
+			if(!Directory.Exists(NS_Mod_Dir))
+            {
+				return;
+            }
+			System.IO.DirectoryInfo rootDirs = new DirectoryInfo(@NS_Mod_Dir);
+			System.IO.DirectoryInfo[] subDirs = null;
+			subDirs = rootDirs.GetDirectories();
+
+
+				VERSION = Main.User_Settings_Vars.CurrentVersion;
+				SAVE_NAME__ = Profile_Name.Text;
+				NUMBER_MODS__ = subDirs.Length;
+				SIZE = FileSizeCalculator.Pack(path, includedFolders, includedFiles);
+
+				Options_Panel.Visibility = Visibility.Visible;
+				Export_Profile_Options_Panel.Visibility = Visibility.Visible;
+			NORTHSTAR_VERSION.Content = VERSION;
+			NUMBER_OF_MODS.Content = NUMBER_MODS__;
+			TOTAL_SIZE.Content = SIZE;
+			Current_File_Tag.Content = "Processing the Directory - " + path;
+		
+			FadeControl(Circe_progress, true);
+			FadeControl(wave_progress, false);
+
+		}
+
+
+		private void Export_Profile_Click(object sender, RoutedEventArgs e)
+				{
+				Export(Main.User_Settings_Vars.NorthstarInstallLocation,Folders, Files);
 				}
 
 				private void Import_Profile_Click(object sender, RoutedEventArgs e)
 				{
-					Options_Panel.Visibility = Visibility.Visible;
-
-					UnpackRead_BIN_INFO(@"D:\Games\Titanfall2\R2Northstar\mods\directory.bin.gz", @"D:\Games\Titanfall2\R2Northstar\mods\open\directory.bin.gz");
-
-		   
-					Add_Profile_Options_Panel.Visibility = Visibility.Visible;
+					
 
 				}
 
@@ -812,15 +1049,24 @@
 
 				private void Export_Profile_BTN(object sender, RoutedEventArgs e)
 				{
-					Pack(@"D:\Games\Titanfall2", new string[] { "R2Northstar", "plugins", "bin" }, new string[] { "Northstar.dll", "NorthstarLauncher.exe", "r2ds.bat", "discord_game_sdk.dll" });
-					Options_Panel.Visibility = Visibility.Hidden;
-					Loading_Panel.Visibility = Visibility.Hidden;
+			Loading_Panel.Visibility = Visibility.Visible;
+			Add_Profile_Options_Panel.Visibility = Visibility.Hidden;
+			Export_Profile_Options_Panel.Visibility = Visibility.Hidden;
+			Options_Panel.Visibility = Visibility.Visible;
+			Main.Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
+			Main.Snackbar.Show("INFO", "Packing Profile now");
+			Pack_Label.Content = "Packing the File/Folder";
+
+			Pack(Main.User_Settings_Vars.NorthstarInstallLocation, Folders, Files);
+					
 
 				}
 
 				private void Import_BTN(object sender, RoutedEventArgs e)
-				{
-					UnpackandCheck(@"D:\Games\Titanfall2\R2Northstar\mods\directory.bin.gz", @"D:\Games\Titanfall2\R2Northstar\mods\open\directory.bin.gz");
+		{
+			Pack_Label.Content = "UnPacking the File/Folder";
+
+			UnpackandCheck(@"D:\Games\Titanfall2\R2Northstar\mods\directory.bin.gz", @"D:\Games\Titanfall2\R2Northstar\mods\open\directory.bin.gz");
 		   
 				}
 
@@ -834,5 +1080,126 @@
         {
 			Skip_Mods= false;
         }
-    }
+
+        private void Exit_BTN_Click(object sender, RoutedEventArgs e)
+        {
+			CancelWork();
+			Options_Panel.Visibility = Visibility.Hidden;
+			Export_Profile_Options_Panel.Visibility = Visibility.Hidden;
+			Loading_Panel.Visibility = Visibility.Hidden;
+			Add_Profile_Options_Panel.Visibility = Visibility.Hidden;
+		}
+
+        private void Add_Profile_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Extra_Menu_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			string path = null;
+
+			if (Extra_Menu.SelectedIndex == 0)
+			{
+
+				var dialog = new Ookii.Dialogs.Wpf.VistaOpenFileDialog();
+				dialog.Filter = "gz files (*.gz)|*.gz"; // Only show .gz files
+				dialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyComputer);
+
+
+				var result = dialog.ShowDialog();
+				if (result == true)
+				{
+					 path = dialog.FileName;
+
+
+				}
+				if (File.Exists(path))
+				{
+					FadeControl(Options_Panel, true);
+
+
+
+					UnpackRead_BIN_INFO(path);
+
+
+					FadeControl(Add_Profile_Options_Panel, true,1.5);
+
+				}
+
+
+
+
+			}
+		}
+
+        private void save_Lcoation_Btn_Click(object sender, RoutedEventArgs e)
+        {
+           
+			var dialog = new Ookii.Dialogs.Wpf.VistaFolderBrowserDialog();
+			//dialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyComputer);
+			string path = null;
+			
+			var result = dialog.ShowDialog();
+			if (result == true)
+			{
+				path = dialog.SelectedPath;
+
+
+			}
+			if (Directory.Exists(path))
+			{
+				SAVE_PATH__ = path;
+				Profile_Location.Text = SAVE_PATH__;
+				Main.Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
+				Main.Snackbar.Show("SUCCESS!", "The Path has been set to - " + path);
+			}
+			}
+
+        private void Exit_BTN_ADD_Prfl_Click(object sender, RoutedEventArgs e)
+        {
+			CancelWork();
+			Options_Panel.Visibility = Visibility.Hidden;
+			Export_Profile_Options_Panel.Visibility = Visibility.Hidden;
+			Loading_Panel.Visibility = Visibility.Hidden;
+			Add_Profile_Options_Panel.Visibility = Visibility.Hidden;
+		}
+
+        private void Export_Mods_Checked(object sender, RoutedEventArgs e)
+        {
+			Do_Not_save_Mods = true;
+
+		}
+
+		private void Export_Mods_Unchecked(object sender, RoutedEventArgs e)
+        {
+			Do_Not_save_Mods = false;
+
+		}
+
+        private void Profile_Name_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (Profile_Name.Text != "Default Profile")
+            {
+
+				Profile_Name.Foreground = Brushes.White;
+            }
+			SAVE_NAME__ = Profile_Name.Text;
+        }
+
+        private void Exit_BTN_ADD_Prfl_Click_1(object sender, RoutedEventArgs e)
+        {
+			CancelWork();
+			Options_Panel.Visibility = Visibility.Hidden;
+			Export_Profile_Options_Panel.Visibility = Visibility.Hidden;
+			Loading_Panel.Visibility = Visibility.Hidden;
+			Add_Profile_Options_Panel.Visibility = Visibility.Hidden;
+		}
+
+        private void Page_Unloaded(object sender, RoutedEventArgs e)
+        {
+			_cts.Dispose();
+
+		}
+	}
 		}

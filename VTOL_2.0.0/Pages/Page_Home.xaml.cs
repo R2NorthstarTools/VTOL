@@ -2907,105 +2907,105 @@ Main.logger2.Close();
        
         private void Browse_Titanfall_Button_Click(object sender, RoutedEventArgs e)
         {
-            try
+            try { 
+            //{
+            //    var notificationManager = new NotificationManager();
+
+            //    var content = new NotificationContent
+            //    {
+            //        Title = "Update Notification",
+            //        Message = "There Is an Update Available for Northstar, Please Open the App to Update!",
+            //        AppIdentity = "VTOL",
+            //        AttributionText = "Via: The VTOL-UPDATE-SERVICE",
+            //        VectorIcon = Application.Current.TryFindResource("[...]") as StreamGeometry,
+            //        UseLargeIcon = true
+            //    };
+
+            //    notificationManager.Notify(
+            //        message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            //        title: "Simple notification","sd",false, TimeSpan.FromSeconds(50));
+            var folderDlg = new Ookii.Dialogs.Wpf.VistaFolderBrowserDialog();
+            folderDlg.ShowNewFolderButton = true;
+            // Show the FolderBrowserDialog.  
+            var result = folderDlg.ShowDialog();
+            if (result == true)
             {
-                var notificationManager = new NotificationManager();
-
-                var content = new NotificationContent
+                string path = folderDlg.SelectedPath;
+                if (path == null || !Directory.Exists(path))
                 {
-                    Title = "Update Notification",
-                    Message = "There Is an Update Available for Northstar, Please Open the App to Update!",
-                    AppIdentity = "VTOL",
-                    AttributionText = "Via: The VTOL-UPDATE-SERVICE",
-                    VectorIcon = Application.Current.TryFindResource("[...]") as StreamGeometry,
-                    UseLargeIcon = true
-                };
-                
-                notificationManager.Notify(
-                    message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                    title: "Simple notification","sd",false, TimeSpan.FromSeconds(50));
-                //var folderDlg = new Ookii.Dialogs.Wpf.VistaFolderBrowserDialog();
-                //folderDlg.ShowNewFolderButton = true;
-                //// Show the FolderBrowserDialog.  
-                //var result = folderDlg.ShowDialog();
-                //if (result == true)
-                //{
-                //    string path = folderDlg.SelectedPath;
-                //    if (path == null || !Directory.Exists(path))
-                //    {
-                //        SnackBar.Appearance = ControlAppearance.Danger;
-                //        SnackBar.Title = "WARNING!";
-                //        SnackBar.Message = "Invalid Install Path!";
-                //        SnackBar.Show();
+                    SnackBar.Appearance = ControlAppearance.Danger;
+                    SnackBar.Title = "WARNING!";
+                    SnackBar.Message = "Invalid Install Path!";
+                    SnackBar.Show();
 
-                //        //Send_Error_Notif(GetTextResource("NOTIF_ERROR_INVALID_INSTALL_PATH"));
+                    //Send_Error_Notif(GetTextResource("NOTIF_ERROR_INVALID_INSTALL_PATH"));
 
 
-                //    }
-                //    else
-                //    {
-                //        Current_Install_Folder = path + @"\";
-                //        DirectoryInfo Dir = new DirectoryInfo(Current_Install_Folder);
+                }
+                else
+                {
+                    Current_Install_Folder = path + @"\";
+                    DirectoryInfo Dir = new DirectoryInfo(Current_Install_Folder);
 
-                //        if (Dir.Exists && File.Exists(Current_Install_Folder + "Titanfall2.exe"))
-                //        {
-                //            if (File.Exists(Current_Install_Folder + "NorthstarLauncher.exe"))
-                //            {
-                //                Found_Install_Folder = true;
-                //                // Directory_Box.Background = Brushes.White;
-                //                Console.WriteLine("Found");
-                //                Console.WriteLine(Current_Install_Folder);
+                    if (Dir.Exists && File.Exists(Current_Install_Folder + "Titanfall2.exe"))
+                    {
+                        if (File.Exists(Current_Install_Folder + "NorthstarLauncher.exe"))
+                        {
+                            Found_Install_Folder = true;
+                            // Directory_Box.Background = Brushes.White;
+                            Console.WriteLine("Found");
+                            Console.WriteLine(Current_Install_Folder);
 
-                //                Directory_Box.Text = Current_Install_Folder;
+                            Directory_Box.Text = Current_Install_Folder;
 
-                //                User_Settings_Vars.NorthstarInstallLocation = Current_Install_Folder;
-                //                string User_Settings_Json_Strings = Newtonsoft.Json.JsonConvert.SerializeObject(User_Settings_Vars);
-                //                using (var StreamWriter = new StreamWriter(AppDataFolder + @"\VTOL_DATA\Settings\User_Settings.Json", false))
-                //                {
-                //                    StreamWriter.WriteLine(User_Settings_Json_Strings);
-                //                    StreamWriter.Close();
-                //                }
+                            User_Settings_Vars.NorthstarInstallLocation = Current_Install_Folder;
+                            string User_Settings_Json_Strings = Newtonsoft.Json.JsonConvert.SerializeObject(User_Settings_Vars);
+                            using (var StreamWriter = new StreamWriter(AppDataFolder + @"\VTOL_DATA\Settings\User_Settings.Json", false))
+                            {
+                                StreamWriter.WriteLine(User_Settings_Json_Strings);
+                                StreamWriter.Close();
+                            }
 
-                //                NSExe = Get_And_Set_Filepaths(Current_Install_Folder, "NorthstarLauncher.exe");
-                //                Check_Integrity_Of_NSINSTALL();
-                //                SnackBar.Appearance = ControlAppearance.Success;
-                //                SnackBar.Title = "SUCCESS";
-                //                SnackBar.Message = VTOL.Resources.Languages.Language.Page_Home_Browse_Titanfall_Button_Click_TheLocation + Current_Install_Folder + VTOL.Resources.Languages.Language.Page_Home_Browse_Titanfall_Button_Click_IsValidAndHasBeenSet;
-                //                SnackBar.Show();
-                //                Restart_App();
-                //            }
-                //            else
-                //            {
-                //                if (!Current_Install_Folder.EndsWith(@"\"))
-                //                {
-                //                    string fix = Current_Install_Folder + @"\";
-                //                    User_Settings_Vars.NorthstarInstallLocation = fix;
-                //                    Current_Install_Folder = fix.Replace(@"\\", @"\").Replace("/", @"\");
-                //                    Console.WriteLine("Replaced2");
+                            NSExe = Get_And_Set_Filepaths(Current_Install_Folder, "NorthstarLauncher.exe");
+                            Check_Integrity_Of_NSINSTALL();
+                            SnackBar.Appearance = ControlAppearance.Success;
+                            SnackBar.Title = "SUCCESS";
+                            SnackBar.Message = VTOL.Resources.Languages.Language.Page_Home_Browse_Titanfall_Button_Click_TheLocation + Current_Install_Folder + VTOL.Resources.Languages.Language.Page_Home_Browse_Titanfall_Button_Click_IsValidAndHasBeenSet;
+                            SnackBar.Show();
+                            Restart_App();
+                        }
+                        else
+                        {
+                            if (!Current_Install_Folder.EndsWith(@"\"))
+                            {
+                                string fix = Current_Install_Folder + @"\";
+                                User_Settings_Vars.NorthstarInstallLocation = fix;
+                                Current_Install_Folder = fix.Replace(@"\\", @"\").Replace("/", @"\");
+                                Console.WriteLine("Replaced2");
 
-                //                }
-                //                SnackBar.Appearance = ControlAppearance.Danger;
-                //                SnackBar.Title = "WARNING!";
-                //                SnackBar.Message = VTOL.Resources.Languages.Language.Page_Home_INIT_NORTHSTARAUTOINSTALLWILLNOWBEGINPLEASEWAITABOUT30SECONDS;
-                //                SnackBar.Timeout = 8000;
-                //                SnackBar.Show();
+                            }
+                            SnackBar.Appearance = ControlAppearance.Danger;
+                            SnackBar.Title = "WARNING!";
+                            SnackBar.Message = VTOL.Resources.Languages.Language.Page_Home_INIT_NORTHSTARAUTOINSTALLWILLNOWBEGINPLEASEWAITABOUT30SECONDS;
+                            SnackBar.Timeout = 8000;
+                            SnackBar.Show();
 
-                //                Auto_Install_(true);
-                //            }
-                //        }
-                //        else
-                //        {
-                //            SnackBar.Appearance = ControlAppearance.Danger;
-                //            SnackBar.Title = "WARNING!";
-                //            SnackBar.Message = VTOL.Resources.Languages.Language.Browse_Titanfall_Button_Click_TheLocation + Current_Install_Folder + VTOL.Resources.Languages.Language.Page_Home_Browse_Titanfall_Button_Click_IsNotValid;
-                //            SnackBar.Timeout = 8000;
-                //            SnackBar.Show();
+                            Auto_Install_(true);
+                        }
+                    }
+                    else
+                    {
+                        SnackBar.Appearance = ControlAppearance.Danger;
+                        SnackBar.Title = "WARNING!";
+                        SnackBar.Message = VTOL.Resources.Languages.Language.Browse_Titanfall_Button_Click_TheLocation + Current_Install_Folder + VTOL.Resources.Languages.Language.Page_Home_Browse_Titanfall_Button_Click_IsNotValid;
+                        SnackBar.Timeout = 8000;
+                        SnackBar.Show();
 
-                //        }
+                    }
 
 
-                //    }
-                //}
+                }
+            }
             }
             catch (Exception ex)
             {

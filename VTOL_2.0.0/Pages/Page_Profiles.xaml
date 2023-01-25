@@ -9,7 +9,7 @@
       mc:Ignorable="d" 
       KeepAlive="True"
       d:DesignHeight="670" d:DesignWidth="1148"
-      Title="Page_Profiles">
+      Title="Page_Profiles" Unloaded="Page_Unloaded">
 
     <Grid >
 
@@ -17,11 +17,11 @@
         <Label Content="Change the Entire Application by importing or Exporting Profiles" Margin="50,0,0,573" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="410"/>
         <Label Content="PROFILES" Margin="50,0,357,594" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Background="{x:Null}" Foreground="White" FontSize="22" FontWeight="Bold" Height="28" VerticalAlignment="Bottom"/>
         <ListBox x:Name="Profile_List_Box"  Margin="50,111,50,279"   VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.ScrollUnit="Pixel" IsSynchronizedWithCurrentItem="True"  />
-        <ui:Button x:Name="Import_Profile"   Icon="ArrowImport24" Height="30" Margin="0,395,245,0" VerticalAlignment="Top"  BorderBrush="{x:Null}" Content="Import Profile" Padding="0,0,0,0" ToolTip="Import Profile" Background="#FF383838"  ClickMode="Press" HorizontalAlignment="Right" Width="190" Click="Import_Profile_Click" />
+        <ui:Button x:Name="Import_Profile"   Icon="ArrowImport24" Height="30" Margin="0,395,245,0" VerticalAlignment="Top"  BorderBrush="{x:Null}" Content="Import Profile" Padding="0,0,0,0" ToolTip="Import Profile" Background="#FF383838"  ClickMode="Press" HorizontalAlignment="Right" Width="190" Click="Import_Profile_Click" Visibility="Collapsed" />
         <ui:Button  x:Name="Export_Profile" Icon="ArrowExportLtr24" Height="30" Margin="0,395,50,0" VerticalAlignment="Top"  BorderBrush="{x:Null}" Content="Export Profile" Padding="0,0,0,0" ToolTip="Export Profile" Background="#FF383838" ClickMode="Press" HorizontalAlignment="Right" Width="190" Click="Export_Profile_Click" />
-        <ui:Button  x:Name="Add_Profile" Icon="Add12" Height="30" Margin="50,395,0,0" VerticalAlignment="Top"  BorderBrush="{x:Null}" Content="Add Profile" Padding="0,0,0,0" ToolTip="Add Profile" Background="#FF383838"  ClickMode="Press" Width="195" />
+        <ui:Button  x:Name="Add_Profile" Icon="Add12" Height="30" Margin="50,395,0,0" VerticalAlignment="Top"  BorderBrush="{x:Null}" Content="Add Profile" Padding="0,0,0,0" ToolTip="Add Profile" Background="#FF383838"  ClickMode="Press" Width="195" Click="Add_Profile_Click" />
 
-        <ComboBox x:Name="Extra_Menu" Margin="246,397,0,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" BorderThickness="0,0,0,0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" HorizontalAlignment="Left" Background="#FF383838" Height="26" DropDownClosed="ComboBox_DropDownClosed" RenderTransformOrigin="0.5,0.5" MinHeight="26"  >
+        <ComboBox x:Name="Extra_Menu" Margin="246,397,0,1" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" BorderThickness="0,0,0,0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" HorizontalAlignment="Left" Background="#FF383838" Height="26" DropDownClosed="ComboBox_DropDownClosed" RenderTransformOrigin="0.5,0.5" MinHeight="26" SelectionChanged="Extra_Menu_SelectionChanged"  >
             <ComboBox.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform ScaleY="1.06"/>
@@ -64,30 +64,32 @@
                     </Grid>
                 </Border>-->
 
-                <Border x:Name="Export_Profile_Options_Panel" Visibility="Hidden" Margin="406,169,406,117" Background="#FF191919" CornerRadius="7,7,7,7">
+                <Border x:Name="Export_Profile_Options_Panel" Visibility="Hidden" Margin="406,169,0,0" Background="#FF191919" CornerRadius="7,7,7,7" Height="384" VerticalAlignment="Top" HorizontalAlignment="Left" Width="336">
                     <Grid>
-                        <Label Content="ADD PROFILE" Margin="0,6,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" UseLayoutRounding="True" Padding="0,0,0,0" Background="{x:Null}" Foreground="White" FontSize="16" FontWeight="Bold" Height="28" VerticalAlignment="Top" HorizontalAlignment="Center" Width="240"/>
-                        <Label  x:Name="NORTHSTAR_VERSION"  Content="v1.1.2" Margin="195,0,0,319" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Center" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="127"/>
-                        <Label  x:Name="NUMBER_OF_MODS"  Content="84" Margin="195,0,0,294" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Center" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="127"/>
-                        <Label x:Name="TOTAL_SIZE" Content="5GB" Margin="195,0,0,273" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Center" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="127"/>
-                        <Label Content="NORTHSTAR VERSION" Margin="15,0,0,319" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="184"/>
-                        <Label  Content="NUMBER OF MODS" Margin="15,0,0,294" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="184"/>
-                        <Label  Content="TOTAL SIZE" Margin="15,0,0,273" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="184"/>
+                        <ui:Button  x:Name="Exit_BTN_Export_Prfl" Icon="Dismiss24" Height="25" Margin="301,10,0,0" VerticalAlignment="Top"  BorderBrush="{x:Null}"  Padding="0,0,0,0" ToolTip="Exit" Background="#FF7B0000"  ClickMode="Press" Width="25" Click="Exit_BTN_ADD_Prfl_Click" />
+
+                        <Label Content="EXPORT PROFILE" Margin="0,6,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" UseLayoutRounding="True" Padding="0,0,0,0" Background="{x:Null}" Foreground="White" FontSize="16" FontWeight="Bold" Height="28" VerticalAlignment="Top" HorizontalAlignment="Center" Width="240"/>
+                        <Label  x:Name="NORTHSTAR_VERSION"  Content="v1.1.2" Margin="195,0,0,321" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Center" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="127"/>
+                        <Label  x:Name="NUMBER_OF_MODS"  Content="84" Margin="195,0,0,297" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Center" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="127"/>
+                        <Label x:Name="TOTAL_SIZE" Content="5GB" Margin="195,0,0,275" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Center" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="127"/>
+                        <Label Content="NORTHSTAR VERSION" Margin="15,0,0,321" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="184"/>
+                        <Label  Content="NUMBER OF MODS" Margin="15,0,0,297" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="184"/>
+                        <Label  Content="TOTAL SIZE" Margin="15,0,0,275" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="184"/>
                         <Separator HorizontalAlignment="Center" VerticalAlignment="Top" Height="82" Background="#4CFFFFFF" BorderBrush="#4CFFFFFF" Margin="15,25,-17,-7" Foreground="{x:Null}" MinHeight="45" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 
-                        <Border Margin="10,123,10,10" BorderBrush="#33BFBFBF" Background="#332F2F2D" BorderThickness="1,1,1,1" Visibility="Visible">
+                        <Border Margin="10,120,10,13" BorderBrush="#33BFBFBF" Background="#332F2F2D" BorderThickness="1,1,1,1" Visibility="Visible" CornerRadius="7,7,7,7">
 
                             <StackPanel Width="314">
-                                <Label Margin="0,6,0,8" Content="Name Of File" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>
-                                <ui:TextBox Width="284" Height="24" HorizontalContentAlignment="Center" />
+                                <Label Margin="0,6,0,8" Content="Name Of Profile" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>
+                                <ui:TextBox x:Name="Profile_Name" Width="284" Height="24" HorizontalContentAlignment="Center" Text="Default Profile" Padding="0,0,0,0" TextChanged="Profile_Name_TextChanged" Foreground="#FFB7B7B7" ClearButtonEnabled="False"/>
 
-                                <CheckBox x:Name="Export_Mods" HorizontalAlignment="Center" ClickMode="Press" Content="Exclude Mod Folder" Margin="0,12,0,0" FontSize="12"/>
-                                <Label Margin="0,8,0,8" Content="Save Location" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>
+                                <CheckBox Padding="0,0,0,0" x:Name="Export_Mods" HorizontalAlignment="Center" ClickMode="Press" Content="Exclude Mod Folder" Margin="0,12,0,0" FontSize="12" Checked="Export_Mods_Checked" Unchecked="Export_Mods_Unchecked"/>
+                                <Label Margin="0,5,0,5" Content="Save Location" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>
 
-                                <ui:TextBox Width="284" Height="24" HorizontalContentAlignment="Center" Margin="0,-7,0,0" />
-                                <ui:Button HorizontalAlignment="Center" Content="Change Save Location" Width="284" Height="28" Margin="0,7,0,0" ClickMode="Press" Padding="0,0,0,0"></ui:Button>
+                                <ui:TextBox x:Name="Profile_Location" Width="284" Height="24" HorizontalContentAlignment="Center" Text="XXXXXXXXX" Padding="0,0,0,0" ClearButtonEnabled="False" IsTabStop="False" IsHitTestVisible="False" Focusable="False" IsUndoEnabled="False" IsEnabled="False" />
+                                <ui:Button x:Name="save_Lcoation_Btn" HorizontalAlignment="Center" Content="Change Save Location" Width="284" Height="28" Margin="0,7,0,0" ClickMode="Press" Padding="0,0,0,0" Click="save_Lcoation_Btn_Click"></ui:Button>
 
-                                <ui:Button x:Name="Export_Profile_BTN_" HorizontalAlignment="Center" Content="Export Profile" Width="284" Height="28" Margin="0,18,0,0" BorderBrush="#3F8AFFF2" Click="Export_Profile_BTN"/>
+                                <ui:Button  Padding="0,0,0,0" x:Name="Export_Profile_BTN_" HorizontalAlignment="Center" Content="Export Profile" Width="284" Height="28" Margin="0,18,0,0" BorderBrush="#3F8AFFF2" Click="Export_Profile_BTN"/>
                             </StackPanel>
                         </Border>
 
@@ -95,7 +97,9 @@
                 </Border>
                 <Border x:Name="Add_Profile_Options_Panel" Visibility="Hidden" Margin="406,169,406,261" Background="#FF191919" CornerRadius="7,7,7,7">
                     <Grid>
-                        <Label Content="IMPORT PROFILE" Margin="0,5,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" UseLayoutRounding="True" Padding="0,0,0,0" Background="{x:Null}" Foreground="White" FontSize="16" FontWeight="Bold" Height="21" VerticalAlignment="Top" HorizontalAlignment="Center" Width="240"/>
+                        <ui:Button  x:Name="Exit_BTN_ADD_Prfl" Icon="Dismiss24" Height="25" Margin="301,10,0,0" VerticalAlignment="Top"  BorderBrush="{x:Null}"  Padding="0,0,0,0" ToolTip="Exit" Background="#FF7B0000"  ClickMode="Press" Width="25" Click="Exit_BTN_ADD_Prfl_Click_1" />
+
+                        <Label Content="ADD PROFILE" Margin="0,5,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" UseLayoutRounding="True" Padding="0,0,0,0" Background="{x:Null}" Foreground="White" FontSize="16" FontWeight="Bold" Height="21" VerticalAlignment="Top" HorizontalAlignment="Center" Width="240"/>
 
                         <Label  x:Name="I_NORTHSTAR_VERSION"  Content="v1.1.2" Margin="195,0,0,157" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Center" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="127"/>
                         <Label  x:Name="I_NUMBER_OF_MODS"  Content="84" Margin="195,0,0,137" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Center" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="127"/>
@@ -120,19 +124,43 @@
                     </Grid>
                 </Border>
 
-                <Border x:Name="Loading_Panel" Margin="439,200,439,200" Width="270" Height="270" CornerRadius="7,7,7,7" Background="#FF191919" Visibility="Hidden" >
+                <Border x:Name="Loading_Panel" Margin="439,0,0,0" Width="270" Height="270" CornerRadius="7,7,7,7" Background="#FF121212" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left" >
 
                     <Grid>
+                        <ui:Button  x:Name="Exit_BTN" Icon="Dismiss24" Height="25" Margin="235,10,0,0" VerticalAlignment="Top"  BorderBrush="{x:Null}"  Padding="0,0,0,0" ToolTip="Exit" Background="#FF7B0000"  ClickMode="Press" Width="25" Click="Exit_BTN_Click" />
 
-                        <hc:LoadingCircle Width="120" Height="120" Margin="74,50,74,100" DotDiameter="10" DotCount="6" DotBorderThickness="1" DotOffSet="95" Foreground="#FF008664"   >
-                            <hc:LoadingCircle.DotBorderBrush>
+                        <hc:WaveProgressBar x:Name="wave_progress" Visibility="Visible" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,39,0,0" Foreground="#FBB9B9B9" FontSize="14" Value="50" Background="#FF2D2D30">
+                            <hc:WaveProgressBar.WaveFill>
                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                    <GradientStop Color="#B2D3EFE1"/>
-                                    <GradientStop Color="#FF04E884" Offset="1"/>
+                                    <GradientStop Color="#FF024439" Offset="0.017"/>
+                                    <GradientStop Color="#FF01965B" Offset="1"/>
+                                    <GradientStop Color="#FE01483D" Offset="0.117"/>
+                                    <GradientStop Color="#FE049A75" Offset="0.533"/>
                                 </LinearGradientBrush>
-                            </hc:LoadingCircle.DotBorderBrush>
-                        </hc:LoadingCircle>
-                        <Label x:Name="Loading_Tag" Content="Packing the Directory - " Margin="0,204,0,32" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
+                            </hc:WaveProgressBar.WaveFill>
+                            <hc:WaveProgressBar.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform ScaleX="1.2" ScaleY="1.2"/>
+                                    <SkewTransform/>
+                                    <RotateTransform/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </hc:WaveProgressBar.RenderTransform>
+
+                        </hc:WaveProgressBar>
+
+                        <hc:CircleProgressBar x:Name="Circe_progress" Margin="85,34,85,129" Visibility="Hidden" ShowText="False" IsIndeterminate="True" ArcThickness="8">
+
+                            <hc:CircleProgressBar.Foreground>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF036D5B" Offset="0.017"/>
+                                    <GradientStop Color="#FF024439" Offset="1"/>
+                                </LinearGradientBrush>
+                            </hc:CircleProgressBar.Foreground>
+                        </hc:CircleProgressBar>
+                        <Label x:Name="Pack_Label" Content="Packing the File/Folder - " Margin="0,196,0,40" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
+                        <Label x:Name="Current_File_Tag" Content="--------------------------------------------------" Margin="0,220,0,4" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+
                     </Grid>
                 </Border>
             </Grid>
