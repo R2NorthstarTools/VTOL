@@ -24,7 +24,9 @@
         >
 
     <Window.Resources>
-
+        <Storyboard x:Key="FadeInOut">
+            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"/>
+        </Storyboard>
         <SolidColorBrush x:Key="Button_HOVER" Color="#FF2C4C4C" />
 
         <Style TargetType="Image">

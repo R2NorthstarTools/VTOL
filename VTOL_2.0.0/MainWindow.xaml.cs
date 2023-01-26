@@ -26,9 +26,47 @@ using System.Diagnostics;
 using System.Security.Principal;
 using VTOL.Pages;
 using Pixelmaniac.Notifications;
+using Microsoft.Xaml.Behaviors;
 
 namespace VTOL
 {
+    public class FadeInOutBehavior : Behavior<UIElement>
+    {
+        protected override void OnAttached()
+        {
+            base.OnAttached();
+            AssociatedObject.IsVisibleChanged += OnIsVisibleChanged;
+        }
+
+        protected override void OnDetaching()
+        {
+            base.OnDetaching();
+            AssociatedObject.IsVisibleChanged -= OnIsVisibleChanged;
+        }
+
+        private void OnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if ((bool)e.NewValue)
+            {
+                Storyboard.SetTarget(FadeInOut, AssociatedObject);
+                FadeInOut.Begin();
+            }
+            else
+            {
+                FadeInOut.Stop();
+                AssociatedObject.Opacity = 0;
+            }
+        }
+
+        public Storyboard FadeInOut
+        {
+            get { return (Storyboard)GetValue(FadeInOutProperty); }
+            set { SetValue(FadeInOutProperty, value); }
+        }
+
+        public static readonly DependencyProperty FadeInOutProperty =
+            DependencyProperty.Register("FadeInOut", typeof(Storyboard), typeof(FadeInOutBehavior), new PropertyMetadata(null));
+    }
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>

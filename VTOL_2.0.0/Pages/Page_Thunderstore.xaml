@@ -142,9 +142,9 @@
 
 
 
-                            <Canvas  ClipToBounds="True" Name="canMain" Margin="10,31,10,161"  Background="#FF131313" Loaded="canMain_IsVisibleChanged" >
+                            <Border  ClipToBounds="True" Name="canMain" Margin="10,31,10,161"  Background="#FF232323" Loaded="canMain_IsVisibleChanged" CornerRadius="7,7,7,7" >
                                 <TextBlock  Name="tbmarquee"  Foreground="White" Text="{Binding description}"  TextWrapping="Wrap" FontSize="14" Width="235" Height="94" Padding="5,5,5,5" ScrollViewer.CanContentScroll="True" ></TextBlock>
-                            </Canvas>
+                            </Border>
 
                             <ui:Button x:Name="Install_Bttn_Thunderstore" Margin="130,250,10,0" Background="{Binding Button_Color}" HorizontalAlignment="Stretch" Height="29" Content="{Binding Button_label}" FontSize="14" Icon="ArrowDownload16" BorderBrush="{x:Null}" VerticalAlignment="Top" Padding="0,0,0,0" Tag="{Binding download_url}" Click="Install_Bttn_Thunderstore_Click" ToolTip ="{Binding Tag}" ToolTipService.IsEnabled="False" AutomationProperties.IsRequiredForForm="False" CommandParameter="{Binding Update_data}"/>
                             <TextBlock TextAlignment="Left" Text="{Binding date_created}" Margin="10,161,10,107" Background="{x:Null}" Foreground="#FFC7C7C7" FontSize="11" RenderTransformOrigin="0.5,0.5">
@@ -199,7 +199,6 @@
 
                 </DataTemplate>
             </ui:VirtualizingItemsControl.ItemTemplate>
-
 
             <!--<ListBox.ItemContainerStyle>
                 <Style TargetType="ListBoxItem">

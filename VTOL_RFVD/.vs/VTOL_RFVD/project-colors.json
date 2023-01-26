@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "9b6a77fa-e905-43b2-b2ad-e16f05e0844e": {
+      "ProjectGuid": "9b6a77fa-e905-43b2-b2ad-e16f05e0844e",
+      "DisplayName": "VTOL_RFVD",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}

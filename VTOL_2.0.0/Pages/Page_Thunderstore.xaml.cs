@@ -756,9 +756,9 @@ Main.logger2.Close();
         private void Ts_Image_MouseEnter(object sender, MouseEventArgs e)
         {
 
-
+            
         }
-
+       
         private void mask_MouseEnter(object sender, MouseEventArgs e)
         {
             ContentPresenter myListBoxItem =
@@ -1464,11 +1464,7 @@ int millisecondsDelay = 30)
 
             return false;
         }
-        async void Load_Installed_Mods()
-        {
-
-
-        }
+      
         public bool TryMoveFile(
     string Origin, string Destination, bool overwrite = true,
     int maxRetries = 10,
@@ -2645,7 +2641,7 @@ int millisecondsDelay = 300)
                 {
                     if (NS_CANDIDATE_INSTALL == false && Skin_Install == false && Destination.Contains(@"\mods"))
                     {
-                        if (Main.Current_Installed_Mods.Count() > 2)
+                        if (Main.Current_Installed_Mods.Count() > 1)
                         {
 
                             foreach (var item in Main.Current_Installed_Mods)
@@ -2696,15 +2692,17 @@ int millisecondsDelay = 300)
                                     // If file found, delete it    
                                     TryDeleteFile(Path.Combine(Destination, "icon.png"));
                                 }
-                                /* Send_Warning_Notif(GetTextResource("NOTIF_WARN_CLEANUP_FILES_NOT_FOUND"));*/ 
-                                //if (File.Exists(Path.Combine(Destination, "manifest.json")))
-                                //{
-                                //    // If file found, delete it    
-                                //    TryDeleteFile(Path.Combine(Destination, "manifest.json"));
-                                //}
-                               
+                                if (NS_CANDIDATE_INSTALL == true)
+                                {
+                                    /* Send_Warning_Notif(GetTextResource("NOTIF_WARN_CLEANUP_FILES_NOT_FOUND"));*/
+                                    if (File.Exists(Path.Combine(Destination, "manifest.json")))
+                                    {
+                                        // If file found, delete it    
+                                        TryDeleteFile(Path.Combine(Destination, "manifest.json"));
+                                    }
+                                }
 
-                                if (File.Exists(Path.Combine(Destination, "README.md")))
+                                    if (File.Exists(Path.Combine(Destination, "README.md")))
                                 {
                                     // If file found, delete it    
                                     TryDeleteFile(Path.Combine(Destination, "README.md"));
