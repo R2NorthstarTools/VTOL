@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media.Animation;
 using VTOL.Pages;
 namespace VTOL
 {
@@ -43,9 +44,31 @@ namespace VTOL
                 }
             }
         }
-        private void Application_Startup(object sender, StartupEventArgs e)
+        private async void  Application_Startup(object sender, StartupEventArgs e)
         {
-            //RegisterUriScheme();
+
+
+
+
+            SplashScreen splashScreen = new SplashScreen(@"\Pages\Splash.png");
+            
+            splashScreen.Show(true, true); 
+            
+            // Auto-close: NO, On top: YES
+                                            //    var splashScreen = new Splash_();
+                                            //    splashScreen.Show();
+
+            //    // Async load the main window
+            //   // var mainWindow = new MainWindow();
+            //    await Task.Delay(3000); // Simulate loading time
+            // //   mainWindow.Show();
+
+            //    // Fade out the splash screen
+            //  //  var animation = new DoubleAnimation(1, 0, new Duration(TimeSpan.FromSeconds(1)));
+            //  //  splashScreen.BeginAnimation(OpacityProperty, animation);
+            //  //  animation.Completed += (s, a) => splashScreen.Close();
+            //    //RegisterUriScheme();
+            //    splashScreen.Close();
             //if (args.Length > 0)
             //{
             //    if (Uri.TryCreate(args[0], UriKind.Absolute, out var uri) &&

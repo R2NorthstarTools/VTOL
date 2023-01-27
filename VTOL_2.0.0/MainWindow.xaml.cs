@@ -30,7 +30,8 @@ using Microsoft.Xaml.Behaviors;
 
 namespace VTOL
 {
-    public class FadeInOutBehavior : Behavior<UIElement>
+    
+        public class FadeInOutBehavior : Behavior<UIElement>
     {
         protected override void OnAttached()
         {
@@ -88,7 +89,7 @@ namespace VTOL
 
         bool failed_folder = false;
         public bool minimize_to_tray = false;
-
+        
         static void Main(string[] args)
 
 

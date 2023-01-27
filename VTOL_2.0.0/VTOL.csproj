@@ -71,6 +71,7 @@
     <None Remove="Fonts\Segoe-UI-Variable-Static-Text.ttf" />
     <None Remove="Fonts\SegoeUI-VF.ttf" />
     <None Remove="NLog.config" />
+    <None Remove="Pages\Splash.png" />
     <None Remove="README.md" />
     <None Remove="Resources\Backgrounds\5005323-titanfall-2-games-2018-games-hd-4k.jpg" />
     <None Remove="Resources\Backgrounds\6._The_Beacon_-_1.png" />
@@ -681,6 +682,12 @@
     </Resource>
     <Resource Include="Resources\Resource_Static\VTF_EDIT.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Pages\Splash.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
 

@@ -1789,6 +1789,51 @@ int millisecondsDelay = 150)
 
 
         }
+        public void SlowBlink(Control control, double minimumOpacity)
+        {
+            DispatchIfNecessary(() =>
+            {
+                // Create a DoubleAnimation to animate the control's Opacity property
+                var animation = new DoubleAnimation
+                {
+                    From = 1.0,
+                    To = minimumOpacity,
+                    Duration = new Duration(TimeSpan.FromSeconds(2)),
+                    AutoReverse = true,
+                    RepeatBehavior = RepeatBehavior.Forever
+                };
+
+                // Apply the animation to the control's Opacity property
+                control.BeginAnimation(UIElement.OpacityProperty, animation);
+            });
+        }
+
+
+        public void FadeControl(Control control, bool fadeIn, double duration = 1)
+        {
+            if (fadeIn)
+            {
+                control.Visibility = Visibility.Visible;
+                var animation = new DoubleAnimation
+                {
+                    From = 0,
+                    To = 1,
+                    Duration = new Duration(TimeSpan.FromSeconds(duration))
+                };
+                control.BeginAnimation(UIElement.OpacityProperty, animation);
+            }
+            else
+            {
+                var animation = new DoubleAnimation
+                {
+                    From = 1,
+                    To = 0,
+                    Duration = new Duration(TimeSpan.FromSeconds(duration))
+                };
+                animation.Completed += (sender, e) => control.Visibility = Visibility.Collapsed;
+                control.BeginAnimation(UIElement.OpacityProperty, animation);
+            }
+        }
 
         void Check_Log_Folder() {
             try
@@ -1803,18 +1848,20 @@ int millisecondsDelay = 150)
 
                         if (Cntr != Properties.Settings.Default.LOG_Folder_Counter && Cntr != 0)
                         {
-                            Main.Log_Folder_warning.Visibility = Visibility.Visible;
+                            FadeControl(Main.Log_Folder_warning, true,5);
+                            SlowBlink(Main.Log_Folder_warning, 0.4);
 
                         }
                         else
                         {
-                            Main.Log_Folder_warning.Visibility = Visibility.Hidden;
+                            FadeControl(Main.Log_Folder_warning, false);
 
+    
                         }
                     }
                     else
                     {
-                        Main.Log_Folder_warning.Visibility = Visibility.Hidden;
+                        FadeControl(Main.Log_Folder_warning, false);
 
                     }
                 });

@@ -30,7 +30,7 @@
         <SolidColorBrush x:Key="Button_HOVER" Color="#FF2C4C4C" />
 
         <Style TargetType="Image">
-            
+
             <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality" />
         </Style>
 
@@ -38,6 +38,34 @@
 
         <ControlTemplate x:Key="ButtonControlTemplate1" TargetType="{x:Type Button}">
             <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True" CornerRadius="20">
+                <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsDefaulted" Value="True">
+                    <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" TargetName="border" Value="#FFBEE6FD"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="#FF3C7FB1"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" TargetName="border" Value="#FFC4E5F6"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="#FF2C628B"/>
+                </Trigger>
+                <Trigger Property="ToggleButton.IsChecked" Value="True">
+                    <Setter Property="Background" TargetName="border" Value="#FFBCDDEE"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="#FF245A83"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" TargetName="border" Value="#FFF4F4F4"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="#FFADB2B5"/>
+                    <Setter Property="Foreground" Value="#FF838383"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="ButtonControlTemplate2" TargetType="{x:Type Button}">
+            <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True" CornerRadius="16">
                 <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
             </Border>
             <ControlTemplate.Triggers>
@@ -97,7 +125,7 @@
                                 Header="Launch"
                                 SymbolIcon="Play16"
                                 Tag="OpenNorthstar" Click="QuickLaunch_Click" />
-                    
+
                     <Separator />
 
                     <ui:MenuItem  x:Name="OpenHome"
@@ -109,7 +137,7 @@
                                 SymbolIcon="FolderOpen16"
                                 Tag="OpenMods" Click="OpenMods_Click" />
 
-                    
+
                     <ui:MenuItem  x:Name="Thunderstore"
                                 Header="Thunderstore"
                                 SymbolIcon="BoxSearch20"
@@ -131,8 +159,8 @@
         <Border x:Name="Content_Container_Pages"
             Grid.Column="1"
             CornerRadius="8,0,0,0" Margin="0,35,0,-5" Height="660">
-            
-            
+
+
             <Grid>
                 <Border
                 x:Name="mask"
@@ -263,7 +291,7 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Top" Height="30" Width="214" Margin="0,-2,0,0">
                     <Label x:Name="Admin_Label" Margin="0,0,7,0" Width="100" Content="ADMIN ON" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Padding="0,4,0,4" FontFamily="Segoe UI" Opacity="0.5" Visibility="Hidden" FontStyle="Normal" FontWeight="DemiBold" Foreground="#87FFECAB" FontStretch="Normal"/>
-                    <ui:Button x:Name="Log_Folder_warning" Template="{DynamicResource ButtonControlTemplate1}" Background="#99464646" Padding="0,0,0,0" KeyboardNavigation.IsTabStop="False" Height="35" Width="35" BorderThickness="0,0,0,0" ClickMode="Press" ToolTip="{x:Static properties:Language.MainWindow_NewLogChangesHaveBeenDetectedPleaseClickMeToOpenYourLogsFolder}" Visibility="Hidden" Click="Log_Folder_warning_Click" 
+                    <ui:Button x:Name="Log_Folder_warning" Template="{DynamicResource ButtonControlTemplate1}" Background="#99464646" Padding="0,0,0,0" KeyboardNavigation.IsTabStop="False" Height="35" Width="35" BorderThickness="0,0,0,0" ClickMode="Press" ToolTip="{x:Static properties:Language.MainWindow_NewLogChangesHaveBeenDetectedPleaseClickMeToOpenYourLogsFolder}" Visibility="Hidden" Click="Log_Folder_warning_Click" Margin="-20,0,18,0" 
 >
                         <Button.LayoutTransform>
                             <TransformGroup>
@@ -292,8 +320,8 @@
                             </ui:SymbolIcon.LayoutTransform>
                         </ui:SymbolIcon>
                     </ui:Button>
-                    <Button x:Name="MaximizeButton" Template="{DynamicResource ButtonControlTemplate1}"
-                    KeyboardNavigation.IsTabStop="False" Height="34" Width="34" BorderThickness="0,0,0,0" Click="MaximizeButton_Click" Background="#99464646" Padding="0,0,0,0" Margin="14,0,1,0" ClickMode="Press"
+                    <Button x:Name="MaximizeButton" Template="{DynamicResource ButtonControlTemplate2}"
+                    KeyboardNavigation.IsTabStop="False" Height="32" Width="52" BorderThickness="0,0,0,0" Click="MaximizeButton_Click" Background="#99464646" Padding="0,0,0,0" Margin="-1,0,1,0" ClickMode="Press"
                    
                      >
                         <Button.LayoutTransform>
@@ -305,7 +333,15 @@
                             </TransformGroup>
                         </Button.LayoutTransform>
 
-                        <ui:SymbolIcon Symbol="LineHorizontal120" Foreground="{DynamicResource TextOnAccentFillColorSelectedTextBrush}">
+                        <ui:SymbolIcon Symbol="LineHorizontal120" Foreground="{DynamicResource TextOnAccentFillColorSelectedTextBrush}" RenderTransformOrigin="0.5,0.5">
+                            <ui:SymbolIcon.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform ScaleY="1" ScaleX="1.3"/>
+                                    <SkewTransform/>
+                                    <RotateTransform/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </ui:SymbolIcon.RenderTransform>
                             <ui:SymbolIcon.LayoutTransform>
                                 <TransformGroup>
                                     <ScaleTransform ScaleX="0.95" ScaleY="0.95"/>
@@ -318,7 +354,7 @@
                     </Button>
                     <Button x:Name="CloseButton"
                     KeyboardNavigation.IsTabStop="False" Template="{DynamicResource ButtonControlTemplate1}"
-                    Command="{Binding ApplicationCommands.Close}" Background="Red" Width="36" BorderThickness="1,0,0,0" Height="35" Padding="0,0,0,0" Click="CloseButton_Click" BorderBrush="{x:Null}" Margin="2,0,0,0" ClickMode="Press" 
+                    Command="{Binding ApplicationCommands.Close}" Background="Red" Width="36" BorderThickness="1,0,0,0" Height="35" Padding="0,0,0,0" Click="CloseButton_Click" BorderBrush="{x:Null}" Margin="1,0,0,0" ClickMode="Press" 
                           
                   >
                         <Button.LayoutTransform>

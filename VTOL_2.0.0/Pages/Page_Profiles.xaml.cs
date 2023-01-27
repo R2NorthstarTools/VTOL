@@ -839,6 +839,31 @@ namespace VTOL.Pages
 
 			return input;
 		}
+		public void FadeControl(Control control, bool fadeIn, double duration = 1)
+		{
+			if (fadeIn)
+			{
+				control.Visibility = Visibility.Visible;
+				var animation = new DoubleAnimation
+				{
+					From = 0,
+					To = 1,
+					Duration = new Duration(TimeSpan.FromSeconds(duration))
+				};
+				control.BeginAnimation(UIElement.OpacityProperty, animation);
+			}
+			else
+			{
+				var animation = new DoubleAnimation
+				{
+					From = 1,
+					To = 0,
+					Duration = new Duration(TimeSpan.FromSeconds(duration))
+				};
+				animation.Completed += (sender, e) => control.Visibility = Visibility.Collapsed;
+				control.BeginAnimation(UIElement.OpacityProperty, animation);
+			}
+		}
 		private async void Pack(string target_directory, string[] folders_, string[] files_)
         {
 			try
@@ -867,17 +892,23 @@ namespace VTOL.Pages
 						{
 							Console.WriteLine(result);
 							Console.WriteLine("Complete!");
+							Main.Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
+							Main.Snackbar.Show("SUCCESS!", "The Profile "+SAVE_NAME__+"Has Been Packed");
 						}
 						else
 						{
 							Console.WriteLine(result);
 							Console.WriteLine("Failed!");
+							Main.Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Caution;
+							Main.Snackbar.Show("ERROR", "The Profile " + SAVE_NAME__ + "Failed To Be Packed");
 						}
 					}
 					catch (OperationCanceledException)
 					{
 					// Handle the cancellation
 					Console.WriteLine("Cancelled!");
+						Main.Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Caution;
+						Main.Snackbar.Show("ERROR", "The Profile Creation of" + SAVE_NAME__ + "Failed");
 					}
 					finally
 					{
@@ -1102,7 +1133,7 @@ namespace VTOL.Pages
 				}
 			}
 		}
-		public async void FadeControl(UIElement control, bool? show = null, double duration = 0.5)
+		public  void FadeControl(UIElement control, bool? show = null, double duration = 0.5)
 		{
 			DispatchIfNecessary(async () =>
 			{
@@ -1206,12 +1237,14 @@ namespace VTOL.Pages
 
 		private void Export_Profile_BTN(object sender, RoutedEventArgs e)
         {
-            try { 
-			Loading_Panel.Visibility = Visibility.Visible;
+            try {
+				FadeControl(Loading_Panel, true, 2);
+
 			Add_Profile_Options_Panel.Visibility = Visibility.Hidden;
 			Export_Profile_Options_Panel.Visibility = Visibility.Hidden;
-			Options_Panel.Visibility = Visibility.Visible;
-			Main.Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
+				FadeControl(Options_Panel, true, 2.5);
+
+				Main.Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
 			Main.Snackbar.Show("INFO", "Packing Profile now");
 			Pack_Label.Content = "Packing the File/Folder";
 
@@ -1252,8 +1285,8 @@ namespace VTOL.Pages
 			CancelWork();
 			Options_Panel.Visibility = Visibility.Hidden;
 			Export_Profile_Options_Panel.Visibility = Visibility.Hidden;
-			Loading_Panel.Visibility = Visibility.Hidden;
-			Add_Profile_Options_Panel.Visibility = Visibility.Hidden;
+				FadeControl(Loading_Panel, false, 2.5);
+				Add_Profile_Options_Panel.Visibility = Visibility.Hidden;
 			}
 
 			catch (Exception ex)
@@ -1290,7 +1323,7 @@ namespace VTOL.Pages
 				}
 				if (File.Exists(path))
 				{
-					FadeControl(Options_Panel, true);
+					FadeControl(Options_Panel, true,2);
 
 
 
