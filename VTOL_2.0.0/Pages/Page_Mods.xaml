@@ -98,7 +98,23 @@
 
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <ui:CardControl Margin="0,4,0,4" Foreground="{x:Null}" IsHitTestVisible="True" AutomationProperties.HelpText="sd" Tag="{Binding Mod_Name_}" MouseRightButtonDown="EXTRA_SETTINGS_Dock_MouseRightButtonDown" Padding="5,5,5,5" Loaded="CardControl_Loaded" IsMouseCaptureWithinChanged="CardControl_IsMouseCaptureWithinChanged" GotFocus="CardControl_GotFocus" MouseMove="CardControl_MouseMove" ClickMode="Press" BorderBrush="{x:Null}">
+                    <ui:CardControl x:Name="Card__" Margin="0,4,0,4" Foreground="{x:Null}" IsHitTestVisible="True" AutomationProperties.HelpText="sd" Tag="{Binding Mod_Name_}" MouseRightButtonDown="EXTRA_SETTINGS_Dock_MouseRightButtonDown" Padding="5,5,5,5" Loaded="CardControl_Loaded" IsMouseCaptureWithinChanged="CardControl_IsMouseCaptureWithinChanged" GotFocus="CardControl_GotFocus" MouseMove="CardControl_MouseMove" ClickMode="Press" BorderBrush="{x:Null}">
+                        <ui:CardControl.Resources>
+                            <Storyboard x:Key="FadeInStoryboard">
+                                <DoubleAnimation
+        Storyboard.TargetName="Card__"
+        Storyboard.TargetProperty="Opacity"
+        From="0"
+        To="1"
+        Duration="0:0:0.3" />
+                            </Storyboard>
+                        </ui:CardControl.Resources>
+                        <ui:CardControl.Triggers>
+                            <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                                <BeginStoryboard Storyboard="{StaticResource FadeInStoryboard}" />
+                            </EventTrigger>
+                        </ui:CardControl.Triggers>
+
                         <ui:CardControl.Header>
                             <StackPanel Grid.Column="0" VerticalAlignment="Center" Height="56" Width="314" HorizontalAlignment="Left" Margin="9,0,0,0">
 
