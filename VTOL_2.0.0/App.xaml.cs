@@ -50,9 +50,9 @@ namespace VTOL
 
 
 
-            SplashScreen splashScreen = new SplashScreen(@"\Pages\Splash.png");
+            //SplashScreen splashScreen = new SplashScreen(@"\Pages\Splash.jpg");
             
-            splashScreen.Show(true, true); 
+            //splashScreen.Show(true, true); 
             
             // Auto-close: NO, On top: YES
                                             //    var splashScreen = new Splash_();

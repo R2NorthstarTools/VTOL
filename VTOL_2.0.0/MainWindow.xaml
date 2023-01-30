@@ -19,7 +19,7 @@
         RenderOptions.ClearTypeHint="Enabled"
         mc:Ignorable="d"
 
-        Title="MainWindow" Height="700" Width="1200" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" Background="Black" AllowDrop="True" GotFocus="Main_Win_Control_GotFocus" LostFocus="Main_Win_Control_LostFocus" Deactivated="Main_Win_Control_Deactivated" Activated="Main_Win_Control_Activated" Closed="Main_Win_Control_Closed" StateChanged="Main_Win_Control_StateChanged"  
+        Title="MainWindow" Height="700" Width="1201" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" Background="Black" AllowDrop="True" GotFocus="Main_Win_Control_GotFocus" LostFocus="Main_Win_Control_LostFocus" Deactivated="Main_Win_Control_Deactivated" Activated="Main_Win_Control_Activated" Closed="Main_Win_Control_Closed" StateChanged="Main_Win_Control_StateChanged"  
         
         >
 
@@ -321,7 +321,7 @@
                         </ui:SymbolIcon>
                     </ui:Button>
                     <Button x:Name="MaximizeButton" Template="{DynamicResource ButtonControlTemplate2}"
-                    KeyboardNavigation.IsTabStop="False" Height="32" Width="52" BorderThickness="0,0,0,0" Click="MaximizeButton_Click" Background="#99464646" Padding="0,0,0,0" Margin="-1,0,1,0" ClickMode="Press"
+                    KeyboardNavigation.IsTabStop="False" Height="32" Width="52" BorderThickness="0,0,0,0" Click="MaximizeButton_Click" Background="#99464646" Padding="0,0,0,0" Margin="-3,0,1,0" ClickMode="Press"
                    
                      >
                         <Button.LayoutTransform>
@@ -354,7 +354,7 @@
                     </Button>
                     <Button x:Name="CloseButton"
                     KeyboardNavigation.IsTabStop="False" Template="{DynamicResource ButtonControlTemplate1}"
-                    Command="{Binding ApplicationCommands.Close}" Background="Red" Width="36" BorderThickness="1,0,0,0" Height="35" Padding="0,0,0,0" Click="CloseButton_Click" BorderBrush="{x:Null}" Margin="1,0,0,0" ClickMode="Press" 
+                    Command="{Binding ApplicationCommands.Close}" Background="Red" Width="36" BorderThickness="1,0,0,0" Height="35" Padding="0,0,0,0" Click="CloseButton_Click" BorderBrush="{x:Null}" ClickMode="Press" Margin="3,0,0,0" 
                           
                   >
                         <Button.LayoutTransform>

@@ -1830,7 +1830,7 @@ int millisecondsDelay = 150)
                     To = 0,
                     Duration = new Duration(TimeSpan.FromSeconds(duration))
                 };
-                animation.Completed += (sender, e) => control.Visibility = Visibility.Collapsed;
+                animation.Completed += (sender, e) => control.Visibility = Visibility.Hidden;
                 control.BeginAnimation(UIElement.OpacityProperty, animation);
             }
         }
