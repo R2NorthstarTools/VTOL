@@ -500,17 +500,24 @@ namespace VTOL
         public void Minimize()
         {
             this.WindowState = WindowState.Minimized;
+            this.Opacity = 1;
+            this.Opacity = 100;
 
         }
         public void Maximize()
         {
             this.WindowState = WindowState.Maximized;
+            this.Opacity = 100;
 
         }
 
         private void MaximizeButton_Click(object sender, RoutedEventArgs e)
         {
+            this.Opacity = 100;
+
             this.WindowState = WindowState.Minimized;
+            this.Opacity = 100;
+
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
@@ -919,6 +926,15 @@ true // Whether to change accents automatically
 
             Restart();
         
+        }
+
+        private void Main_Win_Control_Loaded(object sender, RoutedEventArgs e)
+        {
+            var geometry = new RectangleGeometry();
+            geometry.Rect = new Rect(0, 0, this.ActualWidth, this.ActualHeight);
+            geometry.RadiusX = 7;
+            geometry.RadiusY = 7;
+            this.Clip = geometry;
         }
     }
 }

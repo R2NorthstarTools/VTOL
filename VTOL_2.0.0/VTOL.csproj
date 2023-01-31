@@ -87,6 +87,18 @@
     <None Remove="Resources\Backgrounds\760106.jpg" />
     <None Remove="Resources\Backgrounds\AgedAmusingHoatzin-size_restricted.gif" />
     <None Remove="Resources\Backgrounds\alternator.png" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\1008810.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\1230317.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\691951.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\760108.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\760110.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\760112.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\760742.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\761608.png" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\764654.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\765731.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\869852.png" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\desktop-1680x1050.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper %281%29.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper %2810%29.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper %2811%29.jpg" />
@@ -293,6 +305,42 @@
     <EmbeddedResource Include="README.md">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\1008810.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\1230317.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\691951.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\760108.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\760110.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\760112.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\760742.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\761608.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\764654.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\765731.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\869852.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\desktop-1680x1050.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(1).jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

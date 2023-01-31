@@ -1447,11 +1447,15 @@ namespace VTOL.Pages
 		Main.logger2.Close();
 	}
 }
+		
 
-        private void Profile_List_Box_Loaded(object sender, RoutedEventArgs e)
+		
+		private void Profile_List_Box_Loaded(object sender, RoutedEventArgs e)
         {
 			
 			
 		}
-    }
+
+       
+	}
 		}

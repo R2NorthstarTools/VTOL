@@ -111,6 +111,8 @@
                        
                        >
                 <TextBlock TextWrapping="Wrap" Text="Titanfall 2 +Northstar" Height="64" Width="498" Foreground="White" FontSize="48" FontFamily="Segoe UI" FontWeight="Bold" DockPanel.Dock="Left">
+                    
+
                     <TextBlock.Effect>
                         <DropShadowEffect
       ShadowDepth="3"
@@ -300,10 +302,7 @@
                 </Border>
             </Button>
             <ui:Snackbar />
-            <ui:InfoBar x:Name="InfoBar_Test_1" Height="70"  Margin="38,10,41,0" VerticalAlignment="Top">
-               
-
-            </ui:InfoBar>
+          
         </Grid>
 
     </ScrollViewer>

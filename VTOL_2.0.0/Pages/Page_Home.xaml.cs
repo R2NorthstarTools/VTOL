@@ -2342,6 +2342,15 @@ int millisecondsDelay = 150)
         {
             Toggle_MS_BT(false);
         }
+        private async void FadeAndMinimizeWindow(MainWindow window)
+        {
+            DoubleAnimation animation = new DoubleAnimation(0, TimeSpan.FromSeconds(1));
+          //  window.BeginAnimation(UIElement.OpacityProperty, animation);
+          //  await Task.Delay(TimeSpan.FromSeconds(1));
+            // window.WindowState = WindowState.Minimized;
+            window.Minimize();
+            return;
+        }
         public void Launch_Northstar_()
         {
 
@@ -2378,19 +2387,23 @@ int millisecondsDelay = 150)
                     Process tempProc = Process.GetProcessById(id);
                     if (Minimize_On_Launch == true)
                     {
-                        Main.Minimize();
+                        DispatchIfNecessary(() =>
+                        {
+                            FadeAndMinimizeWindow(Main);
+                        });
                     }
+
                     process.Close();
 
 
                 }
                 else
                 {
-                    //Dialog.ButtonRightAppearance = ControlAppearance.Danger;
-                    //Dialog.ButtonLeftAppearance = ControlAppearance.Dark;
-                    //Dialog.ButtonRightName = "Exit";
-                    //Dialog.ButtonLeftName = "Browse";
-                    //Dialog.Show("ERROR - ON INSTALL!","Could Not Find Northstar.exe!");
+                    Launch_Northstar.IsEnabled = false;
+                    SnackBar.Message = "ERROR - ON Launch, Could Not Find Northstar.exe!";
+                    SnackBar.Title = "FATAL - ERROR";
+                    SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Danger;
+                    SnackBar.Show();
 
 
                 }
@@ -2402,35 +2415,19 @@ int millisecondsDelay = 150)
                 SnackBar.Title = "FATAL - ERROR";
                 SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Danger;
                 SnackBar.Show();
-                //Dialog.ButtonRightAppearance = ControlAppearance.Danger;
-                //Dialog.ButtonLeftAppearance = ControlAppearance.Dark;
-                //Dialog.ButtonRightName = "Exit";
-                //Dialog.ButtonLeftName = "Browse";
-                //Dialog.Show("ERROR - ON INSTALL!", "Could Not Find Northstar.exe!");
-
+               
 
             }
         }
-        public bool Check_Process_Running(string ProcessName, bool generic = false)
+        public bool Check_Process_Running(string ProcessName)
         {
-
             Process[] pname = Process.GetProcessesByName(ProcessName);
             if (pname.Length == 0)
-            {
-                if (generic == false)
-                {
-                    //Indicator_Origin_Client.Visibility = Visibility.Visible;
-                    //Origin_Client_Status.Fill = Brushes.Red;
-                }
+            {              
                 return false;
             }
             else
             {
-                if (generic == false)
-                {
-                    //Indicator_Origin_Client.Visibility = Visibility.Hidden;
-                    //Origin_Client_Status.Fill = Brushes.LimeGreen;
-                }
                 return true;
             }
         }
@@ -2444,31 +2441,18 @@ int millisecondsDelay = 150)
         {
             try
             {
-                DirectoryInfo hdDirectoryInWhichToSearch = new DirectoryInfo(@rootDir);
-                FileInfo[] filesInDir = hdDirectoryInWhichToSearch.GetFiles("*" + Filename + "*.*");
-                // //Console.WriteLine(rootDir);
-                // //Console.WriteLine(Filename);
+                DirectoryInfo directory = new DirectoryInfo(rootDir);
+                FileInfo[] files = directory.GetFiles("*" + Filename + "*.*");
 
-                foreach (FileInfo foundFile in filesInDir)
+                foreach (FileInfo file in files)
                 {
-                    if (foundFile.Name.Equals(Filename))
+                    if (file.Name.Equals(Filename))
                     {
-                        ////Console.WriteLine("Found");
-
-                        string fullName = foundFile.FullName;
-                        //////Console.WriteLine(fullName);
-                        return fullName;
-
-
+                        return file.FullName;
                     }
-                    else
-                    {
-
-                        return "\nCould Not Find" + Filename + "\n";
-
-                    }
-
                 }
+
+                return "\nCould not find " + Filename + "\n";
             }
 
             catch (Exception ex)
@@ -2484,34 +2468,7 @@ Main.logger2.Close();
 
 
         }
-        private async System.Threading.Tasks.Task CheckGitHubNewerVersion()
-        {
-            //Get all releases from GitHub
-            //Source: https://octokitnet.readthedocs.io/en/latest/getting-started/
-            GitHubClient client = new GitHubClient(new ProductHeaderValue("SomeName"));
-            IReadOnlyList<Release> releases = await client.Repository.Release.GetAll("Username", "Repository");
-
-            //Setup the versions
-            Version latestGitHubVersion = new Version(releases[0].TagName);
-            Version localVersion = new Version("X.X.X"); //Replace this with your local version. 
-                                                         //Only tested with numeric values.
-
-            //Compare the Versions
-            //Source: https://stackoverflow.com/questions/7568147/compare-version-numbers-without-using-split-function
-            int versionComparison = localVersion.CompareTo(latestGitHubVersion);
-            if (versionComparison < 0)
-            {
-                //The version on GitHub is more up to date than this local release.
-            }
-            else if (versionComparison > 0)
-            {
-                //This local version is greater than the release version on GitHub.
-            }
-            else
-            {
-                //This local Version and the Version on GitHub are equal.
-            }
-        }
+       
         void WalkDirectoryTree(DirectoryInfo root, String Search)
         {
 
@@ -2568,43 +2525,7 @@ Main.logger2.Close();
             }
 
         }
-        private void FindNSInstall(string Search, string FolderDir)
-        {
-            System.IO.DirectoryInfo rootDirs = new DirectoryInfo(@FolderDir);
-
-
-            if (Directory.Exists(FolderDir))
-            {
-                if (!IsDirectoryEmpty(rootDirs))
-                {
-                    WalkDirectoryTree(rootDirs, Search);
-
-                    ////Console.WriteLine("Files with restricted access:");
-
-                }
-                else
-                {
-
-                    //Send_Error_Notif(GetTextResource("NOTIF_ERROR_DIRECTORY_EMPTY"));
-                    return;
-
-                }
-
-
-            }
-
-            else
-
-            {
-
-                //Send_Error_Notif(GetTextResource("NOTIF_ERROR_INVALID_PATH_FED"));
-                failed_search_counter++;
-
-            }
-
-
-
-        }
+      
         public static bool IsDirectoryEmpty(DirectoryInfo directory)
         {
             int num = Directory.GetFiles(directory.FullName).Length + Directory.GetDirectories(directory.FullName).Length;
@@ -2716,38 +2637,20 @@ Main.logger2.Close();
                         Process process = new Process();
                         procStartInfo.FileName = EA_Location;
                         procStartInfo.WorkingDirectory = System.IO.Path.GetDirectoryName(NSExe);
-
-
-                        // procStartInfo.Arguments = args;
-
                         process.StartInfo = procStartInfo;
-
                         process.Start();
                         int id = process.Id;
                         pid = id;
-                        Process tempProc = Process.GetProcessById(id);
-                        // this.Visible = false;
-                        // Thread.Sleep(5000);
-                        // tempProc.WaitForExit();
-                        // this.Visible = true;
-
-
-                        // Process process = Process.Start(NSExe, Arg_Box.Text);
+                        Process tempProc = Process.GetProcessById(id);                       
                         process.Close();
-
                         EAClient_Running = Check_Process_Running("EABackgroundService");
                         fail = 0;
                         while (!EAClient_Running && fail <= 3)
                         {
-
-
                             EAClient_Running = Check_Process_Running("EABackgroundService");
-
                             await Task.Delay(1000);
                             fail++;
                         }
-
-
                         if (fail >= 3)
                         {
                             DispatchIfNecessary(() =>
@@ -2757,22 +2660,17 @@ Main.logger2.Close();
                                 EA_ORGIGIN_Client_Card.IconFilled = false;
                             });
                             return;
-
-
                         }
                         if (EAClient_Running == true)
                         {
                             DispatchIfNecessary(() =>
                             {
-
                                 EA_ORGIGIN_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#B2037F10");
                                 EA_ORGIGIN_Client_Card.IconFilled = true;
 
                             });
                             return;
                         }
-
-
                     }
                     else
                     {
@@ -2786,24 +2684,12 @@ Main.logger2.Close();
                             EA_ORGIGIN_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#99630000");
                             EA_ORGIGIN_Client_Card.IconFilled = false;
                         });
-
                     }
-
-
-
-
-
-
-
                 }
                 else
                 {
-
-
-                    if (Check_Process_Running("EABackgroundService", true) == true)
+                    if (Check_Process_Running("EABackgroundService") == true)
                     {
-
-
                         Process[] runingProcess = Process.GetProcesses();
                         string[] origin = {
                             "QtWebEngineProcess",

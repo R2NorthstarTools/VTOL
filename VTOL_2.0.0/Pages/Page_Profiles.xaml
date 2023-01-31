@@ -19,6 +19,8 @@
 
     </Page.Resources>
     <Grid >
+        
+
         <Label Content="Change the Entire Application by importing or Exporting Profiles" Margin="50,0,0,573" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="410"/>
         <Label Content="PROFILES" Margin="50,0,357,594" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Background="{x:Null}" Foreground="White" FontSize="22" FontWeight="Bold" Height="28" VerticalAlignment="Bottom"/>
         <ListBox x:Name="Profile_List_Box"  Margin="50,111,50,279"   VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.ScrollUnit="Pixel" IsSynchronizedWithCurrentItem="True"  >
