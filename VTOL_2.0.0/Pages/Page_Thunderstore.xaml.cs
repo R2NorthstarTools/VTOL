@@ -667,6 +667,8 @@ Main.logger2.Close();
             Options_List.Add("Language: CN");
             Options_List.Add("DDS");
             Options_List.Add("Maps");
+            Options_List.Add("Models");
+
             Search_Filters.ItemsSource = Options_List;
             _timer.Elapsed += TextInput_OnKeyUpDone;
 
