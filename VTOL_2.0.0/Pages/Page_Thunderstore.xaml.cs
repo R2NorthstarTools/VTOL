@@ -1767,9 +1767,9 @@ int millisecondsDelay = 30)
                                             {
                                                 Dependencies.Add(versions.First().Dependencies[x]);
 
-                                            }
-
                                         }
+
+                                    }
 
                                         Dependencies_ = String.Join(", ", Dependencies);
 

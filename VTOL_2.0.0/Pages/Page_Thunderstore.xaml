@@ -106,10 +106,21 @@
         To="1"
         Duration="0:0:0.5" />
                             </Storyboard>
+                            <Storyboard x:Key="FadeOutStoryboard">
+                                    <DoubleAnimation
+        Storyboard.TargetName="Thunderstore_Grid_Panel"
+        Storyboard.TargetProperty="Opacity"
+        From="1"
+        To="0"
+        Duration="0:0:0.5" />
+                                </Storyboard>
                         </Grid.Resources>
                         <Grid.Triggers>
                             <EventTrigger RoutedEvent="FrameworkElement.Loaded">
                                 <BeginStoryboard Storyboard="{StaticResource FadeInStoryboard}" />
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="FrameworkElement.Unloaded">
+                                <BeginStoryboard Storyboard="{StaticResource FadeOutStoryboard}" />
                             </EventTrigger>
                         </Grid.Triggers>
 

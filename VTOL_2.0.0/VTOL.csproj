@@ -71,7 +71,6 @@
     <None Remove="Fonts\Segoe-UI-Variable-Static-Text.ttf" />
     <None Remove="Fonts\SegoeUI-VF.ttf" />
     <None Remove="NLog.config" />
-    <None Remove="Pages\Splash.jpg" />
     <None Remove="README.md" />
     <None Remove="Resources\Backgrounds\5005323-titanfall-2-games-2018-games-hd-4k.jpg" />
     <None Remove="Resources\Backgrounds\6._The_Beacon_-_1.png" />
@@ -734,12 +733,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <SplashScreen Include="Pages\Splash.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </SplashScreen>
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Update="Properties\Settings.Designer.cs">
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <AutoGen>True</AutoGen>
@@ -782,6 +775,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Pages\Splash.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -23,6 +23,7 @@ using System.Windows.Media.Animation;
 using System.Collections.ObjectModel;
 using System.Reflection;
 using System.Globalization;
+using Windows.System.Profile;
 
 namespace VTOL.Pages
 		{
@@ -44,11 +45,12 @@ namespace VTOL.Pages
 		string SAVE_NAME__;
 		string SAVE_PATH__;
 		string CURRENT_FILE__;
+		List<Card_> Final_List = new List<Card_>();
+		public bool _Completed_Mod_call = false;
 
 		bool Do_Not_save_Mods = false;
 		string[] Folders = new string[] { "R2Northstar", "plugins", "bin" };
 		string[] Files = new string[] { "Northstar.dll", "NorthstarLauncher.exe", "r2ds.bat", "discord_game_sdk.dll" };
-
 		bool Skip_Mods = false;
 		bool processing = false;
 		public CancellationTokenSource _cts = new CancellationTokenSource();
@@ -167,7 +169,11 @@ namespace VTOL.Pages
 
 
 				string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+				if (File.Exists(appDataPath + @"\directory_open.bin"))
+				{
 
+					TryDeleteFile(appDataPath + @"\directory_open.bin");
+				}
 				//decompress the bin.gz file
 				using (FileStream sourceStream = File.Open(path, FileMode.Open))
 				{
@@ -191,6 +197,7 @@ namespace VTOL.Pages
 
 
 					}
+					
 					// unpack the "directory.bin" file
 					using (var stream = File.Open(appDataPath + @"\directory_open.bin", FileMode.Open))
 					{
@@ -716,9 +723,12 @@ namespace VTOL.Pages
 				IEnumerable<string> includedFilesPath = Enumerable.Empty<string>();
 				if (token.IsCancellationRequested)
 					return false;
+				
+				
 
-				if (Skip_Mods == true)
+				if (Do_Not_save_Mods == true)
 				{
+					//string NS_Mod_Dir = Main.User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\mods";
 					Console.WriteLine("Skipped Mods");
 
 					includedFoldersPath = allFolders.Where(f => !f.Contains("R2Northstar\\mods") && includedFolders.Any(i => f.StartsWith(System.IO.Path.Combine(path, i))));
@@ -732,10 +742,12 @@ namespace VTOL.Pages
 					includedFilesPath = allFiles.Where(f => includedFiles.Contains(System.IO.Path.GetFileName(f)) || includedFoldersPath.Any(folder => f.StartsWith(folder)));
 
 				}
-				string NS_Mod_Dir = Main.User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\mods";
 				if (token.IsCancellationRequested)
 					return false;
+                if (includedFoldersPath.Contains("R2Northstar\\mods")){
 
+					MessageBox.Show(string.Join(", ", includedFoldersPath.ToArray()));
+                }
 				var data = new DirectoryData
 				{
 					Folders = CheckAndRemoveMissingFilesAndFolders(includedFoldersPath.Select(f => f).ToArray()),
@@ -893,7 +905,19 @@ namespace VTOL.Pages
 							Console.WriteLine(result);
 							Console.WriteLine("Complete!");
 							Main.Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
-							Main.Snackbar.Show("SUCCESS!", "The Profile "+SAVE_NAME__+"Has Been Packed");
+							Main.Snackbar.Show("SUCCESS!", "The Profile " + SAVE_NAME__ + "Has Been Packed");
+							Loading_Panel.Visibility = Visibility.Hidden;
+							wave_progress.Visibility = Visibility.Visible;
+							Circe_progress.Visibility = Visibility.Hidden;
+							Loading_Panel.Visibility = Visibility.Hidden;
+							Options_Panel.Visibility = Visibility.Hidden;
+							Add_Profile_Options_Panel.Visibility = Visibility.Hidden;
+							Export_Profile_Options_Panel.Visibility = Visibility.Hidden;
+							DispatchIfNecessary(async () =>
+							{
+								LoadProfiles();
+									//PopulateListBoxWithRandomPaths();
+								});
 						}
 						else
 						{
@@ -958,6 +982,13 @@ namespace VTOL.Pages
 			// Turn off loading icon
 
 		}
+		public class Card_
+		{
+			public string Profile_Path_ { get; set; }
+			public string Profile_Name_ { get; set; }
+			public string Profile_Date_ { get; set; }
+		}
+
 		private async void LoadProfiles()
 		{
             try { 
@@ -967,29 +998,45 @@ namespace VTOL.Pages
 			//LoadingIcon.Visibility = Visibility.Visible;
 
 			// Clear current listbox items
-			Profile_List_Box.Items.Clear();
+			Profile_List_Box.ItemsSource = null;
+				Final_List.Clear();
 
-			// Get all .vpb files in the directory
-			string[] vpbFiles = await Task.Run(() => Directory.GetFiles(Main.User_Settings_Vars.NorthstarInstallLocation + "VTOL_profiles", "*.vbp", SearchOption.AllDirectories));
+				// Get all .vpb files in the directory
+				string[] vpbFiles = await Task.Run(() => Directory.GetFiles(Main.User_Settings_Vars.NorthstarInstallLocation + "VTOL_profiles", "*.vbp", SearchOption.AllDirectories));
 			//string[] vpbFiles = Directory.GetFiles(Main.User_Settings_Vars.NorthstarInstallLocation + "VTOL_profiles", "*.vbp", SearchOption.AllDirectories);
 			// Add .vpb files to listbox
 			//foreach (string file in vpbFiles)
 			//{
 			//	Profile_List_Box.Items.Add(System.IO.Path.GetFileNameWithoutExtension(file));
 			//}
+
 			foreach (string file in vpbFiles)
 			{
-				Profile_List_Box.Items.Add(file);
-				Profile_List_Box.Refresh();
-				await Task.Delay(50);
+					
+					FileInfo fileInfo = new FileInfo(file);
+					long fileSize = fileInfo.Length;
+					DateTime creationDate = fileInfo.CreationTime;
+					string formattedCreationDate = creationDate.ToString("MM/dd/yyyy HH:mm:ss");
+					Final_List.Add(new Card_ {Profile_Name_ = fileInfo.Name, Profile_Date_ = formattedCreationDate, Profile_Path_ = fileInfo.FullName });
+				
 			}
+						await Task.Delay(10);
+				Profile_List_Box.ItemsSource = Final_List;
 
-			// Hide loading icon
-			//	LoadingIcon.Visibility = Visibility.Collapsed;
-			// Output the list to console
-			vpbFiles.ToList().ForEach(Console.WriteLine);
+				//foreach (string file in Final_List)
+				//{
+				//	Profile_List_Box.Items.Add(file);
 
-		}
+				//	Profile_List_Box.Refresh();
+				//	await Task.Delay(50);
+				//}
+				// Hide loading icon
+				//	LoadingIcon.Visibility = Visibility.Collapsed;
+				// Output the list to console
+				//vpbFiles.ToList().ForEach(Console.WriteLine);
+
+				_Completed_Mod_call = true;
+			}
 			catch (Exception ex)
 			{
 				Main.logger2.Open();
@@ -1031,6 +1078,8 @@ namespace VTOL.Pages
 							Main.Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
 							Main.Snackbar.Message = "Operation Complete - The Profile is now active";
 							Main.Snackbar.Show();
+							Loading_Panel.Visibility = Visibility.Hidden;
+							Options_Panel.Visibility = Visibility.Hidden;
 						}
 						else
 						{
@@ -1299,15 +1348,10 @@ namespace VTOL.Pages
 
 		private void Add_Profile_Click(object sender, RoutedEventArgs e)
 		{
-
-		}
-
-		private void Extra_Menu_SelectionChanged(object sender, SelectionChangedEventArgs e)
-		{
-            try { 
-			string path = null;
-			if (Extra_Menu.SelectedIndex == 0)
+			try
 			{
+				string path = null;
+
 
 				var dialog = new Ookii.Dialogs.Wpf.VistaOpenFileDialog();
 				dialog.Filter = "vbp files (*.vbp)|*.vbp"; // Only show .vbp files
@@ -1323,7 +1367,7 @@ namespace VTOL.Pages
 				}
 				if (File.Exists(path))
 				{
-					FadeControl(Options_Panel, true,2);
+					FadeControl(Options_Panel, true, 2);
 
 
 
@@ -1338,16 +1382,18 @@ namespace VTOL.Pages
 
 
 			}
-				Extra_Menu.Text = null;
-
-			}
 
 			catch (Exception ex)
-{
-   Main.logger2.Open();
-    Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source +Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-		Main.logger2.Close();
-	}
+			{
+				Main.logger2.Open();
+				Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
+				Main.logger2.Close();
+			}
+		}
+
+		private void Extra_Menu_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+		
 }
 
 		private void save_Lcoation_Btn_Click(object sender, RoutedEventArgs e)
@@ -1425,7 +1471,7 @@ namespace VTOL.Pages
 
         private void Page_Unloaded(object sender, RoutedEventArgs e)
         {
-			_cts.Dispose();
+		//	_cts.Dispose();
 
 		}
 
@@ -1456,6 +1502,200 @@ namespace VTOL.Pages
 			
 		}
 
-       
-	}
+        private void Card___MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+			try
+			{
+				string Triggger = null;
+
+				if (_Completed_Mod_call == true)
+				{
+					Wpf.Ui.Controls.CardControl Card;
+					if (sender.GetType() == typeof(Wpf.Ui.Controls.CardControl))
+					{
+						Card = sender as Wpf.Ui.Controls.CardControl;
+
+						DockPanel DockPanel_ = FindVisualChild<DockPanel>(Card);
+						Triggger = DockPanel_.Tag.ToString();
+
+						if (Triggger != null)
+						{
+							if (Triggger == "Hidden")
+							{
+
+
+
+
+								DoubleAnimation da = new DoubleAnimation
+								{
+									From = DockPanel_.Opacity,
+									To = 1,
+									Duration = new Duration(TimeSpan.FromSeconds(0.4)),
+									AutoReverse = false
+								};
+								DockPanel_.BeginAnimation(OpacityProperty, da);
+								DockPanel_.IsEnabled = true;
+								Triggger = "Visible";
+								DockPanel_.Tag = "Visible";
+								DockPanel_.Visibility = Visibility.Visible;
+
+
+
+
+							}
+							else if (Triggger == "Visible")
+							{
+
+
+								DoubleAnimation da = new DoubleAnimation
+								{
+									From = DockPanel_.Opacity,
+									To = 0,
+									Duration = new Duration(TimeSpan.FromSeconds(0.4)),
+									AutoReverse = false
+								};
+								DockPanel_.BeginAnimation(OpacityProperty, da);
+								DockPanel_.IsEnabled = false;
+								Triggger = "Hidden";
+								DockPanel_.Tag = "Hidden";
+
+
+
+
+
+
+							}
+						}
+
+
+					}
+
+
+
+
+				}
+			}
+			catch (Exception ex)
+			{
+				Main.logger2.Open();
+				Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
+				Main.logger2.Close();
+
+			}
+
+		}
+
+        private void CardControl_IsMouseCaptureWithinChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+
+        }
+
+        private void CardControl_GotFocus(object sender, RoutedEventArgs e)
+        {
+
+        }
+		private childItem FindVisualChild<childItem>(DependencyObject obj)
+  where childItem : DependencyObject
+		{
+			try
+			{
+				for (int i = 0; i < VisualTreeHelper.GetChildrenCount(obj); i++)
+				{
+					DependencyObject child = VisualTreeHelper.GetChild(obj, i);
+					if (child != null && child is childItem)
+					{
+						return (childItem)child;
+					}
+					else
+					{
+						childItem childOfChild = FindVisualChild<childItem>(child);
+						if (childOfChild != null)
+							return childOfChild;
+					}
+				}
+				return null;
+
+			}
+			catch (Exception ex)
+			{
+
+			}
+			return null;
+		}
+		private void Card___Loaded(object sender, RoutedEventArgs e)
+        {
+			try
+			{
+				if (_Completed_Mod_call == true)
+				{
+					Wpf.Ui.Controls.CardControl Card;
+					if (sender.GetType() == typeof(Wpf.Ui.Controls.CardControl))
+					{
+						Card = sender as Wpf.Ui.Controls.CardControl;
+
+						DockPanel DockPanel_ = FindVisualChild<DockPanel>(Card);
+
+						DockPanel_.Visibility = Visibility.Hidden;
+
+						DockPanel_.Tag = "Hidden";
+						DockPanel_.IsEnabled = false;
+						DockPanel_.Opacity = 0.0;
+
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				Main.logger2.Open();
+				Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
+				Main.logger2.Close();
+
+			}
+		}
+
+        private void CardControl_MouseMove(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void Delete_Btn_Click(object sender, RoutedEventArgs e)
+        {
+			try
+			{
+
+				if (sender.GetType() == typeof(Wpf.Ui.Controls.Button))
+				{
+
+					Wpf.Ui.Controls.Button Button_ = (Wpf.Ui.Controls.Button)sender;
+					string Name_ = Button_.Tag.ToString();
+					if (Name_ != null)
+					{
+
+
+						TryDeleteFile(Name_);
+						DispatchIfNecessary(async () =>
+						{
+							LoadProfiles();
+							//PopulateListBoxWithRandomPaths();
+						});
+					}
+				}
+
+
+
+
+
+
+			}
+
+			catch (Exception ex)
+			{
+				Main.logger2.Open();
+				Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
+				Main.logger2.Close();
+				
+
+			}
+		}
+    }
 		}
