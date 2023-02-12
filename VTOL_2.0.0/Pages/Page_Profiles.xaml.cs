@@ -1271,7 +1271,51 @@ namespace VTOL.Pages
 
 		private void Import_Profile_Click(object sender, RoutedEventArgs e)
 		{
+			try
+			{
 
+				if (sender.GetType() == typeof(Wpf.Ui.Controls.Button))
+				{
+
+					Wpf.Ui.Controls.Button Button_ = (Wpf.Ui.Controls.Button)sender;
+					string Name_ = Button_.Tag.ToString();
+					if (Name_ != null)
+					{
+						//UnpackRead_BIN_INFO(Name_);
+
+						
+						DispatchIfNecessary(async () =>
+						{
+							FadeControl(Add_Profile_Options_Panel, true, 1.5);
+
+						});
+						//DispatchIfNecessary(async () =>
+						//{
+
+						//	LoadProfiles();
+
+						//});
+
+					}
+				}
+
+
+
+
+
+
+			}
+
+			catch (Exception ex)
+			{
+				Main.logger2.Open();
+				Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
+				Main.logger2.Close();
+
+
+			}
+		
+		
 
 		}
 
@@ -1357,25 +1401,38 @@ namespace VTOL.Pages
 				dialog.Filter = "vbp files (*.vbp)|*.vbp"; // Only show .vbp files
 				dialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyComputer);
 
-
+				string FileName_Last;
 				var result = dialog.ShowDialog();
 				if (result == true)
 				{
 					path = dialog.FileName;
 
-
 				}
 				if (File.Exists(path))
 				{
+					FileInfo f = new FileInfo(path);
 					FadeControl(Options_Panel, true, 2);
+                    if (Directory.Exists(Main.User_Settings_Vars.NorthstarInstallLocation + "VTOL_profiles"))
+                    {
+						TryCopyFile(path, Main.User_Settings_Vars.NorthstarInstallLocation + "VTOL_profiles\\"+f.Name);
 
 
+
+					}
 
 					UnpackRead_BIN_INFO(path);
 
+					DispatchIfNecessary(async () =>
+					{
 
-					FadeControl(Add_Profile_Options_Panel, true, 1.5);
+						LoadProfiles();
 
+					});
+					DispatchIfNecessary(async () =>
+					{
+						FadeControl(Add_Profile_Options_Panel, true, 1.5);
+
+					});
 				}
 
 

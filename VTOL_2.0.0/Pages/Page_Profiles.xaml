@@ -100,7 +100,7 @@
                                 <ui:Button x:Name="Delete_Btn" Width="76" Height="42" Content="Delete"  Background="#FFB90000" Tag ="{Binding Profile_Path_}" Margin="0,0,30,0" Click="Delete_Btn_Click"/>
 
                             </DockPanel>
-                            <ui:Button x:Name="Mod_Btn" Width="112" Height="42" Content="IMPORT"  Tag ="TAG"  ToolTip="IMPORT" Margin="0,0,10,0" HorizontalAlignment="Right"  Background="{Binding Source={x:Static SystemParameters.WindowGlassBrush}}" />
+                            <ui:Button x:Name="Mod_Btn" Width="112" Height="42" Content="IMPORT" Tag="{Binding Profile_Path_}" ToolTip="IMPORT" Margin="0,0,10,0" HorizontalAlignment="Right"  Background="{Binding Source={x:Static SystemParameters.WindowGlassBrush}}" Click="Import_Profile_Click" />
                             
                         </Grid>
 
@@ -112,7 +112,7 @@
 
         </ListBox>
 
-        <ui:Button x:Name="Import_Profile"   Icon="ArrowImport24" Height="30" Margin="0,395,245,0" VerticalAlignment="Top"  BorderBrush="{x:Null}" Content="Import Profile" Padding="0,0,0,0" ToolTip="Import Profile" Background="#FF383838"  ClickMode="Press" HorizontalAlignment="Right" Width="190" Click="Import_Profile_Click" Visibility="Collapsed" />
+        <ui:Button x:Name="Import_Profile"   Icon="ArrowImport24" Height="30" Margin="0,395,245,0" VerticalAlignment="Top"  BorderBrush="{x:Null}" Content="Import Profile" Padding="0,0,0,0" ToolTip="Import Profile" Background="#FF383838"  ClickMode="Press" HorizontalAlignment="Right" Width="190"  Visibility="Collapsed" />
         <ui:Button  x:Name="Export_Profile" Icon="ArrowExportLtr24" Height="30" Margin="0,395,50,0" VerticalAlignment="Top"  BorderBrush="{x:Null}" Content="Export Profile" Padding="0,0,0,0" ToolTip="Export Profile" Background="#FF383838" ClickMode="Press" HorizontalAlignment="Right" Width="190" Click="Export_Profile_Click" />
         <ui:Button  x:Name="Add_Profile" Icon="Add12" Height="30" Margin="50,395,0,0" VerticalAlignment="Top"  BorderBrush="{x:Null}" Content="Add Profile" Padding="0,0,0,0" ToolTip="Add Profile" Background="#FF383838"  ClickMode="Press" Width="195" Click="Add_Profile_Click" />
 

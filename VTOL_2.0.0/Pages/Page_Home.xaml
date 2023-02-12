@@ -63,11 +63,10 @@
             </ControlTemplate.Triggers>
         </ControlTemplate>
     </Page.Resources>
-   
+
     <ScrollViewer x:Name="Scroller" ScrollChanged="Scroller_ScrollChanged" VerticalScrollBarVisibility="Hidden" UseLayoutRounding="True">
 
         <Grid Background="{ui:ThemeResource}" Height="660" UseLayoutRounding="True">
-
             <Image x:Name="Image" Source="/Resources/Backgrounds/62f29dba743d3.jpg" Stretch="UniformToFill" MouseEnter="Image_MouseEnter" Visibility="Visible" 
                         
                        parallax:ParallaxEffect.IsBackground="True" 
@@ -111,7 +110,7 @@
                        
                        >
                 <TextBlock TextWrapping="Wrap" Text="Titanfall 2 +Northstar" Height="64" Width="498" Foreground="White" FontSize="48" FontFamily="Segoe UI" FontWeight="Bold" DockPanel.Dock="Left">
-                    
+
 
                     <TextBlock.Effect>
                         <DropShadowEffect
@@ -185,7 +184,7 @@
             </ui:Button>
             <Label Content="{x:Static properties:Language.Page_Home_LaunchTitanfall2Northstar}" Background="{x:Null}" Foreground="White" Margin="65,287,0,0" Padding="0,0,0,0" VerticalAlignment="Top" Width="276" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="24" FontSize="14" IsHitTestVisible="False"/>
 
-         
+
 
 
             <Grid Background="{DynamicResource TextFillColorInverseBrush}" Margin="0,366,0,0">
@@ -277,7 +276,7 @@
 
                     </ui:CardControl>
 
-                  
+
                 </Grid>
 
 
@@ -302,7 +301,13 @@
                 </Border>
             </Button>
             <ui:Snackbar />
-          
+            <Border Background="#99000000">
+                <Grid Margin="214,123,214,123" Background="#FF3A3A3A">
+                    <ui:Button  x:Name="Exit_BTN" Icon="Dismiss24" Height="25" Margin="685,10,0,0" VerticalAlignment="Top"  BorderBrush="{x:Null}"  Padding="0,0,0,0" ToolTip="Exit" Background="#FF7B0000"  ClickMode="Press" Width="25" Click="Exit_BTN_Click" />
+
+                </Grid>
+            </Border>
+
         </Grid>
 
     </ScrollViewer>

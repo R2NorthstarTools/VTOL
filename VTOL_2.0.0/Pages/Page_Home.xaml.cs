@@ -4117,5 +4117,10 @@ Main.logger2.Close();
 
             worker_o.RunWorkerAsync();
         }
+
+        private void Exit_BTN_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

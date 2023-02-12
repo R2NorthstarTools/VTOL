@@ -2431,12 +2431,12 @@ Main.logger2.Close();
 
                 return;
             }
-        private static void CopyFilesRecursively(string sourcePath, string targetPath)
+        private  void CopyFilesRecursively(string sourcePath, string targetPath)
         {
             //Now Create all of the directories
             foreach (string dirPath in Directory.GetDirectories(sourcePath, "*", SearchOption.AllDirectories))
             {
-               Directory.CreateDirectory(dirPath.Replace(sourcePath, targetPath));
+               TryCreateDirectory(dirPath.Replace(sourcePath, targetPath));
             }
 
             //Copy all the files & Replaces any files with the same name
@@ -2444,12 +2444,12 @@ Main.logger2.Close();
             {
                 if (!File.Exists(targetPath))
                 {
-                    File.Copy(newPath, newPath.Replace(sourcePath, targetPath),true);
+                    TryCopyFile(newPath, newPath.Replace(sourcePath, targetPath),true);
 
                 }
                 else
                 {
-                    File.Copy(newPath, newPath.Replace(sourcePath, targetPath), true);
+                    TryCopyFile(newPath, newPath.Replace(sourcePath, targetPath), true);
 
                 }
             }
@@ -2953,7 +2953,9 @@ int millisecondsDelay = 300)
 
                                             }
                                             Console.WriteLine("Unpacked - " + Destination);
-                                             TryDeleteDirectory(Destination,true);
+                                        // TryDeleteDirectory(Destination,true);
+                                        MessageBox.Show(Destination);
+                                        MessageBox.Show(firstFolder);
 
                                         if (do_not_overwrite_Ns_file == true)
                                         {
