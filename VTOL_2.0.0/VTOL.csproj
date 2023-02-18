@@ -72,6 +72,7 @@
     <None Remove="Fonts\SegoeUI-VF.ttf" />
     <None Remove="NLog.config" />
     <None Remove="README.md" />
+    <None Remove="Resources\Backgrounds\405e3ab0-2648-4e8b-a4cc-51a008666e75.png" />
     <None Remove="Resources\Backgrounds\5005323-titanfall-2-games-2018-games-hd-4k.jpg" />
     <None Remove="Resources\Backgrounds\6._The_Beacon_-_1.png" />
     <None Remove="Resources\Backgrounds\62f29d37d6baf.jpg" />
@@ -209,11 +210,13 @@
     <None Remove="Resources\Backgrounds\HD-wallpaper-titanfall-2-colony-reborn-dlc-titanfall-2-games-2016-games-xbox-games.jpg" />
     <None Remove="Resources\Backgrounds\jack.jpg" />
     <None Remove="Resources\Backgrounds\Skin_How_To_BG.png" />
+    <None Remove="Resources\Backgrounds\star_shower.png" />
     <None Remove="Resources\Backgrounds\TF2_Achievement_BT_Prime.png" />
     <None Remove="Resources\Backgrounds\TF2_TheFoldWeapon_Loadscreen_1.png" />
     <None Remove="Resources\Backgrounds\Thunderstore.png" />
     <None Remove="Resources\Backgrounds\titanfall-2-monarch-uhd-4k-wallpaper.jpg" />
     <None Remove="Resources\Backgrounds\titanfall-2-screen.jpg" />
+    <None Remove="Resources\Backgrounds\warning.png" />
     <None Remove="Resources\Backgrounds\_.jpg" />
     <None Remove="Resources\Icons\EA.ico" />
     <None Remove="Resources\Icons\GitHub-Mark-32px.png" />
@@ -304,6 +307,9 @@
     <EmbeddedResource Include="README.md">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+    <Content Include="Resources\Backgrounds\405e3ab0-2648-4e8b-a4cc-51a008666e75.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\1008810.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -486,6 +492,12 @@
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(9).jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\star_shower.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\warning.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Icons\Main_UI\advocate_announcement_1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

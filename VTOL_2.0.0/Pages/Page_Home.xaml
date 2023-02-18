@@ -300,13 +300,43 @@
                     </Image>
                 </Border>
             </Button>
-            <ui:Snackbar />
-            <Border Background="#99000000">
-                <Grid Margin="214,123,214,123" Background="#FF3A3A3A">
-                    <ui:Button  x:Name="Exit_BTN" Icon="Dismiss24" Height="25" Margin="685,10,0,0" VerticalAlignment="Top"  BorderBrush="{x:Null}"  Padding="0,0,0,0" ToolTip="Exit" Background="#FF7B0000"  ClickMode="Press" Width="25" Click="Exit_BTN_Click" />
+            <Border x:Name="WARNING_BANNER" Background="#99000000" Visibility="Collapsed" >
+                <Grid    Margin="214,66,214,103">
 
+                    <Border x:Name="mask_t" Background="#FF080808"   CornerRadius="9,9,9,9" Visibility="Visible"
+/>
+
+                    <Border CornerRadius="9,9,9,9" Visibility="Visible" >
+                        <Border.Background>
+                            <ImageBrush ImageSource="/Resources/Backgrounds/star_shower.png" Stretch="UniformToFill" Opacity="0.998" TileMode="Tile"/>
+                        </Border.Background>
+                    </Border>
+
+                    <Image x:Name="Warning_Sin" Source="/Resources/Backgrounds/warning.png" Margin="251,45,251,304" Loaded="Warning_Sin_Loaded">
+
+                    </Image>
+                    <ui:Button  x:Name="Exit_BTN" Icon="Dismiss24" Height="25" Margin="685,10,0,0" VerticalAlignment="Top"  BorderBrush="{x:Null}"  Padding="0,0,0,0" ToolTip="Exit" Background="#FF7B0000"  ClickMode="Press" Width="25" Click="Exit_BTN_Click_1" />
+                    <Border  Background="#F21F1F1F"   CornerRadius="8" Margin="0,227,0,0" BorderThickness="0,1,0,0"
+>
+                        <StackPanel>
+                            <Label Content="WARNING!" FontSize="48" Foreground="White" HorizontalContentAlignment="Center" FontFamily="Corbel" Background="{x:Null}" Height="62"/>
+
+                            <TextBlock TextWrapping="WrapWithOverflow" Height="70" Text="Titanfall2 is installed in a write protected folder.                                                            
+                                                           
+                                       This can cause issues for Northstar and VTOL, a more compatible location would be -: C:/Progam Files/Games/Titanfall2.             
+                                       Please Follow here for More steps>id_>c#linkstringtest>Lnk_>" Foreground="White" Width="682" HorizontalAlignment="Center" TextAlignment="Center" TextTrimming="CharacterEllipsis" LineStackingStrategy="MaxHeight"/>
+                            <ui:Button x:Name="EXE_BUTTON" Height="44" Width="320" HorizontalAlignment="Center" Background="#FF00422E" Content="Assign VTOL.exe Administrator Rights" Padding="0,0,0,0" Icon="ShieldCheckmark48" Appearance="Secondary" Margin="0,8,0,10" MouseEnter="EXE_BUTTON_MouseEnter" MouseLeave="EXE_BUTTON_MouseLeave" Click="EXE_BUTTON_Click" BorderBrush="{x:Null}" BorderThickness="2,2,2,2"/>
+                            <TextBlock TextWrapping="WrapWithOverflow" Height="56" Text="VTOL can automatically be configured to run as admin always.
+ 
+                                       
+                                       
+                                       Press The Button Above to change VTOL to Run as adminstrator always, in order to operate in the current directory. " Foreground="White" Width="678" TextAlignment="Center"/>
+                        </StackPanel>
+
+                    </Border>
                 </Grid>
             </Border>
+            <ui:Snackbar />
 
         </Grid>
 

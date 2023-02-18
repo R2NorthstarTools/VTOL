@@ -763,108 +763,69 @@ Main.logger2.Close();
        
         private void mask_MouseEnter(object sender, MouseEventArgs e)
         {
-            ContentPresenter myListBoxItem =
-(ContentPresenter)(Thunderstore_List.ItemContainerGenerator.ContainerFromItem(Thunderstore_List.Items.CurrentItem));
-            Grid GridPanel_ = FindVisualChild<Grid>(myListBoxItem);
-
-            if (GridPanel_.Opacity >= 1)
+            DispatchIfNecessary(async () =>
             {
 
-                DoubleAnimation da = new DoubleAnimation
-                {
-                    From = GridPanel_.Opacity,
-                    To = 0,
-                    Duration = new Duration(TimeSpan.FromSeconds(0.4)),
-                    AutoReverse = false
-                };
-                GridPanel_.BeginAnimation(OpacityProperty, da);
-                GridPanel_.IsEnabled = false;
+            ContentPresenter myListBoxItem = (ContentPresenter)(Thunderstore_List.ItemContainerGenerator.ContainerFromItem(Thunderstore_List.Items.CurrentItem));
+            Grid gridPanel = FindVisualChild<Grid>(myListBoxItem);
 
-
-
-            }
-            else if (GridPanel_.Opacity < 1)
+            DoubleAnimation animation = new DoubleAnimation
             {
+                Duration = new Duration(TimeSpan.FromSeconds(0.4)),
+                AutoReverse = false
+            };
 
-                DoubleAnimation da = new DoubleAnimation
-                {
-                    From = GridPanel_.Opacity,
-                    To = 1,
-                    Duration = new Duration(TimeSpan.FromSeconds(0.4)),
-                    AutoReverse = false
-                };
-                GridPanel_.BeginAnimation(OpacityProperty, da);
-                GridPanel_.IsEnabled = true;
-
+            if (gridPanel.Opacity >= 1)
+            {
+                animation.From = gridPanel.Opacity;
+                animation.To = 0;
+                gridPanel.BeginAnimation(OpacityProperty, animation);
+                gridPanel.IsEnabled = false;
             }
             else
             {
-                DoubleAnimation da = new DoubleAnimation
-                {
-                    From = GridPanel_.Opacity,
-                    To = 0,
-                    Duration = new Duration(TimeSpan.FromSeconds(0.4)),
-                    AutoReverse = false
-                };
-                GridPanel_.BeginAnimation(OpacityProperty, da);
-                GridPanel_.IsEnabled = false;
-
+                animation.From = gridPanel.Opacity;
+                animation.To = 1;
+                gridPanel.BeginAnimation(OpacityProperty, animation);
+                gridPanel.IsEnabled = true;
             }
+
+
+            });
         }
 
         private void mask_MouseLeave(object sender, MouseEventArgs e)
         {
-            ContentPresenter myListBoxItem =
-(ContentPresenter)(Thunderstore_List.ItemContainerGenerator.ContainerFromItem(Thunderstore_List.Items.CurrentItem));
+            DispatchIfNecessary(async () =>
+            {
+                ContentPresenter myListBoxItem = (ContentPresenter)(Thunderstore_List.ItemContainerGenerator.ContainerFromItem(Thunderstore_List.Items.CurrentItem));
             Grid GridPanel_ = FindVisualChild<Grid>(myListBoxItem);
             bool mouseIsDown = System.Windows.Input.Mouse.RightButton == MouseButtonState.Pressed;
-            if (mouseIsDown == true)
+
+            if (mouseIsDown)
             {
+                DoubleAnimation da = new DoubleAnimation
+                {
+                    Duration = new Duration(TimeSpan.FromSeconds(0.4)),
+                    AutoReverse = false
+                };
 
                 if (GridPanel_.Opacity >= 1)
                 {
-
-                    DoubleAnimation da = new DoubleAnimation
-                    {
-                        From = GridPanel_.Opacity,
-                        To = 0,
-                        Duration = new Duration(TimeSpan.FromSeconds(0.4)),
-                        AutoReverse = false
-                    };
+                    da.From = GridPanel_.Opacity;
+                    da.To = 0;
                     GridPanel_.BeginAnimation(OpacityProperty, da);
                     GridPanel_.IsEnabled = false;
-
-
-
-                }
-                else if (GridPanel_.Opacity < 1)
-                {
-
-                    DoubleAnimation da = new DoubleAnimation
-                    {
-                        From = GridPanel_.Opacity,
-                        To = 0,
-                        Duration = new Duration(TimeSpan.FromSeconds(0.4)),
-                        AutoReverse = false
-                    };
-                    GridPanel_.BeginAnimation(OpacityProperty, da);
-                    GridPanel_.IsEnabled = true;
-
                 }
                 else
                 {
-                    DoubleAnimation da = new DoubleAnimation
-                    {
-                        From = GridPanel_.Opacity,
-                        To = 0,
-                        Duration = new Duration(TimeSpan.FromSeconds(0.4)),
-                        AutoReverse = false
-                    };
+                    da.From = GridPanel_.Opacity;
+                    da.To = 1;
                     GridPanel_.BeginAnimation(OpacityProperty, da);
-                    GridPanel_.IsEnabled = false;
-
+                    GridPanel_.IsEnabled = true;
                 }
-            }
+                }
+            });
         }
 
         private void CardExpander_MouseLeftGrid_Down(object sender, MouseButton e)
@@ -886,9 +847,11 @@ Main.logger2.Close();
         }
 
         private void Grid_MouseEnter(object sender, MouseEventArgs e)
-        {
+            {
+                DispatchIfNecessary(async () =>
+                {
 
-            Grid Card;
+                    Grid Card;
             if (sender.GetType() == typeof(Grid))
             {
 
@@ -903,12 +866,13 @@ Main.logger2.Close();
                 {
                     if(Card_Action != null)
                     {
-
-                        if (Card_Action.ToolTip.ToString().Replace("northstar-Northstar", "").Count() > 1)
+                        string tooltip_string = Card_Action.ToolTip.ToString().Replace("northstar-Northstar", "");
+                        if (tooltip_string.Count() > 1 && tooltip_string.Length > 3)
                         {
                             Card_Action.IsEnabled = true;
                             Card_Action.Icon = Wpf.Ui.Common.SymbolRegular.BoxMultipleCheckmark20;
                             Card_Action.IconForeground = Brushes.LawnGreen;
+                            SlowBlink(Card_Action, 0.3);
                         }
                         else
                         {
@@ -932,29 +896,35 @@ Main.logger2.Close();
                 }
 
 
-            }
+                    }
+                });
         }
         private void Search_Bar_Suggest_Mods_GotFocus(object sender, RoutedEventArgs e)
         {
-            if (search_a_flag == true)
+            DispatchIfNecessary(async () =>
             {
-                clear_box();
-            }
-            Search_Bar_Suggest_Mods.IsReadOnly = false;
-            
-            Sort.SelectedIndex = -1;
-            Search_Bar_Suggest_Mods.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFFFFFFF");
-            Search_Bar_Suggest_Mods.IconForeground = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFFFFFFF");
-            search_a_flag = false;
+                if (search_a_flag == true)
+                {
+                    clear_box();
+                }
+                Search_Bar_Suggest_Mods.IsReadOnly = false;
 
+                Sort.SelectedIndex = -1;
+                Search_Bar_Suggest_Mods.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFFFFFFF");
+                Search_Bar_Suggest_Mods.IconForeground = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFFFFFFF");
+                search_a_flag = false;
+            });
         }
 
         private void Search_Bar_Suggest_Mods_LostFocus(object sender, RoutedEventArgs e)
         {
-            Search_Bar_Suggest_Mods.IsReadOnly = true;
-            search_a_flag = true;
-            Search_Bar_Suggest_Mods.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#34FFFFFF");
-            Search_Bar_Suggest_Mods.IconForeground = (SolidColorBrush)new BrushConverter().ConvertFrom("#34FFFFFF");
+            DispatchIfNecessary(async () =>
+            {
+                Search_Bar_Suggest_Mods.IsReadOnly = true;
+                search_a_flag = true;
+                Search_Bar_Suggest_Mods.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#34FFFFFF");
+                Search_Bar_Suggest_Mods.IconForeground = (SolidColorBrush)new BrushConverter().ConvertFrom("#34FFFFFF");
+            });
         }
         async Task clear_box()
         {
@@ -967,32 +937,35 @@ Main.logger2.Close();
         }
         private void Grid_MouseLeave(object sender, MouseEventArgs e)
         {
-            Grid Card;
-            if (sender.GetType() == typeof(Grid))
+            DispatchIfNecessary(async () =>
             {
-                Card = sender as Grid;
-
-                HandyControl.Controls.SimplePanel GridPanel_ = FindVisualChild<HandyControl.Controls.SimplePanel>(Card);
-                if (GridPanel_.Opacity > 0)
+                Grid Card;
+                if (sender.GetType() == typeof(Grid))
                 {
+                    Card = sender as Grid;
 
-                    DoubleAnimation da = new DoubleAnimation
+                    HandyControl.Controls.SimplePanel GridPanel_ = FindVisualChild<HandyControl.Controls.SimplePanel>(Card);
+                    if (GridPanel_.Opacity > 0)
                     {
-                        From = GridPanel_.Opacity,
-                        To = 0,
-                        Duration = new Duration(TimeSpan.FromSeconds(0.4)),
-                        AutoReverse = false
-                    };
-                    GridPanel_.BeginAnimation(OpacityProperty, da);
-                    GridPanel_.IsEnabled = false;
+
+                        DoubleAnimation da = new DoubleAnimation
+                        {
+                            From = GridPanel_.Opacity,
+                            To = 0,
+                            Duration = new Duration(TimeSpan.FromSeconds(0.4)),
+                            AutoReverse = false
+                        };
+                        GridPanel_.BeginAnimation(OpacityProperty, da);
+                        GridPanel_.IsEnabled = false;
+
+
+
+                    }
 
 
 
                 }
-
-
-
-            }
+            });
         }
 
 
@@ -2624,7 +2597,25 @@ int millisecondsDelay = 300)
                 Main.logger2.Close();
             }
 
+        }  public void SlowBlink(Control control, double minimumOpacity)
+        {
+            DispatchIfNecessary(() =>
+            {
+                // Create a DoubleAnimation to animate the control's Opacity property
+                var animation = new DoubleAnimation
+                {
+                    From = 1.0,
+                    To = minimumOpacity,
+                    Duration = new Duration(TimeSpan.FromSeconds(0.6)),
+                    AutoReverse = true,
+                    RepeatBehavior = RepeatBehavior.Forever
+                };
+
+                // Apply the animation to the control's Opacity property
+                control.BeginAnimation(UIElement.OpacityProperty, animation);
+            });
         }
+      
         public async Task Unpack_To_Location_Custom(string Target_Zip, string Destination, ProgressBar Progress_Bar, bool Clean_Thunderstore = false, bool clean_normal = false, bool Skin_Install = false,bool NS_CANDIDATE_INSTALL = false ,string mod_name ="~")
         {
             //ToDo Check if url or zip location

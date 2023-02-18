@@ -51,6 +51,7 @@ using GameFinder.RegistryUtils;
 using GameFinder.StoreHandlers.Origin;
 using VTOL.Properties;
 using Pixelmaniac.Notifications;
+using System.Xml;
 
 namespace VTOL.Pages
 {
@@ -328,6 +329,7 @@ logger2.Close();
         public int Admin_Warn_Flag = 0;
         System.Drawing.Point cursorPoint;
         int minutesIdle = 0;
+
         public Page_Home()
         {
 
@@ -336,6 +338,7 @@ logger2.Close();
 
 
 
+            WARNING_BANNER.Visibility = Visibility.Collapsed;
 
             User_Settings_Vars = Main.User_Settings_Vars;
             AppDataFolder = Main.AppDataFolder;
@@ -405,7 +408,13 @@ logger2.Close();
             DataContext = this;
             /////////////////////
             Toggle_MS_BT(Properties.Settings.Default.Master_Server_Check);
+
             INIT();
+            if (IsDirectoryValid(Current_Install_Folder) == false)
+            {
+                ShowBanner();
+
+            }
             if (Properties.Settings.Default.EA_APP_SUPPORT == true)
             {
                 EA_ORGIGIN_Client_Card.Content = VTOL.Resources.Languages.Language.Page_Home_Page_Home_EAClientRunning;
@@ -464,7 +473,51 @@ logger2.Close();
 
             }
             Check_Log_Folder();
+          
+        }
+        public static bool IsDirectoryValid(string directoryPath)
+        {
+            // Check if directory path is under the C:\Program Files\ directory
+            if (directoryPath.StartsWith(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles)))
+            {
+                Console.WriteLine("Error: Directory path is under C:\\Program Files\\ directory.");
+                return false;
+            }
 
+            // Check if directory is write-protected
+            DirectoryInfo directoryInfo = new DirectoryInfo(directoryPath);
+            if ((directoryInfo.Attributes & FileAttributes.ReadOnly) == FileAttributes.ReadOnly)
+            {
+                Console.WriteLine("Error: Directory is write-protected.");
+                return false;
+            }
+
+            // Check if the directory exists
+            if (!Directory.Exists(directoryPath))
+            {
+                Console.WriteLine("Error: Directory does not exist.");
+                return false;
+            }
+
+           
+
+            // Check if the directory is accessible by the program
+            try
+            {
+                string testFilePath = Path.Combine(directoryPath, "test.txt");
+                using (FileStream fs = File.Create(testFilePath))
+                {
+                    fs.Write(new byte[] { 0 }, 0, 1);
+                }
+                File.Delete(testFilePath);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error: Unable to access directory. {e.Message}");
+                return false;
+            }
+
+            return true;
         }
         private bool isIdle(int minutes)
         {
@@ -861,8 +914,13 @@ int millisecondsDelay = 150)
 
                 string Header = Path.GetFullPath(Path.Combine(System.Reflection.Assembly.GetExecutingAssembly().Location, @"../"));
                 updaterModulePath = Path.Combine(Header, "VTOL_Updater.exe");
+                var resetEvent = new ManualResetEvent(false);
 
-
+                Exit_BTN.Click += (sender, args) =>
+                {
+                    // Signal the manual reset event
+                    resetEvent.Set();
+                };
 
 
 
@@ -888,7 +946,8 @@ int millisecondsDelay = 150)
                     MasterServer_URL = User_Settings_Vars.MasterServerUrl;
 
                     Current_Install_Folder = User_Settings_Vars.NorthstarInstallLocation;
-
+                    
+                   
                     if (IsValidPath(Current_Install_Folder))
                     {
                         if (!Current_Install_Folder.EndsWith(@"\"))
@@ -4120,6 +4179,96 @@ Main.logger2.Close();
 
         private void Exit_BTN_Click(object sender, RoutedEventArgs e)
         {
+
+        }
+
+        private void Exit_BTN_Click_1(object sender, RoutedEventArgs e)
+        {
+            WARNING_BANNER.Visibility = Visibility.Collapsed;
+          //  resetEvent.Set();
+
+        }
+
+        private void Button_MouseEnter_1(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void Button_MouseLeave_1(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        void ShowBanner()
+        {
+            DispatchIfNecessary(() =>
+            {
+                WARNING_BANNER.Visibility = Visibility.Visible;
+
+
+            });
+
+        }
+        private void EXE_BUTTON_MouseEnter(object sender, MouseEventArgs e)
+        {
+            DispatchIfNecessary(() =>
+            {
+                EXE_BUTTON.IconFilled = true;
+            });
+        }
+
+        private void EXE_BUTTON_MouseLeave(object sender, MouseEventArgs e)
+        {
+            DispatchIfNecessary(() =>
+            {
+                EXE_BUTTON.IconFilled = false;
+
+            });
+
+            }
+
+        private void Warning_Sin_Loaded(object sender, RoutedEventArgs e)
+        {
+           
+                StartPulseAnimation(0.75);
+
+          
+        }
+
+        private void StartPulseAnimation(double minimumOpacity)
+        {
+            DispatchIfNecessary(() =>
+            {
+                // Create a DoubleAnimation to animate the control's Opacity property
+                var animation = new DoubleAnimation
+                {
+                    From = 1.0,
+                    To = minimumOpacity,
+                    Duration = new Duration(TimeSpan.FromSeconds(0.6)),
+                    AutoReverse = true,
+                    RepeatBehavior = RepeatBehavior.Forever
+                };
+
+                // Apply the animation to the control's Opacity property
+                Warning_Sin.BeginAnimation(UIElement.OpacityProperty, animation);
+            });
+        }
+        public static void EditExe(string exePath)
+        {
+            // Get the path to the manifest file
+            // Open the registry key for the application
+            RegistryKey key = Registry.CurrentUser.OpenSubKey("Software\\Microsoft\\Windows NT\\CurrentVersion\\AppCompatFlags\\Layers", true);
+
+            // Add the entry to run the application as an administrator
+            key.SetValue(exePath, "~ RUNASADMIN");
+        }
+        private void EXE_BUTTON_Click(object sender, RoutedEventArgs e)
+        {
+            var currentExecutablePath = Process.GetCurrentProcess().MainModule.FileName;
+
+
+            EditExe(currentExecutablePath);
+            Restart_App();
 
         }
     }
