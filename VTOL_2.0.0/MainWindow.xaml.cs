@@ -902,15 +902,31 @@ true // Whether to change accents automatically
         {
 
             try {
-            if(minimize_to_tray == true)
-            {
+                if (minimize_to_tray == true)
+                {
+                   
 
-                if (this.WindowState == WindowState.Minimized)
-                    this.Hide();
+                    if (this.WindowState == WindowState.Minimized)
+                    {
+                        this.ShowInTaskbar = false;
+                    }
+                    else
+                    {
+                        this.ShowInTaskbar = true;
 
-                base.OnStateChanged(e);
+                    }
+                }
+                else
+                {
+                    this.ShowInTaskbar = true;
+
+                   
+
+                }
+
+
             }
-        }
+        
   catch (Exception ex)
   {
       Log.Error(ex, $"A crash happened at DEV VERSION{DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
@@ -936,6 +952,11 @@ true // Whether to change accents automatically
             geometry.RadiusX = 7;
             geometry.RadiusY = 7;
             this.Clip = geometry;
+        }
+
+        private void Main_Win_Control_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
         }
     }
 }
