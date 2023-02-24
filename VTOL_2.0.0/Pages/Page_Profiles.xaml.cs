@@ -1357,7 +1357,7 @@ namespace VTOL.Pages
 		{
 			Pack_Label.Content = "UnPacking the File/Folder";
 
-			UnpackandCheck(CURRENT_FILE__, @"D:\Games\Titanfall2\R2Northstar\mods\open\directory.bin.gz");
+			UnpackandCheck(CURRENT_FILE__, Main.User_Settings_Vars.NorthstarInstallLocation);
 
 		}
 
