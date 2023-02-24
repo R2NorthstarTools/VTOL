@@ -844,6 +844,43 @@ Main.logger2.Close();
 
         private void StackPanel_GotFocus(object sender, MouseEventArgs e)
         {
+
+
+            DispatchIfNecessary(async () =>
+            {
+                Grid Card;
+                if (sender.GetType() == typeof(Grid))
+                {
+                    Card = sender as Grid;
+
+                    HandyControl.Controls.SimplePanel GridPanel_ = FindVisualChild<HandyControl.Controls.SimplePanel>(Card);
+                    Wpf.Ui.Controls.CardAction Card_Action = FindVisualChild<Wpf.Ui.Controls.CardAction>(Card);
+
+                    if (Card != null && GridPanel_ != null && Card_Action != null)
+                    {
+
+                        string tooltip_string = Card_Action.ToolTip.ToString().Replace("northstar-Northstar", "").Replace("ebkr-r2modman-", "");
+
+                        if (tooltip_string.Count() > 5 && tooltip_string.Length > 5)
+                        {
+                            Card_Action.IsEnabled = true;
+                            Card_Action.Icon = Wpf.Ui.Common.SymbolRegular.BoxMultipleCheckmark20;
+                            Card_Action.IconForeground = Brushes.LawnGreen;
+                            SlowBlink(Card_Action, 0.3);
+                        }
+                        else
+                        {
+                            Card_Action.IsEnabled = false;
+                            Card_Action.Icon = Wpf.Ui.Common.SymbolRegular.BoxMultiple20;
+
+                        }
+
+                    }
+
+
+
+                }
+            });
         }
 
         private void Grid_MouseEnter(object sender, MouseEventArgs e)
@@ -858,21 +895,22 @@ Main.logger2.Close();
                 //                ContentPresenter myListBoxItem =
                 //(ContentPresenter)(Thunderstore_List.ItemContainerGenerator.ContainerFromItem(Thunderstore_List.Items.CurrentItem));
                 Card = sender as Grid;
-
                 HandyControl.Controls.SimplePanel GridPanel_ = FindVisualChild<HandyControl.Controls.SimplePanel>(Card);
                 Wpf.Ui.Controls.CardAction Card_Action = FindVisualChild<Wpf.Ui.Controls.CardAction>(Card);
+                        if (Card_Action != null && GridPanel_ != null)
+                        {
+                            if (GridPanel_.Opacity < 0.2)
+                             {
+                   
+                               
+                                string tooltip_string = Card_Action.ToolTip.ToString().Replace("northstar-Northstar", "").Replace("ebkr-r2modman-","");
 
-                if (GridPanel_.Opacity < 1)
-                {
-                    if(Card_Action != null)
-                    {
-                        string tooltip_string = Card_Action.ToolTip.ToString().Replace("northstar-Northstar", "");
-                        if (tooltip_string.Count() > 1 && tooltip_string.Length > 3)
+                        if (tooltip_string.Count() > 5 && tooltip_string.Length > 5)
                         {
                             Card_Action.IsEnabled = true;
                             Card_Action.Icon = Wpf.Ui.Common.SymbolRegular.BoxMultipleCheckmark20;
                             Card_Action.IconForeground = Brushes.LawnGreen;
-                            SlowBlink(Card_Action, 0.3);
+                           // SlowBlink(Card_Action, 0.3);
                         }
                         else
                         {
@@ -880,18 +918,18 @@ Main.logger2.Close();
                             Card_Action.Icon = Wpf.Ui.Common.SymbolRegular.BoxMultiple20;
 
                         }
-                      //  Check_Update_Tag(GridPanel_);
-
-                    }
-                    DoubleAnimation da = new DoubleAnimation
-                    {
-                        From = GridPanel_.Opacity,
-                        To = 1,
-                        Duration = new Duration(TimeSpan.FromSeconds(0.4)),
-                        AutoReverse = false
-                    };
-                    GridPanel_.BeginAnimation(OpacityProperty, da);
-                    GridPanel_.IsEnabled = true;
+                                //  Check_Update_Tag(GridPanel_);
+                                DoubleAnimation da = new DoubleAnimation
+                                {
+                                    From = GridPanel_.Opacity,
+                                    To = 1,
+                                    Duration = new Duration(TimeSpan.FromSeconds(0.4)),
+                                    AutoReverse = false
+                                };
+                                GridPanel_.BeginAnimation(OpacityProperty, da);
+                                GridPanel_.IsEnabled = true;
+                            }
+                   
 
                 }
 
@@ -945,21 +983,25 @@ Main.logger2.Close();
                     Card = sender as Grid;
 
                     HandyControl.Controls.SimplePanel GridPanel_ = FindVisualChild<HandyControl.Controls.SimplePanel>(Card);
-                    if (GridPanel_.Opacity > 0)
+
+                    if (Card != null && GridPanel_ != null)
                     {
-
-                        DoubleAnimation da = new DoubleAnimation
+                        if (GridPanel_.Opacity > 0)
                         {
-                            From = GridPanel_.Opacity,
-                            To = 0,
-                            Duration = new Duration(TimeSpan.FromSeconds(0.4)),
-                            AutoReverse = false
-                        };
-                        GridPanel_.BeginAnimation(OpacityProperty, da);
-                        GridPanel_.IsEnabled = false;
+
+                            DoubleAnimation da = new DoubleAnimation
+                            {
+                                From = GridPanel_.Opacity,
+                                To = 0,
+                                Duration = new Duration(TimeSpan.FromSeconds(0.4)),
+                                AutoReverse = false
+                            };
+                            GridPanel_.BeginAnimation(OpacityProperty, da);
+                            GridPanel_.IsEnabled = false;
 
 
 
+                        }
                     }
 
 
@@ -1529,7 +1571,7 @@ int millisecondsDelay = 30)
                     {
                         File.Copy(Origin, Destination, true);
                     }
-                    Thread.Sleep(millisecondsDelay);
+                    Thread.Sleep(2);
 
                     return true;
                 }
@@ -1731,9 +1773,10 @@ int millisecondsDelay = 30)
 
 
                                         downloads = (Downloads.Sum()).ToString();
+
                                         for (var x = 0; x < versions.First().Dependencies.Count; x++)
                                         {
-                                            if (versions.First().Dependencies[x].Contains("northstar-Northstar")  || versions.First().Dependencies[x].Contains("r2modman"))
+                                            if (versions.First().Dependencies[x].Contains("northstar-Northstar")  || versions.First().Dependencies[x].Contains("ebkr-r2modman-"))
                                             {
 
                                                 continue;
@@ -1803,7 +1846,7 @@ int millisecondsDelay = 30)
                                     downloads = (Downloads.Sum()).ToString();
                                     for (var x = 0; x < versions.First().Dependencies.Count; x++)
                                     {
-                                        if (versions.First().Dependencies[x].Contains("northstar-Northstar") || versions.First().Dependencies[x].Contains("r2modman"))
+                                        if (versions.First().Dependencies[x].Contains("northstar-Northstar") || versions.First().Dependencies[x].Contains("ebkr-r2modman-"))
                                         {
 
                                             continue;
@@ -1881,7 +1924,7 @@ int millisecondsDelay = 30)
                                     downloads = (Downloads.Sum()).ToString();
                                     for (var x = 0; x < versions.First().Dependencies.Count; x++)
                                     {
-                                        if (versions.First().Dependencies[x].Contains("northstar-Northstar") || versions.First().Dependencies[x].Contains("r2modman"))
+                                        if (versions.First().Dependencies[x].Contains("northstar-Northstar") || versions.First().Dependencies[x].Contains("ebkr-r2modman-"))
                                         {
 
                                             continue;
@@ -1949,7 +1992,7 @@ int millisecondsDelay = 30)
                                 downloads = (Downloads.Sum()).ToString();
                                 for (var x = 0; x < versions.First().Dependencies.Count; x++)
                                 {
-                                    if (versions.First().Dependencies[x].Contains("northstar-Northstar")  || versions.First().Dependencies[x].Contains("r2modman"))
+                                    if (versions.First().Dependencies[x].Contains("northstar-Northstar")  || versions.First().Dependencies[x].Contains("ebkr-r2modman-"))
                                     {
 
                                         continue;
@@ -2404,29 +2447,24 @@ Main.logger2.Close();
 
                 return;
             }
-        private  void CopyFilesRecursively(string sourcePath, string targetPath)
+        private async Task CopyFilesRecursively(string sourcePath, string targetPath)
         {
-            //Now Create all of the directories
-            foreach (string dirPath in Directory.GetDirectories(sourcePath, "*", SearchOption.AllDirectories))
+            // Create the target directory if it doesn't exist
+            if (!Directory.Exists(targetPath))
             {
-               TryCreateDirectory(dirPath.Replace(sourcePath, targetPath));
+                TryCreateDirectory(targetPath);
             }
 
-            //Copy all the files & Replaces any files with the same name
-            foreach (string newPath in Directory.GetFiles(sourcePath, "*.*", SearchOption.AllDirectories))
+            // Copy all the files & Replaces any files with the same name
+            await Task.Run(() => Parallel.ForEach(Directory.GetFiles(sourcePath, "*.*", SearchOption.AllDirectories), file =>
             {
-                if (!File.Exists(targetPath))
-                {
-                    TryCopyFile(newPath, newPath.Replace(sourcePath, targetPath),true);
+                string relativePath = file.Replace(sourcePath, "");
+                string targetFilePath = Path.Combine(targetPath, relativePath);
 
-                }
-                else
-                {
-                    TryCopyFile(newPath, newPath.Replace(sourcePath, targetPath), true);
-
-                }
-            }
+                TryCopyFile(file, targetFilePath, true);
+            }));
         }
+
         public bool TryUnzipFile(
 string Zip_Path, string Destination, bool overwrite = true,
 int maxRetries = 10,
@@ -2681,15 +2719,7 @@ int millisecondsDelay = 300)
                                     // If file found, delete it    
                                     TryDeleteFile(Path.Combine(Destination, "icon.png"));
                                 }
-                                if (NS_CANDIDATE_INSTALL == true)
-                                {
-                                    /* Send_Warning_Notif(GetTextResource("NOTIF_WARN_CLEANUP_FILES_NOT_FOUND"));*/
-                                    if (File.Exists(Path.Combine(Destination, "manifest.json")))
-                                    {
-                                        // If file found, delete it    
-                                        TryDeleteFile(Path.Combine(Destination, "manifest.json"));
-                                    }
-                                }
+                               
 
                                     if (File.Exists(Path.Combine(Destination, "README.md")))
                                 {
@@ -2774,13 +2804,13 @@ int millisecondsDelay = 300)
                                            TryCreateDirectory(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder");
                                             if (Directory.Exists(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder"))
                                             {
-                                                CopyFilesRecursively(firstFolder, Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder");
+                                                await CopyFilesRecursively(firstFolder, Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder");
 
 
 
 
                                                 Clear_Folder(Destination);
-                                                CopyFilesRecursively(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder", Destination);
+                                               await CopyFilesRecursively(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder", Destination);
                                                 TryDeleteDirectory(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder", true);
 
                                             }
@@ -2853,6 +2883,21 @@ int millisecondsDelay = 300)
 
                                 else if(NS_CANDIDATE_INSTALL == true)
                                 {
+                                    DispatchIfNecessary(() => {
+
+                                        if (Progress_Bar != null)
+                                    {
+                                        Progress_Bar.IsIndeterminate = true;
+                                    }
+
+                                });
+                                if (File.Exists(Path.Combine(Destination, "manifest.json")))
+                                    {
+                                        // If file found, delete it    
+                                        TryDeleteFile(Path.Combine(Destination, "manifest.json"));
+                                    }
+
+
                                     if (Directory.Exists(User_Settings_Vars.NorthstarInstallLocation  + User_Settings_Vars.Profile_Path + @"\mods\Northstar.Client\Locked_Folder"))
                                     {
                                         TryDeleteDirectory(User_Settings_Vars.NorthstarInstallLocation  + User_Settings_Vars.Profile_Path + @"\mods\Northstar.Client\Locked_Folder", true);
@@ -2912,12 +2957,10 @@ int millisecondsDelay = 300)
 
                                     var Destinfo = new DirectoryInfo(Destination);
                                     var Script_ = Directory.GetFiles(Destination);
-                                    Console.WriteLine(String.Join("\n", Script_));
 
 
                                     var Script = Destinfo.GetFiles(searchQuery3, SearchOption.AllDirectories);
                                     Destinfo.Attributes &= ~FileAttributes.ReadOnly;
-                                    Console.WriteLine(Script.Length.ToString());
 
 
                                     if (Script.Length != 0)
@@ -2929,24 +2972,13 @@ int millisecondsDelay = 300)
                                         DirectoryInfo di = new DirectoryInfo(Directory.GetParent(File_.FullName).ToString());
                                         string firstFolder = di.FullName;
                                         Console.WriteLine(firstFolder);
-
+                                        string Northstar_VEr_Temp = null;
                                         if (Directory.Exists(Destination))
                                         {
-
-
-
-                                           
-
-
-
-
-                                            CopyFilesRecursively(firstFolder, User_Settings_Vars.NorthstarInstallLocation);
+                                            await CopyFilesRecursively(firstFolder, User_Settings_Vars.NorthstarInstallLocation);
 
                                             }
-                                            Console.WriteLine("Unpacked - " + Destination);
-                                        // TryDeleteDirectory(Destination,true);
-                                        MessageBox.Show(Destination);
-                                        MessageBox.Show(firstFolder);
+                                          
 
                                         if (do_not_overwrite_Ns_file == true)
                                         {
@@ -2985,29 +3017,44 @@ int millisecondsDelay = 300)
                                         DispatchIfNecessary(() => {
                                             if (Progress_Bar != null)
                                             {
+                                                Progress_Bar.IsIndeterminate = false;
+
                                                 Progress_Bar.Value = 0;
                                             }
-                                            if (File.Exists(User_Settings_Vars.NorthstarInstallLocation + @"NorthstarLauncher.exe"))
+                                        });
+                                        if (File.Exists(User_Settings_Vars.NorthstarInstallLocation + @"NorthstarLauncher.exe"))
                                             {
 
                                                 FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(User_Settings_Vars.NorthstarInstallLocation + @"NorthstarLauncher.exe");
-
-                                                string Current_Ver_ = myFileVersionInfo.FileVersion;
+                                            string Current_Ver_ = myFileVersionInfo.FileVersion;
 
                                                 User_Settings_Vars.CurrentVersion = Current_Ver_;
                                                 Properties.Settings.Default.Version = Current_Ver_;
                                                 Properties.Settings.Default.Save();
+                                            Northstar_VEr_Temp = Current_Ver_;
                                                 DispatchIfNecessary(() =>
                                                 {
 
                                                     Main.VERSION_TEXT.Text = "VTOL - " + ProductVersion + " | Northstar Version - " + Current_Ver_.Remove(0, 1);
                                                     Main.VERSION_TEXT.Refresh();
                                                 });
-                                            }
+                                        }
 
+                                        DispatchIfNecessary(() =>
+                                        {
                                             SnackBar.Title = "SUCCESS";
                                             SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
-                                            SnackBar.Message = "The Build " + Path.GetFileNameWithoutExtension(Target_Zip).Replace("_", " ") + VTOL.Resources.Languages.Language.Page_Thunderstore_Unpack_To_Location_Custom_HasBeenDownloadedAndInstalled;
+                                            string temp_;
+                                            if(Northstar_VEr_Temp != null && Northstar_VEr_Temp.Length > 2)
+                                            {
+                                                temp_ = "The Build " + Path.GetFileNameWithoutExtension(Target_Zip).Replace("_", " ") + Northstar_VEr_Temp.Remove(0, 1) + VTOL.Resources.Languages.Language.Page_Thunderstore_Unpack_To_Location_Custom_HasBeenDownloadedAndInstalled;
+
+                                            }
+                                            else
+                                            {
+                                                temp_ = Path.GetFileNameWithoutExtension(Target_Zip).Replace("_", " ")+ VTOL.Resources.Languages.Language.Page_Thunderstore_Unpack_To_Location_Custom_HasBeenDownloadedAndInstalled;
+                                            }
+                                            SnackBar.Message = temp_;
                                             SnackBar.Show();
 
 
@@ -3061,6 +3108,7 @@ int millisecondsDelay = 300)
                                         DirectoryInfo di = new DirectoryInfo(Directory.GetParent(File_.FullName).ToString());
                                         string firstFolder = di.FullName;
 
+
                                         if (Directory.Exists(Destination))
                                         {
 
@@ -3070,13 +3118,13 @@ int millisecondsDelay = 300)
                                            TryCreateDirectory(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder");
                                             if (Directory.Exists(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder"))
                                             {
-                                                CopyFilesRecursively(firstFolder, Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder");
+                                                await CopyFilesRecursively(firstFolder, Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder");
 
 
 
 
                                                 Clear_Folder(Destination);
-                                                CopyFilesRecursively(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder", Destination);
+                                                await CopyFilesRecursively(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder", Destination);
                                                 TryDeleteDirectory(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder", true);
 
                                             }
@@ -3222,13 +3270,28 @@ Main.logger2.Close();
 
             }
         }
-        public static String ProductVersion
+        public string ProductVersion
         {
             get
             {
-                return new Version(FileVersionInfo.GetVersionInfo(Assembly.GetCallingAssembly().Location).ProductVersion).ToString();
+                try
+                {
+                    string file = (FileVersionInfo.GetVersionInfo(Assembly.GetCallingAssembly().Location).ProductVersion).ToString();
+                    return file.Substring(0, file.IndexOf("+") + 1).Replace("+", "");
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                    Main.logger2.Open();
+                    Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
+                    Main.logger2.Close();
+
+                }
+                return "0.0.0";
+
             }
         }
+
         private string Find_Folder(string searchQuery, string folderPath)
         {
             searchQuery = "*" + searchQuery + "*";

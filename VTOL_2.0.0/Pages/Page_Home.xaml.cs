@@ -2604,26 +2604,38 @@ Main.logger2.Close();
 
                 if (Properties.Settings.Default.EA_APP_SUPPORT == false)
                 {
-                    if (Check_Process_Running("OriginClientService") == true)
+                    if (true)
                     {
-                        SnackBar.Appearance = ControlAppearance.Caution;
-                        SnackBar.Title = "WARNING!";
-                        SnackBar.Message = VTOL.Resources.Languages.Language.Page_Home_Origin_Client_Card_Click_TheOriginClientIsAlreadyRunning;
-                        SnackBar.Show();
-                        EA_ORGIGIN_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#B2037F10");
-                        EA_ORGIGIN_Client_Card.IconFilled = true;
-
+                        EA_ORGIGIN_Client_Card.Content = "Please Click for More Info";
+                                   EA_ORGIGIN_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FCF100");
                     }
                     else
                     {
-                      
+                        if (Check_Process_Running("OriginClientService") == true)
+                        {
+
+
+                            SnackBar.Appearance = ControlAppearance.Caution;
+                            SnackBar.Title = "WARNING!";
+                            SnackBar.Message = VTOL.Resources.Languages.Language.Page_Home_Origin_Client_Card_Click_TheOriginClientIsAlreadyRunning;
+                            SnackBar.Show();
+                            EA_ORGIGIN_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#B2037F10");
+                            EA_ORGIGIN_Client_Card.IconFilled = true;
+
+                        }
+                        else
+                        {
+
                             Run_Origin();
 
 
-                      
-                        
+
+
+
+                        }
 
                     }
+                  
                 }
                 else
                 {

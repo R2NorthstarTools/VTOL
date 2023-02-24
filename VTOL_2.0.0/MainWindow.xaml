@@ -267,7 +267,7 @@
 
             <StatusBar Margin="0,0,554,0" Background="Transparent" BorderThickness="0,0,0,0" HorizontalAlignment="Right" Width="644" Padding="0,0,0,0">
                 <StatusBarItem Margin="-24,-11,0,-11" Width="598">
-                    <StackPanel Orientation="Horizontal" Width="514" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <StackPanel Orientation="Horizontal" Width="514" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
 
                         <Image Source="/Resources/Icons/Main_UI/VTOL_multires.ico" Height="30" Width="33" Margin="-11,0,0,0"        RenderOptions.BitmapScalingMode="HighQuality"
 />
