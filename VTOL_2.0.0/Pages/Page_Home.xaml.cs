@@ -52,6 +52,7 @@ using GameFinder.StoreHandlers.Origin;
 using VTOL.Properties;
 using Pixelmaniac.Notifications;
 using System.Xml;
+using HandyControl.Tools.Extension;
 
 namespace VTOL.Pages
 {
@@ -483,7 +484,10 @@ logger2.Close();
                 Console.WriteLine("Error: Directory path is under C:\\Program Files\\ directory.");
                 return false;
             }
-
+            if (directoryPath.IsNullOrEmpty()) 
+            {
+                return false;
+            }
             // Check if directory is write-protected
             DirectoryInfo directoryInfo = new DirectoryInfo(directoryPath);
             if ((directoryInfo.Attributes & FileAttributes.ReadOnly) == FileAttributes.ReadOnly)
@@ -3214,8 +3218,8 @@ Main.logger2.Close();
 
 
 
-                s = s.Replace("[", "");
-                s = s.Replace("]", "");
+                //s = s.Replace("[", "");
+                //s = s.Replace("]", "");
 
                 if (Directory.Exists(AppDataFolder + @"\VTOL_DATA\temp"))
                 {
@@ -3321,7 +3325,7 @@ Main.logger2.Close();
 
 
                     
-                    current_Northstar_version_Url = myJObject.SelectToken("assets.browser_download_url").Value<string>();
+                    current_Northstar_version_Url = myJObject.SelectToken("assets[0].browser_download_url").Value<string>();
                     Properties.Settings.Default.Version = myJObject.SelectToken("tag_name").Value<string>();
                     Properties.Settings.Default.Save();
                     User_Settings_Vars.CurrentVersion = Properties.Settings.Default.Version;
