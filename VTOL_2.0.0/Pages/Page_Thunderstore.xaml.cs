@@ -844,8 +844,6 @@ Main.logger2.Close();
 
         private void StackPanel_GotFocus(object sender, MouseEventArgs e)
         {
-
-
             DispatchIfNecessary(async () =>
             {
                 Grid Card;
@@ -859,20 +857,18 @@ Main.logger2.Close();
                     if (Card != null && GridPanel_ != null && Card_Action != null)
                     {
 
-                        string tooltip_string = Card_Action.ToolTip.ToString().Replace("northstar-Northstar", "").Replace("ebkr-r2modman-", "");
+                        string tooltip_string = (Card_Action.ToolTip.ToString().Replace("northstar-Northstar", "").Replace("ebkr-r2modman-", "")).Trim();
 
-                        if (tooltip_string.Count() > 5 && tooltip_string.Length > 5)
+                        if (tooltip_string.Count() < 5 && tooltip_string.Length < 5 && Card_Action.ToolTip.ToString().Length < 5)
                         {
-                            Card_Action.IsEnabled = true;
-                            Card_Action.Icon = Wpf.Ui.Common.SymbolRegular.BoxMultipleCheckmark20;
-                            Card_Action.IconForeground = Brushes.LawnGreen;
-                            SlowBlink(Card_Action, 0.3);
-                        }
-                        else
-                        {
+                          
+                            foreach (var storyboard in Card_Action.Resources.Values.OfType<Storyboard>())
+                            {
+                                storyboard.Stop();
+                            }
                             Card_Action.IsEnabled = false;
                             Card_Action.Icon = Wpf.Ui.Common.SymbolRegular.BoxMultiple20;
-
+                            Card_Action.Refresh();
                         }
 
                     }
@@ -881,6 +877,7 @@ Main.logger2.Close();
 
                 }
             });
+
         }
 
         private void Grid_MouseEnter(object sender, MouseEventArgs e)
@@ -910,11 +907,19 @@ Main.logger2.Close();
                             Card_Action.IsEnabled = true;
                             Card_Action.Icon = Wpf.Ui.Common.SymbolRegular.BoxMultipleCheckmark20;
                             Card_Action.IconForeground = Brushes.LawnGreen;
-                           // SlowBlink(Card_Action, 0.3);
+                            SlowBlink(Card_Action, 0.3);
                         }
                         else
+
                         {
-                            Card_Action.IsEnabled = false;
+
+                                    DoubleAnimation x = new DoubleAnimation
+                                    {
+                                    
+                                    };
+                                    Card_Action.BeginAnimation(OpacityProperty, x);
+
+                                    Card_Action.IsEnabled = false;
                             Card_Action.Icon = Wpf.Ui.Common.SymbolRegular.BoxMultiple20;
 
                         }
@@ -2646,7 +2651,8 @@ int millisecondsDelay = 300)
                     To = minimumOpacity,
                     Duration = new Duration(TimeSpan.FromSeconds(0.6)),
                     AutoReverse = true,
-                    RepeatBehavior = RepeatBehavior.Forever
+                    RepeatBehavior =  RepeatBehavior.Forever
+                    
                 };
 
                 // Apply the animation to the control's Opacity property
@@ -3753,6 +3759,51 @@ Main.logger2.Close();
         {
 
             
+        }
+
+        private void Thunderstore_Grid_Panel_Loaded(object sender, RoutedEventArgs e)
+        {
+            DispatchIfNecessary(async () =>
+            {
+                Grid Card;
+                if (sender.GetType() == typeof(Grid))
+                {
+                    Card = sender as Grid;
+
+                    HandyControl.Controls.SimplePanel GridPanel_ = FindVisualChild<HandyControl.Controls.SimplePanel>(Card);
+                    Wpf.Ui.Controls.CardAction Card_Action = FindVisualChild<Wpf.Ui.Controls.CardAction>(Card);
+
+                    if (Card != null && GridPanel_ != null && Card_Action != null)
+                    {
+
+                        string tooltip_string = Card_Action.ToolTip.ToString().Replace("northstar-Northstar", "").Replace("ebkr-r2modman-", "");
+
+                        if (tooltip_string.Count() > 5 && tooltip_string.Length > 5 && Card_Action.ToolTip.ToString().Length > 5)
+                        {
+                            Card_Action.IsEnabled = true;
+                            Card_Action.Icon = Wpf.Ui.Common.SymbolRegular.BoxMultipleCheckmark20;
+                            Card_Action.IconForeground = Brushes.LawnGreen;
+                            SlowBlink(Card_Action, 0.3);
+                        }
+                        else
+                        {
+                            DoubleAnimation x = new DoubleAnimation
+                            {
+
+                            };
+                            Card_Action.BeginAnimation(OpacityProperty, x);
+                            Card_Action.IsEnabled = false;
+                            Card_Action.Icon = Wpf.Ui.Common.SymbolRegular.BoxMultiple20;
+
+                        }
+
+                    }
+
+
+
+                }
+            });
+
         }
     }
         

@@ -95,7 +95,7 @@
             </ui:CardExpander>-->
             <ui:VirtualizingItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Grid x:Name="Thunderstore_Grid_Panel"  Margin="3,3,3,8" Width="255" Height="286" HorizontalAlignment="Center" MouseMove="StackPanel_GotFocus" MouseEnter="Grid_MouseEnter" MouseLeave="Grid_MouseLeave" UseLayoutRounding="True" >
+                    <Grid x:Name="Thunderstore_Grid_Panel"  Margin="3,3,3,8" Width="255" Height="286" HorizontalAlignment="Center" MouseMove="StackPanel_GotFocus" MouseEnter="Grid_MouseEnter" MouseLeave="Grid_MouseLeave" UseLayoutRounding="True" Loaded="Thunderstore_Grid_Panel_Loaded" >
 
                         <Grid.Resources>
                             <Storyboard x:Key="FadeInStoryboard">

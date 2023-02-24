@@ -411,7 +411,7 @@ logger2.Close();
             Toggle_MS_BT(Properties.Settings.Default.Master_Server_Check);
 
             INIT();
-            if (IsDirectoryValid(Current_Install_Folder) == false)
+            if (Current_Install_Folder.IsNullOrEmpty() != true && IsDirectoryValid(Current_Install_Folder) == false)
             {
                 ShowBanner();
 
