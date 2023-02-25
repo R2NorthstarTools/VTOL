@@ -2452,7 +2452,30 @@ Main.logger2.Close();
 
                 return;
             }
-        private async Task CopyFilesRecursively(string sourcePath, string targetPath)
+        private static void CopyFilesRecursively(string sourcePath, string targetPath)
+        {
+            //Now Create all of the directories
+            foreach (string dirPath in Directory.GetDirectories(sourcePath, "*", SearchOption.AllDirectories))
+            {
+                Directory.CreateDirectory(dirPath.Replace(sourcePath, targetPath));
+            }
+
+            //Copy all the files & Replaces any files with the same name
+            foreach (string newPath in Directory.GetFiles(sourcePath, "*.*", SearchOption.AllDirectories))
+            {
+                if (!File.Exists(targetPath))
+                {
+                    File.Copy(newPath, newPath.Replace(sourcePath, targetPath), true);
+
+                }
+                else
+                {
+                    File.Copy(newPath, newPath.Replace(sourcePath, targetPath), true);
+
+                }
+            }
+        }
+        private async Task CopyFilesRecursivel_Async(string sourcePath, string targetPath)
         {
             // Create the target directory if it doesn't exist
             if (!Directory.Exists(targetPath))
@@ -2810,13 +2833,13 @@ int millisecondsDelay = 300)
                                            TryCreateDirectory(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder");
                                             if (Directory.Exists(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder"))
                                             {
-                                                await CopyFilesRecursively(firstFolder, Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder");
+                                                 CopyFilesRecursively(firstFolder, Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder");
 
 
 
 
                                                 Clear_Folder(Destination);
-                                               await CopyFilesRecursively(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder", Destination);
+                                                 CopyFilesRecursively(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder", Destination);
                                                 TryDeleteDirectory(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder", true);
 
                                             }
@@ -2981,7 +3004,7 @@ int millisecondsDelay = 300)
                                         string Northstar_VEr_Temp = null;
                                         if (Directory.Exists(Destination))
                                         {
-                                            await CopyFilesRecursively(firstFolder, User_Settings_Vars.NorthstarInstallLocation);
+                                             CopyFilesRecursively(firstFolder, User_Settings_Vars.NorthstarInstallLocation);
 
                                             }
                                           
@@ -3124,13 +3147,13 @@ int millisecondsDelay = 300)
                                            TryCreateDirectory(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder");
                                             if (Directory.Exists(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder"))
                                             {
-                                                await CopyFilesRecursively(firstFolder, Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder");
+                                                 CopyFilesRecursively(firstFolder, Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder");
 
 
 
 
                                                 Clear_Folder(Destination);
-                                                await CopyFilesRecursively(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder", Destination);
+                                                 CopyFilesRecursively(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder", Destination);
                                                 TryDeleteDirectory(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder", true);
 
                                             }

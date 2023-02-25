@@ -411,8 +411,16 @@ logger2.Close();
             Toggle_MS_BT(Properties.Settings.Default.Master_Server_Check);
 
             INIT();
-            if (Current_Install_Folder.IsNullOrEmpty() != true && IsDirectoryValid(Current_Install_Folder) == false)
+
+            if (!Directory.Exists(Current_Install_Folder) || IsValidPath(Current_Install_Folder) == false || !Directory.Exists(User_Settings_Vars.NorthstarInstallLocation))
             {
+                ShowWelcome();
+
+            }
+            if (IsDirectoryValid(Current_Install_Folder) == false)
+            {
+               
+               
                 ShowBanner();
 
             }
@@ -478,47 +486,52 @@ logger2.Close();
         }
         public static bool IsDirectoryValid(string directoryPath)
         {
-            // Check if directory path is under the C:\Program Files\ directory
-            if (directoryPath.StartsWith(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles)))
+            if (Directory.Exists(directoryPath))
             {
-                Console.WriteLine("Error: Directory path is under C:\\Program Files\\ directory.");
-                return false;
-            }
-            if (directoryPath.IsNullOrEmpty()) 
-            {
-                return false;
-            }
-            // Check if directory is write-protected
-            DirectoryInfo directoryInfo = new DirectoryInfo(directoryPath);
-            if ((directoryInfo.Attributes & FileAttributes.ReadOnly) == FileAttributes.ReadOnly)
-            {
-                Console.WriteLine("Error: Directory is write-protected.");
-                return false;
-            }
 
-            // Check if the directory exists
-            if (!Directory.Exists(directoryPath))
+
+                // Check if directory path is under the C:\Program Files\ directory
+                if (directoryPath.StartsWith(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles)))
+                {
+                    Console.WriteLine("Error: Directory path is under C:\\Program Files\\ directory.");
+                    return false;
+                }
+                if (directoryPath.IsNullOrEmpty())
+                {
+                    return false;
+                }
+                // Check if directory is write-protected
+                DirectoryInfo directoryInfo = new DirectoryInfo(directoryPath);
+                if ((directoryInfo.Attributes & FileAttributes.ReadOnly) == FileAttributes.ReadOnly)
+                {
+                    Console.WriteLine("Error: Directory is write-protected.");
+                    return false;
+                }
+
+                // Check if the directory exists
+
+
+
+
+                // Check if the directory is accessible by the program
+                try
+                {
+                    string testFilePath = Path.Combine(directoryPath, "test.txt");
+                    using (FileStream fs = File.Create(testFilePath))
+                    {
+                        fs.Write(new byte[] { 0 }, 0, 1);
+                    }
+                    File.Delete(testFilePath);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine($"Error: Unable to access directory. {e.Message}");
+                    return false;
+                }
+            }
+            else
             {
                 Console.WriteLine("Error: Directory does not exist.");
-                return false;
-            }
-
-           
-
-            // Check if the directory is accessible by the program
-            try
-            {
-                string testFilePath = Path.Combine(directoryPath, "test.txt");
-                using (FileStream fs = File.Create(testFilePath))
-                {
-                    fs.Write(new byte[] { 0 }, 0, 1);
-                }
-                File.Delete(testFilePath);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine($"Error: Unable to access directory. {e.Message}");
-                return false;
             }
 
             return true;
@@ -2916,22 +2929,7 @@ Main.logger2.Close();
         private void Browse_Titanfall_Button_Click(object sender, RoutedEventArgs e)
         {
             try { 
-            //{
-            //    var notificationManager = new NotificationManager();
-
-            //    var content = new NotificationContent
-            //    {
-            //        Title = "Update Notification",
-            //        Message = "There Is an Update Available for Northstar, Please Open the App to Update!",
-            //        AppIdentity = "VTOL",
-            //        AttributionText = "Via: The VTOL-UPDATE-SERVICE",
-            //        VectorIcon = Application.Current.TryFindResource("[...]") as StreamGeometry,
-            //        UseLargeIcon = true
-            //    };
-
-            //    notificationManager.Notify(
-            //        message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-            //        title: "Simple notification","sd",false, TimeSpan.FromSeconds(50));
+          
             var folderDlg = new Ookii.Dialogs.Wpf.VistaFolderBrowserDialog();
             folderDlg.ShowNewFolderButton = true;
             // Show the FolderBrowserDialog.  
@@ -2946,7 +2944,6 @@ Main.logger2.Close();
                     SnackBar.Message = "Invalid Install Path!";
                     SnackBar.Show();
 
-                    //Send_Error_Notif(GetTextResource("NOTIF_ERROR_INVALID_INSTALL_PATH"));
 
 
                 }
@@ -2960,7 +2957,6 @@ Main.logger2.Close();
                         if (File.Exists(Current_Install_Folder + "NorthstarLauncher.exe"))
                         {
                             Found_Install_Folder = true;
-                            // Directory_Box.Background = Brushes.White;
                             Console.WriteLine("Found");
                             Console.WriteLine(Current_Install_Folder);
 
@@ -4217,9 +4213,17 @@ Main.logger2.Close();
 
         void ShowBanner()
         {
+           
+                WARNING_BANNER.Visibility = Visibility.Visible;
+
+
+        }
+        void ShowWelcome()
+        {
             DispatchIfNecessary(() =>
             {
-                WARNING_BANNER.Visibility = Visibility.Visible;
+                WELCOME_BANNER.Visibility = Visibility.Visible;
+                Main.RootNavigation.IsEnabled = false;
 
 
             });
@@ -4235,24 +4239,42 @@ Main.logger2.Close();
 
         private void EXE_BUTTON_MouseLeave(object sender, MouseEventArgs e)
         {
+            try { 
             DispatchIfNecessary(() =>
             {
                 EXE_BUTTON.IconFilled = false;
 
             });
+        }
+            catch (Exception ex)
+            {
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                Main.logger2.Open();
+                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
+                Main.logger2.Close();
 
             }
+}
 
         private void Warning_Sin_Loaded(object sender, RoutedEventArgs e)
         {
-           
+            try { 
                 StartPulseAnimation(0.75);
 
-          
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                Main.logger2.Open();
+                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
+                Main.logger2.Close();
+
+            }
         }
 
         private void StartPulseAnimation(double minimumOpacity)
         {
+            try { 
             DispatchIfNecessary(() =>
             {
                 // Create a DoubleAnimation to animate the control's Opacity property
@@ -4269,23 +4291,192 @@ Main.logger2.Close();
                 Warning_Sin.BeginAnimation(UIElement.OpacityProperty, animation);
             });
         }
-        public static void EditExe(string exePath)
+            catch (Exception ex)
+            {
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                Main.logger2.Open();
+                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
+                Main.logger2.Close();
+
+            }
+}
+        public void EditExe(string exePath)
         {
+            try { 
             // Get the path to the manifest file
             // Open the registry key for the application
             RegistryKey key = Registry.CurrentUser.OpenSubKey("Software\\Microsoft\\Windows NT\\CurrentVersion\\AppCompatFlags\\Layers", true);
 
             // Add the entry to run the application as an administrator
             key.SetValue(exePath, "~ RUNASADMIN");
+                Restart_App();
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                Main.logger2.Open();
+                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
+                Main.logger2.Close();
+
+            }
         }
         private void EXE_BUTTON_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+
+            
             var currentExecutablePath = Process.GetCurrentProcess().MainModule.FileName;
 
 
             EditExe(currentExecutablePath);
             Restart_App();
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                Main.logger2.Open();
+                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
+                Main.logger2.Close();
 
+            }
+        }
+
+        private void Welcome_Close_Click(object sender, RoutedEventArgs e)
+        {
+            try { 
+            DispatchIfNecessary(() =>
+            {
+                WELCOME_BANNER.Visibility = Visibility.Collapsed;
+                Main.RootNavigation.IsEnabled = true;
+
+            });
+        }
+            catch (Exception ex)
+            {
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                Main.logger2.Open();
+                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
+                Main.logger2.Close();
+
+            }
+}
+
+        private void Locate_Titanfall_Install_Click(object sender, RoutedEventArgs e)
+        {
+
+            try
+            {
+
+                var folderDlg = new Ookii.Dialogs.Wpf.VistaFolderBrowserDialog();
+                folderDlg.ShowNewFolderButton = true;
+                // Show the FolderBrowserDialog.  
+                var result = folderDlg.ShowDialog();
+                if (result == true)
+                {
+                    string path = folderDlg.SelectedPath;
+                    if (path == null || !Directory.Exists(path))
+                    {
+                        SnackBar.Appearance = ControlAppearance.Danger;
+                        SnackBar.Title = "WARNING!";
+                        SnackBar.Message = "Invalid Install Path!";
+                        SnackBar.Show();
+
+
+
+                    }
+                    else
+                    {
+                        Current_Install_Folder = path + @"\";
+                        DirectoryInfo Dir = new DirectoryInfo(Current_Install_Folder);
+
+                        if (Dir.Exists && File.Exists(Current_Install_Folder + "Titanfall2.exe"))
+                        {
+                            if (File.Exists(Current_Install_Folder + "NorthstarLauncher.exe"))
+                            {
+                                Found_Install_Folder = true;
+                                
+
+                                Directory_Box.Text = Current_Install_Folder;
+
+                                User_Settings_Vars.NorthstarInstallLocation = Current_Install_Folder;
+                                string User_Settings_Json_Strings = Newtonsoft.Json.JsonConvert.SerializeObject(User_Settings_Vars);
+                                using (var StreamWriter = new StreamWriter(AppDataFolder + @"\VTOL_DATA\Settings\User_Settings.Json", false))
+                                {
+                                    StreamWriter.WriteLine(User_Settings_Json_Strings);
+                                    StreamWriter.Close();
+                                }
+
+                                NSExe = Get_And_Set_Filepaths(Current_Install_Folder, "NorthstarLauncher.exe");
+                                Check_Integrity_Of_NSINSTALL();
+                                SnackBar.Appearance = ControlAppearance.Success;
+                                SnackBar.Title = "SUCCESS";
+                                SnackBar.Message = VTOL.Resources.Languages.Language.Page_Home_Browse_Titanfall_Button_Click_TheLocation + Current_Install_Folder + VTOL.Resources.Languages.Language.Page_Home_Browse_Titanfall_Button_Click_IsValidAndHasBeenSet;
+                                SnackBar.Show();
+                                WELCOME_BANNER.Visibility = Visibility.Collapsed;
+                                Main.RootNavigation.IsEnabled = true;
+
+                                if (IsDirectoryValid(Current_Install_Folder) == false)
+                                {
+                                    ShowBanner();
+
+                                }
+
+                            }
+                            else
+                            {
+                               
+                                WELCOME_BANNER.Visibility = Visibility.Collapsed;
+                                Main.RootNavigation.IsEnabled = true;
+                                if (!Current_Install_Folder.EndsWith(@"\"))
+                                {
+                                    string fix = Current_Install_Folder + @"\";
+                                    User_Settings_Vars.NorthstarInstallLocation = fix;
+                                    Current_Install_Folder = fix.Replace(@"\\", @"\").Replace("/", @"\");
+
+                                }
+                                SnackBar.Appearance = ControlAppearance.Danger;
+                                SnackBar.Title = "WARNING!";
+                                SnackBar.Message = VTOL.Resources.Languages.Language.Page_Home_INIT_NORTHSTARAUTOINSTALLWILLNOWBEGINPLEASEWAITABOUT30SECONDS;
+                                SnackBar.Timeout = 8000;
+                                SnackBar.Show();
+
+                                if (IsDirectoryValid(Current_Install_Folder) == false)
+                                {
+                                    ShowBanner();
+                                    Auto_Install_(false);
+
+                                }
+                                else
+                                {
+                                    Auto_Install_(true);
+
+
+                                }
+                            }
+                        }
+                        else
+                        {
+                            SnackBar.Appearance = ControlAppearance.Danger;
+                            SnackBar.Title = "WARNING!";
+                            SnackBar.Message = VTOL.Resources.Languages.Language.Browse_Titanfall_Button_Click_TheLocation + Current_Install_Folder + VTOL.Resources.Languages.Language.Page_Home_Browse_Titanfall_Button_Click_IsNotValid;
+                            SnackBar.Timeout = 8000;
+                            SnackBar.Show();
+
+                        }
+
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                Main.logger2.Open();
+                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
+                Main.logger2.Close();
+
+            }
         }
     }
 }

@@ -23,7 +23,7 @@
 
         <Label Content="Change the Entire Application by importing or Exporting Profiles" Margin="50,0,0,573" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="410"/>
         <Label Content="PROFILES" Margin="50,0,357,594" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Background="{x:Null}" Foreground="White" FontSize="22" FontWeight="Bold" Height="28" VerticalAlignment="Bottom"/>
-        <ListBox x:Name="Profile_List_Box" Grid.ColumnSpan="2"  Margin="50,111,50,279"   VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.ScrollUnit="Pixel" IsSynchronizedWithCurrentItem="True"   ItemsSource="{Binding Final_List}" >
+        <ListBox x:Name="Profile_List_Box"  Margin="50,111,50,125"   VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.ScrollUnit="Pixel" IsSynchronizedWithCurrentItem="True"   ItemsSource="{Binding Final_List}" >
             <ListBox.ItemContainerStyle>
                 <Style TargetType="ListBoxItem">
                     <Setter Property="IsTabStop" Value="False" />
@@ -62,7 +62,7 @@
 
             <ListBox.ItemTemplate>
 
-                    <DataTemplate>
+                <DataTemplate>
                     <ui:CardControl x:Name="Card__" Margin="0,4,0,4" Foreground="{x:Null}" IsHitTestVisible="True" AutomationProperties.HelpText="sd"   Padding="5,5,5,5"  IsMouseCaptureWithinChanged="CardControl_IsMouseCaptureWithinChanged" GotFocus="CardControl_GotFocus" MouseMove="CardControl_MouseMove" ClickMode="Press" BorderBrush="{x:Null}" MouseRightButtonDown="Card___MouseRightButtonDown" Loaded="Card___Loaded">
                         <ui:CardControl.Resources>
                             <Storyboard x:Key="FadeInStoryboard">
@@ -101,20 +101,20 @@
 
                             </DockPanel>
                             <ui:Button x:Name="Mod_Btn" Width="112" Height="42" Content="IMPORT" Tag="{Binding Profile_Path_}" ToolTip="IMPORT" Margin="0,0,10,0" HorizontalAlignment="Right"  Background="{Binding Source={x:Static SystemParameters.WindowGlassBrush}}" Click="Import_Profile_Click" />
-                            
+
                         </Grid>
 
 
                     </ui:CardControl>
 
                 </DataTemplate>
-                    </ListBox.ItemTemplate>
+            </ListBox.ItemTemplate>
 
         </ListBox>
 
         <ui:Button x:Name="Import_Profile"   Icon="ArrowImport24" Height="30" Margin="0,395,245,0" VerticalAlignment="Top"  BorderBrush="{x:Null}" Content="Import Profile" Padding="0,0,0,0" ToolTip="Import Profile" Background="#FF383838"  ClickMode="Press" HorizontalAlignment="Right" Width="190"  Visibility="Collapsed" />
-        <ui:Button  x:Name="Export_Profile" Icon="ArrowExportLtr24" Height="30" Margin="0,395,50,0" VerticalAlignment="Top"  BorderBrush="{x:Null}" Content="Export Profile" Padding="0,0,0,0" ToolTip="Export Profile" Background="#FF383838" ClickMode="Press" HorizontalAlignment="Right" Width="190" Click="Export_Profile_Click" />
-        <ui:Button  x:Name="Add_Profile" Icon="Add12" Height="30" Margin="50,395,0,0" VerticalAlignment="Top"  BorderBrush="{x:Null}" Content="Add Profile" Padding="0,0,0,0" ToolTip="Add Profile" Background="#FF383838"  ClickMode="Press" Width="195" Click="Add_Profile_Click" />
+        <ui:Button  x:Name="Export_Profile" Icon="ArrowExportLtr24" Height="30" Margin="0,556,50,0" VerticalAlignment="Top"  BorderBrush="{x:Null}" Content="Export Profile" Padding="0,0,0,0" ToolTip="Export Profile" Background="#FF383838" ClickMode="Press" HorizontalAlignment="Right" Width="190" Click="Export_Profile_Click" />
+        <ui:Button  x:Name="Add_Profile" Icon="Add12" Height="30" Margin="50,556,0,0" VerticalAlignment="Top"  BorderBrush="{x:Null}" Content="Add Profile" Padding="0,0,0,0" ToolTip="Add Profile" Background="#FF383838"  ClickMode="Press" Width="195" Click="Add_Profile_Click" />
 
         <ComboBox x:Name="Extra_Menu" Margin="246,396,0,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" BorderThickness="0,0,0,0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" HorizontalAlignment="Left" Background="#FF383838" Height="26" DropDownClosed="ComboBox_DropDownClosed" RenderTransformOrigin="0.5,0.5" MinHeight="28" SelectionChanged="Extra_Menu_SelectionChanged" Visibility="Hidden"  >
 
@@ -152,7 +152,7 @@
                     </Grid>
                 </Border>-->
 
-                <Border x:Name="Export_Profile_Options_Panel" Visibility="Hidden" Margin="406,169,0,0" Background="#FF191919" CornerRadius="7,7,7,7" Height="384" VerticalAlignment="Top" HorizontalAlignment="Left" Width="336">
+                <Border x:Name="Export_Profile_Options_Panel" Visibility="Collapsed" Margin="0,169,406,0" Background="#FF191919" CornerRadius="7,7,7,7" Height="384" VerticalAlignment="Top" HorizontalAlignment="Right" Width="336">
 
                     <Grid>
 
@@ -185,7 +185,7 @@
 
                     </Grid>
                 </Border>
-                <Border x:Name="Add_Profile_Options_Panel" Visibility="Hidden" Margin="406,169,406,261" Background="#FF191919" CornerRadius="7,7,7,7">
+                <Border x:Name="Add_Profile_Options_Panel" Visibility="Collapsed" Margin="0,169,406,261" Background="#FF191919" CornerRadius="7,7,7,7" HorizontalAlignment="Right" Width="336">
                     <Grid>
                         <ui:Button  x:Name="Exit_BTN_ADD_Prfl" Icon="Dismiss24" Height="25" Margin="301,10,0,0" VerticalAlignment="Top"  BorderBrush="{x:Null}"  Padding="0,0,0,0" ToolTip="Exit" Background="#FF7B0000"  ClickMode="Press" Width="25" Click="Exit_BTN_ADD_Prfl_Click_1" />
 

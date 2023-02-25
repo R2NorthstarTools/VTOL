@@ -98,6 +98,8 @@
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\764654.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\765731.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\869852.png" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\BT_.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\BT_wallpaper000002_thumb.detail.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\desktop-1680x1050.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper %281%29.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper %2810%29.jpg" />
@@ -307,9 +309,9 @@
     <EmbeddedResource Include="README.md">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <Content Include="Resources\Backgrounds\405e3ab0-2648-4e8b-a4cc-51a008666e75.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Resource Include="Resources\Backgrounds\405e3ab0-2648-4e8b-a4cc-51a008666e75.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\1008810.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -341,6 +343,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\869852.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\BT_.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\desktop-1680x1050.jpg">

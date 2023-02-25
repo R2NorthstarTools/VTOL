@@ -104,7 +104,7 @@
         Storyboard.TargetProperty="Opacity"
         From="0"
         To="1"
-        Duration="0:0:0.5" />
+        Duration="0:0:0.8" />
                             </Storyboard>
                             <Storyboard x:Key="FadeOutStoryboard">
                                     <DoubleAnimation
@@ -112,7 +112,7 @@
         Storyboard.TargetProperty="Opacity"
         From="1"
         To="0"
-        Duration="0:0:0.5" />
+        Duration="0:0:0.8" />
                                 </Storyboard>
                         </Grid.Resources>
                         <Grid.Triggers>
@@ -129,6 +129,7 @@
                                 <ImageBrush  ImageSource="{Binding Icon}" Stretch="UniformToFill"  />
 
                             </Border.Background>
+                            
                         </Border>
                         <!--<Image x:Name="Ts_Image" Source="{Binding Icon}" Stretch="UniformToFill" Height="Auto" GotFocus="Ts_Image_GotFocus" LostFocus="Ts_Image_LostFocus" MouseEnter="Ts_Image_MouseEnter" Width="Auto" HorizontalAlignment="Center" RenderOptions.BitmapScalingMode="NearestNeighbor" UseLayoutRounding="True"/>-->
 
