@@ -1281,21 +1281,32 @@ namespace VTOL.Pages
 					string Name_ = Button_.Tag.ToString();
 					if (Name_ != null)
 					{
-						UnpackRead_BIN_INFO(Name_);
-						MessageBox.Show(Name_);
-						
-						DispatchIfNecessary(async () =>
+						if (File.Exists(Name_))
 						{
-							FadeControl(Add_Profile_Options_Panel, true, 1.5);
+							FileInfo f = new FileInfo(Name_);
+							FadeControl(Options_Panel, true, 2);
+							if (Directory.Exists(Main.User_Settings_Vars.NorthstarInstallLocation + "VTOL_profiles"))
+							{
+								TryCopyFile(Name_, Main.User_Settings_Vars.NorthstarInstallLocation + "VTOL_profiles\\" + f.Name);
 
-						});
-						DispatchIfNecessary(async () =>
-						{
 
-							LoadProfiles();
 
-						});
+							}
 
+							UnpackRead_BIN_INFO(Name_);
+
+							DispatchIfNecessary(async () =>
+							{
+
+								LoadProfiles();
+
+							});
+							DispatchIfNecessary(async () =>
+							{
+								FadeControl(Add_Profile_Options_Panel, true, 1.5);
+
+							});
+						}
 					}
 				}
 

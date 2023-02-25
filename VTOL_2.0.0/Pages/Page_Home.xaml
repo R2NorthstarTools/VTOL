@@ -336,6 +336,37 @@
                     </Border>
                 </Grid>
             </Border>
+            <Border x:Name="WELCOME_BANNER" Background="#99000000" Visibility="Visible" >
+                <Grid    Margin="214,66,214,103">
+
+                    <Border x:Name="FFS" Background="#FF080808"   CornerRadius="9,9,9,9" Visibility="Visible"
+/>
+
+                    <Grid>
+                        <Border CornerRadius="9,9,9,9" Visibility="Visible">
+                            <Border.Background>
+                                <ImageBrush ImageSource="/Resources/Backgrounds/Backgrounds_Home_Page/BT_wallpaper000002_thumb.detail.jpg" Stretch="UniformToFill" Opacity="0.998" TileMode="Tile"/>
+                            </Border.Background>
+                        </Border>
+                        <Grid.Effect>
+                            <BlurEffect KernelType="Gaussian" Radius="9" RenderingBias="Performance" />
+                        </Grid.Effect>
+                      
+                    </Grid>
+                    <ui:Button  x:Name="DDX" Icon="Dismiss24" Height="25" Margin="685,10,0,0" VerticalAlignment="Top"  BorderBrush="{x:Null}"  Padding="0,0,0,0" ToolTip="Exit" Background="#FF7B0000"  ClickMode="Press" Width="25" Click="Exit_BTN_Click_1" />
+                    <Border  Background="#C9000000"   CornerRadius="8" Margin="0,310,0,0" BorderThickness="0,1,0,0"
+>
+                        <StackPanel>
+
+                            <TextBlock TextWrapping="WrapWithOverflow" Height="80" Text="Welcome to Titanfall 2 Northstar, the ultimate modding and server framework. The VTOL Mod Manager aims to offer easy-to-use features like automatic Northstar updates, custom skins for weapons and pilots, and powerful tools for mod and server management, giving you complete control over your Northstar experience." Foreground="White" Width="682" HorizontalAlignment="Center" TextAlignment="Center" TextTrimming="CharacterEllipsis" LineStackingStrategy="MaxHeight" FontSize="14" Margin="0,16,0,0"/>
+                            <TextBlock TextWrapping="WrapWithOverflow" Height="34" Text="Please Locate your Titanfall 2 Install Folder. Titanfall 2 can be commonly be found in ----" Foreground="White" Width="682" HorizontalAlignment="Center" TextAlignment="Center" TextTrimming="CharacterEllipsis" LineStackingStrategy="MaxHeight" FontSize="14"/>
+
+                            <ui:Button x:Name="DDF" Height="35" Width="264" HorizontalAlignment="Right" Background="#FF00422E" Content="Locate Tiitanfall 2 Folder" Padding="0,0,0,0" Icon="SlideMultipleSearch24" Appearance="Secondary" Margin="0,2,14,0" MouseEnter="EXE_BUTTON_MouseEnter" MouseLeave="EXE_BUTTON_MouseLeave" Click="EXE_BUTTON_Click" BorderBrush="{x:Null}" BorderThickness="2,2,2,2"/>
+                        </StackPanel>
+
+                    </Border>
+                </Grid>
+            </Border>
             <ui:Snackbar />
 
         </Grid>
