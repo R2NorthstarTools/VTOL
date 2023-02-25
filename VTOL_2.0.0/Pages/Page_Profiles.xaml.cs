@@ -49,8 +49,8 @@ namespace VTOL.Pages
 		public bool _Completed_Mod_call = false;
 
 		bool Do_Not_save_Mods = false;
-		string[] Folders = new string[] { "R2Northstar", "plugins", "bin" };
-		string[] Files = new string[] { "Northstar.dll", "NorthstarLauncher.exe", "r2ds.bat", "discord_game_sdk.dll" };
+		string[] Folders = new string[] { "R2Northstar", "plugins", @"bin\\x64_dedi" };
+		string[] Files = new string[] { "Northstar.dll", "NorthstarLauncher.exe", "r2ds.bat", "discord_game_sdk.dll" , "bin\\x64_retail\\wsock32.dll" };
 		bool Skip_Mods = false;
 		bool processing = false;
 		public CancellationTokenSource _cts = new CancellationTokenSource();
@@ -1281,20 +1281,20 @@ namespace VTOL.Pages
 					string Name_ = Button_.Tag.ToString();
 					if (Name_ != null)
 					{
-						//UnpackRead_BIN_INFO(Name_);
-
+						UnpackRead_BIN_INFO(Name_);
+						MessageBox.Show(Name_);
 						
 						DispatchIfNecessary(async () =>
 						{
 							FadeControl(Add_Profile_Options_Panel, true, 1.5);
 
 						});
-						//DispatchIfNecessary(async () =>
-						//{
+						DispatchIfNecessary(async () =>
+						{
 
-						//	LoadProfiles();
+							LoadProfiles();
 
-						//});
+						});
 
 					}
 				}
@@ -1357,7 +1357,7 @@ namespace VTOL.Pages
 		{
 			Pack_Label.Content = "UnPacking the File/Folder";
 
-			UnpackandCheck(CURRENT_FILE__, Main.User_Settings_Vars.NorthstarInstallLocation);
+			UnpackandCheck(CURRENT_FILE__,@"D:\Games\Titanfall2\R2Northstar\mods\open\directory.bin.gz");
 
 		}
 
