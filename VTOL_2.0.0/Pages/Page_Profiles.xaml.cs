@@ -1,23 +1,23 @@
-﻿		using System;
-		using System.Collections.Generic;
-		using System.Linq;
-		using System.Text;
-		using System.Threading.Tasks;
-		using System.Windows;
-		using System.Windows.Controls;
-		using System.Windows.Data;
-		using System.Windows.Documents;
-		using System.Windows.Input;
-		using System.Windows.Media;
-		using System.Windows.Media.Imaging;
-		using System.Windows.Navigation;
-		using System.Windows.Shapes;
-		using System.IO;
-		using System.Runtime.Serialization.Formatters.Binary;
-		using System.IO.Compression;
-		using System.Threading;
-		using NLog.Targets;
-		using System.Text.RegularExpressions;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO.Compression;
+using System.Threading;
+using NLog.Targets;
+using System.Text.RegularExpressions;
 using HandyControl.Tools;
 using System.Windows.Media.Animation;
 using System.Collections.ObjectModel;
@@ -49,8 +49,8 @@ namespace VTOL.Pages
 		public bool _Completed_Mod_call = false;
 
 		bool Do_Not_save_Mods = false;
-		string[] Folders = new string[] { "R2Northstar", "plugins", @"bin\\x64_dedi" };
-		string[] Files = new string[] { "Northstar.dll", "NorthstarLauncher.exe", "r2ds.bat", "discord_game_sdk.dll" , "bin\\x64_retail\\wsock32.dll" };
+		string[] Folders = new string[] { "R2Northstar", "plugins", @"bin\x64_dedi" };
+		string[] Files = new string[] { "Northstar.dll", "NorthstarLauncher.exe", "r2ds.bat", "discord_game_sdk.dll" , "wsock32.dll", "ns_startup_args.txt", "ns_startup_args_dedi.txt" };
 		bool Skip_Mods = false;
 		bool processing = false;
 		public CancellationTokenSource _cts = new CancellationTokenSource();
@@ -141,7 +141,13 @@ namespace VTOL.Pages
 								NAME.Content = data.NAME;
 
 								Console.WriteLine(data.NAME + "\n" + data.NORTHSTAR_VERSION + "\n" + data.MOD_COUNT + "\n" + data.TOTAL_SIZE_OF_FOLDERS);
+									DispatchIfNecessary(async () =>
+							{
+								Main.Profile_TAG.Content = data.NAME;
 
+
+
+								});
 							}
 						}
 
@@ -744,10 +750,9 @@ namespace VTOL.Pages
 				}
 				if (token.IsCancellationRequested)
 					return false;
-                if (includedFoldersPath.Contains("R2Northstar\\mods")){
-
-					MessageBox.Show(string.Join(", ", includedFoldersPath.ToArray()));
-                }
+				Console.WriteLine(string.Join("\n ", includedFoldersPath.ToArray()));
+				Console.WriteLine("\n\n\n\n\n");
+				Console.WriteLine(string.Join("\n ", includedFilesPath.ToArray()));
 				var data = new DirectoryData
 				{
 					Folders = CheckAndRemoveMissingFilesAndFolders(includedFoldersPath.Select(f => f).ToArray()),
@@ -758,6 +763,7 @@ namespace VTOL.Pages
 					TOTAL_SIZE_OF_FOLDERS = SIZE
 
 				};
+				Console.WriteLine(data.Folders + "\n" + data.Files);
 				if (token.IsCancellationRequested)
 					return false;
 
@@ -1368,7 +1374,7 @@ namespace VTOL.Pages
 		{
 			Pack_Label.Content = "UnPacking the File/Folder";
 
-			UnpackandCheck(CURRENT_FILE__,@"D:\Games\Titanfall2\R2Northstar\mods\open\directory.bin.gz");
+			UnpackandCheck(CURRENT_FILE__, @"D:\test");
 
 		}
 

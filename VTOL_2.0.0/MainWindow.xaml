@@ -280,7 +280,7 @@
                                 <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ActiveCaptionColorKey}}"/>
                             </ui:Button.MouseOverBackground>
                         </ui:Button>
-                        <Label x:Name="Profile_TAG" Width="202" Background="{x:Null}" Foreground="#FFA2A2A2" Content="Default__Profile" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Height="23" Padding="15,0,0,1"></Label>
+                        <Label x:Name="Profile_TAG" Width="202" Background="{x:Null}" Foreground="#FFA2A2A2" Content="" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Height="23" Padding="15,0,0,1"></Label>
                     </StackPanel>
                 </StatusBarItem>
             </StatusBar>

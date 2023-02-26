@@ -322,5 +322,17 @@ namespace VTOL.Properties {
                 this["Minimize_to_Tray"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Profile_Name {
+            get {
+                return ((string)(this["Profile_Name"]));
+            }
+            set {
+                this["Profile_Name"] = value;
+            }
+        }
     }
 }

@@ -106,10 +106,8 @@ namespace VTOL
                 InitializeComponent();
                 NotificationManager =  new NotificationManager();
                  minimize_to_tray =  Properties.Settings.Default.Minimize_to_Tray;
+                Profile_TAG.Content = Properties.Settings.Default.Profile_Name;
 
-                //System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo("fr-FR");
-
-                //System.Threading.Thread.CurrentThread.CurrentCulture = new CultureInfo("fr-FR");Do
                 if (!File.Exists(AppDataFolder + @"\VTOL_DATA\Settings\User_Settings.Json"))
                 {    string DocumentsFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 
@@ -178,8 +176,7 @@ namespace VTOL
                 else
                 {
                     failed_folder = true;
-                    MessageBox.Show("VTOL SYSTEMS FAILED TO FIND YOUR APPDATA FOLDER, LOCATE A SAVE DATA FOLDER");
-                    
+                    Send_Danger_Notif("VTOL SYSTEMS FAILED TO FIND YOUR APPDATA FOLDER, LOCATE A SAVE DATA FOLDER", 10000);
                         var folderDlg = new Ookii.Dialogs.Wpf.VistaFolderBrowserDialog();
                         folderDlg.ShowNewFolderButton = true;
                         // Show the FolderBrowserDialog.  
@@ -189,18 +186,18 @@ namespace VTOL
                             string path = folderDlg.SelectedPath;
                             if (path == null || !Directory.Exists(path))
                             {
-                                MessageBox.Show("INVALID FOLDER");
+                            Send_Caution_Notif("INVALID FOLDER");
 
 
 
 
-                            }
-                            else
+                        }
+                        else
                             {
 
                             Properties.Settings.Default.BACKUP_SAVE_DEST = path + @"\";
                             Properties.Settings.Default.Save();
-                            MessageBox.Show("RESTARTING TO SET HARD VALUES");
+                            Send_Info_Notif("RESTARTING TO SET HARD VALUES");
 
                             Restart();
                         }
