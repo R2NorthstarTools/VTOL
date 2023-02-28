@@ -1038,11 +1038,20 @@ int millisecondsDelay = 150)
                     }
                     else
                     {
-                        string Current_Install_Folder_x = Auto_Find_And_verify(InstalledApplications.GetApplictionInstallPath("Steam")).Replace(@"\\", @"\").Replace("/", @"\");
 
 
-                        Current_Install_Folder = Auto_Find_And_verify().Replace(@"\\", @"\").Replace("/", @"\");
-
+                        Task<string> steam = Task.Run(() =>
+                        {
+                            string currentInstallFolderX = Auto_Find_And_verify(InstalledApplications.GetApplictionInstallPath("Steam")).Replace(@"\\", @"\").Replace("/", @"\");
+                            return currentInstallFolderX;
+                        });
+                        string Current_Install_Folder_x = steam.Result;
+                        Task<string> Northstar_ = Task.Run(() =>
+                        {
+                           string x = Auto_Find_And_verify().Replace(@"\\", @"\").Replace("/", @"\");
+                            return x;
+                        });
+                        string Current_Install_Folder = Northstar_.Result;
                         if (IsValidPath(Current_Install_Folder))
                         {
                             if (!Current_Install_Folder.EndsWith(@"\"))
@@ -1134,7 +1143,9 @@ int millisecondsDelay = 150)
                             Main.VERSION_TEXT.Refresh();
                             Main.User_Settings_Vars = User_Settings_Vars;
                             Directory_Box.Text = Current_Install_Folder;
-                            Check_Integrity_Of_NSINSTALL();
+                            Task check_task = Task.Run(() =>  Check_Integrity_Of_NSINSTALL());
+                            check_task.Wait();
+
 
                             if (User_Settings_Vars.Auto_Update_Northstar == true)
                             {
@@ -1167,8 +1178,9 @@ int millisecondsDelay = 150)
                             SnackBar.Message = VTOL.Resources.Languages.Language.Page_Home_INIT_NORTHSTARAUTOINSTALLWILLNOWBEGINPLEASEWAITABOUT30SECONDS;
                             SnackBar.Timeout = 8000;
                             SnackBar.Show();
-                            Auto_Install_(true);
-
+                           
+                            Task check_task = Task.Run(() => Auto_Install_(true));
+                            check_task.Wait();
 
 
 
@@ -1236,7 +1248,8 @@ int millisecondsDelay = 150)
                         }
                         if (Directory.Exists(Current_Install_Folder))
                         {
-                            Auto_Install_(false);
+                            Task check_task = Task.Run(() => Auto_Install_(false));
+                            check_task.Wait();
                         }
                         else
                         {
@@ -1341,62 +1354,6 @@ int millisecondsDelay = 150)
 
 
                 }
-
-
-                //if (Directory.Exists(@"C:\ProgramData\VTOL_DATA"))
-                //{
-
-
-
-
-                //    if (File.Exists(@"C:\ProgramData\VTOL_DATA\VARS\AUTHOR.txt"))
-                //    {
-                //        User_Settings_Vars.Author = Read_From_TextFile_OneLine(@"C:\ProgramData\VTOL_DATA\VARS\AUTHOR.txt").Trim();
-                //        File.Delete(@"C:\ProgramData\VTOL_DATA\VARS\AUTHOR.txt");
-                //    }
-                //    if (File.Exists(@"C:\ProgramData\VTOL_DATA\VARS\REPO.txt"))
-                //    {
-                //        User_Settings_Vars.Repo = Read_From_TextFile_OneLine(@"C:\ProgramData\VTOL_DATA\VARS\REPO.txt").Trim();
-                //        File.Delete(@"C:\ProgramData\VTOL_DATA\VARS\REPO.txt");
-                //    }
-                //    if (File.Exists(@"C:\ProgramData\VTOL_DATA\VARS\REPO_URL.txt"))
-                //    {
-                //        User_Settings_Vars.RepoUrl = Read_From_TextFile_OneLine(@"C:\ProgramData\VTOL_DATA\VARS\REPO_URL.txt").Trim();
-                //        File.Delete(@"C:\ProgramData\VTOL_DATA\VARS\REPO_URL.txt");
-                //    }
-                //    if (File.Exists(@"C:\ProgramData\VTOL_DATA\VARS\MASTER_SERVERURL.txt"))
-                //    {
-                //        User_Settings_Vars.MasterServerUrl = Read_From_TextFile_OneLine(@"C:\ProgramData\VTOL_DATA\VARS\MASTER_SERVERURL.txt").Trim();
-                //        File.Delete(@"C:\ProgramData\VTOL_DATA\VARS\MASTER_SERVERURL.txt");
-
-                //    }
-                //    if (File.Exists(@"C:\ProgramData\VTOL_DATA\VARS\Current_Ver.txt"))
-                //    {
-                //        User_Settings_Vars.CurrentVersion = Read_From_TextFile_OneLine(@"C:\ProgramData\VTOL_DATA\VARS\Current_Ver.txt").Trim();
-                //        File.Delete(@"C:\ProgramData\VTOL_DATA\VARS\Current_Ver.txt");
-
-                //    }
-                //    if (File.Exists(@"C:\ProgramData\VTOL_DATA\VARS\INSTALL.txt"))
-                //    {
-                //        User_Settings_Vars.NorthstarInstallLocation = Read_From_TextFile_OneLine(@"C:\ProgramData\VTOL_DATA\VARS\INSTALL.txt");
-                //        File.Delete(@"C:\ProgramData\VTOL_DATA\VARS\INSTALL.txt");
-
-                //    }
-                //    if (File.Exists(@"C:\ProgramData\VTOL_DATA\VARS\Theme.txt"))
-                //    {
-                //        User_Settings_Vars.Theme = Read_From_TextFile_OneLine(@"C:\ProgramData\VTOL_DATA\VARS\Theme.txt");
-                //        File.Delete(@"C:\ProgramData\VTOL_DATA\VARS\Theme.txt");
-
-                //    }
-                //    if (File.Exists(@"C:\ProgramData\VTOL_DATA\VARS\Language.txt"))
-                //    {
-                //        User_Settings_Vars.Language = Read_From_TextFile_OneLine(@"C:\ProgramData\VTOL_DATA\VARS\Language.txt");
-                //        File.Delete(@"C:\ProgramData\VTOL_DATA\VARS\Language.txt");
-
-                //    }
-                //    TryDeleteDirectory(@"C:\ProgramData\VTOL_DATA", true);
-
-                //}
                 if (User_Settings_Vars.NorthstarInstallLocation != Current_Install_Folder)
                 {
                     User_Settings_Vars.NorthstarInstallLocation = Current_Install_Folder;
@@ -1405,14 +1362,19 @@ int millisecondsDelay = 150)
                 if (NS_Installed == true)
                 {
 
+                    DispatchIfNecessary(() =>
+                    {
 
-                    Update_Northstar_Button.Content = VTOL.Resources.Languages.Language.Page_Home_UpdateNorthstar;
+                        Update_Northstar_Button.Content = VTOL.Resources.Languages.Language.Page_Home_UpdateNorthstar;
+                    });
                 }
                 else
                 {
+                        DispatchIfNecessary(() =>
+                        {
 
-                    Update_Northstar_Button.Content = VTOL.Resources.Languages.Language.Page_Home_INIT_InstallNorthstar;
-
+                            Update_Northstar_Button.Content = VTOL.Resources.Languages.Language.Page_Home_INIT_InstallNorthstar;
+                        });
 
 
                 }

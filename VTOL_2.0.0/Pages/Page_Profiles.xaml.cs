@@ -52,7 +52,8 @@ namespace VTOL.Pages
 		string[] Folders = new string[] { "R2Northstar", "plugins", @"bin\x64_dedi" };
 		string[] Files = new string[] { "Northstar.dll", "NorthstarLauncher.exe", "r2ds.bat", "discord_game_sdk.dll" , "wsock32.dll", "ns_startup_args.txt", "ns_startup_args_dedi.txt" };
 		bool Skip_Mods = false;
-		bool processing = false;
+		bool Backup_Profile_Current = false;
+		bool cancel = false;
 		public CancellationTokenSource _cts = new CancellationTokenSource();
 		public class PathModel
 		{
@@ -96,7 +97,7 @@ namespace VTOL.Pages
 				CurrentFileChanged?.Invoke(this, file);
 			}
 		}
-		public void UnpackRead_BIN_INFO(string path)
+		public async void UnpackRead_BIN_INFO(string path)
 		{
 			try
 
@@ -111,7 +112,6 @@ namespace VTOL.Pages
 
 					if (sourceStream.Length == 0)
 					{
-						Console.WriteLine("The file is empty.");
 						return;
 					}
 					using (var decompressionStream = new GZipStreamWithProgress(sourceStream, CompressionMode.Decompress))
@@ -133,21 +133,24 @@ namespace VTOL.Pages
 							var data = (DirectoryData)formatter.Deserialize(stream);
 							string dataAsString = data.ToString();
 							//string dataAsString = data.ToString();
-							if (data.NAME.Length > 1 && data.NORTHSTAR_VERSION.Length > 1 && data.TOTAL_SIZE_OF_FOLDERS.Length > 1)
+							if (data != null)
 							{
-								I_NORTHSTAR_VERSION.Content = data.NORTHSTAR_VERSION;
-								I_NUMBER_OF_MODS.Content = data.MOD_COUNT;
-								I_TOTAL_SIZE.Content = data.TOTAL_SIZE_OF_FOLDERS;
-								NAME.Content = data.NAME;
+								if (data.NAME.Length > 1 && data.NORTHSTAR_VERSION.Length > 1 && data.TOTAL_SIZE_OF_FOLDERS.Length > 1)
+								{
+									I_NORTHSTAR_VERSION.Content = data.NORTHSTAR_VERSION;
+									I_NUMBER_OF_MODS.Content = data.MOD_COUNT;
+									I_TOTAL_SIZE.Content = data.TOTAL_SIZE_OF_FOLDERS;
+									NAME.Content = data.NAME;
 
-								Console.WriteLine(data.NAME + "\n" + data.NORTHSTAR_VERSION + "\n" + data.MOD_COUNT + "\n" + data.TOTAL_SIZE_OF_FOLDERS);
+									Console.WriteLine(data.NAME + "\n" + data.NORTHSTAR_VERSION + "\n" + data.MOD_COUNT + "\n" + data.TOTAL_SIZE_OF_FOLDERS);
 									DispatchIfNecessary(async () =>
 							{
 								Main.Profile_TAG.Content = data.NAME;
 
 
 
-								});
+							});
+								}
 							}
 						}
 
@@ -163,7 +166,9 @@ namespace VTOL.Pages
 			}
 			catch (Exception ex)
 			{
-				Console.WriteLine("An error occurred: " + ex.Message);
+				Main.logger2.Open();
+				Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
+				Main.logger2.Close();
 			}
 		}
 
@@ -216,13 +221,43 @@ namespace VTOL.Pages
 							data.Files = data.Files.Where(file => !file.Contains("R2Northstar\\mods")).ToArray();
 
 						}
+						if(Backup_Profile_Current == true)
+                        {
+
+							if (Directory.Exists(Main.User_Settings_Vars.NorthstarInstallLocation + "VTOL_profiles\\"))
+							{
+								DispatchIfNecessary(async () =>
+								{
+								Main.Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
+								Main.Snackbar.Show("INFO", "Backing Up Current Profile now");
+								Pack_Label.Content = "Packing the File/Folder";
+								});
+											
+								
+								Task packTask = Task.Run(() => Pack_NO_UI(Main.User_Settings_Vars.NorthstarInstallLocation, Folders, Files));
+								// Wait for the task to complete before continuing
+								packTask.Wait();
+
+								DispatchIfNecessary(async () =>
+								{
+									LoadProfiles();
+								});
+								//TryCopyFile(Name_, Main.User_Settings_Vars.NorthstarInstallLocation + "VTOL_profiles\\" + f.Name);
+							}
+
+						}
 						double totalSize = data.Folders.Count() + data.Files.Count();
 						double currentSize = 0;
 						string currentFile = "";
 
 
 						foreach (string folder in data.Folders)
-						{ string append = "";
+						{
+							if (token.IsCancellationRequested || cancel == true)
+							{
+								return false;
+							}
+							string append = "";
 
 
 							string foldername = System.IO.Path.GetFileName(folder);
@@ -242,7 +277,7 @@ namespace VTOL.Pages
 								wave_progress.Value = progressInt;
 
 							});
-							if (token.IsCancellationRequested)
+							if (token.IsCancellationRequested || cancel == true)
 							{
 								return false;
 							}
@@ -251,6 +286,10 @@ namespace VTOL.Pages
 
 						foreach (string file in data.Files)
 						{
+							if (token.IsCancellationRequested || cancel == true)
+							{
+								return false;
+							}
 							string append = "";
 							string fileName = System.IO.Path.GetFileName(file);
 							currentFile = fileName;
@@ -274,7 +313,7 @@ namespace VTOL.Pages
 								wave_progress.Value = progressInt;
 
 							});
-							if (token.IsCancellationRequested)
+							if (token.IsCancellationRequested || cancel == true)
 							{
 								return false;
 							}
@@ -723,7 +762,8 @@ namespace VTOL.Pages
 
 				if (!Directory.Exists(SAVE_PATH__))
 				{
-
+					Main.Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Caution;
+					Main.Snackbar.ShowAsync("ERROR!", "The Profile Path" + SAVE_PATH__ + "Is Invalid!");
 					return false;
 				}
 
@@ -797,6 +837,8 @@ namespace VTOL.Pages
 					File.Delete(SAVE_PATH__ + @"\" + EnforceWindowsStringName(SAVE_NAME__) + ".bin");
 
 				}
+				cancel = false;
+
 				CancelWork();
 				return true;
 
@@ -887,27 +929,78 @@ namespace VTOL.Pages
 				control.BeginAnimation(UIElement.OpacityProperty, animation);
 			}
 		}
+		private void Pack_NO_UI(string target_directory, string[] folders_, string[] files_)
+        {
+			_cts = new CancellationTokenSource();
+			var token = _cts.Token;
+
+			bool result = false;
+			string NS_Mod_Dir = Main.User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\mods";
+
+			if (Directory.Exists(target_directory) && Directory.Exists(NS_Mod_Dir))
+			{
+				System.IO.DirectoryInfo rootDirs = new DirectoryInfo(@NS_Mod_Dir);
+				System.IO.DirectoryInfo[] subDirs = null;
+				subDirs = rootDirs.GetDirectories();
+				string currentDateTimeString = DateTime.Now.ToString("yyyyMMdd-HHmmss");
+				VERSION = Main.User_Settings_Vars.CurrentVersion;
+				NUMBER_MODS__ = subDirs.Length;
+				SIZE = FileSizeCalculator.Pack(Main.User_Settings_Vars.NorthstarInstallLocation, Folders, Files);
+				SAVE_NAME__ = "BACKUP - " + currentDateTimeString;
+				SAVE_PATH__ = Main.User_Settings_Vars.NorthstarInstallLocation + "VTOL_profiles\\";
+
+				while (!token.IsCancellationRequested)
+				{
+					// Check the token's cancellation status
+					token.ThrowIfCancellationRequested();
+					// Add your long running operation here
+					result = ListDirectory(target_directory, folders_, files_, token);
+				}
+
+
+				if (result == true)
+				{
+					DispatchIfNecessary(async () =>
+					{
+						Main.Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
+						Main.Snackbar.Show("SUCCESS!", "The Profile " + SAVE_NAME__ + " has been created");
+						cancel = false;
+
+					});
+				}
+				else
+				{
+					DispatchIfNecessary(async () =>
+					{
+						Main.Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Caution;
+						Main.Snackbar.Show("ERROR", "The Backup Failed!");
+					});
+				}
+			}
+
+		}
+
 		private async void Pack(string target_directory, string[] folders_, string[] files_)
         {
 			try
 			{
 				_cts = new CancellationTokenSource();
 				var token = _cts.Token;
-
-				DispatchIfNecessary(async () =>
+				
+					DispatchIfNecessary(async () =>
 				{
-				// Perform the long-running operation on a background thread
-				try
+					// Perform the long-running operation on a background thread
+					try
 					{
 						bool result = false;
 						var result_ = await Task.Run(() =>
 						{
 							while (!token.IsCancellationRequested)
 							{
-							// Check the token's cancellation status
-							token.ThrowIfCancellationRequested();
-							// Add your long running operation here
-							result = ListDirectory(target_directory, folders_, files_, token);
+								// Check the token's cancellation status
+								token.ThrowIfCancellationRequested();
+								// Add your long running operation here
+								result = ListDirectory(target_directory, folders_, files_, token);
 							}
 							return result;
 						}, token);
@@ -918,17 +1011,19 @@ namespace VTOL.Pages
 							Main.Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
 							Main.Snackbar.Show("SUCCESS!", "The Profile " + SAVE_NAME__ + "Has Been Packed");
 							Loading_Panel.Visibility = Visibility.Hidden;
-							wave_progress.Visibility = Visibility.Visible;
+							wave_progress.Visibility = Visibility.Hidden;
 							Circe_progress.Visibility = Visibility.Hidden;
 							Loading_Panel.Visibility = Visibility.Hidden;
 							Options_Panel.Visibility = Visibility.Hidden;
 							Add_Profile_Options_Panel.Visibility = Visibility.Hidden;
 							Export_Profile_Options_Panel.Visibility = Visibility.Hidden;
+							cancel = false;
+
 							DispatchIfNecessary(async () =>
 							{
 								LoadProfiles();
-									//PopulateListBoxWithRandomPaths();
-								});
+								//PopulateListBoxWithRandomPaths();
+							});
 						}
 						else
 						{
@@ -940,13 +1035,22 @@ namespace VTOL.Pages
 					}
 					catch (OperationCanceledException)
 					{
-					// Handle the cancellation
-					Console.WriteLine("Cancelled!");
+						// Handle the cancellation
+						Console.WriteLine("Cancelled!");
 						Main.Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Caution;
 						Main.Snackbar.Show("ERROR", "The Profile Creation of" + SAVE_NAME__ + "Failed");
+						wave_progress.Visibility = Visibility.Visible;
+						Circe_progress.Visibility = Visibility.Hidden;
+						Loading_Panel.Visibility = Visibility.Hidden;
+						Options_Panel.Visibility = Visibility.Hidden;
+						Add_Profile_Options_Panel.Visibility = Visibility.Hidden;
+						Export_Profile_Options_Panel.Visibility = Visibility.Hidden;
+					
 					}
 					finally
 					{
+						cancel = false;
+
 						wave_progress.Visibility = Visibility.Visible;
 						Circe_progress.Visibility = Visibility.Hidden;
 						Loading_Panel.Visibility = Visibility.Hidden;
@@ -955,7 +1059,8 @@ namespace VTOL.Pages
 						Export_Profile_Options_Panel.Visibility = Visibility.Hidden;
 					}
 				});
-			}
+				}
+			
 
 			catch (Exception ex)
 			{
@@ -964,35 +1069,7 @@ namespace VTOL.Pages
 				Main.logger2.Close();
 			}
 		}
-		private async void PopulateListBoxWithRandomPaths()
-		{
-
-			// Turn on loading icon
-
-			// Clear the list box
-			Profile_List_Box.Items.Clear();
-
-			// Create a list to hold the file paths
-			List<string> filePaths = new List<string>();
-			// Add random file paths to the list
-			for (int i = 0; i < 10; i++)
-			{
-				filePaths.Add(System.IO.Path.GetRandomFileName());
-				// Output the file paths to the console for debugging
-				Profile_List_Box.Items.Add(System.IO.Path.GetRandomFileName());
-				Profile_List_Box.Refresh();
-				// Add the file paths to the list box
-				await Task.Delay(50);
-
-			}
-			filePaths.ForEach(Console.WriteLine);
-
-			//Profile_List_Box.ItemsSource = filePaths;
-
-
-			// Turn off loading icon
-
-		}
+		
 		public class Card_
 		{
 			public string Profile_Path_ { get; set; }
@@ -1003,10 +1080,6 @@ namespace VTOL.Pages
 		private async void LoadProfiles()
 		{
             try { 
-			Console.WriteLine("Loading List");
-
-			// Show loading icon
-			//LoadingIcon.Visibility = Visibility.Visible;
 
 			// Clear current listbox items
 			Profile_List_Box.ItemsSource = null;
@@ -1014,13 +1087,7 @@ namespace VTOL.Pages
 
 				// Get all .vpb files in the directory
 				string[] vpbFiles = await Task.Run(() => Directory.GetFiles(Main.User_Settings_Vars.NorthstarInstallLocation + "VTOL_profiles", "*.vbp", SearchOption.AllDirectories));
-			//string[] vpbFiles = Directory.GetFiles(Main.User_Settings_Vars.NorthstarInstallLocation + "VTOL_profiles", "*.vbp", SearchOption.AllDirectories);
-			// Add .vpb files to listbox
-			//foreach (string file in vpbFiles)
-			//{
-			//	Profile_List_Box.Items.Add(System.IO.Path.GetFileNameWithoutExtension(file));
-			//}
-
+		
 			foreach (string file in vpbFiles)
 			{
 					
@@ -1066,7 +1133,13 @@ namespace VTOL.Pages
 				if (File.Exists(vtol_profiles_file_bin))
 				{
 					Console.WriteLine("Found!");
+					DispatchIfNecessary(async () =>
+					{
+						Current_File_Tag.Content = "Backing Up vtol_profiles_file_bin";
+						wave_progress.Text = 0 + "%";
+						wave_progress.Value = 0;
 
+					});
 					Loading_Panel.Visibility = Visibility.Visible;
 					_cts = new CancellationTokenSource();
 					var token = _cts.Token;
@@ -1076,6 +1149,7 @@ namespace VTOL.Pages
 						// Display a message to the user indicating that the operation has started
 
 						// Perform the long-running operation on a background thread
+						
 						var result = await Task.Run(() =>
 						{
 							return UnpackDirectory(vtol_profiles_file_bin, Target_Dir, token);
@@ -1091,6 +1165,8 @@ namespace VTOL.Pages
 							Main.Snackbar.Show();
 							Loading_Panel.Visibility = Visibility.Hidden;
 							Options_Panel.Visibility = Visibility.Hidden;
+							cancel = false;
+
 						}
 						else
 						{
@@ -1100,7 +1176,14 @@ namespace VTOL.Pages
 							Main.Snackbar.Show();
 							Console.WriteLine(result);
 							Console.WriteLine("Failed!");
-						}
+							wave_progress.Visibility = Visibility.Visible;
+							Circe_progress.Visibility = Visibility.Hidden;
+							Loading_Panel.Visibility = Visibility.Hidden;
+							Options_Panel.Visibility = Visibility.Hidden;
+							Add_Profile_Options_Panel.Visibility = Visibility.Hidden;
+							Export_Profile_Options_Panel.Visibility = Visibility.Hidden;
+						
+					}
 
 						Loading_Panel.Visibility = Visibility.Hidden;
 						Options_Panel.Visibility = Visibility.Hidden;
@@ -1111,23 +1194,53 @@ namespace VTOL.Pages
 				
 					catch (OperationCanceledException)
 					{
-						Console.WriteLine("Cancelled!");
+						Main.Snackbar.Title = "ERROR";
+						Main.Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Caution;
+						Main.Snackbar.Message = "Operation Failed / Cancelled";
+						Main.Snackbar.Show(); 
+						wave_progress.Visibility = Visibility.Visible;
+						Circe_progress.Visibility = Visibility.Hidden;
+						Loading_Panel.Visibility = Visibility.Hidden;
+						Options_Panel.Visibility = Visibility.Hidden;
+						Add_Profile_Options_Panel.Visibility = Visibility.Hidden;
+						Export_Profile_Options_Panel.Visibility = Visibility.Hidden;
 					}
+				
 				catch (Exception ex)
 				{
 					Main.logger2.Open();
 					Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
 					Main.logger2.Close();
-				}
+						DispatchIfNecessary(async () =>
+						{
+							Main.Snackbar.Title = "FATAL";
+							Main.Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Danger;
+							Main.Snackbar.Message = "FAILED\n Could Not Find the file - " + vtol_profiles_file_bin;
+							Main.Snackbar.Show();
+							wave_progress.Visibility = Visibility.Visible;
+							Circe_progress.Visibility = Visibility.Hidden;
+							Loading_Panel.Visibility = Visibility.Hidden;
+							Options_Panel.Visibility = Visibility.Hidden;
+							Add_Profile_Options_Panel.Visibility = Visibility.Hidden;
+							Export_Profile_Options_Panel.Visibility = Visibility.Hidden;
+						});
+					}
 			}
 				else
+			{
+				DispatchIfNecessary(async () =>
 				{
 					Main.Snackbar.Title = "FATAL";
 					Main.Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Danger;
 					Main.Snackbar.Message = "FAILED\n Could Not Find the file - " + vtol_profiles_file_bin;
 					Main.Snackbar.Show();
+					wave_progress.Visibility = Visibility.Visible;
+					Circe_progress.Visibility = Visibility.Hidden;
 					Loading_Panel.Visibility = Visibility.Hidden;
 					Options_Panel.Visibility = Visibility.Hidden;
+					Add_Profile_Options_Panel.Visibility = Visibility.Hidden;
+					Export_Profile_Options_Panel.Visibility = Visibility.Hidden;
+				});
 
 				}
 			});
@@ -1238,8 +1351,8 @@ namespace VTOL.Pages
 
 		public void Export(string path, string[] includedFolders, string[] includedFiles) {
             try { 
-			Profile_Name.Text = SAVE_NAME__;
-			Profile_Location.Text = SAVE_PATH__;
+			//Profile_Name.Text = SAVE_NAME__;
+			//Profile_Location.Text = SAVE_PATH__;
 			string NS_Mod_Dir = Main.User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\mods";
 			if (!Directory.Exists(NS_Mod_Dir))
 			{
@@ -1264,6 +1377,7 @@ namespace VTOL.Pages
 
 			wave_progress.Visibility = Visibility.Hidden;
 			Circe_progress.Visibility = Visibility.Visible;
+
 			}
 
 			catch (Exception ex)
@@ -1277,6 +1391,8 @@ namespace VTOL.Pages
 
 		private void Export_Profile_Click(object sender, RoutedEventArgs e)
 		{
+			cancel = false;
+
 			Export(Main.User_Settings_Vars.NorthstarInstallLocation, Folders, Files);
 		}
 
@@ -1287,6 +1403,8 @@ namespace VTOL.Pages
 
 				if (sender.GetType() == typeof(Wpf.Ui.Controls.Button))
 				{
+					cancel = false;
+
 
 					Wpf.Ui.Controls.Button Button_ = (Wpf.Ui.Controls.Button)sender;
 					string Name_ = Button_.Tag.ToString();
@@ -1295,19 +1413,22 @@ namespace VTOL.Pages
 						if (File.Exists(Name_))
 						{
 							FileInfo f = new FileInfo(Name_);
-							FadeControl(Options_Panel, true, 2);
-							if (Directory.Exists(Main.User_Settings_Vars.NorthstarInstallLocation + "VTOL_profiles"))
+							//FadeControl(Options_Panel, true, 2);
+							DispatchIfNecessary(async () =>
+							{
+								Options_Panel.Visibility = Visibility.Visible;
+							});
+								if (Directory.Exists(Main.User_Settings_Vars.NorthstarInstallLocation + "VTOL_profiles") && !File.Exists(Main.User_Settings_Vars.NorthstarInstallLocation + "VTOL_profiles\\" + f.Name))
 							{
 								TryCopyFile(Name_, Main.User_Settings_Vars.NorthstarInstallLocation + "VTOL_profiles\\" + f.Name);
 
 
 
 							}
-
-							UnpackRead_BIN_INFO(Name_);
-
 							DispatchIfNecessary(async () =>
 							{
+								UnpackRead_BIN_INFO(Name_);
+
 
 								LoadProfiles();
 
@@ -1353,13 +1474,13 @@ namespace VTOL.Pages
 		private void Export_Profile_BTN(object sender, RoutedEventArgs e)
         {
             try {
-				FadeControl(Loading_Panel, true, 2);
+			FadeControl(Loading_Panel, true, 2);
 
 			Add_Profile_Options_Panel.Visibility = Visibility.Hidden;
 			Export_Profile_Options_Panel.Visibility = Visibility.Hidden;
-				FadeControl(Options_Panel, true, 2.5);
+			FadeControl(Options_Panel, true, 2.5);
 
-				Main.Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
+			Main.Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
 			Main.Snackbar.Show("INFO", "Packing Profile now");
 			Pack_Label.Content = "Packing the File/Folder";
 
@@ -1379,7 +1500,7 @@ namespace VTOL.Pages
 		{
 			Pack_Label.Content = "UnPacking the File/Folder";
 
-			UnpackandCheck(CURRENT_FILE__, @"D:\test");
+			UnpackandCheck(CURRENT_FILE__, Main.User_Settings_Vars.NorthstarInstallLocation);
 
 		}
 
@@ -1400,8 +1521,9 @@ namespace VTOL.Pages
 			CancelWork();
 			Options_Panel.Visibility = Visibility.Hidden;
 			Export_Profile_Options_Panel.Visibility = Visibility.Hidden;
-				FadeControl(Loading_Panel, false, 2.5);
-				Add_Profile_Options_Panel.Visibility = Visibility.Hidden;
+			FadeControl(Loading_Panel, false, 2.5);
+			Add_Profile_Options_Panel.Visibility = Visibility.Hidden;
+			cancel = true;
 			}
 
 			catch (Exception ex)
@@ -1505,6 +1627,8 @@ namespace VTOL.Pages
 			Export_Profile_Options_Panel.Visibility = Visibility.Hidden;
 			Loading_Panel.Visibility = Visibility.Hidden;
 			Add_Profile_Options_Panel.Visibility = Visibility.Hidden;
+			cancel = true;
+
 		}
 
 		private void Export_Mods_Checked(object sender, RoutedEventArgs e)
@@ -1537,7 +1661,9 @@ namespace VTOL.Pages
 			Export_Profile_Options_Panel.Visibility = Visibility.Hidden;
 			Loading_Panel.Visibility = Visibility.Hidden;
 			Add_Profile_Options_Panel.Visibility = Visibility.Hidden;
-		}
+				cancel = true;
+
+			}
 
 			catch (Exception ex)
 		{
@@ -1775,6 +1901,18 @@ namespace VTOL.Pages
 				
 
 			}
+		}
+
+        private void I_Backup_Mods_Unchecked(object sender, RoutedEventArgs e)
+        {
+			Backup_Profile_Current = false;
+
+		}
+
+        private void I_Backup_Mods_Checked(object sender, RoutedEventArgs e)
+        {
+			Backup_Profile_Current = true;
+
 		}
     }
 		}
