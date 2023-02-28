@@ -4416,12 +4416,8 @@ Main.logger2.Close();
                                 WELCOME_BANNER.Visibility = Visibility.Collapsed;
                                 Main.RootNavigation.IsEnabled = true;
 
-                                if (IsDirectoryValid(Current_Install_Folder) == false)
-                                {
-                                    ShowBanner();
-
-                                }
-
+                                
+                                Restart_App();
                             }
                             else
                             {

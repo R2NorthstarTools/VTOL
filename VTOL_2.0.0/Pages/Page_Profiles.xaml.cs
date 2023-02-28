@@ -258,14 +258,11 @@ namespace VTOL.Pages
 							string parentFolder = System.IO.Path.GetDirectoryName(file);
 							int index = file.LastIndexOf("Titanfall2");
 							string fileNameUpToWord = file.Substring(index + "Titanfall2".Length + 1);
-							if (System.IO.Path.GetFileName(parentFolder).Contains("Titanfall2"))
-							{
-								TryCopyFile(file, targetFile, true);
-							}
-							else
-							{
-								TryCopyFile(file, System.IO.Path.Combine(targetDirectory, fileNameUpToWord), true);
-							}
+							
+							TryCopyFile(file, System.IO.Path.Combine(targetDirectory, fileNameUpToWord), true);
+							//	else
+							//{
+							//}
 							//	System.Threading.Thread.Sleep(50); // to simulate delay
 							currentSize++;
 							double progress = currentSize / totalSize * 100;
@@ -470,7 +467,15 @@ namespace VTOL.Pages
 			for (int i = 0; i < maxRetries; ++i)
 			{
 				try
+
+
 				{
+					string directoryPath = System.IO.Path.GetDirectoryName(Destination);
+					if (!Directory.Exists(directoryPath)){
+
+						Directory.CreateDirectory(directoryPath);
+                    }
+				
 					if (File.Exists(Origin))
 					{
 						File.Copy(Origin, Destination, true);

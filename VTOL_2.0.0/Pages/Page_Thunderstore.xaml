@@ -104,7 +104,7 @@
         Storyboard.TargetProperty="Opacity"
         From="0"
         To="1"
-        Duration="0:0:0.8" />
+        Duration="0:0:0.69" />
                             </Storyboard>
                             <Storyboard x:Key="FadeOutStoryboard">
                                     <DoubleAnimation
@@ -112,7 +112,7 @@
         Storyboard.TargetProperty="Opacity"
         From="1"
         To="0"
-        Duration="0:0:0.8" />
+        Duration="0:0:0.69" />
                                 </Storyboard>
                         </Grid.Resources>
                         <Grid.Triggers>
