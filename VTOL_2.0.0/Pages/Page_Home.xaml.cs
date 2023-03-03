@@ -391,21 +391,7 @@ logger2.Close();
             bitmap.BeginInit();
             bitmap.UriSource = new Uri(_Images[random.Next(0, _Images.Count - 1)]);
             bitmap.EndInit();
-            Image.Source = bitmap;
-            //Task.Run(() =>
-            //{
-            //    var r = new Random();
-            //    while (true)
-            //    {
-            //        Application.Current.Dispatcher.Invoke(() =>
-            //        {
-            //            Console.WriteLine();
-            //            LastHourSeries[0].Values.Add(new ObservableValue(_trend));
-            //            LastHourSeries[0].Values.RemoveAt(0);
-            //        });
-            //    }
-            //});
-
+            Image.Source = bitmap;           
             DataContext = this;
             /////////////////////
             Toggle_MS_BT(Properties.Settings.Default.Master_Server_Check);
@@ -758,11 +744,17 @@ int millisecondsDelay = 150)
 
                 // Get the file version info for the notepad.
                 FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(Current_Install_Folder + @"NorthstarLauncher.exe");
+                if (myFileVersionInfo.FileVersion != null)
+                {
 
-                // Print the file name and version number.
-                Console.WriteLine(myFileVersionInfo.FileVersion);
-                Current_Ver_ = myFileVersionInfo.FileVersion;
-
+                    // Print the file name and version number.
+                    Console.WriteLine(myFileVersionInfo.FileVersion);
+                    Current_Ver_ = myFileVersionInfo.FileVersion;
+                }
+                else
+                {
+                    Current_Ver_ = "ERRR";
+                }
                 User_Settings_Vars.CurrentVersion = Current_Ver_;
                 Properties.Settings.Default.Version = Current_Ver_;
                 Properties.Settings.Default.Save();
@@ -1122,16 +1114,30 @@ int millisecondsDelay = 150)
 
                             // Get the file version info for the notepad.
                             FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(Current_Install_Folder + @"NorthstarLauncher.exe");
+                            if (myFileVersionInfo.FileVersion != null)
+                            {
 
-                            // Print the file name and version number.
-                            Console.WriteLine(myFileVersionInfo.FileVersion);
-                            Current_Ver_ = myFileVersionInfo.FileVersion;
+                                // Print the file name and version number.
+                                Console.WriteLine(myFileVersionInfo.FileVersion);
+                                Current_Ver_ = myFileVersionInfo.FileVersion;
+                            }
+                            if(Current_Ver_ == null)
+                            {
+                                Current_Ver_ = "ERR";
 
+                                Main.NORTHSTAR_BUTTON.Content = "Northstar Version - " + Current_Ver_;
+
+                            }
+                            else
+                            {
+
+                                Main.NORTHSTAR_BUTTON.Content = "Northstar Version - " + Current_Ver_.Remove(0, 1);
+
+                            }
                             User_Settings_Vars.CurrentVersion = Current_Ver_;
                             Properties.Settings.Default.Version = Current_Ver_;
                             Properties.Settings.Default.Save();
 
-                            Main.NORTHSTAR_BUTTON.Content = "Northstar Version - " + Current_Ver_.Remove(0, 1);
                             Main.VERSION_TEXT.Text = "VTOL - " + ProductVersion + " |";
                             Main.VERSION_TEXT.Refresh();
                             Main.NORTHSTAR_BUTTON.Refresh();
@@ -1931,14 +1937,18 @@ int millisecondsDelay = 150)
             try
             {
                 FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(Current_Install_Folder + @"NorthstarLauncher.exe");
-                if (myFileVersionInfo.FileVersion.Contains("rc") || myFileVersionInfo.FileVersion.Contains("EV"))
+                if (myFileVersionInfo.FileVersion != null)
                 {
-                    SnackBar.Message = VTOL.Resources.Languages.Language.Check_For_New_Northstar_Install_ReleaseCandidateDetected;
-                    SnackBar.Title = "INFO";
-                    SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
-                    SnackBar.Show();
-                    return;
 
+                    if (myFileVersionInfo.FileVersion.Contains("rc") || myFileVersionInfo.FileVersion.Contains("EV"))
+                    {
+                        SnackBar.Message = VTOL.Resources.Languages.Language.Check_For_New_Northstar_Install_ReleaseCandidateDetected;
+                        SnackBar.Title = "INFO";
+                        SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
+                        SnackBar.Show();
+                        return;
+
+                    }
                 }
                 Updater Update = new Updater(User_Settings_Vars.Author, User_Settings_Vars.Repo);
                 Update.Force_Version = User_Settings_Vars.CurrentVersion;
@@ -2003,9 +2013,18 @@ int millisecondsDelay = 150)
 
                         // Print the file name and version number.
                       //  Console.WriteLine(myFileVersionInfo.FileVersion);
-                        Current_Ver_ = myFileVersionInfo.FileVersion;
+                        if (myFileVersionInfo.FileVersion != null)
+                        {
 
-                        User_Settings_Vars.CurrentVersion = Current_Ver_;
+                            Current_Ver_ = myFileVersionInfo.FileVersion;
+
+                        }
+                        else
+                        {
+
+                            Current_Ver_ = "ERRR";
+                        }
+                            User_Settings_Vars.CurrentVersion = Current_Ver_;
                         Properties.Settings.Default.Version = Current_Ver_;
                         Properties.Settings.Default.Save();
 
@@ -3336,36 +3355,38 @@ Main.logger2.Close();
             try
             {
                 FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(Current_Install_Folder + @"NorthstarLauncher.exe");
-                if (myFileVersionInfo.FileVersion.Contains("rc") || myFileVersionInfo.FileVersion.Contains("EV"))
+                if (myFileVersionInfo.FileVersion != null)
                 {
-                    SnackBar.Message = VTOL.Resources.Languages.Language.Check_For_New_Northstar_Install_ReleaseCandidateDetected;
-                    SnackBar.Title = "INFO";
-                    SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
-                    SnackBar.Show();
-                    return;
-
-                }
-                Updater Update = new Updater(User_Settings_Vars.Author, User_Settings_Vars.Repo);
-                Update.Force_Version = User_Settings_Vars.CurrentVersion;
-                Update.Force_Version_ = true;
-                if (Update.CheckForUpdate(true))
-                {
-                   
-
-
-                    SnackBar.Message = VTOL.Resources.Languages.Language.Check_For_New_Northstar_Install_UpdateAvailableDownloadingAndInstallingNow;
-                    SnackBar.Title = "INFO";
-                    SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
-                    SnackBar.Show();
-                    if (!Current_Install_Folder.EndsWith(@"\"))
+                    if (myFileVersionInfo.FileVersion.Contains("rc") || myFileVersionInfo.FileVersion.Contains("EV"))
                     {
-                        string fix = Current_Install_Folder + @"\";
-                        User_Settings_Vars.NorthstarInstallLocation = fix;
-                        Current_Install_Folder = fix.Replace(@"\\", @"\").Replace("/", @"\");
+                        SnackBar.Message = VTOL.Resources.Languages.Language.Check_For_New_Northstar_Install_ReleaseCandidateDetected;
+                        SnackBar.Title = "INFO";
+                        SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
+                        SnackBar.Show();
+                        return;
 
                     }
-                    Auto_Install_(false);
-                    
+                    Updater Update = new Updater(User_Settings_Vars.Author, User_Settings_Vars.Repo);
+                    Update.Force_Version = User_Settings_Vars.CurrentVersion;
+                    Update.Force_Version_ = true;
+                    if (Update.CheckForUpdate(true))
+                    {
+
+
+
+                        SnackBar.Message = VTOL.Resources.Languages.Language.Check_For_New_Northstar_Install_UpdateAvailableDownloadingAndInstallingNow;
+                        SnackBar.Title = "INFO";
+                        SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
+                        SnackBar.Show();
+                        if (!Current_Install_Folder.EndsWith(@"\"))
+                        {
+                            string fix = Current_Install_Folder + @"\";
+                            User_Settings_Vars.NorthstarInstallLocation = fix;
+                            Current_Install_Folder = fix.Replace(@"\\", @"\").Replace("/", @"\");
+
+                        }
+                        Auto_Install_(false);
+
 
 
                         // Get the file version info for the notepad.
@@ -3390,11 +3411,11 @@ Main.logger2.Close();
                             StreamWriter.WriteLine(User_Settings_Json_Strings);
                             StreamWriter.Close();
                         }
-                    
+
+                    }
+
+
                 }
-              
-               
-                    
 
             }
             catch (Exception ex)

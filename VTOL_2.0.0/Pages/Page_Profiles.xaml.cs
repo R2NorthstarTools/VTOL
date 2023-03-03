@@ -24,7 +24,8 @@ using System.Collections.ObjectModel;
 using System.Reflection;
 using System.Globalization;
 using Windows.System.Profile;
-
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 namespace VTOL.Pages
 		{
 
@@ -32,7 +33,134 @@ namespace VTOL.Pages
 	/// Interaction logic for Page_Profiles.xaml
 	/// </summary>
 	/// 
+	namespace FileLockInfo
+	{
+		public static class Win32Processes
+		{
+			/// <summary>
+			/// Find out what process(es) have a lock on the specified file.
+			/// </summary>
+			/// <param name="path">Path of the file.</param>
+			/// <returns>Processes locking the file</returns>
+			/// <remarks>See also:
+			/// http://msdn.microsoft.com/en-us/library/windows/desktop/aa373661(v=vs.85).aspx
+			/// http://wyupdate.googlecode.com/svn-history/r401/trunk/frmFilesInUse.cs (no copyright in code at time of viewing)
+			/// </remarks>
+			public static List<Process> GetProcessesLockingFile(string path)
+			{
+				uint handle;
+				string key = Guid.NewGuid().ToString();
+				int res = RmStartSession(out handle, 0, key);
 
+				if (res != 0) throw new Exception("Could not begin restart session.  Unable to determine file locker.");
+
+				try
+				{
+					const int MORE_DATA = 234;
+					uint pnProcInfoNeeded, pnProcInfo = 0, lpdwRebootReasons = RmRebootReasonNone;
+
+					string[] resources = { path }; // Just checking on one resource.
+
+					res = RmRegisterResources(handle, (uint)resources.Length, resources, 0, null, 0, null);
+
+					if (res != 0) throw new Exception("Could not register resource.");
+
+					//Note: there's a race condition here -- the first call to RmGetList() returns
+					//      the total number of process. However, when we call RmGetList() again to get
+					//      the actual processes this number may have increased.
+					res = RmGetList(handle, out pnProcInfoNeeded, ref pnProcInfo, null, ref lpdwRebootReasons);
+
+					if (res == MORE_DATA)
+					{
+						return EnumerateProcesses(pnProcInfoNeeded, handle, lpdwRebootReasons);
+					}
+					else if (res != 0) throw new Exception("Could not list processes locking resource. Failed to get size of result.");
+				}
+				finally
+				{
+					RmEndSession(handle);
+				}
+
+				return new List<Process>();
+			}
+
+
+			[StructLayout(LayoutKind.Sequential)]
+			public struct RM_UNIQUE_PROCESS
+			{
+				public int dwProcessId;
+				public System.Runtime.InteropServices.ComTypes.FILETIME ProcessStartTime;
+			}
+
+			const int RmRebootReasonNone = 0;
+			const int CCH_RM_MAX_APP_NAME = 255;
+			const int CCH_RM_MAX_SVC_NAME = 63;
+
+			public enum RM_APP_TYPE
+			{
+				RmUnknownApp = 0,
+				RmMainWindow = 1,
+				RmOtherWindow = 2,
+				RmService = 3,
+				RmExplorer = 4,
+				RmConsole = 5,
+				RmCritical = 1000
+			}
+
+			[StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
+			public struct RM_PROCESS_INFO
+			{
+				public RM_UNIQUE_PROCESS Process;
+
+				[MarshalAs(UnmanagedType.ByValTStr, SizeConst = CCH_RM_MAX_APP_NAME + 1)] public string strAppName;
+
+				[MarshalAs(UnmanagedType.ByValTStr, SizeConst = CCH_RM_MAX_SVC_NAME + 1)] public string strServiceShortName;
+
+				public RM_APP_TYPE ApplicationType;
+				public uint AppStatus;
+				public uint TSSessionId;
+				[MarshalAs(UnmanagedType.Bool)] public bool bRestartable;
+			}
+
+			[DllImport("rstrtmgr.dll", CharSet = CharSet.Unicode)]
+			static extern int RmRegisterResources(uint pSessionHandle, uint nFiles, string[] rgsFilenames,
+				uint nApplications, [In] RM_UNIQUE_PROCESS[] rgApplications, uint nServices,
+				string[] rgsServiceNames);
+
+			[DllImport("rstrtmgr.dll", CharSet = CharSet.Auto)]
+			static extern int RmStartSession(out uint pSessionHandle, int dwSessionFlags, string strSessionKey);
+
+			[DllImport("rstrtmgr.dll")]
+			static extern int RmEndSession(uint pSessionHandle);
+
+			[DllImport("rstrtmgr.dll")]
+			static extern int RmGetList(uint dwSessionHandle, out uint pnProcInfoNeeded,
+				ref uint pnProcInfo, [In, Out] RM_PROCESS_INFO[] rgAffectedApps,
+				ref uint lpdwRebootReasons);
+
+			private static List<Process> EnumerateProcesses(uint pnProcInfoNeeded, uint handle, uint lpdwRebootReasons)
+			{
+				var processes = new List<Process>(10);
+				// Create an array to store the process results
+				var processInfo = new RM_PROCESS_INFO[pnProcInfoNeeded];
+				var pnProcInfo = pnProcInfoNeeded;
+
+				// Get the list
+				var res = RmGetList(handle, out pnProcInfoNeeded, ref pnProcInfo, processInfo, ref lpdwRebootReasons);
+
+				if (res != 0) throw new Exception("Could not list processes locking resource.");
+				for (int i = 0; i < pnProcInfo; i++)
+				{
+					try
+					{
+						processes.Add(Process.GetProcessById(processInfo[i].Process.dwProcessId));
+					}
+					catch (ArgumentException) { } // catch the error -- in case the process is no longer running
+				}
+				return processes;
+			}
+		}
+	}
 	public partial class Page_Profiles : Page
 	{
 
@@ -49,8 +177,8 @@ namespace VTOL.Pages
 		public bool _Completed_Mod_call = false;
 
 		bool Do_Not_save_Mods = false;
-		string[] Folders = new string[] { "R2Northstar", "plugins", @"bin\x64_dedi" };
-		string[] Files = new string[] { "Northstar.dll", "NorthstarLauncher.exe", "r2ds.bat", "discord_game_sdk.dll" , "wsock32.dll", "ns_startup_args.txt", "ns_startup_args_dedi.txt" };
+		string[] Folders = new string[] { @"R2Northstar\plugins", @"R2Northstar\mods", @"bin\x64_dedi" };
+		string[] Files = new string[] { "Northstar.dll", "NorthstarLauncher.exe", "r2ds.bat", "discord_game_sdk.dll" , "wsock32.dll", "ns_startup_args.txt", "ns_startup_args_dedi.txt", "placeholder_playerdata.pdata", "LEGAL.txt" };
 		bool Skip_Mods = false;
 		bool Backup_Profile_Current = false;
 		bool cancel = false;
@@ -203,14 +331,15 @@ namespace VTOL.Pages
 						using (FileStream decompressedFileStream = new FileStream(appDataPath + @"\directory_open.bin", FileMode.Create))
 						{
 							decompressionStream.CopyTo(decompressedFileStream);
+							decompressionStream.Close();
 						}
 
-
+						decompressionStream.Close();
 
 					}
 					
 					// unpack the "directory.bin" file
-					using (var stream = File.Open(appDataPath + @"\directory_open.bin", FileMode.Open))
+					using (var stream = File.Open(appDataPath + @"\directory_open.bin", FileMode.OpenOrCreate))
 					{
 						var formatter = new BinaryFormatter();
 						var data = (DirectoryData)formatter.Deserialize(stream);
@@ -218,7 +347,7 @@ namespace VTOL.Pages
 						if (Skip_Mods == true)
 						{
 							data.Folders = data.Folders.Where(folder => !folder.Contains("R2Northstar\\mods")).ToArray();
-							data.Files = data.Files.Where(file => !file.Contains("R2Northstar\\mods")).ToArray();
+							data.Files = data.Files.Where(file => !file.Path.Contains("R2Northstar\\mods")).ToArray();
 
 						}
 						if(Backup_Profile_Current == true)
@@ -248,7 +377,7 @@ namespace VTOL.Pages
 						}
 						double totalSize = data.Folders.Count() + data.Files.Count();
 						double currentSize = 0;
-						string currentFile = "";
+						string currentitem = "";
 
 
 						foreach (string folder in data.Folders)
@@ -261,7 +390,7 @@ namespace VTOL.Pages
 
 
 							string foldername = System.IO.Path.GetFileName(folder);
-							currentFile = foldername;
+							currentitem = foldername;
 							int index = folder.LastIndexOf("Titanfall2");
 							string fileNameUpToWord = folder.Substring(index + "Titanfall2".Length + 1);
 							string targetFolder = System.IO.Path.Combine(targetDirectory, fileNameUpToWord);
@@ -272,7 +401,7 @@ namespace VTOL.Pages
 							int progressInt = (int)Math.Round(progress);
 							DispatchIfNecessary(async () =>
 							{
-								Current_File_Tag.Content = append + currentFile;
+								Current_File_Tag.Content = append + currentitem;
 								wave_progress.Text = progressInt + "%";
 								wave_progress.Value = progressInt;
 
@@ -281,24 +410,24 @@ namespace VTOL.Pages
 							{
 								return false;
 							}
-							Console.WriteLine("Copying... " + progressInt + "% - " + currentFile);
+							Console.WriteLine("Creating Folders " + progressInt + "% - " + currentitem);
 						}
 
-						foreach (string file in data.Files)
+						foreach (FileData file in data.Files)
 						{
 							if (token.IsCancellationRequested || cancel == true)
 							{
 								return false;
 							}
 							string append = "";
-							string fileName = System.IO.Path.GetFileName(file);
-							currentFile = fileName;
+							string fileName = System.IO.Path.GetFileName(file.Path);
+							currentitem = fileName;
 							string targetFile = System.IO.Path.Combine(targetDirectory, fileName);
-							string parentFolder = System.IO.Path.GetDirectoryName(file);
-							int index = file.LastIndexOf("Titanfall2");
-							string fileNameUpToWord = file.Substring(index + "Titanfall2".Length + 1);
-							
-							TryCopyFile(file, System.IO.Path.Combine(targetDirectory, fileNameUpToWord), true);
+							string parentFolder = System.IO.Path.GetDirectoryName(file.Path);
+							int index = file.Path.LastIndexOf("Titanfall2");
+							string fileNameUpToWord = file.Path.Substring(index + "Titanfall2".Length + 1);
+
+							TryCreateFile(file.Data, System.IO.Path.Combine(targetDirectory, fileNameUpToWord), true);
 							//	else
 							//{
 							//}
@@ -308,7 +437,7 @@ namespace VTOL.Pages
 							int progressInt = (int)Math.Round(progress);
 							DispatchIfNecessary(async () =>
 							{
-								Current_File_Tag.Content = append + currentFile;
+								Current_File_Tag.Content = append + currentitem;
 								wave_progress.Text = progressInt + "%";
 								wave_progress.Value = progressInt;
 
@@ -318,7 +447,7 @@ namespace VTOL.Pages
 								return false;
 							}
 
-							Console.WriteLine("Copying... " + progressInt + "% - " + currentFile);
+							Console.WriteLine("Copying... " + progressInt + "% - " + currentitem);
 						}
 						CheckDirectory(appDataPath + @"\directory_open.bin", targetDirectory);
 					}
@@ -462,8 +591,32 @@ namespace VTOL.Pages
 
 			return false;
 		}
+		protected virtual bool IsFileLocked(string File)
+		{
+			try
+			{
+				FileInfo file = new FileInfo(File);
+				using (FileStream stream = file.Open(FileMode.Open, FileAccess.Read, FileShare.None))
+				{
+					stream.Close();
+				}
+			}
+			catch (IOException)
+			{
+				//the file is unavailable because it is:
+				//still being written to
+				//or being processed by another thread
+				//or does not exist (has already been processed)
+				return true;
+			}
+
+			//file is not locked
+			return false;
+		}
 		public bool TryMoveFile(string Origin, string Destination, bool overwrite = true, int maxRetries = 10, int millisecondsDelay = 200)
 		{
+			if(IsFileLocked(Origin) || IsFileLocked(Destination))
+				return false;
 			if (Origin == null)
 				throw new ArgumentNullException(Origin);
 			if (maxRetries < 1)
@@ -494,8 +647,10 @@ namespace VTOL.Pages
 
 			return false;
 		}
+	
 		public bool TryCopyFile(string Origin, string Destination, bool overwrite = true, int maxRetries = 10, int millisecondsDelay = 300)
 		{
+			
 			if (Origin == null)
 				throw new ArgumentNullException(Origin);
 			if (maxRetries < 1)
@@ -517,9 +672,52 @@ namespace VTOL.Pages
 				
 					if (File.Exists(Origin))
 					{
+						
 						File.Copy(Origin, Destination, true);
+
 					}
 					Thread.Sleep(millisecondsDelay);
+
+					return true;
+				}
+				catch (IOException)
+				{
+					
+
+					Thread.Sleep(millisecondsDelay);
+				}
+				catch (UnauthorizedAccessException)
+				{
+					Thread.Sleep(millisecondsDelay);
+				}
+			}
+
+			return false;
+		}
+
+		public bool TryCreateFile(byte[] origin, string destination, bool overwrite = true, int maxRetries = 10, int millisecondsDelay = 300)
+		{
+			if (origin == null)
+				throw new ArgumentNullException(nameof(origin));
+			if (maxRetries < 1)
+				throw new ArgumentOutOfRangeException(nameof(maxRetries));
+			if (millisecondsDelay < 1)
+				throw new ArgumentOutOfRangeException(nameof(millisecondsDelay));
+
+			for (int i = 0; i < maxRetries; ++i)
+			{
+				try
+				{
+					string directoryPath = System.IO.Path.GetDirectoryName(destination);
+					if (!Directory.Exists(directoryPath))
+					{
+						Directory.CreateDirectory(directoryPath);
+					}
+
+					using (var stream = new FileStream(destination, overwrite ? FileMode.Create : FileMode.CreateNew))
+					{
+						stream.Write(origin, 0, origin.Length);
+					}
 
 					return true;
 				}
@@ -680,6 +878,28 @@ namespace VTOL.Pages
 			}
 			return null;
 		}
+
+		public string CheckAndRemoveMissingFileAndFolder(string fileOrFolderPath)
+		{
+			try
+			{
+				var validFilesAndFolders = new List<string>();
+
+				if (File.Exists(fileOrFolderPath) || Directory.Exists(fileOrFolderPath))
+				{
+					return fileOrFolderPath;
+				}
+
+				
+			}
+			catch (Exception ex)
+			{
+				Main.logger2.Open();
+				Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
+				Main.logger2.Close();
+			}
+			return null;
+		}
 		public  void CheckDirectory(string binFilePath, string targetPath)
 		{
             try { 
@@ -717,8 +937,8 @@ namespace VTOL.Pages
 			// Check if files exist
 			foreach (var file in data.Files)
 			{
-				int index = file.LastIndexOf("Titanfall2");
-				string fileNameUpToWord = file.Substring(index + "Titanfall2".Length + 1);
+				int index = file.Path.LastIndexOf("Titanfall2");
+				string fileNameUpToWord = file.Path.Substring(index + "Titanfall2".Length + 1);
 				var targetFile = System.IO.Path.Combine(targetPath, fileNameUpToWord);
 
 				if (!File.Exists(targetFile))
@@ -754,6 +974,60 @@ namespace VTOL.Pages
 				Main.logger2.Open();
 				Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
 				Main.logger2.Close();
+			}
+		}
+		public static string[] TrimPathsToTitanfall2(string[] paths)
+		{
+			string titanfall2FolderName = "Titanfall2" + System.IO.Path.DirectorySeparatorChar;
+			string[] resultArray = new string[paths.Length];
+
+			for (int i = 0; i < paths.Length; i++)
+			{
+				string path = paths[i];
+
+				// Check if the path contains the Titanfall2 folder
+				int titanfall2Index = path.IndexOf(titanfall2FolderName, StringComparison.OrdinalIgnoreCase);
+				if (titanfall2Index < 0)
+				{
+					// Titanfall2 folder not found in path, return the original path
+					resultArray[i] = path;
+				}
+				else
+				{
+					// Trim the path to start at the Titanfall2 folder
+					int startIndex = titanfall2Index + titanfall2FolderName.Length;
+					string trimmedPath = path.Substring(startIndex);
+
+					// Add the Titanfall2 folder to the trimmed path
+					trimmedPath = System.IO.Path.Combine(titanfall2FolderName, trimmedPath);
+
+					resultArray[i] = trimmedPath;
+				}
+			}
+
+			return resultArray;
+		}
+		public static string TrimPathToTitanfall2(string path)
+		{
+			string titanfall2FolderName = "Titanfall2" + System.IO.Path.DirectorySeparatorChar;
+
+			// Check if the path contains the Titanfall2 folder
+			int titanfall2Index = path.IndexOf(titanfall2FolderName, StringComparison.OrdinalIgnoreCase);
+			if (titanfall2Index < 0)
+			{
+				// Titanfall2 folder not found in path, return the original path
+				return path;
+			}
+			else
+			{
+				// Trim the path to start at the Titanfall2 folder
+				int startIndex = titanfall2Index + titanfall2FolderName.Length;
+				string trimmedPath = path.Substring(startIndex);
+
+				// Add the Titanfall2 folder to the trimmed path
+				trimmedPath = System.IO.Path.Combine(titanfall2FolderName, trimmedPath);
+
+				return trimmedPath;
 			}
 		}
 		public bool ListDirectory(string path, string[] includedFolders, string[] includedFiles, CancellationToken token)
@@ -795,20 +1069,30 @@ namespace VTOL.Pages
 				}
 				if (token.IsCancellationRequested)
 					return false;
-				Console.WriteLine(string.Join("\n ", includedFoldersPath.ToArray()));
-				Console.WriteLine("\n\n\n\n\n");
+				Console.WriteLine("\n\n\n\n\n FILES \n\n\n\n\n");
 				Console.WriteLine(string.Join("\n ", includedFilesPath.ToArray()));
+				Console.WriteLine("\n\n\n\n\n FILES IN DATA \n\n\n\n\n");
+				Console.WriteLine(string.Join("\n ", TrimPathsToTitanfall2(includedFilesPath.ToArray())));
+
 				var data = new DirectoryData
 				{
-					Folders = CheckAndRemoveMissingFilesAndFolders(includedFoldersPath.Select(f => f).ToArray()),
-					Files = CheckAndRemoveMissingFilesAndFolders(includedFilesPath.Select(f => f).ToArray()),
+					
+					Folders = TrimPathsToTitanfall2(CheckAndRemoveMissingFilesAndFolders(includedFoldersPath.Select(f => f).ToArray())),
+					Files = includedFilesPath.Select(f => new FileData { Path = TrimPathToTitanfall2(CheckAndRemoveMissingFileAndFolder(f)), Data = File.ReadAllBytes(f) }).ToArray(),
 					NORTHSTAR_VERSION = VERSION,
 					NAME = SAVE_NAME__,
 					MOD_COUNT = NUMBER_MODS__,
 					TOTAL_SIZE_OF_FOLDERS = SIZE
 
 				};
-				Console.WriteLine(data.Folders + "\n" + data.Files);
+				foreach(var f in data.Files)
+                {
+
+					Console.WriteLine("\n" + f.Path);
+					Console.WriteLine("\n" + f.Data.Length.ToString());
+
+
+				}
 				if (token.IsCancellationRequested)
 					return false;
 
@@ -872,7 +1156,7 @@ namespace VTOL.Pages
 		public class DirectoryData
 		{
 			public string[] Folders { get; set; }
-			public string[] Files { get; set; }
+			public FileData[] Files { get; set; }
 			public string NORTHSTAR_VERSION { get; set; }
 			public string NAME { get; set; }
 			public int MOD_COUNT { get; set; }
@@ -880,10 +1164,16 @@ namespace VTOL.Pages
 
 			public override string ToString()
 			{
-				return string.Join(" ", Folders.Concat(Files));
+				var paths = Folders.Concat(Files.Select(f => f.Path));
+				return string.Join(" ", paths);
 			}
 		}
-
+		[Serializable]
+		public class FileData
+		{
+			public string Path { get; set; }
+			public byte[] Data { get; set; }
+		}
 
 		public string EnforceWindowsStringName(string input)
 		{
@@ -925,7 +1215,7 @@ namespace VTOL.Pages
 					To = 0,
 					Duration = new Duration(TimeSpan.FromSeconds(duration))
 				};
-				animation.Completed += (sender, e) => control.Visibility = Visibility.Collapsed;
+				animation.Completed += (sender, e) => control.Visibility = Visibility.Hidden;
 				control.BeginAnimation(UIElement.OpacityProperty, animation);
 			}
 		}
@@ -1013,7 +1303,6 @@ namespace VTOL.Pages
 							Loading_Panel.Visibility = Visibility.Hidden;
 							wave_progress.Visibility = Visibility.Hidden;
 							Circe_progress.Visibility = Visibility.Hidden;
-							Loading_Panel.Visibility = Visibility.Hidden;
 							Options_Panel.Visibility = Visibility.Hidden;
 							Add_Profile_Options_Panel.Visibility = Visibility.Hidden;
 							Export_Profile_Options_Panel.Visibility = Visibility.Hidden;
@@ -1124,11 +1413,13 @@ namespace VTOL.Pages
 		}
 		private async void UnpackandCheck(string vtol_profiles_file_bin, string Target_Dir)
         {
-            
 			DispatchIfNecessary(async () =>
 			{
+				Options_Panel.Visibility = Visibility.Visible;
 				Add_Profile_Options_Panel.Visibility = Visibility.Hidden;
-				Console.WriteLine("Unpacking!");
+
+			});
+			Console.WriteLine("Unpacking!");
 
 				if (File.Exists(vtol_profiles_file_bin))
 				{
@@ -1138,12 +1429,11 @@ namespace VTOL.Pages
 						Current_File_Tag.Content = "Backing Up vtol_profiles_file_bin";
 						wave_progress.Text = 0 + "%";
 						wave_progress.Value = 0;
+						Loading_Panel.Visibility = Visibility.Visible;
 
 					});
-					Loading_Panel.Visibility = Visibility.Visible;
 					_cts = new CancellationTokenSource();
 					var token = _cts.Token;
-
 					try
 					{
 						// Display a message to the user indicating that the operation has started
@@ -1157,6 +1447,8 @@ namespace VTOL.Pages
 
 						if (result == true)
 						{
+						DispatchIfNecessary(async () =>
+						{
 							Console.WriteLine(result);
 							Console.WriteLine("Complete!");
 							Main.Snackbar.Title = "SUCCESS";
@@ -1165,10 +1457,13 @@ namespace VTOL.Pages
 							Main.Snackbar.Show();
 							Loading_Panel.Visibility = Visibility.Hidden;
 							Options_Panel.Visibility = Visibility.Hidden;
-							cancel = false;
+					});
+					cancel = false;
 
 						}
 						else
+						{
+						DispatchIfNecessary(async () =>
 						{
 							Main.Snackbar.Title = "ERROR";
 							Main.Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Caution;
@@ -1182,14 +1477,17 @@ namespace VTOL.Pages
 							Options_Panel.Visibility = Visibility.Hidden;
 							Add_Profile_Options_Panel.Visibility = Visibility.Hidden;
 							Export_Profile_Options_Panel.Visibility = Visibility.Hidden;
-							cancel = false;
+					});
+					cancel = false;
 
 
 						}
-
+					DispatchIfNecessary(async () =>
+					{
 						Loading_Panel.Visibility = Visibility.Hidden;
 						Options_Panel.Visibility = Visibility.Hidden;
-						cancel = false;
+				});
+				cancel = false;
 
 
 					}
@@ -1197,6 +1495,8 @@ namespace VTOL.Pages
 
 
 					catch (OperationCanceledException)
+					{
+					DispatchIfNecessary(async () =>
 					{
 						Main.Snackbar.Title = "ERROR";
 						Main.Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Caution;
@@ -1208,7 +1508,8 @@ namespace VTOL.Pages
 						Options_Panel.Visibility = Visibility.Hidden;
 						Add_Profile_Options_Panel.Visibility = Visibility.Hidden;
 						Export_Profile_Options_Panel.Visibility = Visibility.Hidden;
-						cancel = false;
+				});
+				cancel = false;
 
 					}
 
@@ -1247,12 +1548,13 @@ namespace VTOL.Pages
 					Options_Panel.Visibility = Visibility.Hidden;
 					Add_Profile_Options_Panel.Visibility = Visibility.Hidden;
 					Export_Profile_Options_Panel.Visibility = Visibility.Hidden;
+
 					cancel = false;
 
 				});
 
 				}
-			});
+			
 		}
 
 		public void CancelWork()
@@ -1327,11 +1629,11 @@ namespace VTOL.Pages
 				}
 				else if (show == false)
 				{
-					targetVisibility = Visibility.Collapsed;
+					targetVisibility = Visibility.Hidden;
 				}
 				else
 				{
-					targetVisibility = control.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
+					targetVisibility = control.Visibility == Visibility.Visible ? Visibility.Hidden : Visibility.Visible;
 				}
 
 				// Check if the control is already at the target visibility
@@ -1483,12 +1785,10 @@ namespace VTOL.Pages
 		private void Export_Profile_BTN(object sender, RoutedEventArgs e)
         {
             try {
-			FadeControl(Loading_Panel, true, 2);
-
+			Loading_Panel.Visibility = Visibility.Visible;
 			Add_Profile_Options_Panel.Visibility = Visibility.Hidden;
 			Export_Profile_Options_Panel.Visibility = Visibility.Hidden;
-			FadeControl(Options_Panel, true, 2.5);
-
+			Options_Panel.Visibility = Visibility.Visible;
 			Main.Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
 			Main.Snackbar.Show("INFO", "Packing Profile now");
 			Pack_Label.Content = "Packing the File/Folder";
@@ -1508,6 +1808,7 @@ namespace VTOL.Pages
 		private void Import_BTN(object sender, RoutedEventArgs e)
 		{
 			Pack_Label.Content = "UnPacking the File/Folder";
+			cancel = false;
 
 			UnpackandCheck(CURRENT_FILE__, Main.User_Settings_Vars.NorthstarInstallLocation);
 
@@ -1530,7 +1831,7 @@ namespace VTOL.Pages
 			CancelWork();
 			Options_Panel.Visibility = Visibility.Hidden;
 			Export_Profile_Options_Panel.Visibility = Visibility.Hidden;
-			FadeControl(Loading_Panel, false, 2.5);
+			Loading_Panel.Visibility = Visibility.Hidden;
 			Add_Profile_Options_Panel.Visibility = Visibility.Hidden;
 			cancel = true;
 			}
