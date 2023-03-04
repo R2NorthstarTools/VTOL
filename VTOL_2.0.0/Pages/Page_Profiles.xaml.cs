@@ -1056,17 +1056,9 @@ namespace VTOL.Pages
 					//string NS_Mod_Dir = Main.User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\mods";
 					Console.WriteLine("Skipped Mods");
 
-					 includedFoldersPath = allFolders.Where(f => 
-        (f.StartsWith(System.IO.Path.Combine(path, "R2Northstar\\mods\\Northstar.CustomServers")) || 
-         f.StartsWith(System.IO.Path.Combine(path, "R2Northstar\\mods\\Northstar.Client")) ||
-         f.StartsWith(System.IO.Path.Combine(path, "R2Northstar\\mods\\Northstar.Custom"))) && 
-        !f.Substring(path.Length + 1).Contains("\\"));  
+					includedFoldersPath = allFolders.Where(f => !f.Contains("R2Northstar\\mods") && includedFolders.Any(i => f.StartsWith(System.IO.Path.Combine(path, i))));
 
-    includedFilesPath = allFiles.Where(f => 
-        (f.StartsWith(System.IO.Path.Combine(path, "R2Northstar\\mods\\Northstar.CustomServers")) || 
-         f.StartsWith(System.IO.Path.Combine(path, "R2Northstar\\mods\\Northstar.Client")) ||
-         f.StartsWith(System.IO.Path.Combine(path, "R2Northstar\\mods\\Northstar.Custom"))) &&
-        (!f.Contains("\\mods\\") || includedFiles.Contains(System.IO.Path.GetFileName(f))));
+					includedFilesPath = allFiles.Where(f => !f.Contains("R2Northstar\\mods") && includedFiles.Contains(System.IO.Path.GetFileName(f)) || includedFoldersPath.Any(folder => f.StartsWith(folder)));
 
 				}
 				else
