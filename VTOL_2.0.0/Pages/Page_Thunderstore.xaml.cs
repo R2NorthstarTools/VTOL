@@ -3063,9 +3063,10 @@ int millisecondsDelay = 300)
                                             Northstar_VEr_Temp = Current_Ver_;
                                                 DispatchIfNecessary(() =>
                                                 {
-
-                                                    Main.VERSION_TEXT.Text = "VTOL - " + ProductVersion + " | Northstar Version - " + Current_Ver_.Remove(0, 1);
+                                                    Main.NORTHSTAR_BUTTON.Content = "Northstar Version - " + Current_Ver_.Remove(0, 1);
+                                                    Main.VERSION_TEXT.Text = "VTOL - " + ProductVersion + " |";
                                                     Main.VERSION_TEXT.Refresh();
+
                                                 });
                                         }
 

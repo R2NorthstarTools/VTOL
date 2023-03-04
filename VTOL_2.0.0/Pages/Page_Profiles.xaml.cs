@@ -1056,9 +1056,17 @@ namespace VTOL.Pages
 					//string NS_Mod_Dir = Main.User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\mods";
 					Console.WriteLine("Skipped Mods");
 
-					includedFoldersPath = allFolders.Where(f => !f.Contains("R2Northstar\\mods") && includedFolders.Any(i => f.StartsWith(System.IO.Path.Combine(path, i))));
+					 includedFoldersPath = allFolders.Where(f => 
+        (f.StartsWith(System.IO.Path.Combine(path, "R2Northstar\\mods\\Northstar.CustomServers")) || 
+         f.StartsWith(System.IO.Path.Combine(path, "R2Northstar\\mods\\Northstar.Client")) ||
+         f.StartsWith(System.IO.Path.Combine(path, "R2Northstar\\mods\\Northstar.Custom"))) && 
+        !f.Substring(path.Length + 1).Contains("\\"));  
 
-					includedFilesPath = allFiles.Where(f => !f.Contains("R2Northstar\\mods") && includedFiles.Contains(System.IO.Path.GetFileName(f)) || includedFoldersPath.Any(folder => f.StartsWith(folder)));
+    includedFilesPath = allFiles.Where(f => 
+        (f.StartsWith(System.IO.Path.Combine(path, "R2Northstar\\mods\\Northstar.CustomServers")) || 
+         f.StartsWith(System.IO.Path.Combine(path, "R2Northstar\\mods\\Northstar.Client")) ||
+         f.StartsWith(System.IO.Path.Combine(path, "R2Northstar\\mods\\Northstar.Custom"))) &&
+        (!f.Contains("\\mods\\") || includedFiles.Contains(System.IO.Path.GetFileName(f))));
 
 				}
 				else
@@ -1069,10 +1077,10 @@ namespace VTOL.Pages
 				}
 				if (token.IsCancellationRequested)
 					return false;
-				Console.WriteLine("\n\n\n\n\n FILES \n\n\n\n\n");
-				Console.WriteLine(string.Join("\n ", includedFilesPath.ToArray()));
-				Console.WriteLine("\n\n\n\n\n FILES IN DATA \n\n\n\n\n");
-				Console.WriteLine(string.Join("\n ", TrimPathsToTitanfall2(includedFilesPath.ToArray())));
+				//Console.WriteLine("\n\n\n\n\n FILES \n\n\n\n\n");
+				//Console.WriteLine(string.Join("\n ", includedFilesPath.ToArray()));
+				//Console.WriteLine("\n\n\n\n\n FILES IN DATA \n\n\n\n\n");
+				//Console.WriteLine(string.Join("\n ", TrimPathsToTitanfall2(includedFilesPath.ToArray())));
 
 				var data = new DirectoryData
 				{
@@ -1085,14 +1093,14 @@ namespace VTOL.Pages
 					TOTAL_SIZE_OF_FOLDERS = SIZE
 
 				};
-				foreach(var f in data.Files)
-                {
+				//foreach(var f in data.Files)
+    //            {
 
-					Console.WriteLine("\n" + f.Path);
-					Console.WriteLine("\n" + f.Data.Length.ToString());
+				//	Console.WriteLine("\n" + f.Path);
+				//	Console.WriteLine("\n" + f.Data.Length.ToString());
 
 
-				}
+				//}
 				if (token.IsCancellationRequested)
 					return false;
 
