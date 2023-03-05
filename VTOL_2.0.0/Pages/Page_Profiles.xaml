@@ -10,6 +10,8 @@
       xmlns:Languages="clr-namespace:VTOL.Resources.Languages"
       xmlns:i="http://schemas.microsoft.com/xaml/behaviors" 
       x:Class="VTOL.Pages.Page_Profiles" 
+      xmlns:properties="clr-namespace:VTOL.Resources.Languages"
+
       mc:Ignorable="d" 
       KeepAlive="True"
       d:DesignHeight="670" d:DesignWidth="1148"
@@ -19,11 +21,17 @@
 
     </Page.Resources>
     <Grid >
-        <Grid Margin="50,451,50,31"></Grid>
+        <Border>
+            <Border.Background>
+                <ImageBrush ImageSource="/Resources/Backgrounds/profiles_bg.png" TileMode="Tile" Stretch="UniformToFill" Opacity="0.31"/>
+            </Border.Background>
+        </Border>
+       
+      
 
-        <Label Content="Change the Entire Application by importing or Exporting Profiles" Margin="50,0,0,573" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="410"/>
-        <Label Content="PROFILES" Margin="50,0,357,594" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Background="{x:Null}" Foreground="White" FontSize="22" FontWeight="Bold" Height="28" VerticalAlignment="Bottom"/>
-        <ListBox x:Name="Profile_List_Box"  Margin="50,111,50,125"   VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.ScrollUnit="Pixel" IsSynchronizedWithCurrentItem="True"   ItemsSource="{Binding Final_List}" >
+        <Label Content="{x:Static properties:Language.Page_Profiles_ChangeTheEntireApplicationByImportingOrExportingProfiles}" Margin="50,0,0,573" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="410"/>
+        <Label Content="{x:Static properties:Language.Page_Profiles_PROFILES}" Margin="50,0,357,594" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Background="{x:Null}" Foreground="White" FontSize="22" FontWeight="Bold" Height="28" VerticalAlignment="Bottom"/>
+        <ListBox x:Name="Profile_List_Box"  Margin="50,111,50,125"   VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.ScrollUnit="Pixel" IsSynchronizedWithCurrentItem="True"   ItemsSource="{Binding Final_List}" Background="#FF252525" BorderBrush="{x:Null}" >
             <ListBox.ItemContainerStyle>
                 <Style TargetType="ListBoxItem">
                     <Setter Property="IsTabStop" Value="False" />
@@ -96,11 +104,11 @@
                         <Grid Height="60" RenderTransformOrigin="0.5,0.5" Width="435">
 
                             <DockPanel   Height="62" HorizontalAlignment="Left" Margin="113,0,0,-2" Width="322" Opacity="0" IsEnabled="False" Tag="Hidden" AutomationProperties.IsOffscreenBehavior="Offscreen">
-                                <ui:Button x:Name="Info_Btn" Width="58" Height="42" Content="Info"  Background="#FF24ABBD" Tag ="TAG"   Margin="0,0,5,0"  ClickMode="Press" Visibility="Hidden"/>
-                                <ui:Button x:Name="Delete_Btn" Width="76" Height="42" Content="Delete"  Background="#FFB90000" Tag ="{Binding Profile_Path_}" Margin="0,0,30,0" Click="Delete_Btn_Click"/>
+                                <ui:Button x:Name="Info_Btn" Width="58" Height="42" Content="{x:Static properties:Language.Page_Mods_Info}"  Background="#FF24ABBD" Tag ="TAG"   Margin="0,0,5,0"  ClickMode="Press" Visibility="Hidden"/>
+                                <ui:Button x:Name="Delete_Btn" Width="76" Height="42" Content="{x:Static properties:Language.Page_Mods_Delete}"  Background="#FFB90000" Tag ="{Binding Profile_Path_}" Margin="0,0,30,0" Click="Delete_Btn_Click"/>
 
                             </DockPanel>
-                            <ui:Button x:Name="Mod_Btn" Width="112" Height="42" Content="IMPORT" Tag="{Binding Profile_Path_}" ToolTip="IMPORT" Margin="0,0,10,0" HorizontalAlignment="Right"  Background="{Binding Source={x:Static SystemParameters.WindowGlassBrush}}" Click="Import_Profile_Click" />
+                            <ui:Button x:Name="Mod_Btn" Width="112" Height="42" Content="{x:Static properties:Language.Page_Profiles_IMPORT}" Tag="{Binding Profile_Path_}" ToolTip="IMPORT" Margin="0,0,10,0" HorizontalAlignment="Right"  Background="{Binding Source={x:Static SystemParameters.WindowGlassBrush}}" Click="Import_Profile_Click" />
 
                         </Grid>
 
@@ -112,9 +120,9 @@
 
         </ListBox>
 
-        <ui:Button x:Name="Import_Profile"   Icon="ArrowImport24" Height="30" Margin="0,395,245,0" VerticalAlignment="Top"  BorderBrush="{x:Null}" Content="Import Profile" Padding="0,0,0,0" ToolTip="Import Profile" Background="#FF383838"  ClickMode="Press" HorizontalAlignment="Right" Width="190"  Visibility="Collapsed" />
-        <ui:Button  x:Name="Export_Profile" Icon="ArrowExportLtr24" Height="30" Margin="0,556,50,0" VerticalAlignment="Top"  BorderBrush="{x:Null}" Content="Export Profile" Padding="0,0,0,0" ToolTip="Export Profile" Background="#FF383838" ClickMode="Press" HorizontalAlignment="Right" Width="190" Click="Export_Profile_Click" />
-        <ui:Button  x:Name="Add_Profile" Icon="Add12" Height="30" Margin="50,556,0,0" VerticalAlignment="Top"  BorderBrush="{x:Null}" Content="Add Profile" Padding="0,0,0,0" ToolTip="Add Profile" Background="#FF383838"  ClickMode="Press" Width="195" Click="Add_Profile_Click" />
+        <ui:Button x:Name="Import_Profile"   Icon="ArrowImport24" Height="30" Margin="0,395,245,0" VerticalAlignment="Top"  BorderBrush="{x:Null}" Content="{x:Static properties:Language.Page_Profiles_ImportProfile}" Padding="0,0,0,0" ToolTip="Import Profile" Background="#FF383838"  ClickMode="Press" HorizontalAlignment="Right" Width="190"  Visibility="Collapsed" />
+        <ui:Button  x:Name="Export_Profile" Icon="ArrowExportLtr24" Height="30" Margin="0,556,50,0" VerticalAlignment="Top"  BorderBrush="{x:Null}" Content="{x:Static properties:Language.Page_Profiles_ExportProfile}" Padding="0,0,0,0" ToolTip="Export Profile" Background="#FF383838" ClickMode="Press" HorizontalAlignment="Right" Width="190" Click="Export_Profile_Click" MouseOverBackground="#FF484848" PressedBackground="#FF7F7F7F" />
+        <ui:Button  x:Name="Add_Profile" Icon="Add12" Height="30" Margin="50,556,0,0" VerticalAlignment="Top"  BorderBrush="{x:Null}" Content="{x:Static properties:Language.Page_Profiles_AddProfile}" Padding="0,0,0,0" ToolTip="Add Profile" Background="#FF383838"  ClickMode="Press" Width="195" Click="Add_Profile_Click" MouseOverBackground="#FF484848" PressedBackground="#FF7F7F7F" />
 
         <ComboBox x:Name="Extra_Menu" Margin="246,396,0,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" BorderThickness="0,0,0,0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" HorizontalAlignment="Left" Background="#FF383838" Height="26" DropDownClosed="ComboBox_DropDownClosed" RenderTransformOrigin="0.5,0.5" MinHeight="28" SelectionChanged="Extra_Menu_SelectionChanged" Visibility="Hidden"  >
 
@@ -170,16 +178,16 @@
                         <Border Margin="10,120,10,13" BorderBrush="#33BFBFBF" Background="#332F2F2D" BorderThickness="1,1,1,1" Visibility="Visible" CornerRadius="7,7,7,7">
 
                             <StackPanel Width="314">
-                                <Label Margin="0,6,0,8" Content="Name Of Profile" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>
+                                <Label Margin="0,6,0,8" Content="{x:Static properties:Language.Page_Profiles_NameOfProfile}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>
                                 <ui:TextBox x:Name="Profile_Name" Width="284" Height="24" HorizontalContentAlignment="Center" Text="Default Profile" Padding="0,0,0,0" TextChanged="Profile_Name_TextChanged" Foreground="#FFB7B7B7" ClearButtonEnabled="False" TextWrapping="WrapWithOverflow"/>
 
-                                <CheckBox Padding="0,0,0,0" x:Name="Export_Mods" HorizontalAlignment="Center" ClickMode="Press" Content="Exclude Mod Folder" Margin="0,12,0,0" FontSize="12" Checked="Export_Mods_Checked" Unchecked="Export_Mods_Unchecked"/>
-                                <Label Margin="0,5,0,5" Content="Save Location" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>
+                                <CheckBox Padding="0,0,0,0" x:Name="Export_Mods" HorizontalAlignment="Center" ClickMode="Press" Content="{x:Static properties:Language.Page_Profiles_ExcludeModFolder}" Margin="0,12,0,0" FontSize="12" Checked="Export_Mods_Checked" Unchecked="Export_Mods_Unchecked"/>
+                                <Label Margin="0,5,0,5" Content="{x:Static properties:Language.Page_Profiles_SaveLocation}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>
 
                                 <ui:TextBox x:Name="Profile_Location" Width="284" Height="24" HorizontalContentAlignment="Center" Text="XXXXXXXXX" Padding="0,0,0,0" ClearButtonEnabled="False" IsTabStop="False" IsHitTestVisible="False" Focusable="False" IsUndoEnabled="False" IsEnabled="False" TextWrapping="WrapWithOverflow" />
-                                <ui:Button x:Name="save_Lcoation_Btn" HorizontalAlignment="Center" Content="Change Save Location" Width="284" Height="28" Margin="0,7,0,0" ClickMode="Press" Padding="0,0,0,0" Click="save_Lcoation_Btn_Click"></ui:Button>
+                                <ui:Button x:Name="save_Lcoation_Btn" HorizontalAlignment="Center" Content="{x:Static properties:Language.Page_Profiles_ChangeSaveLocation}" Width="284" Height="28" Margin="0,7,0,0" ClickMode="Press" Padding="0,0,0,0" Click="save_Lcoation_Btn_Click"></ui:Button>
 
-                                <ui:Button  Padding="0,0,0,0" x:Name="Export_Profile_BTN_" HorizontalAlignment="Center" Content="Export Profile" Width="284" Height="28" Margin="0,18,0,0" BorderBrush="#3F8AFFF2" Click="Export_Profile_BTN"/>
+                                <ui:Button  Padding="0,0,0,0" x:Name="Export_Profile_BTN_" HorizontalAlignment="Center" Content="{x:Static properties:Language.Page_Profiles_ExportProfile}" Width="284" Height="28" Margin="0,18,0,0" BorderBrush="#3F8AFFF2" Click="Export_Profile_BTN"/>
                             </StackPanel>
                         </Border>
 
@@ -205,10 +213,10 @@
 
                             <StackPanel Width="314" Margin="0,0,0,-1" >
 
-                                <CheckBox x:Name="I_Export_Mods" HorizontalAlignment="Center" ClickMode="Press" Content="Exclude Mod Folder on Import" Margin="0,7,0,0" FontSize="12" Padding="11,6,11,6" Checked="I_Export_Mods_Checked" Unchecked="I_Export_Mods_Unchecked"/>
-                                <CheckBox x:Name="I_Backup_Mods" HorizontalAlignment="Center" ClickMode="Press" Content="Backup Mod Folder on Import" Margin="0,3,0,0" FontSize="12" Padding="11,6,11,6" Unchecked="I_Backup_Mods_Unchecked" FontWeight="Normal" Checked="I_Backup_Mods_Checked"/>
+                                <CheckBox x:Name="I_Export_Mods" HorizontalAlignment="Center" ClickMode="Press" Content="{x:Static properties:Language.Page_Profiles_ExcludeModFolderOnImport}" Margin="0,7,0,0" FontSize="12" Padding="11,6,11,6" Checked="I_Export_Mods_Checked" Unchecked="I_Export_Mods_Unchecked"/>
+                                <CheckBox x:Name="I_Backup_Mods" HorizontalAlignment="Center" ClickMode="Press" Content="{x:Static properties:Language.Page_Profiles_BackupCurrentProfileOnImport}" Margin="0,3,0,0" FontSize="12" Padding="11,6,11,6" Unchecked="I_Backup_Mods_Unchecked" FontWeight="Normal" Checked="I_Backup_Mods_Checked"/>
 
-                                <ui:Button x:Name="Import_BTN_" HorizontalAlignment="Center" Content="Import Profile" Width="284" Height="28" Margin="0,9,0,0" BorderBrush="#3F8AFFF2" Padding="11,0,11,0" Click="Import_BTN " />
+                                <ui:Button x:Name="Import_BTN_" HorizontalAlignment="Center" Content="{x:Static properties:Language.Page_Profiles_ImportProfile}" Width="284" Height="28" Margin="0,9,0,0" BorderBrush="#3F8AFFF2" Padding="11,0,11,0" Click="Import_BTN " />
                             </StackPanel>
                         </Border>
 

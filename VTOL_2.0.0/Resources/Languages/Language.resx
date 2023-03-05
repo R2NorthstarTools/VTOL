@@ -615,4 +615,40 @@
   <data name="MainWindow_Profiles" xml:space="preserve">
     <value>Profiles</value>
   </data>
+  <data name="Page_Profiles_ImportProfile" xml:space="preserve">
+    <value>Import Profile</value>
+  </data>
+  <data name="Page_Profiles_ExcludeModFolderOnImport" xml:space="preserve">
+    <value>Exclude Mod Folder on Import</value>
+  </data>
+  <data name="Page_Profiles_BackupCurrentProfileOnImport" xml:space="preserve">
+    <value>Backup Current Profile on Import</value>
+  </data>
+  <data name="Page_Profiles_ExcludeModFolder" xml:space="preserve">
+    <value>Exclude Mod Folder</value>
+  </data>
+  <data name="Page_Profiles_ChangeSaveLocation" xml:space="preserve">
+    <value>Change Save Location</value>
+  </data>
+  <data name="Page_Profiles_ExportProfile" xml:space="preserve">
+    <value>Export Profile</value>
+  </data>
+  <data name="Page_Profiles_AddProfile" xml:space="preserve">
+    <value>Add Profile</value>
+  </data>
+  <data name="Page_Profiles_IMPORT" xml:space="preserve">
+    <value>IMPORT</value>
+  </data>
+  <data name="Page_Profiles_ChangeTheEntireApplicationByImportingOrExportingProfiles" xml:space="preserve">
+    <value>Change the Entire Application by importing or Exporting Profiles</value>
+  </data>
+  <data name="Page_Profiles_PROFILES" xml:space="preserve">
+    <value>PROFILES</value>
+  </data>
+  <data name="Page_Profiles_SaveLocation" xml:space="preserve">
+    <value>Save Location</value>
+  </data>
+  <data name="Page_Profiles_NameOfProfile" xml:space="preserve">
+    <value>Name Of Profile</value>
+  </data>
 </root>

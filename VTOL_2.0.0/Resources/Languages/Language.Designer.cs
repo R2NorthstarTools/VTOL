@@ -648,6 +648,114 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Profile.
+        /// </summary>
+        public static string Page_Profiles_AddProfile {
+            get {
+                return ResourceManager.GetString("Page_Profiles_AddProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Backup Current Profile on Import.
+        /// </summary>
+        public static string Page_Profiles_BackupCurrentProfileOnImport {
+            get {
+                return ResourceManager.GetString("Page_Profiles_BackupCurrentProfileOnImport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change Save Location.
+        /// </summary>
+        public static string Page_Profiles_ChangeSaveLocation {
+            get {
+                return ResourceManager.GetString("Page_Profiles_ChangeSaveLocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change the Entire Application by importing or Exporting Profiles.
+        /// </summary>
+        public static string Page_Profiles_ChangeTheEntireApplicationByImportingOrExportingProfiles {
+            get {
+                return ResourceManager.GetString("Page_Profiles_ChangeTheEntireApplicationByImportingOrExportingProfiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exclude Mod Folder.
+        /// </summary>
+        public static string Page_Profiles_ExcludeModFolder {
+            get {
+                return ResourceManager.GetString("Page_Profiles_ExcludeModFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exclude Mod Folder on Import.
+        /// </summary>
+        public static string Page_Profiles_ExcludeModFolderOnImport {
+            get {
+                return ResourceManager.GetString("Page_Profiles_ExcludeModFolderOnImport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export Profile.
+        /// </summary>
+        public static string Page_Profiles_ExportProfile {
+            get {
+                return ResourceManager.GetString("Page_Profiles_ExportProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IMPORT.
+        /// </summary>
+        public static string Page_Profiles_IMPORT {
+            get {
+                return ResourceManager.GetString("Page_Profiles_IMPORT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Import Profile.
+        /// </summary>
+        public static string Page_Profiles_ImportProfile {
+            get {
+                return ResourceManager.GetString("Page_Profiles_ImportProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name Of Profile.
+        /// </summary>
+        public static string Page_Profiles_NameOfProfile {
+            get {
+                return ResourceManager.GetString("Page_Profiles_NameOfProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PROFILES.
+        /// </summary>
+        public static string Page_Profiles_PROFILES {
+            get {
+                return ResourceManager.GetString("Page_Profiles_PROFILES", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save Location.
+        /// </summary>
+        public static string Page_Profiles_SaveLocation {
+            get {
+                return ResourceManager.GetString("Page_Profiles_SaveLocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Configure, Import and Export Dedicated Server and Client Settings.
         /// </summary>
         public static string Page_Server_ConfigureImportAndExportDedicatedServerAndClientSettings {

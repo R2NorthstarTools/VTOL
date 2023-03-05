@@ -204,7 +204,7 @@ namespace VTOL.Pages
 				totalBytesRead += bytesRead;
 
 				OnProgressChanged(totalBytesRead);
-				Console.WriteLine(bytesRead);
+				//Console.WriteLine(bytesRead);
 				return bytesRead;
 			}
 
@@ -270,11 +270,12 @@ namespace VTOL.Pages
 									I_TOTAL_SIZE.Content = data.TOTAL_SIZE_OF_FOLDERS;
 									NAME.Content = data.NAME;
 
-									Console.WriteLine(data.NAME + "\n" + data.NORTHSTAR_VERSION + "\n" + data.MOD_COUNT + "\n" + data.TOTAL_SIZE_OF_FOLDERS);
+									//Console.WriteLine(data.NAME + "\n" + data.NORTHSTAR_VERSION + "\n" + data.MOD_COUNT + "\n" + data.TOTAL_SIZE_OF_FOLDERS);
 									DispatchIfNecessary(async () =>
 							{
 								Main.Profile_TAG.Content = data.NAME;
-
+								Properties.Settings.Default.Profile_Name = data.NAME;
+								Properties.Settings.Default.Save();
 
 
 							});
@@ -320,7 +321,7 @@ namespace VTOL.Pages
 
 					if (sourceStream.Length == 0)
 					{
-						Console.WriteLine("The file is empty.");
+						//Console.WriteLine("The file is empty.");
 						return false;
 					}
 					using (var decompressionStream = new GZipStreamWithProgress(sourceStream, CompressionMode.Decompress))
@@ -410,7 +411,7 @@ namespace VTOL.Pages
 							{
 								return false;
 							}
-							Console.WriteLine("Creating Folders " + progressInt + "% - " + currentitem);
+							//Console.WriteLine("Creating Folders " + progressInt + "% - " + currentitem);
 						}
 
 						foreach (FileData file in data.Files)
@@ -447,7 +448,7 @@ namespace VTOL.Pages
 								return false;
 							}
 
-							Console.WriteLine("Copying... " + progressInt + "% - " + currentitem);
+							//Console.WriteLine("Copying... " + progressInt + "% - " + currentitem);
 						}
 						CheckDirectory(appDataPath + @"\directory_open.bin", targetDirectory);
 					}
@@ -464,19 +465,19 @@ namespace VTOL.Pages
 			}
 			catch (FileNotFoundException ex)
 			{
-				Console.WriteLine("The file could not be found: " + ex.Message);
+				//Console.WriteLine("The file could not be found: " + ex.Message);
 				return false;
 
 			}
 			catch (DirectoryNotFoundException ex)
 			{
-				Console.WriteLine("The directory could not be found: " + ex.Message);
+				//Console.WriteLine("The directory could not be found: " + ex.Message);
 				return false;
 
 			}
 			catch (IOException ex)
 			{
-				Console.WriteLine("An IO error occurred: " + ex.Message);
+				//Console.WriteLine("An IO error occurred: " + ex.Message);
 				return false;
 
 			}
@@ -1041,7 +1042,7 @@ namespace VTOL.Pages
 					return false;
 				}
 
-				Console.WriteLine("Starting");
+				//Console.WriteLine("Starting");
 				var allFolders = Directory.GetDirectories(path, "*", SearchOption.AllDirectories);
 				var allFiles = Directory.GetFiles(path, "*", SearchOption.AllDirectories);
 				IEnumerable<string> includedFoldersPath = Enumerable.Empty<string>();
@@ -1054,7 +1055,7 @@ namespace VTOL.Pages
 				if (Do_Not_save_Mods == true)
 				{
 					//string NS_Mod_Dir = Main.User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\mods";
-					Console.WriteLine("Skipped Mods");
+					//Console.WriteLine("Skipped Mods");
 
 					includedFoldersPath = allFolders.Where(f => !f.Contains("R2Northstar\\mods") && includedFolders.Any(i => f.StartsWith(System.IO.Path.Combine(path, i))));
 
@@ -1131,7 +1132,7 @@ namespace VTOL.Pages
 			}
 			catch (OperationCanceledException)
 			{
-				Console.WriteLine("Cancelled!");
+				//Console.WriteLine("Cancelled!");
 				return false;
 
 			}
@@ -1296,8 +1297,8 @@ namespace VTOL.Pages
 						}, token);
 						if (result == true)
 						{
-							Console.WriteLine(result);
-							Console.WriteLine("Complete!");
+							//Console.WriteLine(result);
+							//Console.WriteLine("Complete!");
 							Main.Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
 							Main.Snackbar.Show("SUCCESS!", "The Profile " + SAVE_NAME__ + "Has Been Packed");
 							Loading_Panel.Visibility = Visibility.Hidden;
@@ -1316,8 +1317,8 @@ namespace VTOL.Pages
 						}
 						else
 						{
-							Console.WriteLine(result);
-							Console.WriteLine("Failed!");
+							//Console.WriteLine(result);
+							//Console.WriteLine("Failed!");
 							Main.Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Caution;
 							Main.Snackbar.Show("ERROR", "The Profile " + SAVE_NAME__ + "Failed To Be Packed");
 						}
@@ -1325,7 +1326,7 @@ namespace VTOL.Pages
 					catch (OperationCanceledException)
 					{
 						// Handle the cancellation
-						Console.WriteLine("Cancelled!");
+						//Console.WriteLine("Cancelled!");
 						Main.Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Caution;
 						Main.Snackbar.Show("ERROR", "The Profile Creation of" + SAVE_NAME__ + "Failed");
 						wave_progress.Visibility = Visibility.Visible;
@@ -1400,7 +1401,7 @@ namespace VTOL.Pages
 				// Hide loading icon
 				//	LoadingIcon.Visibility = Visibility.Collapsed;
 				// Output the list to console
-				//vpbFiles.ToList().ForEach(Console.WriteLine);
+				//vpbFiles.ToList().ForEach(//Console.WriteLine);
 
 				_Completed_Mod_call = true;
 			}
@@ -1419,11 +1420,11 @@ namespace VTOL.Pages
 				Add_Profile_Options_Panel.Visibility = Visibility.Hidden;
 
 			});
-			Console.WriteLine("Unpacking!");
+			//Console.WriteLine("Unpacking!");
 
 				if (File.Exists(vtol_profiles_file_bin))
 				{
-					Console.WriteLine("Found!");
+					//Console.WriteLine("Found!");
 					DispatchIfNecessary(async () =>
 					{
 						Current_File_Tag.Content = "Backing Up vtol_profiles_file_bin";
@@ -1449,8 +1450,8 @@ namespace VTOL.Pages
 						{
 						DispatchIfNecessary(async () =>
 						{
-							Console.WriteLine(result);
-							Console.WriteLine("Complete!");
+							//Console.WriteLine(result);
+							//Console.WriteLine("Complete!");
 							Main.Snackbar.Title = "SUCCESS";
 							Main.Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
 							Main.Snackbar.Message = "Operation Complete - The Profile is now active";
@@ -1469,8 +1470,8 @@ namespace VTOL.Pages
 							Main.Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Caution;
 							Main.Snackbar.Message = "Operation Failed / Cancelled";
 							Main.Snackbar.Show();
-							Console.WriteLine(result);
-							Console.WriteLine("Failed!");
+							//Console.WriteLine(result);
+							//Console.WriteLine("Failed!");
 							wave_progress.Visibility = Visibility.Visible;
 							Circe_progress.Visibility = Visibility.Hidden;
 							Loading_Panel.Visibility = Visibility.Hidden;

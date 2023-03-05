@@ -211,6 +211,7 @@
     <None Remove="Resources\Backgrounds\FAqBg.png" />
     <None Remove="Resources\Backgrounds\HD-wallpaper-titanfall-2-colony-reborn-dlc-titanfall-2-games-2016-games-xbox-games.jpg" />
     <None Remove="Resources\Backgrounds\jack.jpg" />
+    <None Remove="Resources\Backgrounds\profiles_bg.png" />
     <None Remove="Resources\Backgrounds\Skin_How_To_BG.png" />
     <None Remove="Resources\Backgrounds\star_shower.png" />
     <None Remove="Resources\Backgrounds\TF2_Achievement_BT_Prime.png" />
@@ -555,6 +556,9 @@
     <Content Include="Resources\Backgrounds\_.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\Backgrounds\profiles_bg.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Icons\EA.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>

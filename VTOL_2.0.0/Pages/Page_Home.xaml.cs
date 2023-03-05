@@ -479,7 +479,7 @@ logger2.Close();
                 // Check if directory path is under the C:\Program Files\ directory
                 if (directoryPath.StartsWith(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles)))
                 {
-                    Console.WriteLine("Error: Directory path is under C:\\Program Files\\ directory.");
+                    //Console.WriteLine("Error: Directory path is under C:\\Program Files\\ directory.");
                     return false;
                 }
                 if (directoryPath.IsNullOrEmpty())
@@ -490,7 +490,7 @@ logger2.Close();
                 DirectoryInfo directoryInfo = new DirectoryInfo(directoryPath);
                 if ((directoryInfo.Attributes & FileAttributes.ReadOnly) == FileAttributes.ReadOnly)
                 {
-                    Console.WriteLine("Error: Directory is write-protected.");
+                    //Console.WriteLine("Error: Directory is write-protected.");
                     return false;
                 }
 
@@ -748,7 +748,7 @@ int millisecondsDelay = 150)
                 {
 
                     // Print the file name and version number.
-                    Console.WriteLine(myFileVersionInfo.FileVersion);
+                    //Console.WriteLine(myFileVersionInfo.FileVersion);
                     Current_Ver_ = myFileVersionInfo.FileVersion;
                 }
                 else
@@ -966,7 +966,7 @@ int millisecondsDelay = 150)
 
 
                             Current_Install_Folder = fix.Replace(@"\\", @"\").Replace("/", @"\");
-                            Console.WriteLine("Replaced");
+                            //Console.WriteLine("Replaced");
 
                         }
                     }
@@ -1008,7 +1008,7 @@ int millisecondsDelay = 150)
                 else
                 {
 
-                    Console.WriteLine("Null_Settings");
+                    //Console.WriteLine("Null_Settings");
                     string FINAL = "";
                     Current_Install_Folder = InstalledApplications.GetApplictionInstallPath("Titanfall2");
 
@@ -1101,16 +1101,16 @@ int millisecondsDelay = 150)
 
                 if (Dir.Exists && Current_Install_Folder != "NODATA")
                 {
-                    Console.WriteLine("VALID_PATH");
+                    //Console.WriteLine("VALID_PATH");
 
                     if (File.Exists(Current_Install_Folder + "Titanfall2.exe"))
                     {
-                        Console.WriteLine("VALID_INSTALL");
+                        //Console.WriteLine("VALID_INSTALL");
 
 
                         if (File.Exists(Current_Install_Folder + @"NorthstarLauncher.exe"))
                         {
-                            Console.WriteLine("VALID_NS");
+                            //Console.WriteLine("VALID_NS");
 
                             // Get the file version info for the notepad.
                             FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(Current_Install_Folder + @"NorthstarLauncher.exe");
@@ -1118,7 +1118,7 @@ int millisecondsDelay = 150)
                             {
 
                                 // Print the file name and version number.
-                                Console.WriteLine(myFileVersionInfo.FileVersion);
+                                //Console.WriteLine(myFileVersionInfo.FileVersion);
                                 Current_Ver_ = myFileVersionInfo.FileVersion;
                             }
                             if(Current_Ver_ == null)
@@ -1174,10 +1174,10 @@ int millisecondsDelay = 150)
                                 string fix = Current_Install_Folder + @"\";
                                 User_Settings_Vars.NorthstarInstallLocation = fix;
                                 Current_Install_Folder = fix.Replace(@"\\", @"\").Replace("/", @"\");
-                                Console.WriteLine("Replaced2");
+                                //Console.WriteLine("Replaced2");
 
                             }
-                            Console.WriteLine("INVALID_NS");
+                            //Console.WriteLine("INVALID_NS");
 
                             SnackBar.Appearance = ControlAppearance.Danger;
                             SnackBar.Title = "WARNING!";
@@ -1206,7 +1206,7 @@ int millisecondsDelay = 150)
 
                     }
 
-                    Console.WriteLine(Current_Install_Folder);
+                    //Console.WriteLine(Current_Install_Folder);
 
 
 
@@ -1240,7 +1240,7 @@ int millisecondsDelay = 150)
                     if (IsValidPath(FINAL))
                     {
 
-                        Console.WriteLine(Path);
+                        //Console.WriteLine(Path);
 
                         Current_Install_Folder = Path;
                         User_Settings_Vars.NorthstarInstallLocation = Path;
@@ -1329,7 +1329,7 @@ int millisecondsDelay = 150)
 
                 // string[] arguments = Environment.GetCommandLineArgs();
 
-                //Console.WriteLine("GetCommandLineArgs: {0}", string.Join(", ", arguments));
+                ////Console.WriteLine("GetCommandLineArgs: {0}", string.Join(", ", arguments));
 
 
 
@@ -1543,7 +1543,7 @@ int millisecondsDelay = 150)
             string target = GetShortcutTarget(Path.Combine(path, "Steam.lnk"));
             string steamDir = Path.GetDirectoryName(target);
 
-            //Console.WriteLine(target);
+            ////Console.WriteLine(target);
 
             List<string> folderPaths = new List<string>();
 
@@ -1554,7 +1554,7 @@ int millisecondsDelay = 150)
                 string val = libraryFolders[i];
                 if (val == "path")
                 {
-                    Console.WriteLine(libraryFolders[i + 2]);
+                    //Console.WriteLine(libraryFolders[i + 2]);
                     folderPaths.Add(libraryFolders[i + 2]);
                 }
             }
@@ -2938,8 +2938,8 @@ Main.logger2.Close();
                         if (File.Exists(Current_Install_Folder + "NorthstarLauncher.exe"))
                         {
                             Found_Install_Folder = true;
-                            Console.WriteLine("Found");
-                            Console.WriteLine(Current_Install_Folder);
+                            //Console.WriteLine("Found");
+                            //Console.WriteLine(Current_Install_Folder);
 
                             Directory_Box.Text = Current_Install_Folder;
 
@@ -2966,7 +2966,7 @@ Main.logger2.Close();
                                 string fix = Current_Install_Folder + @"\";
                                 User_Settings_Vars.NorthstarInstallLocation = fix;
                                 Current_Install_Folder = fix.Replace(@"\\", @"\").Replace("/", @"\");
-                                Console.WriteLine("Replaced2");
+                                //Console.WriteLine("Replaced2");
 
                             }
                             SnackBar.Appearance = ControlAppearance.Danger;
@@ -3927,7 +3927,7 @@ int millisecondsDelay = 300)
 
                 if (File.Exists(Target_Zip) && Directory.Exists(Destination_Zip))
                 {
-                    Console.WriteLine("Destination_E1-" + Destination_Zip);
+                    //Console.WriteLine("Destination_E1-" + Destination_Zip);
 
                     string fileExt = Path.GetExtension(Target_Zip);
 
