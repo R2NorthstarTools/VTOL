@@ -199,10 +199,35 @@ namespace VTOL.Pages
             {
                 return installedPath;
             }
+            string Direct_Directory_Check = FindTitanfall2Folder();
+            if (Direct_Directory_Check != null)
+            {
+
+                return Direct_Directory_Check;
+            }
 
             return string.Empty;
         }
-      
+        static string FindTitanfall2Folder()
+        {
+            string commonFolder = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+            string[] titanfall2Paths = new string[]
+            {
+        Path.Combine(commonFolder, "Steam", "steamapps", "common", "Titanfall2"),
+        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86), "Origin Games", "Titanfall2"),
+        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "EA Games", "Titanfall2")
+            };
+
+            foreach (string titanfall2Path in titanfall2Paths)
+            {
+                if (Directory.Exists(titanfall2Path) && File.Exists(titanfall2Path + "@/Titanfall2.exe"))
+                {
+                    return titanfall2Path;
+                }
+            }
+
+            return null;
+        }
         public static void GetInstalledApps()
 
         {
@@ -245,14 +270,14 @@ namespace VTOL.Pages
                         {
                             logger2.Open();
                            logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source +Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine);
-logger2.Close();
+                            logger2.Close();
                             Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
                           
 
                         }
                     }
                 }
-                //File.WriteAllText(@"C:\VTOL\ALLApps.txt",x);
+                
             }
 
         }

@@ -123,7 +123,7 @@
         <ui:Button x:Name="Import_Profile"   Icon="ArrowImport24" Height="30" Margin="0,395,245,0" VerticalAlignment="Top"  BorderBrush="{x:Null}" Content="{x:Static properties:Language.Page_Profiles_ImportProfile}" Padding="0,0,0,0" ToolTip="Import Profile" Background="#FF383838"  ClickMode="Press" HorizontalAlignment="Right" Width="190"  Visibility="Collapsed" />
         <ui:Button  x:Name="Export_Profile" Icon="ArrowExportLtr24" Height="30" Margin="0,548,50,0" VerticalAlignment="Top"  BorderBrush="{x:Null}" Content="{x:Static properties:Language.Page_Profiles_ExportProfile}" Padding="0,0,0,0" ToolTip="Export Profile" Background="#FF383838" ClickMode="Press" HorizontalAlignment="Right" Width="190" Click="Export_Profile_Click" MouseOverBackground="#FF484848" PressedBackground="#FF7F7F7F" />
         <ui:Button  x:Name="Add_Profile" Icon="Add12" Height="30" Margin="50,548,0,0" VerticalAlignment="Top"  BorderBrush="{x:Null}" Content="{x:Static properties:Language.Page_Profiles_AddProfile}" Padding="0,0,0,0" ToolTip="Add Profile" Background="#FF383838"  ClickMode="Press" Width="195" Click="Add_Profile_Click" MouseOverBackground="#FF484848" PressedBackground="#FF7F7F7F" />
-        <ui:Button  x:Name="Clear_Profile" Icon="New20" Height="30" Margin="0,76,50,0" VerticalAlignment="Top"  BorderBrush="{x:Null}" Content="Clear Profile Data" Padding="0,0,0,0" ToolTip="Clear Profile" Background="#FF383838" ClickMode="Press" HorizontalAlignment="Right" Width="190" MouseOverBackground="#FF484848" PressedBackground="#FF7F7F7F" Click="Clear_Profile_Click" />
+        <ui:Button  x:Name="Clear_Profile" Icon="New20" Height="30" Margin="0,76,50,0" VerticalAlignment="Top"  BorderBrush="{x:Null}" Content="Clear Profile Data" Padding="0,0,0,0" ToolTip="Clear Profile" Background="#FF383838" ClickMode="Press" HorizontalAlignment="Right" Width="190" MouseOverBackground="#FF484848" PressedBackground="#FF7F7F7F" Click="Clear_Profile_Click" Initialized="Clear_Profile_Initialized" />
 
         <ComboBox x:Name="Extra_Menu" Margin="246,396,0,0" VerticalAlignment="Top" Padding="0,0,0,0" BorderBrush="{x:Null}" BorderThickness="0,0,0,0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" HorizontalAlignment="Left" Background="#FF383838" Height="26" DropDownClosed="ComboBox_DropDownClosed" RenderTransformOrigin="0.5,0.5" MinHeight="28" SelectionChanged="Extra_Menu_SelectionChanged" Visibility="Hidden"  >
 
@@ -267,7 +267,7 @@
 
 
         </Border>
-        <Label Content="Still Under Active Testing and development. Use at your own risk." Margin="0,0,344,48" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Center" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="410" Background="{x:Null}" Foreground="#C6FFFFFF"/>
+        <Label Content="Still Under Active Testing and development. Use at your own risk" Margin="0,0,344,48" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Center" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="410" Background="{x:Null}" Foreground="#C6FFFFFF"/>
 
 
     </Grid>
