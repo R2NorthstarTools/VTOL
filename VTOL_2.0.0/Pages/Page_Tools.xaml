@@ -421,7 +421,7 @@
                                 <Border CornerRadius="5,5,9,9" Margin="0,0,0,127">
 
                                     <Border.Background>
-                                        <ImageBrush Stretch="UniformToFill" ImageSource="/Resources/Resource_Static/Leigon+.png" TileMode="None"/>
+                                        <ImageBrush Stretch="UniformToFill" ImageSource="/Resources/Resource_Static/Leigon+.jpg" TileMode="None"/>
                                     </Border.Background>
                                 </Border>
 

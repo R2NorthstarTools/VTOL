@@ -729,21 +729,35 @@ Main.logger2.Close();
         private childItem FindVisualChild<childItem>(DependencyObject obj)
     where childItem : DependencyObject
         {
-            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(obj); i++)
+
+            try
             {
-                DependencyObject child = VisualTreeHelper.GetChild(obj, i);
-                if (child != null && child is childItem)
+                for (int i = 0; i < VisualTreeHelper.GetChildrenCount(obj); i++)
                 {
-                    return (childItem)child;
+                    DependencyObject child = VisualTreeHelper.GetChild(obj, i);
+                    if (child != null && child is childItem)
+                    {
+                        return (childItem)child;
+                    }
+                    else
+                    {
+                        childItem childOfChild = FindVisualChild<childItem>(child);
+                        if (childOfChild != null)
+                            return childOfChild;
+                    }
                 }
-                else
-                {
-                    childItem childOfChild = FindVisualChild<childItem>(child);
-                    if (childOfChild != null)
-                        return childOfChild;
-                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                Main.logger2.Open();
+                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
+                Main.logger2.Close();
+
             }
             return null;
+
         }
         private void Ts_Image_GotFocus(object sender, RoutedEventArgs e)
         {
@@ -763,69 +777,93 @@ Main.logger2.Close();
        
         private void mask_MouseEnter(object sender, MouseEventArgs e)
         {
-            DispatchIfNecessary(async () =>
+            try
             {
 
-            ContentPresenter myListBoxItem = (ContentPresenter)(Thunderstore_List.ItemContainerGenerator.ContainerFromItem(Thunderstore_List.Items.CurrentItem));
-            Grid gridPanel = FindVisualChild<Grid>(myListBoxItem);
 
-            DoubleAnimation animation = new DoubleAnimation
-            {
-                Duration = new Duration(TimeSpan.FromSeconds(0.4)),
-                AutoReverse = false
-            };
+                DispatchIfNecessary(async () =>
+                {
 
-            if (gridPanel.Opacity >= 1)
-            {
-                animation.From = gridPanel.Opacity;
-                animation.To = 0;
-                gridPanel.BeginAnimation(OpacityProperty, animation);
-                gridPanel.IsEnabled = false;
+                    ContentPresenter myListBoxItem = (ContentPresenter)(Thunderstore_List.ItemContainerGenerator.ContainerFromItem(Thunderstore_List.Items.CurrentItem));
+                    Grid gridPanel = FindVisualChild<Grid>(myListBoxItem);
+
+                    DoubleAnimation animation = new DoubleAnimation
+                    {
+                        Duration = new Duration(TimeSpan.FromSeconds(0.4)),
+                        AutoReverse = false
+                    };
+
+                    if (gridPanel.Opacity >= 1)
+                    {
+                        animation.From = gridPanel.Opacity;
+                        animation.To = 0;
+                        gridPanel.BeginAnimation(OpacityProperty, animation);
+                        gridPanel.IsEnabled = false;
+                    }
+                    else
+                    {
+                        animation.From = gridPanel.Opacity;
+                        animation.To = 1;
+                        gridPanel.BeginAnimation(OpacityProperty, animation);
+                        gridPanel.IsEnabled = true;
+                    }
+
+
+                });
             }
-            else
+            catch (Exception ex)
             {
-                animation.From = gridPanel.Opacity;
-                animation.To = 1;
-                gridPanel.BeginAnimation(OpacityProperty, animation);
-                gridPanel.IsEnabled = true;
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                Main.logger2.Open();
+                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
+                Main.logger2.Close();
+
             }
-
-
-            });
         }
 
         private void mask_MouseLeave(object sender, MouseEventArgs e)
         {
-            DispatchIfNecessary(async () =>
+            try
             {
-                ContentPresenter myListBoxItem = (ContentPresenter)(Thunderstore_List.ItemContainerGenerator.ContainerFromItem(Thunderstore_List.Items.CurrentItem));
-            Grid GridPanel_ = FindVisualChild<Grid>(myListBoxItem);
-            bool mouseIsDown = System.Windows.Input.Mouse.RightButton == MouseButtonState.Pressed;
+                DispatchIfNecessary(async () =>
+                {
+                    ContentPresenter myListBoxItem = (ContentPresenter)(Thunderstore_List.ItemContainerGenerator.ContainerFromItem(Thunderstore_List.Items.CurrentItem));
+                    Grid GridPanel_ = FindVisualChild<Grid>(myListBoxItem);
+                    bool mouseIsDown = System.Windows.Input.Mouse.RightButton == MouseButtonState.Pressed;
 
-            if (mouseIsDown)
+                    if (mouseIsDown)
+                    {
+                        DoubleAnimation da = new DoubleAnimation
+                        {
+                            Duration = new Duration(TimeSpan.FromSeconds(0.4)),
+                            AutoReverse = false
+                        };
+
+                        if (GridPanel_.Opacity >= 1)
+                        {
+                            da.From = GridPanel_.Opacity;
+                            da.To = 0;
+                            GridPanel_.BeginAnimation(OpacityProperty, da);
+                            GridPanel_.IsEnabled = false;
+                        }
+                        else
+                        {
+                            da.From = GridPanel_.Opacity;
+                            da.To = 1;
+                            GridPanel_.BeginAnimation(OpacityProperty, da);
+                            GridPanel_.IsEnabled = true;
+                        }
+                    }
+                });
+            }
+            catch (Exception ex)
             {
-                DoubleAnimation da = new DoubleAnimation
-                {
-                    Duration = new Duration(TimeSpan.FromSeconds(0.4)),
-                    AutoReverse = false
-                };
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                Main.logger2.Open();
+                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
+                Main.logger2.Close();
 
-                if (GridPanel_.Opacity >= 1)
-                {
-                    da.From = GridPanel_.Opacity;
-                    da.To = 0;
-                    GridPanel_.BeginAnimation(OpacityProperty, da);
-                    GridPanel_.IsEnabled = false;
-                }
-                else
-                {
-                    da.From = GridPanel_.Opacity;
-                    da.To = 1;
-                    GridPanel_.BeginAnimation(OpacityProperty, da);
-                    GridPanel_.IsEnabled = true;
-                }
-                }
-            });
+            }
         }
 
         private void CardExpander_MouseLeftGrid_Down(object sender, MouseButton e)
@@ -2879,7 +2917,6 @@ int millisecondsDelay = 300)
                                                 DirectoryInfo di = new DirectoryInfo(Directory.GetParent(File_.FullName).ToString());
                                              if (Directory.Exists(Destination))
                                         {
-                                                TryCreateDirectory(Destination + @"\" + "Multipack");
 
                                                 TryMoveFolder(di.FullName, Directory.GetParent(Destination).ToString() + @"\" + di.Name);
 
@@ -2925,8 +2962,21 @@ int millisecondsDelay = 300)
                                         // If file found, delete it    
                                         TryDeleteFile(Path.Combine(Destination, "manifest.json"));
                                     }
-
-
+                                    if (File.Exists(Path.Combine(Destination, "README.md")))
+                                    {
+                                        // If file found, delete it    
+                                        TryDeleteFile(Path.Combine(Destination, "README.md"));
+                                    }
+                                    if (File.Exists(Path.Combine(Destination, "LICENSE")))
+                                {
+                                        // If file found, delete it    
+                                        TryDeleteFile(Path.Combine(Destination, "LICENSE"));
+                                    }
+                                    if (File.Exists(Path.Combine(Destination, "md5sum.txt")))
+                                {
+                                        // If file found, delete it    
+                                        TryDeleteFile(Path.Combine(Destination, "md5sum.txt"));
+                                    }
                                     if (Directory.Exists(User_Settings_Vars.NorthstarInstallLocation  + User_Settings_Vars.Profile_Path + @"\mods\Northstar.Client\Locked_Folder"))
                                     {
                                         TryDeleteDirectory(User_Settings_Vars.NorthstarInstallLocation  + User_Settings_Vars.Profile_Path + @"\mods\Northstar.Client\Locked_Folder", true);
@@ -3175,11 +3225,9 @@ int millisecondsDelay = 300)
                                             DirectoryInfo di = new DirectoryInfo(Directory.GetParent(File_.FullName).ToString());
                                             if (Directory.Exists(Destination))
                                             {
-                                                TryCreateDirectory(Destination + @"\" + "Multipack");
 
                                                 TryMoveFolder(di.FullName, Directory.GetParent(Destination).ToString() + @"\" + di.Name);
 
-                                                // string firstFolder = di.FullName;
 
 
                                             }
@@ -3333,6 +3381,7 @@ Main.logger2.Close();
         }
         async Task Install_Skin_Async_Starter(IEnumerable<string> in_, string Destination = "")
         {
+            try { 
           
             await Task.Run(async () => //Task.Run automatically unwraps nested Task types!
             {
@@ -3359,6 +3408,18 @@ Main.logger2.Close();
                     TryDeleteDirectory(Destination, true);
                 }
             });
+
+            }
+            catch (Exception ex)
+            {
+                Main.logger2.Open();
+                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine);
+                Main.logger2.Close();
+
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy-MM- dd-HH-mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+
+            }
+
         }
         private void ScrollViewer_MouseEnter(object sender, MouseEventArgs e)
         {
@@ -3525,6 +3586,7 @@ Main.logger2.Close();
 
         private void Dialog_ButtonLeftClick(object sender, RoutedEventArgs e)
         {
+            
           
             Dependency_Download( Dialog.Tag.ToString(), Progress_Cur_Temp);
 
@@ -3532,6 +3594,7 @@ Main.logger2.Close();
         
         private void Search_Filters_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            try { 
             if (page_loaded == true)
             {
                 if (sender.GetType() == typeof(HandyControl.Controls.CheckComboBox))
@@ -3582,10 +3645,21 @@ Main.logger2.Close();
 
                 }
             }
+            }
+            catch (Exception ex)
+            {
+                Main.logger2.Open();
+                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine);
+                Main.logger2.Close();
+
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy-MM- dd-HH-mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+
+            }
 
         }
         async Task OPEN_WEBPAGE(string URL)
         {
+            try { 
             await Task.Run(() =>
             {
                 DispatchIfNecessary(() => {
@@ -3602,9 +3676,25 @@ Main.logger2.Close();
                 UseShellExecute = true
             });
             });
+
         }
-        private void Auto_Scroll_Description(Canvas canMain, TextBlock tbmarquee)
+            catch (Exception ex)
+            {
+                Main.logger2.Open();
+                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine);
+                Main.logger2.Close();
+
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy-MM- dd-HH-mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+
+                }
+
+}
+private void Auto_Scroll_Description(Canvas canMain, TextBlock tbmarquee)
         {
+            try
+            {
+
+            
             double width = canMain.ActualWidth - tbmarquee.ActualWidth;
             double H = tbmarquee.ActualHeight - canMain.ActualHeight;
             Console.WriteLine(H);
@@ -3616,6 +3706,18 @@ Main.logger2.Close();
             doubleAnimation.AutoReverse = true;
             doubleAnimation.Duration = new Duration(TimeSpan.FromSeconds(2));
             tbmarquee.BeginAnimation(Canvas.TopProperty, doubleAnimation);
+            }
+            catch (Exception ex)
+            {
+                Main.logger2.Open();
+                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine);
+                Main.logger2.Close();
+
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy-MM- dd-HH-mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+
+            }
+
+
         }
 
         private void Open_Webpage_Click(object sender, RoutedEventArgs e)
@@ -3693,6 +3795,7 @@ Main.logger2.Close();
 
         private void Sort_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            try { 
             if (Sort.SelectedItem != null && Sort.SelectedItem.ToString().Length > 1)
             { 
                 Sort_Label.Visibility = Visibility.Hidden;
@@ -3729,6 +3832,17 @@ Main.logger2.Close();
                 worker.RunWorkerAsync();
 
             }
+            }
+            catch (Exception ex)
+            {
+                Main.logger2.Open();
+                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine);
+                Main.logger2.Close();
+
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy-MM- dd-HH-mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+
+            }
+
         }
 
         private void Search_Bar_Suggest_Mods_KeyUp(object sender, KeyEventArgs e)
@@ -3748,7 +3862,10 @@ Main.logger2.Close();
         }
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
-        {
+        {try
+            {
+
+            
             if (page_loaded == true)
             {
                 BackgroundWorker worker = new BackgroundWorker();
@@ -3776,6 +3893,16 @@ Main.logger2.Close();
            
             worker.RunWorkerAsync();
             }
+            }
+            catch (Exception ex)
+            {
+                Main.logger2.Open();
+                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine);
+                Main.logger2.Close();
+
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy-MM- dd-HH-mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+
+            }
 
         }
 
@@ -3786,7 +3913,7 @@ Main.logger2.Close();
         }
 
         private void Thunderstore_Grid_Panel_Loaded(object sender, RoutedEventArgs e)
-        {
+        {try { 
             DispatchIfNecessary(async () =>
             {
                 Grid Card;
@@ -3827,6 +3954,16 @@ Main.logger2.Close();
 
                 }
             });
+            }
+            catch (Exception ex)
+            {
+                Main.logger2.Open();
+                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine);
+                Main.logger2.Close();
+
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy-MM- dd-HH-mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+
+            }
 
         }
     }

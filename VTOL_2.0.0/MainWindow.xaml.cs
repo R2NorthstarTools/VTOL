@@ -105,9 +105,9 @@ namespace VTOL
 
                 InitializeComponent();
                 NotificationManager =  new NotificationManager();
-                 minimize_to_tray =  Properties.Settings.Default.Minimize_to_Tray;
+                minimize_to_tray =  Properties.Settings.Default.Minimize_to_Tray;
                 Profile_TAG.Content = Properties.Settings.Default.Profile_Name;
-
+        
                 if (!File.Exists(AppDataFolder + @"\VTOL_DATA\Settings\User_Settings.Json"))
                 {    string DocumentsFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 

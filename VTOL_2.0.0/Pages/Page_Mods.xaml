@@ -98,7 +98,7 @@
 
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <ui:CardControl x:Name="Card__" Margin="0,4,0,4" Foreground="{x:Null}" IsHitTestVisible="True" AutomationProperties.HelpText="sd" Tag="{Binding Mod_Name_}" MouseRightButtonDown="EXTRA_SETTINGS_Dock_MouseRightButtonDown" Padding="5,5,5,5" Loaded="CardControl_Loaded" IsMouseCaptureWithinChanged="CardControl_IsMouseCaptureWithinChanged" GotFocus="CardControl_GotFocus" MouseMove="CardControl_MouseMove" ClickMode="Press" BorderBrush="{x:Null}">
+                    <ui:CardControl x:Name="Card__" Margin="0,4,0,4" Foreground="{x:Null}" IsHitTestVisible="True" AutomationProperties.HelpText="sd" Tag="{Binding Mod_Name_}" MouseRightButtonDown="EXTRA_SETTINGS_Dock_MouseRightButtonDown" Padding="5,5,5,5" Loaded="CardControl_Loaded" IsMouseCaptureWithinChanged="CardControl_IsMouseCaptureWithinChanged" GotFocus="CardControl_GotFocus" MouseMove="CardControl_MouseMove" ClickMode="Press" BorderBrush="{Binding IS_CORE_MOD}">
                         <ui:CardControl.Resources>
                             <Storyboard x:Key="FadeInStoryboard">
                                 <DoubleAnimation
@@ -130,17 +130,10 @@
                         </ui:CardControl.Header>
                         <Grid Height="60" RenderTransformOrigin="0.5,0.5" Width="435">
 
-                            <DockPanel   Height="62" HorizontalAlignment="Left" Margin="113,0,0,-2" Width="322" Opacity="0" IsEnabled="False" Tag="Hidden" AutomationProperties.IsOffscreenBehavior="Offscreen">
-                                <ui:Button x:Name="Info_Btn" Width="58" Height="42" Content="Info"  Background="#FF24ABBD" Tag ="{Binding Mod_Name_}"  ToolTip="{Binding Mod_Name_}" Margin="0,0,5,0" Click="Info_Btn_Click" ClickMode="Press"/>
-                                <ui:Button x:Name="Check_For_Update" Width="116" Height="42" Content="Update" Tag ="{Binding Mod_Name_}" ToolTip="{Binding Mod_Name_}" Margin="0,0,5,0" FontSize="12" Click="Check_For_Update_Click" IsEnabled="False" Visibility="Collapsed">
-                                    <ui:Button.Background>
-                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                            <GradientStop Color="#FF0A9A68"/>
-                                            <GradientStop Color="#FF58B192" Offset="1"/>
-                                        </LinearGradientBrush>
-                                    </ui:Button.Background>
-                                </ui:Button>
-                                <ui:Button x:Name="Delete_Btn" Width="76" Height="42" Content="Delete"  Background="#FFB90000" Tag ="{Binding Mod_Name_}"  ToolTip="{Binding Mod_Name_}" Margin="0,0,30,0" Click="Delete_Btn_Click"/>
+                            <DockPanel   Height="62" HorizontalAlignment="Left" Margin="84,0,0,-2" Width="351" IsEnabled="False" Tag="Hidden" AutomationProperties.IsOffscreenBehavior="Offscreen" Opacity="0">
+                                <ui:Button x:Name="Info_Btn" Width="88" Height="42" Content="Info"  Background="#FF24ABBD" Tag ="{Binding Mod_Name_}"  ToolTip="{Binding Mod_Name_}" Margin="0,0,5,0" Click="Info_Btn_Click" ClickMode="Press" Icon="Info20"/>
+
+                                <ui:Button x:Name="Delete_Btn" Width="96" Height="42" Content="Delete"  Background="#FFB90000" Tag ="{Binding Mod_Name_}"  ToolTip="{Binding Mod_Name_}" Margin="0,0,30,0" Click="Delete_Btn_Click" Icon="DeleteDismiss24"/>
 
                             </DockPanel>
                             <ui:Button x:Name="Mod_Btn" Width="112" Height="42" Content="{Binding Label}"  Background="{Binding Is_Active_Color}" Tag ="{Binding En_Di}" Click="Mod_Btn_Click" ToolTip="{Binding Mod_Name_}" Margin="0,0,10,0" HorizontalAlignment="Right"/>
@@ -197,7 +190,7 @@
 
 
         </ListBox>
-       
+        
 
         <ui:Snackbar x:Name="Snack" Grid.ColumnSpan="3" Margin="24,0,24,24"/>
         <Label Content="{x:Static properties:Language.Page_Mods_ListedHereAreTheModsThatAreCurrentlyInstalled}" Margin="65,0,0,573" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="281" Grid.ColumnSpan="2"/>

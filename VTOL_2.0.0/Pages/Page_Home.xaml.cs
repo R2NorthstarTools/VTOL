@@ -901,7 +901,7 @@ int millisecondsDelay = 150)
                 SnackBar.Message = VTOL.Resources.Languages.Language.PleaseWaitAsVTOLRestarts;
                 SnackBar.Show();
             });
-
+         
             await Task.Delay(1000);
             var currentExecutablePath = Process.GetCurrentProcess().MainModule.FileName;
             Process.Start(currentExecutablePath);
@@ -3466,7 +3466,7 @@ Main.logger2.Close();
                     {
                         //x = GetFile(Current_Install_Folder, "autoexec_ns_server.cfg").First();
 
-                        if (do_not_overwrite_Ns_file == true)
+                        if (do_not_overwrite_Ns_file == true )
                         {
                             if (Directory.Exists(Current_Install_Folder + @"TempCopyFolder"))
                             {
@@ -3882,7 +3882,7 @@ int millisecondsDelay = 300)
                 string nrml = GetFile(Current_Install_Folder, @"ns_startup_args.txt");
                 string cfg = GetFile(Current_Install_Folder, @"autoexec_ns_server.cfg");
                 string dedi = GetFile(Current_Install_Folder, @"ns_startup_args_dedi.txt");
-                if (do_not_overwrite_Ns_file == true)
+                if (do_not_overwrite_Ns_file == true )
                 {
                     if (!Directory.Exists(Current_Install_Folder + @"TempCopyFolder"))
                     {
@@ -3937,7 +3937,7 @@ int millisecondsDelay = 300)
                         TryUnzipFile(Target_Zip, Destination_Zip);
 
 
-                        if (do_not_overwrite_Ns_file == true)
+                        if (do_not_overwrite_Ns_file == true )
                         {
 
                             if (Directory.Exists(Current_Install_Folder + @"TempCopyFolder\"))

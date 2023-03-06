@@ -42,6 +42,8 @@ namespace VTOL.Pages
         public string Is_Active_Color;
         public string Size__;
         public string Mod_Path;
+        public string IS_CORE_MOD;
+
         public string Mod_Path_
         {
 
@@ -84,6 +86,12 @@ namespace VTOL.Pages
 
             get { return Is_Active_Color; }
             set { Is_Active_Color = value; NotifyPropertyChanged("Is_Active_Color"); }
+        }
+        public string IS_CORE_MOD_
+        {
+
+            get { return IS_CORE_MOD; }
+            set { IS_CORE_MOD = value; NotifyPropertyChanged("Is_Active_Color"); }
         }
         public string Size_
         {
@@ -179,6 +187,7 @@ namespace VTOL.Pages
             public string En_Di { get; set; }
             public bool Is_Active_ { get; set; }
             public string Is_Active_Color { get; set; }
+            public string IS_CORE_MOD { get; set; }
 
             public string Size__ { get; set; }
             public int Flag { get; set; }
@@ -280,8 +289,12 @@ namespace VTOL.Pages
         async void Call_Mods_From_Folder()
         {
             bool install_Prompt = false;
+            string IS_CORE_MOD_temp = "#00000000";
             try
             {
+               
+
+                  
                 Final_List.Clear();
 
 
@@ -319,9 +332,20 @@ namespace VTOL.Pages
 
                                     Mod_Count_Label.Content = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_ModCount + subDirs.Length;
                                 });
-                                foreach (System.IO.DirectoryInfo dirInfo in subDirs)
+                                DispatchIfNecessary(() =>
                                 {
+                                    foreach (System.IO.DirectoryInfo dirInfo in subDirs)
+                                {
+                                    if (Regex.IsMatch(dirInfo.Name.Trim(), @"^Northstar\.CustomServers\w{0,2}$") || Regex.IsMatch(dirInfo.Name.Trim(), @"^Northstar\.Custom\w{0,2}$") || Regex.IsMatch(dirInfo.Name.Trim(), @"^Northstar\.Client\w{0,2}$"))
+                                    {
+                                        IS_CORE_MOD_temp = "#FF8C7F24";
 
+                                    }
+                                    else
+                                    {
+                                        IS_CORE_MOD_temp = "#00000000";
+
+                                    }
                                     if (Page_Home.IsDirectoryEmpty(dirInfo))
                                     {
                                         if (Page_Home.IsDirectoryEmpty(new DirectoryInfo(dirInfo.FullName)) == true)
@@ -345,19 +369,20 @@ namespace VTOL.Pages
                                         }
                                         int Flag_mod = 0;
                                         string ToolTip_Dynamic = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_ThereIsAnIssueDetectedWithYourMod;
-                                        if (!File.Exists(dirInfo.FullName + @"\Locked_Folder" + @"\mod.json") && !Directory.Exists(dirInfo.FullName + @"\" + "Multipack"))
+                                        if (!File.Exists(dirInfo.FullName + @"\Locked_Folder" + @"\mod.json"))
                                         {
                                             ToolTip_Dynamic = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_PleaseOpenYourFolderAt + dirInfo.Parent + VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_AndManuallyRepairTheMod + dirInfo.Name;
                                             Flag_mod = 100;
                                         }
-                                        Final_List.Add(new Card_ { Mod_Name_ = dirInfo.Name.Trim(), Mod_Date_ = dirInfo.CreationTime.ToString(), Is_Active_Color = "#B29A0404", Size__ = dirInfo.LastAccessTime.ToString(), En_Di = "Enable", Is_Active_ = true, Mod_Path_ = dirInfo.FullName, Flag = Flag_mod, Error_Tooltip = ToolTip_Dynamic, Label = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_Enable });
+                                        
+                                        Final_List.Add(new Card_ { Mod_Name_ = dirInfo.Name.Trim(), Mod_Date_ = dirInfo.CreationTime.ToString(), Is_Active_Color = "#B29A0404", Size__ = dirInfo.LastAccessTime.ToString(), En_Di = "Enable", Is_Active_ = true, Mod_Path_ = dirInfo.FullName, Flag = Flag_mod, Error_Tooltip = ToolTip_Dynamic, Label = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_Enable ,IS_CORE_MOD = IS_CORE_MOD_temp });
                                     }
                                     else
                                     {
                                         int Flag_mod = 0;
                                         string ToolTip_Dynamic = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_ThereIsAnIssueDetectedWithYourMod;
 
-                                        if (!File.Exists(dirInfo.FullName + @"\mod.json") && !Directory.Exists(dirInfo.FullName + @"\" + "Multipack"))
+                                        if (!File.Exists(dirInfo.FullName + @"\mod.json"))
                                         {
 
                                             ToolTip_Dynamic = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_PleaseOpenYourFolderAt + dirInfo.Parent + VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_AndManuallyRepairTheMod + dirInfo.Name;
@@ -385,14 +410,14 @@ namespace VTOL.Pages
 
                                         }
 
-                                        Final_List.Add(new Card_ { Mod_Name_ = dirInfo.Name.Trim(), Mod_Date_ = dirInfo.CreationTime.ToString(), Is_Active_Color = "#B2049A28", Size__ = dirInfo.LastAccessTime.ToString(), En_Di = "Disable", Is_Active_ = false, Mod_Path_ = dirInfo.FullName, Flag = Flag_mod, Error_Tooltip = ToolTip_Dynamic, Label = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_Disable_ });
+                                        Final_List.Add(new Card_ { Mod_Name_ = dirInfo.Name.Trim(), Mod_Date_ = dirInfo.CreationTime.ToString(), Is_Active_Color = "#B2049A28", Size__ = dirInfo.LastAccessTime.ToString(), En_Di = "Disable", Is_Active_ = false, Mod_Path_ = dirInfo.FullName, Flag = Flag_mod, Error_Tooltip = ToolTip_Dynamic, Label = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_Disable_, IS_CORE_MOD = IS_CORE_MOD_temp });
 
 
                                     }
                                     Main.Current_Installed_Mods.Add(dirInfo.Name.Trim());
 
                                 }
-                                Console.WriteLine("Finished_Mod_Load");
+                            });
                                 DispatchIfNecessary(() =>
                                 {
 
@@ -406,6 +431,7 @@ namespace VTOL.Pages
 
 
                 }
+               
             }
             catch (Exception ex)
             {
@@ -1993,6 +2019,46 @@ namespace VTOL.Pages
             // simply return string.Empty.
             return string.Empty;
         }
+        public long GetDirectorySize(string path)
+        {
+            try { 
+            DirectoryInfo directoryInfo = new DirectoryInfo(path);
+            return directoryInfo.EnumerateFiles("*", SearchOption.AllDirectories)
+                               .Sum(file => file.Length);
+            }
+
+            catch (Exception ex)
+            {
+                Main.logger2.Open();
+                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
+                Main.logger2.Close();
+
+            }
+            return 0;
+        }
+
+        public  string SizeSuffix(long value)
+        {
+            try {
+                if (value < 1024)
+                    return $"{value} B";
+                else if (value < 1048576)
+                    return $"{value / 1024f:0.##} KB";
+                else if (value < 1073741824)
+                    return $"{value / 1048576f:0.00} MB";
+                else
+                    return $"{value / 1073741824f:0.00} GB";
+            }
+
+            catch (Exception ex)
+            {
+                Main.logger2.Open();
+                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
+                Main.logger2.Close();
+
+            }
+            return null;
+}
         void Open_Mod_Info(string Mod_name)
         {
 
@@ -2014,7 +2080,11 @@ namespace VTOL.Pages
                         string name = "Name: " + myJObject.Name;
                         string version = "Version: " + myJObject.Version;
                         string Description = "Description: " + myJObject.Description;
-                        string Content = Description + Environment.NewLine + version;
+                        long size = GetDirectorySize(FolderDir);
+                        string size_str = "Mod Size on Disk: " + SizeSuffix(size);
+
+                       
+                        string Content = Description + Environment.NewLine + version + Environment.NewLine + size_str.Replace(",",".");
                         DialogF.ButtonLeftName = "Ok";
                         DialogF.ButtonLeftAppearance = Wpf.Ui.Common.ControlAppearance.Success;
                         DialogF.ButtonRightName = VTOL.Resources.Languages.Language.Page_Mods_Open_Mod_Info_OpenFolder;

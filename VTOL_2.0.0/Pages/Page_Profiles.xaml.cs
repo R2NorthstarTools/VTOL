@@ -1369,41 +1369,45 @@ namespace VTOL.Pages
 
 		private async void LoadProfiles()
 		{
-            try { 
+			try
+			{
 
-			// Clear current listbox items
-			Profile_List_Box.ItemsSource = null;
+				// Clear current listbox items
+				Profile_List_Box.ItemsSource = null;
 				Final_List.Clear();
 
 				// Get all .vpb files in the directory
 				string[] vpbFiles = await Task.Run(() => Directory.GetFiles(Main.User_Settings_Vars.NorthstarInstallLocation + "VTOL_profiles", "*.vbp", SearchOption.AllDirectories));
-		
-			foreach (string file in vpbFiles)
-			{
+				if (vpbFiles != null)
+				{
 					
-					FileInfo fileInfo = new FileInfo(file);
-					long fileSize = fileInfo.Length;
-					DateTime creationDate = fileInfo.CreationTime;
-					string formattedCreationDate = creationDate.ToString("MM/dd/yyyy HH:mm:ss");
-					Final_List.Add(new Card_ {Profile_Name_ = fileInfo.Name, Profile_Date_ = formattedCreationDate, Profile_Path_ = fileInfo.FullName });
-				
-			}
-						await Task.Delay(10);
-				Profile_List_Box.ItemsSource = Final_List;
+					foreach (string file in vpbFiles)
+					{
 
-				//foreach (string file in Final_List)
-				//{
-				//	Profile_List_Box.Items.Add(file);
+						FileInfo fileInfo = new FileInfo(file);
+						long fileSize = fileInfo.Length;
+						DateTime creationDate = fileInfo.CreationTime;
+						string formattedCreationDate = creationDate.ToString("MM/dd/yyyy HH:mm:ss");
+						Final_List.Add(new Card_ { Profile_Name_ = fileInfo.Name, Profile_Date_ = formattedCreationDate, Profile_Path_ = fileInfo.FullName });
 
-				//	Profile_List_Box.Refresh();
-				//	await Task.Delay(50);
-				//}
-				// Hide loading icon
-				//	LoadingIcon.Visibility = Visibility.Collapsed;
-				// Output the list to console
-				//vpbFiles.ToList().ForEach(//Console.WriteLine);
+					}
+					await Task.Delay(10);
+					Profile_List_Box.ItemsSource = Final_List;
 
-				_Completed_Mod_call = true;
+					//foreach (string file in Final_List)
+					//{
+					//	Profile_List_Box.Items.Add(file);
+
+					//	Profile_List_Box.Refresh();
+					//	await Task.Delay(50);
+					//}
+					// Hide loading icon
+					//	LoadingIcon.Visibility = Visibility.Collapsed;
+					// Output the list to console
+					//vpbFiles.ToList().ForEach(//Console.WriteLine);
+
+					_Completed_Mod_call = true;
+				}
 			}
 			catch (Exception ex)
 			{
@@ -2225,5 +2229,24 @@ namespace VTOL.Pages
 			Backup_Profile_Current = true;
 
 		}
-    }
+
+        private void Clear_Profile_Click(object sender, RoutedEventArgs e)
+        {
+            try { 
+			
+				Properties.Settings.Default.Profile_Name = "";
+				Properties.Settings.Default.Save();
+				Main.Profile_TAG.Content = Properties.Settings.Default.Profile_Name;
+		}
+
+			catch (Exception ex)
+			{
+				Main.logger2.Open();
+				Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
+				Main.logger2.Close();
+				
+
+			}
+}
+	}
 		}

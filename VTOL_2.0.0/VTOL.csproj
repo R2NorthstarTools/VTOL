@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0-windows10.0.17763.0</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
@@ -94,6 +94,7 @@
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\760110.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\760112.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\760742.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\761608.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\761608.png" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\764654.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\765731.jpg" />
@@ -160,10 +161,13 @@
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%281%29.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%2810%29.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%2811%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%2812%29.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%2812%29.png" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%2813%29.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%2813%29.png" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%2814%29.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%2815%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%2816%29.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%2816%29.png" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%2817%29.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%2818%29.jpg" />
@@ -194,15 +198,19 @@
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper%2840%29.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper%2841%29.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper%2842%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper%2843%29.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper%2843%29.png" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper%2844%29.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper%2844%29.png" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper%2845%29.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper%2846%29.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper%2847%29.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper%2848%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper%2849%29.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper%2849%29.png" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%285%29.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper%2850%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%286%29.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%286%29.png" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%287%29.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%288%29.jpg" />
@@ -245,7 +253,7 @@
     <None Remove="Resources\Resource_Static\better_frog.png" />
     <None Remove="Resources\Resource_Static\Crowbar.png" />
     <None Remove="Resources\Resource_Static\harmony.png" />
-    <None Remove="Resources\Resource_Static\Leigon+.png" />
+    <None Remove="Resources\Resource_Static\Leigon+.jpg" />
     <None Remove="Resources\Resource_Static\MDL_SHIT_Banner.png" />
     <None Remove="Resources\Resource_Static\Northstar_Server_Vals_Aug_2022.json" />
     <None Remove="Resources\Resource_Static\NO_TEXTURE.png" />
@@ -314,190 +322,166 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\1008810.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\1230317.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\691951.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\760108.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\760110.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\760112.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\760742.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\761608.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\764654.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\765731.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\869852.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\BT_.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\desktop-1680x1050.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(1).jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(10).jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(11).jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(12).png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(13).png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(14).jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(15).jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(16).png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(17).jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(18).jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(19).jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(2).jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(20).jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(21).jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(22).jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(23).jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(24).jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(25).jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(26).jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(27).jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(28).jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(29).jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(3).jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(30).jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(31).jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(32).jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(33).png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(34).jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper(35).jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper(36).jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper(37).jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper(38).jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper(39).jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(4).jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper(40).jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper(41).jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper(42).jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper(43).png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper(44).png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper(45).jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper(46).jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper(47).jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper(48).jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper(49).png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(5).jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(6).png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(7).jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(8).jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(9).jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\star_shower.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -527,28 +511,28 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper (51).jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper (52).jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper (53).jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper (54).jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper (55).jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper (56).jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper (6).jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper(50).jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\jack.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -556,6 +540,30 @@
     <Content Include="Resources\Backgrounds\_.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\Backgrounds\Backgrounds_Home_Page\761608.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(12).jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(13).jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(16).jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper(43).jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper(44).jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper(49).jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(6).jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Backgrounds\profiles_bg.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -567,6 +575,9 @@
     </Resource>
     <Resource Include="Resources\Resource_Static\better_frog.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Resource_Static\Leigon+.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Resource_Static\Rexx_Cat.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -737,9 +748,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Resource_Static\harmony.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Resource_Static\Leigon+.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Resource_Static\NO_TEXTURE.png">
