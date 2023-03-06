@@ -1390,7 +1390,25 @@ int millisecondsDelay = 150)
                     User_Settings_Vars.NorthstarInstallLocation = Current_Install_Folder;
                 }
 
-                 
+                if (NS_Installed == true)
+                {
+
+                    DispatchIfNecessary(() =>
+                    {
+
+                        Update_Northstar_Button.Content = VTOL.Resources.Languages.Language.Page_Home_UpdateNorthstar;
+                    });
+                }
+                else
+                {
+                        DispatchIfNecessary(() =>
+                        {
+
+                            Update_Northstar_Button.Content = VTOL.Resources.Languages.Language.Page_Home_INIT_InstallNorthstar;
+                        });
+
+
+                }
             }
             catch (Exception ex)
             {
