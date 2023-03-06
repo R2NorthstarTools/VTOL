@@ -23,7 +23,6 @@ using Microsoft.Win32;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
-using Syncfusion;
 using Wpf.Ui.Common;
 using Brushes = System.Windows.Media.Brushes;
 using Image = SixLabors.ImageSharp.Image;
@@ -39,7 +38,6 @@ using PixelFormat = System.Drawing.Imaging.PixelFormat;
 using System.Diagnostics;
 using System.Windows.Media.Animation;
 using System.Text.RegularExpressions;
-using NLog;
 using System.Reflection;
 using Downloader;
 using System.ComponentModel;
@@ -404,6 +402,7 @@ namespace VTOL.Pages
         public Page_Tools()
         { 
             InitializeComponent();
+            try {
             string defualt_repak = @"for %%i in ("+'\u0022' + @"%~dp0maps\*" + '\u0022'+ ")  do " + '\u0022'+ @"% ~dp0RePak.exe" + '\u0022' + " "+ '\u0022' + "%%i"+ '\u0022' + Environment.NewLine + "pause";
             if (Properties.Settings.Default.RePak_Launch_Args == "" || Properties.Settings.Default.RePak_Launch_Args == null)
             {
@@ -579,6 +578,14 @@ namespace VTOL.Pages
             Output_Directory.Text = Environment.CurrentDirectory;
             Output_Box.Text = Environment.CurrentDirectory;
             Tools_Dir = Main.User_Settings_Vars.NorthstarInstallLocation + @"VTOL_ExternalTools\";
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                Main.logger2.Open();
+                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
+                Main.logger2.Close();
+            }
 
         }
         private static MainWindow GetMainWindow()
@@ -2872,34 +2879,47 @@ private readonly Dictionary<string, string> weaponNameToPath = new()
         }
         private void Tabs_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
-            if (Tabs.SelectedItem.ToString() != null)
-            {
-
-                if (Tabs.SelectedValue.ToString().Contains("External Tools"))
+            if (Directory.Exists(Tools_Dir)) {
+                if (Tabs.SelectedItem.ToString() != null)
                 {
-                    Check_For_Tools();
-                    fade_dav(false);
 
-                }
-                else if (Tabs.SelectedValue.ToString().Contains("Advocate"))
-                {
-                    fade_dav(true);
-                    if (Directory.Exists(Tools_Dir + @"RePak") && File.Exists(Tools_Dir + @"RePak\" + "RePak.exe") && !File.Exists(Mod_Adv_Repak_Path))
+                    if (Tabs.SelectedValue.ToString().Contains("External Tools"))
                     {
-                        Properties.Settings.Default.REpak_Folder_Path = Tools_Dir + @"RePak\" + "RePak.exe"; ;
-                        Properties.Settings.Default.Save();
-                        Mod_Adv_Repak_Path = Tools_Dir + @"RePak\" + "RePak.exe";
-                        Zip_Box_Advocate_Copy.Text = Mod_Adv_Repak_Path;
-                    }
+                        Check_For_Tools();
+                        fade_dav(false);
 
                     }
-                else
-                {
-                    fade_dav(false);
+                    else if (Tabs.SelectedValue.ToString().Contains("Advocate"))
+                    {
+                        fade_dav(true);
+                        if (Directory.Exists(Tools_Dir + @"RePak") && File.Exists(Tools_Dir + @"RePak\" + "RePak.exe") && !File.Exists(Mod_Adv_Repak_Path))
+                        {
+                            Properties.Settings.Default.REpak_Folder_Path = Tools_Dir + @"RePak\" + "RePak.exe"; ;
+                            Properties.Settings.Default.Save();
+                            Mod_Adv_Repak_Path = Tools_Dir + @"RePak\" + "RePak.exe";
+                            Zip_Box_Advocate_Copy.Text = Mod_Adv_Repak_Path;
+                        }
+
+
+                    }
+                    else
+                    {
+                        fade_dav(false);
+                    }
+
+
                 }
-               
-
+            }
+            else
+            {
+                TryCreateDirectory(Tools_Dir);
+                if (!Directory.Exists(Tools_Dir))
+                {
+                    SnackBar.Icon = SymbolRegular.ErrorCircle20;
+                    SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
+                    SnackBar.Message = "Tools Directory Empty and could not be created!";
+                    SnackBar.Show();
+                }
             }
 
 

@@ -107,7 +107,8 @@ namespace VTOL
                 NotificationManager =  new NotificationManager();
                 minimize_to_tray =  Properties.Settings.Default.Minimize_to_Tray;
                 Profile_TAG.Content = Properties.Settings.Default.Profile_Name;
-        
+                Properties.Settings.Default.Profile_Name = "";
+                Properties.Settings.Default.Save();
                 if (!File.Exists(AppDataFolder + @"\VTOL_DATA\Settings\User_Settings.Json"))
                 {    string DocumentsFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 
@@ -718,9 +719,22 @@ true // Whether to change accents automatically
 
         private void Changelog_Click(object sender, RoutedEventArgs e)
         {
+            try { 
             string url = @"https://github.com/R2Northstar/Northstar/releases/tag/v" + NORTHSTAR_BUTTON.Content.ToString().Replace("Northstar Version", "").Replace("-", "").Trim().Replace(" ", "");
 
             OPEN_WEBPAGE(url);
+            
+            }
+
+
+            catch (Exception ex)
+            {
+                MessageBox.Show("Exception Encountered! - " + ex.Message);
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                logger2.Open();
+                logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine);
+                logger2.Close();
+            }
         }
 
         private void Troubleshoot_Click(object sender, RoutedEventArgs e)

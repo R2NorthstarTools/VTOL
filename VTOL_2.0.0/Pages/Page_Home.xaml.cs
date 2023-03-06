@@ -45,10 +45,7 @@ using Serilog;
 using System.Globalization;
 using Ionic.Zip;
 using VTOL.Scripts;
-using GameFinder.StoreHandlers.Steam;
 using System.Runtime.InteropServices;
-using GameFinder.RegistryUtils;
-using GameFinder.StoreHandlers.Origin;
 using VTOL.Properties;
 using Pixelmaniac.Notifications;
 using System.Xml;
@@ -836,62 +833,7 @@ int millisecondsDelay = 150)
 
 
         }
-        public string Search_Using_Game_Lib()
-        {
-            try
-            {
-                //////SteamFirst///
-                // use the Windows registry on Windows
-                // Linux doesn't have a registry
-                var handler = RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
-                    ? new SteamHandler(new WindowsRegistry())
-                    : new SteamHandler(null);
-
-                // method 1: iterate over the game-error result
-                SteamGame? steamgame = handler.FindOneGameById(432912, out string[] errors);
-
-                if (steamgame != null && steamgame.Name.Count() > 2)
-                {
-                    return steamgame.Path;
-                }
-                else
-                {
-                    /////Failed/////
-                    return null;
-
-                }
-
-
-
-                ///////Origin////
-                var Origin_handler = new OriginHandler();
-
-                // method 1: iterate over the game-error result
-                foreach (var (game, error) in Origin_handler.FindAllGames())
-                {
-                    if (game.InstallPath.Contains("Titanfall2") || game.InstallPath.Contains("TitanFall2"))
-                    {
-                        return game.InstallPath;
-                    }
-                    else
-                    {
-                        /////Failed/////
-                        return null;
-                    }
-                }
-            }
-
-            catch (Exception ex)
-            {
-                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-                Main.logger2.Open();
-                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-                Main.logger2.Close();
-
-            }
-            return null;
-
-        }
+       
         void Restart()
         {
             var currentExecutablePath = Process.GetCurrentProcess().MainModule.FileName;
@@ -4221,8 +4163,9 @@ Main.logger2.Close();
 
         void ShowBanner()
         {
-           
-                WARNING_BANNER.Visibility = Visibility.Visible;
+            
+
+            WARNING_BANNER.Visibility = Visibility.Visible;
 
 
         }
@@ -4230,6 +4173,14 @@ Main.logger2.Close();
         {
             DispatchIfNecessary(() =>
             {
+                DispatchIfNecessary(async () =>
+                {
+                    Main.Profile_TAG.Content = "";
+                    Properties.Settings.Default.Profile_Name = "";
+                    Properties.Settings.Default.Save();
+                    Main.Profile_TAG.Content = Properties.Settings.Default.Profile_Name;
+                    Main.Profile_TAG.Refresh();
+                });
                 WELCOME_BANNER.Visibility = Visibility.Visible;
                 Main.RootNavigation.IsEnabled = false;
 

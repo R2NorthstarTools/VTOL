@@ -16,7 +16,6 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO.Compression;
 using System.Threading;
-using NLog.Targets;
 using System.Text.RegularExpressions;
 using HandyControl.Tools;
 using System.Windows.Media.Animation;
@@ -2000,6 +1999,21 @@ namespace VTOL.Pages
             try { 
 			DispatchIfNecessary(async () =>
 			{
+				if (Main.Profile_TAG.Content == null || Main.Profile_TAG.Content == "" || Main.Profile_TAG.Content.ToString().Length < 1)
+				{
+					Clear_Profile.IsEnabled = false;
+
+				}else if (Properties.Settings.Default.Profile_Name == "" || Properties.Settings.Default.Profile_Name == null || Properties.Settings.Default.Profile_Name.Length < 1)
+                {
+					Clear_Profile.IsEnabled = false;
+
+				}
+				else
+				{
+					Clear_Profile.IsEnabled = true;
+
+
+				}
 				LoadProfiles();
 				//PopulateListBoxWithRandomPaths();
 			});
@@ -2232,11 +2246,15 @@ namespace VTOL.Pages
 
         private void Clear_Profile_Click(object sender, RoutedEventArgs e)
         {
-            try { 
-			
-				Properties.Settings.Default.Profile_Name = "";
-				Properties.Settings.Default.Save();
-				Main.Profile_TAG.Content = Properties.Settings.Default.Profile_Name;
+            try {
+				DispatchIfNecessary(async () =>
+				{
+					Main.Profile_TAG.Content = "";
+					Properties.Settings.Default.Profile_Name = "";
+					Properties.Settings.Default.Save();
+					Main.Profile_TAG.Content = Properties.Settings.Default.Profile_Name;
+					Main.Profile_TAG.Refresh();
+				});
 		}
 
 			catch (Exception ex)
@@ -2251,30 +2269,12 @@ namespace VTOL.Pages
 
         private void Clear_Profile_Initialized(object sender, EventArgs e)
         {
-			try
-			{
+			
+		}
 
-				
-				if(Main.Profile_TAG.Content != null || Main.Profile_TAG.Content != ""){
-					Clear_Profile.IsEnabled = false;
-
-                }
-                else
-				{
-					Clear_Profile.IsEnabled = true;
-
-
-				}
-			}
-
-			catch (Exception ex)
-			{
-				Main.logger2.Open();
-				Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-				Main.logger2.Close();
-
-
-			}
+        private void Clear_Profile_Loaded(object sender, RoutedEventArgs e)
+        {
+			
 		}
     }
 		}
