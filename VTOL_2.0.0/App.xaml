@@ -9,11 +9,12 @@
             xmlns:hc="https://handyorg.github.io/handycontrol" Startup="Application_Startup">
 
     <Application.Resources>
-       
         <ResourceDictionary >
+            <FontFamily x:Key="Nacelle">/Fonts/Nacelle/#Nacelle</FontFamily>
+
             <Storyboard x:Key="fadeIn">
-    <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.5" />
-</Storyboard>
+            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.5" />
+             </Storyboard>
            
             <ResourceDictionary.MergedDictionaries>
                 <hc:ThemeResources  RequestedTheme="Dark"/>

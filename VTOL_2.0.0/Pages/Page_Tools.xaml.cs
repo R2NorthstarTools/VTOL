@@ -42,6 +42,8 @@ using System.Reflection;
 using Downloader;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
+using System.Text.Json;
+
 
 namespace VTOL.Pages
 {
@@ -2285,66 +2287,200 @@ Main.logger2.Close();
                 File.WriteAllText(modTempFolderPath + "\\mods\\" + Mod_Adv_Author_name + "." + Mod_Adv_Skin_Name + "\\mod.json", modJson);
 
 
-                //////////////////////////////////////////////////////////////////
-                // create map.json and move textures to temp folder for packing //
-                //////////////////////////////////////////////////////////////////
+                    //////////////////////////////////////////////////////////////////
+                    // create map.json and move textures to temp folder for packing //
+                    //////////////////////////////////////////////////////////////////
 
+                    Advocate.Conversion.JSON.Map map = new(Mod_Adv_Skin_Name, $"{repakTempFolderPath}/assets", $"{modTempFolderPath}/mods/{Mod_Adv_Author_name}.{Mod_Adv_Skin_Name}/paks");
 
-                string map = string.Format("{{\n\"name\":\"{0}\",\n\"assetsDir\":\"{1}\",\n\"outputDir\":\"{2}\",\n\"version\": 7,\n\"files\":[\n", Mod_Adv_Skin_Name, (repakTempFolderPath + "\\assets").Replace('\\', '/'), (modTempFolderPath + "\\mods\\" + Mod_Adv_Author_name + "." + Mod_Adv_Skin_Name + "\\paks").Replace('\\', '/'));
-                // this tracks the textures that we have already added to the json, so we can avoid duplicates in there
-                List<string> textures = new();
-                bool isFirst = true;
-                foreach (string skinPath in Directory.GetDirectories(skinTempFolderPath))
-                    {// some skins have random files and folders in here, like images and stuff, so I have to do sorting in an annoying way
-                        List<string> parsedDirs = new();
-                        foreach (string dir in Directory.GetDirectories(skinPath))
-                        {
-                            // only add to the list of dirs
-                            if (int.TryParse(Path.GetFileName(dir), out int val))
-                            {
-                                parsedDirs.Add(dir);
-                            }
-                        }
-                        foreach (string resolution in Directory.GetDirectories(skinPath).OrderBy(path => int.Parse(Path.GetFileName(path))))
+                    // this tracks the textures that we have already added to the json, so we can avoid duplicates in there
+                    List<string> textures = new();
+                    // this tracks the different skin types that we have found, for description parsing later
+                    List<string> skinTypes = new();
+
+                    // this keeps track of the different DDS files we are handling and combining
+                    // the key is the texture name (example: CAR_Default_col)
+                    Dictionary<string, Advocate.DDS.Manager> ddsManagers = new();
+                    /* The plan here is to:
+                     * 1. find all textures, and put them into arrays/lists of mip sizes (where 2^index == image width/height)
+                     * 2. take each dds, and rip the image data directly from it, putting them together to create as many mip levels as we can
+                     * 3. create the lower level mips from the highest resolution image that we have
+                     * (decompression and recompression harms image quality so we want to avoid this wherever we can)
+                     * 4. put the raw image data for the mips into one dds file
+                     * 
+                     * ASSUMPTIONS:
+                     * 1. the lower resolution images use the same compression format as the highest resolution image
+                     * if this is not the case, log, and skip the lower level image (this means we have to generate more mip levels, which is bad)
+                     * 
+                     */
+
+                    // find all DDS files within the zip folder
+                    string[] ddsImages = Directory.GetFiles(skinTempFolderPath, "*.dds", SearchOption.AllDirectories);
+
+                    // add all of the files to their respective DDS Managers
+                    foreach (string path in ddsImages)
                     {
-                        if (int.TryParse(Path.GetFileName(resolution), out int res))
+                        string filename = Path.GetFileNameWithoutExtension(path);
+
+                        // create a new DDS.Manager if needed
+                        if (!ddsManagers.ContainsKey(filename))
                         {
-                            foreach (string texture in Directory.GetFiles(resolution))
-                            {
-                                // move texture to temp folder for packing
-                                // convert from skin tool syntax to actual texture path, gotta be hardcoded because pain
-                                string texturePath = TextureNameToPath(Path.GetFileNameWithoutExtension(texture));
-                                if (texturePath == "")
-                                {
-                                   // ConversionFailed(button, styleProperty, "Failed to convert texture '" + Path.GetFileNameWithoutExtension(texture) + "')");
-                                    return;
-                                }
+                          //  Debug($"Found new texture type '{filename}', creating Manager.");
+                            ddsManagers.Add(filename, new Advocate.DDS.Manager());
+                        }
 
-                                // avoid duplicate textures in the json
-                                if (!textures.Contains(texturePath))
-                                {
-                                    // dont add a comma on the first one
-                                    if (!isFirst)
-                                        map += ",\n";
-                                    map += $"{{\n\"$type\":\"txtr\",\n\"path\":\"{texturePath}\",\n\"disableStreaming\":true,\n\"saveDebugName\":true\n}}";
-                                    // add texture to tracked textures
-                                    textures.Add(texturePath);
-                                }
-                                isFirst = false;
-                                // copy file
-                               TryCreateDirectory(Directory.GetParent($"{repakTempFolderPath}\\assets\\{texturePath}.dds").FullName);
+                        // read the dds file into the Manager
+                      //  Debug($"Adding new image for texture type '{filename}' from path '{path}'");
+                        BinaryReader reader = new(new FileStream(path, FileMode.Open));
+                        ddsManagers[filename].LoadImage(reader);
+                        reader.Close();
 
-                                DdsHandler handler = new(texture);
-                                handler.Convert();
-                                handler.Save($"{repakTempFolderPath}\\assets\\{texturePath}.dds");
-                            }
+                        // add texture to skinTypes for tracking which skins are in the package
+                        string type = Path.GetFileNameWithoutExtension(path).Split("_")[0];
+                        if (!skinTypes.Contains(type))
+                        {
+                          //  Debug($"Found new skin type for description handling ({type})");
+                            skinTypes.Add(type);
                         }
                     }
-                }
 
-                // end the json
-                map += "\n]\n}";
-                File.WriteAllText(repakTempFolderPath + "\\map.json", map);
+                    // save all dds images
+                    foreach (KeyValuePair<string, Advocate.DDS.Manager> pair in ddsManagers)
+                    {
+                        string texturePath = TextureNameToPath(pair.Key);
+                        if (texturePath == "")
+                        {
+                           // Logging.Logger.Error($"Failed to find texture path for {pair.Key}");
+                          //  return false;
+                        }
+                        string filePath = $"{repakTempFolderPath}/assets/{texturePath}.dds";
+                        // writer doesnt create directories, so do it beforehand
+                        Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+
+                        //Debug($"Saving texture (with {pair.Value.MipMapCount} mips) to path '{filePath}'");
+
+                        // create writer and save the image
+                        BinaryWriter writer = new(new FileStream(filePath, FileMode.Create));
+
+                        // generate missing mips
+                        if (pair.Value.HasMissingMips())
+                        {
+                           // Debug($"Texture being saved to '{filePath}' has missing mip levels");
+                           // Info($"Generating MipMaps... ({pair.Key})");
+                         
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            //  pair.Value.GenerateMissingMips(texconvPath);
+
+
+                        }
+
+                        pair.Value.Convert();
+                        pair.Value.SaveImage(writer);
+
+                        // close the writer
+                        writer.Close();
+
+                        // add asset to map file
+                        map.AddTextureAsset(texturePath);
+
+                        // add texturePath to tracked textures
+                        textures.Add(texturePath);
+                    }
+
+                    // write the map json
+                  //
+                  
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    //File.WriteAllText($"{repakTempFolderPath}/map.json", JsonSerializer.Serialize<Advocate.Conversion.JSON.Map>(map, jsonOptions));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                //    string map = string.Format("{{\n\"name\":\"{0}\",\n\"assetsDir\":\"{1}\",\n\"outputDir\":\"{2}\",\n\"version\": 7,\n\"files\":[\n", Mod_Adv_Skin_Name, (repakTempFolderPath + "\\assets").Replace('\\', '/'), (modTempFolderPath + "\\mods\\" + Mod_Adv_Author_name + "." + Mod_Adv_Skin_Name + "\\paks").Replace('\\', '/'));
+                //// this tracks the textures that we have already added to the json, so we can avoid duplicates in there
+                //List<string> textures = new();
+                //bool isFirst = true;
+                //foreach (string skinPath in Directory.GetDirectories(skinTempFolderPath))
+                //    {// some skins have random files and folders in here, like images and stuff, so I have to do sorting in an annoying way
+                //        List<string> parsedDirs = new();
+                //        foreach (string dir in Directory.GetDirectories(skinPath))
+                //        {
+                //            // only add to the list of dirs
+                //            if (int.TryParse(Path.GetFileName(dir), out int val))
+                //            {
+                //                parsedDirs.Add(dir);
+                //            }
+                //        }
+                //        foreach (string resolution in Directory.GetDirectories(skinPath).OrderBy(path => int.Parse(Path.GetFileName(path))))
+                //    {
+                //        if (int.TryParse(Path.GetFileName(resolution), out int res))
+                //        {
+                //            foreach (string texture in Directory.GetFiles(resolution))
+                //            {
+                //                // move texture to temp folder for packing
+                //                // convert from skin tool syntax to actual texture path, gotta be hardcoded because pain
+                //                string texturePath = TextureNameToPath(Path.GetFileNameWithoutExtension(texture));
+                //                if (texturePath == "")
+                //                {
+                //                   // ConversionFailed(button, styleProperty, "Failed to convert texture '" + Path.GetFileNameWithoutExtension(texture) + "')");
+                //                    return;
+                //                }
+
+                //                // avoid duplicate textures in the json
+                //                if (!textures.Contains(texturePath))
+                //                {
+                //                    // dont add a comma on the first one
+                //                    if (!isFirst)
+                //                        map += ",\n";
+                //                    map += $"{{\n\"$type\":\"txtr\",\n\"path\":\"{texturePath}\",\n\"disableStreaming\":true,\n\"saveDebugName\":true\n}}";
+                //                    // add texture to tracked textures
+                //                    textures.Add(texturePath);
+                //                }
+                //                isFirst = false;
+                //                // copy file
+                //               TryCreateDirectory(Directory.GetParent($"{repakTempFolderPath}\\assets\\{texturePath}.dds").FullName);
+
+                //                DdsHandler handler = new(texture);
+                //                handler.Convert();
+                //                handler.Save($"{repakTempFolderPath}\\assets\\{texturePath}.dds");
+                //            }
+                //        }
+                //    }
+                //}
+
+                //// end the json
+                //map += "\n]\n}";
+                //File.WriteAllText(repakTempFolderPath + "\\map.json", map);
 
 
                 //////////////////////////

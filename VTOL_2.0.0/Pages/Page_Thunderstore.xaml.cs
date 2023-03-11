@@ -2352,7 +2352,6 @@ Main.logger2.Close();
                     if (Is_Valid_URl(URL))
                     {
                         Links.Add(URL);
-                        MessageBox.Show(URL);
 
 
 

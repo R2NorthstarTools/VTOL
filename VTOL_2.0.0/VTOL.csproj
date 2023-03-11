@@ -42,6 +42,22 @@
   <ItemGroup>
     <None Remove="Banner_normal.jpg" />
     <None Remove="Fonts\HoloSymMDL2.ttf" />
+    <None Remove="Fonts\Nacelle\Nacelle-Black.otf" />
+    <None Remove="Fonts\Nacelle\Nacelle-BlackItalic.otf" />
+    <None Remove="Fonts\Nacelle\Nacelle-Bold.otf" />
+    <None Remove="Fonts\Nacelle\Nacelle-BoldItalic.otf" />
+    <None Remove="Fonts\Nacelle\Nacelle-Heavy.otf" />
+    <None Remove="Fonts\Nacelle\Nacelle-HeavyItalic.otf" />
+    <None Remove="Fonts\Nacelle\Nacelle-Italic.otf" />
+    <None Remove="Fonts\Nacelle\Nacelle-Light.otf" />
+    <None Remove="Fonts\Nacelle\Nacelle-LightItalic.otf" />
+    <None Remove="Fonts\Nacelle\Nacelle-Regular.otf" />
+    <None Remove="Fonts\Nacelle\Nacelle-SemiBold.otf" />
+    <None Remove="Fonts\Nacelle\Nacelle-SemiBoldItalic.otf" />
+    <None Remove="Fonts\Nacelle\Nacelle-Thin.otf" />
+    <None Remove="Fonts\Nacelle\Nacelle-ThinItalic.otf" />
+    <None Remove="Fonts\Nacelle\Nacelle-UltraLight.otf" />
+    <None Remove="Fonts\Nacelle\Nacelle-UltraLightItalic.otf" />
     <None Remove="Fonts\Segoe Fluent Icons.ttf" />
     <None Remove="Fonts\Segoe MDL2 Assets.ttf" />
     <None Remove="Fonts\Segoe UI Bold Italic.ttf" />
@@ -304,6 +320,54 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Fonts\Nacelle\Nacelle-Black.otf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Nacelle\Nacelle-BlackItalic.otf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Nacelle\Nacelle-Bold.otf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Nacelle\Nacelle-BoldItalic.otf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Nacelle\Nacelle-Heavy.otf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Nacelle\Nacelle-HeavyItalic.otf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Nacelle\Nacelle-Italic.otf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Nacelle\Nacelle-Light.otf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Nacelle\Nacelle-LightItalic.otf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Nacelle\Nacelle-Regular.otf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Nacelle\Nacelle-SemiBold.otf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Nacelle\Nacelle-SemiBoldItalic.otf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Nacelle\Nacelle-Thin.otf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Nacelle\Nacelle-ThinItalic.otf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Nacelle\Nacelle-UltraLight.otf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Nacelle\Nacelle-UltraLightItalic.otf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="NLog.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>

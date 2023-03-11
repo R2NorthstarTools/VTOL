@@ -132,6 +132,7 @@
                                 Header="Home"
                                 SymbolIcon="Home24"
                                 Tag="OpenHome" Click="OpenHome_Click" />
+                    
                     <ui:MenuItem  x:Name="OpenMods"
                                 Header="Mods"
                                 SymbolIcon="FolderOpen16"
@@ -223,14 +224,20 @@
                     Content="{x:Static properties:Language.Page_Skins_Browse}"
                     Icon="BoxSearch20" FontSize="10" PageType="{x:Type Pages:Page_Thunderstore}" ClickMode="Press"
                     />
+                <ui:NavigationSeparator />
+
                 <ui:NavigationItem x:Name="Skins"
                     Content="{x:Static properties:Language.MainWindow_Skins}"
                     Icon="InkStroke20" FontSize="10" PageType="{x:Type Pages:Page_Skins}" ClickMode="Press"
                     />
+                <ui:NavigationSeparator />
+
                 <ui:NavigationItem x:Name="Server"
                     Content="{x:Static properties:Language.MainWindow_Server}"
                     Icon="ServerPlay20" FontSize="10" PageType="{x:Type Pages:Page_Server}" ClickMode="Press"
                     />
+                <ui:NavigationSeparator />
+
                 <ui:NavigationItem x:Name="Tools"
                     Content="{x:Static properties:Language.MainWindow_Tools}"
                     Icon="Toolbox12" FontSize="10" PageType="{x:Type Pages:Page_Tools}" ClickMode="Press"
@@ -271,8 +278,8 @@
 
                         <Image Source="/Resources/Icons/Main_UI/VTOL_multires.ico" Height="30" Width="33" Margin="-11,0,0,0"        RenderOptions.BitmapScalingMode="HighQuality"
 />
-                        <TextBlock x:Name="VERSION_TEXT" Text="VTOL - 0.0.0 |" FontWeight="Normal" FontFamily="Segoe UI Variable Static Text" TextDecorations="{x:Null}" FontStyle="Normal" Margin="10,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <ui:Button  x:Name="NORTHSTAR_BUTTON" Width="153" Height="21" Content="Northstar Version 0.0.0" Padding="0,0.5,0,0" VerticalAlignment="Stretch" FontSize="12" BorderThickness="1,1,1,1" Margin="5,0,0,-1" Background="#33FFFFFF" VerticalContentAlignment="Stretch" BorderBrush="{x:Null}" Click="NORTHSTAR_BUTTON_Click">
+                        <TextBlock x:Name="VERSION_TEXT" Text="VTOL - 0.0.0 |" FontWeight="Normal" FontFamily="Nacelle" TextDecorations="{x:Null}" FontStyle="Normal" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                        <ui:Button  x:Name="NORTHSTAR_BUTTON" Width="153" Height="21" Content="Northstar Version 0.0.0" Padding="0,0.5,0,0" VerticalAlignment="Stretch" FontSize="12" BorderThickness="1,1,1,1" Margin="5,0,0,-1" Background="#33FFFFFF" VerticalContentAlignment="Center" BorderBrush="{x:Null}" Click="NORTHSTAR_BUTTON_Click" FontFamily="Nacelle">
                             <ui:Button.PressedBackground>
                                 <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.GradientActiveCaptionColorKey}}"/>
                             </ui:Button.PressedBackground>
@@ -280,7 +287,7 @@
                                 <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ActiveCaptionColorKey}}"/>
                             </ui:Button.MouseOverBackground>
                         </ui:Button>
-                        <Label x:Name="Profile_TAG" Width="202" Background="{x:Null}" Foreground="#FFA2A2A2" Content="" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Height="23" Padding="15,0,0,1"></Label>
+                        <Label x:Name="Profile_TAG" Width="202" Background="{x:Null}" Foreground="#FFA2A2A2" Content="" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Height="23" Padding="15,0,0,1" FontFamily="Nacelle"></Label>
                     </StackPanel>
                 </StatusBarItem>
             </StatusBar>
