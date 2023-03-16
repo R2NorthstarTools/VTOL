@@ -37,6 +37,7 @@
         <ui:Button x:Name="padd" Content="" VerticalAlignment="Top" Height="35" Padding="0,0,0,0" Icon="ArrowSortDownLines20" BorderBrush="{x:Null}"  Width="40" HorizontalAlignment="Right" Margin="0,135,278.3,0" Click="padd_Click" Background="#07FFFFFF" ToolTip="{x:Static properties:Language.Page_Mods_ReverseFilterOrder}" MouseOverBackground="#4CFFFFFF"/>
 
         <hc:CheckComboBox x:Name="Search_Filters" ItemsSource="{Binding Final_List}"  Height="28" VerticalAlignment="Top" SelectedIndex="-1" ShowClearButton="True" Cursor="Hand" Padding="7,0,7,5" BorderThickness="0,0,0,1" BorderBrush="#FF999999" Background="#00000000" SelectionChanged="Search_Filters_SelectionChanged" hc:InfoElement.Placeholder="Filters" ToolTip="Filter Thunderstore List" ScrollViewer.CanContentScroll="False" Margin="0,138,35,0" HorizontalAlignment="Right" Width="243" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Center"  />
+        <hc:Badge Content="Mod Updates Available" Margin="972,632,37,0" VerticalAlignment="Top" BadgeMargin="0,0,0,0" Height="19" Background="#FF45EC57" BorderBrush="#FF45EC57" Status="Processing" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Foreground="#FF8A8A8A" FontFamily="Nirmala UI"/>
 
 
 
@@ -107,13 +108,13 @@
         Duration="0:0:0.69" />
                             </Storyboard>
                             <Storyboard x:Key="FadeOutStoryboard">
-                                    <DoubleAnimation
+                                <DoubleAnimation
         Storyboard.TargetName="Thunderstore_Grid_Panel"
         Storyboard.TargetProperty="Opacity"
         From="1"
         To="0"
         Duration="0:0:0.69" />
-                                </Storyboard>
+                            </Storyboard>
                         </Grid.Resources>
                         <Grid.Triggers>
                             <EventTrigger RoutedEvent="FrameworkElement.Loaded">
@@ -129,7 +130,7 @@
                                 <ImageBrush  ImageSource="{Binding Icon}" Stretch="UniformToFill"  />
 
                             </Border.Background>
-                            
+
                         </Border>
                         <!--<Image x:Name="Ts_Image" Source="{Binding Icon}" Stretch="UniformToFill" Height="Auto" GotFocus="Ts_Image_GotFocus" LostFocus="Ts_Image_LostFocus" MouseEnter="Ts_Image_MouseEnter" Width="Auto" HorizontalAlignment="Center" RenderOptions.BitmapScalingMode="NearestNeighbor" UseLayoutRounding="True"/>-->
 

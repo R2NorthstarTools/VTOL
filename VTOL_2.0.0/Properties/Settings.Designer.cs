@@ -334,5 +334,17 @@ namespace VTOL.Properties {
                 this["Profile_Name"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int Banner_CNTR {
+            get {
+                return ((int)(this["Banner_CNTR"]));
+            }
+            set {
+                this["Banner_CNTR"] = value;
+            }
+        }
     }
 }

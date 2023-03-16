@@ -352,7 +352,7 @@ namespace VTOL.Pages
         public int Admin_Warn_Flag = 0;
         System.Drawing.Point cursorPoint;
         int minutesIdle = 0;
-
+        int showcntr = 0;
         public Page_Home()
         {
 
@@ -379,7 +379,7 @@ namespace VTOL.Pages
             timer.Start();
             Log_Changes_Timer.Start();
             UPDATES_TIMER.Start();
-
+            showcntr = Properties.Settings.Default.Banner_CNTR;
             Random random_ = new Random();
 
             LastHourSeries = new SeriesCollection
@@ -427,10 +427,15 @@ namespace VTOL.Pages
             }
             if (IsDirectoryValid(Current_Install_Folder) == false)
             {
-               
-               
-                ShowBanner();
 
+                if (showcntr < 2)
+                {
+
+                    ShowBanner();
+                    Properties.Settings.Default.Banner_CNTR = Properties.Settings.Default.Banner_CNTR + 1;
+                    Properties.Settings.Default.Save();
+                    showcntr = Properties.Settings.Default.Banner_CNTR;
+                }
             }
             if (Properties.Settings.Default.EA_APP_SUPPORT == true)
             {
@@ -4373,6 +4378,8 @@ Main.logger2.Close();
                                 SnackBar.Message = VTOL.Resources.Languages.Language.Page_Home_Browse_Titanfall_Button_Click_TheLocation + Current_Install_Folder + VTOL.Resources.Languages.Language.Page_Home_Browse_Titanfall_Button_Click_IsValidAndHasBeenSet;
                                 SnackBar.Show();
                                 WELCOME_BANNER.Visibility = Visibility.Collapsed;
+                                WARNING_BANNER.Visibility = Visibility.Collapsed;
+
                                 Main.RootNavigation.IsEnabled = true;
 
                                 
@@ -4398,7 +4405,14 @@ Main.logger2.Close();
 
                                 if (IsDirectoryValid(Current_Install_Folder) == false)
                                 {
-                                    ShowBanner();
+                                    if (showcntr < 2)
+                                    {
+
+                                        ShowBanner();
+                                        Properties.Settings.Default.Banner_CNTR = Properties.Settings.Default.Banner_CNTR + 1;
+                                        Properties.Settings.Default.Save();
+                                        showcntr = Properties.Settings.Default.Banner_CNTR;
+                                    }
                                     Auto_Install_(false);
 
                                 }
