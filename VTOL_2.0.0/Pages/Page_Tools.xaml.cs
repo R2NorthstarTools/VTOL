@@ -3834,14 +3834,14 @@ Main.logger2.Close();
         }
         private void LEGION_INSTALL_Click(object sender, RoutedEventArgs e)
         {
-            if (Directory.Exists(Tools_Dir + @"LEGION") && File.Exists(Tools_Dir + @"LEGION\" + "LegionPlus.exe"))
+            if (Directory.Exists(Tools_Dir + @"LEGION+") && File.Exists(Tools_Dir + @"LEGION+\" + "LegionPlus.exe"))
             {
-                Start_Exe(Tools_Dir + @"LEGION\" + "LegionPlus.exe");
+                Start_Exe(Tools_Dir + @"LEGION+\" + "LegionPlus.exe");
 
             }
             else
             {
-                Download_Zip_To_Path("LEGION", "https://github.com/BigSpice/VTOL/raw/master/%5BTitanfall2_Downloadable_Tools%5D/LEGION%2B.zip");
+                Download_Zip_To_Path("LEGION+", "https://github.com/BigSpice/VTOL/raw/master/%5BTitanfall2_Downloadable_Tools%5D/LEGION%2B.zip");
 
 
             }
