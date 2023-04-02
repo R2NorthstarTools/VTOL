@@ -32,12 +32,13 @@
             <ComboBoxItem Name="Downloads">Downloads</ComboBoxItem>
             <ComboBoxItem Name="Update">Updates</ComboBoxItem>
             <ComboBoxItem Name="ReInstall">Installed</ComboBoxItem>
+            <ComboBoxItem x:Name="Favourites" Content="Favourites"/>
 
         </ComboBox>
         <ui:Button x:Name="padd" Content="" VerticalAlignment="Top" Height="35" Padding="0,0,0,0" Icon="ArrowSortDownLines20" BorderBrush="{x:Null}"  Width="40" HorizontalAlignment="Right" Margin="0,135,278.3,0" Click="padd_Click" Background="#07FFFFFF" ToolTip="{x:Static properties:Language.Page_Mods_ReverseFilterOrder}" MouseOverBackground="#4CFFFFFF"/>
 
         <hc:CheckComboBox x:Name="Search_Filters" ItemsSource="{Binding Final_List}"  Height="28" VerticalAlignment="Top" SelectedIndex="-1" ShowClearButton="True" Cursor="Hand" Padding="7,0,7,5" BorderThickness="0,0,0,1" BorderBrush="#FF999999" Background="#00000000" SelectionChanged="Search_Filters_SelectionChanged" hc:InfoElement.Placeholder="Filters" ToolTip="Filter Thunderstore List" ScrollViewer.CanContentScroll="False" Margin="0,138,35,0" HorizontalAlignment="Right" Width="243" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Center"  />
-        <hc:Badge Content="Mod Updates Available" Margin="972,632,37,0" VerticalAlignment="Top" BadgeMargin="0,0,0,0" Height="19" Background="#FF45EC57" BorderBrush="#FF45EC57" Status="Processing" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Foreground="#FF8A8A8A" FontFamily="Nirmala UI"/>
+        <hc:Badge x:Name="Mod_Updates_Available" Content="Mod Updates Available" Margin="0,632,37,0" VerticalAlignment="Top" BadgeMargin="0,0,0,0" Height="19" Background="#FF45EC57" BorderBrush="#FF45EC57" Status="Processing" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Foreground="#FF8A8A8A" FontFamily="Nirmala UI" Visibility="Hidden" HorizontalAlignment="Right" Width="139"/>
 
 
 
@@ -125,7 +126,7 @@
                             </EventTrigger>
                         </Grid.Triggers>
 
-                        <Border CornerRadius="5,5,5,5" >
+                        <Border CornerRadius="5,5,5,5" BorderBrush="DarkGoldenrod" BorderThickness="{Binding is_Favourite_}">
                             <Border.Background>
                                 <ImageBrush  ImageSource="{Binding Icon}" Stretch="UniformToFill"  />
 
@@ -155,9 +156,11 @@
                         </StackPanel>
 
                         <hc:SimplePanel Background="Black" Opacity="0">
-                            <Border Background="#991B1B1B">
+                            <Border Background="#991B1B1B"  CornerRadius="5">
+                               
                                 <ProgressBar Value="0" SmallChange="0.8" Foreground="#6600714F" Height="286" Background="{x:Null}" IsHitTestVisible="False" IsTabStop="False" Cursor="Wait"/>
                             </Border>
+
                             <!--<Rectangle  Opacity="0.5" Fill="#FF2B2B2B">
                                 <Rectangle.Effect>
                                     <BlurEffect KernelType="Gaussian" Radius="10"></BlurEffect>
@@ -184,9 +187,10 @@
                                     </TransformGroup>
                                 </TextBlock.RenderTransform>
                             </TextBlock>
+
                             <TextBlock TextAlignment="Left" Text="{Binding File_Size}" Margin="10,181,182,87"  FontSize="11" Background="{x:Null}" Foreground="#FFC7C7C7" FontWeight="Bold"/>
                             <ui:Button x:Name="Open_Webpage" Margin="10,250,130,0" Background="#FF2A4B65" HorizontalAlignment="Stretch" Height="29" Content="WebPage" FontSize="14" Icon="GlobeSearch24" BorderBrush="{x:Null}" VerticalAlignment="Top" Appearance="Secondary" IconFilled="True" Padding="0,0,0,0" Click="Open_Webpage_Click" Tag="{Binding Webpage}"/>
-                            <ui:SymbolIcon Symbol="ThumbLike16" HorizontalAlignment="Left" Margin="57,209,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5">
+                            <ui:SymbolIcon Symbol="Heart24" Tag="{Binding Name}" HorizontalAlignment="Left" Margin="57,209,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Foreground="#FFFFD200" MouseEnter="SymbolIcon_MouseEnter" MouseLeave="Favourite_MouseLeave" MouseDown="SymbolIcon_MouseDown" IsManipulationEnabled="False" Loaded="SymbolIcon_Loaded">
                                 <ui:SymbolIcon.RenderTransform>
                                     <TransformGroup>
                                         <ScaleTransform ScaleX="1.4" ScaleY="1.4"/>
@@ -226,7 +230,7 @@
 
                 </DataTemplate>
             </ui:VirtualizingItemsControl.ItemTemplate>
-
+           
             <!--<ListBox.ItemContainerStyle>
                 <Style TargetType="ListBoxItem">
 

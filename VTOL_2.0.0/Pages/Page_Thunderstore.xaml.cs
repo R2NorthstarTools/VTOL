@@ -650,6 +650,7 @@ Main.logger2.Close();
         bool page_loaded = false;
         public bool Reverse_ = false;
         bool search_a_flag = false;
+        public HashSet<string> Fave_Mods = new HashSet<string>();
 
         public Page_Thunderstore()
         {
@@ -725,6 +726,34 @@ Main.logger2.Close();
 
             return mainWindow;
 
+        }
+        public async void CookFaveMods()
+        {
+            try
+            {
+
+                await Task.Run(async () => //Task.Run automatically unwraps nested Task types!
+                {
+
+                    if (!Directory.Exists(DocumentsFolder + @"\VTOL_DATA\ThunderstoreData"))
+
+            {
+                TryCreateDirectory(DocumentsFolder + @"\VTOL_DATA\ThunderstoreData");
+
+            }
+                    
+                });
+
+            }
+            catch (Exception ex)
+            {
+                Main.logger2.Open();
+                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine);
+                Main.logger2.Close();
+
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy-MM- dd-HH-mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+
+            }
         }
         private childItem FindVisualChild<childItem>(DependencyObject obj)
     where childItem : DependencyObject
@@ -1248,48 +1277,33 @@ Main.logger2.Close();
             }
             return false;
         }
-        private void Compare_Mod_To_List(string modname, string Mod_version_current, HashSet<string> list, out string bg_color, out string label)
+        private void Compare_Mod_To_List(string modname, string Mod_version_current, HashSet<string> list, out string bg_color, out string label, out int is_favourite)
         {
             string res = "Install";
             string bg = "#FF005D42";
-            
+            int is_favourite_ = 0;
           
             try
-            {
-
-
-            
+            {         
            
 
                 if (list.Count() > 2)
                 {
-                
 
+                    int Mod_Update_Counter = 0;
            
 
                     foreach (var item in list)
                     {
                 
                         if (Regex.Replace(item, @"(\d+\.)(\d+\.)(\d)", "").TrimEnd('-') == modname)
-                        {
-                 
-
+                        {                
                             Regex pattern = new Regex(@"\d+(\.\d+)+");
                             Match m = pattern.Match(item);
                             string version = m.Value;
                             int result = versionCompare(version, Mod_version_current);
-                            //if(version.Count() < 2)
-                            //{
-                            //    result = 2;
-                            //}
                             switch (result)
-                            {
-                                
-                                //fix versions
-                                //case 2:
-                                //    res = "Repair";
-                                //    bg = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF005D42");
-                                //    break;
+                            {                             
                                 case 1:
                                     res = "Re-Install";
                                     bg = "#FFAD7F1A";
@@ -1297,7 +1311,7 @@ Main.logger2.Close();
                                 case -1:
                                     res = "Update";
                                     bg = "#FF009817";
-
+                                    Mod_Update_Counter++;
                                     break;
                                 case 0:
                                     res = "Re-Install";
@@ -1314,21 +1328,24 @@ Main.logger2.Close();
                             bg_color = bg;
                         }
 
+                        if (Fave_Mods.Contains(item))
+                        {
+                            is_favourite_ = 1;
+                            is_favourite = is_favourite_;
 
+                        }
 
-
-
-
-
-
-
-
-
-
+                        if (Mod_Update_Counter >= 1)
+                        {
+                           Mod_Updates_Available.Visibility = Visibility.Visible;
+                        }
+                        else
+                        {
+                           Mod_Updates_Available.Visibility = Visibility.Hidden;
+                        }
                     }
-
-                }
-        }
+                }        
+            }
             catch (Exception ex)
             {
                 Main.logger2.Open();
@@ -1342,6 +1359,7 @@ Main.logger2.Close();
 
             label = res;
             bg_color = bg;
+            is_favourite = is_favourite_;
 
 
         }
@@ -1675,6 +1693,12 @@ int millisecondsDelay = 30)
                        List = List.Where(item => item.Button_label.ToString().Contains("Update")).OrderBy(ob => ob.Name).ToList();
 
                     }
+                    else if (Sort.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Favourites"))
+                    {
+                        //List = List.OrderByDescending(x => x.Button_label.Contains("Update")).ToList();
+                        List = List.Where(item => item.is_Favourite_.ToString().Contains("Favourites")).OrderBy(ob => ob.Name).ToList();
+
+                    }
                     else
                         {
                         return List;
@@ -1725,6 +1749,12 @@ int millisecondsDelay = 30)
                         List = List.Where(item => item.Button_label.ToString().Contains("Update")).OrderByDescending(ob => ob.Name).ToList();
 
                     }
+                    else if (Sort.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Favourites"))
+                    {
+                        // List = List.OrderBy(x => x.Button_label.Contains("Update")).ToList();
+                        List = List.Where(item => item.Button_label.ToString().Contains("Favourites")).OrderByDescending(ob => ob.Name).ToList();
+
+                    }
                     else
                         {
                         return List;
@@ -1763,7 +1793,7 @@ int millisecondsDelay = 30)
                 string Dependencies_ = "";
                 string Update_data = "";
                 string Button_label = "";
-
+               
                 if (Current_Mod_Filter_Tags != null)
                     {
                         Current_Mod_Filter_Tags = Current_Mod_Filter_Tags.Where(s => !string.IsNullOrWhiteSpace(s)).Distinct().ToList();
@@ -1850,16 +1880,19 @@ int millisecondsDelay = 30)
                                         }
                                     string bg_color;
                                     string label;
-                                    Compare_Mod_To_List(_updater.Thunderstore[i].Name, versions.First().VersionNumber, Main.Current_Installed_Mods, out bg_color, out label);
+                                    int is_favourite = 0;                                  
+                                    Compare_Mod_To_List(_updater.Thunderstore[i].Name, versions.First().VersionNumber, Main.Current_Installed_Mods, out bg_color, out label, out is_favourite);
                                     if (bg_color == null || label == null)
                                     {
-                                        bg_color = "#FF005D42" ;
+                                        bg_color = "#FF005D42";
                                         label = "Install";
 
 
 
                                     }
-                                    itemsList.Add(new Grid_ { Name = _updater.Thunderstore[i].Name.Replace("_", " ") + "-" + versions.First().VersionNumber, Icon = ICON, date_created = _updater.Thunderstore[i].DateCreated.ToString(), description = Descrtiption, owner = _updater.Thunderstore[i].Owner, Rating = rating, download_url = download_url + "|" + _updater.Thunderstore[i].Name + "-" + versions.First().VersionNumber + "|" + Tags + "|" + Dependencies_, Webpage = _updater.Thunderstore[i].PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads, Dependencies = Dependencies_, FullName = _updater.Thunderstore[i].FullName, raw_size = raw_size, Update_data = _updater.Thunderstore[i].Name+ "|" + versions.First().VersionNumber, Button_label = label, Button_Color = bg_color });
+                                   // is_nsfw = _updater.Thunderstore[i].HasNsfwContent ? 100 : 0;
+
+                                    itemsList.Add(new Grid_ { Name = _updater.Thunderstore[i].Name.Replace("_", " ") + "-" + versions.First().VersionNumber, Icon = ICON, date_created = _updater.Thunderstore[i].DateCreated.ToString(), description = Descrtiption, owner = _updater.Thunderstore[i].Owner, Rating = rating, download_url = download_url + "|" + _updater.Thunderstore[i].Name + "-" + versions.First().VersionNumber + "|" + Tags + "|" + Dependencies_, Webpage = _updater.Thunderstore[i].PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads, Dependencies = Dependencies_, FullName = _updater.Thunderstore[i].FullName, raw_size = raw_size, Update_data = _updater.Thunderstore[i].Name+ "|" + versions.First().VersionNumber, Button_label = label, Button_Color = bg_color, is_Favourite_ = is_favourite });
 
 
 
@@ -1922,9 +1955,11 @@ int millisecondsDelay = 30)
                                     }
                                 string bg_color;
                                 string label;
+                                int is_favourite = 0;
+                                //  int is_nsfw = 0;
 
 
-                                Compare_Mod_To_List(_updater.Thunderstore[i].Name, versions.First().VersionNumber, Main.Current_Installed_Mods, out bg_color, out label);
+                                Compare_Mod_To_List(_updater.Thunderstore[i].Name, versions.First().VersionNumber, Main.Current_Installed_Mods, out bg_color, out label, out is_favourite);
                                 if (bg_color == null || label == null)
                                 {
                                     bg_color = "#FF005D42";
@@ -1933,7 +1968,9 @@ int millisecondsDelay = 30)
 
 
                                 }
-                                itemsList.Add(new Grid_ { Name = _updater.Thunderstore[i].Name.Replace("_", " ") + "-" + versions.First().VersionNumber, Icon = ICON, date_created = _updater.Thunderstore[i].DateCreated.ToString(), description = Descrtiption, owner = _updater.Thunderstore[i].Owner, Rating = rating, download_url = download_url + "|" + _updater.Thunderstore[i].Name + "-" + versions.First().VersionNumber + "|" + Tags + "|" + Dependencies_, Webpage = _updater.Thunderstore[i].PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads, Dependencies = Dependencies_, FullName = _updater.Thunderstore[i].FullName, raw_size = raw_size, Update_data = _updater.Thunderstore[i].Name + "|" + versions.First().VersionNumber, Button_label = label, Button_Color = bg_color });
+                             //   is_nsfw = _updater.Thunderstore[i].HasNsfwContent ? 100 : 0;
+
+                                itemsList.Add(new Grid_ { Name = _updater.Thunderstore[i].Name.Replace("_", " ") + "-" + versions.First().VersionNumber, Icon = ICON, date_created = _updater.Thunderstore[i].DateCreated.ToString(), description = Descrtiption, owner = _updater.Thunderstore[i].Owner, Rating = rating, download_url = download_url + "|" + _updater.Thunderstore[i].Name + "-" + versions.First().VersionNumber + "|" + Tags + "|" + Dependencies_, Webpage = _updater.Thunderstore[i].PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads, Dependencies = Dependencies_, FullName = _updater.Thunderstore[i].FullName, raw_size = raw_size, Update_data = _updater.Thunderstore[i].Name + "|" + versions.First().VersionNumber, Button_label = label, Button_Color = bg_color, is_Favourite_ = is_favourite});
                             }
                         }
                         }
@@ -1996,7 +2033,9 @@ int millisecondsDelay = 30)
                                     }
                                 string bg_color;
                                 string label;
-                                  Compare_Mod_To_List(_updater.Thunderstore[i].Name, versions.First().VersionNumber, Main.Current_Installed_Mods, out bg_color, out label);
+                                // int is_nsfw = 0;
+                                int is_favourite = 0;
+                                Compare_Mod_To_List(_updater.Thunderstore[i].Name, versions.First().VersionNumber, Main.Current_Installed_Mods, out bg_color, out label, out is_favourite);
                                 if (bg_color == null || label == null)
                                 {
                                     bg_color = "#FF005D42";
@@ -2006,7 +2045,8 @@ int millisecondsDelay = 30)
 
                                 }
 
-                                itemsList.Add(new Grid_ { Name = _updater.Thunderstore[i].Name.Replace("_", " ") + "-" + versions.First().VersionNumber, Icon = ICON, date_created = _updater.Thunderstore[i].DateCreated.ToString(), description = Descrtiption, owner = _updater.Thunderstore[i].Owner, Rating = rating, download_url = download_url + "|" + _updater.Thunderstore[i].Name + "-" + versions.First().VersionNumber + "|" + Tags + "|" + Dependencies_, Webpage = _updater.Thunderstore[i].PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads, Dependencies = Dependencies_, FullName = _updater.Thunderstore[i].FullName , raw_size = raw_size, Update_data = _updater.Thunderstore[i].Name + "|" + versions.First().VersionNumber, Button_label = label, Button_Color = bg_color });
+                               // is_nsfw = _updater.Thunderstore[i].HasNsfwContent ? 100 : 0;
+                                itemsList.Add(new Grid_ { Name = _updater.Thunderstore[i].Name.Replace("_", " ") + "-" + versions.First().VersionNumber, Icon = ICON, date_created = _updater.Thunderstore[i].DateCreated.ToString(), description = Descrtiption, owner = _updater.Thunderstore[i].Owner, Rating = rating, download_url = download_url + "|" + _updater.Thunderstore[i].Name + "-" + versions.First().VersionNumber + "|" + Tags + "|" + Dependencies_, Webpage = _updater.Thunderstore[i].PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads, Dependencies = Dependencies_, FullName = _updater.Thunderstore[i].FullName , raw_size = raw_size, Update_data = _updater.Thunderstore[i].Name + "|" + versions.First().VersionNumber, Button_label = label, Button_Color = bg_color, is_Favourite_ = is_favourite });
 
 
 
@@ -2067,7 +2107,10 @@ int millisecondsDelay = 30)
                                 }
                             string bg_color;
                             string label;
-                            Compare_Mod_To_List(_updater.Thunderstore[i].Name, versions.First().VersionNumber, Main.Current_Installed_Mods,out bg_color,out label);
+                            int is_favourite = 0;
+                            // int is_nsfw = 0;
+
+                            Compare_Mod_To_List(_updater.Thunderstore[i].Name, versions.First().VersionNumber, Main.Current_Installed_Mods, out bg_color, out label, out is_favourite);
                             if (bg_color == null || label == null)
                             {
                                 bg_color = "#FF005D42";
@@ -2076,7 +2119,9 @@ int millisecondsDelay = 30)
 
 
                             }
-                            itemsList.Add(new Grid_ { Name = _updater.Thunderstore[i].Name.Replace("_", " ") + "-" + versions.First().VersionNumber, Icon = ICON, date_created = _updater.Thunderstore[i].DateCreated.ToString(), description = Descrtiption, owner = _updater.Thunderstore[i].Owner, Rating = rating, download_url = download_url + "|" + _updater.Thunderstore[i].Name + "-" + versions.First().VersionNumber + "|" + Tags + "|" + Dependencies_, Webpage = _updater.Thunderstore[i].PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads, Dependencies = Dependencies_, FullName = _updater.Thunderstore[i].FullName, raw_size = raw_size, Update_data = _updater.Thunderstore[i].Name + "|" + versions.First().VersionNumber, Button_label = label, Button_Color = bg_color });
+                            //is_nsfw = _updater.Thunderstore[i].HasNsfwContent ? 100 : 0;
+
+                            itemsList.Add(new Grid_ { Name = _updater.Thunderstore[i].Name.Replace("_", " ") + "-" + versions.First().VersionNumber, Icon = ICON, date_created = _updater.Thunderstore[i].DateCreated.ToString(), description = Descrtiption, owner = _updater.Thunderstore[i].Owner, Rating = rating, download_url = download_url + "|" + _updater.Thunderstore[i].Name + "-" + versions.First().VersionNumber + "|" + Tags + "|" + Dependencies_, Webpage = _updater.Thunderstore[i].PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads, Dependencies = Dependencies_, FullName = _updater.Thunderstore[i].FullName, raw_size = raw_size, Update_data = _updater.Thunderstore[i].Name + "|" + versions.First().VersionNumber, Button_label = label, Button_Color = bg_color, is_Favourite_ = is_favourite });
 
                         }
 
@@ -2190,6 +2235,8 @@ Main.logger2.Close();
 
             public string Button_label { get; set; }
             public string Button_Color { get; set; }
+            public int is_Favourite_ { get; set; }
+            public int is_NSFW { get; set; }
 
         }
 
@@ -3961,6 +4008,224 @@ private void Auto_Scroll_Description(Canvas canMain, TextBlock tbmarquee)
                 Main.logger2.Close();
 
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy-MM- dd-HH-mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+
+            }
+
+        }
+
+        private void SymbolIcon_MouseEnter(object sender, MouseEventArgs e)
+        {
+            try
+            {
+
+                DispatchIfNecessary(async () =>
+                {
+                    Wpf.Ui.Controls.SymbolIcon Favourite_ = sender as Wpf.Ui.Controls.SymbolIcon;
+                    
+                    Favourite_.Filled = true;
+
+
+                });
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                Main.logger2.Open();
+                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
+                Main.logger2.Close();
+
+            }
+
+        }
+
+        private void Favourite_MouseLeave(object sender, MouseEventArgs e)
+        {
+            try
+            {
+
+
+                DispatchIfNecessary(async () =>
+                {
+                    Wpf.Ui.Controls.SymbolIcon Favourite_ = sender as Wpf.Ui.Controls.SymbolIcon;
+                    HandyControl.Controls.SimplePanel _Panel = (HandyControl.Controls.SimplePanel)((Wpf.Ui.Controls.SymbolIcon)sender).Parent;
+                    if (Favourite_.IsManipulationEnabled == false)
+                    { 
+                        Favourite_.Filled = false;
+                    }
+                    
+
+                });
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                Main.logger2.Open();
+                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
+                Main.logger2.Close();
+
+            }
+
+        }
+        public async Task<bool> SaveHSetAsync()
+        {
+            try
+            {
+                string folderPath = DocumentsFolder + @"\VTOL_DATA\ThunderstoreData";
+                Directory.CreateDirectory(folderPath);
+                string filePath = folderPath + @"\MyFavoritedMods.csv";
+
+                if (File.Exists(filePath))
+                {
+                    File.Delete(filePath);
+                }
+
+                using (StreamWriter writer = new StreamWriter(filePath))
+                {
+                    foreach (string Modname in Fave_Mods)
+                    {
+                        await writer.WriteLineAsync(Modname);
+                    }
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                Main.logger2.Open();
+                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
+                Main.logger2.Close();
+                return false;
+
+            }
+
+        }
+
+        public HashSet<string> ReadHSet(string filePath)
+        {
+            HashSet<string> result = new HashSet<string>();
+
+            try
+            {
+                if (!File.Exists(filePath))
+                {
+                    throw new FileNotFoundException("The file could not be found.", filePath);
+                    return result;
+                }
+
+                using (StreamReader reader = new StreamReader(filePath))
+                {
+                    while (!reader.EndOfStream)
+                    {
+                        string line = reader.ReadLine();
+
+                        if (!string.IsNullOrWhiteSpace(line))
+                        {
+                            result.Add(line);
+                        }
+                    }
+                }
+
+                // Remove duplicate lines
+                result.RemoveWhere(string.IsNullOrWhiteSpace);
+            }
+            catch (FileNotFoundException ex)
+            {
+                Log.Error(ex, $"File does not exist {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                Main.logger2.Open();
+                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
+                Main.logger2.Close();
+                return result;
+            }
+            catch (IOException ex)
+            {
+                Log.Error(ex, $"Error reading file {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                Main.logger2.Open();
+                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
+                Main.logger2.Close();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                Main.logger2.Open();
+                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
+                Main.logger2.Close();
+                return result;
+
+            }
+
+            return result;
+        }
+        private void SymbolIcon_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+
+                DispatchIfNecessary(async () =>
+                {
+                    Wpf.Ui.Controls.SymbolIcon Favourite_ = sender as Wpf.Ui.Controls.SymbolIcon;
+                    if (Favourite_.Tag.ToString() != null)
+                    {
+                        Fave_Mods.Add(Favourite_.Tag.ToString());
+
+
+                    }
+                    if (Favourite_.IsManipulationEnabled == true)
+                    {
+                        Fave_Mods.RemoveWhere(name => name.Contains(Favourite_.Tag.ToString()));
+                        Favourite_.IsManipulationEnabled = false;
+                        Favourite_.Filled = false;
+
+                    }
+                    else
+                    {
+                        Favourite_.Filled = true;
+                        Favourite_.IsManipulationEnabled = true;
+                    }
+                    
+
+                });
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                Main.logger2.Open();
+                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
+                Main.logger2.Close();
+
+            }
+        }
+
+        private void SymbolIcon_Loaded(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+
+                DispatchIfNecessary(async () =>
+                {
+                    Wpf.Ui.Controls.SymbolIcon Favourite_ = sender as Wpf.Ui.Controls.SymbolIcon;
+                   
+                    if (Favourite_.IsManipulationEnabled == true)
+                    {
+                        
+                        Favourite_.Filled = true;
+
+                    }
+                    else
+                    {
+                        Favourite_.Filled = false;
+                    }
+
+
+                });
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                Main.logger2.Open();
+                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
+                Main.logger2.Close();
 
             }
 
