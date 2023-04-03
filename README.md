@@ -11,7 +11,6 @@
 </p>
 <h1  align="center"><a href="https://bit.ly/VTOL_2023">Click To download the latest Portable Release</a></h1><br><br><br><br>
 
-<h2>Version 2.0.9(1) patch incoming by March 19th 11.59pm EST<br>This release aims to address the issues introduced in version 2.0.9 base.<br>Thank you.</h2>
 
 Users on the latest release:
 
