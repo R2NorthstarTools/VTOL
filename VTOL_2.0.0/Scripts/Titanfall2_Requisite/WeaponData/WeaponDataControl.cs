@@ -5273,7 +5273,7 @@ namespace VTOL.Titanfall2_Requisite.WeaponData
                 }
             }
             else if (WeaponName.Contains("Skin31"))
-            {//TODO as of 2022-06-10
+            {
              //Custom Skin Slots here.
             }
         }

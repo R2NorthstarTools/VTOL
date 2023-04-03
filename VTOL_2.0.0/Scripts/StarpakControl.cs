@@ -10,7 +10,7 @@ namespace VTOL
     class StarpakControl
     {
         public StarpakControl(string name, long seek, int length, int type, string GamePath, string SelectedGame, int imagecheck, string Action)
-        {                       //ToDo:Change to the Struct
+        {                     
             string FileName = null;
             string ControlPath = null;
             byte[] byData = new byte[length];

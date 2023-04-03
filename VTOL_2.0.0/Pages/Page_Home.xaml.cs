@@ -1931,39 +1931,11 @@ int millisecondsDelay = 150)
                     {
                         
 
-                        if (Main.Main_Win_Control.WindowState == WindowState.Minimized)
-                        {
-
-                            var content = new NotificationContent
-                            {
-                                Title = "Update Notification",
-                                Message = "There Is an Update Available for Northstar, Please Open the App to Update!",
-                                AppIdentity = "VTOL",
-                                AttributionText = "Via: The VTOL-UPDATE-SERVICE",
-                                VectorIcon = Application.Current.TryFindResource("[...]") as StreamGeometry,
-                                UseLargeIcon = true
-                            };
-                            Main.NotificationManager.Notify(content);
-
-                        }
+                        
                     }
                     else
                     {
-                        if (Main.Main_Win_Control.WindowState == WindowState.Minimized)
-                        {
-
-                            var content = new NotificationContent
-                            {
-                                Title = "Update Notification",
-                                Message = "There Is an Update Available for Northstar,Auto Installing Now...",
-                                AppIdentity = "VTOL",
-                                AttributionText = "Via: The VTOL-UPDATE-SERVICE",
-                                VectorIcon = Application.Current.TryFindResource("[...]") as StreamGeometry,
-                                UseLargeIcon = true
-                            };
-                            Main.NotificationManager.Notify(content);
-
-                        }
+                       
 
 
                         //SnackBar.Message = VTOL.Resources.Languages.Language.Check_For_New_Northstar_Install_UpdateAvailableDownloadingAndInstallingNow;
@@ -2975,7 +2947,6 @@ Main.logger2.Close();
         }
         private static bool ListCheck<T>(IEnumerable<T> l1, IEnumerable<T> l2)
         {
-            // TODO: Null parm checks 
             if (l1.Intersect(l2).Any())
             {
                 ////Console.WriteLine("matched");

@@ -10,7 +10,7 @@
 	          xmlns:cntrls="clr-namespace:VTOL"
 
       d:DesignHeight="670" d:DesignWidth="1148"
-      Title="Page_Thunderstore" UseLayoutRounding="True" Loaded="Page_Loaded_1">
+      Title="Page_Thunderstore" UseLayoutRounding="True" Loaded="Page_Loaded_1" Unloaded="Page_Unloaded">
     <Page.Resources>
         <local:NegatingConverter x:Key="NegatingConverter" />
         <Storyboard x:Key="slide">
@@ -126,7 +126,7 @@
                             </EventTrigger>
                         </Grid.Triggers>
 
-                        <Border CornerRadius="5,5,5,5" BorderBrush="DarkGoldenrod" BorderThickness="{Binding is_Favourite_}">
+                        <Border x:Name="IMG_PNL" CornerRadius="5,5,5,5" BorderBrush="Transparent" BorderThickness="{Binding is_Favourite_}" Tag="{Binding is_Favourite_}">
                             <Border.Background>
                                 <ImageBrush  ImageSource="{Binding Icon}" Stretch="UniformToFill"  />
 
@@ -190,7 +190,8 @@
 
                             <TextBlock TextAlignment="Left" Text="{Binding File_Size}" Margin="10,181,182,87"  FontSize="11" Background="{x:Null}" Foreground="#FFC7C7C7" FontWeight="Bold"/>
                             <ui:Button x:Name="Open_Webpage" Margin="10,250,130,0" Background="#FF2A4B65" HorizontalAlignment="Stretch" Height="29" Content="WebPage" FontSize="14" Icon="GlobeSearch24" BorderBrush="{x:Null}" VerticalAlignment="Top" Appearance="Secondary" IconFilled="True" Padding="0,0,0,0" Click="Open_Webpage_Click" Tag="{Binding Webpage}"/>
-                            <ui:SymbolIcon Symbol="Heart24" Tag="{Binding Name}" HorizontalAlignment="Left" Margin="57,209,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Foreground="#FFFFD200" MouseEnter="SymbolIcon_MouseEnter" MouseLeave="Favourite_MouseLeave" MouseDown="SymbolIcon_MouseDown" IsManipulationEnabled="False" Loaded="SymbolIcon_Loaded">
+                           
+                            <ui:SymbolIcon x:Name="LIKEBTTN" Symbol="Heart24" Tag="{Binding is_Favourite_}" HorizontalAlignment="Left" Margin="58,209,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Foreground="#FFFFD200" MouseEnter="SymbolIcon_MouseEnter" MouseLeave="Favourite_MouseLeave" MouseDown="SymbolIcon_MouseDown" IsManipulationEnabled="False" Loaded="SymbolIcon_Loaded">
                                 <ui:SymbolIcon.RenderTransform>
                                     <TransformGroup>
                                         <ScaleTransform ScaleX="1.4" ScaleY="1.4"/>
@@ -200,7 +201,7 @@
                                     </TransformGroup>
                                 </ui:SymbolIcon.RenderTransform>
                             </ui:SymbolIcon>
-                            <ui:SymbolIcon Symbol="ArrowDownload16" HorizontalAlignment="Left" Margin="183,210,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5">
+                            <ui:SymbolIcon  x:Name="Dwnld_Bttn" Symbol="ArrowDownload16" HorizontalAlignment="Left" Margin="183,210,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5">
                                 <ui:SymbolIcon.RenderTransform>
                                     <TransformGroup>
                                         <ScaleTransform ScaleX="1.4" ScaleY="1.4"/>

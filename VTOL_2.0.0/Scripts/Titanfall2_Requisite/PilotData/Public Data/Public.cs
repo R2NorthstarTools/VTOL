@@ -17,7 +17,6 @@ namespace Titanfall2_SkinTool.Titanfall2.PilotData.Public_Data
             String str = PilotPart.Substring(1, PilotPart.Length - 5);
             if (str.Contains("skeleton"))
             {
-                //Todo:Didn't found this part.
             }
             else if (str.Contains("head"))
             {

@@ -196,7 +196,6 @@ namespace VTOL.Scripts
         }
         public bool ProfileConfigExists() 
         {
-            // TODO: test some file structures and config file integrity.
             Console.WriteLine("Test some file structures and config file integrity");
 
             return false;
@@ -254,7 +253,6 @@ namespace VTOL.Scripts
             return true;
 
 
-            // TODO: Dump all profiles from memeory to Disk
         }
         private void worker_o_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
@@ -283,13 +281,10 @@ namespace VTOL.Scripts
             Console.WriteLine("Loading Profiles from disk");
             Console.WriteLine(string.Join(",", m_LoadedProfiles));
 
-            // TODO: load profiles from disk here
         }
         public bool InitializeLocalProfileConfig()
         {
             string Profiles_Folder = (DocumentsFolder + @"\VTOL_DATA\Profiles\");
-
-            ////TODO: build Profile config
             //Console.WriteLine("build Profile config");
             //if (!File.Exists(Profiles_Folder + @"\Config.Json"))
             //{
