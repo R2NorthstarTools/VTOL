@@ -97,7 +97,25 @@ namespace VTOL
 
 
         }
+        public string ProductVersion
+        {
+            get
+            {
+                try
+                {
+                    string file = (FileVersionInfo.GetVersionInfo(Assembly.GetCallingAssembly().Location).ProductVersion).ToString();
+                    return file.Substring(0, file.IndexOf("+") + 1).Replace("+", "");
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
+                }
+                return "1.0.0";
+
+            }
+        }
+      
         public MainWindow()
         {
             try
@@ -268,9 +286,9 @@ namespace VTOL
   true                                  // Whether to change accents automatically
 );
 
+               
 
-
-
+                VERSION_TEXT.Text = "VTOL - " + ProductVersion + " |";
 
                 if (IsAdministrator())
                 {
@@ -283,13 +301,13 @@ namespace VTOL
 
                 }
 
-
+               
             }
 
 
             catch (Exception ex)
             {
-               
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
             }
 
 
@@ -643,8 +661,8 @@ true // Whether to change accents automatically
             }
             catch (Exception ex)
             {
-              
 
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
 
             }
@@ -724,6 +742,7 @@ true // Whether to change accents automatically
 
             catch (Exception ex)
             {
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
             }
         }
 
@@ -930,11 +949,12 @@ true // Whether to change accents automatically
         
   catch (Exception ex)
   {
-     
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
 
 
-  }
+
+            }
 
 
 }

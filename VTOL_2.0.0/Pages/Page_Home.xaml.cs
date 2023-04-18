@@ -739,7 +739,7 @@ int millisecondsDelay = 150)
                     Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
                 }
-                return "0.0.0";
+                return "1.0.0";
 
             }
         }
@@ -752,7 +752,7 @@ int millisecondsDelay = 150)
             if (File.Exists(Current_Install_Folder + @"NorthstarLauncher.exe") && File.Exists(Current_Install_Folder + @"Titanfall2.exe"))
             {
                 NSExe = Get_And_Set_Filepaths(Current_Install_Folder, "NorthstarLauncher.exe");
-                await Task.Delay(1500);
+                await Task.Delay(200);
 
                 // Get the file version info for the notepad.
                 FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(Current_Install_Folder + @"NorthstarLauncher.exe");
@@ -780,7 +780,7 @@ int millisecondsDelay = 150)
 
                     NSExe = Get_And_Set_Filepaths(Current_Install_Folder, "NorthstarLauncher.exe");
                 });
-                await Task.Delay(1500);
+                await Task.Delay(200);
 
                 if (resart_ == true)
                 {
@@ -3240,7 +3240,7 @@ int millisecondsDelay = 150)
 
             }
         }
-     
+
         void Check_For_New_Northstar_Install()
         {
             try
@@ -3312,13 +3312,14 @@ int millisecondsDelay = 150)
             catch (Exception ex)
             {
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-               //Removed PaperTrailSystem Due to lack of reliability.
+                //Removed PaperTrailSystem Due to lack of reliability.
 
             }
 
 
 
         }
+        
         async Task Install_NS_METHOD()
         {
             await Task.Run(async () =>
@@ -3596,7 +3597,7 @@ int millisecondsDelay = 150)
         public bool TryDeleteDirectory(
 string directoryPath, bool overwrite = true,
 int maxRetries = 10,
-int millisecondsDelay = 300)
+int millisecondsDelay = 100)
         {
             if (directoryPath == null)
                 throw new ArgumentNullException(directoryPath);
@@ -3631,7 +3632,7 @@ int millisecondsDelay = 300)
         public bool TryCreateDirectory(
    string directoryPath,
    int maxRetries = 10,
-   int millisecondsDelay = 200)
+   int millisecondsDelay = 100)
         {
             if (directoryPath == null)
                 throw new ArgumentNullException(directoryPath);
@@ -3670,7 +3671,7 @@ int millisecondsDelay = 300)
         public bool TryMoveFile(
    string Origin, string Destination, bool overwrite = true,
    int maxRetries = 10,
-   int millisecondsDelay = 200)
+   int millisecondsDelay = 100)
         {
             if (Origin == null)
                 throw new ArgumentNullException(Origin);
@@ -3705,7 +3706,7 @@ int millisecondsDelay = 300)
         public bool TryCopyFile(
   string Origin, string Destination, bool overwrite = true,
   int maxRetries = 10,
-  int millisecondsDelay = 300)
+  int millisecondsDelay = 100)
         {
             if (Origin == null)
                 throw new ArgumentNullException(Origin);
