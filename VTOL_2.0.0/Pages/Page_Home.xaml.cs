@@ -623,10 +623,7 @@ int millisecondsDelay = 150)
                 }
                 catch (Exception ex)
                 {
-                    Main.logger2.Open();
-                    Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-                    Main.logger2.Close();
-                    Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                   Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
 
                     return Array.Empty<string>();
@@ -650,9 +647,6 @@ int millisecondsDelay = 150)
                     catch (Exception ex)
                     {
                         Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-                        Main.logger2.Open();
-                        Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-                        Main.logger2.Close();
                         return Array.Empty<string>();
                     }
 
@@ -677,9 +671,6 @@ int millisecondsDelay = 150)
             catch (Exception ex)
             {
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-                Main.logger2.Open();
-                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-                Main.logger2.Close();
 
             }
             // If no file was found (neither in this directory nor in the child directories)
@@ -731,9 +722,6 @@ int millisecondsDelay = 150)
             catch (Exception ex)
             {
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-                Main.logger2.Open();
-                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-                Main.logger2.Close();
 
             }
         }
@@ -749,9 +737,6 @@ int millisecondsDelay = 150)
                 catch (Exception ex)
                 {
                     Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-                    Main.logger2.Open();
-                    Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-                    Main.logger2.Close();
 
                 }
                 return "0.0.0";
@@ -1260,9 +1245,6 @@ int millisecondsDelay = 150)
                                 catch (Exception ex)
                                 {
                                     Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-                                    Main.logger2.Open();
-                                    Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-                                    Main.logger2.Close();
 
 
                                 }
@@ -1323,9 +1305,6 @@ int millisecondsDelay = 150)
                     catch (Exception ex)
                     {
                         Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-                        Main.logger2.Open();
-                        Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-                        Main.logger2.Close();
                     }
 
 
@@ -1360,9 +1339,6 @@ int millisecondsDelay = 150)
             catch (Exception ex)
             {
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-                Main.logger2.Open();
-                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-                Main.logger2.Close();
 
             }
         }
@@ -1388,9 +1364,6 @@ int millisecondsDelay = 150)
             catch (Exception ex)
             {
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-                Main.logger2.Open();
-                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-                Main.logger2.Close();
 
                 isValid = false;
                 //Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
@@ -1414,9 +1387,6 @@ int millisecondsDelay = 150)
             catch (FileNotFoundException ex)
             {
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-                Main.logger2.Open();
-                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-                Main.logger2.Close();
 
                 //Send_Error_Notif(GetTextResource("NOTIF_ERROR_CANNOT_FIND") + Filepath);
                 //Write_To_Log(ErrorManager(e));
@@ -1644,9 +1614,6 @@ int millisecondsDelay = 150)
             catch (Exception ex)
             {
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-                Main.logger2.Open();
-                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-                Main.logger2.Close();
 
                 if (ex.Message == "Sequence contains no elements")
                 {
@@ -1738,9 +1705,6 @@ int millisecondsDelay = 150)
             catch (Exception ex)
             {
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-                Main.logger2.Open();
-                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-                Main.logger2.Close();
 
             }
         }
@@ -1994,9 +1958,6 @@ int millisecondsDelay = 150)
             catch (Exception ex)
             {
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-                Main.logger2.Open();
-                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-                Main.logger2.Close();
 
             }
 
@@ -2459,9 +2420,7 @@ int millisecondsDelay = 150)
             catch (Exception ex)
             {
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-                 Main.logger2.Open();
-                 Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source +Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-Main.logger2.Close();                
+               //Removed PaperTrailSystem Due to lack of reliability.                
             }
 
 
@@ -2518,9 +2477,7 @@ Main.logger2.Close();
             catch (NullReferenceException ex)
             {
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-                 Main.logger2.Open();
-                 Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source +Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-Main.logger2.Close();
+               //Removed PaperTrailSystem Due to lack of reliability.
 
 
             }
@@ -2612,9 +2569,6 @@ Main.logger2.Close();
             catch (Exception ex)
             {
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-                Main.logger2.Open();
-                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-                Main.logger2.Close();
 
             }
 
@@ -2844,9 +2798,7 @@ Main.logger2.Close();
                     EA_ORGIGIN_Client_Card.IconFilled = false;
                 });
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-                 Main.logger2.Open();
-                 Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source +Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-Main.logger2.Close();
+               //Removed PaperTrailSystem Due to lack of reliability.
             }
 
         }
@@ -2939,9 +2891,7 @@ Main.logger2.Close();
             catch (Exception ex)
             {
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-                 Main.logger2.Open();
-                 Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source +Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-Main.logger2.Close();
+               //Removed PaperTrailSystem Due to lack of reliability.
 
             }
         }
@@ -3285,9 +3235,7 @@ Main.logger2.Close();
             catch (Exception ex)
             {
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-                 Main.logger2.Open();
-                 Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source +Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-Main.logger2.Close();
+               //Removed PaperTrailSystem Due to lack of reliability.
                 return;
 
             }
@@ -3364,9 +3312,7 @@ Main.logger2.Close();
             catch (Exception ex)
             {
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-                 Main.logger2.Open();
-                 Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source +Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-Main.logger2.Close();
+               //Removed PaperTrailSystem Due to lack of reliability.
 
             }
 
@@ -3486,9 +3432,7 @@ Main.logger2.Close();
             catch (Exception ex)
                 {
                     Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-                     Main.logger2.Open();
-                 Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source +Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-Main.logger2.Close();
+                   //Removed PaperTrailSystem Due to lack of reliability.
                     DispatchIfNecessary(() =>
                     {
                         Fade_In_Fade_Out_Control(false);
@@ -3553,9 +3497,6 @@ Main.logger2.Close();
                 catch (Exception ex)
                 {
                     Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-                    Main.logger2.Open();
-                    Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-                    Main.logger2.Close();
                 }
             }
 
@@ -3638,9 +3579,7 @@ Main.logger2.Close();
                     Admin_Warn_Flag++;
                 }
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-                 Main.logger2.Open();
-                 Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source +Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-                Main.logger2.Close();
+                //Removed PaperTrailSystem Due to lack of reliability.
                 DispatchIfNecessary(() =>
                 {
                     Fade_In_Fade_Out_Control(false);
@@ -4004,9 +3943,6 @@ int millisecondsDelay = 300)
 
                 });
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-                Main.logger2.Open();
-                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-                Main.logger2.Close();
 
 
 
@@ -4033,9 +3969,7 @@ int millisecondsDelay = 300)
             {
 
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-                 Main.logger2.Open();
-                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source +Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-Main.logger2.Close();
+
 
 
 
@@ -4184,9 +4118,6 @@ Main.logger2.Close();
             catch (Exception ex)
             {
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-                Main.logger2.Open();
-                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-                Main.logger2.Close();
 
             }
 }
@@ -4200,9 +4131,6 @@ Main.logger2.Close();
             catch (Exception ex)
             {
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-                Main.logger2.Open();
-                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-                Main.logger2.Close();
 
             }
         }
@@ -4229,9 +4157,6 @@ Main.logger2.Close();
             catch (Exception ex)
             {
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-                Main.logger2.Open();
-                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-                Main.logger2.Close();
 
             }
 }
@@ -4249,9 +4174,6 @@ Main.logger2.Close();
             catch (Exception ex)
             {
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-                Main.logger2.Open();
-                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-                Main.logger2.Close();
 
             }
         }
@@ -4270,9 +4192,6 @@ Main.logger2.Close();
             catch (Exception ex)
             {
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-                Main.logger2.Open();
-                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-                Main.logger2.Close();
 
             }
         }
@@ -4290,9 +4209,6 @@ Main.logger2.Close();
             catch (Exception ex)
             {
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-                Main.logger2.Open();
-                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-                Main.logger2.Close();
 
             }
 }
@@ -4412,9 +4328,6 @@ Main.logger2.Close();
             catch (Exception ex)
             {
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-                Main.logger2.Open();
-                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-                Main.logger2.Close();
 
             }
         }

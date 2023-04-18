@@ -514,11 +514,7 @@ int millisecondsDelay = 150)
             }
             catch (Exception ex)
             {
-                Main.logger2.Open();
-                 Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source +Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-Main.logger2.Close();
-
-                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+               Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
             }
 
@@ -547,11 +543,7 @@ Main.logger2.Close();
             }
             catch (Exception ex)
             {
-                Main.logger2.Open();
-                 Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source +Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-Main.logger2.Close();
-
-                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+               Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
             }
         }
@@ -651,6 +643,7 @@ Main.logger2.Close();
         public bool Reverse_ = false;
         bool search_a_flag = false;
         public HashSet<string> Fave_Mods = new HashSet<string>();
+        private int Mod_Update_Counter = 0;
 
         public Page_Thunderstore()
         {
@@ -750,9 +743,7 @@ Main.logger2.Close();
             }
             catch (Exception ex)
             {
-                Main.logger2.Open();
-                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine);
-                Main.logger2.Close();
+              //Removed PaperTrailSystem Due to lack of reliability.
 
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy-MM- dd-HH-mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
@@ -782,10 +773,7 @@ Main.logger2.Close();
             }
             catch (Exception ex)
             {
-                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-                Main.logger2.Open();
-                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-                Main.logger2.Close();
+               Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
             }
             return null;
@@ -845,10 +833,7 @@ Main.logger2.Close();
             }
             catch (Exception ex)
             {
-                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-                Main.logger2.Open();
-                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-                Main.logger2.Close();
+               Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
             }
         }
@@ -862,14 +847,14 @@ Main.logger2.Close();
                 HashSet<string> existingMods = new HashSet<string>();
 
                 // Check if the file exists and read its contents into a HashSet
-                if (File.Exists(filePath))
-                {
-                    existingMods = ReadHSet(filePath,false);
-                }
+                //if (File.Exists(filePath))
+                //{
+                //    existingMods = ReadHSet(filePath,false);
+                //}
 
                 // Combine the existing and new mods into a single set and remove duplicates
                 HashSet<string> allMods = new HashSet<string>(Fave_Mods);
-                allMods.UnionWith(existingMods);
+                //allMods.UnionWith(existingMods);
 
                 if (allMods.Count > 0)
                 {
@@ -896,10 +881,7 @@ Main.logger2.Close();
             }
             catch (Exception ex)
             {
-                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-                Main.logger2.Open();
-                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-                Main.logger2.Close();
+               Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
                 return false;
 
             }
@@ -940,25 +922,18 @@ Main.logger2.Close();
             catch (FileNotFoundException ex)
             {
                 Log.Error(ex, $"File does not exist {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-                Main.logger2.Open();
-                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-                Main.logger2.Close();
+               //Removed PaperTrailSystem Due to lack of reliability.
                 return result;
             }
             catch (IOException ex)
             {
                 Log.Error(ex, $"Error reading file {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-                Main.logger2.Open();
-                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-                Main.logger2.Close();
+               //Removed PaperTrailSystem Due to lack of reliability.
                 return result;
             }
             catch (Exception ex)
             {
-                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-                Main.logger2.Open();
-                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-                Main.logger2.Close();
+               Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
                 return result;
 
             }
@@ -1002,10 +977,7 @@ Main.logger2.Close();
             }
             catch (Exception ex)
             {
-                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-                Main.logger2.Open();
-                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-                Main.logger2.Close();
+               Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
             }
         }
@@ -1324,9 +1296,7 @@ Main.logger2.Close();
             }
             catch (Exception ex)
             {
-                Main.logger2.Open();
-                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-                Main.logger2.Close();
+               //Removed PaperTrailSystem Due to lack of reliability.
 
 
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
@@ -1392,12 +1362,12 @@ Main.logger2.Close();
             }
             return false;
         }
+
         private void Compare_Mod_To_List(string modname, string Mod_version_current, HashSet<string> list, out string bg_color, out string label)
         {
             string res = "Install";
             string bg = "#FF005D42";
             int is_favourite_ = 0;
-          
             try
             {         
            
@@ -1405,10 +1375,9 @@ Main.logger2.Close();
                 if (list.Count() > 2)
                 {
 
-                    int Mod_Update_Counter = 0;
-           
 
-                    foreach (var item in list)
+                   
+                        foreach (var item in list)
                     {
 
                         if (Regex.Replace(item, @"(\d+\.)(\d+\.)(\d)", "").TrimEnd('-') == modname)
@@ -1426,7 +1395,7 @@ Main.logger2.Close();
                                 case -1:
                                     res = "Update";
                                     bg = "#FF009817";
-                                    Mod_Update_Counter++;
+
                                     break;
                                 case 0:
                                     res = "Re-Install";
@@ -1441,44 +1410,36 @@ Main.logger2.Close();
                             }
                             label = res;
                             bg_color = bg;
+                           
                         }
 
 
-                       
 
 
-                        //foreach (string itemx in Fave_Mods)
-                        //{
-                        //    // Remove the "-0.0.0" portion from the end of the string
-                        //    string substring = itemx.Substring(0, itemx.LastIndexOf('-'));
 
-                        //    // Compare the resulting substring to the target string
+                            //foreach (string itemx in Fave_Mods)
+                            //{
+                            //    // Remove the "-0.0.0" portion from the end of the string
+                            //    string substring = itemx.Substring(0, itemx.LastIndexOf('-'));
 
-                        //}
-                        //if (Fave_Mods.Contains(item) == false)
-                        //{
-                        //    MessageBox.Show(item);
-                        //    is_favourite_ = 1;
-                        //    is_favourite = is_favourite_;
+                            //    // Compare the resulting substring to the target string
 
-                        //}
+                            //}
+                            //if (Fave_Mods.Contains(item) == false)
+                            //{
+                            //    MessageBox.Show(item);
+                            //    is_favourite_ = 1;
+                            //    is_favourite = is_favourite_;
 
-                        if (Mod_Update_Counter >= 1)
-                        {
-                           Mod_Updates_Available.Visibility = Visibility.Visible;
+                            //}
+
                         }
-                        else
-                        {
-                           Mod_Updates_Available.Visibility = Visibility.Hidden;
-                        }
-                    }
+                    
                 }        
             }
             catch (Exception ex)
             {
-                Main.logger2.Open();
-                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine);
-                Main.logger2.Close();
+              //Removed PaperTrailSystem Due to lack of reliability.
 
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy-MM- dd-HH-mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
@@ -1540,9 +1501,7 @@ Main.logger2.Close();
             }
             catch (Exception ex)
             {
-                Main.logger2.Open();
-                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine);
-                Main.logger2.Close();
+              //Removed PaperTrailSystem Due to lack of reliability.
 
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy-MM- dd-HH-mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
@@ -1591,9 +1550,7 @@ Main.logger2.Close();
             }
             catch (Exception ex)
             {
-                Main.logger2.Open();
-                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine);
-                Main.logger2.Close();
+              //Removed PaperTrailSystem Due to lack of reliability.
 
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
@@ -1818,12 +1775,19 @@ int millisecondsDelay = 30)
                     {
                         //List = List.OrderByDescending(x => x.Button_label.Contains("Update")).ToList();
                        List = List.Where(item => item.Button_label.ToString().Contains("Update")).OrderBy(ob => ob.Name).ToList();
+                        if(List.Count == 0)
+                        {
+                            DispatchIfNecessary(() => {
 
+                                Mod_Updates_Available.Visibility = Visibility.Hidden;
+                            });
+
+
+                        }
                     }
                     else if (Sort.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Favourites"))
                     {
-                        //List = List.OrderByDescending(x => x.Button_label.Contains("Update")).ToList();
-                        List = List.Where(item => item.is_Favourite_.ToString().Contains("Favourites")).OrderBy(ob => ob.Name).ToList();
+                        List = List.Where(item => item.is_Favourite_.ToString().Equals("1")).OrderBy(ob => ob.Name).ToList();
 
                     }
                     else
@@ -1874,11 +1838,19 @@ int millisecondsDelay = 30)
                     {
                       // List = List.OrderBy(x => x.Button_label.Contains("Update")).ToList();
                         List = List.Where(item => item.Button_label.ToString().Contains("Update")).OrderByDescending(ob => ob.Name).ToList();
+                        if (List.Count == 0)
+                        {
+                            DispatchIfNecessary(() => {
+
+                                Mod_Updates_Available.Visibility = Visibility.Hidden;
+                            });
+
+
+                        }
 
                     }
                     else if (Sort.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Favourites"))
                     {
-                        // List = List.OrderBy(x => x.Button_label.Contains("Update")).ToList();
                         List = List.Where(item => item.Button_label.ToString().Contains("Favourites")).OrderByDescending(ob => ob.Name).ToList();
 
                     }
@@ -2016,6 +1988,10 @@ int millisecondsDelay = 30)
 
 
                                     }
+                                    if (label == "Update")
+                                    {
+                                        Mod_Update_Counter++;
+                                    }
                                     int is_favourite = 0;
 
                                     if (Fave_Mods.Contains(_updater.Thunderstore[i].Name.Replace("_", " ") + "-" + versions.First().VersionNumber))
@@ -2097,7 +2073,7 @@ int millisecondsDelay = 30)
                                 }
 
 
-                                Compare_Mod_To_List(_updater.Thunderstore[i].Name, versions.First().VersionNumber, Main.Current_Installed_Mods, out bg_color, out label);
+                                Compare_Mod_To_List(_updater.Thunderstore[i].Name, versions.First().VersionNumber, Main.Current_Installed_Mods, out bg_color, out label );
                                 if (bg_color == null || label == null)
                                 {
                                     bg_color = "#FF005D42";
@@ -2105,6 +2081,10 @@ int millisecondsDelay = 30)
 
 
 
+                                }
+                                if (label == "Update")
+                                {
+                                    Mod_Update_Counter++;
                                 }
                              //   is_nsfw = _updater.Thunderstore[i].HasNsfwContent ? 100 : 0;
 
@@ -2188,8 +2168,11 @@ int millisecondsDelay = 30)
 
 
                                 }
-
-                               // is_nsfw = _updater.Thunderstore[i].HasNsfwContent ? 100 : 0;
+                                if (label == "Update")
+                                {
+                                    Mod_Update_Counter++;
+                                }
+                                // is_nsfw = _updater.Thunderstore[i].HasNsfwContent ? 100 : 0;
                                 itemsList.Add(new Grid_ { Name = _updater.Thunderstore[i].Name.Replace("_", " ") + "-" + versions.First().VersionNumber, Icon = ICON, date_created = _updater.Thunderstore[i].DateCreated.ToString(), description = Descrtiption, owner = _updater.Thunderstore[i].Owner, Rating = rating, download_url = download_url + "|" + _updater.Thunderstore[i].Name + "-" + versions.First().VersionNumber + "|" + Tags + "|" + Dependencies_, Webpage = _updater.Thunderstore[i].PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads, Dependencies = Dependencies_, FullName = _updater.Thunderstore[i].FullName , raw_size = raw_size, Update_data = _updater.Thunderstore[i].Name + "|" + versions.First().VersionNumber, Button_label = label, Button_Color = bg_color, is_Favourite_ = is_favourite });
 
 
@@ -2266,6 +2249,10 @@ int millisecondsDelay = 30)
 
 
                             }
+                            if (label == "Update")
+                            {
+                                Mod_Update_Counter++;
+                            }
                             //is_nsfw = _updater.Thunderstore[i].HasNsfwContent ? 100 : 0;
 
                             itemsList.Add(new Grid_ { Name = _updater.Thunderstore[i].Name.Replace("_", " ") + "-" + versions.First().VersionNumber, Icon = ICON, date_created = _updater.Thunderstore[i].DateCreated.ToString(), description = Descrtiption, owner = _updater.Thunderstore[i].Owner, Rating = rating, download_url = download_url + "|" + _updater.Thunderstore[i].Name + "-" + versions.First().VersionNumber + "|" + Tags + "|" + Dependencies_, Webpage = _updater.Thunderstore[i].PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads, Dependencies = Dependencies_, FullName = _updater.Thunderstore[i].FullName, raw_size = raw_size, Update_data = _updater.Thunderstore[i].Name + "|" + versions.First().VersionNumber, Button_label = label, Button_Color = bg_color, is_Favourite_ = is_favourite });
@@ -2292,11 +2279,7 @@ int millisecondsDelay = 30)
                 }
             catch (Exception ex)
             {
-                Main.logger2.Open();
-                 Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source +Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-Main.logger2.Close();
-
-                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+               Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
             }
             return  itemsList;
@@ -2329,11 +2312,7 @@ Main.logger2.Close();
             }
             catch (Exception ex)
             {
-                Main.logger2.Open();
-                 Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source +Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-Main.logger2.Close();
-
-                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+               Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
             }
             return null;
@@ -2575,11 +2554,7 @@ Main.logger2.Close();
             }
             catch (Exception ex)
             {
-                Main.logger2.Open();
-                 Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source +Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-Main.logger2.Close();
-
-                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+               Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
             }
             Dialog.Hide();
@@ -2623,11 +2598,7 @@ Main.logger2.Close();
         }
             catch (Exception ex)
             {
-                Main.logger2.Open();
-                 Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source +Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-Main.logger2.Close();
-
-                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+               Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
             }
         }
         public static bool IsDirectoryEmpty(DirectoryInfo directory)
@@ -2835,10 +2806,7 @@ int millisecondsDelay = 300)
             }
             catch (Exception ex)
             {
-                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-                Main.logger2.Open();
-                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-                Main.logger2.Close();
+               Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
                 isValid = false;
             }
 
@@ -2888,10 +2856,7 @@ int millisecondsDelay = 300)
             }
             catch (Exception ex)
             {
-                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-                Main.logger2.Open();
-                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-                Main.logger2.Close();
+               Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
             }
 
         }  public void SlowBlink(Control control, double minimumOpacity)
@@ -2939,7 +2904,6 @@ int millisecondsDelay = 300)
                                     if (Directory.Exists(mod))
                                     {
                                         Clear_Folder(mod);
-
                                        TryDeleteDirectory(mod, true);
 
 
@@ -3524,9 +3488,7 @@ int millisecondsDelay = 300)
             }
             catch (Exception ex)
             {
-                Main.logger2.Open();
-                 Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source +Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-Main.logger2.Close();
+              //Removed PaperTrailSystem Due to lack of reliability.
 
                 DispatchIfNecessary(() =>
                 {
@@ -3551,10 +3513,7 @@ Main.logger2.Close();
                 }
                 catch (Exception ex)
                 {
-                    Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-                    Main.logger2.Open();
-                    Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-                    Main.logger2.Close();
+                   Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
                 }
                 return "0.0.0";
@@ -3604,9 +3563,7 @@ Main.logger2.Close();
             }
             catch (Exception ex)
             {
-                Main.logger2.Open();
-                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine);
-                Main.logger2.Close();
+              //Removed PaperTrailSystem Due to lack of reliability.
 
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy-MM- dd-HH-mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
@@ -3672,9 +3629,7 @@ Main.logger2.Close();
             }
             catch (Exception ex)
             {
-                Main.logger2.Open();
-                 Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source +Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-Main.logger2.Close();
+              //Removed PaperTrailSystem Due to lack of reliability.
 
 
 
@@ -3756,9 +3711,7 @@ Main.logger2.Close();
             catch (Exception ex)
             {
 
-                Main.logger2.Open();
-                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine);
-                Main.logger2.Close();
+              //Removed PaperTrailSystem Due to lack of reliability.
 
 
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
@@ -3840,9 +3793,7 @@ Main.logger2.Close();
             }
             catch (Exception ex)
             {
-                Main.logger2.Open();
-                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine);
-                Main.logger2.Close();
+              //Removed PaperTrailSystem Due to lack of reliability.
 
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy-MM- dd-HH-mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
@@ -3872,9 +3823,7 @@ Main.logger2.Close();
         }
             catch (Exception ex)
             {
-                Main.logger2.Open();
-                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine);
-                Main.logger2.Close();
+              //Removed PaperTrailSystem Due to lack of reliability.
 
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy-MM- dd-HH-mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
@@ -3901,9 +3850,7 @@ private void Auto_Scroll_Description(Canvas canMain, TextBlock tbmarquee)
             }
             catch (Exception ex)
             {
-                Main.logger2.Open();
-                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine);
-                Main.logger2.Close();
+              //Removed PaperTrailSystem Due to lack of reliability.
 
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy-MM- dd-HH-mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
@@ -4027,9 +3974,7 @@ private void Auto_Scroll_Description(Canvas canMain, TextBlock tbmarquee)
             }
             catch (Exception ex)
             {
-                Main.logger2.Open();
-                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine);
-                Main.logger2.Close();
+              //Removed PaperTrailSystem Due to lack of reliability.
 
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy-MM- dd-HH-mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
@@ -4068,7 +4013,7 @@ private void Auto_Scroll_Description(Canvas canMain, TextBlock tbmarquee)
                     Call_Mods_From_Folder_Lite();
                     Call_Ts_Mods(clear:false);
 
-
+                    
 
 
 
@@ -4088,9 +4033,7 @@ private void Auto_Scroll_Description(Canvas canMain, TextBlock tbmarquee)
             }
             catch (Exception ex)
             {
-                Main.logger2.Open();
-                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine);
-                Main.logger2.Close();
+              //Removed PaperTrailSystem Due to lack of reliability.
 
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy-MM- dd-HH-mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
@@ -4108,6 +4051,9 @@ private void Auto_Scroll_Description(Canvas canMain, TextBlock tbmarquee)
         {try { 
             DispatchIfNecessary(async () =>
             {
+
+
+
                 Grid Card;
                 if (sender.GetType() == typeof(Grid))
                 {
@@ -4118,10 +4064,12 @@ private void Auto_Scroll_Description(Canvas canMain, TextBlock tbmarquee)
                     UIElement childElement = FindVisualChild<Border>(Card);
                     if (childElement != null && childElement is Border border && border.Name == "IMG_PNL")
                     {
-                        if (border.Tag.ToString() == "1") {
+                        if (border.Tag.ToString() == "1")
+                        {
                             border.BorderBrush = Brushes.DarkGoldenrod;                        // ...
                         }
                         border.Refresh();
+
                         //UIElement SymbolIconElement = FindVisualChild<Wpf.Ui.Controls.SymbolIcon>(GridPanel_);
 
                         //if (SymbolIconElement != null && SymbolIconElement is Wpf.Ui.Controls.SymbolIcon SymbolIcon)
@@ -4133,10 +4081,10 @@ private void Auto_Scroll_Description(Canvas canMain, TextBlock tbmarquee)
 
                         //}
                     }
-                    
+
                     if (Card != null && GridPanel_ != null && Card_Action != null)
                     {
-                       
+
 
                         string tooltip_string = Card_Action.ToolTip.ToString().Replace("northstar-Northstar", "").Replace("ebkr-r2modman-", "");
 
@@ -4164,13 +4112,20 @@ private void Auto_Scroll_Description(Canvas canMain, TextBlock tbmarquee)
 
 
                 }
+
+                if (Mod_Update_Counter > 0)
+                {
+                    Mod_Updates_Available.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    Mod_Updates_Available.Visibility = Visibility.Hidden;
+                }
             });
             }
             catch (Exception ex)
             {
-                Main.logger2.Open();
-                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine);
-                Main.logger2.Close();
+              //Removed PaperTrailSystem Due to lack of reliability.
 
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy-MM- dd-HH-mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
@@ -4186,7 +4141,7 @@ private void Auto_Scroll_Description(Canvas canMain, TextBlock tbmarquee)
                 DispatchIfNecessary(async () =>
                 {
                 Wpf.Ui.Controls.SymbolIcon Favourite_ = sender as Wpf.Ui.Controls.SymbolIcon;
-                if (Favourite_.Tag.ToString() == "1")
+                if (Favourite_.IsManipulationEnabled == true)
                 {
                     if (Favourite_.Filled == false){
                     Favourite_.Filled = true;
@@ -4197,10 +4152,7 @@ private void Auto_Scroll_Description(Canvas canMain, TextBlock tbmarquee)
             }
             catch (Exception ex)
             {
-                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-                Main.logger2.Open();
-                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-                Main.logger2.Close();
+               Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
             }
 
@@ -4216,7 +4168,7 @@ private void Auto_Scroll_Description(Canvas canMain, TextBlock tbmarquee)
                 {
                     Wpf.Ui.Controls.SymbolIcon Favourite_ = sender as Wpf.Ui.Controls.SymbolIcon;
                     HandyControl.Controls.SimplePanel _Panel = (HandyControl.Controls.SimplePanel)((Wpf.Ui.Controls.SymbolIcon)sender).Parent;
-                    if (Favourite_.Tag.ToString() != "1")
+                    if (Favourite_.IsManipulationEnabled == false)
                     {
                        
                             Favourite_.Filled = false;
@@ -4228,10 +4180,7 @@ private void Auto_Scroll_Description(Canvas canMain, TextBlock tbmarquee)
             }
             catch (Exception ex)
             {
-                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-                Main.logger2.Open();
-                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-                Main.logger2.Close();
+               Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
             }
 
@@ -4245,23 +4194,29 @@ private void Auto_Scroll_Description(Canvas canMain, TextBlock tbmarquee)
                 DispatchIfNecessary(async () =>
                 {
                     Wpf.Ui.Controls.SymbolIcon Favourite_ = sender as Wpf.Ui.Controls.SymbolIcon;
+                    HandyControl.Controls.SimplePanel _Panel = (HandyControl.Controls.SimplePanel)((Wpf.Ui.Controls.SymbolIcon)sender).Parent;
                     if (Favourite_.Tag.ToString() != null)
                     {
-                        Fave_Mods.Add(Favourite_.Tag.ToString());
 
 
 
-                        if (Favourite_.Tag.ToString() == "1")
+                        if (Favourite_.Tag.ToString() == "1" || Favourite_.IsManipulationEnabled == true)
                         {
-                            Fave_Mods.RemoveWhere(name => name.Contains(Favourite_.Tag.ToString()));
+                            Fave_Mods.RemoveWhere(name => name.Equals(Favourite_.ToolTip.ToString()));
                             Favourite_.IsManipulationEnabled = false;
                             Favourite_.Filled = false;
+                            Favourite_.Tag = "0";
+                            _Panel.Refresh();
+
                             //TODO complete the removal of items from list the write back to file for the faourites
                         }
                         else
                         {
+                            Fave_Mods.Add(Favourite_.ToolTip.ToString());
+                            Favourite_.Tag = "1";
                             Favourite_.Filled = true;
                             Favourite_.IsManipulationEnabled = true;
+                            _Panel.Refresh();
                         }
                     }
 
@@ -4269,10 +4224,7 @@ private void Auto_Scroll_Description(Canvas canMain, TextBlock tbmarquee)
             }
             catch (Exception ex)
             {
-                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-                Main.logger2.Open();
-                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-                Main.logger2.Close();
+               Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
             }
         }
@@ -4285,11 +4237,12 @@ private void Auto_Scroll_Description(Canvas canMain, TextBlock tbmarquee)
                 DispatchIfNecessary(async () =>
                 {
                     Wpf.Ui.Controls.SymbolIcon Favourite_ = sender as Wpf.Ui.Controls.SymbolIcon;
-                    if (Favourite_.Tag != null)
+                    if (Favourite_.ToolTip != null)
                     {
-                        if (Favourite_.Tag.ToString() == "1")
+                        //if(Fave_Mods.Contains(Favourite_.ToolTip.ToString()))
+                        //{
+                        if (Favourite_.Tag.ToString() == "1" || Favourite_.IsManipulationEnabled == true)
                         {
-
                             Favourite_.Filled = true;
 
                         }
@@ -4303,10 +4256,7 @@ private void Auto_Scroll_Description(Canvas canMain, TextBlock tbmarquee)
             }
             catch (Exception ex)
             {
-                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-                Main.logger2.Open();
-                Main.logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine + System.Reflection.MethodBase.GetCurrentMethod().Name);
-                Main.logger2.Close();
+               Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
             }
 
@@ -4318,6 +4268,29 @@ private void Auto_Scroll_Description(Canvas canMain, TextBlock tbmarquee)
             {
                 await SaveHSetAsync();
             });
+        }
+
+        private void LIKEBTTN_SourceUpdated(object sender, DataTransferEventArgs e)
+        {
+            //DispatchIfNecessary(async () =>
+            //{
+            //    Wpf.Ui.Controls.SymbolIcon Favourite_ = sender as Wpf.Ui.Controls.SymbolIcon;
+            //    if (Favourite_.Tag != null)
+            //    {
+            //        if (Favourite_.Tag.ToString() == "1")
+            //        {
+
+            //            Favourite_.Filled = true;
+
+            //        }
+            //        else
+            //        {
+            //            Favourite_.Filled = false;
+            //        }
+
+            //    }
+            //});
+
         }
     }
         

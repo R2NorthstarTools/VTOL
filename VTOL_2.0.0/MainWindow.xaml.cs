@@ -289,11 +289,7 @@ namespace VTOL
 
             catch (Exception ex)
             {
-                MessageBox.Show("Exception Encountered! - " + ex.Message);
-                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-                logger2.Open();
-                logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine);
-                logger2.Close();
+               
             }
 
 
@@ -647,7 +643,7 @@ true // Whether to change accents automatically
             }
             catch (Exception ex)
             {
-                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+              
 
 
 
@@ -728,11 +724,6 @@ true // Whether to change accents automatically
 
             catch (Exception ex)
             {
-                MessageBox.Show("Exception Encountered! - " + ex.Message);
-                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-                logger2.Open();
-                logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine);
-                logger2.Close();
             }
         }
 
@@ -939,7 +930,7 @@ true // Whether to change accents automatically
         
   catch (Exception ex)
   {
-      Log.Error(ex, $"A crash happened at DEV VERSION{DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+     
 
 
 
