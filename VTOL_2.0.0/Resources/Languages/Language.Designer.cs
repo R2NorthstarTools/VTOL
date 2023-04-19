@@ -765,7 +765,7 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  &quot;Please Recheck your save Location.
+        ///   Looks up a localized string similar to  Please Recheck your save Location.
         /// </summary>
         public static string Page_Server_Export_Server_Config_Click_PleaseRecheckYourSaveLocation {
             get {
@@ -1113,6 +1113,60 @@ namespace VTOL.Resources.Languages {
         public static string Page_Thunderstore_Category {
             get {
                 return ResourceManager.GetString("Page_Thunderstore_Category", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1 week ago.
+        /// </summary>
+        public static string Page_Thunderstore_ConvertDateToString_1WeekAgo {
+            get {
+                return ResourceManager.GetString("Page_Thunderstore_ConvertDateToString_1WeekAgo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to days ago.
+        /// </summary>
+        public static string Page_Thunderstore_ConvertDateToString_DaysAgo {
+            get {
+                return ResourceManager.GetString("Page_Thunderstore_ConvertDateToString_DaysAgo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to hours ago.
+        /// </summary>
+        public static string Page_Thunderstore_ConvertDateToString_HoursAgo {
+            get {
+                return ResourceManager.GetString("Page_Thunderstore_ConvertDateToString_HoursAgo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to minutes ago.
+        /// </summary>
+        public static string Page_Thunderstore_ConvertDateToString_MinutesAgo {
+            get {
+                return ResourceManager.GetString("Page_Thunderstore_ConvertDateToString_MinutesAgo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  Today.
+        /// </summary>
+        public static string Page_Thunderstore_ConvertDateToString_Today {
+            get {
+                return ResourceManager.GetString("Page_Thunderstore_ConvertDateToString_Today", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yesterday.
+        /// </summary>
+        public static string Page_Thunderstore_ConvertDateToString_Yesterday {
+            get {
+                return ResourceManager.GetString("Page_Thunderstore_ConvertDateToString_Yesterday", resourceCulture);
             }
         }
         

@@ -420,7 +420,7 @@ namespace VTOL.Pages
 
             INIT();
 
-            if (!Directory.Exists(Current_Install_Folder) || IsValidPath(Current_Install_Folder) == false || !Directory.Exists(User_Settings_Vars.NorthstarInstallLocation))
+            if (IsValidPath(Current_Install_Folder) == false || !Directory.Exists(User_Settings_Vars.NorthstarInstallLocation))
             {
                 ShowWelcome();
 
@@ -549,11 +549,7 @@ namespace VTOL.Pages
 
             return true;
         }
-        private bool isIdle(int minutes)
-        {
-            return minutesIdle >= minutes;
-        }
-
+      
 
         public bool TryUnzipFile(
 string Zip_Path, string Destination, bool overwrite = true,
@@ -1967,13 +1963,45 @@ int millisecondsDelay = 150)
 
         void UPDATES_TIMER_Tick(object sender, EventArgs e)
         {
+            try
+            {
+                string Header = Path.GetFullPath(Path.Combine(System.Reflection.Assembly.GetExecutingAssembly().Location, @"../"));
 
 
-         
-            Check_For_New_Northstar_Install_With_Notif();
-    
-    
-        }
+
+                updaterModulePath = Path.Combine(Header, "VTOL_Updater.exe");
+
+                Check_For_New_Northstar_Install_With_Notif();
+                if (File.Exists(updaterModulePath))
+                {
+                    Process process = Process.Start(updaterModulePath, "/justcheck");
+                    process.WaitForExit();
+
+                    if (process.ExitCode == 0)
+                    {
+                        Main.VTOL_UPDATE_BADGE.Visibility = Visibility.Visible;
+                        process.Close();
+                    }
+                    else
+                    {
+                        Main.VTOL_UPDATE_BADGE.Visibility = Visibility.Hidden;
+                       // MessageBox.Show("Update not found!");
+                        process.Close();
+
+                    }
+
+
+                   
+                }
+                }
+                    catch (Exception ex)
+                    {
+                        Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+
+                    }
+                }
+            
+        
         void timer_Tick(object sender, EventArgs e)
         {
 

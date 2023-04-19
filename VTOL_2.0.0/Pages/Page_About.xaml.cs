@@ -132,7 +132,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             {
                 try
                 {
-
+                    Main.VTOL_UPDATE_BADGE.Visibility = Visibility.Hidden;
 
                     Process[] processes = Process.GetProcessesByName(updaterModulePath);
                     if (processes.Length > 0)
@@ -172,6 +172,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                 }
                 else
                 {
+                    Main.VTOL_UPDATE_BADGE.Visibility = Visibility.Hidden;
 
 
                     SnackBar.Message = "No Update Found";

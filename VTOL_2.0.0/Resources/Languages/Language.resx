@@ -604,7 +604,7 @@
     <value>-Language Change Detected-</value>
   </data>
   <data name="Page_Server_Export_Server_Config_Click_PleaseRecheckYourSaveLocation" xml:space="preserve">
-    <value> "Please Recheck your save Location</value>
+    <value> Please Recheck your save Location</value>
   </data>
   <data name="Page_Home_Page_Home_EAClientRunning" xml:space="preserve">
     <value>EA Client Running</value>
@@ -650,5 +650,23 @@
   </data>
   <data name="Page_Profiles_NameOfProfile" xml:space="preserve">
     <value>Name Of Profile</value>
+  </data>
+  <data name="Page_Thunderstore_ConvertDateToString_Today" xml:space="preserve">
+    <value> Today</value>
+  </data>
+  <data name="Page_Thunderstore_ConvertDateToString_Yesterday" xml:space="preserve">
+    <value>Yesterday</value>
+  </data>
+  <data name="Page_Thunderstore_ConvertDateToString_1WeekAgo" xml:space="preserve">
+    <value>1 week ago</value>
+  </data>
+  <data name="Page_Thunderstore_ConvertDateToString_MinutesAgo" xml:space="preserve">
+    <value>minutes ago</value>
+  </data>
+  <data name="Page_Thunderstore_ConvertDateToString_DaysAgo" xml:space="preserve">
+    <value>days ago</value>
+  </data>
+  <data name="Page_Thunderstore_ConvertDateToString_HoursAgo" xml:space="preserve">
+    <value>hours ago</value>
   </data>
 </root>

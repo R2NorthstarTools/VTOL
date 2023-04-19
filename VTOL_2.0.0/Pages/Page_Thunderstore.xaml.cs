@@ -1780,6 +1780,7 @@ int millisecondsDelay = 30)
                             DispatchIfNecessary(() => {
 
                                 Mod_Updates_Available.Visibility = Visibility.Hidden;
+                                Mod_Update_Counter = 0;
                             });
 
 
@@ -1840,9 +1841,12 @@ int millisecondsDelay = 30)
                         List = List.Where(item => item.Button_label.ToString().Contains("Update")).OrderByDescending(ob => ob.Name).ToList();
                         if (List.Count == 0)
                         {
-                            DispatchIfNecessary(() => {
+                            DispatchIfNecessary(() =>
+                            {
 
                                 Mod_Updates_Available.Visibility = Visibility.Hidden;
+                                Mod_Update_Counter = 0;
+
                             });
 
 
@@ -2292,29 +2296,29 @@ int millisecondsDelay = 30)
 
             if (timeSince.TotalHours < 1)
             {
-                output = $"{Math.Max((int)timeSince.TotalMinutes, 1)} minutes ago";
+                output = $"{Math.Max((int)timeSince.TotalMinutes, 1)} " + VTOL.Resources.Languages.Language.Page_Thunderstore_ConvertDateToString_MinutesAgo;
             }
             else if (timeSince.TotalHours < 12)
             {
-                output = $"{Math.Max((int)timeSince.TotalHours, 1)} hours ago";
+                output = $"{Math.Max((int)timeSince.TotalHours, 1)} " + VTOL.Resources.Languages.Language.Page_Thunderstore_ConvertDateToString_HoursAgo;
             }
             else if (timeSince.TotalDays < 1)
             {
-                output = "Today";
+                output = VTOL.Resources.Languages.Language.Page_Thunderstore_ConvertDateToString_Today;
             }
             else if (timeSince.TotalDays < 2)
             {
-                output = "Yesterday";
+                output = VTOL.Resources.Languages.Language.Page_Thunderstore_ConvertDateToString_Yesterday;
             }
             else if (timeSince.TotalDays < 7)
             {
-                output = $"{Math.Max((int)timeSince.TotalDays, 1)} days ago";
+                output = $"{Math.Max((int)timeSince.TotalDays, 1)} " + VTOL.Resources.Languages.Language.Page_Thunderstore_ConvertDateToString_DaysAgo;
             }
             else if (timeSince.TotalDays >= 7)
             {
                 if (timeSince.TotalDays < 14)
                 {
-                    output = "1 week ago";
+                    output = VTOL.Resources.Languages.Language.Page_Thunderstore_ConvertDateToString_1WeekAgo;
                 }
                 else
                 {
@@ -2988,46 +2992,7 @@ int millisecondsDelay = 300)
                                     // If file found, delete it    
                                     TryDeleteFile(Path.Combine(Destination, "README.md"));
                                 }
-                               
-
-
-                                //if (File.Exists(Path.Combine(Destination, "manifest.json")) && mod_name != "~")
-                                //{
-                                //    var myJsonString = File.ReadAllText(Path.Combine(Destination, "manifest.json"));
-                                //    string Destinationnew =  Destination.Replace(mod_name, " ");
-
-                                //    dynamic myJObject = JObject.Parse(myJsonString);
-                                //    string name = myJObject.name;
-                                //    string mod_version = "-" + myJObject.version_number;
-                                //    while(mod_version.Count() < 2)
-                                //    {
-
-                                //        mod_version = "-" + myJObject.version;
-                                //        if (mod_version.Count() < 2)
-                                //        {
-                                //            continue;
-
-
-                                //        }
-                                //        else
-                                //        {
-                                //            mod_version = mod_version.TrimEnd('-');
-                                //            Destinationnew = Destinationnew.Trim() + name + mod_version;
-
-
-
-                                //            Destination = Destinationnew;
-
-                                //        }
-
-                                //    }
-                                //    mod_version = mod_version.TrimEnd('-');
-                                //    Destinationnew = Destinationnew.Trim() + name + mod_version;
-                             
-
-
-                                //     Destination = Destinationnew;
-                                //}
+                              
 
                                 if (File.Exists(Path.Combine(Destination, "manifest.json")))
                                 {
@@ -3098,13 +3063,8 @@ int millisecondsDelay = 300)
 
                                     }
                                     else if (Script.Length > 1)
-                                    {
-
-                                      
-
-                                           
-
-
+                                    {                                 
+                                                                              
                                             foreach (var File_ in Script)
                                             {
                                                 FileInfo FolderTemp = new FileInfo(File_.FullName);

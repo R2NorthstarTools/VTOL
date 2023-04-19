@@ -115,6 +115,14 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
+        <hc:Badge x:Name="VTOL_UPDATE_BADGE" Margin="0,460,0,204" BadgeMargin="32,4,10,0" Status="Processing" ToolTip="Update For VTOL Available" BorderBrush="#FF00FF84" HorizontalAlignment="Right" Width="52" Visibility="Hidden">
+            <hc:Badge.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF00FF9C" Offset="0.005"/>
+                    <GradientStop Color="#FF00A455" Offset="1"/>
+                </LinearGradientBrush>
+            </hc:Badge.Background>
+        </hc:Badge>
         <ui:NotifyIcon
                     Icon="/Resources/Icons/Main_UI/VTOL_multires.ico"
                     MenuOnRightClick="True"
@@ -132,7 +140,7 @@
                                 Header="Home"
                                 SymbolIcon="Home24"
                                 Tag="OpenHome" Click="OpenHome_Click" />
-                    
+
                     <ui:MenuItem  x:Name="OpenMods"
                                 Header="Mods"
                                 SymbolIcon="FolderOpen16"
