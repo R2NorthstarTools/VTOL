@@ -307,6 +307,8 @@ namespace VTOL
 
             catch (Exception ex)
             {
+                MessageBox.Show(ex.Message + "\n" + ex.StackTrace + "\n" + ex.Source);
+
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
             }
 

@@ -789,7 +789,7 @@ int millisecondsDelay = 150)
                     SnackBar.Message = VTOL.Resources.Languages.Language.PleaseWaitAsVTOLRestarts;
                     SnackBar.Show();
                 });
-                    await Task.Delay(1000);
+                    await Task.Delay(100);
 
 
                     Restart();
@@ -855,7 +855,7 @@ int millisecondsDelay = 150)
                 SnackBar.Show();
             });
          
-            await Task.Delay(1000);
+            await Task.Delay(100);
             var currentExecutablePath = Process.GetCurrentProcess().MainModule.FileName;
             Process.Start(currentExecutablePath);
             Application.Current.Shutdown();
@@ -1334,6 +1334,7 @@ int millisecondsDelay = 150)
             }
             catch (Exception ex)
             {
+                MessageBox.Show(ex.Message + "\n" + ex.StackTrace + "\n" + ex.Source);
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
             }
@@ -1500,7 +1501,7 @@ int millisecondsDelay = 150)
             foreach (string folder in folderPaths)
             {
                 //Console.WriteLine(folder);
-                Thread.Sleep(1000);
+                Thread.Sleep(100);
                 foreach (string dir in Directory.GetDirectories(Path.Combine(folder, @"steamapps\common")))
                 {
                     //Console.WriteLine(dir);
@@ -2643,7 +2644,7 @@ int millisecondsDelay = 150)
                         while (!EAClient_Running && fail <= 3)
                         {
                             EAClient_Running = Check_Process_Running("EABackgroundService");
-                            await Task.Delay(1000);
+                            await Task.Delay(100);
                             fail++;
                         }
                         if (fail >= 3)
@@ -2773,7 +2774,7 @@ int millisecondsDelay = 150)
 
                                 Origin_Client_Running = Check_Process_Running("OriginClientService");
 
-                            await Task.Delay(1000);
+                            await Task.Delay(100);
                             fail++;
                             }
                             if (fail >= 3)
@@ -3129,7 +3130,7 @@ int millisecondsDelay = 150)
                     {
 
 
-                        await Task.Delay(1000);
+                        await Task.Delay(100);
                         attempts++;
                     }
                     Parse_Release();
@@ -3147,7 +3148,7 @@ int millisecondsDelay = 150)
                     {
 
 
-                        await Task.Delay(1000);
+                        await Task.Delay(100);
                         attempts++;
                     }
                     Parse_Release();
@@ -3372,9 +3373,8 @@ int millisecondsDelay = 150)
                     
                 }
                   await Read_Latest_Release(Current_REPO_URL);
-                    //Current_File_Label.Content = GetTextResource("DOWNLOADING_NORTHSTAR_LATEST_RELEAST_TEXT") + "-" + Properties.Settings.Default.Version;
+                    await Task.Delay(300);
 
-                            
 
                     webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(Completed);
                 string x = "";
@@ -3382,7 +3382,6 @@ int millisecondsDelay = 150)
                 {
                     if (File.Exists(Current_Install_Folder + @"ns_startup_args_dedi.txt") && File.Exists(Current_Install_Folder + @"ns_startup_args.txt") )
                     {
-                        //x = GetFile(Current_Install_Folder, "autoexec_ns_server.cfg").First();
 
                         if (do_not_overwrite_Ns_file == true )
                         {
@@ -3413,9 +3412,11 @@ int millisecondsDelay = 150)
                            TryCreateDirectory(AppDataFolder + @"\VTOL_DATA\Releases\");
                             webClient.DownloadFileAsync(new Uri(current_Northstar_version_Url), AppDataFolder + @"\VTOL_DATA\Releases\Northstar_Release.zip");
                             webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadProgressCallback_Progress_Window);
+
+
                                 while (unpack_flg == false)
                                 {
-                                    await Task.Delay(1000);
+                                    await Task.Delay(100);
                                 }
 
 
@@ -3430,7 +3431,7 @@ int millisecondsDelay = 150)
                             webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadProgressCallback_Progress_Window);
                                 while (unpack_flg == false)
                                 {
-                                    await Task.Delay(1000);
+                                    await Task.Delay(100);
                                 }
 
 
@@ -3450,7 +3451,7 @@ int millisecondsDelay = 150)
                            
                             while ( unpack_flg == false)
                             {
-                                await Task.Delay(1000);
+                                await Task.Delay(100);
                             }
 
 
@@ -3883,7 +3884,7 @@ int millisecondsDelay = 100)
                             Fade_In_Fade_Out_Control(false);
                             ProgressBar.Value = 0;
                             Mouse.OverrideCursor = null;
-                    Wpf.Ui.TaskBar.TaskBarProgress.SetState(Main, Wpf.Ui.TaskBar.TaskBarProgressState.None);
+                            Wpf.Ui.TaskBar.TaskBarProgress.SetState(Main, Wpf.Ui.TaskBar.TaskBarProgressState.None);
 
 
                             unpack_flg = true;
@@ -3906,7 +3907,7 @@ int millisecondsDelay = 100)
 
                             DispatchIfNecessary(() =>
                             {
-                        Wpf.Ui.TaskBar.TaskBarProgress.SetState(Main, Wpf.Ui.TaskBar.TaskBarProgressState.None);
+                                 Wpf.Ui.TaskBar.TaskBarProgress.SetState(Main, Wpf.Ui.TaskBar.TaskBarProgressState.None);
 
                                 ProgressBar.Value = 0;
 
@@ -3926,7 +3927,7 @@ int millisecondsDelay = 100)
                             DispatchIfNecessary(() =>
                             {
                                 ProgressBar.Value = 0;
-                        Wpf.Ui.TaskBar.TaskBarProgress.SetState(Main, Wpf.Ui.TaskBar.TaskBarProgressState.None);
+                                Wpf.Ui.TaskBar.TaskBarProgress.SetState(Main, Wpf.Ui.TaskBar.TaskBarProgressState.None);
 
                             });
                             SnackBar.Appearance = ControlAppearance.Danger;
@@ -3945,7 +3946,7 @@ int millisecondsDelay = 100)
 
                     DispatchIfNecessary(() =>
                     {
-                Wpf.Ui.TaskBar.TaskBarProgress.SetState(Main, Wpf.Ui.TaskBar.TaskBarProgressState.None);
+                        Wpf.Ui.TaskBar.TaskBarProgress.SetState(Main, Wpf.Ui.TaskBar.TaskBarProgressState.None);
 
                         ProgressBar.Value = 0;
 
