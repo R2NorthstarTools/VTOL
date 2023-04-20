@@ -2456,7 +2456,7 @@ int millisecondsDelay = 30)
             Console.WriteLine(Location);
             if (NS_CANDIDATE_INSTALL == true)
             {
-
+                //TODO fix rwyns night city mod that does not install properly
                 Unpack_To_Location_Custom(Location, User_Settings_Vars.NorthstarInstallLocation + @"Northstar_TEMP_FILES\", Progress_Bar, true, false, Skin_Install, NS_CANDIDATE_INSTALL);
 
             }
