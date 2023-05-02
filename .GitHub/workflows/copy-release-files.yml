@@ -1,0 +1,42 @@
+name: Copy Latest Release Files
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_version:
+        description: 'Enter the latest release version to copy files from'
+        required: true
+
+jobs:
+  copy_files:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Copy files
+        run: |
+          # Get the latest release version from input
+          LATEST_RELEASE_VERSION="${{ github.event.inputs.release_version }}"
+
+          # Copy files from the latest release to other older releases
+          for i in $(seq 1 "${LATEST_RELEASE_VERSION}"); do
+            cp -r ./latest_release/* ./v${i}/
+          done
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "Your Name"
+          git config --global user.email "you@example.com"
+          git add .
+          git commit -m "Copy latest release files to older releases"
+          git push
