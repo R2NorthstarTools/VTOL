@@ -1641,7 +1641,7 @@ int millisecondsDelay = 150)
 
             return false;
 
-        }
+        } 
         void Toggle_MS_BT(bool f)
         {
             try {
@@ -3348,7 +3348,6 @@ int millisecondsDelay = 150)
 
 
         }
-        
         async Task Install_NS_METHOD()
         {
             await Task.Run(async () =>
@@ -3768,6 +3767,10 @@ int millisecondsDelay = 100)
 
             return false;
         }
+        public bool OSMOWSGOTYOU()
+        {
+            return true;
+        }
         private void Unpack_To_Location(string Target_Zip, string Destination_Zip)
         {
             try
@@ -3874,7 +3877,6 @@ int millisecondsDelay = 100)
                         }
 
 
-
                         if (Directory.Exists(Current_Install_Folder + @"TempCopyFolder"))
                         {
                             TryDeleteDirectory(Current_Install_Folder + @"TempCopyFolder", true);
@@ -3892,7 +3894,6 @@ int millisecondsDelay = 100)
                             SnackBar.Title = "SUCCESS";
                             SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
                             SnackBar.Show();
-
                         });
 
 
