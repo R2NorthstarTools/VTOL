@@ -35,7 +35,6 @@ using System.Reflection;
 using System.Timers;
 using Newtonsoft.Json.Linq;
 using System.Text.RegularExpressions;
-using HandyControl.Tools.Extension;
 
 namespace VTOL.Pages
 {
@@ -645,7 +644,7 @@ int millisecondsDelay = 150)
         bool search_a_flag = false;
         public HashSet<string> Fave_Mods = new HashSet<string>();
         private int Mod_Update_Counter = 0;
-       // private List<Action_Card> Action_Center = new List<Action_Card>();
+        private List<Action_Card> Action_Center = new List<Action_Card>();
 
         public Page_Thunderstore()
         {
@@ -3079,8 +3078,10 @@ int millisecondsDelay = 300)
                                             SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
                                             SnackBar.Message = "The Mod " + Path.GetFileNameWithoutExtension(Target_Zip).Replace("_", " ") + VTOL.Resources.Languages.Language.Page_Thunderstore_Unpack_To_Location_Custom_HasBeenDownloadedAndInstalled;
                                             SnackBar.Show();
-
-
+                                            if (_downloadQueue != null)
+                                            {
+                                                _downloadQueue.CancelDownload(mod_name);
+                                            }
                                         });
 
                                     }
@@ -3114,7 +3115,10 @@ int millisecondsDelay = 300)
                                         SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
                                         SnackBar.Message = "The the multiple Mods in - " + mod_name + " - have been installed Succesfully";
                                         SnackBar.Show();
-
+                                            if (_downloadQueue != null)
+                                            {
+                                                _downloadQueue.CancelDownload(mod_name);
+                                            }
 
                                         });
 
@@ -3152,7 +3156,10 @@ int millisecondsDelay = 300)
                                                 SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
                                                 SnackBar.Message = "Plugins in the mod folder have been copied successfully.";
                                                 SnackBar.Show();
-
+                                                if (_downloadQueue != null)
+                                                {
+                                                    _downloadQueue.CancelDownload(mod_name);
+                                                }
 
                                             });
                                         }
@@ -3168,7 +3175,10 @@ int millisecondsDelay = 300)
                                                 SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
                                                 SnackBar.Message = "Plugins .dll(s) not found or configured properly in the mod folder!";
                                                 SnackBar.Show();
-
+                                                if (_downloadQueue != null)
+                                                {
+                                                    _downloadQueue.CancelDownload(mod_name);
+                                                }
 
                                             });
                                         }
@@ -3366,7 +3376,10 @@ int millisecondsDelay = 300)
                                             }
                                             SnackBar.Message = temp_;
                                             SnackBar.Show();
-
+                                            if (_downloadQueue != null)
+                                            {
+                                                _downloadQueue.CancelDownload(mod_name);
+                                            }
 
                                         });
 
@@ -3475,7 +3488,10 @@ int millisecondsDelay = 300)
                                             SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
                                             SnackBar.Message = "The the multiple Mods in - " + mod_name + " - have been installed Succesfully";
                                             SnackBar.Show();
-
+                                            if (_downloadQueue != null)
+                                            {
+                                                _downloadQueue.CancelDownload(mod_name);
+                                            }
 
                                         });
                                     }
@@ -3501,8 +3517,11 @@ int millisecondsDelay = 300)
                                         SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
                                         SnackBar.Message = "The Mod " + Path.GetFileNameWithoutExtension(Target_Zip).Replace("_", " ") + VTOL.Resources.Languages.Language.Page_Thunderstore_Unpack_To_Location_Custom_HasBeenDownloadedAndInstalled;
                                         SnackBar.Show();
+                                    if (_downloadQueue != null)
+                                    {
+                                        _downloadQueue.CancelDownload(mod_name);
+                                    }
 
-                                    
 
                                 });
                             }
@@ -3566,6 +3585,10 @@ int millisecondsDelay = 300)
 
                 DispatchIfNecessary(() =>
                 {
+                    if (_downloadQueue != null)
+                    {
+                        _downloadQueue.CancelDownload(mod_name);
+                    }
                     if (Progress_Bar != null)
                     {
                         Progress_Bar.Value = 0;
@@ -3666,7 +3689,6 @@ int millisecondsDelay = 300)
             private readonly List<DownloadQueueItem> _queue = new List<DownloadQueueItem>();
             private readonly HashSet<string> _inProgress = new HashSet<string>();
             private readonly Page_Thunderstore _myClass;
-            private List<Action_Card> Action_Center = new List<Action_Card>();
 
             public DownloadQueue(Page_Thunderstore myClass)
             {
@@ -3719,15 +3741,17 @@ int millisecondsDelay = 300)
             {
                 try
                 {
-                    Main.Action_Center.ItemsSource =null;
 
+                    Main.Action_Center.ItemsSource = null;
                     string name = "";
                     string[] parts = item.DownloadUrl.Split('|');
                     if (parts.Length >= 2) // check if there are at least two parts
                     {
                         name = parts[parts.Length - 3]; // get the second last item
                     }
-                    Action_Center.AddIfNotExists(new Action_Card
+                    Main.Action_Center_Progress_Text.Text = name;
+
+                    _myClass.Action_Center.Add(new Action_Card
                     {
                         Action = "Download",
                         Name = name,
@@ -3735,15 +3759,18 @@ int millisecondsDelay = 300)
                         Progress = 0,
                         canceled = false
                     });
-                    Main.Action_Center.ItemsSource = Action_Center;
+                    MessageBox.Show(_myClass.Action_Center.Count.ToString());
+                    Main.Action_Center.ItemsSource = _myClass.Action_Center;
                     Main.Action_Center.Refresh();
                     await Task.Run(() => _myClass.Download_Zip_To_Path(item.DownloadUrl, item.DestinationPath, item.Progress, item.Extract, item.IsNorthstarRelease, cancellationToken));
-                    Action_Card completedCard = Action_Center.FirstOrDefault(ac => ac.Name == name);
+                    MessageBox.Show("Done");
+
+                    Action_Card completedCard = _myClass.Action_Center.FirstOrDefault(ac => ac.Name == name);
                     if (completedCard != null)
                     {
-                        //Action_Center.Remove(completedCard);
-                        Main.Action_Center.ItemsSource = Action_Center;
+                        Main.Action_Center.ItemsSource = _myClass.Action_Center;
                         Main.Action_Center.Refresh();
+                        //_myClass.Action_Center.Remove(completedCard);
                     }
                 }
                 catch (Exception ex)
@@ -3752,9 +3779,14 @@ int millisecondsDelay = 300)
                 }
             }
 
-            public void CancelDownload(string downloadUrl)
+            public void CancelDownload(string name)
             {
-                var item = _queue.FirstOrDefault(i => i.DownloadUrl == downloadUrl);
+                MessageBox.Show(name);
+                var item = _queue.FirstOrDefault(i =>
+                {
+                    string[] parts = i.DownloadUrl.Split('|');
+                    return (parts.Length >= 2 && parts[parts.Length - 3].ToLower().Contains(name.ToLower()));
+                });
 
                 if (item != null)
                 {
@@ -3765,7 +3797,7 @@ int millisecondsDelay = 300)
 
         // Inside the class containing the Install_Bttn_Thunderstore_Click method:
 
-        private DownloadQueue _downloadQueue;
+        public DownloadQueue _downloadQueue;
 
         public void InitializeDownloadQueue()
         {

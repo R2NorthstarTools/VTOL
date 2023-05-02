@@ -981,5 +981,79 @@ true // Whether to change accents automatically
         {
 
         }
+
+        private void Action_Center_SourceUpdated(object sender, DataTransferEventArgs e)
+        {
+           
+        }
+
+        private void Action_Center_Progress_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            
+        }
+
+        private void Action_Center_Progress_Checked(object sender, RoutedEventArgs e)
+        {
+           
+               
+
+            if (Action_Center_Panel.Opacity < 1)
+            {
+
+                DoubleAnimation da = new DoubleAnimation
+                {
+                    From = Action_Center_Panel.Opacity,
+                    To = 1,
+                    Duration = new Duration(TimeSpan.FromSeconds(0.2)),
+                    AutoReverse = false
+                };
+                Action_Center_Panel.BeginAnimation(OpacityProperty, da);
+
+            }
+            Action_Center_Panel.IsHitTestVisible = true;
+        }
+
+        private void Action_Center_Progress_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (Action_Center_Panel.Opacity > 0.2)
+            {
+                DoubleAnimation da = new DoubleAnimation
+                {
+                    From = Action_Center_Panel.Opacity,
+                    To = 0,
+                    Duration = new Duration(TimeSpan.FromSeconds(0.2)),
+                    AutoReverse = false
+                };
+                Action_Center_Panel.BeginAnimation(OpacityProperty, da);
+
+            }
+            Action_Center_Panel.IsHitTestVisible = false;
+
+        }
+
+        private void Cancel_Button_Click(object sender, RoutedEventArgs e)
+        {
+            Button Button;
+            Button = sender as Button;
+            try
+            {
+                RootNavigation.Navigate(typeof(Pages.Page_Thunderstore));
+
+                Page_Thunderstore Page = RootFrame.Content as Page_Thunderstore;
+                if (Page != null)
+                {
+
+                    if (Page._downloadQueue != null)
+                    {
+                        Page._downloadQueue.CancelDownload(Button.Tag.ToString());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+
+            }
+        }
     }
 }
