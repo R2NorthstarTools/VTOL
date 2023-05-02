@@ -2545,7 +2545,7 @@ int millisecondsDelay = 30)
 
                     }
                 });
-            }, cancellationToken);
+            });
 
 
 
@@ -3759,11 +3759,9 @@ int millisecondsDelay = 300)
                         Progress = 0,
                         canceled = false
                     });
-                    MessageBox.Show(_myClass.Action_Center.Count.ToString());
                     Main.Action_Center.ItemsSource = _myClass.Action_Center;
                     Main.Action_Center.Refresh();
                     await Task.Run(() => _myClass.Download_Zip_To_Path(item.DownloadUrl, item.DestinationPath, item.Progress, item.Extract, item.IsNorthstarRelease, cancellationToken));
-                    MessageBox.Show("Done");
 
                     Action_Card completedCard = _myClass.Action_Center.FirstOrDefault(ac => ac.Name == name);
                     if (completedCard != null)
