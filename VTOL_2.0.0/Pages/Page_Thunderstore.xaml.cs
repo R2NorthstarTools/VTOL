@@ -2398,11 +2398,13 @@ int millisecondsDelay = 150)
         }
         public class Action_Card
         {
+            public string Date { get; set; }
+
             public string Action { get; set; }
             public string Name { get; set; }
             public string Description { get; set; }
             public int Progress { get; set; }
-            public bool canceled { get; set; }
+            public string Completed { get; set; }
 
         }
         public class Grid_
@@ -2986,6 +2988,21 @@ int millisecondsDelay = 300)
                 }
             }
         }
+        void Update_ActionCard_Progress(Action_Card Action_Card_, int Add_INT = 10,bool Completed = false)
+        {
+            DispatchIfNecessary(() =>
+            {
+                if (Action_Card_ != null)
+                {
+                    Main.Action_Center.ItemsSource = null;
+                    Action_Card_.Progress = Action_Card_.Progress + Add_INT;
+                    Action_Card_.Completed = Completed.ToString();
+                    Main.Action_Center.ItemsSource = Action_Center;
+                    Main.Action_Center.Refresh();
+                }
+            });
+
+        }
         public async Task Unpack_To_Location_Custom(string Target_Zip, string Destination, ProgressBar Progress_Bar, bool Clean_Thunderstore = false, bool clean_normal = false, bool Skin_Install = false,bool NS_CANDIDATE_INSTALL = false ,string mod_name ="~")
         {
             //add drag and drop
@@ -2995,9 +3012,14 @@ int millisecondsDelay = 300)
                 // Start the benchmark timer
                 var benchmark = new Benchmark();
                 string Dir_Final = null;
+                var Action_Card_ = Action_Center.FirstOrDefault(i =>
+                {
+                    return i.Name.ToLower().Contains(mod_name.ToLower());
+                });
 
-               
-                    
+              
+
+
                     if (!File.Exists(Target_Zip))
                     {
                         DispatchIfNecessary(() =>
@@ -3030,7 +3052,7 @@ int millisecondsDelay = 300)
 
 
                     }
-
+                Update_ActionCard_Progress(Action_Card_);
                 if (NS_CANDIDATE_INSTALL == false && Skin_Install == false && Destination.Contains(@"\mods"))
                 {
                     if (Main.Current_Installed_Mods.Count() > 1)
@@ -3072,8 +3094,10 @@ int millisecondsDelay = 300)
                                 }
                             });
                             return;
-                        }
-                        await TryUnzipFile(Target_Zip, Destination);
+                }
+                Update_ActionCard_Progress(Action_Card_);
+
+                await TryUnzipFile(Target_Zip, Destination);
 
                             
 
@@ -3100,6 +3124,7 @@ int millisecondsDelay = 300)
                 }
 
 
+                Update_ActionCard_Progress(Action_Card_);
 
                 if (NS_CANDIDATE_INSTALL == false && Skin_Install == false)
                 {
@@ -3123,11 +3148,13 @@ int millisecondsDelay = 300)
 
                         if (Directory.Exists(Destination))
                         {
+                            Update_ActionCard_Progress(Action_Card_);
 
 
 
-                          
-                                await TryCreateDirectory(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder");
+
+
+                            await TryCreateDirectory(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder");
                            
                             if (Directory.Exists(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder"))
                             {
@@ -3150,15 +3177,18 @@ int millisecondsDelay = 300)
 
 
                         }
-                        
-                            await Call_Mods_From_Folder_Lite();
-                       
+                        Update_ActionCard_Progress(Action_Card_,20);
+
+
+                        await Call_Mods_From_Folder_Lite();
+
                         DispatchIfNecessary(() =>
                         {
                             if (Progress_Bar != null)
                             {
                                 Progress_Bar.Value = 0;
                             }
+                            Update_ActionCard_Progress(Action_Card_, 40,true);
 
                             SnackBar.Title = "SUCCESS";
                             SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
@@ -3174,6 +3204,7 @@ int millisecondsDelay = 300)
                     }
                     else if (Script.Length > 1)
                     {
+                        Update_ActionCard_Progress(Action_Card_);
 
                         foreach (var File_ in Script)
                         {
@@ -3191,8 +3222,9 @@ int millisecondsDelay = 300)
 
 
                         }
-                        
-                            await Call_Mods_From_Folder_Lite();
+                        Update_ActionCard_Progress(Action_Card_, 70);
+
+                        await Call_Mods_From_Folder_Lite();
                       
                         DispatchIfNecessary(() =>
                         {
@@ -3200,6 +3232,7 @@ int millisecondsDelay = 300)
                             {
                                 Progress_Bar.Value = 0;
                             }
+                            Update_ActionCard_Progress(Action_Card_, 10,true);
 
                             SnackBar.Title = "SUCCESS";
                             SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
@@ -3217,6 +3250,8 @@ int millisecondsDelay = 300)
                     }
                     else if (Script.Length == 0)
                     {
+                        Update_ActionCard_Progress(Action_Card_, 40);
+
                         string pluginsFolderName = "plugins"; // Folder name to search for
 
                         string pluginsFolderPath = Path.Combine(Destination, pluginsFolderName);
@@ -3236,6 +3271,7 @@ int millisecondsDelay = 300)
                                 string destFile = Path.Combine(destFolderPath, fileName);
                                 await TryCopyFile(file, destFile, true);
                             }
+                            Update_ActionCard_Progress(Action_Card_, 40);
 
                             DispatchIfNecessary(() =>
                             {
@@ -3243,6 +3279,7 @@ int millisecondsDelay = 300)
                                 {
                                     Progress_Bar.Value = 0;
                                 }
+                                Update_ActionCard_Progress(Action_Card_, 10,true);
 
                                 SnackBar.Title = "SUCCESS";
                                 SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
@@ -3258,6 +3295,8 @@ int millisecondsDelay = 300)
                         }
                         else
                         {
+                            Update_ActionCard_Progress(Action_Card_, 10,true);
+
                             DispatchIfNecessary(() =>
                             {
                                 if (Progress_Bar != null)
@@ -3285,6 +3324,8 @@ int millisecondsDelay = 300)
 
                 else if(NS_CANDIDATE_INSTALL == true && Skin_Install == false)
                 {
+                    Update_ActionCard_Progress(Action_Card_, 10);
+
                     DispatchIfNecessary(() =>
                     {
 
@@ -3331,6 +3372,8 @@ int millisecondsDelay = 300)
 
 
                     }
+                    Update_ActionCard_Progress(Action_Card_, 10);
+
                     if (!Directory.Exists(User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder"))
                     {
                         await TryCreateDirectory(User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder");
@@ -3344,6 +3387,7 @@ int millisecondsDelay = 300)
                             await TryCopyFile(User_Settings_Vars.NorthstarInstallLocation + @"ns_startup_args.txt", User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder\ns_startup_args.txt", true);
                         }
 
+                        Update_ActionCard_Progress(Action_Card_, 10);
 
 
 
@@ -3357,6 +3401,7 @@ int millisecondsDelay = 300)
 
                         }
 
+                        Update_ActionCard_Progress(Action_Card_, 10);
 
 
                         if (File.Exists(User_Settings_Vars.NorthstarInstallLocation + @"ns_startup_args_dedi.txt"))
@@ -3369,6 +3414,8 @@ int millisecondsDelay = 300)
                         }
 
                     }
+                    Update_ActionCard_Progress(Action_Card_, 10);
+
                     string searchQuery3 = "*" + "Northstar.dll" + "*";
 
                     var Destinfo = new DirectoryInfo(Destination);
@@ -3396,6 +3443,7 @@ int millisecondsDelay = 300)
                           
                         }
 
+                        Update_ActionCard_Progress(Action_Card_, 10);
 
                         if (do_not_overwrite_Ns_file == true)
                         {
@@ -3430,6 +3478,7 @@ int millisecondsDelay = 300)
                             }
 
                         }
+                        Update_ActionCard_Progress(Action_Card_, 10);
 
                         DispatchIfNecessary(() =>
                         {
@@ -3439,7 +3488,8 @@ int millisecondsDelay = 300)
 
                                 Progress_Bar.Value = 0;
                             }
-                        });
+                        }); Update_ActionCard_Progress(Action_Card_, 10);
+
                         if (File.Exists(User_Settings_Vars.NorthstarInstallLocation + @"NorthstarLauncher.exe"))
                         {
                             DispatchIfNecessary(() =>
@@ -3458,6 +3508,7 @@ int millisecondsDelay = 300)
 
                             });
                         }
+                        Update_ActionCard_Progress(Action_Card_, 10,true);
 
                         DispatchIfNecessary(() =>
                         {
@@ -3475,6 +3526,7 @@ int millisecondsDelay = 300)
                             }
                             SnackBar.Message = temp_;
                             SnackBar.Show();
+                            Update_ActionCard_Progress(Action_Card_, 10,true);
 
 
                         });
@@ -3730,6 +3782,9 @@ int millisecondsDelay = 300)
 
         public class DownloadQueueItem
         {
+            public string Name { get; set; }
+            public DateTime Date { get; set; }
+
             public string DownloadUrl { get; set; }
             public string DestinationPath { get; set; }
             public bool Extract { get; set; }
@@ -3739,11 +3794,12 @@ int millisecondsDelay = 300)
         public class DownloadQueue
         {
             private MainWindow Main = GetMainWindow();
+            private readonly List<DownloadQueueItem> _queue_List_Clear = new List<DownloadQueueItem>();
 
             private readonly List<DownloadQueueItem> _queue = new List<DownloadQueueItem>();
             private readonly HashSet<string> _inProgress = new HashSet<string>();
             private readonly Page_Thunderstore _myClass;
-
+           
             public DownloadQueue(Page_Thunderstore myClass)
             {
                 _myClass = myClass;
@@ -3751,17 +3807,27 @@ int millisecondsDelay = 300)
 
             public async void Enqueue(DownloadQueueItem item)
             {
-                if (_queue.Any(i => i.DownloadUrl == item.DownloadUrl) || _inProgress.Contains(item.DownloadUrl))
+
+
+                if (_queue.Any(i => i.DownloadUrl == item.DownloadUrl) || _inProgress.Contains(item.DownloadUrl) || _myClass.Action_Center.Any(i => i.Name == item.DestinationPath))
                 {
-                   MessageBox.Show("Download with the same URL is already in progress or queued.");
+                        Main.DispatchIfNecessary(() => {
+                        Main.Snackbar.Message = "Download with the same URL is already in progress or queued.";
+                        Main.Snackbar.Title = "INFO";
+                        Main.Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
+                        Main.Snackbar.Show();
+                    });
+                    //MessageBox.Show("Download with the same URL is already in progress or queued.");
                 }
                 else
                 {
                     _inProgress.Add(item.DownloadUrl);
                     _queue.Add(item);
+                    _queue_List_Clear.Add(item);
                     await ExecuteQueueAsync();
                 }
-            }   
+               
+            }
 
             private async Task ExecuteQueueAsync()
             {
@@ -3786,7 +3852,9 @@ int millisecondsDelay = 300)
                     }
                     finally
                     {
-                        _inProgress.Remove(item.DownloadUrl);
+                       // _myClass.Action_Center.RemoveAll(card => card.Description == item.DestinationPath);
+
+                      //  _inProgress.Remove(item.DownloadUrl);
                     }
                 }
             }
@@ -3795,36 +3863,43 @@ int millisecondsDelay = 300)
             {
                 try
                 {
-
-                    Main.Action_Center.ItemsSource = null;
                     string name = "";
                     string[] parts = item.DownloadUrl.Split('|');
                     if (parts.Length >= 2) // check if there are at least two parts
                     {
                         name = parts[parts.Length - 3]; // get the second last item
                     }
-                    Main.Action_Center_Progress_Text.Text = name;
-
-                    _myClass.Action_Center.Add(new Action_Card
+                    Main.DispatchIfNecessary(() =>
                     {
-                        Action = "Download",
-                        Name = name,
-                        Description = item.DestinationPath,
-                        Progress = 0,
-                        canceled = false
-                    });
-                    Main.Action_Center.ItemsSource = _myClass.Action_Center;
-                    Main.Action_Center.Refresh();
-                    await Task.Run(() => _myClass.Download_Zip_To_Path(item.DownloadUrl, item.DestinationPath, item.Progress, item.Extract, item.IsNorthstarRelease, cancellationToken));
+                        Main.Action_Center.ItemsSource = null;
+                        
+                        Main.Action_Center_Progress_Text.Text = name;
 
-                    Action_Card completedCard = _myClass.Action_Center.FirstOrDefault(ac => ac.Name == name);
-                    if (completedCard != null)
-                    {
+                        _myClass.Action_Center.Add(new Action_Card
+                        {
+                            Action = "Downloading From ThunderStore",
+                            Name = name,
+                            Description = item.DestinationPath,
+                            Progress = 0,
+                            Completed = "False",
+                            Date = DateTime.Now.ToString()
+                        });
                         Main.Action_Center.ItemsSource = _myClass.Action_Center;
                         Main.Action_Center.Refresh();
+                    });
+                    await Task.Run(() => _myClass.Download_Zip_To_Path(item.DownloadUrl, item.DestinationPath, item.Progress, item.Extract, item.IsNorthstarRelease, cancellationToken));
+                    Main.DispatchIfNecessary(() =>
+                    {
+                        Action_Card completedCard = _myClass.Action_Center.FirstOrDefault(ac => ac.Name == name);
+                        if (completedCard != null)
+                        {
+                            Main.Action_Center.ItemsSource = _myClass.Action_Center;
+                            Main.Action_Center.Refresh();
                         //_myClass.Action_Center.Remove(completedCard);
                     }
-                }
+                });
+
+            }
                 catch (Exception ex)
                 {
                     // log error
@@ -3833,17 +3908,32 @@ int millisecondsDelay = 300)
 
             public void CancelDownload(string name)
             {
-                var item = _queue.FirstOrDefault(i =>
+                try { 
+                var item = _queue_List_Clear.FirstOrDefault(i =>
                 {
-                    string[] parts = i.DownloadUrl.Split('|');
-                    return (parts.Length >= 2 && parts[parts.Length - 3].ToLower().Contains(name.ToLower()));
+                    return i.Name.ToLower().Contains(name.ToLower());
                 });
 
                 if (item != null)
-                {
-                    _queue.Remove(item);
+                    {
+                        Main.DispatchIfNecessary(() =>
+                        {
+                            Main.Action_Center.ItemsSource = null;
+                            Main.Action_Center_Progress_Text.Text = null;
+                         //   _myClass.Action_Center.RemoveAll(card => card.Name == item.Name);
+                            Main.Action_Center.ItemsSource = _myClass.Action_Center;
+                            Main.Action_Center.Refresh();
+                        });
+                    //_inProgress.Remove(item.DownloadUrl);
+                   // _queue.Remove(item);
+                   // _queue_List_Clear.Remove(item);
                 }
             }
+                catch (Exception ex)
+                {
+                    // log error
+                }
+    }
         }
 
         // Inside the class containing the Install_Bttn_Thunderstore_Click method:
@@ -3873,12 +3963,20 @@ int millisecondsDelay = 300)
                 {
                     tags = "Mods";
                 }
+                string name = "";
+                string[] parts = Button.Tag.ToString().Split('|');
+                if (parts.Length >= 2) // check if there are at least two parts
+                {
+                    name = parts[parts.Length - 3]; // get the second last item
+                }
+
                 DispatchIfNecessary(() =>
                 {
                     if (Button.Tag.ToString().Contains("http") || Button.Tag.ToString().Contains("https"))
                     {
                         var item = new DownloadQueueItem
                         {
+                            Name = name,
                             DownloadUrl = Button.Tag.ToString(),
                             DestinationPath = User_Settings_Vars.NorthstarInstallLocation + @"NS_Downloaded_Mods",
                             Extract = tags.Contains("DDS"),

@@ -984,7 +984,6 @@ true // Whether to change accents automatically
 
         private void Action_Center_SourceUpdated(object sender, DataTransferEventArgs e)
         {
-           
         }
 
         private void Action_Center_Progress_MouseDown(object sender, MouseButtonEventArgs e)
@@ -1033,21 +1032,89 @@ true // Whether to change accents automatically
 
         private void Cancel_Button_Click(object sender, RoutedEventArgs e)
         {
-            Button Button;
-            Button = sender as Button;
             try
             {
-                RootNavigation.Navigate(typeof(Pages.Page_Thunderstore));
+                DispatchIfNecessary(() => {
+                Wpf.Ui.Controls.Button Button;
+            Button = sender as Wpf.Ui.Controls.Button;
+               
+                    //if (Convert.ToInt32(Button.ToolTip.ToString()) >= 50)
+                    //{
+                    //    Button.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#E500842C");
+                    //    Button.Icon = Wpf.Ui.Common.SymbolRegular.Check24;
+                    //    Button.Refresh();
 
-                Page_Thunderstore Page = RootFrame.Content as Page_Thunderstore;
-                if (Page != null)
-                {
+                    //}
+                    RootNavigation.Navigate(typeof(Pages.Page_Thunderstore));
 
-                    if (Page._downloadQueue != null)
+                    Page_Thunderstore Page = RootFrame.Content as Page_Thunderstore;
+                    if (Page != null)
                     {
-                        Page._downloadQueue.CancelDownload(Button.Tag.ToString());
+
+                        if (Page._downloadQueue != null)
+                        {
+                            Page._downloadQueue.CancelDownload(Button.Tag.ToString());
+                        }
                     }
-                }
+                });
+            }
+            catch (Exception ex)
+            {
+
+
+            }
+        }
+
+        private void Cancel_Button_SourceUpdated(object sender, DataTransferEventArgs e)
+        {
+            
+        }
+
+        private void Cancel_Button_TargetUpdated(object sender, DataTransferEventArgs e)
+        {
+           
+        }
+
+        private void Action_Center_TargetUpdated(object sender, DataTransferEventArgs e)
+        {
+            MessageBox.Show("sd");
+
+        }
+
+        private void Action_Center_LayoutUpdated(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SymbolIcon_LayoutUpdated(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void SymbolIcon_TargetUpdated(object sender, DataTransferEventArgs e)
+        {
+            try
+            {
+                DispatchIfNecessary(async () =>
+                {
+                    Wpf.Ui.Controls.SymbolIcon SymbolIcon = sender as Wpf.Ui.Controls.SymbolIcon;
+                    if (SymbolIcon != null)
+                    {
+                        MessageBox.Show(SymbolIcon.Tag.ToString());
+
+                        if (SymbolIcon.Tag.ToString() == "true")
+                        {
+                            SymbolIcon.Symbol = Wpf.Ui.Common.SymbolRegular.Checkmark48;
+
+                        }
+                        else
+                        {
+                            SymbolIcon.Symbol = Wpf.Ui.Common.SymbolRegular.Dismiss16;
+
+                        }
+
+                    }
+                });
             }
             catch (Exception ex)
             {
