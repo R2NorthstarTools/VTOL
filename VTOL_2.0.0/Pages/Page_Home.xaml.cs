@@ -3139,7 +3139,7 @@ int millisecondsDelay = 150)
                 }
                 else
                 {
-                   TryCreateDirectory(AppDataFolder + @"\VTOL_DATA\temp\");
+                  await TryCreateDirectory(AppDataFolder + @"\VTOL_DATA\temp\");
                     saveAsyncFile(s, AppDataFolder + @"\VTOL_DATA\temp\" + json_name, false, false);
                     FileInfo File = new FileInfo(AppDataFolder + @"\VTOL_DATA\temp\" + json_name);
                     int attempts = 0;
@@ -3367,7 +3367,7 @@ int millisecondsDelay = 150)
                     if (Directory.Exists(Current_Install_Folder + @"TempCopyFolder"))
                 {
 
-                        TryDeleteDirectory(Current_Install_Folder + @"TempCopyFolder", true);
+                       await TryDeleteDirectory(Current_Install_Folder + @"TempCopyFolder", true);
                     
                     
                 }
@@ -3388,11 +3388,11 @@ int millisecondsDelay = 150)
                             {
                                 if (Directory.Exists(Current_Install_Folder + @"ns_startup_args.txt"))
                                 {
-                                   TryCopyFile(Current_Install_Folder + @"ns_startup_args.txt", Current_Install_Folder + @"TempCopyFolder\ns_startup_args.txt", true);
+                                  await TryCopyFile(Current_Install_Folder + @"ns_startup_args.txt", Current_Install_Folder + @"TempCopyFolder\ns_startup_args.txt", true);
                                 }
                                 if (Directory.Exists(Current_Install_Folder + @"ns_startup_args_dedi.txt"))
                                 {
-                                        TryCopyFile(Current_Install_Folder + @"ns_startup_args_dedi.txt", Current_Install_Folder + @"TempCopyFolder\ns_startup_args_dedi.txt", true);
+                                        await TryCopyFile(Current_Install_Folder + @"ns_startup_args_dedi.txt", Current_Install_Folder + @"TempCopyFolder\ns_startup_args_dedi.txt", true);
                                 }
                             }
                             else
@@ -3401,11 +3401,11 @@ int millisecondsDelay = 150)
                                TryCreateDirectory(Current_Install_Folder + @"TempCopyFolder");
                                 if (Directory.Exists(Current_Install_Folder + @"ns_startup_args.txt"))
                                 {
-                                   TryCopyFile(Current_Install_Folder + @"ns_startup_args.txt", Current_Install_Folder + @"TempCopyFolder\ns_startup_args.txt", true);
+                                        await TryCopyFile(Current_Install_Folder + @"ns_startup_args.txt", Current_Install_Folder + @"TempCopyFolder\ns_startup_args.txt", true);
                                 }
                                 if (Directory.Exists(Current_Install_Folder + @"ns_startup_args_dedi.txt"))
                                 {
-                                    TryCopyFile(Current_Install_Folder + @"ns_startup_args_dedi.txt", Current_Install_Folder + @"TempCopyFolder\ns_startup_args_dedi.txt", true);
+                                        await TryCopyFile(Current_Install_Folder + @"ns_startup_args_dedi.txt", Current_Install_Folder + @"TempCopyFolder\ns_startup_args_dedi.txt", true);
                                 }
                             }
                            TryCreateDirectory(AppDataFolder + @"\VTOL_DATA\Releases\");
@@ -3425,7 +3425,7 @@ int millisecondsDelay = 150)
                             else
                         {
 
-                           TryCreateDirectory(AppDataFolder + @"\VTOL_DATA\Releases\");
+                                await TryCreateDirectory(AppDataFolder + @"\VTOL_DATA\Releases\");
                             webClient.DownloadFileAsync(new Uri(current_Northstar_version_Url), AppDataFolder + @"\VTOL_DATA\Releases\Northstar_Release.zip");
                             webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadProgressCallback_Progress_Window);
                                 while (unpack_flg == false)
@@ -3444,7 +3444,7 @@ int millisecondsDelay = 150)
                     else
                     {
 
-                       TryCreateDirectory(AppDataFolder + @"\VTOL_DATA\Releases\");
+                            await TryCreateDirectory(AppDataFolder + @"\VTOL_DATA\Releases\");
                         webClient.DownloadFileAsync(new Uri(current_Northstar_version_Url), AppDataFolder + @"\VTOL_DATA\Releases\Northstar_Release.zip");
                         webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadProgressCallback_Progress_Window);
                            
@@ -3622,10 +3622,8 @@ int millisecondsDelay = 150)
 
             }
         }
-        public bool TryDeleteDirectory(
-string directoryPath, bool overwrite = true,
-int maxRetries = 10,
-int millisecondsDelay = 100)
+        public async Task<bool> TryDeleteDirectory(string directoryPath, bool overwrite = true,
+               int maxRetries = 10, int millisecondsDelay = 30)
         {
             if (directoryPath == null)
                 throw new ArgumentNullException(directoryPath);
@@ -3640,7 +3638,21 @@ int millisecondsDelay = 100)
                 {
                     if (Directory.Exists(directoryPath))
                     {
-                        Directory.Delete(directoryPath, overwrite);
+                        string[] files = Directory.GetFiles(directoryPath);
+                        string[] dirs = Directory.GetDirectories(directoryPath);
+
+                        foreach (string file in files)
+                        {
+                            File.SetAttributes(file, FileAttributes.Normal);
+                            File.Delete(file);
+                        }
+
+                        foreach (string dir in dirs)
+                        {
+                            await TryDeleteDirectory(dir);
+                        }
+
+                        Directory.Delete(directoryPath, false);
                     }
 
                     return true;
@@ -3657,10 +3669,10 @@ int millisecondsDelay = 100)
 
             return false;
         }
-        public bool TryCreateDirectory(
-   string directoryPath,
-   int maxRetries = 10,
-   int millisecondsDelay = 100)
+        public async Task<bool> TryCreateDirectory(
+    string directoryPath,
+    int maxRetries = 10,
+    int millisecondsDelay = 30)
         {
             if (directoryPath == null)
                 throw new ArgumentNullException(directoryPath);
@@ -3676,13 +3688,8 @@ int millisecondsDelay = 100)
 
                     Directory.CreateDirectory(directoryPath);
 
-                    if (Directory.Exists(directoryPath))
-                    {
 
-                        return true;
-                    }
-
-
+                    return true;
                 }
                 catch (IOException)
                 {
@@ -3696,10 +3703,11 @@ int millisecondsDelay = 100)
 
             return false;
         }
-        public bool TryMoveFile(
-   string Origin, string Destination, bool overwrite = true,
-   int maxRetries = 10,
-   int millisecondsDelay = 100)
+
+        public async Task<bool> TryMoveFile(
+    string Origin, string Destination, bool overwrite = true,
+    int maxRetries = 10,
+    int millisecondsDelay = 200)
         {
             if (Origin == null)
                 throw new ArgumentNullException(Origin);
@@ -3731,10 +3739,45 @@ int millisecondsDelay = 100)
 
             return false;
         }
-        public bool TryCopyFile(
+        public async Task<bool> TryMoveFolder(
+   string Origin, string Destination, bool overwrite = true,
+   int maxRetries = 10,
+   int millisecondsDelay = 200)
+        {
+            if (Origin == null)
+                throw new ArgumentNullException(Origin);
+            if (maxRetries < 1)
+                throw new ArgumentOutOfRangeException(nameof(maxRetries));
+            if (millisecondsDelay < 1)
+                throw new ArgumentOutOfRangeException(nameof(millisecondsDelay));
+
+            for (int i = 0; i < maxRetries; ++i)
+            {
+                try
+                {
+                    if (Directory.Exists(Origin))
+                    {
+                        Directory.Move(Origin, Destination);
+                    }
+
+                    return true;
+                }
+                catch (IOException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+            }
+
+            return false;
+        }
+        public async Task<bool> TryCopyFile(
   string Origin, string Destination, bool overwrite = true,
   int maxRetries = 10,
-  int millisecondsDelay = 100)
+  int millisecondsDelay = 300)
         {
             if (Origin == null)
                 throw new ArgumentNullException(Origin);
@@ -3751,7 +3794,7 @@ int millisecondsDelay = 100)
                     {
                         File.Copy(Origin, Destination, true);
                     }
-                    Thread.Sleep(millisecondsDelay);
+                    Thread.Sleep(2);
 
                     return true;
                 }
@@ -3767,10 +3810,7 @@ int millisecondsDelay = 100)
 
             return false;
         }
-        public bool OSMOWSGOTYOU()
-        {
-            return true;
-        }
+        
         private void Unpack_To_Location(string Target_Zip, string Destination_Zip)
         {
             try
@@ -3881,8 +3921,31 @@ int millisecondsDelay = 100)
                         {
                             TryDeleteDirectory(Current_Install_Folder + @"TempCopyFolder", true);
                         }
+                        FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(Current_Install_Folder + @"NorthstarLauncher.exe");
+                        if (myFileVersionInfo.FileVersion != null)
+                        {
+
+                            // Print the file name and version number.
+                            //Console.WriteLine(myFileVersionInfo.FileVersion);
+                            Current_Ver_ = myFileVersionInfo.FileVersion;
+                        }
+                        else
+                        {
+                            Current_Ver_ = "ERRR";
+                        }
+                        User_Settings_Vars.CurrentVersion = Current_Ver_;
+                        Properties.Settings.Default.Version = Current_Ver_;
+                        Properties.Settings.Default.Save();
                         DispatchIfNecessary(() =>
                         {
+                            Directory_Box.Text = Current_Install_Folder;
+                            Main.NORTHSTAR_BUTTON.Content = "Northstar Version - " + Current_Ver_.Remove(0, 1);
+                            Main.VERSION_TEXT.Text = "VTOL - " + ProductVersion + " |";
+                            Main.VERSION_TEXT.Refresh();
+                            Main.NORTHSTAR_BUTTON.Refresh();
+
+                            NSExe = Get_And_Set_Filepaths(Current_Install_Folder, "NorthstarLauncher.exe");
+                        
                             Fade_In_Fade_Out_Control(false);
                             ProgressBar.Value = 0;
                             Mouse.OverrideCursor = null;
@@ -4299,8 +4362,31 @@ int millisecondsDelay = 100)
                                 WARNING_BANNER.Visibility = Visibility.Collapsed;
 
                                 Main.RootNavigation.IsEnabled = true;
+                                FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(Current_Install_Folder + @"NorthstarLauncher.exe");
+                                if (myFileVersionInfo.FileVersion != null)
+                                {
 
-                                
+                                    // Print the file name and version number.
+                                    //Console.WriteLine(myFileVersionInfo.FileVersion);
+                                    Current_Ver_ = myFileVersionInfo.FileVersion;
+                                }
+                                else
+                                {
+                                    Current_Ver_ = "ERRR";
+                                }
+                                User_Settings_Vars.CurrentVersion = Current_Ver_;
+                                Properties.Settings.Default.Version = Current_Ver_;
+                                Properties.Settings.Default.Save();
+                                DispatchIfNecessary(() =>
+                                {
+                                    Directory_Box.Text = Current_Install_Folder;
+                                    Main.NORTHSTAR_BUTTON.Content = "Northstar Version - " + Current_Ver_.Remove(0, 1);
+                                    Main.VERSION_TEXT.Text = "VTOL - " + ProductVersion + " |";
+                                    Main.VERSION_TEXT.Refresh();
+                                    Main.NORTHSTAR_BUTTON.Refresh();
+
+                                });
+
                                 Restart_App();
                             }
                             else

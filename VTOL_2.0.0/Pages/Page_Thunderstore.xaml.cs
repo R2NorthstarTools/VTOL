@@ -1557,10 +1557,9 @@ int millisecondsDelay = 150)
 
             }
         }
-        public bool TryDeleteDirectory(
-string directoryPath, bool overwrite = true,
-int maxRetries = 10,
-int millisecondsDelay = 30)
+
+        public async Task<bool> TryDeleteDirectory(string directoryPath, bool overwrite = true,
+                int maxRetries = 10, int millisecondsDelay = 30)
         {
             if (directoryPath == null)
                 throw new ArgumentNullException(directoryPath);
@@ -1575,7 +1574,21 @@ int millisecondsDelay = 30)
                 {
                     if (Directory.Exists(directoryPath))
                     {
-                        Directory.Delete(directoryPath, overwrite);
+                        string[] files = Directory.GetFiles(directoryPath);
+                        string[] dirs = Directory.GetDirectories(directoryPath);
+
+                        foreach (string file in files)
+                        {
+                            File.SetAttributes(file, FileAttributes.Normal);
+                            File.Delete(file);
+                        }
+
+                        foreach (string dir in dirs)
+                        {
+                            await TryDeleteDirectory(dir);
+                        }
+
+                        Directory.Delete(directoryPath, false);
                     }
 
                     return true;
@@ -1592,7 +1605,7 @@ int millisecondsDelay = 30)
 
             return false;
         }
-        public bool TryCreateDirectory(
+        public async Task<bool> TryCreateDirectory(
    string directoryPath,
    int maxRetries = 10,
    int millisecondsDelay = 30)
@@ -1627,7 +1640,7 @@ int millisecondsDelay = 30)
             return false;
         }
 
-        public bool TryMoveFile(
+        public async Task<bool> TryMoveFile(
     string Origin, string Destination, bool overwrite = true,
     int maxRetries = 10,
     int millisecondsDelay = 200)
@@ -1662,7 +1675,7 @@ int millisecondsDelay = 30)
 
             return false;
         }
-        public bool TryMoveFolder(
+        public async Task<bool> TryMoveFolder(
    string Origin, string Destination, bool overwrite = true,
    int maxRetries = 10,
    int millisecondsDelay = 200)
@@ -1697,7 +1710,7 @@ int millisecondsDelay = 30)
 
             return false;
         }
-        public bool TryCopyFile(
+        public async Task<bool> TryCopyFile(
   string Origin, string Destination, bool overwrite = true,
   int maxRetries = 10,
   int millisecondsDelay = 300)
@@ -2450,7 +2463,7 @@ int millisecondsDelay = 30)
             Dialog.Hide();
 
         }
-        void downloader_ProgressChanged(object sender, Downloader.DownloadProgressChangedEventArgs e, ProgressBar Progress_Bar)
+        async void downloader_ProgressChanged(object sender, Downloader.DownloadProgressChangedEventArgs e, ProgressBar Progress_Bar)
         {
             DispatchIfNecessary(() => {
 
@@ -2460,20 +2473,20 @@ int millisecondsDelay = 30)
            
         }
         
-        void downloader_DownloadCompleted(object sender, AsyncCompletedEventArgs e, ProgressBar Progress_Bar, string Mod_Name, string Location, bool Skin_Install, bool NS_CANDIDATE_INSTALL)
+      async void downloader_DownloadCompleted(object sender, AsyncCompletedEventArgs e, ProgressBar Progress_Bar, string Mod_Name, string Location, bool Skin_Install, bool NS_CANDIDATE_INSTALL)
         {
             Console.WriteLine(Location);
             if (NS_CANDIDATE_INSTALL == true)
             {
                 //TODO fix rwyns night city mod that does not install properly
-                Unpack_To_Location_Custom(Location, User_Settings_Vars.NorthstarInstallLocation + @"Northstar_TEMP_FILES\", Progress_Bar, true, false, Skin_Install, NS_CANDIDATE_INSTALL);
+              await  Unpack_To_Location_Custom(Location, User_Settings_Vars.NorthstarInstallLocation + @"Northstar_TEMP_FILES\", Progress_Bar, true, false, Skin_Install, NS_CANDIDATE_INSTALL);
 
             }
             else
             {
-               
 
-                Unpack_To_Location_Custom(Location, User_Settings_Vars.NorthstarInstallLocation  + User_Settings_Vars.Profile_Path + @"\mods\" + Mod_Name, Progress_Bar, true, false, Skin_Install, NS_CANDIDATE_INSTALL,Mod_Name);
+
+                await Unpack_To_Location_Custom(Location, User_Settings_Vars.NorthstarInstallLocation  + User_Settings_Vars.Profile_Path + @"\mods\" + Mod_Name, Progress_Bar, true, false, Skin_Install, NS_CANDIDATE_INSTALL,Mod_Name);
             }
           
         }
@@ -2678,7 +2691,7 @@ int millisecondsDelay = 30)
         
 }
 
-        private void Clear_Folder(string FolderName, bool overwrite = true, int maxRetries = 10, int millisecondsDelay = 30)
+        private async Task Clear_Folder(string FolderName, bool overwrite = true, int maxRetries = 10, int millisecondsDelay = 30)
         {
             
                 if (FolderName == null)
@@ -2718,28 +2731,29 @@ int millisecondsDelay = 30)
 
                 return;
             }
-        private static void CopyFilesRecursively(string sourcePath, string targetPath)
+        private async Task CopyFilesRecursively(string sourcePath, string targetPath)
         {
-            //Now Create all of the directories
-            foreach (string dirPath in Directory.GetDirectories(sourcePath, "*", SearchOption.AllDirectories))
+            await Task.Run(() =>
             {
-                Directory.CreateDirectory(dirPath.Replace(sourcePath, targetPath));
-            }
-
-            //Copy all the files & Replaces any files with the same name
-            foreach (string newPath in Directory.GetFiles(sourcePath, "*.*", SearchOption.AllDirectories))
-            {
-                if (!File.Exists(targetPath))
+                // Now Create all of the directories
+                foreach (string dirPath in Directory.GetDirectories(sourcePath, "*", SearchOption.AllDirectories))
                 {
-                    File.Copy(newPath, newPath.Replace(sourcePath, targetPath), true);
-
+                    Directory.CreateDirectory(dirPath.Replace(sourcePath, targetPath));
                 }
-                else
+
+                // Copy all the files & Replaces any files with the same name
+                foreach (string newPath in Directory.GetFiles(sourcePath, "*.*", SearchOption.AllDirectories))
                 {
-                    File.Copy(newPath, newPath.Replace(sourcePath, targetPath), true);
-
+                    if (!File.Exists(targetPath))
+                    {
+                        File.Copy(newPath, newPath.Replace(sourcePath, targetPath), true);
+                    }
+                    else
+                    {
+                        File.Copy(newPath, newPath.Replace(sourcePath, targetPath), true);
+                    }
                 }
-            }
+            });
         }
         private async Task CopyFilesRecursivel_Async(string sourcePath, string targetPath)
         {
@@ -2759,7 +2773,7 @@ int millisecondsDelay = 30)
             }));
         }
 
-        public bool TryUnzipFile(
+        public async Task<bool> TryUnzipFile(
 string Zip_Path, string Destination, bool overwrite = true,
 int maxRetries = 10,
 int millisecondsDelay = 150)
@@ -2814,7 +2828,7 @@ int millisecondsDelay = 150)
             return false;
 
         }
-        public bool TryDeleteFile(
+        public async Task<bool> TryDeleteFile(
 string Origin,
 int maxRetries = 10,
 int millisecondsDelay = 300)
@@ -2850,7 +2864,7 @@ int millisecondsDelay = 300)
 
             return false;
         }
-        public bool IsValidPath(string path, bool allowRelativePaths = false)
+        public async Task<bool> IsValidPath(string path, bool allowRelativePaths = false)
         {
             bool isValid = true;
 
@@ -2876,7 +2890,7 @@ int millisecondsDelay = 300)
 
             return isValid;
         }
-        async void Call_Mods_From_Folder_Lite()
+        async Task Call_Mods_From_Folder_Lite()
         {
 
             try
@@ -2888,13 +2902,13 @@ int millisecondsDelay = 300)
                     if (Directory.Exists(User_Settings_Vars.NorthstarInstallLocation))
                     {
 
-
                         Main.Current_Installed_Mods.Clear();
 
                         string NS_Mod_Dir = User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\mods";
 
                         System.IO.DirectoryInfo rootDirs = new DirectoryInfo(@NS_Mod_Dir);
-                        if (IsValidPath(NS_Mod_Dir) == true)
+                        bool result = await IsValidPath(NS_Mod_Dir);
+                        if (result == true)
                         {
 
                             System.IO.DirectoryInfo[] subDirs = null;
@@ -2942,456 +2956,543 @@ int millisecondsDelay = 300)
                 control.BeginAnimation(UIElement.OpacityProperty, animation);
             });
         }
-      
+        public class Benchmark
+        {
+            private Dictionary<string, long> _results = new Dictionary<string, long>();
+
+            public async Task TimeAsync(string name, Func<Task> func)
+            {
+                var sw = new Stopwatch();
+                sw.Start();
+                await func();
+                sw.Stop();
+                var time = sw.ElapsedMilliseconds;
+                if (_results.ContainsKey(name))
+                {
+                    _results[name] += time;
+                }
+                else
+                {
+                    _results.Add(name, time);
+                }
+            }
+
+            public void PrintResults()
+            {
+                Console.WriteLine("Results:");
+                foreach (var kvp in _results)
+                {
+                    Console.WriteLine($"{kvp.Key}: {kvp.Value} ms");
+                }
+            }
+        }
         public async Task Unpack_To_Location_Custom(string Target_Zip, string Destination, ProgressBar Progress_Bar, bool Clean_Thunderstore = false, bool clean_normal = false, bool Skin_Install = false,bool NS_CANDIDATE_INSTALL = false ,string mod_name ="~")
         {
             //add drag and drop
 
             try
             {
-               
+                // Start the benchmark timer
+                var benchmark = new Benchmark();
                 string Dir_Final = null;
 
-                if (File.Exists(Target_Zip))
-                {
-                    if (NS_CANDIDATE_INSTALL == false && Skin_Install == false && Destination.Contains(@"\mods"))
+               
+                    
+                    if (!File.Exists(Target_Zip))
                     {
-                        if (Main.Current_Installed_Mods.Count() > 1)
+                        DispatchIfNecessary(() =>
+                        {
+                            if (Progress_Bar != null)
+                            {
+                                Progress_Bar.Value = 0;
+                            }
+                        });
+                        Log.Error("The Zip File" + Target_Zip + " was not found or does not exist?");
+                        return;
+
+
+                    }
+                    if (!Directory.Exists(Destination))
+                    {
+                        await TryCreateDirectory(Destination);
+                    }
+                    if (!Directory.Exists(Destination))
+                    {
+                        DispatchIfNecessary(() =>
+                        {
+                            if (Progress_Bar != null)
+                            {
+                                Progress_Bar.Value = 0;
+                            }
+                        });
+                        Log.Error("The Destination" + Destination + " is not accessible or does not exist?");
+                        return;
+
+
+                    }
+
+                if (NS_CANDIDATE_INSTALL == false && Skin_Install == false && Destination.Contains(@"\mods"))
+                {
+                    if (Main.Current_Installed_Mods.Count() > 1)
+                    {
+
+                        foreach (var item in Main.Current_Installed_Mods)
                         {
 
-                            foreach (var item in Main.Current_Installed_Mods)
+                            if (Regex.Replace(item, @"(\d+\.)(\d+\.)(\d)", "").TrimEnd('-') == Regex.Replace(mod_name, @"(\d+\.)(\d+\.)(\d)", "").TrimEnd('-'))
                             {
-
-                                if (Regex.Replace(item, @"(\d+\.)(\d+\.)(\d)", "").TrimEnd('-') == Regex.Replace(mod_name, @"(\d+\.)(\d+\.)(\d)", "").TrimEnd('-'))
+                                string mod = User_Settings_Vars.NorthstarInstallLocation + User_Settings_Vars.Profile_Path + @"\mods\" + item;
+                                if (Directory.Exists(mod))
                                 {
-                                    string mod = User_Settings_Vars.NorthstarInstallLocation + User_Settings_Vars.Profile_Path + @"\mods\" + item;
-                                    if (Directory.Exists(mod))
-                                    {
-                                        Clear_Folder(mod);
-                                       TryDeleteDirectory(mod, true);
+                                    await Clear_Folder(mod);
+                                    await TryDeleteDirectory(mod, true);
 
-
-                                    }
                                 }
                             }
                         }
                     }
+                }
 
-
-                            
-                    if (!Directory.Exists(Destination))
-                    {
-                       TryCreateDirectory(Destination);
-                    }
-                    if (Directory.Exists(Destination))
-                    {
-                        if (NS_CANDIDATE_INSTALL == false)
-                        {
-                            Clear_Folder(Destination);
+                if (NS_CANDIDATE_INSTALL == false && Skin_Install == false)
+                             {
+                            await Clear_Folder(Destination);
                         }
                         string fileExt = System.IO.Path.GetExtension(Target_Zip);
 
-                        if (fileExt == ".zip")
+                        if (fileExt != ".zip")
                         {
-                           
-                            TryUnzipFile(Target_Zip, Destination);
-
-                            if (Clean_Thunderstore == true)
+                            Log.Warning("The File" + Target_Zip + "Is noT a zip!!");
+                            SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Caution;
+                            SnackBar.Content = "The File " + Target_Zip + " Is noT a zip!!";
+                            DispatchIfNecessary(() =>
                             {
+                                if (Progress_Bar != null)
+                                {
+                                    Progress_Bar.Value = 0;
+                                }
+                            });
+                            return;
+                        }
+                        await TryUnzipFile(Target_Zip, Destination);
+
+                            
 
 
                                 // Check if file exists with its full path    
                                 if (File.Exists(Path.Combine(Destination, "icon.png")))
                                 {
                                     // If file found, delete it    
-                                    TryDeleteFile(Path.Combine(Destination, "icon.png"));
+                                    await TryDeleteFile(Path.Combine(Destination, "icon.png"));
                                 }
                                
 
                                     if (File.Exists(Path.Combine(Destination, "README.md")))
                                 {
                                     // If file found, delete it    
-                                    TryDeleteFile(Path.Combine(Destination, "README.md"));
+                                    await TryDeleteFile(Path.Combine(Destination, "README.md"));
                                 }
                               
 
                                 if (File.Exists(Path.Combine(Destination, "manifest.json")))
                                 {
                                     // If file found, delete it    
-                                    TryDeleteFile(Path.Combine(Destination, "manifest.json"));
+                                    await TryDeleteFile(Path.Combine(Destination, "manifest.json"));
+                }
+
+
+
+                if (NS_CANDIDATE_INSTALL == false && Skin_Install == false)
+                {
+                    string searchQuery3 = "*" + "mod.json" + "*";
+
+
+                    var Destinfo = new DirectoryInfo(Destination);
+
+
+                    var Script = Destinfo.GetFiles(searchQuery3, SearchOption.AllDirectories);
+                    Destinfo.Attributes &= ~FileAttributes.ReadOnly;
+                    Console.WriteLine(Script.Length.ToString());
+                    if (Script.Length != 0 && Script.Length <= 1)
+                    {
+                        var File_ = Script.FirstOrDefault();
+
+
+                        FileInfo FolderTemp = new FileInfo(File_.FullName);
+                        DirectoryInfo di = new DirectoryInfo(Directory.GetParent(File_.FullName).ToString());
+                        string firstFolder = di.FullName;
+
+                        if (Directory.Exists(Destination))
+                        {
+
+
+
+                          
+                                await TryCreateDirectory(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder");
+                           
+                            if (Directory.Exists(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder"))
+                            {
+                                
+                                    await CopyFilesRecursively(firstFolder, Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder");
+
+                                
+
+
+                                
+                                    await Clear_Folder(Destination);
+                               
+                              
+                                    await CopyFilesRecursively(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder", Destination);
+                                
+                               
+                                    await TryDeleteDirectory(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder", true);
+                               
+                            }
+
+
+                        }
+                        
+                            await Call_Mods_From_Folder_Lite();
+                       
+                        DispatchIfNecessary(() =>
+                        {
+                            if (Progress_Bar != null)
+                            {
+                                Progress_Bar.Value = 0;
+                            }
+
+                            SnackBar.Title = "SUCCESS";
+                            SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
+                            SnackBar.Message = "The Mod " + Path.GetFileNameWithoutExtension(Target_Zip).Replace("_", " ") + VTOL.Resources.Languages.Language.Page_Thunderstore_Unpack_To_Location_Custom_HasBeenDownloadedAndInstalled;
+                            SnackBar.Show();
+
+                        });
+
+                        if (_downloadQueue != null)
+                        {
+                            _downloadQueue.CancelDownload(mod_name);
+                        }
+                    }
+                    else if (Script.Length > 1)
+                    {
+
+                        foreach (var File_ in Script)
+                        {
+                            FileInfo FolderTemp = new FileInfo(File_.FullName);
+
+                            DirectoryInfo di = new DirectoryInfo(Directory.GetParent(File_.FullName).ToString());
+                            if (Directory.Exists(Destination))
+                            {
+
+                                await TryMoveFolder(di.FullName, Directory.GetParent(Destination).ToString() + @"\" + di.Name);
+
+
+
+                            }
+
+
+                        }
+                        
+                            await Call_Mods_From_Folder_Lite();
+                      
+                        DispatchIfNecessary(() =>
+                        {
+                            if (Progress_Bar != null)
+                            {
+                                Progress_Bar.Value = 0;
+                            }
+
+                            SnackBar.Title = "SUCCESS";
+                            SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
+                            SnackBar.Message = "The the multiple Mods in - " + mod_name + " - have been installed Succesfully";
+                            SnackBar.Show();
+
+
+                        });
+
+                        if (_downloadQueue != null)
+                        {
+                            _downloadQueue.CancelDownload(mod_name);
+                        }
+
+                    }
+                    else if (Script.Length == 0)
+                    {
+                        string pluginsFolderName = "plugins"; // Folder name to search for
+
+                        string pluginsFolderPath = Path.Combine(Destination, pluginsFolderName);
+
+                        if (Directory.Exists(pluginsFolderPath))
+                        {
+                            // Combine destination folder path and plugins folder name
+                            string destFolderPath = Path.Combine(User_Settings_Vars.NorthstarInstallLocation, pluginsFolderName);
+
+                            // Copy plugins folder and its contents to destination folder
+                            string[] files = Directory.GetFiles(pluginsFolderPath);
+
+                            // Copy each file to the destination folder
+                            foreach (string file in files)
+                            {
+                                string fileName = Path.GetFileName(file);
+                                string destFile = Path.Combine(destFolderPath, fileName);
+                                await TryCopyFile(file, destFile, true);
+                            }
+
+                            DispatchIfNecessary(() =>
+                            {
+                                if (Progress_Bar != null)
+                                {
+                                    Progress_Bar.Value = 0;
                                 }
 
+                                SnackBar.Title = "SUCCESS";
+                                SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
+                                SnackBar.Message = "Plugins in the mod folder have been copied successfully.";
+                                SnackBar.Show();
 
 
-                                if (Skin_Install == false)
+                            });
+                            if (_downloadQueue != null)
+                            {
+                                _downloadQueue.CancelDownload(mod_name);
+                            }
+                        }
+                        else
+                        {
+                            DispatchIfNecessary(() =>
+                            {
+                                if (Progress_Bar != null)
                                 {
-                                    string searchQuery3 = "*" + "mod.json" + "*";
-
-                                  
-                                    var Destinfo = new DirectoryInfo(Destination);
-
-
-                                    var Script = Destinfo.GetFiles(searchQuery3, SearchOption.AllDirectories);
-                                    Destinfo.Attributes &= ~FileAttributes.ReadOnly;
-                                    Console.WriteLine(Script.Length.ToString());
-                                    if (Script.Length != 0 && Script.Length <= 1)
-                                    {
-                                        var File_ = Script.FirstOrDefault();
-
-
-                                        FileInfo FolderTemp = new FileInfo(File_.FullName);
-                                        DirectoryInfo di = new DirectoryInfo(Directory.GetParent(File_.FullName).ToString());
-                                        string firstFolder = di.FullName;
-
-                                        if (Directory.Exists(Destination))
-                                        {
-
-
-
-
-                                           TryCreateDirectory(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder");
-                                            if (Directory.Exists(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder"))
-                                            {
-                                                 CopyFilesRecursively(firstFolder, Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder");
-
-
-
-
-                                                Clear_Folder(Destination);
-                                                 CopyFilesRecursively(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder", Destination);
-                                                TryDeleteDirectory(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder", true);
-
-                                            }
-                                            Console.WriteLine("Unpacked - " + Destination);
-
-
-                                        }
-
-                                        Call_Mods_From_Folder_Lite();
-                                        DispatchIfNecessary(() => {
-                                            if (Progress_Bar != null)
-                                            {
-                                                Progress_Bar.Value = 0;
-                                            }
-
-                                            SnackBar.Title = "SUCCESS";
-                                            SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
-                                            SnackBar.Message = "The Mod " + Path.GetFileNameWithoutExtension(Target_Zip).Replace("_", " ") + VTOL.Resources.Languages.Language.Page_Thunderstore_Unpack_To_Location_Custom_HasBeenDownloadedAndInstalled;
-                                            SnackBar.Show();
-                                            if (_downloadQueue != null)
-                                            {
-                                                _downloadQueue.CancelDownload(mod_name);
-                                            }
-                                        });
-
-                                    }
-                                    else if (Script.Length > 1)
-                                    {                                 
-                                                                              
-                                            foreach (var File_ in Script)
-                                            {
-                                                FileInfo FolderTemp = new FileInfo(File_.FullName);
-
-                                                DirectoryInfo di = new DirectoryInfo(Directory.GetParent(File_.FullName).ToString());
-                                             if (Directory.Exists(Destination))
-                                        {
-
-                                                TryMoveFolder(di.FullName, Directory.GetParent(Destination).ToString() + @"\" + di.Name);
-
-
-
-                                            }
-
-
-                                        }
-                                        Call_Mods_From_Folder_Lite();
-                                        DispatchIfNecessary(() => {
-                                            if (Progress_Bar != null)
-                                            {
-                                                Progress_Bar.Value = 0;
-                                            }
-
-                                            SnackBar.Title = "SUCCESS";
-                                        SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
-                                        SnackBar.Message = "The the multiple Mods in - " + mod_name + " - have been installed Succesfully";
-                                        SnackBar.Show();
-                                            if (_downloadQueue != null)
-                                            {
-                                                _downloadQueue.CancelDownload(mod_name);
-                                            }
-
-                                        });
-
-
-                                    }
-                                    else if(Script.Length == 0)
-                                    {
-                                        string pluginsFolderName = "plugins"; // Folder name to search for
-
-                                        string pluginsFolderPath = Path.Combine(Destination, pluginsFolderName);
-
-                                        if (Directory.Exists(pluginsFolderPath))
-                                        {
-                                            // Combine destination folder path and plugins folder name
-                                            string destFolderPath = Path.Combine(User_Settings_Vars.NorthstarInstallLocation, pluginsFolderName);
-
-                                            // Copy plugins folder and its contents to destination folder
-                                            string[] files = Directory.GetFiles(pluginsFolderPath);
-
-                                            // Copy each file to the destination folder
-                                            foreach (string file in files)
-                                            {
-                                                string fileName = Path.GetFileName(file);
-                                                string destFile = Path.Combine(destFolderPath, fileName);
-                                                TryCopyFile(file, destFile, true);
-                                            }
-
-                                            DispatchIfNecessary(() => {
-                                                if (Progress_Bar != null)
-                                                {
-                                                    Progress_Bar.Value = 0;
-                                                }
-
-                                                SnackBar.Title = "SUCCESS";
-                                                SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
-                                                SnackBar.Message = "Plugins in the mod folder have been copied successfully.";
-                                                SnackBar.Show();
-                                                if (_downloadQueue != null)
-                                                {
-                                                    _downloadQueue.CancelDownload(mod_name);
-                                                }
-
-                                            });
-                                        }
-                                        else
-                                        {
-                                            DispatchIfNecessary(() => {
-                                                if (Progress_Bar != null)
-                                                {
-                                                    Progress_Bar.Value = 0;
-                                                }
-
-                                                SnackBar.Title = "SUCCESS";
-                                                SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
-                                                SnackBar.Message = "Plugins .dll(s) not found or configured properly in the mod folder!";
-                                                SnackBar.Show();
-                                                if (_downloadQueue != null)
-                                                {
-                                                    _downloadQueue.CancelDownload(mod_name);
-                                                }
-
-                                            });
-                                        }
-                                    }
-                                    
-                                  
+                                    Progress_Bar.Value = 0;
                                 }
 
-                                else if(NS_CANDIDATE_INSTALL == true)
-                                {
-                                    DispatchIfNecessary(() => {
-
-                                        if (Progress_Bar != null)
-                                    {
-                                        Progress_Bar.IsIndeterminate = true;
-                                    }
-
-                                });
-                                if (File.Exists(Path.Combine(Destination, "manifest.json")))
-                                    {
-                                        // If file found, delete it    
-                                        TryDeleteFile(Path.Combine(Destination, "manifest.json"));
-                                    }
-                                    if (File.Exists(Path.Combine(Destination, "README.md")))
-                                    {
-                                        // If file found, delete it    
-                                        TryDeleteFile(Path.Combine(Destination, "README.md"));
-                                    }
-                                    if (File.Exists(Path.Combine(Destination, "LICENSE")))
-                                {
-                                        // If file found, delete it    
-                                        TryDeleteFile(Path.Combine(Destination, "LICENSE"));
-                                    }
-                                    if (File.Exists(Path.Combine(Destination, "md5sum.txt")))
-                                {
-                                        // If file found, delete it    
-                                        TryDeleteFile(Path.Combine(Destination, "md5sum.txt"));
-                                    }
-                                    if (Directory.Exists(User_Settings_Vars.NorthstarInstallLocation  + User_Settings_Vars.Profile_Path + @"\mods\Northstar.Client\Locked_Folder"))
-                                    {
-                                        TryDeleteDirectory(User_Settings_Vars.NorthstarInstallLocation  + User_Settings_Vars.Profile_Path + @"\mods\Northstar.Client\Locked_Folder", true);
-
-                                    }
-                                    if (Directory.Exists(User_Settings_Vars.NorthstarInstallLocation  + User_Settings_Vars.Profile_Path + @"\mods\Northstar.Custom\Locked_Folder"))
-                                    {
-                                        TryDeleteDirectory(User_Settings_Vars.NorthstarInstallLocation  + User_Settings_Vars.Profile_Path + @"\mods\Northstar.Custom\Locked_Folder", true);
+                                SnackBar.Title = "SUCCESS";
+                                SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
+                                SnackBar.Message = "Plugins .dll(s) not found or configured properly in the mod folder!";
+                                SnackBar.Show();
 
 
-                                    }
-                                    if (Directory.Exists(User_Settings_Vars.NorthstarInstallLocation  + User_Settings_Vars.Profile_Path + @"\mods\Northstar.CustomServers\Locked_Folder"))
-                                    {
-                                        TryDeleteDirectory(User_Settings_Vars.NorthstarInstallLocation  + User_Settings_Vars.Profile_Path + @"\mods\Northstar.CustomServers\Locked_Folder", true);
+                            });
+                        }
+                        if (_downloadQueue != null)
+                        {
+                            _downloadQueue.CancelDownload(mod_name);
+                        }
+
+                    }
 
 
-                                    }
-                                    if (!Directory.Exists(User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder"))
-                                    {
-                                       TryCreateDirectory(User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder");
-                                    }
+                }
 
-                                    if (do_not_overwrite_Ns_file == true)
-                                    {
-                                      
-                                            if (File.Exists(User_Settings_Vars.NorthstarInstallLocation + @"ns_startup_args.txt"))
-                                            {
-                                               TryCopyFile(User_Settings_Vars.NorthstarInstallLocation + @"ns_startup_args.txt",User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder\ns_startup_args.txt", true);
-                                            }
+                else if(NS_CANDIDATE_INSTALL == true && Skin_Install == false)
+                {
+                    DispatchIfNecessary(() =>
+                    {
 
-                                        
+                        if (Progress_Bar != null)
+                        {
+                            Progress_Bar.IsIndeterminate = true;
+                        }
 
+                    });
+                    if (File.Exists(Path.Combine(Destination, "manifest.json")))
+                    {
+                        // If file found, delete it    
+                        await TryDeleteFile(Path.Combine(Destination, "manifest.json"));
+                    }
+                    if (File.Exists(Path.Combine(Destination, "README.md")))
+                    {
+                        // If file found, delete it    
+                        await TryDeleteFile(Path.Combine(Destination, "README.md"));
+                    }
+                    if (File.Exists(Path.Combine(Destination, "LICENSE")))
+                    {
+                        // If file found, delete it    
+                        await TryDeleteFile(Path.Combine(Destination, "LICENSE"));
+                    }
+                    if (File.Exists(Path.Combine(Destination, "md5sum.txt")))
+                    {
+                        // If file found, delete it    
+                        await TryDeleteFile(Path.Combine(Destination, "md5sum.txt"));
+                    }
+                    if (Directory.Exists(User_Settings_Vars.NorthstarInstallLocation + User_Settings_Vars.Profile_Path + @"\mods\Northstar.Client\Locked_Folder"))
+                    {
+                        await TryDeleteDirectory(User_Settings_Vars.NorthstarInstallLocation + User_Settings_Vars.Profile_Path + @"\mods\Northstar.Client\Locked_Folder", true);
 
-                                    
-                                        if (File.Exists(User_Settings_Vars.NorthstarInstallLocation +  User_Settings_Vars.Profile_Path + @"\mods\Northstar.CustomServers\mod\cfg\autoexec_ns_server.cfg"))
-                                        {
-
-                                            TryCopyFile(User_Settings_Vars.NorthstarInstallLocation +  User_Settings_Vars.Profile_Path + @"\mods\Northstar.CustomServers\mod\cfg\autoexec_ns_server.cfg", User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder\autoexec_ns_server.cfg", true);
-
-
-
-                                        }
-
-
-                                    
-                                        if (File.Exists(User_Settings_Vars.NorthstarInstallLocation + @"ns_startup_args_dedi.txt"))
-                                        {
-
-
-                                          TryCopyFile(User_Settings_Vars.NorthstarInstallLocation + @"ns_startup_args_dedi.txt", User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder\ns_startup_args_dedi.txt", true);
-
-
-                                        }
-
-                                    }
-                                    string searchQuery3 = "*" + "Northstar.dll" + "*";
-
-                                    var Destinfo = new DirectoryInfo(Destination);
-                                    var Script_ = Directory.GetFiles(Destination);
+                    }
+                    if (Directory.Exists(User_Settings_Vars.NorthstarInstallLocation + User_Settings_Vars.Profile_Path + @"\mods\Northstar.Custom\Locked_Folder"))
+                    {
+                        await TryDeleteDirectory(User_Settings_Vars.NorthstarInstallLocation + User_Settings_Vars.Profile_Path + @"\mods\Northstar.Custom\Locked_Folder", true);
 
 
-                                    var Script = Destinfo.GetFiles(searchQuery3, SearchOption.AllDirectories);
-                                    Destinfo.Attributes &= ~FileAttributes.ReadOnly;
+                    }
+                    if (Directory.Exists(User_Settings_Vars.NorthstarInstallLocation + User_Settings_Vars.Profile_Path + @"\mods\Northstar.CustomServers\Locked_Folder"))
+                    {
+                        await TryDeleteDirectory(User_Settings_Vars.NorthstarInstallLocation + User_Settings_Vars.Profile_Path + @"\mods\Northstar.CustomServers\Locked_Folder", true);
 
 
-                                    if (Script.Length != 0)
-                                    {
-                                           var File_ = Script.FirstOrDefault();
+                    }
+                    if (!Directory.Exists(User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder"))
+                    {
+                        await TryCreateDirectory(User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder");
+                    }
 
+                    if (do_not_overwrite_Ns_file == true)
+                    {
 
-                                        FileInfo FolderTemp = new FileInfo(File_.FullName);
-                                        DirectoryInfo di = new DirectoryInfo(Directory.GetParent(File_.FullName).ToString());
-                                        string firstFolder = di.FullName;
-                                        Console.WriteLine(firstFolder);
-                                        string Northstar_VEr_Temp = null;
-                                        if (Directory.Exists(Destination))
-                                        {
-                                             CopyFilesRecursively(firstFolder, User_Settings_Vars.NorthstarInstallLocation);
-
-                                            }
-                                          
-
-                                        if (do_not_overwrite_Ns_file == true)
-                                        {
-                                          
-                                                if (File.Exists(User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder\ns_startup_args.txt"))
-                                                {
-                                                   TryCopyFile(User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder\ns_startup_args.txt", User_Settings_Vars.NorthstarInstallLocation + @"ns_startup_args.txt", true);
-                                                }
-
-                                            
-
-
-                                       
-                                            if (File.Exists(User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder\autoexec_ns_server.cfg"))
-                                            {
-
-                                               TryCopyFile (User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder\autoexec_ns_server.cfg",User_Settings_Vars.NorthstarInstallLocation + User_Settings_Vars.Profile_Path + @"\mods\Northstar.CustomServers\mod\cfg\autoexec_ns_server.cfg",true);
+                        if (File.Exists(User_Settings_Vars.NorthstarInstallLocation + @"ns_startup_args.txt"))
+                        {
+                            await TryCopyFile(User_Settings_Vars.NorthstarInstallLocation + @"ns_startup_args.txt", User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder\ns_startup_args.txt", true);
+                        }
 
 
 
-                                            }
 
 
-                                        
-                                            if (File.Exists(User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder\ns_startup_args_dedi.txt"))
-                                            {
+                        if (File.Exists(User_Settings_Vars.NorthstarInstallLocation + User_Settings_Vars.Profile_Path + @"\mods\Northstar.CustomServers\mod\cfg\autoexec_ns_server.cfg"))
+                        {
+
+                            await TryCopyFile(User_Settings_Vars.NorthstarInstallLocation + User_Settings_Vars.Profile_Path + @"\mods\Northstar.CustomServers\mod\cfg\autoexec_ns_server.cfg", User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder\autoexec_ns_server.cfg", true);
 
 
-                                                TryCopyFile(User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder\ns_startup_args_dedi.txt", User_Settings_Vars.NorthstarInstallLocation + @"ns_startup_args_dedi.txt", true);
+
+                        }
 
 
-                                            }
 
-                                        }
+                        if (File.Exists(User_Settings_Vars.NorthstarInstallLocation + @"ns_startup_args_dedi.txt"))
+                        {
 
-                                        DispatchIfNecessary(() => {
-                                            if (Progress_Bar != null)
-                                            {
-                                                Progress_Bar.IsIndeterminate = false;
 
-                                                Progress_Bar.Value = 0;
-                                            }
-                                        });
-                                        if (File.Exists(User_Settings_Vars.NorthstarInstallLocation + @"NorthstarLauncher.exe"))
-                                            {
-                                            DispatchIfNecessary(() =>
-                                            {
-                                                FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(User_Settings_Vars.NorthstarInstallLocation + @"NorthstarLauncher.exe");
-                                            string Current_Ver_ = myFileVersionInfo.FileVersion;
+                            await TryCopyFile(User_Settings_Vars.NorthstarInstallLocation + @"ns_startup_args_dedi.txt", User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder\ns_startup_args_dedi.txt", true);
 
-                                                User_Settings_Vars.CurrentVersion = Current_Ver_;
-                                                Properties.Settings.Default.Version = Current_Ver_;
-                                                Properties.Settings.Default.Save();
-                                            Northstar_VEr_Temp = Current_Ver_;
-                                               
-                                                    Main.NORTHSTAR_BUTTON.Content = "Northstar Version - " + Current_Ver_.Remove(0, 1);
-                                                    Main.VERSION_TEXT.Text = "VTOL - " + ProductVersion + " |";
-                                                    Main.VERSION_TEXT.Refresh();
 
-                                                });
-                                        }
+                        }
 
-                                        DispatchIfNecessary(() =>
-                                        {
-                                            SnackBar.Title = "SUCCESS";
-                                            SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
-                                            string temp_;
-                                            if(Northstar_VEr_Temp != null && Northstar_VEr_Temp.Length > 2)
-                                            {
-                                                temp_ = "The Build " + Path.GetFileNameWithoutExtension(Target_Zip).Replace("_", " ") + Northstar_VEr_Temp.Remove(0, 1) + VTOL.Resources.Languages.Language.Page_Thunderstore_Unpack_To_Location_Custom_HasBeenDownloadedAndInstalled;
+                    }
+                    string searchQuery3 = "*" + "Northstar.dll" + "*";
 
-                                            }
-                                            else
-                                            {
-                                                temp_ = Path.GetFileNameWithoutExtension(Target_Zip).Replace("_", " ")+ VTOL.Resources.Languages.Language.Page_Thunderstore_Unpack_To_Location_Custom_HasBeenDownloadedAndInstalled;
-                                            }
-                                            SnackBar.Message = temp_;
-                                            SnackBar.Show();
-                                            if (_downloadQueue != null)
-                                            {
-                                                _downloadQueue.CancelDownload(mod_name);
-                                            }
+                    var Destinfo = new DirectoryInfo(Destination);
+                    var Script_ = Directory.GetFiles(Destination);
 
-                                        });
 
-                                    }
+                    var Script = Destinfo.GetFiles(searchQuery3, SearchOption.AllDirectories);
+                    Destinfo.Attributes &= ~FileAttributes.ReadOnly;
 
-                                }
-                                else if(Skin_Install == true)
+
+                    if (Script.Length != 0)
+                    {
+                        var File_ = Script.FirstOrDefault();
+
+
+                        FileInfo FolderTemp = new FileInfo(File_.FullName);
+                        DirectoryInfo di = new DirectoryInfo(Directory.GetParent(File_.FullName).ToString());
+                        string firstFolder = di.FullName;
+                        Console.WriteLine(firstFolder);
+                        string Northstar_VEr_Temp = null;
+                        if (Directory.Exists(Destination))
+                        {
+                          
+                                await CopyFilesRecursively(firstFolder, User_Settings_Vars.NorthstarInstallLocation);
+                          
+                        }
+
+
+                        if (do_not_overwrite_Ns_file == true)
+                        {
+
+                            if (File.Exists(User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder\ns_startup_args.txt"))
+                            {
+                                await TryCopyFile(User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder\ns_startup_args.txt", User_Settings_Vars.NorthstarInstallLocation + @"ns_startup_args.txt", true);
+                            }
+
+
+
+
+
+                            if (File.Exists(User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder\autoexec_ns_server.cfg"))
+                            {
+
+                                await TryCopyFile(User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder\autoexec_ns_server.cfg", User_Settings_Vars.NorthstarInstallLocation + User_Settings_Vars.Profile_Path + @"\mods\Northstar.CustomServers\mod\cfg\autoexec_ns_server.cfg", true);
+
+
+
+                            }
+
+
+
+                            if (File.Exists(User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder\ns_startup_args_dedi.txt"))
+                            {
+
+
+                                await TryCopyFile(User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder\ns_startup_args_dedi.txt", User_Settings_Vars.NorthstarInstallLocation + @"ns_startup_args_dedi.txt", true);
+
+
+                            }
+
+                        }
+
+                        DispatchIfNecessary(() =>
+                        {
+                            if (Progress_Bar != null)
+                            {
+                                Progress_Bar.IsIndeterminate = false;
+
+                                Progress_Bar.Value = 0;
+                            }
+                        });
+                        if (File.Exists(User_Settings_Vars.NorthstarInstallLocation + @"NorthstarLauncher.exe"))
+                        {
+                            DispatchIfNecessary(() =>
+                            {
+                                FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(User_Settings_Vars.NorthstarInstallLocation + @"NorthstarLauncher.exe");
+                                string Current_Ver_ = myFileVersionInfo.FileVersion;
+
+                                User_Settings_Vars.CurrentVersion = Current_Ver_;
+                                Properties.Settings.Default.Version = Current_Ver_;
+                                Properties.Settings.Default.Save();
+                                Northstar_VEr_Temp = Current_Ver_;
+
+                                Main.NORTHSTAR_BUTTON.Content = "Northstar Version - " + Current_Ver_.Remove(0, 1);
+                                Main.VERSION_TEXT.Text = "VTOL - " + ProductVersion + " |";
+                                Main.VERSION_TEXT.Refresh();
+
+                            });
+                        }
+
+                        DispatchIfNecessary(() =>
+                        {
+                            SnackBar.Title = "SUCCESS";
+                            SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
+                            string temp_;
+                            if (Northstar_VEr_Temp != null && Northstar_VEr_Temp.Length > 2)
+                            {
+                                temp_ = "The Build " + Path.GetFileNameWithoutExtension(Target_Zip).Replace("_", " ") + Northstar_VEr_Temp.Remove(0, 1) + VTOL.Resources.Languages.Language.Page_Thunderstore_Unpack_To_Location_Custom_HasBeenDownloadedAndInstalled;
+
+                            }
+                            else
+                            {
+                                temp_ = Path.GetFileNameWithoutExtension(Target_Zip).Replace("_", " ") + VTOL.Resources.Languages.Language.Page_Thunderstore_Unpack_To_Location_Custom_HasBeenDownloadedAndInstalled;
+                            }
+                            SnackBar.Message = temp_;
+                            SnackBar.Show();
+
+
+                        });
+                        if (_downloadQueue != null)
+                        {
+                            _downloadQueue.CancelDownload(mod_name);
+                        }
+
+                    }
+
+                }
+
+                else 
                                 {
                                     var ext = new List<string> { "zip" };
                                     var myFiles = Directory.EnumerateFiles(Destination, "*.*", SearchOption.AllDirectories).Where(s => ext.Contains(Path.GetExtension(s).TrimStart('.').ToLowerInvariant()));
 
-                                    Install_Skin_Async_Starter(myFiles, Destination);
+                                    await Install_Skin_Async_Starter(myFiles, Destination);
                                     DispatchIfNecessary(() =>
                                     {
                                         if (Progress_Bar != null)
@@ -3404,180 +3505,133 @@ int millisecondsDelay = 300)
 
 
 
-                            }
-                            else
-                            {
+                            
+                            //else
+                            //{
 
-                                string fileExts = System.IO.Path.GetExtension(Target_Zip);
+                            //    string fileExts = System.IO.Path.GetExtension(Target_Zip);
 
-                                if (fileExts == ".zip")
-                                {
-                                    string searchQuery3 = "*" + "mod.json" + "*";
+                            //    if (fileExts == ".zip")
+                            //    {
+                            //        string searchQuery3 = "*" + "mod.json" + "*";
 
                                    
-                                    var Destinfo = new DirectoryInfo(Destination);
+                            //        var Destinfo = new DirectoryInfo(Destination);
 
 
-                                    var Script = Destinfo.GetFiles(searchQuery3, SearchOption.AllDirectories);
-                                    Destinfo.Attributes &= ~FileAttributes.ReadOnly;
-                                    Console.WriteLine(Script.Length.ToString());
-                                    if (Script.Length != 0)
-                                    {
-                                        var File_ = Script.FirstOrDefault();
+                            //        var Script = Destinfo.GetFiles(searchQuery3, SearchOption.AllDirectories);
+                            //        Destinfo.Attributes &= ~FileAttributes.ReadOnly;
+                            //        Console.WriteLine(Script.Length.ToString());
+                            //        if (Script.Length != 0)
+                            //        {
+                            //            var File_ = Script.FirstOrDefault();
 
                                        
 
-                                        FileInfo FolderTemp = new FileInfo(File_.FullName);
-                                        DirectoryInfo di = new DirectoryInfo(Directory.GetParent(File_.FullName).ToString());
-                                        string firstFolder = di.FullName;
+                            //            FileInfo FolderTemp = new FileInfo(File_.FullName);
+                            //            DirectoryInfo di = new DirectoryInfo(Directory.GetParent(File_.FullName).ToString());
+                            //            string firstFolder = di.FullName;
 
 
-                                        if (Directory.Exists(Destination))
-                                        {
-
-
-
-
-                                           TryCreateDirectory(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder");
-                                            if (Directory.Exists(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder"))
-                                            {
-                                                 CopyFilesRecursively(firstFolder, Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder");
+                            //            if (Directory.Exists(Destination))
+                            //            {
 
 
 
 
-                                                Clear_Folder(Destination);
-                                                 CopyFilesRecursively(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder", Destination);
-                                                TryDeleteDirectory(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder", true);
-
-                                            }
-                                            Console.WriteLine("Unpacked - " + Destination);
-
-
-                                        }
-                                    }
-                                    else if (Script.Length > 1)
-                                    {
+                            //                await TryCreateDirectory(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder");
+                            //                if (Directory.Exists(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder"))
+                            //                {
+                            //                    await CopyFilesRecursively(firstFolder, Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder");
 
 
 
-                                        foreach (var File_ in Script)
-                                        {
-                                            FileInfo FolderTemp = new FileInfo(File_.FullName);
 
-                                            DirectoryInfo di = new DirectoryInfo(Directory.GetParent(File_.FullName).ToString());
-                                            if (Directory.Exists(Destination))
-                                            {
+                            //                    await Clear_Folder(Destination);
+                            //                    await CopyFilesRecursively(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder", Destination);
+                            //                    await TryDeleteDirectory(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder", true);
 
-                                                TryMoveFolder(di.FullName, Directory.GetParent(Destination).ToString() + @"\" + di.Name);
+                            //                }
+                            //                Console.WriteLine("Unpacked - " + Destination);
 
 
+                            //            }
+                            //        }
+                            //        else if (Script.Length > 1)
+                            //        {
 
-                                            }
 
 
-                                        }
-                                        Call_Mods_From_Folder_Lite();
-                                        DispatchIfNecessary(() => {
-                                            if (Progress_Bar != null)
-                                            {
-                                                Progress_Bar.Value = 0;
-                                            }
+                            //            foreach (var File_ in Script)
+                            //            {
+                            //                FileInfo FolderTemp = new FileInfo(File_.FullName);
 
-                                            SnackBar.Title = "SUCCESS";
-                                            SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
-                                            SnackBar.Message = "The the multiple Mods in - " + mod_name + " - have been installed Succesfully";
-                                            SnackBar.Show();
-                                            if (_downloadQueue != null)
-                                            {
-                                                _downloadQueue.CancelDownload(mod_name);
-                                            }
+                            //                DirectoryInfo di = new DirectoryInfo(Directory.GetParent(File_.FullName).ToString());
+                            //                if (Directory.Exists(Destination))
+                            //                {
 
-                                        });
-                                    }
+                            //                    await TryMoveFolder(di.FullName, Directory.GetParent(Destination).ToString() + @"\" + di.Name);
+
+
+
+                            //                }
+
+
+                            //            }
+                            //            Call_Mods_From_Folder_Lite();
+                            //            DispatchIfNecessary(() => {
+                            //                if (Progress_Bar != null)
+                            //                {
+                            //                    Progress_Bar.Value = 0;
+                            //                }
+
+                            //                SnackBar.Title = "SUCCESS";
+                            //                SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
+                            //                SnackBar.Message = "The the multiple Mods in - " + mod_name + " - have been installed Succesfully";
+                            //                SnackBar.Show();
+                            //                if (_downloadQueue != null)
+                            //                {
+                            //                    _downloadQueue.CancelDownload(mod_name);
+                            //                }
+
+                            //            });
+                            //        }
                                    
 
-                                }
-                                else
-                                {
-                                    Log.Warning("The File" + Target_Zip + "Is not a zip!!");
-                                    SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Caution;
-                                    SnackBar.Content = "The File " + Target_Zip + " Is noT a zip!!";
+                            //    }
+                            //    else
+                            //    {
+                            //        Log.Warning("The File" + Target_Zip + "Is not a zip!!");
+                            //        SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Caution;
+                            //        SnackBar.Content = "The File " + Target_Zip + " Is noT a zip!!";
 
 
-                                }
+                            //    }
 
-                                DispatchIfNecessary(() => {
-                                    if (Progress_Bar != null)
-                                    {
-                                        Progress_Bar.Value = 0;
-                                    }
+                            //    DispatchIfNecessary(() => {
+                            //        if (Progress_Bar != null)
+                            //        {
+                            //            Progress_Bar.Value = 0;
+                            //        }
                                    
-                                        SnackBar.Title = "SUCCESS";
-                                        SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
-                                        SnackBar.Message = "The Mod " + Path.GetFileNameWithoutExtension(Target_Zip).Replace("_", " ") + VTOL.Resources.Languages.Language.Page_Thunderstore_Unpack_To_Location_Custom_HasBeenDownloadedAndInstalled;
-                                        SnackBar.Show();
-                                    if (_downloadQueue != null)
-                                    {
-                                        _downloadQueue.CancelDownload(mod_name);
-                                    }
+                            //            SnackBar.Title = "SUCCESS";
+                            //            SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
+                            //            SnackBar.Message = "The Mod " + Path.GetFileNameWithoutExtension(Target_Zip).Replace("_", " ") + VTOL.Resources.Languages.Language.Page_Thunderstore_Unpack_To_Location_Custom_HasBeenDownloadedAndInstalled;
+                            //            SnackBar.Show();
+                            //        if (_downloadQueue != null)
+                            //        {
+                            //            _downloadQueue.CancelDownload(mod_name);
+                            //        }
 
 
-                                });
-                            }
+                            //    });
+                            //}
+                                                                       
+                                                           
 
-                            
-                        }
-                        else
-                        {
-
-                            Log.Warning("The File" + Target_Zip + "Is noT a zip!!");
-                            SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Caution;
-                            SnackBar.Content = "The File " + Target_Zip + " Is noT a zip!!";
-                            DispatchIfNecessary(() =>
-                            {
-                                if (Progress_Bar != null)
-                                {
-                                    Progress_Bar.Value = 0;
-                                }
-                            });
-                        }
-
-
-
-                    }
-
-                    else
-                    {
-
-                        if (!File.Exists(Target_Zip))
-                        {
-                            DispatchIfNecessary(() =>
-                            {
-                                if (Progress_Bar != null)
-                                {
-                                    Progress_Bar.Value = 0;
-                                }
-                            });
-                            Log.Error("The Zip File" + Target_Zip + " was not found or does not exist?");
-
-
-                        }
-                        if (!Directory.Exists(Destination))
-                        {
-                            DispatchIfNecessary(() =>
-                            {
-                                if (Progress_Bar != null)
-                                {
-                                    Progress_Bar.Value = 0;
-                                }
-                            });
-                            Log.Error("The Destination" + Destination + " is not accessible or does not exist?");
-
-
-                        }
-                    }
-                }
+                        
+                    
+                
             }
             catch (Exception ex)
             {
@@ -3779,7 +3833,6 @@ int millisecondsDelay = 300)
 
             public void CancelDownload(string name)
             {
-                MessageBox.Show(name);
                 var item = _queue.FirstOrDefault(i =>
                 {
                     string[] parts = i.DownloadUrl.Split('|');
