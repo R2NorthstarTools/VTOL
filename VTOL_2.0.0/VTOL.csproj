@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0-windows10.0.17763.0</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
@@ -104,8 +104,37 @@
     <None Remove="Resources\Backgrounds\AgedAmusingHoatzin-size_restricted.gif" />
     <None Remove="Resources\Backgrounds\alternator.png" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\1008810.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\1008811.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\1012789.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\1050189.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\1131896.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\1230317.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\419005.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\484583.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\488107.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\519154.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\519155.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\519156.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\523344.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\567959.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\631690 %281%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\631690.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\648134.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\651290.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\651291.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\651293.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\651294.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\651295.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\651297.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\651298.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\651299.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\651303.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\651304.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\651309.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\658837.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\685765.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\691951.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\716179.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\760108.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\760110.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\760112.jpg" />
@@ -113,11 +142,19 @@
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\761608.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\761608.png" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\764654.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\764656.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\765730.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\765731.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\765732.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\847116.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\869852.png" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\994241.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\994242.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\BT_.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\BT_wallpaper000002_thumb.detail.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\desktop-1680x1050.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\nuqupwg1uo461.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\tqzgdxkpvd661.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper %281%29.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper %2810%29.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper %2811%29.jpg" />
@@ -203,6 +240,7 @@
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%2830%29.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%2831%29.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%2832%29.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%2833%29.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%2833%29.png" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%2834%29.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper%2835%29.jpg" />
@@ -405,9 +443,6 @@
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\765731.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\869852.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\BT_.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -481,9 +516,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(32).jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(33).png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(34).jpg">
@@ -597,9 +629,117 @@
     <Content Include="Resources\Backgrounds\_.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Resource Include="Resources\Backgrounds\Backgrounds_Home_Page\761608.jpg">
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\1008811.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\1012789.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\1050189.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\1131896.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\419005.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\484583.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\488107.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\519154.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\519155.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\519156.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\523344.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\567959.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\631690.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\648134.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\651290.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\651291.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\651293.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\651294.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\651295.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\651297.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\651298.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\651299.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\651303.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\651304.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\651309.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\658837.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\685765.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\716179.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\761608.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\764656.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\765730.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\765732.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\847116.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\994241.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\994242.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\nuqupwg1uo461.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\tqzgdxkpvd661.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Resource Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(12).jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -778,6 +918,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Icons\Main_UI\User_Icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(33).jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Resources\nl (1).xaml">
