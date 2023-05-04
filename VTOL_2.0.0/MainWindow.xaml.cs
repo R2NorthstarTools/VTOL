@@ -1036,15 +1036,9 @@ true // Whether to change accents automatically
             {
                 DispatchIfNecessary(() => {
                 Wpf.Ui.Controls.Button Button;
-            Button = sender as Wpf.Ui.Controls.Button;
+                 Button = sender as Wpf.Ui.Controls.Button;
                
-                    //if (Convert.ToInt32(Button.ToolTip.ToString()) >= 50)
-                    //{
-                    //    Button.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#E500842C");
-                    //    Button.Icon = Wpf.Ui.Common.SymbolRegular.Check24;
-                    //    Button.Refresh();
-
-                    //}
+                  
                     RootNavigation.Navigate(typeof(Pages.Page_Thunderstore));
 
                     Page_Thunderstore Page = RootFrame.Content as Page_Thunderstore;
@@ -1077,7 +1071,6 @@ true // Whether to change accents automatically
 
         private void Action_Center_TargetUpdated(object sender, DataTransferEventArgs e)
         {
-            MessageBox.Show("sd");
 
         }
 
@@ -1089,30 +1082,33 @@ true // Whether to change accents automatically
         private void SymbolIcon_LayoutUpdated(object sender, EventArgs e)
         {
            
+
         }
 
         private void SymbolIcon_TargetUpdated(object sender, DataTransferEventArgs e)
         {
+            
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
             try
             {
-                DispatchIfNecessary(async () =>
-                {
-                    Wpf.Ui.Controls.SymbolIcon SymbolIcon = sender as Wpf.Ui.Controls.SymbolIcon;
-                    if (SymbolIcon != null)
+                DispatchIfNecessary(() => {
+                   Button Button;
+                    Button = sender as Button;
+
+                    
+                    RootNavigation.Navigate(typeof(Pages.Page_Thunderstore));
+
+                    Page_Thunderstore Page = RootFrame.Content as Page_Thunderstore;
+                    if (Page != null)
                     {
-                        MessageBox.Show(SymbolIcon.Tag.ToString());
 
-                        if (SymbolIcon.Tag.ToString() == "true")
+                        if (Page._downloadQueue != null)
                         {
-                            SymbolIcon.Symbol = Wpf.Ui.Common.SymbolRegular.Checkmark48;
-
+                            Page._downloadQueue.CancelDownload("",true);
                         }
-                        else
-                        {
-                            SymbolIcon.Symbol = Wpf.Ui.Common.SymbolRegular.Dismiss16;
-
-                        }
-
                     }
                 });
             }
@@ -1121,6 +1117,7 @@ true // Whether to change accents automatically
 
 
             }
+
         }
     }
 }

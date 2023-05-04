@@ -157,8 +157,8 @@
 
                         <hc:SimplePanel Background="Black" Opacity="0">
                             <Border Background="#991B1B1B"  CornerRadius="5">
-                               
-                                <ProgressBar Value="0" SmallChange="0.8" Foreground="#6600714F" Height="286" Background="{x:Null}" IsHitTestVisible="False" IsTabStop="False" Cursor="Wait"/>
+
+                                <ProgressBar Tag="{Binding download_url}" Value="0" SmallChange="0.8" Foreground="#6600714F" Height="286" Background="{x:Null}" IsHitTestVisible="False" IsTabStop="False"/>
                             </Border>
 
                             <!--<Rectangle  Opacity="0.5" Fill="#FF2B2B2B">

@@ -283,7 +283,36 @@ namespace VTOL.Pages
             }
 
         }
-        async void Call_Mods_From_Folder()
+        public static async Task<bool> CheckLogFileAsync(string Destination, string directory, bool checkIntegrity = true)
+        {
+            string fileName = new DirectoryInfo(directory).Name + ".mc";
+            string filePath = Path.Combine(Destination, fileName);
+
+            if (!File.Exists(filePath))
+            {
+                return false;
+            }
+
+            if (!checkIntegrity)
+            {
+                return true;
+            }
+
+            string[] lines = await File.ReadAllLinesAsync(filePath);
+
+            
+
+            foreach (string line in lines)
+            {
+                if (!Directory.Exists(line))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+        public async Task Call_Mods_From_Folder()
         {
             bool install_Prompt = false;
             string IS_CORE_MOD_temp = "#00000000";
@@ -324,16 +353,18 @@ namespace VTOL.Pages
                                 System.IO.DirectoryInfo[] subDirs = null;
                                 subDirs = rootDirs.GetDirectories();
 
-                                DispatchIfNecessary(() =>
+                                DispatchIfNecessary(async () =>
                                 {
 
                                     Mod_Count_Label.Content = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_ModCount + subDirs.Length;
                                 });
-                                DispatchIfNecessary(() =>
+                                DispatchIfNecessary(async () =>
                                 {
                                     foreach (System.IO.DirectoryInfo dirInfo in subDirs)
                                 {
-                                    if (Regex.IsMatch(dirInfo.Name.Trim(), @"^Northstar\.CustomServers\w{0,2}$") || Regex.IsMatch(dirInfo.Name.Trim(), @"^Northstar\.Custom\w{0,2}$") || Regex.IsMatch(dirInfo.Name.Trim(), @"^Northstar\.Client\w{0,2}$"))
+                                        bool Has_Manifest_ = await CheckLogFileAsync(dirInfo.FullName, dirInfo.Name);
+
+                                        if (Regex.IsMatch(dirInfo.Name.Trim(), @"^Northstar\.CustomServers\w{0,2}$") || Regex.IsMatch(dirInfo.Name.Trim(), @"^Northstar\.Custom\w{0,2}$") || Regex.IsMatch(dirInfo.Name.Trim(), @"^Northstar\.Client\w{0,2}$"))
                                     {
                                         IS_CORE_MOD_temp = "#FF8C7F24";
 
@@ -366,11 +397,12 @@ namespace VTOL.Pages
                                         }
                                         int Flag_mod = 0;
                                         string ToolTip_Dynamic = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_ThereIsAnIssueDetectedWithYourMod;
-                                        if (!File.Exists(dirInfo.FullName + @"\Locked_Folder" + @"\mod.json"))
-                                        {
+                                        
+                                            if (!File.Exists(dirInfo.FullName + @"\Locked_Folder" + @"\mod.json") && Has_Manifest_ == false)
+                                            {
                                             ToolTip_Dynamic = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_PleaseOpenYourFolderAt + dirInfo.Parent + VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_AndManuallyRepairTheMod + dirInfo.Name;
                                             Flag_mod = 100;
-                                        }
+                                            }
                                         
                                         Final_List.Add(new Card_ { Mod_Name_ = dirInfo.Name.Trim(), Mod_Date_ = dirInfo.CreationTime.ToString(), Is_Active_Color = "#B29A0404", Size__ = dirInfo.LastAccessTime.ToString(), En_Di = "Enable", Is_Active_ = true, Mod_Path_ = dirInfo.FullName, Flag = Flag_mod, Error_Tooltip = ToolTip_Dynamic, Label = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_Enable ,IS_CORE_MOD = IS_CORE_MOD_temp });
                                     }
@@ -379,7 +411,7 @@ namespace VTOL.Pages
                                         int Flag_mod = 0;
                                         string ToolTip_Dynamic = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_ThereIsAnIssueDetectedWithYourMod;
 
-                                        if (!File.Exists(dirInfo.FullName + @"\mod.json"))
+                                        if (!File.Exists(dirInfo.FullName + @"\mod.json") && Has_Manifest_ == false)
                                         {
 
                                             ToolTip_Dynamic = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_PleaseOpenYourFolderAt + dirInfo.Parent + VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_AndManuallyRepairTheMod + dirInfo.Name;

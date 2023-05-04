@@ -200,69 +200,75 @@
                     </Frame.OpacityMask>
 
                 </Frame>
-                <Border x:Name="Action_Center_Panel" CornerRadius="6" Margin="0,5,120,0" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Top" BorderBrush="#724E4E4E" Background="#7F000000" Opacity="0" HorizontalAlignment="Right" Width="546">
 
+                <Border  Background="#CC000000"  x:Name="Action_Center_Panel" CornerRadius="6" Margin="0,5,120,0" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Top" BorderBrush="#724E4E4E" Opacity="0" HorizontalAlignment="Right" Width="546" Height="374" IsHitTestVisible="False" Focusable="True">
+                    <StackPanel  >
 
-                    <ui:VirtualizingItemsControl  x:Name="Action_Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="320" VerticalAlignment="Bottom" SourceUpdated="Action_Center_SourceUpdated" TargetUpdated="Action_Center_TargetUpdated" LayoutUpdated="Action_Center_LayoutUpdated">
-                        <ui:VirtualizingItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Border CornerRadius="6" BorderThickness="1" BorderBrush="#99505050" Padding="0"  Background="#CC1F1F1F" VerticalAlignment="Center" HorizontalAlignment="Center" Width="546">
+                        <ui:VirtualizingItemsControl  x:Name="Action_Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="330" SourceUpdated="Action_Center_SourceUpdated" TargetUpdated="Action_Center_TargetUpdated" LayoutUpdated="Action_Center_LayoutUpdated">
+                            <ui:VirtualizingItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border CornerRadius="6" BorderThickness="1" BorderBrush="#99505050" Padding="0"  Background="#CC1F1F1F" VerticalAlignment="Center" HorizontalAlignment="Center" Width="546">
 
-                                    <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FlowDirection="LeftToRight"  >
-                                        <hc:CircleProgressBar  x:Name="Progress_Block_Ring" Margin="8,0,0,0" Value="{Binding Progress}" ShowText="False" ArcThickness="11" SmallChange="1" >
-                                            <hc:CircleProgressBar.Foreground>
-                                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                                    <GradientStop Color="#FF00BFBA"/>
-                                                    <GradientStop Color="#FF00A455" Offset="1"/>
-                                                </LinearGradientBrush>
-                                            </hc:CircleProgressBar.Foreground>
-                                        </hc:CircleProgressBar>
-                                        <ui:SymbolIcon HorizontalAlignment="Left"  Tag="{Binding Completed}" Margin="-57,3,0,0" Symbol="Dismiss16" RenderTransformOrigin="0.5,0.5" LayoutUpdated="SymbolIcon_LayoutUpdated" TargetUpdated="SymbolIcon_TargetUpdated">
-                                            <ui:SymbolIcon.RenderTransform>
-                                                <TransformGroup>
-                                                    <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
-                                                    <SkewTransform/>
-                                                    <RotateTransform/>
-                                                    <TranslateTransform/>
-                                                </TransformGroup>
-                                            </ui:SymbolIcon.RenderTransform>
-                                        </ui:SymbolIcon>
-                                        <StackPanel Width="403" Margin="10,0,0,0" HorizontalAlignment="Left" >
-                                            <TextBlock x:Name="Action_Block" Height="16" TextWrapping="WrapWithOverflow" Text="{Binding Action}" FontSize="11" Foreground="White" Padding="5,0,4,0" HorizontalAlignment="Stretch" TextTrimming="CharacterEllipsis">
+                                        <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FlowDirection="LeftToRight"  >
+                                            <hc:CircleProgressBar  x:Name="Progress_Block_Ring" Margin="8,0,0,0" Value="{Binding Progress}" ShowText="False" ArcThickness="11" SmallChange="1" >
+                                                <hc:CircleProgressBar.Foreground>
+                                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                        <GradientStop Color="#FF00BFBA"/>
+                                                        <GradientStop Color="#FF00A455" Offset="1"/>
+                                                    </LinearGradientBrush>
+                                                </hc:CircleProgressBar.Foreground>
+                                            </hc:CircleProgressBar>
+                                            <ui:SymbolIcon HorizontalAlignment="Left"  Margin="-57,3,0,0" Symbol="{Binding Completed}" RenderTransformOrigin="0.5,0.5" LayoutUpdated="SymbolIcon_LayoutUpdated" TargetUpdated="SymbolIcon_TargetUpdated">
+                                                <ui:SymbolIcon.RenderTransform>
+                                                    <TransformGroup>
+                                                        <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
+                                                        <SkewTransform/>
+                                                        <RotateTransform/>
+                                                        <TranslateTransform/>
+                                                    </TransformGroup>
+                                                </ui:SymbolIcon.RenderTransform>
+                                            </ui:SymbolIcon>
+                                            <StackPanel Width="403" Margin="10,0,0,0" HorizontalAlignment="Left" >
+                                                <TextBlock x:Name="Action_Block" Height="16" TextWrapping="WrapWithOverflow" Text="{Binding Action}" FontSize="11" Foreground="White" Padding="5,0,4,0" HorizontalAlignment="Stretch" TextTrimming="CharacterEllipsis" Margin="0,2,0,0">
                                      <Run>
                                       
                                   </Run>
-                                            </TextBlock>
-                                            <TextBlock x:Name="Name_Block" Height="24" TextWrapping="WrapWithOverflow" Text="{Binding Name}" FontSize="18" Foreground="White" Padding="5,0,1,0" Width="402" UseLayoutRounding="True" HorizontalAlignment="Center" VerticalAlignment="Center" TextTrimming="CharacterEllipsis">
+                                                </TextBlock>
+                                                <TextBlock x:Name="Name_Block" Height="24" TextWrapping="WrapWithOverflow" Text="{Binding Name}" FontSize="18" Foreground="White" Padding="5,0,1,0" Width="402" UseLayoutRounding="True" HorizontalAlignment="Center" VerticalAlignment="Center" TextTrimming="CharacterEllipsis">
                                      <Run>
                                       
                                   </Run>
-                                            </TextBlock>
-                                            <TextBlock x:Name="Date_Time_Block" Height="17" TextWrapping="WrapWithOverflow" Text="{Binding Date}" Foreground="White" Padding="5,0,5,0" TextTrimming="CharacterEllipsis" Margin="0,3,0,0">
+                                                </TextBlock>
+                                                <TextBlock x:Name="Date_Time_Block" Height="17" TextWrapping="WrapWithOverflow" Text="{Binding Date}" Foreground="White" Padding="5,0,5,0" TextTrimming="CharacterEllipsis" Margin="0,3,0,0">
                                      <Run>
                                       
                                   </Run>
-                                            </TextBlock>
-                                            <TextBlock x:Name="Desc_Block" Height="18" Margin="0,1,0,0" TextWrapping="WrapWithOverflow" Text="{Binding Description}" Foreground="White" Padding="4,0,5,0" TextTrimming="CharacterEllipsis">
+                                                </TextBlock>
+                                                <TextBlock x:Name="Desc_Block" Height="18" Margin="0,1,0,0" TextWrapping="WrapWithOverflow" Text="{Binding Description}" Foreground="White" Padding="4,0,5,0" TextTrimming="CharacterEllipsis">
                                   <Run FontSize="12">
                                      
                                   </Run>
-                                            </TextBlock>
-                                            <ui:Button  Tag="{Binding Name}" x:Name="Cancel_Button" Icon="DeleteLines20" Height="23" Width="405" Padding="0,0,0,0" Foreground="White" Background="#E5005B2B" Click="Cancel_Button_Click" SourceUpdated="Cancel_Button_SourceUpdated" TargetUpdated="Cancel_Button_TargetUpdated" Margin="2,8,0,5" Content="Clear" HorizontalAlignment="Center"/>
+                                                </TextBlock>
+                                                <ui:Button  Tag="{Binding Name}" x:Name="Cancel_Button" Icon="DeleteLines20" Height="23" Width="405" Padding="0,0,0,0" Foreground="White" Background="#E5005B2B" Click="Cancel_Button_Click" SourceUpdated="Cancel_Button_SourceUpdated" TargetUpdated="Cancel_Button_TargetUpdated" Margin="2,8,0,5" Content="Clear" HorizontalAlignment="Center"/>
 
-                                        </StackPanel>
-                                    </DockPanel>
-                                </Border>
+                                            </StackPanel>
+                                        </DockPanel>
+                                    </Border>
 
-                            </DataTemplate>
-                        </ui:VirtualizingItemsControl.ItemTemplate>
+                                </DataTemplate>
+                            </ui:VirtualizingItemsControl.ItemTemplate>
 
 
-                    </ui:VirtualizingItemsControl>
+                        </ui:VirtualizingItemsControl>
+                        <hc:Divider Margin="0,0,0,0" LineStroke="#E5929292" LineStrokeThickness="1.5" ></hc:Divider>
+                        <Border Height="42" HorizontalAlignment="Stretch" Background="#7F000000" CornerRadius="0,0,6,6" >
 
+                            <Button Tag="{Binding Name}" Width="136" Margin="0,-1,16,0" Height="27" Content="Clear All" Padding="0,0,0,0" HorizontalAlignment="Right" FontSize="12.5" Click="Button_Click"/>
+                        </Border>
+                    </StackPanel>
                 </Border>
 
-               
+
             </Grid>
 
         </Border>
