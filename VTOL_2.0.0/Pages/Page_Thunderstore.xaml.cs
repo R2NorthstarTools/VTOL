@@ -3015,9 +3015,7 @@ int millisecondsDelay = 300)
                     else
                     {
                         Main.Action_Center_Progress_Text.Text = null;
-                        _downloadQueue._inProgress.Remove(Action_Card_.URL);
-                        _downloadQueue._queue_List_Clear.RemoveAll(i => i.Name.ToLower().Contains(Action_Card_.Name.ToLower()));
-                        _downloadQueue._queue.RemoveAll(i => i.Name.ToLower().Contains(Action_Card_.Name.ToLower()));
+                        
                         Action_Card_.Progress = 100;
                         Action_Card_.Completed = "Checkmark48";
                     }
@@ -3889,7 +3887,7 @@ int millisecondsDelay = 300)
                         Main.Snackbar.Title = "INFO";
                         Main.Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
                         Main.Snackbar.Show();
-                            await Task.Delay(1000);
+                            await Task.Delay(2000);
                     });
                     //MessageBox.Show("Download with the same URL is already in progress or queued.");
                 }
