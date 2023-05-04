@@ -33,12 +33,10 @@ public class FileInputMonitor
     } // end FileInputMonitor()
         private void OnChanged(object source, FileSystemEventArgs e)
         {
-            MessageBox.Show("File Changed!");
         }
 
         private void FileCreated(Object sender, FileSystemEventArgs e)
     {
-            MessageBox.Show("New Error Log, go open it!");
 
 
         } // end public void FileCreated(Object sender, FileSystemEventArgs e)

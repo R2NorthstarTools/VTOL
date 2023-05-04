@@ -167,7 +167,7 @@ namespace VTOL
 
             using (StreamReader reader = new StreamReader(stream))
             {
-                System.Windows.Forms.MessageBox.Show(reader.ReadToEnd());
+                
 
                 json = reader.ReadToEnd();
             }

@@ -1835,13 +1835,12 @@ namespace VTOL.Pages
                                 else
                                 {
 
-                                    //Send_Error_Notif(GetTextResource("SERVER_CFG_FAILED"));
                                     return;
                                 }
                             }
                         }
                     }
-                    // HandyControl.Controls.MessageBox.Show(new MessageBoxInfo { Message = "Please Select the Northstar Dedicated Import as well.", Caption = "PROMPT!", Button = MessageBoxButton.OK, IconBrushKey = ResourceToken.AccentBrush, IconKey = ResourceToken.AskGeometry, StyleKey = "MessageBoxCustom" });
+                    
                     if (Directory.Exists(User_Settings_Vars.NorthstarInstallLocation))
                     {
                         Ns_dedi_File = GetFile(User_Settings_Vars.NorthstarInstallLocation, "ns_startup_args_dedi.txt").First();

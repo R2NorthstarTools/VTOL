@@ -218,7 +218,7 @@
                                                     </LinearGradientBrush>
                                                 </hc:CircleProgressBar.Foreground>
                                             </hc:CircleProgressBar>
-                                            <ui:SymbolIcon HorizontalAlignment="Left"  Margin="-57,3,0,0" Symbol="{Binding Completed}" RenderTransformOrigin="0.5,0.5" LayoutUpdated="SymbolIcon_LayoutUpdated" TargetUpdated="SymbolIcon_TargetUpdated">
+                                            <ui:SymbolIcon HorizontalAlignment="Left"  Margin="-57,0,0,0" Symbol="{Binding Completed}" RenderTransformOrigin="0.5,0.5" LayoutUpdated="SymbolIcon_LayoutUpdated" TargetUpdated="SymbolIcon_TargetUpdated">
                                                 <ui:SymbolIcon.RenderTransform>
                                                     <TransformGroup>
                                                         <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
@@ -367,13 +367,14 @@
                 </StatusBarItem>
             </StatusBar>
             <Border  PreviewMouseLeftButtonDown="Grid_PreviewMouseLeftButtonDown" Margin="285,-7,0,0" Background="#00000000" />
-            <Grid Margin="700,2,255,0">
-                <hc:ProgressButton x:Name="Action_Center_Progress" Width="244"  Progress="38" ClickMode="Press" Padding="5,0,25,0" Margin="0,-6,0,0" HorizontalContentAlignment="Left" MouseDown="Action_Center_Progress_MouseDown" Foreground="#FF969696" Checked="Action_Center_Progress_Checked" Unchecked="Action_Center_Progress_Unchecked" Background="#FF1C1C1C">
+            <Grid Margin="700,2,219,0">
+                <hc:Divider Margin="273,-2,-16,4" Orientation="Vertical" LineStrokeThickness="1.3"></hc:Divider>
+                <hc:ProgressButton x:Name="Action_Center_Progress" Width="244" ClickMode="Press" Padding="5,0,25,0" Margin="0,-4,-5,0" HorizontalContentAlignment="Left" MouseDown="Action_Center_Progress_MouseDown" Foreground="#FF969696" Checked="Action_Center_Progress_Checked" Unchecked="Action_Center_Progress_Unchecked" Background="#FF1C1C1C" VerticalAlignment="Top">
                     <TextBlock x:Name="Action_Center_Progress_Text" TextWrapping="WrapWithOverflow" Background="{x:Null}" ClipToBounds="True" IsHitTestVisible="False" TextTrimming="CharacterEllipsis" Foreground="#FFC5C5C5"  >
                     <Run></Run>
                     </TextBlock>
                 </hc:ProgressButton>
-                <ui:SymbolIcon Symbol="ArrowDownload48" HorizontalAlignment="Center" Margin="218,-7.9,0,0" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#FF9A9A9A"></ui:SymbolIcon>
+                <ui:SymbolIcon Symbol="ArrowDownload48" HorizontalAlignment="Left" Margin="244,2,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#FF9A9A9A"></ui:SymbolIcon>
             </Grid>
 
             <Grid DockPanel.Dock="Right"

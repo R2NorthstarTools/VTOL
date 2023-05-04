@@ -82,7 +82,6 @@ namespace VTOL
 
         public NotificationManager NotificationManager;
 
-        public TlsPaperTrailLogger logger2 = new TlsPaperTrailLogger("logs5.papertrailapp.com", 38137);
         public bool Is_Focused = true;
        // public List<string> Current_Installed_Mods = new List<string>();
         public HashSet<string> Current_Installed_Mods = new HashSet<string>();
@@ -118,10 +117,11 @@ namespace VTOL
       
         public MainWindow()
         {
+            InitializeComponent();
+
             try
             {
 
-                InitializeComponent();
                 NotificationManager =  new NotificationManager();
                 minimize_to_tray =  Properties.Settings.Default.Minimize_to_Tray;
                 Profile_TAG.Content = Properties.Settings.Default.Profile_Name;
@@ -307,7 +307,7 @@ namespace VTOL
 
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message + "\n" + ex.StackTrace + "\n" + ex.Source);
+               
 
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
             }

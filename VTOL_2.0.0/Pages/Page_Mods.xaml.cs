@@ -283,34 +283,47 @@ namespace VTOL.Pages
             }
 
         }
-        public static async Task<bool> CheckLogFileAsync(string Destination, string directory, bool checkIntegrity = true)
+        public static async Task<bool> Check_Plugins_and_multi_mod(string Destination, string directory,bool checkIntegrity = false)
         {
             string fileName = new DirectoryInfo(directory).Name + ".mc";
             string filePath = Path.Combine(Destination, fileName);
 
-            if (!File.Exists(filePath))
-            {
-                return false;
-            }
+           
+            string pluginsFolderName = "plugins"; // Folder name to search for
 
-            if (!checkIntegrity)
+            string pluginsFolderPath = Path.Combine(Destination, pluginsFolderName);
+            
+            if (checkIntegrity)
             {
-                return true;
-            }
 
-            string[] lines = await File.ReadAllLinesAsync(filePath);
+
+                string[] lines = await File.ReadAllLinesAsync(filePath);
+
+                foreach (string line in lines)
+                {
+                    if (!Directory.Exists(line))
+                    {
+                        return true;
+                    }
+                }
+            }
+           
+                if (Directory.Exists(pluginsFolderPath))
+                {
+                    return true;
+                }
+                
+                if (File.Exists(filePath))
+                {
+                    return true;
+                }
+            
+
 
             
 
-            foreach (string line in lines)
-            {
-                if (!Directory.Exists(line))
-                {
-                    return false;
-                }
-            }
-
-            return true;
+            
+            return false;
         }
         public async Task Call_Mods_From_Folder()
         {
@@ -362,7 +375,7 @@ namespace VTOL.Pages
                                 {
                                     foreach (System.IO.DirectoryInfo dirInfo in subDirs)
                                 {
-                                        bool Has_Manifest_ = await CheckLogFileAsync(dirInfo.FullName, dirInfo.Name);
+                                        bool Has_Manifest_or_plugins = await Check_Plugins_and_multi_mod(dirInfo.FullName, dirInfo.Name);
 
                                         if (Regex.IsMatch(dirInfo.Name.Trim(), @"^Northstar\.CustomServers\w{0,2}$") || Regex.IsMatch(dirInfo.Name.Trim(), @"^Northstar\.Custom\w{0,2}$") || Regex.IsMatch(dirInfo.Name.Trim(), @"^Northstar\.Client\w{0,2}$"))
                                     {
@@ -398,7 +411,7 @@ namespace VTOL.Pages
                                         int Flag_mod = 0;
                                         string ToolTip_Dynamic = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_ThereIsAnIssueDetectedWithYourMod;
                                         
-                                            if (!File.Exists(dirInfo.FullName + @"\Locked_Folder" + @"\mod.json") && Has_Manifest_ == false)
+                                            if (!File.Exists(dirInfo.FullName + @"\Locked_Folder" + @"\mod.json") && Has_Manifest_or_plugins == false)
                                             {
                                             ToolTip_Dynamic = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_PleaseOpenYourFolderAt + dirInfo.Parent + VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_AndManuallyRepairTheMod + dirInfo.Name;
                                             Flag_mod = 100;
@@ -411,7 +424,7 @@ namespace VTOL.Pages
                                         int Flag_mod = 0;
                                         string ToolTip_Dynamic = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_ThereIsAnIssueDetectedWithYourMod;
 
-                                        if (!File.Exists(dirInfo.FullName + @"\mod.json") && Has_Manifest_ == false)
+                                        if (!File.Exists(dirInfo.FullName + @"\mod.json") && Has_Manifest_or_plugins == false)
                                         {
 
                                             ToolTip_Dynamic = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_PleaseOpenYourFolderAt + dirInfo.Parent + VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_AndManuallyRepairTheMod + dirInfo.Name;
@@ -1950,7 +1963,6 @@ namespace VTOL.Pages
         }
         public static string FindFirstFile(string path, string searchPattern)
         {
-            TlsPaperTrailLogger logger2 = new TlsPaperTrailLogger("logs5.papertrailapp.com", 38137);
 
             try
             {
@@ -1963,10 +1975,7 @@ namespace VTOL.Pages
                 }
                 catch (Exception ex)
                 {
-                    logger2.Open();
-                    logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine);
-                    logger2.Close();
-
+                    
                     return string.Empty;
                 }
 
@@ -2010,10 +2019,7 @@ namespace VTOL.Pages
 
             catch (Exception ex)
             {
-                logger2.Open();
-                logger2.Log($"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}" + ex.Message + Environment.NewLine + ex.StackTrace + Environment.NewLine + ex.Source + Environment.NewLine + ex.InnerException + Environment.NewLine + ex.TargetSite + Environment.NewLine + "From VERSION - " + Assembly.GetExecutingAssembly().GetName().Version.ToString() + Environment.NewLine);
-                logger2.Close();
-                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+               
 
             }
             // If no file was found (neither in this directory nor in the child directories)

@@ -2481,7 +2481,7 @@ int millisecondsDelay = 150)
             if (NS_CANDIDATE_INSTALL == true)
             {
               await  Unpack_To_Location_Custom(Location, User_Settings_Vars.NorthstarInstallLocation + @"Northstar_TEMP_FILES\", Progress_Bar, true, false, Skin_Install, NS_CANDIDATE_INSTALL,Mod_Name);
-
+               
             }
             else
             {
@@ -2988,18 +2988,21 @@ int millisecondsDelay = 300)
         }
         void Update_ActionCard_Progress(Action_Card Action_Card_, int Add_INT = 10,bool Completed = false,bool FailedEvent = false)
         {
-            DispatchIfNecessary(async () =>
+            try
+            {
+                DispatchIfNecessary(async () =>
             {
                 if (Action_Card_ != null)
                 {
-                   
+
                     Main.Action_Center.ItemsSource = null;
                     Action_Card_.Progress = Math.Clamp(Action_Card_.Progress + Add_INT, 0, 100); ;
                     //Completed.ToString();
                     if (FailedEvent == true)
                     {
                         Action_Card_.Completed = "ErrorCircle20";
-
+                        Main.Action_Center_Progress_Text.Text = null;
+                        Action_Card_.Progress = 0;
                         Main.Action_Center.ItemsSource = Action_Center;
                         Main.Action_Center.Refresh();
                         return;
@@ -3015,13 +3018,19 @@ int millisecondsDelay = 300)
                         _downloadQueue._inProgress.Remove(Action_Card_.URL);
                         _downloadQueue._queue_List_Clear.RemoveAll(i => i.Name.ToLower().Contains(Action_Card_.Name.ToLower()));
                         _downloadQueue._queue.RemoveAll(i => i.Name.ToLower().Contains(Action_Card_.Name.ToLower()));
-
+                        Action_Card_.Progress = 100;
                         Action_Card_.Completed = "Checkmark48";
                     }
                     Main.Action_Center.ItemsSource = Action_Center;
                     Main.Action_Center.Refresh();
                 }
             });
+            }
+            catch (Exception ex)
+            {
+
+
+            }
 
         }
         public async Task Unpack_To_Location_Custom(string Target_Zip, string Destination, ProgressBar Progress_Bar, bool Clean_Thunderstore = false, bool clean_normal = false, bool Skin_Install = false,bool NS_CANDIDATE_INSTALL = false ,string mod_name ="~")
@@ -3069,8 +3078,8 @@ int millisecondsDelay = 300)
                                 Progress_Bar.Value = 0;
                             }
                         });
-                        Log.Error("The Destination" + Destination + " is not accessible or does not exist?");
-                        return;
+                        Log.Error("The Destination" + Destination + " is not accessible or does not exist?"); await TryDeleteDirectory(User_Settings_Vars.NorthstarInstallLocation + @"Northstar_TEMP_FILES\");
+                    return;
 
 
                     }
@@ -3114,8 +3123,8 @@ int millisecondsDelay = 300)
                                 {
                                     Progress_Bar.Value = 0;
                                 }
-                            });
-                            return;
+                            }); await TryDeleteDirectory(User_Settings_Vars.NorthstarInstallLocation + @"Northstar_TEMP_FILES\");
+                    return;
                 }
                 Update_ActionCard_Progress(Action_Card_);
 
@@ -3209,6 +3218,7 @@ int millisecondsDelay = 300)
                             {
                                 Progress_Bar.Value = 0;
                             }
+                            await TryDeleteDirectory(User_Settings_Vars.NorthstarInstallLocation + @"Northstar_TEMP_FILES\");
                             Update_ActionCard_Progress(Action_Card_, 40,true);
 
                             SnackBar.Title = "SUCCESS";
@@ -3217,8 +3227,8 @@ int millisecondsDelay = 300)
                             SnackBar.Show();
 
                         });
+                       
 
-                        
                     }
                     else if (Script.Length > 1)
                     {
@@ -3245,6 +3255,7 @@ int millisecondsDelay = 300)
 
 
                         }
+                        await TryDeleteDirectory(User_Settings_Vars.NorthstarInstallLocation + @"Northstar_TEMP_FILES\");
                         Update_ActionCard_Progress(Action_Card_, 70);
 
                         await Call_Mods_From_Folder_Lite();
@@ -3264,8 +3275,8 @@ int millisecondsDelay = 300)
 
 
                         });
-
                        
+
                     }
                     else if (Script.Length == 0)
                     {
@@ -3278,8 +3289,11 @@ int millisecondsDelay = 300)
                         if (Directory.Exists(pluginsFolderPath))
                         {
                             // Combine destination folder path and plugins folder name
-                            string destFolderPath = Path.Combine(User_Settings_Vars.NorthstarInstallLocation, pluginsFolderName);
-
+                            string destFolderPath = Path.Combine(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\", pluginsFolderName + @"\"+mod_name);
+                            if (!Directory.Exists(destFolderPath))
+                            {
+                                TryCreateDirectory(destFolderPath);
+                            }
                             // Copy plugins folder and its contents to destination folder
                             string[] files = Directory.GetFiles(pluginsFolderPath);
 
@@ -3292,6 +3306,7 @@ int millisecondsDelay = 300)
                                 string destFile = Path.Combine(destFolderPath, fileName);
                                 await TryCopyFile(file, destFile, true);
                             }
+                            await TryDeleteDirectory(User_Settings_Vars.NorthstarInstallLocation + @"Northstar_TEMP_FILES\");
                             Update_ActionCard_Progress(Action_Card_, 40);
 
                             DispatchIfNecessary(async () =>
@@ -3309,10 +3324,11 @@ int millisecondsDelay = 300)
 
 
                             });
-                           
+                          
                         }
                         else
                         {
+                            await TryDeleteDirectory(User_Settings_Vars.NorthstarInstallLocation + @"Northstar_TEMP_FILES\");
                             Update_ActionCard_Progress(Action_Card_, 10,true);
 
                             DispatchIfNecessary(async () =>
@@ -3322,9 +3338,9 @@ int millisecondsDelay = 300)
                                     Progress_Bar.Value = 0;
                                 }
 
-                                SnackBar.Title = "SUCCESS";
-                                SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
-                                SnackBar.Message = "Plugins .dll(s) not found or configured properly in the mod folder!";
+                                SnackBar.Title = "WARNING";
+                                SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Caution;
+                                SnackBar.Message = "MOD INSTALL NOT CONFIGURED PROPERLY";
                                 SnackBar.Show();
 
 
@@ -3553,6 +3569,7 @@ int millisecondsDelay = 300)
 
                             });
                         }
+                        await TryDeleteDirectory(User_Settings_Vars.NorthstarInstallLocation + @"Northstar_TEMP_FILES\");
                         Update_ActionCard_Progress(Action_Card_, 30, true);
 
                         DispatchIfNecessary(async () =>
@@ -4451,7 +4468,6 @@ int millisecondsDelay = 300)
 
         private void Grid_GotFocus(object sender, RoutedEventArgs e)
         {
-
         }
 
         private void Sort_LostFocus(object sender, RoutedEventArgs e)
@@ -4732,20 +4748,27 @@ int millisecondsDelay = 300)
         }
         public static async Task WriteToLogFileAsync(string Destination, string directory, string name, bool overwrite = false)
         {
-            string fileName = name + ".mc";
-            string filePath = Path.Combine(Destination, fileName);
-
-            string path = Directory.GetParent(directory).ToString() + @"\" + name;
-            string fileContent = path + Environment.NewLine;
-
-            if (File.Exists(filePath) && !overwrite)
+            try
             {
-                fileContent = File.ReadAllText(filePath) + fileContent;
-            }
+                string fileName = name + ".mc";
+                string filePath = Path.Combine(Destination, fileName);
 
-            using (StreamWriter writer = new StreamWriter(filePath))
+                string path = Directory.GetParent(directory).ToString() + @"\" + name;
+                string fileContent = path + Environment.NewLine;
+
+                if (File.Exists(filePath) && !overwrite)
+                {
+                    fileContent = File.ReadAllText(filePath) + fileContent;
+                }
+
+                using (StreamWriter writer = new StreamWriter(filePath))
+                {
+                    await writer.WriteAsync(fileContent);
+                }
+            }catch(Exception ex)
             {
-                await writer.WriteAsync(fileContent);
+
+
             }
         }
 
