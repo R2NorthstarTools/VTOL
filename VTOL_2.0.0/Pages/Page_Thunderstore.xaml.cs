@@ -3012,8 +3012,10 @@ int millisecondsDelay = 300)
                     else
                     {
                         Main.Action_Center_Progress_Text.Text = null;
-                        _inProgress.Remove(item.DownloadUrl);
-                        _queue.Remove(item);
+                        _downloadQueue._inProgress.Remove(Action_Card_.URL);
+                        _downloadQueue._queue_List_Clear.RemoveAll(i => i.Name.ToLower().Contains(Action_Card_.Name.ToLower()));
+                        _downloadQueue._queue.RemoveAll(i => i.Name.ToLower().Contains(Action_Card_.Name.ToLower()));
+
                         Action_Card_.Completed = "Checkmark48";
                     }
                     Main.Action_Center.ItemsSource = Action_Center;
@@ -3838,7 +3840,7 @@ int millisecondsDelay = 300)
             public List<DownloadQueueItem> _queue = new List<DownloadQueueItem>();
             public HashSet<string> _inProgress = new HashSet<string>();
             private readonly Page_Thunderstore _myClass;
-            private List<DownloadQueueItem> _queue_List_Clear = new List<DownloadQueueItem>();
+            public List<DownloadQueueItem> _queue_List_Clear = new List<DownloadQueueItem>();
 
             public DownloadQueue(Page_Thunderstore myClass)
             {
@@ -3849,23 +3851,37 @@ int millisecondsDelay = 300)
             {
 
 
-                if (_queue.Any(i => i.Name.ToLower().Contains(item.Name.ToLower())) || _inProgress.Contains(item.DownloadUrl) || _myClass.Action_Center.Any(i => i.Name.ToLower().Contains(item.Name.ToLower())))
+                if (_queue.Any(i => i.Name.ToLower().Contains(item.Name.ToLower())) || _inProgress.Contains(item.DownloadUrl) || _queue_List_Clear.Any(i => i.Name.ToLower().Contains(item.Name.ToLower())))
                 {
-                        Main.DispatchIfNecessary(() => {
-                        Main.Snackbar.Message = "Download with the same URL is already in progress or queued.";
+
+
+
+
+
+                        Main.DispatchIfNecessary(async () =>
+                        {
+                            Main.Action_Center.ItemsSource = null;
+                            _myClass.Action_Center.RemoveAll(i => i.Name.ToLower().Contains(item.Name.ToLower()));
+                            Main.Action_Center.ItemsSource = _myClass.Action_Center;
+                            _inProgress.Remove(item.DownloadUrl);
+                            _queue.RemoveAll(item => item.Name.ToLower().Contains(item.Name.ToLower()));
+                            _queue_List_Clear.RemoveAll(item => item.Name.ToLower().Contains(item.Name.ToLower()));
+                            Main.Action_Center.Refresh();
+
+                            Main.Snackbar.Message = "Download with the same URL is was already in progress or queued.";
                         Main.Snackbar.Title = "INFO";
                         Main.Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
                         Main.Snackbar.Show();
+                            await Task.Delay(1000);
                     });
                     //MessageBox.Show("Download with the same URL is already in progress or queued.");
                 }
-                else
-                {
+                
                     _inProgress.Add(item.DownloadUrl);
                     _queue.Add(item);
                     _queue_List_Clear.Add(item);
                     await ExecuteQueueAsync();
-                }
+                
                
             }
 
