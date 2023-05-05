@@ -192,7 +192,7 @@ namespace VTOL.Pages
                 User_Settings_Vars.MasterServerUrl = Settings_.Master_Server_Url;
                 Properties.Settings.Default.Auto_Close_VTOL_on_Launch = Settings_.Minimize_On_Launch;
                 Properties.Settings.Default.Save();
-                DispatchIfNecessary(() =>
+                DispatchIfNecessary(async () =>
                 {
                     OLD_MSG = (VTOL.Resources.Languages.Language.Page_Settings_Settings_LostFocus_AChangeInLanguageWasDetectedNVTOLRequiresARestartToDisplayTheseChangesNWouldYouLikeToRestartNow).Replace("@", System.Environment.NewLine);
                     OLD_TITLE = VTOL.Resources.Languages.Language.Page_Settings_Settings_LostFocus_LanguageChangeDetected;
@@ -257,7 +257,7 @@ namespace VTOL.Pages
                     StreamWriter.WriteLine(User_Settings_Json_Strings);
                     StreamWriter.Close();
                 }
-                DispatchIfNecessary(() =>
+                DispatchIfNecessary(async () =>
                 {
 
                     if (curr_lang.ToString() != Settings_.Language.ToString())
@@ -308,7 +308,7 @@ namespace VTOL.Pages
         }
         async void Restart()
         {
-            DispatchIfNecessary(() =>
+            DispatchIfNecessary(async () =>
             {
 
 
@@ -327,7 +327,7 @@ namespace VTOL.Pages
         async void Restart_As_admin()
         {
 
-            DispatchIfNecessary(() =>
+            DispatchIfNecessary(async () =>
             {
 
 
@@ -361,7 +361,7 @@ namespace VTOL.Pages
             {
                 if (ex.NativeErrorCode == ERROR_CANCELLED)
                 {
-                    DispatchIfNecessary(() =>
+                    DispatchIfNecessary(async () =>
                     {
 
 
@@ -408,7 +408,7 @@ namespace VTOL.Pages
 
         private void Dialog_ButtonRightClick(object sender, RoutedEventArgs e)
         {
-            DispatchIfNecessary(() =>
+            DispatchIfNecessary(async () =>
             {
                 curr_lang = Settings_.Language;
                 Dialog_.Hide();

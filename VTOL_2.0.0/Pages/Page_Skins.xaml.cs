@@ -587,7 +587,7 @@ namespace VTOL.Pages
         {
             await Task.Run(() =>
             {
-                DispatchIfNecessary(() => {
+                DispatchIfNecessary(async () => {
                     SnackBar.Message = VTOL.Resources.Languages.Language.Page_Skins_OPEN_WEBPAGE_OpeningTheFollowingURL + URL;
                     SnackBar.Title = "INFO";
                     SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;

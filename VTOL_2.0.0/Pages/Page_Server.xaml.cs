@@ -1488,7 +1488,7 @@ namespace VTOL.Pages
 
                 if (File.Exists(Ns_dedi_File))
                 {
-                    DispatchIfNecessary(() => {
+                    DispatchIfNecessary(async () => {
                         //Dedicated_Server_Startup_ARGS.Background = Brushes.White;
                         Arg_Box_Dedi.Text = Read_From_TextFile_OneLine(Ns_dedi_File);
 
@@ -1496,7 +1496,7 @@ namespace VTOL.Pages
                 }
                 else
                     {
-                        DispatchIfNecessary(() => {
+                        DispatchIfNecessary(async () => {
                             //Send_Error_Notif(GetTextResource("NOTIF_ERROR_CANNOT_FIND_FILE_SETPATH"));
                             Arg_Box_Dedi.Text = "Err, File not found - ns_startup_args_dedi.txt";
                             //Dedicated_Server_Startup_ARGS.Background = Brushes.Red;
@@ -1507,14 +1507,14 @@ namespace VTOL.Pages
 
                 if (File.Exists(NS_Startup))
                         {
-                            DispatchIfNecessary(() => {
+                            DispatchIfNecessary(async () => {
                                 Arg_Box.Text = Read_From_TextFile_OneLine(NS_Startup);
                             });
 
                 }
                 else
                             {
-                                DispatchIfNecessary(() => {
+                                DispatchIfNecessary(async () => {
                                     //Send_Error_Notif(GetTextResource("NOTIF_ERROR_CANNOT_FIND_FILE_CREATE"));
                                     Arg_Box.Text = "Err, File not found - ns_startup_args.txt";
                                 });
@@ -1608,7 +1608,7 @@ namespace VTOL.Pages
                 {
                     if (File.Exists(Ns_dedi_File) && File.Exists(Convar_File))
                     {
-                        DispatchIfNecessary(() =>
+                        DispatchIfNecessary(async () =>
                         {
 
                             Startup_Arguments_UI_List.ItemsSource = Load_Args();

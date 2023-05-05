@@ -702,7 +702,7 @@ true // Whether to change accents automatically
         {
             await Task.Run(() =>
             {
-                DispatchIfNecessary(() => {
+                DispatchIfNecessary(async () => {
                     Snackbar.Message = "Opening the Following URL - " + URL;
                     Snackbar.Title = "INFO";
                     Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
@@ -1034,7 +1034,7 @@ true // Whether to change accents automatically
         {
             try
             {
-                DispatchIfNecessary(() => {
+                DispatchIfNecessary(async () => {
                 Wpf.Ui.Controls.Button Button;
                  Button = sender as Wpf.Ui.Controls.Button;
                
@@ -1094,7 +1094,7 @@ true // Whether to change accents automatically
         {
             try
             {
-                DispatchIfNecessary(() => {
+                DispatchIfNecessary(async () => {
                    Button Button;
                     Button = sender as Button;
 

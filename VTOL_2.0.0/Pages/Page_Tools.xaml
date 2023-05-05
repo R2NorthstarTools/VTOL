@@ -657,6 +657,8 @@
 
                 </Grid>
             </TabItem>-->
+            <TabItem Header="Database Explorer">
+                </TabItem >
         </TabControl>
 
         <!--<ui:Dialog x:Name="Error_Dialog" />-->

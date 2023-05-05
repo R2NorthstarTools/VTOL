@@ -372,6 +372,7 @@ namespace VTOL.Pages
             UPDATES_TIMER.Tick += UPDATES_TIMER_Tick;
             timer.Tick += timer_Tick;
             Log_Changes_Timer.Tick += Log_Changes_Timer_Tick;
+
             timer.Start();
             Log_Changes_Timer.Start();
             UPDATES_TIMER.Start();
@@ -679,7 +680,7 @@ int millisecondsDelay = 150)
         {
             await Task.Run(() =>
             {
-                DispatchIfNecessary(() => {
+                DispatchIfNecessary(async () => {
                     SnackBar.Message = "Opening the Following URL - " + URL;
                     SnackBar.Title = "INFO";
                     SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
@@ -739,80 +740,87 @@ int millisecondsDelay = 150)
 
         async void Auto_Install_(bool resart_ = false)
         {
-            await Install_NS_METHOD();
-
-            if (File.Exists(Current_Install_Folder + @"NorthstarLauncher.exe") && File.Exists(Current_Install_Folder + @"Titanfall2.exe"))
+            try
             {
-                NSExe = Get_And_Set_Filepaths(Current_Install_Folder, "NorthstarLauncher.exe");
-                await Task.Delay(200);
 
-                // Get the file version info for the notepad.
-                FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(Current_Install_Folder + @"NorthstarLauncher.exe");
-                if (myFileVersionInfo.FileVersion != null)
+
+
+                await Install_NS_METHOD();
+
+                if (File.Exists(Current_Install_Folder + @"NorthstarLauncher.exe") && File.Exists(Current_Install_Folder + @"Titanfall2.exe"))
                 {
+                    NSExe = Get_And_Set_Filepaths(Current_Install_Folder, "NorthstarLauncher.exe");
+                    await Task.Delay(200);
 
-                    // Print the file name and version number.
-                    //Console.WriteLine(myFileVersionInfo.FileVersion);
-                    Current_Ver_ = myFileVersionInfo.FileVersion;
+                    // Get the file version info for the notepad.
+                    FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(Current_Install_Folder + @"NorthstarLauncher.exe");
+                    if (myFileVersionInfo.FileVersion != null)
+                    {
+
+                        // Print the file name and version number.
+                        //Console.WriteLine(myFileVersionInfo.FileVersion);
+                        Current_Ver_ = myFileVersionInfo.FileVersion;
+                    }
+                    else
+                    {
+                        Current_Ver_ = "ERRR";
+                    }
+                    User_Settings_Vars.CurrentVersion = Current_Ver_;
+                    Properties.Settings.Default.Version = Current_Ver_;
+                    Properties.Settings.Default.Save();
+                    DispatchIfNecessary(async () =>
+                    {
+                        Directory_Box.Text = Current_Install_Folder;
+                        Main.NORTHSTAR_BUTTON.Content = "Northstar Version - " + Current_Ver_.Remove(0, 1);
+                        Main.VERSION_TEXT.Text = "VTOL - " + ProductVersion + " |";
+                        Main.VERSION_TEXT.Refresh();
+                        Main.NORTHSTAR_BUTTON.Refresh();
+
+                        NSExe = Get_And_Set_Filepaths(Current_Install_Folder, "NorthstarLauncher.exe");
+                    });
+
+                    if (resart_ == true)
+                    {
+                        DispatchIfNecessary(async () =>
+                    {
+
+
+                        SnackBar.Appearance = ControlAppearance.Info;
+                        SnackBar.Title = "INFO";
+                        SnackBar.Message = VTOL.Resources.Languages.Language.PleaseWaitAsVTOLRestarts;
+                        SnackBar.Show();
+                    });
+                        await Task.Delay(100);
+
+
+                        Restart();
+                    }
+
+                    unpack_flg = false;
+
                 }
                 else
                 {
-                    Current_Ver_ = "ERRR";
+                    DispatchIfNecessary(async () =>
+                    {
+                        Current_Ver_ = "1.0.0";
+                        Main.NORTHSTAR_BUTTON.Content = "Northstar Version - UNKNOWN!";
+                        Main.VERSION_TEXT.Text = "VTOL - " + ProductVersion + " |";
+                        Main.VERSION_TEXT.Refresh();
+                        Main.NORTHSTAR_BUTTON.Refresh();
+                        SnackBar.Appearance = ControlAppearance.Danger;
+                        SnackBar.Title = "WARNING!";
+                        SnackBar.Message = VTOL.Resources.Languages.Language.Page_Home_Auto_Install__NORTHSTARISNOTINSTALLEDANDAUTOINSTALLFAILED;
+                        SnackBar.Show();
+                    });
+
+                    unpack_flg = false;
+
                 }
-                User_Settings_Vars.CurrentVersion = Current_Ver_;
-                Properties.Settings.Default.Version = Current_Ver_;
-                Properties.Settings.Default.Save();
-                DispatchIfNecessary(() =>
-                {
-                    Directory_Box.Text = Current_Install_Folder;
-                    Main.NORTHSTAR_BUTTON.Content = "Northstar Version - " + Current_Ver_.Remove(0, 1);
-                    Main.VERSION_TEXT.Text = "VTOL - " + ProductVersion + " |";
-                    Main.VERSION_TEXT.Refresh();
-                    Main.NORTHSTAR_BUTTON.Refresh();
-
-                    NSExe = Get_And_Set_Filepaths(Current_Install_Folder, "NorthstarLauncher.exe");
-                });
-                await Task.Delay(200);
-
-                if (resart_ == true)
-                {
-                    DispatchIfNecessary(() =>
-                {
-
-
-                    SnackBar.Appearance = ControlAppearance.Info;
-                    SnackBar.Title = "INFO";
-                    SnackBar.Message = VTOL.Resources.Languages.Language.PleaseWaitAsVTOLRestarts;
-                    SnackBar.Show();
-                });
-                    await Task.Delay(100);
-
-
-                    Restart();
-                }
-
-                unpack_flg = false;
-
-            }
-            else
+            }catch(Exception ex)
             {
-                DispatchIfNecessary(() =>
-                {
-                    Current_Ver_ = "1.0.0";
-                    Main.NORTHSTAR_BUTTON.Content = "Northstar Version - UNKNOWN!";
-                    Main.VERSION_TEXT.Text = "VTOL - " + ProductVersion + " |";
-                    Main.VERSION_TEXT.Refresh();
-                    Main.NORTHSTAR_BUTTON.Refresh();
-                    SnackBar.Appearance = ControlAppearance.Danger;
-                    SnackBar.Title = "WARNING!";
-                    SnackBar.Message = VTOL.Resources.Languages.Language.Page_Home_Auto_Install__NORTHSTARISNOTINSTALLEDANDAUTOINSTALLFAILED;
-                    SnackBar.Show();
-                });
-
-                unpack_flg = false;
-
+                MessageBox.Show(ex.Message);
             }
-
 
         }
        
@@ -841,7 +849,7 @@ int millisecondsDelay = 150)
         {
             await Task.Delay(500);
 
-            DispatchIfNecessary(() =>
+            DispatchIfNecessary(async () =>
             {
 
 
@@ -1128,16 +1136,16 @@ int millisecondsDelay = 150)
                             }
                             //Console.WriteLine("INVALID_NS");
 
-                            SnackBar.Appearance = ControlAppearance.Danger;
-                            SnackBar.Title = "WARNING!";
+                            SnackBar.Appearance = ControlAppearance.Caution;
+                            SnackBar.Title = "CAUTION";
                             SnackBar.Message = VTOL.Resources.Languages.Language.Page_Home_INIT_NORTHSTARAUTOINSTALLWILLNOWBEGINPLEASEWAITABOUT30SECONDS;
                             SnackBar.Timeout = 8000;
                             SnackBar.Show();
-                           
-                            Task check_task = Task.Run(() => Auto_Install_(true));
-                            check_task.Wait();
 
+                            //Task check_task = Task.Run(() => Auto_Install_(false));
+                            // check_task.Wait();
 
+                            Auto_Install_(false);
 
 
 
@@ -1183,7 +1191,7 @@ int millisecondsDelay = 150)
 
 
 
-                        throw new Exception("Automated Path Finding Failed!");
+                      //  throw new Exception("Automated Path Finding Failed!");
 
                     }
                     if (IsValidPath(FINAL))
@@ -1203,8 +1211,9 @@ int millisecondsDelay = 150)
                         }
                         if (Directory.Exists(Current_Install_Folder))
                         {
-                            Task check_task = Task.Run(() => Auto_Install_(false));
-                            check_task.Wait();
+                            //Task check_task = Task.Run(() => Auto_Install_(false));
+                            // check_task.Wait();
+                            Auto_Install_(false);
                         }
                         else
                         {
@@ -1311,15 +1320,14 @@ int millisecondsDelay = 150)
                 if (NS_Installed == true)
                 {
 
-                    DispatchIfNecessary(() =>
+                    DispatchIfNecessary(async () =>
                     {
-
-                        Update_Northstar_Button.Content = VTOL.Resources.Languages.Language.Page_Home_UpdateNorthstar;
+                        Update_Northstar_Button.Content = VTOL.Resources.Languages.Language.Page_Home_INIT_ReInstallNorthstar;
                     });
                 }
                 else
                 {
-                        DispatchIfNecessary(() =>
+                        DispatchIfNecessary(async () =>
                         {
 
                             Update_Northstar_Button.Content = VTOL.Resources.Languages.Language.Page_Home_INIT_InstallNorthstar;
@@ -1641,7 +1649,7 @@ int millisecondsDelay = 150)
         void Toggle_MS_BT(bool f)
         {
             try {
-                DispatchIfNecessary(() => {
+                DispatchIfNecessary(async () => {
 
                     if (f == true)
                     {
@@ -1703,68 +1711,71 @@ int millisecondsDelay = 150)
         }
 
 
-        async Task Check_origin_status()
+        async Task Check_EA_status()
         {
-            if (Properties.Settings.Default.EA_APP_SUPPORT == true)
+            DispatchIfNecessary(async () =>
             {
-                if (Check_Process_Running("EABackgroundService") == true)
+                if (Properties.Settings.Default.EA_APP_SUPPORT == true)
                 {
-                    DispatchIfNecessary(() =>
+                    if (Check_Process_Running("EABackgroundService") == true)
                     {
-                        EA_ORGIGIN_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#B2037F10");
-                        EA_ORGIGIN_Client_Card.IconFilled = true;
-                        return;
-                    });
+                        DispatchIfNecessary(async () =>
+                        {
+                            EA_ORGIGIN_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#B2037F10");
+                            EA_ORGIGIN_Client_Card.IconFilled = true;
+                            return;
+                        });
 
 
 
 
+                    }
+                    else
+                    {
+                        DispatchIfNecessary(async () =>
+                        {
+                            EA_ORGIGIN_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#99630000");
+                            EA_ORGIGIN_Client_Card.IconFilled = false;
+
+                            return;
+                        });
+
+                    }
                 }
                 else
                 {
-                    DispatchIfNecessary(() =>
+                    if (Check_Process_Running("OriginClientService") == true)
                     {
-                        EA_ORGIGIN_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#99630000");
-                        EA_ORGIGIN_Client_Card.IconFilled = false;
+                        DispatchIfNecessary(async () =>
+                        {
+                            EA_ORGIGIN_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#B2037F10");
+                            EA_ORGIGIN_Client_Card.IconFilled = true;
+                            return;
+                        });
 
-                        return;
-                    });
 
-                }
-            }
-            else
-            {
-                if (Check_Process_Running("OriginClientService") == true)
-                {
-                    DispatchIfNecessary(() =>
+
+
+                    }
+                    else
                     {
-                        EA_ORGIGIN_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#B2037F10");
-                        EA_ORGIGIN_Client_Card.IconFilled = true;
-                        return;
-                    });
+                        DispatchIfNecessary(async () =>
+                        {
+                            EA_ORGIGIN_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#99630000");
+                            EA_ORGIGIN_Client_Card.IconFilled = false;
 
+                            return;
+                        });
 
-
-
+                    }
                 }
-                else
-                {
-                    DispatchIfNecessary(() =>
-                    {
-                        EA_ORGIGIN_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#99630000");
-                        EA_ORGIGIN_Client_Card.IconFilled = false;
-
-                        return;
-                    });
-
-                }
-            }
+            });
 
 
         }
         public void SlowBlink(Control control, double minimumOpacity)
         {
-            DispatchIfNecessary(() =>
+            DispatchIfNecessary(async () =>
             {
                 // Create a DoubleAnimation to animate the control's Opacity property
                 var animation = new DoubleAnimation
@@ -1811,7 +1822,7 @@ int millisecondsDelay = 150)
         void Check_Log_Folder() {
             try
             {
-                DispatchIfNecessary(() => {
+                DispatchIfNecessary(async () => {
                     if (Directory.Exists(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\logs\"))
                     {
 
@@ -1848,13 +1859,13 @@ int millisecondsDelay = 150)
 
             }
         }
-        void Log_Changes_Timer_Tick(object sender, EventArgs e)
+        async void Log_Changes_Timer_Tick(object sender, EventArgs e)
         {
 
             BackgroundWorker worker_o = new BackgroundWorker();
             worker_o.DoWork += (sender, e) =>
             {
-                Check_origin_status();
+                Check_EA_status();
             };
 
             worker_o.RunWorkerAsync();
@@ -1866,39 +1877,39 @@ int millisecondsDelay = 150)
             try
             {
                 FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(Current_Install_Folder + @"NorthstarLauncher.exe");
-                if (myFileVersionInfo.FileVersion != null)
-                {
+                //if (myFileVersionInfo.FileVersion != null)
+                //{
 
-                    if (myFileVersionInfo.FileVersion.Contains("rc") || myFileVersionInfo.FileVersion.Contains("EV"))
-                    {
-                        SnackBar.Message = VTOL.Resources.Languages.Language.Check_For_New_Northstar_Install_ReleaseCandidateDetected;
-                        SnackBar.Title = "INFO";
-                        SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
-                        SnackBar.Show();
-                        return;
+                //    if (myFileVersionInfo.FileVersion.Contains("rc") || myFileVersionInfo.FileVersion.Contains("EV"))
+                //    {
+                //        SnackBar.Message = VTOL.Resources.Languages.Language.Check_For_New_Northstar_Install_ReleaseCandidateDetected;
+                //        SnackBar.Title = "INFO";
+                //        SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
+                //        SnackBar.Show();
+                //        return;
 
-                    }
-                }
+                //    }
+                //}
                 Updater Update = new Updater(User_Settings_Vars.Author, User_Settings_Vars.Repo);
                 Update.Force_Version = User_Settings_Vars.CurrentVersion;
                 Update.Force_Version_ = true;
                 if (Update.CheckForUpdate(true))
                 {
+                    Update_Northstar_Button.Content = VTOL.Resources.Languages.Language.Page_Home_UpdateNorthstar;
+                    SnackBar.Message = VTOL.Resources.Languages.Language.Page_Home_Check_For_New_Northstar_Install_With_Notif_ThereIsANewNorthstarVersionAvailablePleaseUpdateYourNorthstarInstall;
+                    SnackBar.Title = "INFO";
+                    SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
+                    SnackBar.Show();
                     if (User_Settings_Vars.Auto_Update_Northstar == true)
                     {
-                        
 
-                        
-                    }
-                    else
-                    {
+
+
+
+
+
+
                        
-
-
-                        //SnackBar.Message = VTOL.Resources.Languages.Language.Check_For_New_Northstar_Install_UpdateAvailableDownloadingAndInstallingNow;
-                        //SnackBar.Title = "INFO";
-                        //SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
-                        //SnackBar.Show();
                         if (!Current_Install_Folder.EndsWith(@"\"))
                         {
                             string fix = Current_Install_Folder + @"\";
@@ -1958,38 +1969,41 @@ int millisecondsDelay = 150)
 
         }
 
-        void UPDATES_TIMER_Tick(object sender, EventArgs e)
+       async void UPDATES_TIMER_Tick(object sender, EventArgs e)
         {
             try
             {
-                string Header = Path.GetFullPath(Path.Combine(System.Reflection.Assembly.GetExecutingAssembly().Location, @"../"));
-
-
-
-                updaterModulePath = Path.Combine(Header, "VTOL_Updater.exe");
-
-                Check_For_New_Northstar_Install_With_Notif();
-                if (File.Exists(updaterModulePath))
+                DispatchIfNecessary(async () =>
                 {
-                    Process process = Process.Start(updaterModulePath, "/justcheck");
-                    process.WaitForExit();
+                    string Header = Path.GetFullPath(Path.Combine(System.Reflection.Assembly.GetExecutingAssembly().Location, @"../"));
 
-                    if (process.ExitCode == 0)
+
+
+                    updaterModulePath = Path.Combine(Header, "VTOL_Updater.exe");
+
+                     Check_For_New_Northstar_Install_With_Notif();
+                    if (File.Exists(updaterModulePath))
                     {
-                        Main.VTOL_UPDATE_BADGE.Visibility = Visibility.Visible;
-                        process.Close();
-                    }
-                    else
-                    {
-                        Main.VTOL_UPDATE_BADGE.Visibility = Visibility.Hidden;
-                       // MessageBox.Show("Update not found!");
-                        process.Close();
+                        Process process = Process.Start(updaterModulePath, "/justcheck");
+                        process.WaitForExit();
+
+                        if (process.ExitCode == 0)
+                        {
+                            Main.VTOL_UPDATE_BADGE.Visibility = Visibility.Visible;
+                            process.Close();
+                        }
+                        else
+                        {
+                            Main.VTOL_UPDATE_BADGE.Visibility = Visibility.Hidden;
+                            // MessageBox.Show("Update not found!");
+                            process.Close();
+
+                        }
+
+
 
                     }
-
-
-                   
-                }
+                });
                 }
                     catch (Exception ex)
                     {
@@ -1997,72 +2011,75 @@ int millisecondsDelay = 150)
 
                     }
                 }
-            
-        
-        void timer_Tick(object sender, EventArgs e)
+
+
+        async void timer_Tick(object sender, EventArgs e)
         {
 
             try
             {
-                
-               
-                if (Properties.Settings.Default.Master_Server_Check == true )
+                DispatchIfNecessary(async () =>
                 {
-                    if (Main.Is_Focused == true)
+
+                    if (Properties.Settings.Default.Master_Server_Check == true)
                     {
-
-                        if (Fail_Counter_Ping != 5)
+                        if (Main.Is_Focused == true)
                         {
-                            BackgroundWorker worker = new BackgroundWorker();
-                            worker.DoWork += (sender, e) =>
-                            {
-                                PingHost();
 
+                            if (Fail_Counter_Ping != 5)
+                            {
+                                BackgroundWorker worker = new BackgroundWorker();
+                                worker.DoWork += (sender, e) =>
+                                {
+                                    PingHost();
+
+
+                                };
+
+                                worker.RunWorkerAsync();
+
+
+
+                                // Toggle_MS_BT(true);
+
+
+                            }
+                            else
+                            {
+                                Wpf.Ui.Controls.Snackbar D = new Wpf.Ui.Controls.Snackbar();
+                                D.Title = "Warning - Home Page!";
+                                D.Appearance = Wpf.Ui.Common.ControlAppearance.Caution;
+                                D.Message = VTOL.Resources.Languages.Language.Page_Home_timer_Tick_MasterServerCheckedAndTimedOutTooMuchTurningOffMasterServerChecks;
+                                D.Show();
+                                Toggle_MS_BT(false);
+                            }
+                            BackgroundWorker worker2 = new BackgroundWorker();
+                            worker2.DoWork += (sender, e) =>
+                            {
+                                DispatchIfNecessary(async () =>
+                                {
+
+                                    Check_Log_Folder();
+
+                                });
 
                             };
 
-                            worker.RunWorkerAsync();
-
-
-
-                            // Toggle_MS_BT(true);
-
-
+                            worker2.RunWorkerAsync();
                         }
-                        else
-                        {
-                            Wpf.Ui.Controls.Snackbar D = new Wpf.Ui.Controls.Snackbar();
-                            D.Title = "Warning - Home Page!";
-                            D.Appearance = Wpf.Ui.Common.ControlAppearance.Caution;
-                            D.Message = VTOL.Resources.Languages.Language.Page_Home_timer_Tick_MasterServerCheckedAndTimedOutTooMuchTurningOffMasterServerChecks;
-                            D.Show();
-                            Toggle_MS_BT(false);
-                        }
-                        BackgroundWorker worker2 = new BackgroundWorker();
-                        worker2.DoWork += (sender, e) =>
-                        {
-                            DispatchIfNecessary(() => {
-
-                                Check_Log_Folder();
-
-                            });
-
-                        };
-
-                        worker2.RunWorkerAsync();
                     }
-                }
-                else
-                {
-                    if (Master_Server_Card.Background != (SolidColorBrush)new BrushConverter().ConvertFrom("#99630000"))
+                    else
                     {
-                        Master_Server_Card.Icon = SymbolRegular.PlugDisconnected20;
+                        if (Master_Server_Card.Background != (SolidColorBrush)new BrushConverter().ConvertFrom("#99630000"))
+                        {
+                            Master_Server_Card.Icon = SymbolRegular.PlugDisconnected20;
 
-                        Master_Server_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#99630000");
+                            Master_Server_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#99630000");
 
+                        }
+                        return;
                     }
-                    return;
-                }
+                });
             }
             catch (Exception ex)
             {
@@ -2100,7 +2117,7 @@ int millisecondsDelay = 150)
 
                 if (result.IsSuccessStatusCode == true)
                 {
-                    DispatchIfNecessary(() => {
+                    DispatchIfNecessary(async () => {
 
                         Master_Server_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#B2037F10");
                         Master_Server_Card.Icon = SymbolRegular.PlugConnected20;
@@ -2114,7 +2131,7 @@ int millisecondsDelay = 150)
 
                 else
                 {
-                    DispatchIfNecessary(() => {
+                    DispatchIfNecessary(async () => {
 
                         LastHourSeries[0].Values.Add(new ObservableValue(0));
                         LastHourSeries[0].Values.RemoveAt(0);
@@ -2134,7 +2151,7 @@ int millisecondsDelay = 150)
                 {
                     if (((HttpWebResponse)wex.Response).StatusCode == HttpStatusCode.NotFound)
                     {
-                        DispatchIfNecessary(() => {
+                        DispatchIfNecessary(async () => {
 
                             LastHourSeries[0].Values.Add(new ObservableValue(0));
                             LastHourSeries[0].Values.RemoveAt(0);
@@ -2157,7 +2174,7 @@ int millisecondsDelay = 150)
             {
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
                
-                DispatchIfNecessary(() => {
+                DispatchIfNecessary(async () => {
 
                     LastHourSeries[0].Values.Add(new ObservableValue(0));
                     LastHourSeries[0].Values.RemoveAt(0);
@@ -2167,7 +2184,7 @@ int millisecondsDelay = 150)
             }
             //catch (PingException ex)
             //{
-            //    DispatchIfNecessary(() => {
+            //    DispatchIfNecessary(async () => {
 
             //        LastHourSeries[0].Values.Add(new ObservableValue(0));
             //        LastHourSeries[0].Values.RemoveAt(0);
@@ -2374,7 +2391,7 @@ int millisecondsDelay = 150)
                     Process tempProc = Process.GetProcessById(id);
                     if (Minimize_On_Launch == true)
                     {
-                        DispatchIfNecessary(() =>
+                        DispatchIfNecessary(async () =>
                         {
                             FadeAndMinimizeWindow(Main);
                         });
@@ -2645,7 +2662,7 @@ int millisecondsDelay = 150)
                         }
                         if (fail >= 3)
                         {
-                            DispatchIfNecessary(() =>
+                            DispatchIfNecessary(async () =>
                             {
 
                                 EA_ORGIGIN_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#99630000");
@@ -2655,7 +2672,7 @@ int millisecondsDelay = 150)
                         }
                         if (EAClient_Running == true)
                         {
-                            DispatchIfNecessary(() =>
+                            DispatchIfNecessary(async () =>
                             {
                                 EA_ORGIGIN_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#B2037F10");
                                 EA_ORGIGIN_Client_Card.IconFilled = true;
@@ -2666,7 +2683,7 @@ int millisecondsDelay = 150)
                     }
                     else
                     {
-                        DispatchIfNecessary(() =>
+                        DispatchIfNecessary(async () =>
                         {
                             SnackBar.Appearance = ControlAppearance.Danger;
                             SnackBar.Title = "WARNING!";
@@ -2775,7 +2792,7 @@ int millisecondsDelay = 150)
                             }
                             if (fail >= 3)
                             {
-                            DispatchIfNecessary(() =>
+                            DispatchIfNecessary(async () =>
                             {
 
                                 EA_ORGIGIN_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#99630000");
@@ -2786,7 +2803,7 @@ int millisecondsDelay = 150)
                             }
                         if (Origin_Client_Running == true)
                         {
-                            DispatchIfNecessary(() =>
+                            DispatchIfNecessary(async () =>
                             {
                                 EA_ORGIGIN_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#B2037F10");
                             EA_ORGIGIN_Client_Card.IconFilled = true;
@@ -2797,7 +2814,7 @@ int millisecondsDelay = 150)
                     }
                     else
                     {
-                        DispatchIfNecessary(() =>
+                        DispatchIfNecessary(async () =>
                         {
                             SnackBar.Appearance = ControlAppearance.Danger;
                             SnackBar.Title = "WARNING!";
@@ -2816,7 +2833,7 @@ int millisecondsDelay = 150)
             }
             catch (Exception ex)
             {
-                DispatchIfNecessary(() =>
+                DispatchIfNecessary(async () =>
                 {
 
                     EA_ORGIGIN_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#99630000");
@@ -3032,7 +3049,7 @@ int millisecondsDelay = 150)
         {
             if (fade_in == true)
             {
-                DispatchIfNecessary(() =>
+                DispatchIfNecessary( () =>
                 {
                     if (ProgressBar.Opacity < 1)
                     {
@@ -3051,7 +3068,7 @@ int millisecondsDelay = 150)
             }
             else
             {
-                DispatchIfNecessary(() =>
+                DispatchIfNecessary( () =>
                 {
                     if (ProgressBar.Opacity > 0)
                     {
@@ -3093,15 +3110,11 @@ int millisecondsDelay = 150)
             //file is not locked
             return false;
         }
-        private async Task Read_Latest_Release(string address, string json_name = "temp.json", bool Parse = true, bool Log_Msgs = true)
+        private async Task Read_Latest_Release(string address, string json_name = "temp.json", bool Parse = true)
         {
             if (address != null)
             {
-                if (Log_Msgs == true)
-                {
-                    // Send_Info_Notif("\nJson Download Started!");
-
-                }
+                
                 WebClient client = new WebClient();
                 webClient.Proxy = null;
                 WebRequest.DefaultWebProxy = null;
@@ -3110,6 +3123,7 @@ int millisecondsDelay = 150)
                 Stream data = client.OpenRead(address);
                 StreamReader reader = new StreamReader(data);
                 string s = reader.ReadToEnd();
+                client.Dispose();
 
 
 
@@ -3150,11 +3164,10 @@ int millisecondsDelay = 150)
                     Parse_Release();
                     
                 }
-
             }
             else
             {
-                DispatchIfNecessary(() =>
+                DispatchIfNecessary(async () =>
                 {
 
                     SnackBar.Appearance = ControlAppearance.Danger;
@@ -3235,7 +3248,7 @@ int millisecondsDelay = 150)
                 }
                 else
                 {
-                    DispatchIfNecessary(() =>
+                    DispatchIfNecessary(async () =>
                     {
 
                         //Send_Error_Notif(GetTextResource("NOTIF_ERROR_RELEASE_NOT_FOUND"));
@@ -3346,18 +3359,13 @@ int millisecondsDelay = 150)
         }
         async Task Install_NS_METHOD()
         {
-            await Task.Run(async () =>
-            {
+            
             try
                 {
                     webClient = new WebClient();
                     webClient.Proxy = null;
                     WebRequest.DefaultWebProxy = null;
-                    DispatchIfNecessary(() =>
-                    {
-                        Wpf.Ui.TaskBar.TaskBarProgress.SetValue(Main,Wpf.Ui.TaskBar.TaskBarProgressState.Normal,0);
-                        ProgressBar.Value = 0;
-                    });
+                   
                     Fade_In_Fade_Out_Control(true);
 
                     if (Directory.Exists(Current_Install_Folder + @"TempCopyFolder"))
@@ -3368,118 +3376,85 @@ int millisecondsDelay = 150)
                     
                 }
                   await Read_Latest_Release(Current_REPO_URL);
-                    await Task.Delay(300);
-
-
                     webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(Completed);
-                string x = "";
                 if (Directory.Exists(Current_Install_Folder)  && Current_Install_Folder != null && Current_Install_Folder != "NODATA")
                 {
-                    if (File.Exists(Current_Install_Folder + @"ns_startup_args_dedi.txt") && File.Exists(Current_Install_Folder + @"ns_startup_args.txt") )
+                    if (File.Exists(Current_Install_Folder + @"ns_startup_args_dedi.txt") && File.Exists(Current_Install_Folder + @"ns_startup_args.txt"))
                     {
 
-                        if (do_not_overwrite_Ns_file == true )
+                        if (do_not_overwrite_Ns_file == true)
                         {
                             if (Directory.Exists(Current_Install_Folder + @"TempCopyFolder"))
                             {
                                 if (Directory.Exists(Current_Install_Folder + @"ns_startup_args.txt"))
                                 {
-                                  await TryCopyFile(Current_Install_Folder + @"ns_startup_args.txt", Current_Install_Folder + @"TempCopyFolder\ns_startup_args.txt", true);
+                                    await TryCopyFile(Current_Install_Folder + @"ns_startup_args.txt", Current_Install_Folder + @"TempCopyFolder\ns_startup_args.txt", true);
                                 }
                                 if (Directory.Exists(Current_Install_Folder + @"ns_startup_args_dedi.txt"))
                                 {
-                                        await TryCopyFile(Current_Install_Folder + @"ns_startup_args_dedi.txt", Current_Install_Folder + @"TempCopyFolder\ns_startup_args_dedi.txt", true);
+                                    await TryCopyFile(Current_Install_Folder + @"ns_startup_args_dedi.txt", Current_Install_Folder + @"TempCopyFolder\ns_startup_args_dedi.txt", true);
                                 }
                             }
                             else
                             {
 
-                               TryCreateDirectory(Current_Install_Folder + @"TempCopyFolder");
+                                TryCreateDirectory(Current_Install_Folder + @"TempCopyFolder");
                                 if (Directory.Exists(Current_Install_Folder + @"ns_startup_args.txt"))
                                 {
-                                        await TryCopyFile(Current_Install_Folder + @"ns_startup_args.txt", Current_Install_Folder + @"TempCopyFolder\ns_startup_args.txt", true);
+                                    await TryCopyFile(Current_Install_Folder + @"ns_startup_args.txt", Current_Install_Folder + @"TempCopyFolder\ns_startup_args.txt", true);
                                 }
                                 if (Directory.Exists(Current_Install_Folder + @"ns_startup_args_dedi.txt"))
                                 {
-                                        await TryCopyFile(Current_Install_Folder + @"ns_startup_args_dedi.txt", Current_Install_Folder + @"TempCopyFolder\ns_startup_args_dedi.txt", true);
+                                    await TryCopyFile(Current_Install_Folder + @"ns_startup_args_dedi.txt", Current_Install_Folder + @"TempCopyFolder\ns_startup_args_dedi.txt", true);
                                 }
                             }
-                           TryCreateDirectory(AppDataFolder + @"\VTOL_DATA\Releases\");
-                            webClient.DownloadFileAsync(new Uri(current_Northstar_version_Url), AppDataFolder + @"\VTOL_DATA\Releases\Northstar_Release.zip");
-                            webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadProgressCallback_Progress_Window);
-
-
-                                while (unpack_flg == false)
-                                {
-                                    await Task.Delay(100);
-                                }
 
 
 
-
-                            }
-                            else
-                        {
-
-                                await TryCreateDirectory(AppDataFolder + @"\VTOL_DATA\Releases\");
-                            webClient.DownloadFileAsync(new Uri(current_Northstar_version_Url), AppDataFolder + @"\VTOL_DATA\Releases\Northstar_Release.zip");
-                            webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadProgressCallback_Progress_Window);
-                                while (unpack_flg == false)
-                                {
-                                    await Task.Delay(100);
-                                }
-
-
-
-
-                            }
-
-
-
-                        }
-                    else
-                    {
-
-                            await TryCreateDirectory(AppDataFolder + @"\VTOL_DATA\Releases\");
-                        webClient.DownloadFileAsync(new Uri(current_Northstar_version_Url), AppDataFolder + @"\VTOL_DATA\Releases\Northstar_Release.zip");
-                        webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadProgressCallback_Progress_Window);
-                           
-                            while ( unpack_flg == false)
-                            {
-                                await Task.Delay(100);
-                            }
 
 
                         }
                     }
 
+                        await TryCreateDirectory(AppDataFolder + @"\VTOL_DATA\Releases\");
+                        webClient.DownloadFileAsync(new Uri(current_Northstar_version_Url), AppDataFolder + @"\VTOL_DATA\Releases\Northstar_Release.zip");
+                        webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadProgressCallback_Progress_Window);
+
+                        while (unpack_flg == false)
+                        {
+                            await Task.Delay(100);
+                        }
+
+                    
+                        
+                    }
             }
             catch (Exception ex)
-                {
-                    Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-                   //Removed PaperTrailSystem Due to lack of reliability.
-                    DispatchIfNecessary(() =>
-                    {
-                        Fade_In_Fade_Out_Control(false);
+            {
 
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                //Removed PaperTrailSystem Due to lack of reliability.
+                
+                if (ex.Message.Contains("The remote server returned an error: (403) rate limit exceeded"))
+                {
+                    DispatchIfNecessary(async () =>
+                    {
+                        await Task.Delay(2000);
+                        SnackBar.Message = VTOL.Resources.Languages.Language.Page_Home_Install_NS_METHOD_GitHubRateLimitForDownloadTriesHasBeenExceededError403FromRemoteServerPleaseWait;
+                        SnackBar.Title = "ERROR";
+                        SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Caution;
+                        SnackBar.Show();
+                        await Task.Delay(500);
 
                     });
-                    if (ex.Message == "Sequence contains no elements")
-                {
-
-                }
-                else
-                {
-                    Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-
-
-
-
                 }
 
-                return;
-            }
+                DispatchIfNecessary(() =>
+                {
+                    Fade_In_Fade_Out_Control(false);
                 });
+            }
+              
         }
 
         public string GetFile(string directory, string Search,
@@ -3531,8 +3506,8 @@ int millisecondsDelay = 150)
         private void DownloadProgressCallback_Progress_Window(object sender, DownloadProgressChangedEventArgs e)
         {
 
-            // Displays the operation identifier, and the transfer progress.
-            DispatchIfNecessary(() =>
+            // Displays the operation identifier, anda the transfer progress.
+            DispatchIfNecessary(async () =>
             {
                 ProgressBar.Value = e.ProgressPercentage;
                 Wpf.Ui.TaskBar.TaskBarProgress.SetValue(Main, Wpf.Ui.TaskBar.TaskBarProgressState.Indeterminate, 50);
@@ -3548,7 +3523,7 @@ int millisecondsDelay = 150)
                 if (File.Exists(AppDataFolder + @"\VTOL_DATA\Releases\NorthStar_Release.zip"))
                 {
 
-                    DispatchIfNecessary(() =>
+                    DispatchIfNecessary(async () =>
                     {
                         ProgressBar.IsIndeterminate = true;
                 Wpf.Ui.TaskBar.TaskBarProgress.SetState(Main, Wpf.Ui.TaskBar.TaskBarProgressState.None);
@@ -3579,7 +3554,7 @@ int millisecondsDelay = 150)
 
                     }else
 
-                        DispatchIfNecessary(() =>
+                        DispatchIfNecessary(async () =>
                         
                         {
                             Fade_In_Fade_Out_Control(false);
@@ -3605,7 +3580,7 @@ int millisecondsDelay = 150)
                 }
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
                 //Removed PaperTrailSystem Due to lack of reliability.
-                DispatchIfNecessary(() =>
+                DispatchIfNecessary(async () =>
                 {
                     Fade_In_Fade_Out_Control(false);
                    
@@ -3668,7 +3643,7 @@ int millisecondsDelay = 150)
         public async Task<bool> TryCreateDirectory(
     string directoryPath,
     int maxRetries = 10,
-    int millisecondsDelay = 30)
+    int millisecondsDelay = 3)
         {
             if (directoryPath == null)
                 throw new ArgumentNullException(directoryPath);
@@ -3932,7 +3907,7 @@ int millisecondsDelay = 150)
                         User_Settings_Vars.CurrentVersion = Current_Ver_;
                         Properties.Settings.Default.Version = Current_Ver_;
                         Properties.Settings.Default.Save();
-                        DispatchIfNecessary(() =>
+                        DispatchIfNecessary(async () =>
                         {
                             Directory_Box.Text = Current_Install_Folder;
                             Main.NORTHSTAR_BUTTON.Content = "Northstar Version - " + Current_Ver_.Remove(0, 1);
@@ -3965,7 +3940,7 @@ int millisecondsDelay = 150)
                         {
                             Fade_In_Fade_Out_Control(false);
 
-                            DispatchIfNecessary(() =>
+                            DispatchIfNecessary(async () =>
                             {
                                  Wpf.Ui.TaskBar.TaskBarProgress.SetState(Main, Wpf.Ui.TaskBar.TaskBarProgressState.None);
 
@@ -3984,7 +3959,7 @@ int millisecondsDelay = 150)
                         {
                             Fade_In_Fade_Out_Control(false);
 
-                            DispatchIfNecessary(() =>
+                            DispatchIfNecessary(async () =>
                             {
                                 ProgressBar.Value = 0;
                                 Wpf.Ui.TaskBar.TaskBarProgress.SetState(Main, Wpf.Ui.TaskBar.TaskBarProgressState.None);
@@ -4004,7 +3979,7 @@ int millisecondsDelay = 150)
                 {
                     Fade_In_Fade_Out_Control(false);
 
-                    DispatchIfNecessary(() =>
+                    DispatchIfNecessary(async () =>
                     {
                         Wpf.Ui.TaskBar.TaskBarProgress.SetState(Main, Wpf.Ui.TaskBar.TaskBarProgressState.None);
 
@@ -4025,7 +4000,7 @@ int millisecondsDelay = 150)
             {
                 Fade_In_Fade_Out_Control(false);
 
-                DispatchIfNecessary(() =>
+                DispatchIfNecessary(async () =>
                 {
                     Wpf.Ui.TaskBar.TaskBarProgress.SetValue(Main, Wpf.Ui.TaskBar.TaskBarProgressState.Normal, 0);
 
@@ -4133,7 +4108,7 @@ int millisecondsDelay = 150)
             BackgroundWorker worker_o = new BackgroundWorker();
             worker_o.DoWork += (sender, e) =>
             {
-                Check_origin_status();
+                Check_EA_status();
             };
 
             worker_o.RunWorkerAsync();
@@ -4171,7 +4146,7 @@ int millisecondsDelay = 150)
         }
         void ShowWelcome()
         {
-            DispatchIfNecessary(() =>
+            DispatchIfNecessary(async () =>
             {
                 DispatchIfNecessary(async () =>
                 {
@@ -4190,7 +4165,7 @@ int millisecondsDelay = 150)
         }
         private void EXE_BUTTON_MouseEnter(object sender, MouseEventArgs e)
         {
-            DispatchIfNecessary(() =>
+            DispatchIfNecessary(async () =>
             {
                 EXE_BUTTON.IconFilled = true;
             });
@@ -4199,7 +4174,7 @@ int millisecondsDelay = 150)
         private void EXE_BUTTON_MouseLeave(object sender, MouseEventArgs e)
         {
             try { 
-            DispatchIfNecessary(() =>
+            DispatchIfNecessary(async () =>
             {
                 EXE_BUTTON.IconFilled = false;
 
@@ -4228,7 +4203,7 @@ int millisecondsDelay = 150)
         private void StartPulseAnimation(double minimumOpacity)
         {
             try { 
-            DispatchIfNecessary(() =>
+            DispatchIfNecessary(async () =>
             {
                 // Create a DoubleAnimation to animate the control's Opacity property
                 var animation = new DoubleAnimation
@@ -4289,7 +4264,7 @@ int millisecondsDelay = 150)
         private void Welcome_Close_Click(object sender, RoutedEventArgs e)
         {
             try { 
-            DispatchIfNecessary(() =>
+            DispatchIfNecessary(async () =>
             {
                 WELCOME_BANNER.Visibility = Visibility.Collapsed;
                 Main.RootNavigation.IsEnabled = true;
@@ -4373,7 +4348,7 @@ int millisecondsDelay = 150)
                                 User_Settings_Vars.CurrentVersion = Current_Ver_;
                                 Properties.Settings.Default.Version = Current_Ver_;
                                 Properties.Settings.Default.Save();
-                                DispatchIfNecessary(() =>
+                                DispatchIfNecessary(async () =>
                                 {
                                     Directory_Box.Text = Current_Install_Folder;
                                     Main.NORTHSTAR_BUTTON.Content = "Northstar Version - " + Current_Ver_.Remove(0, 1);

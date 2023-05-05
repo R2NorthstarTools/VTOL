@@ -263,7 +263,7 @@ namespace VTOL.Pages
 
                             }
                             Console.WriteLine("Finished_Mod_Load");
-                            DispatchIfNecessary(() =>
+                            DispatchIfNecessary(async () =>
                             {
 
                                 ApplyDataBinding();
@@ -460,7 +460,7 @@ namespace VTOL.Pages
 
                                 }
                             });
-                                DispatchIfNecessary(() =>
+                                DispatchIfNecessary(async () =>
                                 {
 
                                     ApplyDataBinding();
@@ -1061,7 +1061,7 @@ namespace VTOL.Pages
 
                 Call_Mods_From_Folder();
 
-                DispatchIfNecessary(() =>
+                DispatchIfNecessary(async () =>
                 {
 
                     ApplyDataBinding();
@@ -1820,7 +1820,7 @@ namespace VTOL.Pages
         {
             try
             {
-                DispatchIfNecessary(() =>
+                DispatchIfNecessary(async () =>
                 {
                     if (Apply_Change == true)
                     {
@@ -1913,7 +1913,7 @@ namespace VTOL.Pages
                         worker.DoWork += (sender, e) =>
                         {
 
-                            DispatchIfNecessary(() =>
+                            DispatchIfNecessary(async () =>
                             {
                                 Page_Thunderstore PP = new Page_Thunderstore();
                                 Main.RootFrame.Navigate(PP); //FrameContent is the name given to the frame within the xaml.
@@ -2723,7 +2723,7 @@ int millisecondsDelay = 150)
                     }
                     else
                     {
-                        DispatchIfNecessary(() =>
+                        DispatchIfNecessary(async () =>
                         {
                             Log.Warning("The File" + Target_Zip + "Is not a zip!!");
                             Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Caution;
@@ -2733,7 +2733,7 @@ int millisecondsDelay = 150)
 
                     }
 
-                    DispatchIfNecessary(() =>
+                    DispatchIfNecessary(async () =>
                     {
 
                         Snackbar.Title = "SUCCESS";

@@ -319,7 +319,7 @@
     <value>Manually Change the Titanfall 2 Install Directory</value>
   </data>
   <data name="Page_Home_UpdateNorthstar" xml:space="preserve">
-    <value>Update +Northstar</value>
+    <value>Update Northstar</value>
   </data>
   <data name="Page_Home_NorthstarInstallation" xml:space="preserve">
     <value>Northstar Installation </value>
@@ -668,5 +668,14 @@
   </data>
   <data name="Page_Thunderstore_ConvertDateToString_HoursAgo" xml:space="preserve">
     <value>hours ago</value>
+  </data>
+  <data name="Page_Home_INIT_ReInstallNorthstar" xml:space="preserve">
+    <value>Re-Install Northstar</value>
+  </data>
+  <data name="Page_Home_Check_For_New_Northstar_Install_With_Notif_ThereIsANewNorthstarVersionAvailablePleaseUpdateYourNorthstarInstall" xml:space="preserve">
+    <value>There Is a new Northstar Version Available. Please update your Northstar Install.</value>
+  </data>
+  <data name="Page_Home_Install_NS_METHOD_GitHubRateLimitForDownloadTriesHasBeenExceededError403FromRemoteServerPleaseWait" xml:space="preserve">
+    <value>GitHub Rate limit for Download tries has been exceeded. error 403 from remote server. Please wait</value>
   </data>
 </root>

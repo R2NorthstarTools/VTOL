@@ -1837,7 +1837,7 @@ int millisecondsDelay = 300)
         private string GetSkinPackRootPath()
         {
             string f = null;
-            DispatchIfNecessary(() => {
+            DispatchIfNecessary(async () => {
                 f = Output_Directory.Text + "\\" + SelectedWeapon + "_" + Skin_Name.Text + ".zip";
             });
             return f;
@@ -2874,7 +2874,7 @@ private readonly Dictionary<string, string> weaponNameToPath = new()
                 if (X == true)
                 {
                    
-                    DispatchIfNecessary(() =>
+                    DispatchIfNecessary(async () =>
                     {
                         if (Icon_Bg.Source.ToString().Contains("advocate_announcement_1.png"))
                         {
@@ -2898,7 +2898,7 @@ private readonly Dictionary<string, string> weaponNameToPath = new()
                     Thread.Sleep(420);
 
 
-                    DispatchIfNecessary(() =>
+                    DispatchIfNecessary(async () =>
                 {
 
                     if (Icon_Bg.Opacity == 0)
@@ -2931,7 +2931,7 @@ private readonly Dictionary<string, string> weaponNameToPath = new()
                 else
                 {
                    
-                    DispatchIfNecessary(() =>
+                    DispatchIfNecessary(async () =>
                     {
                         if (Icon_Bg.Source.ToString().Contains("Tools-Silhouette-Transparent.png"))
                         {
@@ -2954,7 +2954,7 @@ private readonly Dictionary<string, string> weaponNameToPath = new()
 
 
                     Thread.Sleep(420);
-                    DispatchIfNecessary(() =>
+                    DispatchIfNecessary(async () =>
                     {
                     if (Icon_Bg.Opacity == 0)
                     {
@@ -3400,7 +3400,7 @@ private readonly Dictionary<string, string> weaponNameToPath = new()
             {
                 await Task.Run(() =>
                 {
-                    DispatchIfNecessary(() =>
+                    DispatchIfNecessary(async () =>
                     {
                         string arguments = "";
                         if (Custom_ == false)
@@ -3482,7 +3482,7 @@ private readonly Dictionary<string, string> weaponNameToPath = new()
            
             await Task.Run(() =>
             {
-                DispatchIfNecessary(() =>
+                DispatchIfNecessary(async () =>
                 {
                     SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Download_Zip_To_Path_DownloadingAndInstalling + Sub_Name;
                     SnackBar.Title = "INFO";
@@ -3534,7 +3534,7 @@ private readonly Dictionary<string, string> weaponNameToPath = new()
         {
             await Task.Run(() =>
             {
-                DispatchIfNecessary(() => {
+                DispatchIfNecessary(async () => {
                     SnackBar.Message = VTOL.Resources.Languages.Language.Page_Skins_OPEN_WEBPAGE_OpeningTheFollowingURL + URL;
                     SnackBar.Title = "INFO";
                     SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
@@ -3555,7 +3555,7 @@ private readonly Dictionary<string, string> weaponNameToPath = new()
 
             await Task.Run(async () => //Task.Run automatically unwraps nested Task types!
             {
-                DispatchIfNecessary(() =>
+                DispatchIfNecessary(async () =>
                 {
                    
                     if (Directory.Exists(Tools_Dir))

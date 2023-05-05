@@ -268,6 +268,16 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There Is a new Northstar Version Available. Please update your Northstar Install..
+        /// </summary>
+        public static string Page_Home_Check_For_New_Northstar_Install_With_Notif_ThereIsANewNorthstarVersionAvailablePleaseUpdateYourNorthstarInstall {
+            get {
+                return ResourceManager.GetString("Page_Home_Check_For_New_Northstar_Install_With_Notif_ThereIsANewNorthstarVersionA" +
+                        "vailablePleaseUpdateYourNorthstarInstall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Current Titanfall 2 Path.
         /// </summary>
         public static string Page_Home_CurrentTitanfall2Path {
@@ -322,11 +332,30 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Re-Install Northstar.
+        /// </summary>
+        public static string Page_Home_INIT_ReInstallNorthstar {
+            get {
+                return ResourceManager.GetString("Page_Home_INIT_ReInstallNorthstar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Update Northstar.
         /// </summary>
         public static string Page_Home_INIT_UpdateNorthstar {
             get {
                 return ResourceManager.GetString("Page_Home_INIT_UpdateNorthstar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GitHub Rate limit for Download tries has been exceeded. error 403 from remote server. Please wait.
+        /// </summary>
+        public static string Page_Home_Install_NS_METHOD_GitHubRateLimitForDownloadTriesHasBeenExceededError403FromRemoteServerPleaseWait {
+            get {
+                return ResourceManager.GetString("Page_Home_Install_NS_METHOD_GitHubRateLimitForDownloadTriesHasBeenExceededError40" +
+                        "3FromRemoteServerPleaseWait", resourceCulture);
             }
         }
         
@@ -504,7 +533,7 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Update +Northstar.
+        ///   Looks up a localized string similar to Update Northstar.
         /// </summary>
         public static string Page_Home_UpdateNorthstar {
             get {

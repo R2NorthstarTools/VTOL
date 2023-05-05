@@ -691,11 +691,7 @@ int millisecondsDelay = 150)
 
 
 
-            //Log.Logger = new LoggerConfiguration()
-            //     .MinimumLevel.Debug()
-            //     .WriteTo.Console()
-            //     .WriteTo.File("logs/myapp.txt", rollingInterval: RollingInterval.Day)
-            //     .CreateLogger();
+           
 
         }
         // Event handler
@@ -848,15 +844,10 @@ int millisecondsDelay = 150)
 
                 HashSet<string> existingMods = new HashSet<string>();
 
-                // Check if the file exists and read its contents into a HashSet
-                //if (File.Exists(filePath))
-                //{
-                //    existingMods = ReadHSet(filePath,false);
-                //}
+              
 
                 // Combine the existing and new mods into a single set and remove duplicates
                 HashSet<string> allMods = new HashSet<string>(Fave_Mods);
-                //allMods.UnionWith(existingMods);
 
                 if (allMods.Count > 0)
                 {
@@ -1751,12 +1742,12 @@ int millisecondsDelay = 150)
         {
 
             if (Sort.SelectedItem != null) {
-                if (Reverse_ == false)
+                if (Reverse_ == true)
                 {
                     if (Sort.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Name"))
                     {
 
-                        List = List.OrderBy(ob => ob.Name).ToList();
+                        List = List.OrderByDescending(ob => ob.Name).ToList();
 
                     }
                     else if (Sort.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Rating"))
@@ -1819,7 +1810,7 @@ int millisecondsDelay = 150)
                     if (Sort.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Name"))
                     {
 
-                        List = List.OrderByDescending(ob => ob.Name).ToList();
+                        List = List.OrderBy(ob => ob.Name).ToList();
 
                     }
                     else if (Sort.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Rating"))
@@ -1870,8 +1861,8 @@ int millisecondsDelay = 150)
                     }
                     else if (Sort.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Favourites"))
                     {
-                        List = List.Where(item => item.Button_label.ToString().Contains("Favourites")).OrderByDescending(ob => ob.Name).ToList();
-
+                        //List = List.Where(item => item.Button_label.ToString().Contains("Favourites")).OrderByDescending(ob => ob.Name).ToList();
+                        List = List.Where(item => item.is_Favourite_.ToString().Equals("1")).OrderByDescending(ob => ob.Name).ToList();
                     }
                     else
                     {
@@ -3002,7 +2993,7 @@ int millisecondsDelay = 300)
                     {
                         Action_Card_.Completed = "ErrorCircle20";
                         Main.Action_Center_Progress_Text.Text = null;
-                        Action_Card_.Progress = 0;
+                        Action_Card_.Progress = 100;
                         Main.Action_Center.ItemsSource = Action_Center;
                         Main.Action_Center.Refresh();
                         return;
@@ -3146,17 +3137,15 @@ int millisecondsDelay = 300)
                                 }
                               
 
-                                if (File.Exists(Path.Combine(Destination, "manifest.json")))
-                                {
-                                    // If file found, delete it    
-                                    await TryDeleteFile(Path.Combine(Destination, "manifest.json"));
-                }
+                                
 
 
                 Update_ActionCard_Progress(Action_Card_);
 
                 if (NS_CANDIDATE_INSTALL == false && Skin_Install == false)
                 {
+                   
+
                     string searchQuery3 = "*" + "mod.json" + "*";
 
 
@@ -3167,6 +3156,11 @@ int millisecondsDelay = 300)
                     Destinfo.Attributes &= ~FileAttributes.ReadOnly;
                     if (Script.Length != 0 && Script.Length <= 1)
                     {
+                        if (File.Exists(Path.Combine(Destination, "manifest.json")))
+                        {
+                            // If file found, delete it    
+                            await TryDeleteFile(Path.Combine(Destination, "manifest.json"));
+                        }
                         var File_ = Script.FirstOrDefault();
 
 
@@ -3230,6 +3224,11 @@ int millisecondsDelay = 300)
                     }
                     else if (Script.Length > 1)
                     {
+                        if (File.Exists(Path.Combine(Destination, "manifest.json")))
+                        {
+                            // If file found, delete it    
+                            await TryDeleteFile(Path.Combine(Destination, "manifest.json"));
+                        }
                         Update_ActionCard_Progress(Action_Card_);
                         bool copy_direcory_list = false;
                         if (Script.Length > 2)
@@ -3287,7 +3286,7 @@ int millisecondsDelay = 300)
                         if (Directory.Exists(pluginsFolderPath))
                         {
                             // Combine destination folder path and plugins folder name
-                            string destFolderPath = Path.Combine(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\", pluginsFolderName + @"\"+mod_name);
+                            string destFolderPath = Path.Combine(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\", pluginsFolderName + @"\" + mod_name);
                             if (!Directory.Exists(destFolderPath))
                             {
                                 TryCreateDirectory(destFolderPath);
@@ -3304,6 +3303,20 @@ int millisecondsDelay = 300)
                                 string destFile = Path.Combine(destFolderPath, fileName);
                                 await TryCopyFile(file, destFile, true);
                             }
+                            if (File.Exists(Path.Combine(Destination, "manifest.json")))
+                            {
+                                //var myJsonString = File.ReadAllText(Path.Combine(Destination, "manifest.json"));
+                                //dynamic myJObject = JObject.Parse(myJsonString);
+                                //string name = myJObject.Name;
+                                //string version = myJObject.Version;
+                                //string Description = myJObject.Description;
+                                //string Content = Description + Environment.NewLine + version;
+
+                               
+                            
+                            // If file found, move it    
+                            await TryMoveFile(Path.Combine(Destination, "manifest.json"), Path.Combine(destFolderPath, "manifest.json"));
+                        }
                             await TryDeleteDirectory(User_Settings_Vars.NorthstarInstallLocation + @"Northstar_TEMP_FILES\");
                             Update_ActionCard_Progress(Action_Card_, 40);
 
@@ -3353,7 +3366,11 @@ int millisecondsDelay = 300)
 
                 else if(NS_CANDIDATE_INSTALL == true && Skin_Install == false)
                 {
-
+                    if (File.Exists(Path.Combine(Destination, "manifest.json")))
+                    {
+                        // If file found, delete it    
+                        await TryDeleteFile(Path.Combine(Destination, "manifest.json"));
+                    }
                     DispatchIfNecessary(async () =>
                     {
                         Update_ActionCard_Progress(Action_Card_, 20);
@@ -3598,7 +3615,12 @@ int millisecondsDelay = 300)
 
                 else 
                                 {
-                                    var ext = new List<string> { "zip" };
+                    if (File.Exists(Path.Combine(Destination, "manifest.json")))
+                    {
+                        // If file found, delete it    
+                        await TryDeleteFile(Path.Combine(Destination, "manifest.json"));
+                    }
+                    var ext = new List<string> { "zip" };
                                     var myFiles = Directory.EnumerateFiles(Destination, "*.*", SearchOption.AllDirectories).Where(s => ext.Contains(Path.GetExtension(s).TrimStart('.').ToLowerInvariant()));
 
                                     await Install_Skin_Async_Starter(myFiles, Destination);
@@ -3746,18 +3768,18 @@ int millisecondsDelay = 300)
                 DispatchIfNecessary(async () =>
                 {
                     Update_ActionCard_Progress(Action_Card_, 10, false, true);
+                    MessageBox.Show(ex.Message);
 
-                    if (_downloadQueue != null)
-                    {
-                        _downloadQueue.CancelDownload(mod_name);
-                    }
+                    //if (_downloadQueue != null)
+                    //{
+                    //    _downloadQueue.CancelDownload(mod_name);
+                    //}
                     if (Progress_Bar != null)
                     {
                         Progress_Bar.Value = 0;
                     }
                 });
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-
 
             }
         }
@@ -3978,7 +4000,7 @@ int millisecondsDelay = 300)
                     if (clear_all)
                     {
                         List<Action_Card> removedCards = _myClass.Action_Center
-    .Where(card => card.Completed != "Dismiss16" && card.Completed != "ErrorCircle20" && card.Progress > 90)
+    .Where(card => card.Completed != "Dismiss16"  && card.Progress > 90)
     .ToList();
 
                         Main.DispatchIfNecessary(() =>
@@ -3987,7 +4009,7 @@ int millisecondsDelay = 300)
                             Main.Action_Center_Progress_Text.Text = null;
 
 
-                            _myClass.Action_Center.RemoveAll(card => card.Completed != "Dismiss16" && card.Completed != "ErrorCircle20" && card.Progress > 90);
+                            _myClass.Action_Center.RemoveAll(card => card.Completed != "Dismiss16"  && card.Progress > 90);
 
 
 
@@ -4016,8 +4038,8 @@ int millisecondsDelay = 300)
                         Action_Card card = _myClass.Action_Center.FirstOrDefault(c => c.GetType() == typeof(Action_Card) && c.Name.ToLower() == item.Name.ToLower());
                         if (card != null)
                         {
-                            if (card.Completed == "Dismiss16" ||
-                               card.Completed == "ErrorCircle20" || card.Progress < 90)
+                            if (card.Completed == "Dismiss16" 
+                                || card.Progress < 90)
                             {
                                 return;
                             }
@@ -4683,7 +4705,6 @@ int millisecondsDelay = 300)
                             Favourite_.Tag = "0";
                             _Panel.Refresh();
 
-                            //TODO complete the removal of items from list the write back to file for the faourites
                         }
                         else
                         {
@@ -4765,7 +4786,6 @@ int millisecondsDelay = 300)
                 }
             }catch(Exception ex)
             {
-
 
             }
         }
