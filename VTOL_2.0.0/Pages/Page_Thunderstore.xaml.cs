@@ -4772,8 +4772,7 @@ int millisecondsDelay = 300)
                 string fileName = name + ".mc";
                 string filePath = Path.Combine(Destination, fileName);
 
-                string path = Directory.GetParent(directory).ToString() + @"\" + name;
-                string fileContent = path + Environment.NewLine;
+               string fileContent = directory + Environment.NewLine;
 
                 if (File.Exists(filePath) && !overwrite)
                 {

@@ -89,13 +89,7 @@ namespace VTOL
         bool failed_folder = false;
         public bool minimize_to_tray = false;
         
-        static void Main(string[] args)
-
-
-        {
-
-
-        }
+     
         public string ProductVersion
         {
             get
@@ -121,7 +115,6 @@ namespace VTOL
 
             try
             {
-
                 NotificationManager =  new NotificationManager();
                 minimize_to_tray =  Properties.Settings.Default.Minimize_to_Tray;
                 Profile_TAG.Content = Properties.Settings.Default.Profile_Name;
@@ -150,7 +143,11 @@ namespace VTOL
                         }
                     }
                 }
+                if (User_Settings_Vars == null)
+                {
 
+                    User_Settings_Vars = new User_Settings();
+                }
                 if (Directory.Exists(AppDataFolder))
                 {
 
@@ -222,16 +219,17 @@ namespace VTOL
                         }
 
 
-                            
+
                     //Application.Current.Shutdown();
 
                 }
-                if(failed_folder == true)
+                if (failed_folder == true)
                 {
                     AppDataFolder = Properties.Settings.Default.BACKUP_SAVE_DEST;
 
-                  
+
                 }
+                
                 if (User_Settings_Vars != null)
                 {
 
@@ -279,6 +277,7 @@ namespace VTOL
                     Send_Danger_Notif("Could Not Read User Settings, Please Run as Admin or Repair/Clean your Installation", 10000);
 
                 }
+
                 Wpf.Ui.Appearance.Theme.Apply(
             Wpf.Ui.Appearance.ThemeType.Unknown,
   // Theme type
@@ -301,15 +300,16 @@ namespace VTOL
 
                 }
 
-               
+
             }
 
 
             catch (Exception ex)
             {
-               
 
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                MessageBox.Show(Log.Logger.ToString());
+
             }
 
 

@@ -3,6 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+
       xmlns:local="clr-namespace:VTOL.Pages"
          
         mc:Ignorable="d" 
@@ -11,7 +12,62 @@
       d:DesignHeight="670" d:DesignWidth="1148"
                xmlns:properties="clr-namespace:VTOL.Resources.Languages"
 
-      Title="Page_Tools">
+      Title="Page_Tools"
+        
+        
+        >
+    <Page.Resources>
+
+        <HierarchicalDataTemplate x:Key="TreeViewItemStyle" ItemsSource="{Binding Git_Items}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Arrow Expander -->
+                    <ToggleButton x:Name="Expander" ClickMode="Press" IsChecked="{Binding Path=IsExpanded, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TreeViewItem}}}">
+                        <ToggleButton.Template>
+                            <ControlTemplate TargetType="ToggleButton">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <VisualStateManager.VisualStateGroups>
+                                        <VisualStateGroup x:Name="CommonStates">
+                                            <VisualState x:Name="Normal"/>
+                                            <VisualState x:Name="Pressed">
+                                                <Storyboard>
+                                                    <ColorAnimation Storyboard.TargetName="Arrow" Storyboard.TargetProperty="(Fill).Color" To="Black" Duration="0"/>
+                                                </Storyboard>
+                                            </VisualState>
+                                            <VisualState x:Name="MouseOver">
+                                                <Storyboard>
+                                                    <ColorAnimation Storyboard.TargetName="Arrow" Storyboard.TargetProperty="(Fill).Color" To="Black" Duration="0"/>
+                                                </Storyboard>
+                                            </VisualState>
+                                        </VisualStateGroup>
+                                    </VisualStateManager.VisualStateGroups>
+                                    <Path x:Name="Arrow" Grid.Column="1" Fill="Transparent" Stroke="Black" HorizontalAlignment="Center" VerticalAlignment="Center" Data="M0,0 L0,6 L6,0 Z"/>
+                                </Grid>
+                            </ControlTemplate>
+                        </ToggleButton.Template>
+                    </ToggleButton>
+
+                    <!-- Icon -->
+                    <Image Source="{Binding Icon}" Width="16" Height="16" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="4,0,0,0"/>
+
+                    <!-- TreeViewItem content -->
+                <ContentPresenter Grid.Column="2"/>
+
+                    <!-- Download Button -->
+                    <Button Content="Download" Grid.Column="3" HorizontalAlignment="Right" Margin="6,0" Visibility="{Binding IsDownloadButtonVisible, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                </Grid>
+            </HierarchicalDataTemplate>
+    </Page.Resources>
 
     <Grid UseLayoutRounding="True" >
         <Image x:Name="Icon_Bg" Source="/Resources/Icons/Main_UI/Tools-Silhouette-Transparent.png" Margin="602,199,-112,-192" Opacity="0.2" IsHitTestVisible="False" IsEnabled="False" AllowDrop="False" Stretch="Uniform" MinWidth="250" MinHeight="251" UseLayoutRounding="True" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
@@ -657,8 +713,37 @@
 
                 </Grid>
             </TabItem>-->
+            
             <TabItem Header="Database Explorer">
-                </TabItem >
+                <hc:ScrollViewer  Height="577" >
+                    <StackPanel>
+                        <TreeView ItemTemplate="{StaticResource TreeViewItemStyle}" VirtualizingStackPanel.IsVirtualizing="True" x:Name="Git_TreeView" Margin="38,41,38,0" Height="340" Background="#FF404240" Padding="3">
+                            <TreeView.ItemContainerStyle>
+                                <Style TargetType="{x:Type TreeViewItem}">
+                                    <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}"/>
+                                    <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}"/>
+                                </Style>
+                            </TreeView.ItemContainerStyle>
+
+                            <TreeViewItem Header="Employee1">
+                                <TreeViewItem Header="Jesper"/>
+                                <TreeViewItem Header="Aaberg"/>
+                                <TreeViewItem Header="12345"/>
+                            </TreeViewItem>
+                            <TreeViewItem Header="Employee2">
+                                <TreeViewItem Header="Dominik"/>
+                                <TreeViewItem Header="Paiha"/>
+                                <TreeViewItem Header="98765"/>
+                            </TreeViewItem>
+                        </TreeView>
+                        <Border Height="100" Margin="38,19,38,0" BorderBrush="#7FFFFFFF" VerticalAlignment="Center" HorizontalAlignment="Stretch">
+                            <Grid Background="#FF404240">
+
+                            </Grid>
+                        </Border>
+                    </StackPanel>
+                </hc:ScrollViewer  >
+            </TabItem >
         </TabControl>
 
         <!--<ui:Dialog x:Name="Error_Dialog" />-->

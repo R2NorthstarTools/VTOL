@@ -351,35 +351,47 @@ namespace VTOL.Pages
         int showcntr = 0;
         public Page_Home()
         {
+            try
+            {
 
             InitializeComponent();
-            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+            
+                AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
 
 
 
-            WARNING_BANNER.Visibility = Visibility.Collapsed;
+                WARNING_BANNER.Visibility = Visibility.Collapsed;
+                if(Main != null)
+                {
 
-            User_Settings_Vars = Main.User_Settings_Vars;
-            AppDataFolder = Main.AppDataFolder;
-            SnackBar = Main.Snackbar;
-            Current_Install_Folder = User_Settings_Vars.NorthstarInstallLocation;
-            DispatcherTimer Log_Changes_Timer = new DispatcherTimer();
-            DispatcherTimer UPDATES_TIMER = new DispatcherTimer();
-            DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(2);
-            Log_Changes_Timer.Interval = TimeSpan.FromSeconds(10);
-            UPDATES_TIMER.Interval = TimeSpan.FromSeconds(320);
-            UPDATES_TIMER.Tick += UPDATES_TIMER_Tick;
-            timer.Tick += timer_Tick;
-            Log_Changes_Timer.Tick += Log_Changes_Timer_Tick;
+               
+                User_Settings_Vars = Main.User_Settings_Vars;
+                AppDataFolder = Main.AppDataFolder;
+                SnackBar = Main.Snackbar;
+                if (User_Settings_Vars != null)
+                {
+                    Current_Install_Folder = User_Settings_Vars.NorthstarInstallLocation;
 
-            timer.Start();
-            Log_Changes_Timer.Start();
-            UPDATES_TIMER.Start();
-            showcntr = Properties.Settings.Default.Banner_CNTR;
-            Random random_ = new Random();
+                }
+               
+                }
+                DispatcherTimer Log_Changes_Timer = new DispatcherTimer();
+                DispatcherTimer UPDATES_TIMER = new DispatcherTimer();
+                DispatcherTimer timer = new DispatcherTimer();
+                timer.Interval = TimeSpan.FromSeconds(2);
+                Log_Changes_Timer.Interval = TimeSpan.FromSeconds(10);
+                UPDATES_TIMER.Interval = TimeSpan.FromSeconds(150);
+                UPDATES_TIMER.Tick += UPDATES_TIMER_Tick;
+                timer.Tick += timer_Tick;
+                Log_Changes_Timer.Tick += Log_Changes_Timer_Tick;
 
-            LastHourSeries = new SeriesCollection
+                timer.Start();
+                Log_Changes_Timer.Start();
+                UPDATES_TIMER.Start();
+                showcntr = Properties.Settings.Default.Banner_CNTR;
+                Random random_ = new Random();
+
+                LastHourSeries = new SeriesCollection
             {
                 new LineSeries
                 {
@@ -397,102 +409,112 @@ namespace VTOL.Pages
                     }
                 }
             };
-            DirectoryInfo d = new DirectoryInfo(Directory.GetParent(System.Reflection.Assembly.GetExecutingAssembly().Location.ToString()).FullName + "/Resources/Backgrounds/Backgrounds_Home_Page");
-            FileInfo[] Files = d.GetFiles(); //Getting Text files
-            foreach (FileInfo file in Files)
-            {
-                _Images.Add(@"pack://application:,,,/Resources/Backgrounds/Backgrounds_Home_Page/" + file.Name);
-            }
+                DirectoryInfo d = new DirectoryInfo(Directory.GetParent(System.Reflection.Assembly.GetExecutingAssembly().Location.ToString()).FullName + "/Resources/Backgrounds/Backgrounds_Home_Page");
+                FileInfo[] Files = d.GetFiles(); //Getting Text files
+                foreach (FileInfo file in Files)
+                {
+                    _Images.Add(@"pack://application:,,,/Resources/Backgrounds/Backgrounds_Home_Page/" + file.Name);
+                }
 
-            Random random = new Random();
-            BitmapImage bitmap = new BitmapImage();
+                Random random = new Random();
+                BitmapImage bitmap = new BitmapImage();
 
-            bitmap.BeginInit();
-            bitmap.UriSource = new Uri(_Images[random.Next(0, _Images.Count - 1)]);
-            bitmap.EndInit();
-            Image.Source = bitmap;           
-            DataContext = this;
-            /////////////////////
-            Toggle_MS_BT(Properties.Settings.Default.Master_Server_Check);
+                bitmap.BeginInit();
+                bitmap.UriSource = new Uri(_Images[random.Next(0, _Images.Count - 1)]);
+                bitmap.EndInit();
+                Image.Source = bitmap;
+                DataContext = this;
+                /////////////////////
+                Toggle_MS_BT(Properties.Settings.Default.Master_Server_Check);
 
-            INIT();
+                INIT();
 
-            if (IsValidPath(Current_Install_Folder) == false || !Directory.Exists(User_Settings_Vars.NorthstarInstallLocation))
-            {
-                ShowWelcome();
+                if (IsValidPath(Current_Install_Folder) == false || !Directory.Exists(User_Settings_Vars.NorthstarInstallLocation))
+                {
+                    ShowWelcome();
 
-            }
-            if (IsDirectoryValid(Current_Install_Folder) == false)
-            {
+                }
 
-                if (showcntr < 2)
+                if (IsDirectoryValid(Current_Install_Folder) == false)
                 {
 
-                    ShowBanner();
-                    Properties.Settings.Default.Banner_CNTR = Properties.Settings.Default.Banner_CNTR + 1;
+                    if (showcntr < 2)
+                    {
+
+                        ShowBanner();
+                        Properties.Settings.Default.Banner_CNTR = Properties.Settings.Default.Banner_CNTR + 1;
+                        Properties.Settings.Default.Save();
+                        showcntr = Properties.Settings.Default.Banner_CNTR;
+                    }
+                }
+                if (Properties.Settings.Default.EA_APP_SUPPORT == true)
+                {
+                    EA_ORGIGIN_Client_Card.Content = VTOL.Resources.Languages.Language.Page_Home_Page_Home_EAClientRunning;
+                    BitmapImage bitmapx = new BitmapImage();
+
+                    bitmapx.BeginInit();
+                    bitmapx.UriSource = new Uri(@"pack://application:,,,/Resources/Icons/EA.ico");
+                    bitmapx.EndInit();
+                    CLIENT_CARD_IMAGE.Source = bitmapx;
+
+                    if (Check_Process_Running("EABackgroundService") == true)
+                    {
+                        EA_ORGIGIN_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#B2037F10");
+                        EA_ORGIGIN_Client_Card.IconFilled = true;
+
+                    }
+                    else
+                    {
+
+                        EA_ORGIGIN_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#99630000");
+                        EA_ORGIGIN_Client_Card.IconFilled = false;
+
+                    }
+
+                }
+                else
+                {
+                    BitmapImage bitmapy = new BitmapImage();
+
+                    bitmapy.BeginInit();
+                    bitmapy.UriSource = new Uri(@"pack://application:,,,/Resources/Icons/Origin.ico");
+                    bitmapy.EndInit();
+                    CLIENT_CARD_IMAGE.Source = bitmapy;
+
+                    EA_ORGIGIN_Client_Card.Content = VTOL.Resources.Languages.Language.Page_Home_OriginClientRunning;
+                    if (Check_Process_Running("OriginClientService") == true)
+                    {
+                        EA_ORGIGIN_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#B2037F10");
+                        EA_ORGIGIN_Client_Card.IconFilled = true;
+
+                    }
+                    else
+                    {
+
+                        EA_ORGIGIN_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#99630000");
+                        EA_ORGIGIN_Client_Card.IconFilled = false;
+
+                    }
+
+                }
+
+                if (Directory.Exists(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\logs\") && Properties.Settings.Default.LOG_Folder_Counter < 1)
+                {
+                    Properties.Settings.Default.LOG_Folder_Counter = Directory.GetFiles(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\logs\").Where(s => s.EndsWith(".dmp")).Count();
                     Properties.Settings.Default.Save();
-                    showcntr = Properties.Settings.Default.Banner_CNTR;
+
                 }
-            }
-            if (Properties.Settings.Default.EA_APP_SUPPORT == true)
+                Check_Log_Folder();
+            }catch(Exception ex)
             {
-                EA_ORGIGIN_Client_Card.Content = VTOL.Resources.Languages.Language.Page_Home_Page_Home_EAClientRunning;
-                BitmapImage bitmapx = new BitmapImage();
+                // string x =( ex.Message.ToString() + "\n" + ex.Source.ToString() + "\n" + ex.StackTrace.ToString());
+                // MessageBox.Show(x);
 
-                bitmapx.BeginInit();
-                bitmapx.UriSource = new Uri(@"pack://application:,,,/Resources/Icons/EA.ico");
-                bitmapx.EndInit();
-                CLIENT_CARD_IMAGE.Source = bitmapx;
-
-                if (Check_Process_Running("EABackgroundService") == true)
-                {
-                    EA_ORGIGIN_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#B2037F10");
-                    EA_ORGIGIN_Client_Card.IconFilled = true;
-
-                }
-                else
-                {
-
-                    EA_ORGIGIN_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#99630000");
-                    EA_ORGIGIN_Client_Card.IconFilled = false;
-
-                }
-
-            }
-            else
-            {
-                BitmapImage bitmapy = new BitmapImage();
-
-                bitmapy.BeginInit();
-                bitmapy.UriSource = new Uri(@"pack://application:,,,/Resources/Icons/Origin.ico");
-                bitmapy.EndInit();
-                CLIENT_CARD_IMAGE.Source = bitmapy;
-
-                EA_ORGIGIN_Client_Card.Content = VTOL.Resources.Languages.Language.Page_Home_OriginClientRunning;
-                if (Check_Process_Running("OriginClientService") == true)
-                {
-                    EA_ORGIGIN_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#B2037F10");
-                    EA_ORGIGIN_Client_Card.IconFilled = true;
-
-                }
-                else
-                {
-
-                    EA_ORGIGIN_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#99630000");
-                    EA_ORGIGIN_Client_Card.IconFilled = false;
-
-                }
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                MessageBox.Show(Log.Logger.ToString());
 
             }
 
-            if (Directory.Exists(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\logs\") && Properties.Settings.Default.LOG_Folder_Counter < 1)
-            {
-                Properties.Settings.Default.LOG_Folder_Counter = Directory.GetFiles(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\logs\").Where(s => s.EndsWith(".dmp")).Count();
-                Properties.Settings.Default.Save();
-
-            }
-            Check_Log_Folder();
-          
         }
         public static bool IsDirectoryValid(string directoryPath)
         {
@@ -1861,14 +1883,17 @@ int millisecondsDelay = 150)
         }
         async void Log_Changes_Timer_Tick(object sender, EventArgs e)
         {
-
-            BackgroundWorker worker_o = new BackgroundWorker();
-            worker_o.DoWork += (sender, e) =>
+            if (Main.Is_Focused == true)
             {
-                Check_EA_status();
-            };
 
-            worker_o.RunWorkerAsync();
+                BackgroundWorker worker_o = new BackgroundWorker();
+                worker_o.DoWork += (sender, e) =>
+                {
+                    Check_EA_status();
+                };
+
+                worker_o.RunWorkerAsync();
+            }
         }
 
 
@@ -1899,6 +1924,7 @@ int millisecondsDelay = 150)
                     SnackBar.Message = VTOL.Resources.Languages.Language.Page_Home_Check_For_New_Northstar_Install_With_Notif_ThereIsANewNorthstarVersionAvailablePleaseUpdateYourNorthstarInstall;
                     SnackBar.Title = "INFO";
                     SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
+                    SnackBar.Timeout = 30000;
                     SnackBar.Show();
                     if (User_Settings_Vars.Auto_Update_Northstar == true)
                     {
@@ -1973,7 +1999,9 @@ int millisecondsDelay = 150)
         {
             try
             {
-                DispatchIfNecessary(async () =>
+                if (Main.Is_Focused == true)
+                {
+                    DispatchIfNecessary(async () =>
                 {
                     string Header = Path.GetFullPath(Path.Combine(System.Reflection.Assembly.GetExecutingAssembly().Location, @"../"));
 
@@ -1981,7 +2009,7 @@ int millisecondsDelay = 150)
 
                     updaterModulePath = Path.Combine(Header, "VTOL_Updater.exe");
 
-                     Check_For_New_Northstar_Install_With_Notif();
+                    Check_For_New_Northstar_Install_With_Notif();
                     if (File.Exists(updaterModulePath))
                     {
                         Process process = Process.Start(updaterModulePath, "/justcheck");
@@ -2005,11 +2033,12 @@ int millisecondsDelay = 150)
                     }
                 });
                 }
-                    catch (Exception ex)
-                    {
-                        Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
-                    }
+            }
                 }
 
 
@@ -2040,7 +2069,6 @@ int millisecondsDelay = 150)
 
 
 
-                                // Toggle_MS_BT(true);
 
 
                             }
