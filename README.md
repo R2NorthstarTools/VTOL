@@ -2,9 +2,7 @@
 
 <a href="https://github.com/BigSpice/VTOL/releases/latest/download/VTOL_Installer.msi"><img src="https://user-images.githubusercontent.com/23240514/198708440-42edd953-d2de-4a79-a6fa-28d398e63d7c.png"></a><br>
 
-<h1  align="center">PLEASE USE THE PORTABLE IF THE INSTALLER FAILS</h1><br>
-
-
+<h2  align="center">PLEASE USE THE PORTABLE IF THE INSTALLER FAILS</h1><br>
 
 <p align="center">
 <a href="https://bit.ly/VTOL_2023"><img src="https://user-images.githubusercontent.com/23240514/189295456-52b2bfd1-1759-4c20-931c-ad78b1537f45.png" width="200" alignment="center"></a><br>
@@ -20,7 +18,7 @@ Total Downloads Since First Release:
     
 ![GitHub release (Total)](https://img.shields.io/github/downloads/BigSpice/VTOL/total?style=flat-square)
  
- <h2 align="center" ><a href="https://northstar.tf">This is a Manager for the [Titanfall 2 Northstar Client] </a></h2>
+<h2 align="center" ><a href="https://northstar.tf">This is a Manager for the [Titanfall 2 Northstar Client] </a></h2>
 
 
 <p align="center">
@@ -29,42 +27,14 @@ Total Downloads Since First Release:
  </a>
 </p>
 
-![image](https://user-images.githubusercontent.com/23240514/198705469-2a8209fd-e470-4184-a681-abb66a154daf.png)
+![image](https://github.com/R2NorthstarTools/VTOL/assets/23240514/9a72e40c-6b8c-4af6-851e-48c18b91db65)
 
-<!---![VTOL_Showcase_Trim](https://user-images.githubusercontent.com/23240514/157264628-43601f3e-1066-42ce-8564-e2554bd5799f.gif)<br /><br /><br />--->
-
-
-
-
-
-
-
-* If you cannot Open VTOL 
-
-Please make sure you have .net 6.0 desktop Runtime x64 and x86 installed - https://dotnet.microsoft.com/en-us/download/dotnet/6.0
-![image](https://user-images.githubusercontent.com/23240514/196021121-d6b6f974-7c58-4199-8802-26672883da9c.png)
-
-
-* If you see one of the following error messages
-Simply click "Yes" and the application will attempt to fix the issue.
-
-![image](https://user-images.githubusercontent.com/23240514/150569733-e1142d29-54f3-4842-b34a-81520e293f0c.png)
-
-![image](https://user-images.githubusercontent.com/23240514/150570184-6cf29ee6-40a5-4517-839c-3e2dcddcf637.png)
-
-Please Follow this Link to Deeper Read into The error Code should it fail to clear - https://aka.ms/dotnet/app-launch-failed
-![image](https://user-images.githubusercontent.com/23240514/189293562-24ff7a7d-922e-4f6f-b325-c56e8352f36f.png)
-
-
-
-
-
-
-
-
-
-
-
+<h1 align="center" ><a href="https://r2northstar.gitbook.io/r2northstar-wiki/installing-northstar/northstar-installers/vtol-guide">OFFICIAL DOCUMENTATION LINKED HERE</a></h1>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 ## Features:
 
