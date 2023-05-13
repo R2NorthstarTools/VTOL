@@ -1047,7 +1047,7 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  - has been Installed!.
+        ///   Looks up a localized string similar to - has been Installed!.
         /// </summary>
         public static string Page_Skins_Install_Skin_From_Path_HasBeenInstalled {
             get {
@@ -1056,7 +1056,7 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The Skin - .
+        ///   Looks up a localized string similar to The Skin -.
         /// </summary>
         public static string Page_Skins_Install_Skin_From_Path_TheSkin {
             get {
