@@ -2255,7 +2255,7 @@ namespace VTOL.Pages
 
                     Dialog.ButtonRightAppearance = Wpf.Ui.Common.ControlAppearance.Secondary;
                     Dialog.Title = "DELETE MOD";
-                    string Content = ("Are You Sure You Want To Delete The Mod - ") + Environment.NewLine + Mod_name + Environment.NewLine + "Permanentley?";
+                    string Content = ("Are You Sure You Want To Delete The Mod - ") + Environment.NewLine + Mod_name + Environment.NewLine + "Permanently?";
                     Dialog.Message = Content;
                     Dialog.ButtonLeftClick += new RoutedEventHandler(Delete_Action);
 

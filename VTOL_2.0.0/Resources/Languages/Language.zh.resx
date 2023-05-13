@@ -59,7 +59,7 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
@@ -325,7 +325,7 @@
     <value>NorthStar 安装程序</value>
   </data>
   <data name="Page_Home_LaunchNorthstar" xml:space="preserve">
-    <value>启动 +NorthStar"</value>
+    <value>启动 +NorthStar </value>
   </data>
   <data name="Page_Home_Install_NS_METHOD_SequenceContainsNoElements" xml:space="preserve">
     <value>序列不包含任何元素</value>
