@@ -50,6 +50,8 @@ using VTOL.Properties;
 using Pixelmaniac.Notifications;
 using System.Xml;
 using HandyControl.Tools.Extension;
+using System.Text.RegularExpressions;
+using Windows.UI;
 
 namespace VTOL.Pages
 {
@@ -57,7 +59,8 @@ namespace VTOL.Pages
     /// Interaction logic for Page_Home.xaml
     /// </summary>
     /// 
-   public static class Utility
+  
+    public static class Utility
     {
         static string invalidRegStr;
 
@@ -2210,16 +2213,7 @@ int millisecondsDelay = 150)
                 Fail_Counter_Ping++;
                 // Discard PingExceptions and return false;
             }
-            //catch (PingException ex)
-            //{
-            //    DispatchIfNecessary(async () => {
-
-            //        LastHourSeries[0].Values.Add(new ObservableValue(0));
-            //        LastHourSeries[0].Values.RemoveAt(0);
-            //    });
-            //    Fail_Counter_Ping++;
-            //    // Discard PingExceptions and return false;
-            //}
+          
             finally
             {
                 if (pinger != null)
@@ -2227,7 +2221,6 @@ int millisecondsDelay = 150)
                     pinger.Dispose();
                 }
             }
-            //  this.Resources["Bg_Chart"] = Brushes.Red;
 
         }
 

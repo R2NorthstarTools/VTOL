@@ -595,20 +595,20 @@ public partial class Page_Tools : Page
                 items.Add(new Item() { Name = "JackHandR", Category = "JackCooperParts" });
 
 
-                List<Head> Git_Items = new List<Head>();
+                //List<Head> Git_Items = new List<Head>();
 
-                Head Head_Item = new Head() { Name = "The Doe's", SubDirCount = 3 };
-                Head_Item.Items.Add(new Tail() { Name = "John Doe", size = 42 });
-                Head_Item.Items.Add(new Tail() { Name = "Jane Doe", size = 39 });
-                Head_Item.Items.Add(new Tail() { Name = "Sammy Doe", size = 13 });
-                Git_Items.Add(Head_Item);
+                //Head Head_Item = new Head() { Name = "The Doe's", SubDirCount = 3 };
+                //Head_Item.Items.Add(new Tail() { Name = "John Doe", size = 42 });
+                //Head_Item.Items.Add(new Tail() { Name = "Jane Doe", size = 39 });
+                //Head_Item.Items.Add(new Tail() { Name = "Sammy Doe", size = 13 });
+                //Git_Items.Add(Head_Item);
 
-                Head Tail_Items = new Head() { Name = "The Moe's", SubDirCount = 2 };
-                Tail_Items.Items.Add(new Tail() { Name = "Mark Moe", size = 31 });
-                Tail_Items.Items.Add(new Tail() { Name = "Norma Moe", size = 28 });
-                Git_Items.Add(Tail_Items);
+                //Head Tail_Items = new Head() { Name = "The Moe's", SubDirCount = 2 };
+                //Tail_Items.Items.Add(new Tail() { Name = "Mark Moe", size = 31 });
+                //Tail_Items.Items.Add(new Tail() { Name = "Norma Moe", size = 28 });
+                //Git_Items.Add(Tail_Items);
 
-                Git_TreeView.ItemsSource = Git_Items;
+                //Git_TreeView.ItemsSource = Git_Items;
 
 
                 ListCollectionView lcv = new ListCollectionView(items);
@@ -3408,42 +3408,52 @@ private readonly Dictionary<string, string> weaponNameToPath = new()
         {
             Convert();
         }
-        async void Start_Exe(string path, string Args = null)
+        async void Start_Exe(string path , string args = null)
         {
             try
             {
                 await Task.Run(() =>
-            {
-
-                if (Args != null && Args.Trim() != "")
                 {
-                    System.Diagnostics.Process.Start(new ProcessStartInfo
+                    string directory = Path.GetDirectoryName(path);
+                    string fileName = Path.GetFileNameWithoutExtension(path);
+                    string fileExtension = Path.GetExtension(path);
+
+                    string[] files = Directory.GetFiles(directory, $"{fileName}*{fileExtension}");
+
+                    if (files.Length > 0)
                     {
-                        Arguments = Args,
-                        FileName = path,
-                        UseShellExecute = true
-                    }); ;
-
-                }
-                else
-                {
-                    System.Diagnostics.Process.Start(new ProcessStartInfo
-                    {
-                        FileName = path,
-                        UseShellExecute = true
-                    }); ;
-                }
-
-
-            });
+                        string filePath = files[0];
+                        DispatchIfNecessary(async () =>
+                        {
+                            SnackBar.Message = "FOUND AND STARTING - " + fileName;
+                            SnackBar.Title = "INFO";
+                            SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
+                            SnackBar.Show();
+                        });
+                            if (args != null && args.Trim() != "")
+                        {
+                            Process.Start(new ProcessStartInfo
+                            {
+                                Arguments = args,
+                                FileName = filePath,
+                                UseShellExecute = true
+                            });
+                        }
+                        else
+                        {
+                            Process.Start(new ProcessStartInfo
+                            {
+                                FileName = filePath,
+                                UseShellExecute = true
+                            });
+                        }
+                    }
+                });
             }
             catch (Exception ex)
             {
-              Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-             
-
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
             }
-
 
 
         }

@@ -714,27 +714,31 @@
                 </Grid>
             </TabItem>-->
             
-            <TabItem Header="Database Explorer">
+            <!--<TabItem Header="Database Explorer">
                 <hc:ScrollViewer  Height="577" >
                     <StackPanel>
-                        <TreeView ItemTemplate="{StaticResource TreeViewItemStyle}" VirtualizingStackPanel.IsVirtualizing="True" x:Name="Git_TreeView" Margin="38,41,38,0" Height="340" Background="#FF404240" Padding="3">
-                            <TreeView.ItemContainerStyle>
-                                <Style TargetType="{x:Type TreeViewItem}">
-                                    <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}"/>
-                                    <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}"/>
-                                </Style>
-                            </TreeView.ItemContainerStyle>
+                        <TreeView VirtualizingStackPanel.IsVirtualizing="True" x:Name="Git_TreeView" Margin="38,41,38,0" Height="340" Background="#FF404240" Padding="3">
+                            <TreeView.ItemTemplate>
+                                <HierarchicalDataTemplate  ItemsSource="{Binding Children}" >
+                                    --><!--<TextBlock Text="{Binding Path=ItemName}" Margin="5,0,5,0" />--><!--
+                                    <Grid   >
+                                        <Label  Name="ShownItem" 
+                          Content="{Binding Path=Name}" 
+                         Foreground="White" Margin="0,2,0,2" />
 
-                            <TreeViewItem Header="Employee1">
-                                <TreeViewItem Header="Jesper"/>
-                                <TreeViewItem Header="Aaberg"/>
-                                <TreeViewItem Header="12345"/>
-                            </TreeViewItem>
-                            <TreeViewItem Header="Employee2">
-                                <TreeViewItem Header="Dominik"/>
-                                <TreeViewItem Header="Paiha"/>
-                                <TreeViewItem Header="98765"/>
-                            </TreeViewItem>
+                                        <Label Name="EditBox" 
+                 Content="{Binding Path=ItemName}" 
+                
+                  Foreground="White"
+                 Margin="0,2,0,2"
+                   >
+
+                                        </Label>
+
+                                    </Grid>
+                                </HierarchicalDataTemplate>
+                            </TreeView.ItemTemplate>
+
                         </TreeView>
                         <Border Height="100" Margin="38,19,38,0" BorderBrush="#7FFFFFFF" VerticalAlignment="Center" HorizontalAlignment="Stretch">
                             <Grid Background="#FF404240">
@@ -743,7 +747,7 @@
                         </Border>
                     </StackPanel>
                 </hc:ScrollViewer  >
-            </TabItem >
+            </TabItem >-->
         </TabControl>
 
         <!--<ui:Dialog x:Name="Error_Dialog" />-->
