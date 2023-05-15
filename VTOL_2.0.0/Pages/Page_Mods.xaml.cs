@@ -1824,66 +1824,7 @@ namespace VTOL.Pages
         {
         }
 
-        private void Check_For_Update_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-
-                if (sender.GetType() == typeof(Wpf.Ui.Controls.Button))
-                {
-
-                    Wpf.Ui.Controls.Button Button_ = (Wpf.Ui.Controls.Button)sender;
-                    string Name_ = Button_.ToolTip.ToString();
-                    string pattern = @"[^!]+(?=-)";
-                    Regex rg = new Regex(pattern);
-
-                    if (rg.IsMatch(Name_))
-                    {
-
-
-                        BackgroundWorker worker = new BackgroundWorker();
-                        worker.DoWork += (sender, e) =>
-                        {
-
-                            DispatchIfNecessary(async () =>
-                            {
-                                Page_Thunderstore PP = new Page_Thunderstore();
-                                Main.RootFrame.Navigate(PP); //FrameContent is the name given to the frame within the xaml.
-                                PP.Search_Bar_Suggest_Mods.Text = Name_;
-                                PP.Call_Ts_Mods(true, Search_: true, SearchQuery: Name_);
-                                PP.Thunderstore_List.Refresh();
-
-                            });
-
-
-                        };
-
-                        worker.RunWorkerAsync();
-
-
-
-                    }
-                    else
-                    {
-                        Console.WriteLine($"{Name_} does not match");
-                    }
-
-                }
-
-
-
-
-
-
-
-            }
-            catch (Exception ex)
-            {
-               //Removed PaperTrailSystem Due to lack of reliability.
-                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-
-            }
-        }
+       
         private string Find_Folder(string searchQuery, string folderPath)
         {
             searchQuery = "*" + searchQuery + "*";
