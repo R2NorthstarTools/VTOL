@@ -510,11 +510,9 @@ namespace VTOL.Pages
                 Check_Log_Folder();
             }catch(Exception ex)
             {
-                // string x =( ex.Message.ToString() + "\n" + ex.Source.ToString() + "\n" + ex.StackTrace.ToString());
-                // MessageBox.Show(x);
+                
 
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-                MessageBox.Show(Log.Logger.ToString());
 
             }
 
@@ -844,7 +842,7 @@ int millisecondsDelay = 150)
                 }
             }catch(Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
             }
 
         }
@@ -2026,7 +2024,6 @@ int millisecondsDelay = 150)
                         else
                         {
                             Main.VTOL_UPDATE_BADGE.Visibility = Visibility.Hidden;
-                            // MessageBox.Show("Update not found!");
                             process.Close();
 
                         }

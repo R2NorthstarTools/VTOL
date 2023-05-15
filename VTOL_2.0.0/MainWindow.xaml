@@ -207,7 +207,7 @@
                         <ui:VirtualizingItemsControl  x:Name="Action_Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="330" SourceUpdated="Action_Center_SourceUpdated" TargetUpdated="Action_Center_TargetUpdated" LayoutUpdated="Action_Center_LayoutUpdated">
                             <ui:VirtualizingItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <Border CornerRadius="6" BorderThickness="1" BorderBrush="#99505050" Padding="0"  Background="#CC1F1F1F" VerticalAlignment="Center" HorizontalAlignment="Center" Width="546">
+                                    <Border CornerRadius="6" BorderThickness="1" BorderBrush="#99505050" Padding="0"  Background="#CC1F1F1F" VerticalAlignment="Center" HorizontalAlignment="Center" Width="546" Margin="0,0.5,0,1.5">
 
                                         <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FlowDirection="LeftToRight"  >
                                             <hc:CircleProgressBar  x:Name="Progress_Block_Ring" Margin="8,0,0,0" Value="{Binding Progress}" ShowText="False" ArcThickness="11" SmallChange="1" >

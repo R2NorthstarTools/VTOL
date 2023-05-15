@@ -1770,7 +1770,7 @@ namespace VTOL.Pages
                     }
                     Convar_File = GetFile(User_Settings_Vars.NorthstarInstallLocation, "autoexec_ns_server.cfg").First();
                     Ns_dedi_File = GetFile(User_Settings_Vars.NorthstarInstallLocation, "ns_startup_args_dedi.txt").First();
-                    // HandyControl.Controls.MessageBox.Show(new MessageBoxInfo { Message = "Please Select the Northstar Dedicated Import as well.", Caption = "PROMPT!", Button = MessageBoxButton.OK, IconBrushKey = ResourceToken.AccentBrush, IconKey = ResourceToken.AskGeometry, StyleKey = "MessageBoxCustom" });
+                  
                 }
                 else
                 {

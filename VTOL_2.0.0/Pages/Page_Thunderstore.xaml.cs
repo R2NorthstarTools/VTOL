@@ -1190,36 +1190,37 @@ int millisecondsDelay = 150)
                     {
                         if (_updater.Thunderstore.Count() > 0)
                         {
-                            if (Search_ == false)
-                            {
-                                if (tickle == false)
-                                {
-                                    DispatchIfNecessary(async () =>
-                                    {
-                                        List = orderlist(LoadListViewData(Filter_Type, Search_, SearchQuery.Replace(" ", "_")));
+                            loadConvertItemLazy();
+                            //if (Search_ == false)
+                            //{
+                            //    if (tickle == false)
+                            //    {
+                            //        DispatchIfNecessary(async () =>
+                            //        {
+                            //            List = orderlist(LoadListViewData(Filter_Type, Search_, SearchQuery.Replace(" ", "_")));
 
-                                    });
-                                }
-                                else
-                                {
-                                    DispatchIfNecessary(async () =>
-                                    {
+                            //        });
+                            //    }
+                            //    else
+                            //    {
+                            //        DispatchIfNecessary(async () =>
+                            //        {
 
-                                        List = orderlist(LoadListViewData(Filter_Type, Search_, SearchQuery.Replace(" ", "_")));
-                                    });
-
-
-                                }
+                            //            List = orderlist(LoadListViewData(Filter_Type, Search_, SearchQuery.Replace(" ", "_")));
+                            //        });
 
 
+                            //    }
 
-                            }
-                            else
-                            {
 
-                                List = LoadListViewData(Filter_Type, Search_, SearchQuery.Replace(" ", "_"));
 
-                            }
+                            //}
+                            //else
+                            //{
+
+                            //    List = LoadListViewData(Filter_Type, Search_, SearchQuery.Replace(" ", "_"));
+
+                            //}
 
 
 
@@ -1232,31 +1233,33 @@ int millisecondsDelay = 150)
                         {
                             if (_updater.Thunderstore.Count() > 0)
                             {
-
-                                if (Search_ == false)
-                                {
-
-                                    if (tickle == false)
-                                    {
-                                        DispatchIfNecessary(async () =>
-                                        {
-                                            List = orderlist(LoadListViewData(Filter_Type, Search_, SearchQuery.Replace(" ", "_")));
-
-                                        });
-                                    }
-                                    else
-                                    {
-                                        List = orderlist(LoadListViewData(Filter_Type, Search_, SearchQuery.Replace(" ", "_")));
+                                loadConvertItemLazy();
 
 
-                                    }
-                                }
-                                else
-                                {
-                                    List = orderlist(LoadListViewData(Filter_Type, Search_, SearchQuery.Replace(" ", "_")));
+                                //if (Search_ == false)
+                                //{
+
+                                //    if (tickle == false)
+                                //    {
+                                //        DispatchIfNecessary(async () =>
+                                //        {
+                                //            List = orderlist(LoadListViewData(Filter_Type, Search_, SearchQuery.Replace(" ", "_")));
+
+                                //        });
+                                //    }
+                                //    else
+                                //    {
+                                //        List = orderlist(LoadListViewData(Filter_Type, Search_, SearchQuery.Replace(" ", "_")));
 
 
-                                }
+                                //    }
+                                //}
+                                //else
+                                //{
+                                //    List = orderlist(LoadListViewData(Filter_Type, Search_, SearchQuery.Replace(" ", "_")));
+
+
+                                //}
 
 
                             }
@@ -1270,7 +1273,7 @@ int millisecondsDelay = 150)
                 DispatchIfNecessary(async () =>
                 {
 
-                    Thunderstore_List.ItemsSource = List;
+                  //  Thunderstore_List.ItemsSource = List;
                     Loading_Ring.Visibility = Visibility.Hidden;
 
                 });
@@ -1410,21 +1413,7 @@ int millisecondsDelay = 150)
 
 
 
-                        //foreach (string itemx in Fave_Mods)
-                        //{
-                        //    // Remove the "-0.0.0" portion from the end of the string
-                        //    string substring = itemx.Substring(0, itemx.LastIndexOf('-'));
-
-                        //    // Compare the resulting substring to the target string
-
-                        //}
-                        //if (Fave_Mods.Contains(item) == false)
-                        //{
-                        //    MessageBox.Show(item);
-                        //    is_favourite_ = 1;
-                        //    is_favourite = is_favourite_;
-
-                        //}
+                     
 
                     }
 
@@ -1880,8 +1869,419 @@ int millisecondsDelay = 150)
 
             return List;
         }
+       
+        private Grid_ LoadListViewItem(Thunderstore_V1 updater)
+        {
+            Grid_ Card = new Grid_();
+            string ICON = "";
+            List<int> Downloads = new List<int> { };
+            List<object> Temp = new List<object> { };
+            List<string> Dependencies = new List<string> { };
+            string Tags = "";
+            string downloads = "";
+            string download_url = "";
+            string Descrtiption = "";
+            string FileSize = "";
+            string Exclude_String = "#";
+            string Dependencies_ = "";
+            string Update_data = "";
+            string Button_label = "";
+
+
+            if (updater.FullName.Contains("r2modman"))
+            {
+                return null;
+            }
+            if (updater.IsDeprecated == true)
+            {
+                return null;
+            }
+            int rating = updater.RatingScore;
+
+            Tags = String.Join(" , ", updater.Categories);
+
+
+            List<versions> versions = updater.versions;
+            if (Current_Mod_Filter_Tags != null && Current_Mod_Filter_Tags.Count > 0)
+            {
+
+
+                if (updater.Categories.Select(x => x).Intersect(Current_Mod_Filter_Tags).Any())
+                {
+                    //if (Search_ == true)
+                    //{
+
+
+
+
+
+                    //    if (updater.Name.Contains(SearchQuery, StringComparison.OrdinalIgnoreCase) || updater.Owner.Contains(SearchQuery, StringComparison.OrdinalIgnoreCase))
+                    //    {
+
+                    //        //foreach (var items in versions)
+
+
+                    //        //{
+
+
+                    //        //    Downloads.Add(Convert.ToInt32(items.Downloads));
+
+
+
+                    //        //}
+
+
+
+                    //        downloads = (Downloads.Sum()).ToString();
+
+                    //        for (var x = 0; x < versions.First().Dependencies.Count; x++)
+                    //        {
+                    //            if (versions.First().Dependencies[x].Contains("northstar-Northstar") || versions.First().Dependencies[x].Contains("ebkr-r2modman-"))
+                    //            {
+
+                    //                continue;
+                    //            }
+                    //            else
+                    //            {
+                    //                Dependencies.Add(versions.First().Dependencies[x]);
+
+                    //            }
+
+                    //        }
+
+                    //        Dependencies_ = String.Join(", ", Dependencies);
+
+                    //        download_url = versions.First().DownloadUrl;
+                    //        ICON = versions.First().Icon;
+                    //        FileSize = versions.First().FileSize.ToString();
+                    //        Descrtiption = versions.First().Description;
+                    //        Downloads.Clear();
+                    //        Dependencies.Clear();
+
+
+                    //        string raw_size = versions.First().FileSize.ToString();
+
+                    //        if (int.TryParse(FileSize, out int value))
+                    //        {
+                    //            FileSize = Convert_To_Size(value);
+                    //        }
+                    //        string bg_color;
+                    //        string label;
+                    //        Compare_Mod_To_List(updater.Name, versions.First().VersionNumber, Main.Current_Installed_Mods, out bg_color, out label);
+                    //        if (bg_color == null || label == null)
+                    //        {
+                    //            bg_color = "#FF005D42";
+                    //            label = "Install";
+
+
+
+                    //        }
+                    //        if (label == "Update")
+                    //        {
+                    //            Mod_Update_Counter++;
+                    //        }
+                    //        int is_favourite = 0;
+
+                    //        if (Fave_Mods.Contains(updater.Name.Replace("_", " ") + "-" + versions.First().VersionNumber))
+                    //        {
+                    //            is_favourite = 1;
+                    //        }
+
+                    //        // is_nsfw = updater.HasNsfwContent ? 100 : 0;
+
+                    //       return Card = (new Grid_ { Name = updater.Name.Replace("_", " ") + "-" + versions.First().VersionNumber, Icon = ICON, raw_date = updater.DateCreated.ToString(), date_created = ConvertDateToString(updater.DateCreated), description = Descrtiption, owner = updater.Owner, Rating = rating, download_url = download_url + "|" + updater.Name + "-" + versions.First().VersionNumber + "|" + Tags + "|" + Dependencies_, Webpage = updater.PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads, Dependencies = Dependencies_, FullName = updater.FullName, raw_size = raw_size, Update_data = updater.Name + "|" + versions.First().VersionNumber, Button_label = label, Button_Color = bg_color, is_Favourite_ = is_favourite });
+
+
+
+
+                    //    }
+
+
+                    //}
+                    //else
+                    //{
+
+
+
+
+                        //foreach (var items in versions)
+
+
+                        //{
+                        //    Downloads.Add(Convert.ToInt32(items.Downloads));
+
+
+
+                        //}
+
+
+
+                        downloads = (Downloads.Sum()).ToString();
+                        for (var x = 0; x < versions.First().Dependencies.Count; x++)
+                        {
+                            if (versions.First().Dependencies[x].Contains("northstar-Northstar") || versions.First().Dependencies[x].Contains("ebkr-r2modman-"))
+                            {
+
+                                continue;
+                            }
+                            else
+                            {
+                                Dependencies.Add(versions.First().Dependencies[x]);
+
+                            }
+
+                        }
+
+
+                        download_url = versions.First().DownloadUrl;
+
+                        ICON = versions.First().Icon;
+                        FileSize = versions.First().FileSize.ToString();
+                        Descrtiption = versions.First().Description;
+                        Dependencies_ = String.Join(", ", Dependencies);
+
+                        Dependencies.Clear();
+
+                        Downloads.Clear();
+
+                        string raw_size = versions.First().FileSize.ToString();
+
+                        if (int.TryParse(FileSize, out int value))
+                        {
+                            FileSize = Convert_To_Size(value);
+                        }
+                        string bg_color;
+                        string label;
+                        int is_favourite = 0;
+                        //  int is_nsfw = 0;
+
+                        if (Fave_Mods.Contains(updater.Name.Replace("_", " ") + "-" + versions.First().VersionNumber))
+                        {
+                            is_favourite = 1;
+                        }
+
+
+                        Compare_Mod_To_List(updater.Name, versions.First().VersionNumber, Main.Current_Installed_Mods, out bg_color, out label);
+                        if (bg_color == null || label == null)
+                        {
+                            bg_color = "#FF005D42";
+                            label = "Install";
+
+
+
+                        }
+                        if (label == "Update")
+                        {
+                            Mod_Update_Counter++;
+                        }
+                        //   is_nsfw = updater.HasNsfwContent ? 100 : 0;
+
+                        return Card = (new Grid_ { Name = updater.Name.Replace("_", " ") + "-" + versions.First().VersionNumber, Icon = ICON, raw_date = updater.DateCreated.ToString(), date_created = ConvertDateToString(updater.DateCreated), description = Descrtiption, owner = updater.Owner, Rating = rating, download_url = download_url + "|" + updater.Name + "-" + versions.First().VersionNumber + "|" + Tags + "|" + Dependencies_, Webpage = updater.PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads, Dependencies = Dependencies_, FullName = updater.FullName, raw_size = raw_size, Update_data = updater.Name + "|" + versions.First().VersionNumber, Button_label = label, Button_Color = bg_color, is_Favourite_ = is_favourite });
+                   // }
+                }
+            }
+            else
+            {
+
+                //if (Search_ == true)
+                //{
+
+
+
+
+
+                //    if (updater.Name.Contains(SearchQuery, StringComparison.OrdinalIgnoreCase) || updater.Owner.Contains(SearchQuery, StringComparison.OrdinalIgnoreCase))
+                //    {
+
+                //        //foreach (var items in versions)
+
+
+                //        //{
+
+
+                //        //    Downloads.Add(Convert.ToInt32(items.Downloads));
+
+
+
+                //        //}
+
+
+
+                //        downloads = (Downloads.Sum()).ToString();
+                //        for (var x = 0; x < versions.First().Dependencies.Count; x++)
+                //        {
+                //            if (versions.First().Dependencies[x].Contains("northstar-Northstar") || versions.First().Dependencies[x].Contains("ebkr-r2modman-"))
+                //            {
+
+                //                continue;
+                //            }
+                //            else
+                //            {
+                //                Dependencies.Add(versions.First().Dependencies[x]);
+
+                //            }
+
+                //        }
+
+                //        Dependencies_ = String.Join(", ", Dependencies);
+
+                //        download_url = versions.First().DownloadUrl;
+                //        ICON = versions.First().Icon;
+                //        FileSize = versions.First().FileSize.ToString();
+                //        Descrtiption = versions.First().Description;
+                //        Downloads.Clear();
+                //        Dependencies.Clear();
+
+                //        string raw_size = versions.First().FileSize.ToString();
+                //        if (int.TryParse(FileSize, out int value))
+                //        {
+                //            FileSize = Convert_To_Size(value);
+                //        }
+                //        string bg_color;
+                //        string label;
+                //        // int is_nsfw = 0;
+                //        int is_favourite = 0;
+
+                //        if (Fave_Mods.Contains(updater.Name.Replace("_", " ") + "-" + versions.First().VersionNumber))
+                //        {
+                //            is_favourite = 1;
+                //        }
+
+                //        Compare_Mod_To_List(updater.Name, versions.First().VersionNumber, Main.Current_Installed_Mods, out bg_color, out label);
+                //        if (bg_color == null || label == null)
+                //        {
+                //            bg_color = "#FF005D42";
+                //            label = "Install";
+
+
+
+                //        }
+                //        if (label == "Update")
+                //        {
+                //            Mod_Update_Counter++;
+                //        }
+                //        // is_nsfw = updater.HasNsfwContent ? 100 : 0;
+                //        return Card = (new Grid_ { Name = updater.Name.Replace("_", " ") + "-" + versions.First().VersionNumber, Icon = ICON, raw_date = updater.DateCreated.ToString(), date_created = ConvertDateToString(updater.DateCreated), description = Descrtiption, owner = updater.Owner, Rating = rating, download_url = download_url + "|" + updater.Name + "-" + versions.First().VersionNumber + "|" + Tags + "|" + Dependencies_, Webpage = updater.PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads, Dependencies = Dependencies_, FullName = updater.FullName, raw_size = raw_size, Update_data = updater.Name + "|" + versions.First().VersionNumber, Button_label = label, Button_Color = bg_color, is_Favourite_ = is_favourite });
+
+
+
+                //    }
+
+
+                //}
+                //else
+                //{
+
+
+
+
+                    //foreach (var items in versions)
+
+
+                    //{
+                    //    Downloads.Add(Convert.ToInt32(items.Downloads));
+
+
+
+                    //}
+
+
+
+                    downloads = (Downloads.Sum()).ToString();
+                    for (var x = 0; x < versions.First().Dependencies.Count; x++)
+                    {
+                        if (versions.First().Dependencies[x].Contains("northstar-Northstar") || versions.First().Dependencies[x].Contains("ebkr-r2modman-"))
+                        {
+
+                            continue;
+                        }
+                        else
+                        {
+                            Dependencies.Add(versions.First().Dependencies[x]);
+
+                        }
+
+                    }
+
+                    download_url = versions.First().DownloadUrl;
+
+                    ICON = versions.First().Icon;
+                    FileSize = versions.First().FileSize.ToString();
+                    Descrtiption = versions.First().Description;
+                    Dependencies_ = String.Join(", ", Dependencies);
+
+                    Dependencies.Clear();
+
+                    Downloads.Clear();
+
+                    string raw_size = versions.First().FileSize.ToString();
+
+                    if (int.TryParse(FileSize, out int value))
+                    {
+                        FileSize = Convert_To_Size(value);
+                    }
+                    string bg_color;
+                    string label;
+                    int is_favourite = 0;
+                    // int is_nsfw = 0;
+                    if (Fave_Mods.Contains(updater.Name.Replace("_", " ") + "-" + versions.First().VersionNumber))
+                    {
+                        is_favourite = 1;
+                    }
+                    Compare_Mod_To_List(updater.Name, versions.First().VersionNumber, Main.Current_Installed_Mods, out bg_color, out label);
+                    if (bg_color == null || label == null)
+                    {
+                        bg_color = "#FF005D42";
+                        label = "Install";
+
+
+
+                    }
+                    if (label == "Update")
+                    {
+                        Mod_Update_Counter++;
+                    }
+                    //is_nsfw = updater.HasNsfwContent ? 100 : 0;
+
+                 return Card = (new Grid_ { Name = updater.Name.Replace("_", " ") + "-" + versions.First().VersionNumber, Icon = ICON, raw_date = updater.DateCreated.ToString(), date_created = ConvertDateToString(updater.DateCreated), description = Descrtiption, owner = updater.Owner, Rating = rating, download_url = download_url + "|" + updater.Name + "-" + versions.First().VersionNumber + "|" + Tags + "|" + Dependencies_, Webpage = updater.PackageUrl, File_Size = FileSize, Tag = Tags, Downloads = downloads, Dependencies = Dependencies_, FullName = updater.FullName, raw_size = raw_size, Update_data = updater.Name + "|" + versions.First().VersionNumber, Button_label = label, Button_Color = bg_color, is_Favourite_ = is_favourite });
+
+                //}
+
+
+            }
+
+
+
+
+            return null;
+
+
+
+
+        
+
+
+    }
+
+        private void loadConvertItemLazy()
+        {
+            //for (int i = 0; i < _updater.Thunderstore.Length; i++)
+            //{
+                foreach (var TS_MOD in _updater.Thunderstore) { 
+                Grid_ Card =  LoadListViewItem(TS_MOD);
+
+                if (Card != null)
+                {
+                    Thunderstore_List.Items.Add(Card);
+
+                }
+
+            }
+        }
 
         private List<Grid_> LoadListViewData(List<string> Filter_Type = null, bool Search_ = false, string SearchQuery = "#")
+
+
         {
 
             try
@@ -2610,6 +3010,16 @@ int millisecondsDelay = 150)
                 {
                     foreach (var y in Links)
                     {
+                        //var item = new DownloadQueueItem
+                        //{
+                        //    Name = name,
+                        //    DownloadUrl = Button.Tag.ToString(),
+                        //    DestinationPath = User_Settings_Vars.NorthstarInstallLocation + @"NS_Downloaded_Mods",
+                        //    Extract = tags.Contains("DDS"),
+                        //    IsNorthstarRelease = Button.Tag.ToString().Contains("Northstar Release Candidate") || Button.Tag.ToString().Contains("NorthstarReleaseCandidate") || (Button.Tag.ToString().Contains("Northstar") && Button.ToolTip.ToString().Count() < 5),
+                        //    Progress = Progress_Bar
+                        //};
+                        //_downloadQueue.Enqueue(item);
                         await Download_Zip_To_Path(y, User_Settings_Vars.NorthstarInstallLocation + @"NS_Downloaded_Mods", Progress_Bar);
                         Thread.Sleep(2500);
                     }
@@ -3768,7 +4178,6 @@ int millisecondsDelay = 300)
                 DispatchIfNecessary(async () =>
                 {
                     Update_ActionCard_Progress(Action_Card_, 10, false, true);
-                    MessageBox.Show(ex.Message);
 
                     //if (_downloadQueue != null)
                     //{
@@ -3911,7 +4320,6 @@ int millisecondsDelay = 300)
                         Main.Snackbar.Show();
                             await Task.Delay(2000);
                     });
-                    //MessageBox.Show("Download with the same URL is already in progress or queued.");
                 }
                 
                     _inProgress.Add(item.DownloadUrl);
@@ -4567,16 +4975,7 @@ int millisecondsDelay = 300)
                         }
                         border.Refresh();
 
-                        //UIElement SymbolIconElement = FindVisualChild<Wpf.Ui.Controls.SymbolIcon>(GridPanel_);
-
-                        //if (SymbolIconElement != null && SymbolIconElement is Wpf.Ui.Controls.SymbolIcon SymbolIcon)
-                        //{
-                        //    //MessageBox.Show(SymbolIcon.Name);
-                        //    // && SymbolIconElement.Name == "LIKEBTTN"
-                        //    SymbolIcon.Filled = true;
-                        //    SymbolIcon.Refresh();
-
-                        //}
+                     
                     }
 
                     if (Card != null && GridPanel_ != null && Card_Action != null)

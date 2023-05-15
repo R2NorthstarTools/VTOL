@@ -952,16 +952,16 @@ namespace VTOL.Pages
 				message += $"Missing Files: {string.Join(", ", missingFiles)}\n";
 			}
 
-			if (!string.IsNullOrEmpty(message))
-			{
-				//MessageBox.Show(message, "Missing Folders and Files");
-			}
-			else
-			{
+			//if (!string.IsNullOrEmpty(message))
+			//{
+			//	//MessageBox.Show(message, "Missing Folders and Files");
+			//}
+			//else
+			//{
 
-				//MessageBox.Show("Files Verified Successfully!");
+			//	//MessageBox.Show("Files Verified Successfully!");
 
-			}
+			//}
 		}
 			catch (Exception ex)
 			{

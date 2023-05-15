@@ -308,7 +308,6 @@ namespace VTOL
             {
 
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-                MessageBox.Show(Log.Logger.ToString());
 
             }
 
