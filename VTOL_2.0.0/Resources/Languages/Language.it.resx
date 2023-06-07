@@ -59,7 +59,7 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
@@ -124,25 +124,25 @@
     <value>La skin -</value>
   </data>
   <data name="Page_Skins_Install_Skin_From_Path_HasBeenInstalled" xml:space="preserve">
-    <value> - è stato installato!</value>
+    <value>- è stato installato!</value>
   </data>
   <data name="Page_Skins_Drag_Drop_Area_Drop_IsNotASkinZip" xml:space="preserve">
-    <value> non è un file zip di una skin!</value>
+    <value>  non è una zip Skin!</value>
   </data>
   <data name="Page_Skins_Drag_Drop_Area_Drop_DragToInstall" xml:space="preserve">
     <value>Trascina per installare</value>
   </data>
   <data name="Page_Skins_Drag_Drop_Area_Drop_CompatibleSkinSFound" xml:space="preserve">
-    <value>Skin compatibili trovate :</value>
+    <value>Skin compatibili trovate : </value>
   </data>
   <data name="Page_Skins_Browse_Click_CompatibleSkinFoundAt" xml:space="preserve">
-    <value> Skin compatibile trovata in :</value>
+    <value>Skin compatibile trovata in : </value>
   </data>
   <data name="Page_Skins_Browse_Click_IsNotASkinZip" xml:space="preserve">
     <value> non è un file zip di una skin!</value>
   </data>
   <data name="Page_Skins_OPEN_WEBPAGE_OpeningTheFollowingURL" xml:space="preserve">
-    <value>Apertura del seguente URL -</value>
+    <value>Apertura del seguente URL - </value>
   </data>
   <data name="Page_Home_Auto_Install__NORTHSTARISNOTINSTALLEDANDAUTOINSTALLFAILED" xml:space="preserve">
     <value>NORTHSTAR NON E' INSTALLATO E L'INSTALLAZIONE AUTOMATICA E' FALLITA!</value>
@@ -151,13 +151,13 @@
     <value>INSTALLAZIONE AUTOMATICA DI NORTHSTAR IN CORSO, ATTENDERE 30 SECONDI!</value>
   </data>
   <data name="Page_Home_timer_Tick_MasterServerCheckedAndTimedOutTooMuchTurningOffMasterServerChecks" xml:space="preserve">
-    <value>Troppi tentativi di verifica con il Master Server falliti. Controlli Master Server disabilitati.</value>
+    <value>Troppi tentativi di verifica con il Master Server falliti. Controlli Master Server disabilitati</value>
   </data>
   <data name="Page_Home_Origin_Client_Card_Click_TheOriginClientIsAlreadyRunning" xml:space="preserve">
-    <value> Client Origin già in esecuzione!</value>
+    <value>L'Origin Client è già in esecuzione!</value>
   </data>
   <data name="Page_Home_Browse_Titanfall_Button_Click_IsValidAndHasBeenSet" xml:space="preserve">
-    <value> è valido ed è stato applicato</value>
+    <value>  è valido ed è stato applicato</value>
   </data>
   <data name="Page_Home_Browse_Titanfall_Button_Click_TheLocation" xml:space="preserve">
     <value>La posizione - </value>
@@ -187,16 +187,16 @@
     <value>Rilevata versione di prova</value>
   </data>
   <data name="Unpack_To_Location_TheFile" xml:space="preserve">
-    <value> Il file -</value>
+    <value>Il file - </value>
   </data>
   <data name="Unpack_To_Location_WasNotFound" xml:space="preserve">
     <value> non è stato trovato!</value>
   </data>
   <data name="Page_Home_Unpack_To_Location_WasNotFound" xml:space="preserve">
-    <value>non è stato trovato!</value>
+    <value> non è stato trovato!</value>
   </data>
   <data name="Page_Home_Unpack_To_Location_TheFile" xml:space="preserve">
-    <value>Il file -</value>
+    <value>Il file - </value>
   </data>
   <data name="Page_Home_Unpack_To_Location_IsNotAZip" xml:space="preserve">
     <value>non è un file zip!</value>
@@ -241,7 +241,7 @@
     <value>Immagine PNG non valida</value>
   </data>
   <data name="Page_Tools_Icon_Image_MouseDown_ValidImageFoundAt" xml:space="preserve">
-    <value>Immagine valida trovata in -</value>
+    <value>Immagine valida trovata in - </value>
   </data>
   <data name="Page_Tools_Icon_Image_MouseDown_ThatWasNotAProperPNG" xml:space="preserve">
     <value>Non è un immagine PNG</value>
@@ -280,7 +280,7 @@
     <value>Impossibile leggere l'input</value>
   </data>
   <data name="Page_Server_Read_Convar_args_CannotSetThePath" xml:space="preserve">
-    <value> Impossibile impostare il percorso</value>
+    <value>Impossibile impostare il percorso</value>
   </data>
   <data name="Page_Server_Launch_Northstar_Advanced_Click_CouldNotFindNorthstarExe" xml:space="preserve">
     <value>Northstar.exe non trovato!</value>
@@ -322,7 +322,7 @@
     <value>Aggiorna Northstar</value>
   </data>
   <data name="Page_Home_NorthstarInstallation" xml:space="preserve">
-    <value>Installazione Northstar</value>
+    <value>Installazione Northstar </value>
   </data>
   <data name="Page_Home_LaunchNorthstar" xml:space="preserve">
     <value>Avvia +Northstar</value>
@@ -593,5 +593,89 @@
   </data>
   <data name="MainWindow_NewLogChangesHaveBeenDetectedPleaseClickMeToOpenYourLogsFolder" xml:space="preserve">
     <value>Sono state rilevate nuove modifiche ai Log, clicca qui per aprire la cartella dei Log.</value>
+  </data>
+  <data name="Page_Settings_Settings_LostFocus_Restart" xml:space="preserve">
+    <value>Riavvia</value>
+  </data>
+  <data name="MainWindow_Profiles" xml:space="preserve">
+    <value>Profili</value>
+  </data>
+  <data name="Page_Profiles_AddProfile" xml:space="preserve">
+    <value>Aggiungi profilo</value>
+  </data>
+  <data name="Page_Home_Page_Home_EAClientRunning" xml:space="preserve">
+    <value>EA Client in funzione</value>
+  </data>
+  <data name="Page_Profiles_ImportProfile" xml:space="preserve">
+    <value>Importa profilo</value>
+  </data>
+  <data name="Page_Profiles_BackupCurrentProfileOnImport" xml:space="preserve">
+    <value>Backup del profilo all'importo</value>
+  </data>
+  <data name="Page_Profiles_ExcludeModFolder" xml:space="preserve">
+    <value>Escludi cartella Mod</value>
+  </data>
+  <data name="Page_Profiles_ChangeSaveLocation" xml:space="preserve">
+    <value>Cambia posizione del salvataggio</value>
+  </data>
+  <data name="Page_Profiles_ExportProfile" xml:space="preserve">
+    <value>Esporta profilo</value>
+  </data>
+  <data name="Page_Profiles_IMPORT" xml:space="preserve">
+    <value>IMPORTO</value>
+  </data>
+  <data name="Page_Profiles_PROFILES" xml:space="preserve">
+    <value>PROFILI</value>
+  </data>
+  <data name="Page_Profiles_SaveLocation" xml:space="preserve">
+    <value>Posizione di salvataggio</value>
+  </data>
+  <data name="Page_Profiles_NameOfProfile" xml:space="preserve">
+    <value>Nome del profilo</value>
+  </data>
+  <data name="Page_Thunderstore_ConvertDateToString_Today" xml:space="preserve">
+    <value> Oggi</value>
+  </data>
+  <data name="Page_Thunderstore_ConvertDateToString_Yesterday" xml:space="preserve">
+    <value>Ieri</value>
+  </data>
+  <data name="Page_Thunderstore_ConvertDateToString_1WeekAgo" xml:space="preserve">
+    <value>1 Settimana fa</value>
+  </data>
+  <data name="Page_Thunderstore_ConvertDateToString_MinutesAgo" xml:space="preserve">
+    <value>minuti fa</value>
+  </data>
+  <data name="Page_Thunderstore_ConvertDateToString_DaysAgo" xml:space="preserve">
+    <value>giorni fa</value>
+  </data>
+  <data name="Page_Thunderstore_ConvertDateToString_HoursAgo" xml:space="preserve">
+    <value>ore fa</value>
+  </data>
+  <data name="Page_Home_INIT_ReInstallNorthstar" xml:space="preserve">
+    <value>Re-installa Northstar</value>
+  </data>
+  <data name="Page_Home_Check_For_New_Northstar_Install_With_Notif_ThereIsANewNorthstarVersionAvailablePleaseUpdateYourNorthstarInstall" xml:space="preserve">
+    <value>C'è una nuova versione di Northstar disponibile. Per favore aggiorna la tua installazione Northstar.</value>
+  </data>
+  <data name="Page_Home_Origin_Client_Card_Click_TheEAClientIsAlreadyRunning" xml:space="preserve">
+    <value>Il Client EA è già in esecuzione</value>
+  </data>
+  <data name="Page_Settings_Settings_LostFocus_AChangeInLanguageWasDetectedNVTOLRequiresARestartToDisplayTheseChangesNWouldYouLikeToRestartNow" xml:space="preserve">
+    <value>@Un cambiamento nel Linguaggio è stato identificato @VTOL richiede un riavvio per applicare questi cambiamenti. @Vuoi riavviare ora?.</value>
+  </data>
+  <data name="Page_Settings_Settings_LostFocus_LanguageChangeDetected" xml:space="preserve">
+    <value>-Cambiamento di linguaggio identificato-</value>
+  </data>
+  <data name="Page_Server_Export_Server_Config_Click_PleaseRecheckYourSaveLocation" xml:space="preserve">
+    <value> Per favore ricontrolla la posizione del tuo salvataggio</value>
+  </data>
+  <data name="Page_Profiles_ExcludeModFolderOnImport" xml:space="preserve">
+    <value>Escludi la cartella Mod all'importo</value>
+  </data>
+  <data name="Page_Profiles_ChangeTheEntireApplicationByImportingOrExportingProfiles" xml:space="preserve">
+    <value>Cambia l'intera applicazione importando o esportando Profili</value>
+  </data>
+  <data name="Page_Home_Install_NS_METHOD_GitHubRateLimitForDownloadTriesHasBeenExceededError403FromRemoteServerPleaseWait" xml:space="preserve">
+    <value>il Rate limit dei download di GitHub è stato superato. errore 403 dal server remoto. Per favore attendere</value>
   </data>
 </root>
