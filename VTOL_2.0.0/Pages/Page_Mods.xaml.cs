@@ -28,6 +28,9 @@ using Wpf.Ui;
 using Wpf.Ui.Common.Interfaces;
 using Path = System.IO.Path;
 using VTOL;
+using System.Xml.Linq;
+using ABI.Windows.UI;
+using HandyControl.Tools.Extension;
 
 namespace VTOL.Pages
 {
@@ -1944,9 +1947,14 @@ namespace VTOL.Pages
 
                 if (Directory.Exists(FolderDir))
                 {
+                    Dependency_Tree.Items.Clear();
+
+                    List<string> Dependencies = new List<string> { };
+                    string Dependencies_String = "";
 
 
                     string mod_Json = FindFirstFile(FolderDir, "mod.json");
+                    string manifest_json = FindFirstFile(FolderDir, "manifest.json");
 
 
                     if (mod_Json != null && File.Exists(mod_Json))
@@ -1958,19 +1966,62 @@ namespace VTOL.Pages
                         string Description = "Description: " + myJObject.Description;
                         long size = GetDirectorySize(FolderDir);
                         string size_str = "Mod Size on Disk: " + SizeSuffix(size);
+                        string Content = Description + Environment.NewLine + version + Environment.NewLine + size_str.Replace(",", ".");
+                        NAME.Content = myJObject.Name;
+                        INFO_MOD_SIZE_SET.Content = SizeSuffix(size);
+                        string cleaned = FolderDir.ToString().Substring(FolderDir.ToString().LastIndexOf("Titanfall2"));
+                        cleaned = cleaned.ToString().Substring(0, cleaned.ToString().LastIndexOf("mods") + 4);
+                        INFO_VERSION_MOD_SET.Content = cleaned;
+                        INFO_VERSION_SET.Content = myJObject.Version;
+                        Description_Box.Text = myJObject.Description;
+                        if (manifest_json != null && File.Exists(manifest_json))
+                        {
+                            var mymanifestString = File.ReadAllText(manifest_json);
+                            dynamic myMObject = JObject.Parse(mymanifestString);
 
-                       
-                        string Content = Description + Environment.NewLine + version + Environment.NewLine + size_str.Replace(",",".");
-                        DialogF.ButtonLeftName = "Ok";
-                        DialogF.ButtonLeftAppearance = Wpf.Ui.Common.ControlAppearance.Success;
-                        DialogF.ButtonRightName = VTOL.Resources.Languages.Language.Page_Mods_Open_Mod_Info_OpenFolder;
+                            for (var x = 0;  x < myMObject.dependencies.Count; x++)
+                            {
+                                if (myMObject.dependencies[x].ToString().Contains("northstar-Northstar") || myMObject.dependencies[x].ToString().Contains("ebkr-r2modman-"))
+                                {
 
-                        DialogF.ButtonRightAppearance = Wpf.Ui.Common.ControlAppearance.Secondary;
-                        DialogF.Title = name;
-                        DialogF.Message = Content;
-                        DialogF.Tag = FolderDir;
+                                    continue;
+                                }
+                                else
+                                {
+                                    
+                                    Dependency_Tree.Items.Add(VTOL.Resources.Languages.Language.Requires + myMObject.dependencies[x].ToString());
+                                    
+                                }
 
-                        DialogF.Show();
+                            }
+
+                            
+
+
+                        }
+                        else
+                        {
+
+                            Snackbar.Title = "WARNING";
+                            Snackbar.Message = "The manifest File Cannot Be accessed or Found!";
+                            Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
+                            Snackbar.Show();
+                        }
+
+
+                        Options_Panel_Mod.Visibility = Visibility.Visible;
+
+
+
+
+                    }
+                    else
+                    {
+
+                        Snackbar.Title = "ERROR";
+                        Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Danger;
+                        Snackbar.Message = "The Mod Information File Cannot Be accessed or Found!";
+                        Snackbar.Show();
                     }
 
 
@@ -2717,6 +2768,22 @@ int millisecondsDelay = 150)
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
+
+        }
+
+        private void Exit_BTN_ADD_Prfl_Click_1(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void EXIT(object sender, RoutedEventArgs e)
+        {
+            Options_Panel_Mod.Visibility = Visibility.Collapsed;
+        }
+
+        private void Options_Panel_Mod_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Options_Panel_Mod.Visibility = Visibility.Collapsed;
 
         }
     }

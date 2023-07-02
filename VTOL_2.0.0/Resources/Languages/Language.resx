@@ -678,4 +678,19 @@
   <data name="Page_Home_Install_NS_METHOD_GitHubRateLimitForDownloadTriesHasBeenExceededError403FromRemoteServerPleaseWait" xml:space="preserve">
     <value>GitHub Rate limit for Download tries has been exceeded. error 403 from remote server. Please wait</value>
   </data>
+  <data name="Requires" xml:space="preserve">
+    <value>Requires - </value>
+  </data>
+  <data name="MODSIZEONDISK" xml:space="preserve">
+    <value>MOD SIZE ON DISK</value>
+  </data>
+  <data name="VERSION" xml:space="preserve">
+    <value>VERSION</value>
+  </data>
+  <data name="PATH" xml:space="preserve">
+    <value>PATH</value>
+  </data>
+  <data name="MODINFO" xml:space="preserve">
+    <value>MOD INFO</value>
+  </data>
 </root>

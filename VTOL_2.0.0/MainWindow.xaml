@@ -173,9 +173,10 @@
             <Grid>
                 <Border
                 x:Name="mask"
-                Background="#FF171717"
+                 Background="{ui:ThemeResource}" 
                 CornerRadius="8"
             />
+                <!--="#FF171717"-->
 
                 <!--<ui:Breadcrumb
                     Margin="10,10,0,0"
@@ -281,7 +282,7 @@
             Grid.Column="0"
             Margin="6,40,6,0"
             Frame="{Binding ElementName=RootFrame}"
-            SelectedPageIndex="0" Navigated="RootNavigation_Navigated" Precache="False" TransitionDuration="420" Orientation="Vertical" LostFocus="RootNavigation_LostFocus" AllowDrop="False" TransitionType="FadeIn" PreviewMouseDown="RootNavigation_PreviewMouseDown" TargetUpdated="RootNavigation_TargetUpdated" SourceUpdated="RootNavigation_SourceUpdated" 
+            SelectedPageIndex="0" Navigated="RootNavigation_Navigated" Precache="False" TransitionDuration="420" Orientation="Vertical" LostFocus="RootNavigation_LostFocus" AllowDrop="False" TransitionType="FadeIn" PreviewMouseDown="RootNavigation_PreviewMouseDown" TargetUpdated="RootNavigation_TargetUpdated" SourceUpdated="RootNavigation_SourceUpdated" Foreground="#FFF10000" 
           >
             <ui:NavigationCompact.Items>
                 <ui:NavigationItem x:Name="Home"

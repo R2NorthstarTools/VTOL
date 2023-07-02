@@ -407,9 +407,9 @@ namespace VTOL.Pages
         public string Name { get; set; }
         public string Category { get; set; }
     }
-   
 
-public partial class Page_Tools : Page
+
+    public partial class Page_Tools : Page
     {
 
         Window_Tool_Image_Editor_Wizard Img_ed;
@@ -422,9 +422,9 @@ public partial class Page_Tools : Page
         string SelectedWeapon = null;
         int ImageNumber = 0;
         public string Tools_Dir;
-      
-       
-    public Page_Tools()
+
+
+        public Page_Tools()
         {
             InitializeComponent();
             try
@@ -449,7 +449,7 @@ public partial class Page_Tools : Page
 //Example image, remove me before publishing!
 //![Imgur](https://i.imgur.com/hdnNWZQ.jpeg)");
                 Mod_Adv_Repak_Path = Properties.Settings.Default.REpak_Folder_Path;
-                Zip_Box_Advocate_Copy.Text = Mod_Adv_Repak_Path;
+                //Zip_Box_Advocate_Copy.Text = Mod_Adv_Repak_Path;
 
                 paragraph.Inlines.Add(run);
                 Description_Box.Document.Blocks.Add(paragraph);
@@ -625,10 +625,10 @@ public partial class Page_Tools : Page
             }
 
         }
-      
-        
 
-       
+
+
+
         private static MainWindow GetMainWindow()
         {
             MainWindow mainWindow = null;
@@ -1974,8 +1974,8 @@ int millisecondsDelay = 300)
             }
         }
 
-       
-   
+
+
 
         private void Items_List_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -2038,8 +2038,8 @@ int millisecondsDelay = 300)
                 else
                     Output_Directory.Text = dialog.SelectedPath;
 
-                }
             }
+        }
 
 
 
@@ -2060,632 +2060,632 @@ int millisecondsDelay = 300)
         string Mod_Adv_Version_Num;
         string Mod_Adv_Skin_Name;
         string Mod_Adv_Output_Path;
-        public void Convert()
-        {
-            try {
-             
-                Mod_Adv_Version_Num = Mod_version_number_Advocate.Text;
-                Mod_Adv_Author_name = Mod_Author_Name_Advocate.Text;
-                Mod_Adv_Skin_Name = Mod_Skin_Name_Advocate.Text;
-               
-            if(Mod_Adv_Author_name == null || Mod_Adv_Author_name == "" || Mod_Adv_Author_name.Count() < 2)
-            {
-                SnackBar.Appearance = ControlAppearance.Danger;
-                SnackBar.Title = "ERROR";
-                SnackBar.Message = "Author Name Is Minimum 2 Letters";
-                SnackBar.Show();
-            }
-            if (Mod_Adv_Version_Num == null || Mod_Adv_Version_Num == "" || Mod_Adv_Version_Num.Count() < 2 || !Regex.Match(Mod_Adv_Version_Num, "^\\d+.\\d+.\\d+$").Success)
-            {
-                SnackBar.Appearance = ControlAppearance.Danger;
-                SnackBar.Title = "ERROR";
-                SnackBar.Message = "Version Number Is Invalid";
-                SnackBar.Show();
-            }
-            if (Mod_Adv_Skin_Name == null || Mod_Adv_Skin_Name == "" || Mod_Adv_Skin_Name.Count() < 2)
-            {
-                SnackBar.Appearance = ControlAppearance.Danger;
-                SnackBar.Title = "ERROR";
-                SnackBar.Message = "Skin Name Is Is Invalid";
-                SnackBar.Show();
-            }
-
-                if (Description_Box_Advocate.Document.Blocks.Count < 1)
-                {
-                    SnackBar.Appearance = ControlAppearance.Danger;
-                    SnackBar.Title = "ERROR";
-                    SnackBar.Message = "Description Is Invalid";
-                    SnackBar.Show();
-                }
-                if (!File.Exists(Mod_Adv_Skin_Path))
-            {
-
-           
-                SnackBar.Appearance = ControlAppearance.Danger;
-                SnackBar.Title = "ERROR";
-                SnackBar.Message = "Skin Content Is Invalid!";
-                SnackBar.Show();
-                return;
-            }
-            if (!Directory.Exists(Mod_Adv_Output_Path))
-            {
-                
-
-            
-                SnackBar.Appearance = ControlAppearance.Danger;
-                SnackBar.Title = "ERROR";
-                SnackBar.Message = "Output Path Is Invalid!";
-                SnackBar.Show();
-                return;
-            }
-            if (!File.Exists(Mod_Adv_Repak_Path))
-            {
-
-
-           
-            
-                SnackBar.Appearance = ControlAppearance.Danger;
-                SnackBar.Title = "ERROR";
-                SnackBar.Message = "RePak Path Is Invalid!";
-                SnackBar.Show();
-                return;
-            }
-            if (!File.Exists(Mod_Adv_Icon_Path))
-            {
-
-
-           
-                SnackBar.Appearance = ControlAppearance.Danger;
-                SnackBar.Title = "ERROR";
-                SnackBar.Message = "Icon Content Is Invalid!";
-                SnackBar.Show();
-                return;
-            }
-
-                // the temp path is appended with the current date and time to prevent duplicates
-                string tempFolderPath = Path.GetTempPath() + "/Advocate/" + DateTime.Now.ToString("yyyyMMdd-THHmmss");
-                string skinTempFolderPath = Path.GetFullPath(tempFolderPath + "/Skin");
-                string modTempFolderPath = Path.GetFullPath(tempFolderPath + "/Mod");
-                string repakTempFolderPath = Path.GetFullPath(tempFolderPath + "/RePak");
-
-                // try convert stuff, if we get a weird exception, don't crash preferably
-                try
-            {
-                /////////////////////////////
-                // create temp directories //
-                /////////////////////////////
-
-                    //
-                // directory for unzipped file
-               TryCreateDirectory(skinTempFolderPath);
-
-                // directory for TS-compliant mod
-               TryCreateDirectory(modTempFolderPath);
-
-                // directory for RePak things
-               TryCreateDirectory(repakTempFolderPath);
-
-
-                ///////////////////////////////
-                // unzip skin to temp folder //
-                ///////////////////////////////
-
-
-                try
-                {
-                    ZipFile.ExtractToDirectory(Mod_Adv_Skin_Path, skinTempFolderPath, true);
-                }
-                catch (InvalidDataException ex)
-                    {
-                        Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-
-                        SnackBar.Appearance = ControlAppearance.Danger;
-                    SnackBar.Title = "ERROR";
-                    SnackBar.Message = "Unable to unzip skin!";
-                    SnackBar.Show();
-                    return;
-                        
-                }
-
-
-                ////////////////////////////////////
-                // create temp mod file structure //
-                ////////////////////////////////////
-
-
-               TryCreateDirectory(modTempFolderPath + "\\mods\\" + Mod_Adv_Author_name + "." + Mod_Adv_Skin_Name + "\\paks");
-
-
-                /////////////////////
-                // create icon.png //
-                /////////////////////
-
-                if (Mod_Adv_Icon_Path == "")
-                {
-                    // fuck you, im using the col of the first folder i find, shouldve specified an icon path
-                    string[] skinPaths = Directory.GetDirectories(skinTempFolderPath);
-                    if (skinPaths.Length == 0)
-                    {
-                        SnackBar.Appearance = ControlAppearance.Danger;
-                        SnackBar.Title = "ERROR";
-                        SnackBar.Message = "No Skins found in zip!";
-                        SnackBar.Show();
-                        return;
-                    }
-                    string[] resolutions = Directory.GetDirectories(skinPaths[0]);
-                    if (resolutions.Length == 0)
-                    {
-                        SnackBar.Appearance = ControlAppearance.Danger;
-                        SnackBar.Title = "ERROR";
-                        SnackBar.Message = "No Skins found in zip!";
-                        SnackBar.Show();
-                        return;
-                    }
-                    // find highest resolution folder
-                    int highestRes = 0;
-                    foreach (string resolution in resolutions)
-                    {
-                        string? thing = Path.GetFileName(resolution);
-                        // check if higher than highestRes and a power of 2
-                        if (int.TryParse(thing, out int res) && res > highestRes && (highestRes & (highestRes - 1)) == 0)
-                        {
-                            highestRes = res;
-                        }
-                    }
-                    // check that we actually found something
-                    if (highestRes == 0)
-                    {
-                        SnackBar.Appearance = ControlAppearance.Danger;
-                        SnackBar.Title = "ERROR";
-                        SnackBar.Message = "No valid image resolutions found in zip!";
-                        SnackBar.Show();
-                        return;
-                    }
-
-                    string[] files = Directory.GetFiles(skinPaths[0] + "\\" + highestRes.ToString());
-                    if (files.Length == 0)
-                    {
-                        SnackBar.Appearance = ControlAppearance.Danger;
-                        SnackBar.Title = "ERROR";
-                        SnackBar.Message = "No files in highest resolution folder!";
-                        SnackBar.Show();
-                        return;
-                    }
-                    // find _col file
-                    string colPath = "";
-                    foreach (string file in files)
-                    {
-                        if (file.EndsWith("_col.dds"))
-                        {
-                            colPath = file;
-                            break;
-                        }
-                    }
-                    if (colPath == "")
-                    {
-                        SnackBar.Appearance = ControlAppearance.Danger;
-                        SnackBar.Title = "ERROR";
-                        SnackBar.Message = "No _col texture found in highest resolution folder";
-                        SnackBar.Show();
-                        return;
-                    }
-
-                    if (!DdsToPng(colPath, modTempFolderPath + "\\icon.png"))
-                    {
-                        SnackBar.Appearance = ControlAppearance.Danger;
-                        SnackBar.Title = "ERROR";
-                        SnackBar.Message = "Failed to convert dds to png for icon!";
-                        SnackBar.Show();
-                        return;
-                    }
-                }
-                else
-                {
-                    // check that png is correct size
-                    System.Drawing.Image img = System.Drawing.Image.FromFile(Mod_Adv_Icon_Path);
-                  
-
-                    // copy png over
-                    TryCopyFile(Mod_Adv_Icon_Path, modTempFolderPath + "\\icon.png",true);
-                }
-
-                    //    ConvertTaskComplete();
-
-                    //////////////////////
-                    // create README.md //
-                    //////////////////////
-                   
-                    if (Description_Box_Advocate.Document.Blocks.Count > 1)
-                {
-                        TextRange textRange = new TextRange(
-               // TextPointer to the start of content in the RichTextBox.
-               Description_Box_Advocate.Document.ContentStart,
-               // TextPointer to the end of content in the RichTextBox.
-               Description_Box_Advocate.Document.ContentEnd
-           );
-
-                        // The Text property on a TextRange object returns a string
-                        // representing the plain text content of the TextRange.
-                         
-
-                        File.WriteAllText(modTempFolderPath + "\\README.md", textRange.Text);
-                }
-                else
-                {
-                    SnackBar.Appearance = ControlAppearance.Danger;
-                    SnackBar.Title = "ERROR";
-                    SnackBar.Message = "No files in highest resolution folder!";
-                    SnackBar.Show();
-
-                }
-
-
-                //////////////////////////
-                // create manifest.json //
-                //////////////////////////
-
-
-                string manifest = string.Format("{{\n\"name\":\"{0}\",\n\"version_number\":\"{1}\",\n\"website_url\":\"\",\n\"dependencies\":[],\n\"description\":\"{2}\"\n}}", Mod_Adv_Skin_Name.Replace(' ', '_'), Mod_Adv_Version_Num, string.Format("Skin made by {0}", Mod_Adv_Author_name));
-                File.WriteAllText(modTempFolderPath + "\\manifest.json", manifest);
-
-
-                /////////////////////
-                // create mod.json //
-                /////////////////////
-
-
-                string modJson = string.Format("{{\n\"Name\": \"{0}\",\n\"Description\": \"\",\n\"Version\": \"{1}\",\n\"LoadPriority\": 1,\n\"ConVars\":[],\n\"Scripts\":[],\n\"Localisation\":[]\n}}", Mod_Adv_Author_name + "." + Mod_Adv_Skin_Name, Mod_Adv_Version_Num);
-                File.WriteAllText(modTempFolderPath + "\\mods\\" + Mod_Adv_Author_name + "." + Mod_Adv_Skin_Name + "\\mod.json", modJson);
-
-
-                    //////////////////////////////////////////////////////////////////
-                    // create map.json and move textures to temp folder for packing //
-                    //////////////////////////////////////////////////////////////////
-
-                    Advocate.Conversion.JSON.Map map = new(Mod_Adv_Skin_Name, $"{repakTempFolderPath}/assets", $"{modTempFolderPath}/mods/{Mod_Adv_Author_name}.{Mod_Adv_Skin_Name}/paks");
-
-                    // this tracks the textures that we have already added to the json, so we can avoid duplicates in there
-                    List<string> textures = new();
-                    // this tracks the different skin types that we have found, for description parsing later
-                    List<string> skinTypes = new();
-
-                    // this keeps track of the different DDS files we are handling and combining
-                    // the key is the texture name (example: CAR_Default_col)
-                    Dictionary<string, Advocate.DDS.Manager> ddsManagers = new();
-                    /* The plan here is to:
-                     * 1. find all textures, and put them into arrays/lists of mip sizes (where 2^index == image width/height)
-                     * 2. take each dds, and rip the image data directly from it, putting them together to create as many mip levels as we can
-                     * 3. create the lower level mips from the highest resolution image that we have
-                     * (decompression and recompression harms image quality so we want to avoid this wherever we can)
-                     * 4. put the raw image data for the mips into one dds file
-                     * 
-                     * ASSUMPTIONS:
-                     * 1. the lower resolution images use the same compression format as the highest resolution image
-                     * if this is not the case, log, and skip the lower level image (this means we have to generate more mip levels, which is bad)
-                     * 
-                     */
-
-                    // find all DDS files within the zip folder
-                    string[] ddsImages = Directory.GetFiles(skinTempFolderPath, "*.dds", SearchOption.AllDirectories);
-
-                    // add all of the files to their respective DDS Managers
-                    foreach (string path in ddsImages)
-                    {
-                        string filename = Path.GetFileNameWithoutExtension(path);
-
-                        // create a new DDS.Manager if needed
-                        if (!ddsManagers.ContainsKey(filename))
-                        {
-                          //  Debug($"Found new texture type '{filename}', creating Manager.");
-                            ddsManagers.Add(filename, new Advocate.DDS.Manager());
-                        }
-
-                        // read the dds file into the Manager
-                      //  Debug($"Adding new image for texture type '{filename}' from path '{path}'");
-                        BinaryReader reader = new(new FileStream(path, FileMode.Open));
-                        ddsManagers[filename].LoadImage(reader);
-                        reader.Close();
-
-                        // add texture to skinTypes for tracking which skins are in the package
-                        string type = Path.GetFileNameWithoutExtension(path).Split("_")[0];
-                        if (!skinTypes.Contains(type))
-                        {
-                          //  Debug($"Found new skin type for description handling ({type})");
-                            skinTypes.Add(type);
-                        }
-                    }
-
-                    // save all dds images
-                    foreach (KeyValuePair<string, Advocate.DDS.Manager> pair in ddsManagers)
-                    {
-                        string texturePath = TextureNameToPath(pair.Key);
-                        if (texturePath == "")
-                        {
-                           // Logging.Logger.Error($"Failed to find texture path for {pair.Key}");
-                          //  return false;
-                        }
-                        string filePath = $"{repakTempFolderPath}/assets/{texturePath}.dds";
-                        // writer doesnt create directories, so do it beforehand
-                        Directory.CreateDirectory(Path.GetDirectoryName(filePath));
-
-                        //Debug($"Saving texture (with {pair.Value.MipMapCount} mips) to path '{filePath}'");
-
-                        // create writer and save the image
-                        BinaryWriter writer = new(new FileStream(filePath, FileMode.Create));
-
-                        // generate missing mips
-                        if (pair.Value.HasMissingMips())
-                        {
-                           // Debug($"Texture being saved to '{filePath}' has missing mip levels");
-                           // Info($"Generating MipMaps... ({pair.Key})");
-                         
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            //  pair.Value.GenerateMissingMips(texconvPath);
-
-
-                        }
-
-                        pair.Value.Convert();
-                        pair.Value.SaveImage(writer);
-
-                        // close the writer
-                        writer.Close();
-
-                        // add asset to map file
-                        map.AddTextureAsset(texturePath);
-
-                        // add texturePath to tracked textures
-                        textures.Add(texturePath);
-                    }
-
-                    // write the map json
-                  //
-                  
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    //File.WriteAllText($"{repakTempFolderPath}/map.json", JsonSerializer.Serialize<Advocate.Conversion.JSON.Map>(map, jsonOptions));
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                //    string map = string.Format("{{\n\"name\":\"{0}\",\n\"assetsDir\":\"{1}\",\n\"outputDir\":\"{2}\",\n\"version\": 7,\n\"files\":[\n", Mod_Adv_Skin_Name, (repakTempFolderPath + "\\assets").Replace('\\', '/'), (modTempFolderPath + "\\mods\\" + Mod_Adv_Author_name + "." + Mod_Adv_Skin_Name + "\\paks").Replace('\\', '/'));
-                //// this tracks the textures that we have already added to the json, so we can avoid duplicates in there
-                //List<string> textures = new();
-                //bool isFirst = true;
-                //foreach (string skinPath in Directory.GetDirectories(skinTempFolderPath))
-                //    {// some skins have random files and folders in here, like images and stuff, so I have to do sorting in an annoying way
-                //        List<string> parsedDirs = new();
-                //        foreach (string dir in Directory.GetDirectories(skinPath))
-                //        {
-                //            // only add to the list of dirs
-                //            if (int.TryParse(Path.GetFileName(dir), out int val))
-                //            {
-                //                parsedDirs.Add(dir);
-                //            }
-                //        }
-                //        foreach (string resolution in Directory.GetDirectories(skinPath).OrderBy(path => int.Parse(Path.GetFileName(path))))
-                //    {
-                //        if (int.TryParse(Path.GetFileName(resolution), out int res))
-                //        {
-                //            foreach (string texture in Directory.GetFiles(resolution))
-                //            {
-                //                // move texture to temp folder for packing
-                //                // convert from skin tool syntax to actual texture path, gotta be hardcoded because pain
-                //                string texturePath = TextureNameToPath(Path.GetFileNameWithoutExtension(texture));
-                //                if (texturePath == "")
-                //                {
-                //                   // ConversionFailed(button, styleProperty, "Failed to convert texture '" + Path.GetFileNameWithoutExtension(texture) + "')");
-                //                    return;
-                //                }
-
-                //                // avoid duplicate textures in the json
-                //                if (!textures.Contains(texturePath))
-                //                {
-                //                    // dont add a comma on the first one
-                //                    if (!isFirst)
-                //                        map += ",\n";
-                //                    map += $"{{\n\"$type\":\"txtr\",\n\"path\":\"{texturePath}\",\n\"disableStreaming\":true,\n\"saveDebugName\":true\n}}";
-                //                    // add texture to tracked textures
-                //                    textures.Add(texturePath);
-                //                }
-                //                isFirst = false;
-                //                // copy file
-                //               TryCreateDirectory(Directory.GetParent($"{repakTempFolderPath}\\assets\\{texturePath}.dds").FullName);
-
-                //                DdsHandler handler = new(texture);
-                //                handler.Convert();
-                //                handler.Save($"{repakTempFolderPath}\\assets\\{texturePath}.dds");
-                //            }
-                //        }
-                //    }
-                //}
-
-                //// end the json
-                //map += "\n]\n}";
-                //File.WriteAllText(repakTempFolderPath + "\\map.json", map);
-
-
-                //////////////////////////
-                // pack using RePak.exe //
-                //////////////////////////
-
-             //   Message = "Packing using RePak...";
-
-                //var sb = new StringBuilder();
-
-                Process P = new();
-
-                //P.StartInfo.RedirectStandardOutput = true;
-                //P.StartInfo.RedirectStandardError = true;
-                //P.OutputDataReceived += (sender, args) => sb.AppendLine(args.Data);
-                //P.ErrorDataReceived += (sender, args) => sb.AppendLine(args.Data);
-                //P.StartInfo.UseShellExecute = false;
-                P.StartInfo.FileName = Mod_Adv_Repak_Path;
-                P.StartInfo.Arguments = "\"" + repakTempFolderPath + "\\map.json\"";
-                P.Start();
-                //P.BeginOutputReadLine();
-                //P.BeginErrorReadLine();
-                P.WaitForExit();
-
-                if (P.ExitCode == 1)
-                {
-                  //  ConversionFailed(button, styleProperty, "RePak failed to pack the rpak!");
-                    return;
-                }
-
-
-                //////////////////////
-                // create rpak.json //
-                //////////////////////
-
-
-                string rpakjson = string.Format("{{\n\"Preload\":\n{{\n\"{0}\":true\n}}\n}}", Mod_Adv_Skin_Name + ".rpak");
-
-                File.WriteAllText(modTempFolderPath + "\\mods\\" + Mod_Adv_Author_name + "." + Mod_Adv_Skin_Name + "\\paks\\rpak.json", rpakjson);
-
-
-                ///////////////////
-                // zip up result //
-                ///////////////////
-
-
-                ZipFile.CreateFromDirectory(modTempFolderPath, tempFolderPath + "\\" + Mod_Adv_Author_name + "." + Mod_Adv_Skin_Name + ".zip");
-
-
-                ////////////////////////////////////
-                // move result out of temp folder //
-                ////////////////////////////////////
-
-
-                TryMoveFile(tempFolderPath + "\\" + Mod_Adv_Author_name + "." + Mod_Adv_Skin_Name + ".zip", Mod_Adv_Output_Path + "\\" + Mod_Adv_Author_name + "." + Mod_Adv_Skin_Name + ".zip", true);
-
-            }
-            catch (Exception ex)
-            {
-                    //Removed PaperTrailSystem Due to lack of reliability.
-
-                    SnackBar.Appearance = ControlAppearance.Danger;
-                    SnackBar.Title = "ERROR";
-                    SnackBar.Message = ex.Message;
-                    SnackBar.Show();
-                    Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-
-                    return;
-            }
-            finally
-            {
-                    /////////////
-                    // cleanup //
-                    /////////////
-
-
-                    // delete temp folders
-                    // delete temp folders
-                    try
-                    {
-                        // delete temp folders
-                        if (Directory.Exists(tempFolderPath))
-                            Directory.Delete(tempFolderPath, true);
-                    }
-                    catch (Exception ex)
-                    {
-                       
-                    }
-                }
-
-
-            // everything is done and good
-            SnackBar.Appearance = ControlAppearance.Success;
-            SnackBar.Title = "SUCCESS";
-            SnackBar.Message = "Conversion Completed Successfully";
-            SnackBar.Show();
-
-
-            }
-            catch (Exception ex)
-            {
-              //Removed PaperTrailSystem Due to lack of reliability.
-                SnackBar.Appearance = ControlAppearance.Danger;
-                SnackBar.Title = "ERROR";
-                SnackBar.Message = ex.Message;
-                SnackBar.Show();
-                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-
-            }
-
-
-        }
+        //public void Convert()
+        //{
+        //    try {
+
+        //        //Mod_Adv_Version_Num = Mod_version_number_Advocate.Text;
+        //        //Mod_Adv_Author_name = Mod_Author_Name_Advocate.Text;
+        //        //Mod_Adv_Skin_Name = Mod_Skin_Name_Advocate.Text;
+
+        //    if(Mod_Adv_Author_name == null || Mod_Adv_Author_name == "" || Mod_Adv_Author_name.Count() < 2)
+        //    {
+        //        SnackBar.Appearance = ControlAppearance.Danger;
+        //        SnackBar.Title = "ERROR";
+        //        SnackBar.Message = "Author Name Is Minimum 2 Letters";
+        //        SnackBar.Show();
+        //    }
+        //    if (Mod_Adv_Version_Num == null || Mod_Adv_Version_Num == "" || Mod_Adv_Version_Num.Count() < 2 || !Regex.Match(Mod_Adv_Version_Num, "^\\d+.\\d+.\\d+$").Success)
+        //    {
+        //        SnackBar.Appearance = ControlAppearance.Danger;
+        //        SnackBar.Title = "ERROR";
+        //        SnackBar.Message = "Version Number Is Invalid";
+        //        SnackBar.Show();
+        //    }
+        //    if (Mod_Adv_Skin_Name == null || Mod_Adv_Skin_Name == "" || Mod_Adv_Skin_Name.Count() < 2)
+        //    {
+        //        SnackBar.Appearance = ControlAppearance.Danger;
+        //        SnackBar.Title = "ERROR";
+        //        SnackBar.Message = "Skin Name Is Is Invalid";
+        //        SnackBar.Show();
+        //    }
+
+        //        //if (Description_Box_Advocate.Document.Blocks.Count < 1)
+        //        //{
+        //        //    SnackBar.Appearance = ControlAppearance.Danger;
+        //        //    SnackBar.Title = "ERROR";
+        //        //    SnackBar.Message = "Description Is Invalid";
+        //        //    SnackBar.Show();
+        //        //}
+        //        if (!File.Exists(Mod_Adv_Skin_Path))
+        //    {
+
+
+        //        SnackBar.Appearance = ControlAppearance.Danger;
+        //        SnackBar.Title = "ERROR";
+        //        SnackBar.Message = "Skin Content Is Invalid!";
+        //        SnackBar.Show();
+        //        return;
+        //    }
+        //    if (!Directory.Exists(Mod_Adv_Output_Path))
+        //    {
+
+
+
+        //        SnackBar.Appearance = ControlAppearance.Danger;
+        //        SnackBar.Title = "ERROR";
+        //        SnackBar.Message = "Output Path Is Invalid!";
+        //        SnackBar.Show();
+        //        return;
+        //    }
+        //    if (!File.Exists(Mod_Adv_Repak_Path))
+        //    {
+
+
+
+
+        //        SnackBar.Appearance = ControlAppearance.Danger;
+        //        SnackBar.Title = "ERROR";
+        //        SnackBar.Message = "RePak Path Is Invalid!";
+        //        SnackBar.Show();
+        //        return;
+        //    }
+        //    if (!File.Exists(Mod_Adv_Icon_Path))
+        //    {
+
+
+
+        //        SnackBar.Appearance = ControlAppearance.Danger;
+        //        SnackBar.Title = "ERROR";
+        //        SnackBar.Message = "Icon Content Is Invalid!";
+        //        SnackBar.Show();
+        //        return;
+        //    }
+
+        //        // the temp path is appended with the current date and time to prevent duplicates
+        //        string tempFolderPath = Path.GetTempPath() + "/Advocate/" + DateTime.Now.ToString("yyyyMMdd-THHmmss");
+        //        string skinTempFolderPath = Path.GetFullPath(tempFolderPath + "/Skin");
+        //        string modTempFolderPath = Path.GetFullPath(tempFolderPath + "/Mod");
+        //        string repakTempFolderPath = Path.GetFullPath(tempFolderPath + "/RePak");
+
+        //        // try convert stuff, if we get a weird exception, don't crash preferably
+        //        try
+        //    {
+        //        /////////////////////////////
+        //        // create temp directories //
+        //        /////////////////////////////
+
+        //            //
+        //        // directory for unzipped file
+        //       TryCreateDirectory(skinTempFolderPath);
+
+        //        // directory for TS-compliant mod
+        //       TryCreateDirectory(modTempFolderPath);
+
+        //        // directory for RePak things
+        //       TryCreateDirectory(repakTempFolderPath);
+
+
+        //        ///////////////////////////////
+        //        // unzip skin to temp folder //
+        //        ///////////////////////////////
+
+
+        //        try
+        //        {
+        //            ZipFile.ExtractToDirectory(Mod_Adv_Skin_Path, skinTempFolderPath, true);
+        //        }
+        //        catch (InvalidDataException ex)
+        //            {
+        //                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+
+        //                SnackBar.Appearance = ControlAppearance.Danger;
+        //            SnackBar.Title = "ERROR";
+        //            SnackBar.Message = "Unable to unzip skin!";
+        //            SnackBar.Show();
+        //            return;
+
+        //        }
+
+
+        //        ////////////////////////////////////
+        //        // create temp mod file structure //
+        //        ////////////////////////////////////
+
+
+        //       TryCreateDirectory(modTempFolderPath + "\\mods\\" + Mod_Adv_Author_name + "." + Mod_Adv_Skin_Name + "\\paks");
+
+
+        //        /////////////////////
+        //        // create icon.png //
+        //        /////////////////////
+
+        //        if (Mod_Adv_Icon_Path == "")
+        //        {
+        //            // fuck you, im using the col of the first folder i find, shouldve specified an icon path
+        //            string[] skinPaths = Directory.GetDirectories(skinTempFolderPath);
+        //            if (skinPaths.Length == 0)
+        //            {
+        //                SnackBar.Appearance = ControlAppearance.Danger;
+        //                SnackBar.Title = "ERROR";
+        //                SnackBar.Message = "No Skins found in zip!";
+        //                SnackBar.Show();
+        //                return;
+        //            }
+        //            string[] resolutions = Directory.GetDirectories(skinPaths[0]);
+        //            if (resolutions.Length == 0)
+        //            {
+        //                SnackBar.Appearance = ControlAppearance.Danger;
+        //                SnackBar.Title = "ERROR";
+        //                SnackBar.Message = "No Skins found in zip!";
+        //                SnackBar.Show();
+        //                return;
+        //            }
+        //            // find highest resolution folder
+        //            int highestRes = 0;
+        //            foreach (string resolution in resolutions)
+        //            {
+        //                string? thing = Path.GetFileName(resolution);
+        //                // check if higher than highestRes and a power of 2
+        //                if (int.TryParse(thing, out int res) && res > highestRes && (highestRes & (highestRes - 1)) == 0)
+        //                {
+        //                    highestRes = res;
+        //                }
+        //            }
+        //            // check that we actually found something
+        //            if (highestRes == 0)
+        //            {
+        //                SnackBar.Appearance = ControlAppearance.Danger;
+        //                SnackBar.Title = "ERROR";
+        //                SnackBar.Message = "No valid image resolutions found in zip!";
+        //                SnackBar.Show();
+        //                return;
+        //            }
+
+        //            string[] files = Directory.GetFiles(skinPaths[0] + "\\" + highestRes.ToString());
+        //            if (files.Length == 0)
+        //            {
+        //                SnackBar.Appearance = ControlAppearance.Danger;
+        //                SnackBar.Title = "ERROR";
+        //                SnackBar.Message = "No files in highest resolution folder!";
+        //                SnackBar.Show();
+        //                return;
+        //            }
+        //            // find _col file
+        //            string colPath = "";
+        //            foreach (string file in files)
+        //            {
+        //                if (file.EndsWith("_col.dds"))
+        //                {
+        //                    colPath = file;
+        //                    break;
+        //                }
+        //            }
+        //            if (colPath == "")
+        //            {
+        //                SnackBar.Appearance = ControlAppearance.Danger;
+        //                SnackBar.Title = "ERROR";
+        //                SnackBar.Message = "No _col texture found in highest resolution folder";
+        //                SnackBar.Show();
+        //                return;
+        //            }
+
+        //            if (!DdsToPng(colPath, modTempFolderPath + "\\icon.png"))
+        //            {
+        //                SnackBar.Appearance = ControlAppearance.Danger;
+        //                SnackBar.Title = "ERROR";
+        //                SnackBar.Message = "Failed to convert dds to png for icon!";
+        //                SnackBar.Show();
+        //                return;
+        //            }
+        //        }
+        //        else
+        //        {
+        //            // check that png is correct size
+        //            System.Drawing.Image img = System.Drawing.Image.FromFile(Mod_Adv_Icon_Path);
+
+
+        //            // copy png over
+        //            TryCopyFile(Mod_Adv_Icon_Path, modTempFolderPath + "\\icon.png",true);
+        //        }
+
+        //            //    ConvertTaskComplete();
+
+        //            //////////////////////
+        //            // create README.md //
+        //            //////////////////////
+
+        //   //         if (Description_Box_Advocate.Document.Blocks.Count > 1)
+        //   //     {
+        //   //             TextRange textRange = new TextRange(
+        //   //    // TextPointer to the start of content in the RichTextBox.
+        //   //    Description_Box_Advocate.Document.ContentStart,
+        //   //    // TextPointer to the end of content in the RichTextBox.
+        //   //    Description_Box_Advocate.Document.ContentEnd
+        //   //);
+
+        //                // The Text property on a TextRange object returns a string
+        //                // representing the plain text content of the TextRange.
+
+
+        //                File.WriteAllText(modTempFolderPath + "\\README.md", textRange.Text);
+        //        }
+        //        else
+        //        {
+        //            SnackBar.Appearance = ControlAppearance.Danger;
+        //            SnackBar.Title = "ERROR";
+        //            SnackBar.Message = "No files in highest resolution folder!";
+        //            SnackBar.Show();
+
+        //        }
+
+
+        //        //////////////////////////
+        //        // create manifest.json //
+        //        //////////////////////////
+
+
+        //        string manifest = string.Format("{{\n\"name\":\"{0}\",\n\"version_number\":\"{1}\",\n\"website_url\":\"\",\n\"dependencies\":[],\n\"description\":\"{2}\"\n}}", Mod_Adv_Skin_Name.Replace(' ', '_'), Mod_Adv_Version_Num, string.Format("Skin made by {0}", Mod_Adv_Author_name));
+        //        File.WriteAllText(modTempFolderPath + "\\manifest.json", manifest);
+
+
+        //        /////////////////////
+        //        // create mod.json //
+        //        /////////////////////
+
+
+        //        string modJson = string.Format("{{\n\"Name\": \"{0}\",\n\"Description\": \"\",\n\"Version\": \"{1}\",\n\"LoadPriority\": 1,\n\"ConVars\":[],\n\"Scripts\":[],\n\"Localisation\":[]\n}}", Mod_Adv_Author_name + "." + Mod_Adv_Skin_Name, Mod_Adv_Version_Num);
+        //        File.WriteAllText(modTempFolderPath + "\\mods\\" + Mod_Adv_Author_name + "." + Mod_Adv_Skin_Name + "\\mod.json", modJson);
+
+
+        //            //////////////////////////////////////////////////////////////////
+        //            // create map.json and move textures to temp folder for packing //
+        //            //////////////////////////////////////////////////////////////////
+
+        //            Advocate.Conversion.JSON.Map map = new(Mod_Adv_Skin_Name, $"{repakTempFolderPath}/assets", $"{modTempFolderPath}/mods/{Mod_Adv_Author_name}.{Mod_Adv_Skin_Name}/paks");
+
+        //            // this tracks the textures that we have already added to the json, so we can avoid duplicates in there
+        //            List<string> textures = new();
+        //            // this tracks the different skin types that we have found, for description parsing later
+        //            List<string> skinTypes = new();
+
+        //            // this keeps track of the different DDS files we are handling and combining
+        //            // the key is the texture name (example: CAR_Default_col)
+        //            Dictionary<string, Advocate.DDS.Manager> ddsManagers = new();
+        //            /* The plan here is to:
+        //             * 1. find all textures, and put them into arrays/lists of mip sizes (where 2^index == image width/height)
+        //             * 2. take each dds, and rip the image data directly from it, putting them together to create as many mip levels as we can
+        //             * 3. create the lower level mips from the highest resolution image that we have
+        //             * (decompression and recompression harms image quality so we want to avoid this wherever we can)
+        //             * 4. put the raw image data for the mips into one dds file
+        //             * 
+        //             * ASSUMPTIONS:
+        //             * 1. the lower resolution images use the same compression format as the highest resolution image
+        //             * if this is not the case, log, and skip the lower level image (this means we have to generate more mip levels, which is bad)
+        //             * 
+        //             */
+
+        //            // find all DDS files within the zip folder
+        //            string[] ddsImages = Directory.GetFiles(skinTempFolderPath, "*.dds", SearchOption.AllDirectories);
+
+        //            // add all of the files to their respective DDS Managers
+        //            foreach (string path in ddsImages)
+        //            {
+        //                string filename = Path.GetFileNameWithoutExtension(path);
+
+        //                // create a new DDS.Manager if needed
+        //                if (!ddsManagers.ContainsKey(filename))
+        //                {
+        //                  //  Debug($"Found new texture type '{filename}', creating Manager.");
+        //                    ddsManagers.Add(filename, new Advocate.DDS.Manager());
+        //                }
+
+        //                // read the dds file into the Manager
+        //              //  Debug($"Adding new image for texture type '{filename}' from path '{path}'");
+        //                BinaryReader reader = new(new FileStream(path, FileMode.Open));
+        //                ddsManagers[filename].LoadImage(reader);
+        //                reader.Close();
+
+        //                // add texture to skinTypes for tracking which skins are in the package
+        //                string type = Path.GetFileNameWithoutExtension(path).Split("_")[0];
+        //                if (!skinTypes.Contains(type))
+        //                {
+        //                  //  Debug($"Found new skin type for description handling ({type})");
+        //                    skinTypes.Add(type);
+        //                }
+        //            }
+
+        //            // save all dds images
+        //            foreach (KeyValuePair<string, Advocate.DDS.Manager> pair in ddsManagers)
+        //            {
+        //                string texturePath = TextureNameToPath(pair.Key);
+        //                if (texturePath == "")
+        //                {
+        //                   // Logging.Logger.Error($"Failed to find texture path for {pair.Key}");
+        //                  //  return false;
+        //                }
+        //                string filePath = $"{repakTempFolderPath}/assets/{texturePath}.dds";
+        //                // writer doesnt create directories, so do it beforehand
+        //                Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+
+        //                //Debug($"Saving texture (with {pair.Value.MipMapCount} mips) to path '{filePath}'");
+
+        //                // create writer and save the image
+        //                BinaryWriter writer = new(new FileStream(filePath, FileMode.Create));
+
+        //                // generate missing mips
+        //                if (pair.Value.HasMissingMips())
+        //                {
+        //                   // Debug($"Texture being saved to '{filePath}' has missing mip levels");
+        //                   // Info($"Generating MipMaps... ({pair.Key})");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //                    //  pair.Value.GenerateMissingMips(texconvPath);
+
+
+        //                }
+
+        //                pair.Value.Convert();
+        //                pair.Value.SaveImage(writer);
+
+        //                // close the writer
+        //                writer.Close();
+
+        //                // add asset to map file
+        //                map.AddTextureAsset(texturePath);
+
+        //                // add texturePath to tracked textures
+        //                textures.Add(texturePath);
+        //            }
+
+        //            // write the map json
+        //          //
+
+
+
+
+
+
+
+
+        //            //File.WriteAllText($"{repakTempFolderPath}/map.json", JsonSerializer.Serialize<Advocate.Conversion.JSON.Map>(map, jsonOptions));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //        //    string map = string.Format("{{\n\"name\":\"{0}\",\n\"assetsDir\":\"{1}\",\n\"outputDir\":\"{2}\",\n\"version\": 7,\n\"files\":[\n", Mod_Adv_Skin_Name, (repakTempFolderPath + "\\assets").Replace('\\', '/'), (modTempFolderPath + "\\mods\\" + Mod_Adv_Author_name + "." + Mod_Adv_Skin_Name + "\\paks").Replace('\\', '/'));
+        //        //// this tracks the textures that we have already added to the json, so we can avoid duplicates in there
+        //        //List<string> textures = new();
+        //        //bool isFirst = true;
+        //        //foreach (string skinPath in Directory.GetDirectories(skinTempFolderPath))
+        //        //    {// some skins have random files and folders in here, like images and stuff, so I have to do sorting in an annoying way
+        //        //        List<string> parsedDirs = new();
+        //        //        foreach (string dir in Directory.GetDirectories(skinPath))
+        //        //        {
+        //        //            // only add to the list of dirs
+        //        //            if (int.TryParse(Path.GetFileName(dir), out int val))
+        //        //            {
+        //        //                parsedDirs.Add(dir);
+        //        //            }
+        //        //        }
+        //        //        foreach (string resolution in Directory.GetDirectories(skinPath).OrderBy(path => int.Parse(Path.GetFileName(path))))
+        //        //    {
+        //        //        if (int.TryParse(Path.GetFileName(resolution), out int res))
+        //        //        {
+        //        //            foreach (string texture in Directory.GetFiles(resolution))
+        //        //            {
+        //        //                // move texture to temp folder for packing
+        //        //                // convert from skin tool syntax to actual texture path, gotta be hardcoded because pain
+        //        //                string texturePath = TextureNameToPath(Path.GetFileNameWithoutExtension(texture));
+        //        //                if (texturePath == "")
+        //        //                {
+        //        //                   // ConversionFailed(button, styleProperty, "Failed to convert texture '" + Path.GetFileNameWithoutExtension(texture) + "')");
+        //        //                    return;
+        //        //                }
+
+        //        //                // avoid duplicate textures in the json
+        //        //                if (!textures.Contains(texturePath))
+        //        //                {
+        //        //                    // dont add a comma on the first one
+        //        //                    if (!isFirst)
+        //        //                        map += ",\n";
+        //        //                    map += $"{{\n\"$type\":\"txtr\",\n\"path\":\"{texturePath}\",\n\"disableStreaming\":true,\n\"saveDebugName\":true\n}}";
+        //        //                    // add texture to tracked textures
+        //        //                    textures.Add(texturePath);
+        //        //                }
+        //        //                isFirst = false;
+        //        //                // copy file
+        //        //               TryCreateDirectory(Directory.GetParent($"{repakTempFolderPath}\\assets\\{texturePath}.dds").FullName);
+
+        //        //                DdsHandler handler = new(texture);
+        //        //                handler.Convert();
+        //        //                handler.Save($"{repakTempFolderPath}\\assets\\{texturePath}.dds");
+        //        //            }
+        //        //        }
+        //        //    }
+        //        //}
+
+        //        //// end the json
+        //        //map += "\n]\n}";
+        //        //File.WriteAllText(repakTempFolderPath + "\\map.json", map);
+
+
+        //        //////////////////////////
+        //        // pack using RePak.exe //
+        //        //////////////////////////
+
+        //     //   Message = "Packing using RePak...";
+
+        //        //var sb = new StringBuilder();
+
+        //        Process P = new();
+
+        //        //P.StartInfo.RedirectStandardOutput = true;
+        //        //P.StartInfo.RedirectStandardError = true;
+        //        //P.OutputDataReceived += (sender, args) => sb.AppendLine(args.Data);
+        //        //P.ErrorDataReceived += (sender, args) => sb.AppendLine(args.Data);
+        //        //P.StartInfo.UseShellExecute = false;
+        //        P.StartInfo.FileName = Mod_Adv_Repak_Path;
+        //        P.StartInfo.Arguments = "\"" + repakTempFolderPath + "\\map.json\"";
+        //        P.Start();
+        //        //P.BeginOutputReadLine();
+        //        //P.BeginErrorReadLine();
+        //        P.WaitForExit();
+
+        //        if (P.ExitCode == 1)
+        //        {
+        //          //  ConversionFailed(button, styleProperty, "RePak failed to pack the rpak!");
+        //            return;
+        //        }
+
+
+        //        //////////////////////
+        //        // create rpak.json //
+        //        //////////////////////
+
+
+        //        string rpakjson = string.Format("{{\n\"Preload\":\n{{\n\"{0}\":true\n}}\n}}", Mod_Adv_Skin_Name + ".rpak");
+
+        //        File.WriteAllText(modTempFolderPath + "\\mods\\" + Mod_Adv_Author_name + "." + Mod_Adv_Skin_Name + "\\paks\\rpak.json", rpakjson);
+
+
+        //        ///////////////////
+        //        // zip up result //
+        //        ///////////////////
+
+
+        //        ZipFile.CreateFromDirectory(modTempFolderPath, tempFolderPath + "\\" + Mod_Adv_Author_name + "." + Mod_Adv_Skin_Name + ".zip");
+
+
+        //        ////////////////////////////////////
+        //        // move result out of temp folder //
+        //        ////////////////////////////////////
+
+
+        //        TryMoveFile(tempFolderPath + "\\" + Mod_Adv_Author_name + "." + Mod_Adv_Skin_Name + ".zip", Mod_Adv_Output_Path + "\\" + Mod_Adv_Author_name + "." + Mod_Adv_Skin_Name + ".zip", true);
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //            //Removed PaperTrailSystem Due to lack of reliability.
+
+        //            SnackBar.Appearance = ControlAppearance.Danger;
+        //            SnackBar.Title = "ERROR";
+        //            SnackBar.Message = ex.Message;
+        //            SnackBar.Show();
+        //            Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+
+        //            return;
+        //    }
+        //    finally
+        //    {
+        //            /////////////
+        //            // cleanup //
+        //            /////////////
+
+
+        //            // delete temp folders
+        //            // delete temp folders
+        //            try
+        //            {
+        //                // delete temp folders
+        //                if (Directory.Exists(tempFolderPath))
+        //                    Directory.Delete(tempFolderPath, true);
+        //            }
+        //            catch (Exception ex)
+        //            {
+
+        //            }
+        //        }
+
+
+        //    // everything is done and good
+        //    SnackBar.Appearance = ControlAppearance.Success;
+        //    SnackBar.Title = "SUCCESS";
+        //    SnackBar.Message = "Conversion Completed Successfully";
+        //    SnackBar.Show();
+
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //      //Removed PaperTrailSystem Due to lack of reliability.
+        //        SnackBar.Appearance = ControlAppearance.Danger;
+        //        SnackBar.Title = "ERROR";
+        //        SnackBar.Message = ex.Message;
+        //        SnackBar.Show();
+        //        Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+
+        //    }
+
+
+        //}
 
         private bool DdsToPng(string imagePath, string outputPath)
         {
-            try { 
-            // yoinked from pfim usage example
-            using (var image = Pfimage.FromFile(imagePath))
-            {
-                PixelFormat format;
+            try {
+                // yoinked from pfim usage example
+                using (var image = Pfimage.FromFile(imagePath))
+                {
+                    PixelFormat format;
 
-                // Convert from Pfim's backend agnostic image format into GDI+'s image format
-                switch (image.Format)
-                {
-                    case Pfim.ImageFormat.Rgba32:
-                        format = PixelFormat.Format32bppArgb;
-                        break;
-                    default:
-                        // see the sample for more details
-                        throw new NotImplementedException();
-                }
+                    // Convert from Pfim's backend agnostic image format into GDI+'s image format
+                    switch (image.Format)
+                    {
+                        case Pfim.ImageFormat.Rgba32:
+                            format = PixelFormat.Format32bppArgb;
+                            break;
+                        default:
+                            // see the sample for more details
+                            throw new NotImplementedException();
+                    }
 
-                // Pin pfim's data array so that it doesn't get reaped by GC, unnecessary
-                // in this snippet but useful technique if the data was going to be used in
-                // control like a picture box
-                var handle = GCHandle.Alloc(image.Data, GCHandleType.Pinned);
-                try
-                {
-                    var data = Marshal.UnsafeAddrOfPinnedArrayElement(image.Data, 0);
-                    var bitmap = new Bitmap(image.Width, image.Height, image.Stride, format, data);
-                    // resize the bitmap before saving it
-                    var resized = new Bitmap(bitmap, new System.Drawing.Size(256, 256));
-                    resized.Save(outputPath, System.Drawing.Imaging.ImageFormat.Png);
+                    // Pin pfim's data array so that it doesn't get reaped by GC, unnecessary
+                    // in this snippet but useful technique if the data was going to be used in
+                    // control like a picture box
+                    var handle = GCHandle.Alloc(image.Data, GCHandleType.Pinned);
+                    try
+                    {
+                        var data = Marshal.UnsafeAddrOfPinnedArrayElement(image.Data, 0);
+                        var bitmap = new Bitmap(image.Width, image.Height, image.Stride, format, data);
+                        // resize the bitmap before saving it
+                        var resized = new Bitmap(bitmap, new System.Drawing.Size(256, 256));
+                        resized.Save(outputPath, System.Drawing.Imaging.ImageFormat.Png);
+                    }
+                    finally
+                    {
+                        handle.Free();
+                    }
                 }
-                finally
-                {
-                    handle.Free();
-                }
+                return true;
             }
-            return true;
-        }
             catch (Exception ex)
             {
-              //Removed PaperTrailSystem Due to lack of reliability.
+                //Removed PaperTrailSystem Due to lack of reliability.
                 SnackBar.Appearance = ControlAppearance.Danger;
                 SnackBar.Title = "ERROR";
                 SnackBar.Message = ex.Message;
@@ -2694,12 +2694,12 @@ int millisecondsDelay = 300)
 
             }
             return false;
-}
+        }
 
-// these dictionaries have to be hardcoded because skin tool just hardcodes in offsets afaik
+        // these dictionaries have to be hardcoded because skin tool just hardcodes in offsets afaik
 
-// weapons
-private readonly Dictionary<string, string> weaponNameToPath = new()
+        // weapons
+        private readonly Dictionary<string, string> weaponNameToPath = new()
         {
             // pilot weapons
             { "R201_Default", @"texture\\models\\weapons\\r101\\r101" },
@@ -2947,14 +2947,14 @@ private readonly Dictionary<string, string> weaponNameToPath = new()
             {
                 if (X == true)
                 {
-                   
+
                     DispatchIfNecessary(async () =>
                     {
                         if (Icon_Bg.Source.ToString().Contains("advocate_announcement_1.png"))
                         {
                             return;
                         }
-                       
+
                         if (Icon_Bg.Opacity > 0)
                         {
                             DoubleAnimation da = new DoubleAnimation
@@ -2981,10 +2981,10 @@ private readonly Dictionary<string, string> weaponNameToPath = new()
                         bitmap.BeginInit();
                         bitmap.UriSource = new Uri(@"pack://application:,,,/Resources/Icons/Main_UI/advocate_announcement_1.png");
                         bitmap.EndInit();
-                      
 
-                            Icon_Bg.Source = bitmap;
-                        
+
+                        Icon_Bg.Source = bitmap;
+
 
                         DoubleAnimation da = new DoubleAnimation
                         {
@@ -3004,15 +3004,15 @@ private readonly Dictionary<string, string> weaponNameToPath = new()
                 }
                 else
                 {
-                   
+
                     DispatchIfNecessary(async () =>
                     {
                         if (Icon_Bg.Source.ToString().Contains("Tools-Silhouette-Transparent.png"))
                         {
                             return;
                         }
-                        
-                        if (Icon_Bg.Opacity > 0 )
+
+                        if (Icon_Bg.Opacity > 0)
                         {
                             DoubleAnimation da = new DoubleAnimation
                             {
@@ -3030,17 +3030,17 @@ private readonly Dictionary<string, string> weaponNameToPath = new()
                     Thread.Sleep(420);
                     DispatchIfNecessary(async () =>
                     {
-                    if (Icon_Bg.Opacity == 0)
-                    {
-                        BitmapImage bitmap = new BitmapImage();
-                        bitmap.BeginInit();
-                        bitmap.UriSource = new Uri(@"pack://application:,,,/Resources/Icons/Main_UI/Tools-Silhouette-Transparent.png");
-                        bitmap.EndInit();
+                        if (Icon_Bg.Opacity == 0)
+                        {
+                            BitmapImage bitmap = new BitmapImage();
+                            bitmap.BeginInit();
+                            bitmap.UriSource = new Uri(@"pack://application:,,,/Resources/Icons/Main_UI/Tools-Silhouette-Transparent.png");
+                            bitmap.EndInit();
 
-                     
+
 
                             Icon_Bg.Source = bitmap;
-                     
+
 
                             DoubleAnimation da = new DoubleAnimation
                             {
@@ -3051,7 +3051,7 @@ private readonly Dictionary<string, string> weaponNameToPath = new()
                             };
                             Icon_Bg.BeginAnimation(OpacityProperty, da);
 
-                    }
+                        }
                     });
 
 
@@ -3065,16 +3065,16 @@ private readonly Dictionary<string, string> weaponNameToPath = new()
             {
                 if (!Directory.Exists(Tools_Dir)) {
 
-                TryCreateDirectory(Tools_Dir);
-                if (!Directory.Exists(Tools_Dir))
-                {
-                    SnackBar.Icon = SymbolRegular.ErrorCircle20;
-                    SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
-                    SnackBar.Message = "Tools Directory Empty and could not be created!";
-                    SnackBar.Show();
-                }
+                    TryCreateDirectory(Tools_Dir);
+                    if (!Directory.Exists(Tools_Dir))
+                    {
+                        SnackBar.Icon = SymbolRegular.ErrorCircle20;
+                        SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
+                        SnackBar.Message = "Tools Directory Empty and could not be created!";
+                        SnackBar.Show();
+                    }
 
-            }
+                }
                 if (Tabs.SelectedItem.ToString() != null)
                 {
 
@@ -3092,7 +3092,7 @@ private readonly Dictionary<string, string> weaponNameToPath = new()
                             Properties.Settings.Default.REpak_Folder_Path = Tools_Dir + @"RePak\" + "RePak.exe"; ;
                             Properties.Settings.Default.Save();
                             Mod_Adv_Repak_Path = Tools_Dir + @"RePak\" + "RePak.exe";
-                            Zip_Box_Advocate_Copy.Text = Mod_Adv_Repak_Path;
+                            //Zip_Box_Advocate_Copy.Text = Mod_Adv_Repak_Path;
                         }
 
 
@@ -3147,7 +3147,7 @@ private readonly Dictionary<string, string> weaponNameToPath = new()
                             SnackBar.Title = "INFO";
                             SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Locate_Zip_Click_ValidZipFound;
                             SnackBar.Show();
-                            Zip_Box_Advocate.Text = Mod_Adv_Skin_Path;
+                            //Zip_Box_Advocate.Text = Mod_Adv_Skin_Path;
 
                         }
                     }
@@ -3156,179 +3156,178 @@ private readonly Dictionary<string, string> weaponNameToPath = new()
             }
             catch (Exception ex)
             {
-               Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
             }
         }
 
-       
-      
+
+
         private void Image_Icon_Advocate_MouseDown(object sender, MouseButtonEventArgs e)
         {
 
-            if (e.LeftButton == MouseButtonState.Pressed)
+            //if (e.LeftButton == MouseButtonState.Pressed)
+            //{
+            //    try
+            //    {
+            //        OpenFileDialog openFileDialog = new OpenFileDialog();
+            //        openFileDialog.Filter = "Png files (*.png)|*.png|All files (*.*)|*.*";
+            //        openFileDialog.RestoreDirectory = true;
+            //        if (openFileDialog.ShowDialog() == true)
+            //        {
+            //            Mod_Adv_Icon_Path = openFileDialog.FileName;
+            //            if (!File.Exists(Mod_Adv_Icon_Path))
+            //            {
+
+            //                SnackBar.Icon = SymbolRegular.ErrorCircle20;
+            //                SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
+            //                SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Icon_Image_MouseDown_NotAValidPNGImage;
+            //                SnackBar.Show();
+            //                return;
+
+            //            }
+            //            else
+            //            {
+            //                if (Path.GetExtension(Mod_Adv_Icon_Path).Contains("png"))
+            //                {
+            //                    int imgwidth;
+            //                    int imgheight;
+
+            //                    using (var image = SixLabors.ImageSharp.Image.Load(Mod_Adv_Icon_Path))
+            //                    {
+            //                        imgwidth = image.Width;
+            //                        imgheight = image.Height;
+            //                    }
+
+            //                    if (imgwidth == 256 && imgheight == 256)
+            //                    {
+
+            //                        SnackBar.Appearance = ControlAppearance.Success;
+            //                        SnackBar.Title = "SUCCESS";
+            //                        SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Icon_Image_MouseDown_ValidImageFoundAt + Mod_Icon_Path;
+            //                        SnackBar.Show();
+            //                        BitmapImage Mod_Icon = new BitmapImage();
+            //                        Mod_Icon.BeginInit();
+
+            //                        Mod_Icon.UriSource = new Uri(Mod_Adv_Icon_Path);
+            //                        Mod_Icon.EndInit();
+
+            //                        Image_Icon_Advocate.Background = new ImageBrush(Mod_Icon);
+
+            //                    }
+            //                    else
+            //                    {
+            //                        SnackBar.Icon = SymbolRegular.ErrorCircle20;
+            //                        SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
+            //                        SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Icon_Image_MouseDown_InvalidImageSizeMustBe256x256;
+            //                        SnackBar.Show();
+
+            //                        return;
+
+            //                    }
+
+            //                }
+            //                else
+            //                {
+            //                    SnackBar.Icon = SymbolRegular.ErrorCircle20;
+            //                    SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
+            //                    SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Icon_Image_MouseDown_ThatWasNotAProperPNG;
+            //                    SnackBar.Show();
+
+            //                    return;
+            //                }
+            //            }
+            //        }
+
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //       Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+
+            //    }
+       // }
+    }
+
+    private void Image_Icon_Advocate_Drop(object sender, DragEventArgs e)
+    {
+        try
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
-                try
+                HandyControl.Controls.DashedBorder DashedBorder = (HandyControl.Controls.DashedBorder)sender;
+                Console.WriteLine(DashedBorder.Name);
+
+                // Note that you can have more than one file.
+                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+                string map_Path = files.FirstOrDefault();
+
+
+
+                if (!File.Exists(map_Path))
                 {
-                    OpenFileDialog openFileDialog = new OpenFileDialog();
-                    openFileDialog.Filter = "Png files (*.png)|*.png|All files (*.*)|*.*";
-                    openFileDialog.RestoreDirectory = true;
-                    if (openFileDialog.ShowDialog() == true)
+
+                    SnackBar.Icon = SymbolRegular.ErrorCircle20;
+                    SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
+                    SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Icon_Image_MouseDown_NotAValidPNGImage;
+                    SnackBar.Show();
+                    return;
+
+                }
+                else
+                {
+                    if (Path.GetExtension(map_Path).Contains("png"))
                     {
-                        Mod_Adv_Icon_Path = openFileDialog.FileName;
-                        if (!File.Exists(Mod_Adv_Icon_Path))
+                        int imgwidth;
+                        int imgheight;
+
+                        using (var image = SixLabors.ImageSharp.Image.Load(map_Path))
+                        {
+                            imgwidth = image.Width;
+                            imgheight = image.Height;
+                        }
+
+
+
+                        if (imgwidth == 256 && imgheight == 256)
                         {
 
-                            SnackBar.Icon = SymbolRegular.ErrorCircle20;
-                            SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
-                            SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Icon_Image_MouseDown_NotAValidPNGImage;
-                            SnackBar.Show();
-                            return;
+                            BitmapImage map_ = new BitmapImage();
+                            map_.BeginInit();
 
+                            map_.UriSource = new Uri(map_Path);
+                            map_.EndInit();
+
+                            DashedBorder.Background = new ImageBrush(map_);
+                            Mod_Adv_Icon_Path = map_Path;
                         }
                         else
                         {
-                            if (Path.GetExtension(Mod_Adv_Icon_Path).Contains("png"))
-                            {
-                                int imgwidth;
-                                int imgheight;
+                            SnackBar.Icon = SymbolRegular.ErrorCircle20;
+                            SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
+                            SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Icon_Image_MouseDown_InvalidImageSizeMustBe256x256;
+                            SnackBar.Show();
+                            DashedBorder.Background = new ImageBrush();
+                            return;
 
-                                using (var image = SixLabors.ImageSharp.Image.Load(Mod_Adv_Icon_Path))
-                                {
-                                    imgwidth = image.Width;
-                                    imgheight = image.Height;
-                                }
-
-                                if (imgwidth == 256 && imgheight == 256)
-                                {
-
-                                    SnackBar.Appearance = ControlAppearance.Success;
-                                    SnackBar.Title = "SUCCESS";
-                                    SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Icon_Image_MouseDown_ValidImageFoundAt + Mod_Icon_Path;
-                                    SnackBar.Show();
-                                    BitmapImage Mod_Icon = new BitmapImage();
-                                    Mod_Icon.BeginInit();
-
-                                    Mod_Icon.UriSource = new Uri(Mod_Adv_Icon_Path);
-                                    Mod_Icon.EndInit();
-
-                                    Image_Icon_Advocate.Background = new ImageBrush(Mod_Icon);
-
-                                }
-                                else
-                                {
-                                    SnackBar.Icon = SymbolRegular.ErrorCircle20;
-                                    SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
-                                    SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Icon_Image_MouseDown_InvalidImageSizeMustBe256x256;
-                                    SnackBar.Show();
-                                   
-                                    return;
-
-                                }
-
-                            }
-                            else
-                            {
-                                SnackBar.Icon = SymbolRegular.ErrorCircle20;
-                                SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
-                                SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Icon_Image_MouseDown_ThatWasNotAProperPNG;
-                                SnackBar.Show();
-                             
-                                return;
-                            }
                         }
+
                     }
 
                 }
-                catch (Exception ex)
-                {
-                   Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
-                }
+
+
+
             }
+
         }
-        
-        private void Image_Icon_Advocate_Drop(object sender, DragEventArgs e)
+        catch (Exception ex)
         {
-            try
-            {
-                if (e.Data.GetDataPresent(DataFormats.FileDrop))
-                {
-                    HandyControl.Controls.DashedBorder DashedBorder = (HandyControl.Controls.DashedBorder)sender;
-                    Console.WriteLine(DashedBorder.Name);
-
-                    // Note that you can have more than one file.
-                    string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-                    string map_Path = files.FirstOrDefault();
-
-
-
-                    if (!File.Exists(map_Path))
-                    {
-
-                        SnackBar.Icon = SymbolRegular.ErrorCircle20;
-                        SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
-                        SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Icon_Image_MouseDown_NotAValidPNGImage;
-                        SnackBar.Show();
-                        return;
-
-                    }
-                    else
-                    {
-                        if (Path.GetExtension(map_Path).Contains("png"))
-                        {
-                            int imgwidth;
-                            int imgheight;
-
-                            using (var image = SixLabors.ImageSharp.Image.Load(map_Path))
-                            {
-                                imgwidth = image.Width;
-                                imgheight = image.Height;
-                            }
-
-                           
-
-                                if (imgwidth == 256 && imgheight == 256)
-                                {
-
-                                    BitmapImage map_ = new BitmapImage();
-                                    map_.BeginInit();
-
-                                    map_.UriSource = new Uri(map_Path);
-                                    map_.EndInit();
-                                   
-                                    DashedBorder.Background = new ImageBrush(map_);
-                                    Mod_Adv_Icon_Path = map_Path;
-                                }
-                                else
-                                {
-                                    SnackBar.Icon = SymbolRegular.ErrorCircle20;
-                                    SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
-                                    SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Icon_Image_MouseDown_InvalidImageSizeMustBe256x256;
-                                    SnackBar.Show();
-                                    DashedBorder.Background = new ImageBrush();
-                                    return;
-
-                                }
-                            
-                        }
-
-                    }
-
-
-
-
-                }
-
-            }
-            catch (Exception ex)
-            {
-               Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-
-            }
+            Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
         }
 
+    }
         private void Locate_Repak_Exe_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -3363,7 +3362,7 @@ private readonly Dictionary<string, string> weaponNameToPath = new()
                             SnackBar.Title = "INFO";
                             SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Locate_Repak_Exe_Click_ExeLocated;
                             SnackBar.Show();
-                            Zip_Box_Advocate_Copy.Text = Mod_Adv_Repak_Path;
+                            //Zip_Box_Advocate_Copy.Text = Mod_Adv_Repak_Path;
 
                         }
                     }
@@ -3397,8 +3396,8 @@ private readonly Dictionary<string, string> weaponNameToPath = new()
                 else
                 {
                     Mod_Adv_Output_Path = dialog.SelectedPath;
-                    Output_Box_Advocate.Text = Mod_Adv_Output_Path;
-                    Output_Box_Advocate.Background = Brushes.Transparent;
+                    //Output_Box_Advocate.Text = Mod_Adv_Output_Path;
+                    //Output_Box_Advocate.Background = Brushes.Transparent;
 
                 }
             }
@@ -3406,7 +3405,7 @@ private readonly Dictionary<string, string> weaponNameToPath = new()
 
         private void Save_Mod_Advocate_Click(object sender, RoutedEventArgs e)
         {
-            Convert();
+            //Convert();
         }
         async void Start_Exe(string path , string args = null)
         {

@@ -108,13 +108,22 @@ namespace VTOL
 
             }
         }
+        private void UserInterfaceCustomScale(double customScale)
+        {
+            // Change scale of window content
+        
+            ScaleTransform dpiTransform = new ScaleTransform(1.5,1.5);
       
+            this.LayoutTransform = dpiTransform;
+       
+        }
         public MainWindow()
         {
             InitializeComponent();
 
             try
             {
+               
                 NotificationManager =  new NotificationManager();
                 minimize_to_tray =  Properties.Settings.Default.Minimize_to_Tray;
                 Profile_TAG.Content = Properties.Settings.Default.Profile_Name;
@@ -299,7 +308,8 @@ namespace VTOL
                     Admin_Label.Visibility = Visibility.Hidden;
 
                 }
-
+                //double dpiFactor = System.Windows.PresentationSource.FromVisual(this).CompositionTarget.TransformToDevice.M11;
+                UserInterfaceCustomScale(1.5);
 
             }
 

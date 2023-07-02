@@ -187,6 +187,24 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to MOD INFO.
+        /// </summary>
+        public static string MODINFO {
+            get {
+                return ResourceManager.GetString("MODINFO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MOD SIZE ON DISK.
+        /// </summary>
+        public static string MODSIZEONDISK {
+            get {
+                return ResourceManager.GetString("MODSIZEONDISK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ABOUT.
         /// </summary>
         public static string Page_About_ABOUT {
@@ -1704,6 +1722,15 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PATH.
+        /// </summary>
+        public static string PATH {
+            get {
+                return ResourceManager.GetString("PATH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please Wait as VTOL restarts!.
         /// </summary>
         public static string PleaseWaitAsVTOLRestarts {
@@ -1718,6 +1745,15 @@ namespace VTOL.Resources.Languages {
         public static string Read_Latest_Release_InvalidReleaseDonwloadURL {
             get {
                 return ResourceManager.GetString("Read_Latest_Release_InvalidReleaseDonwloadURL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Requires - .
+        /// </summary>
+        public static string Requires {
+            get {
+                return ResourceManager.GetString("Requires", resourceCulture);
             }
         }
         
@@ -1745,6 +1781,15 @@ namespace VTOL.Resources.Languages {
         public static string Unpack_To_Location_WasNotFound {
             get {
                 return ResourceManager.GetString("Unpack_To_Location_WasNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to VERSION.
+        /// </summary>
+        public static string VERSION {
+            get {
+                return ResourceManager.GetString("VERSION", resourceCulture);
             }
         }
     }

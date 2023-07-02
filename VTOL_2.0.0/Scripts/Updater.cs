@@ -174,7 +174,7 @@ namespace VTOL
             Thunderstore = Thunderstore_V1.FromJson(json);
             repository = Repository.FromJson(json);
         }
-        public void Download_Cutom_JSON(bool _call_from_file = false)
+        public async Task Download_Cutom_JSON(bool _call_from_file = false)
         {
             try
             {
@@ -212,6 +212,13 @@ namespace VTOL
                     }
                     else
                     {
+
+                        //Uri URL = new Uri(address);
+
+                        //HttpClient client = new HttpClient();
+                        //HttpResponseMessage response = await client.GetAsync(URL);
+                        //response.EnsureSuccessStatusCode();
+                        //string json = await response.Content.ReadAsStringAsync();
                         Uri uri1 = new Uri(address);
                         using (var webClient = new System.Net.WebClient())
                         {
@@ -228,6 +235,12 @@ namespace VTOL
                 }
                 else
                 {
+                    //Uri URL = new Uri(address);
+
+                    //HttpClient client = new HttpClient();
+                    //HttpResponseMessage response = await client.GetAsync(URL);
+                    //response.EnsureSuccessStatusCode();
+                    //string json = await response.Content.ReadAsStringAsync();
                     Uri uri1 = new Uri(address);
                     using (var webClient = new System.Net.WebClient())
                     {
@@ -244,7 +257,7 @@ namespace VTOL
                     //    File.Delete(AppDataFolder + @"\VTOL_DATA\VARS\Thunderstore.json");
                     //}
                 }
-
+               
 
 
 
