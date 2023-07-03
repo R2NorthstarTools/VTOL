@@ -277,7 +277,7 @@ namespace VTOL.Pages
                         else
                         {
                             SnackBar.Appearance = ControlAppearance.Danger;
-                            SnackBar.Title = "ERROR";
+                            SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
                             SnackBar.Message = VTOL.Resources.Languages.Language.Page_Server_Validate_Combo_Box_CannotReadInput;
                             SnackBar.Show();
                         }
@@ -342,7 +342,7 @@ namespace VTOL.Pages
             catch (Exception ex)
             {
                 SnackBar.Appearance = ControlAppearance.Danger;
-                SnackBar.Title = "ERROR";
+                SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
                 SnackBar.Message = "ex";
                 SnackBar.Show();
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
@@ -619,7 +619,7 @@ namespace VTOL.Pages
                     else
                     {
                         SnackBar.Appearance = ControlAppearance.Danger;
-                        SnackBar.Title = "ERROR";
+                        SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
                         SnackBar.Message =VTOL.Resources.Languages.Language.Page_Server_Read_Convar_args_CannotSetThePath;
                         SnackBar.Show();
 
@@ -1953,7 +1953,7 @@ namespace VTOL.Pages
                         ZIP_LIST(files, User_Settings_Vars.NorthstarInstallLocation + @"VTOL_Dedicated_Workspace\Exported_Config.zip", true);
 
                         SnackBar.Appearance = ControlAppearance.Success;
-                        SnackBar.Title = "SUCCESS";
+                        SnackBar.Title = VTOL.Resources.Languages.Language.SUCCESS;
                         SnackBar.Message = "Exported to " + User_Settings_Vars.NorthstarInstallLocation + @"\VTOL_Dedicated_Workspace\Exported_Config.zip" + " Sucessfully!";
                         SnackBar.Show();
 
@@ -1963,7 +1963,7 @@ namespace VTOL.Pages
                     else
                     {
                         SnackBar.Appearance = ControlAppearance.Danger;
-                        SnackBar.Title = "ERROR";
+                        SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
                         SnackBar.Message =VTOL.Resources.Languages.Language.Page_Server_Export_Server_Config_Click_PleaseRecheckYourSaveLocation;
                         SnackBar.Show();
 
@@ -2053,7 +2053,7 @@ namespace VTOL.Pages
                 else
                 {
                     SnackBar.Appearance = ControlAppearance.Danger;
-                    SnackBar.Title = "ERROR";
+                    SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
                     SnackBar.Message = VTOL.Resources.Languages.Language.Page_Server_Launch_Northstar_Dedicated_Click_CouldNotFindDedicatedBat;
                     SnackBar.Show();
 
@@ -2063,7 +2063,7 @@ namespace VTOL.Pages
             else
             {
                 SnackBar.Appearance = ControlAppearance.Danger;
-                SnackBar.Title = "ERROR";
+                SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
                 SnackBar.Message = VTOL.Resources.Languages.Language.Page_Server_Launch_Northstar_Dedicated_Click_CouldNotFindDedicatedBat;
                 SnackBar.Show();
 
@@ -2307,7 +2307,7 @@ int millisecondsDelay = 300)
 
 
                     SnackBar.Appearance = ControlAppearance.Danger;
-                    SnackBar.Title = "ERROR";
+                    SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
                     SnackBar.Message = VTOL.Resources.Languages.Language.Page_Server_Launch_Northstar_Advanced_Click_CouldNotFindNorthstarExe;
                     SnackBar.Show();
                 }
@@ -2369,7 +2369,7 @@ int millisecondsDelay = 300)
                 else
                 {
                     SnackBar.Appearance = ControlAppearance.Danger;
-                    SnackBar.Title = "ERROR";
+                    SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
                     SnackBar.Message = VTOL.Resources.Languages.Language.Page_Server_Launch_Northstar_Dedicated_Click_CouldNotFindDedicatedBat;
                     SnackBar.Show();
 
@@ -2379,7 +2379,7 @@ int millisecondsDelay = 300)
             else
             {
                 SnackBar.Appearance = ControlAppearance.Danger;
-                SnackBar.Title = "ERROR";
+                SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
                 SnackBar.Message = VTOL.Resources.Languages.Language.Page_Server_Launch_Northstar_Dedicated_Click_CouldNotFindDedicatedBat;
                 SnackBar.Show();
 
@@ -2417,7 +2417,7 @@ int millisecondsDelay = 300)
                     else
                     {
                         SnackBar.Appearance = ControlAppearance.Danger;
-                        SnackBar.Title = "ERROR";
+                        SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
                         SnackBar.Message = VTOL.Resources.Languages.Language.Page_Server_OnKeyDownHandler_Dedi_Arg_AutoSaveFailed;
                         SnackBar.Show();
 
@@ -2430,7 +2430,7 @@ int millisecondsDelay = 300)
             {
               Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
                 SnackBar.Appearance = ControlAppearance.Danger;
-                SnackBar.Title = "ERROR";
+                SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
                 SnackBar.Message = VTOL.Resources.Languages.Language.Page_Server_OnKeyDownHandler_Dedi_Arg_AutoSaveFailed;
                 SnackBar.Show();
 
@@ -2454,7 +2454,7 @@ int millisecondsDelay = 300)
                     else
                     {
                         SnackBar.Appearance = ControlAppearance.Danger;
-                        SnackBar.Title = "ERROR";
+                        SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
                         SnackBar.Message = VTOL.Resources.Languages.Language.Page_Server_OnKeyDownHandler_Dedi_Arg_AutoSaveFailed;
                         SnackBar.Show();
 
@@ -2466,7 +2466,7 @@ int millisecondsDelay = 300)
             {
               Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
                 SnackBar.Appearance = ControlAppearance.Danger;
-                SnackBar.Title = "ERROR";
+                SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
                 SnackBar.Message = VTOL.Resources.Languages.Language.Page_Server_OnKeyDownHandler_Dedi_Arg_AutoSaveFailed;
                 SnackBar.Show();
 

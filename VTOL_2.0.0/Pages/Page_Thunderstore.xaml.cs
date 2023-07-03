@@ -3976,12 +3976,12 @@ int millisecondsDelay = 300)
                             
 
 
-                                // Check if file exists with its full path    
-                                if (File.Exists(Path.Combine(Destination, "icon.png")))
-                                {
-                                    // If file found, delete it    
-                                    await TryDeleteFile(Path.Combine(Destination, "icon.png"));
-                                }
+                                // Check if file exists with its full path    //Disabled For mod viewing
+                                //if (File.Exists(Path.Combine(Destination, "icon.png")))
+                                //{
+                                //    // If file found, delete it    
+                                //    await TryDeleteFile(Path.Combine(Destination, "icon.png"));
+                                //}
                                
 
                                     if (File.Exists(Path.Combine(Destination, "README.md")))
@@ -4010,11 +4010,7 @@ int millisecondsDelay = 300)
                     Destinfo.Attributes &= ~FileAttributes.ReadOnly;
                     if (Script.Length != 0 && Script.Length <= 1)
                     {
-                        //if (File.Exists(Path.Combine(Destination, "manifest.json")))
-                        //{
-                        //    // If file found, delete it    
-                        //    await TryDeleteFile(Path.Combine(Destination, "manifest.json"));
-                        //}
+                      
                         var File_ = Script.FirstOrDefault();
 
 
@@ -4037,11 +4033,19 @@ int millisecondsDelay = 300)
                                 
                                     await CopyFilesRecursively(firstFolder, Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder");
 
-                                
 
+                                if (File.Exists(Path.Combine(Destination, "manifest.json")))
+                                {
+                                    // If file found, delete it    
+                                    await TryMoveFile(Path.Combine(Destination, "manifest.json"), Path.Combine(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder", "manifest.json"),true);
+                                }
+                                if (File.Exists(Path.Combine(Destination, "icon.png")))
+                                {
+                                    // If file found, delete it    
+                                    await TryMoveFile(Path.Combine(Destination, "icon.png"), Path.Combine(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder", "icon.png"), true);
+                                }
 
-                                
-                                    await Clear_Folder(Destination);
+                                await Clear_Folder(Destination);
                                
                               
                                     await CopyFilesRecursively(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder", Destination);
@@ -4067,7 +4071,7 @@ int millisecondsDelay = 300)
                             await TryDeleteDirectory(User_Settings_Vars.NorthstarInstallLocation + @"Northstar_TEMP_FILES\");
                             Update_ActionCard_Progress(Action_Card_, 40,true);
 
-                            SnackBar.Title = "SUCCESS";
+                            SnackBar.Title = VTOL.Resources.Languages.Language.SUCCESS;
                             SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
                             SnackBar.Message = "The Mod " + Path.GetFileNameWithoutExtension(Target_Zip).Replace("_", " ") + VTOL.Resources.Languages.Language.Page_Thunderstore_Unpack_To_Location_Custom_HasBeenDownloadedAndInstalled;
                             SnackBar.Show();
@@ -4078,11 +4082,11 @@ int millisecondsDelay = 300)
                     }
                     else if (Script.Length > 1)
                     {
-                        if (File.Exists(Path.Combine(Destination, "manifest.json")))
-                        {
-                            // If file found, delete it    
-                            await TryDeleteFile(Path.Combine(Destination, "manifest.json"));
-                        }
+                        //if (File.Exists(Path.Combine(Destination, "manifest.json")))
+                        //{
+                        //    // If file found, delete it    
+                        //    await TryDeleteFile(Path.Combine(Destination, "manifest.json"));
+                        //}
                         Update_ActionCard_Progress(Action_Card_);
                         bool copy_direcory_list = false;
                         if (Script.Length > 2)
@@ -4119,7 +4123,7 @@ int millisecondsDelay = 300)
                             }
                             Update_ActionCard_Progress(Action_Card_, 10,true);
 
-                            SnackBar.Title = "SUCCESS";
+                            SnackBar.Title = VTOL.Resources.Languages.Language.SUCCESS;
                             SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
                             SnackBar.Message = "The the multiple Mods in - " + mod_name + " - have been installed Succesfully";
                             SnackBar.Show();
@@ -4140,7 +4144,7 @@ int millisecondsDelay = 300)
                         if (Directory.Exists(pluginsFolderPath))
                         {
                             // Combine destination folder path and plugins folder name
-                            string destFolderPath = Path.Combine(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\", pluginsFolderName + @"\" + mod_name);
+                            string destFolderPath = Path.Combine(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\mods\", pluginsFolderName + @"\" + mod_name);
                             if (!Directory.Exists(destFolderPath))
                             {
                                 TryCreateDirectory(destFolderPath);
@@ -4159,18 +4163,13 @@ int millisecondsDelay = 300)
                             }
                             if (File.Exists(Path.Combine(Destination, "manifest.json")))
                             {
-                                //var myJsonString = File.ReadAllText(Path.Combine(Destination, "manifest.json"));
-                                //dynamic myJObject = JObject.Parse(myJsonString);
-                                //string name = myJObject.Name;
-                                //string version = myJObject.Version;
-                                //string Description = myJObject.Description;
-                                //string Content = Description + Environment.NewLine + version;
-
-                               
-                            
-                            // If file found, move it    
-                            await TryMoveFile(Path.Combine(Destination, "manifest.json"), Path.Combine(destFolderPath, "manifest.json"));
-                        }
+                                 await TryMoveFile(Path.Combine(Destination, "manifest.json"), Path.Combine(destFolderPath, "manifest.json"));
+                            }
+                            if (File.Exists(Path.Combine(Destination, "icon.png")))
+                            {
+                                // If file found, delete it    
+                                await TryMoveFile(Path.Combine(Destination, "icon.png"), Path.Combine(destFolderPath, "icon.png"));
+                            }
                             await TryDeleteDirectory(User_Settings_Vars.NorthstarInstallLocation + @"Northstar_TEMP_FILES\");
                             Update_ActionCard_Progress(Action_Card_, 40);
 
@@ -4182,7 +4181,7 @@ int millisecondsDelay = 300)
                                 }
                                 Update_ActionCard_Progress(Action_Card_, 10,true);
 
-                                SnackBar.Title = "SUCCESS";
+                                SnackBar.Title = VTOL.Resources.Languages.Language.SUCCESS;
                                 SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
                                 SnackBar.Message = "Plugins in the mod folder have been copied successfully.";
                                 SnackBar.Show();
@@ -4220,11 +4219,11 @@ int millisecondsDelay = 300)
 
                 else if(NS_CANDIDATE_INSTALL == true && Skin_Install == false)
                 {
-                    if (File.Exists(Path.Combine(Destination, "manifest.json")))
-                    {
-                        // If file found, delete it    
-                        await TryDeleteFile(Path.Combine(Destination, "manifest.json"));
-                    }
+                    //if (File.Exists(Path.Combine(Destination, "manifest.json")))
+                    //{
+                    //    // If file found, delete it    
+                    //    await TryDeleteFile(Path.Combine(Destination, "manifest.json"));
+                    //}
                     DispatchIfNecessary(async () =>
                     {
                         Update_ActionCard_Progress(Action_Card_, 20);
@@ -4330,11 +4329,11 @@ int millisecondsDelay = 300)
                             Update_ActionCard_Progress(Action_Card_, 10);
 
                         }
-                        if (File.Exists(Path.Combine(Destination, "manifest.json")))
-                        {
-                            // If file found, delete it    
-                            await TryDeleteFile(Path.Combine(Destination, "manifest.json"));
-                        }
+                        //if (File.Exists(Path.Combine(Destination, "manifest.json")))
+                        //{
+                        //    // If file found, delete it    
+                        //    await TryDeleteFile(Path.Combine(Destination, "manifest.json"));
+                        //}
                         Update_ActionCard_Progress(Action_Card_, 5);
 
                         if (File.Exists(Path.Combine(Destination, "README.md")))
@@ -4444,7 +4443,7 @@ int millisecondsDelay = 300)
                         DispatchIfNecessary(async () =>
                         {
 
-                            SnackBar.Title = "SUCCESS";
+                            SnackBar.Title = VTOL.Resources.Languages.Language.SUCCESS;
                             SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
                             string temp_;
                             if (Northstar_VEr_Temp != null && Northstar_VEr_Temp.Length > 2)
@@ -4469,11 +4468,11 @@ int millisecondsDelay = 300)
 
                 else 
                                 {
-                    if (File.Exists(Path.Combine(Destination, "manifest.json")))
-                    {
-                        // If file found, delete it    
-                        await TryDeleteFile(Path.Combine(Destination, "manifest.json"));
-                    }
+                    //if (File.Exists(Path.Combine(Destination, "manifest.json")))
+                    //{
+                    //    // If file found, delete it    
+                    //    await TryDeleteFile(Path.Combine(Destination, "manifest.json"));
+                    //}
                     var ext = new List<string> { "zip" };
                                     var myFiles = Directory.EnumerateFiles(Destination, "*.*", SearchOption.AllDirectories).Where(s => ext.Contains(Path.GetExtension(s).TrimStart('.').ToLowerInvariant()));
 
@@ -4570,7 +4569,7 @@ int millisecondsDelay = 300)
                             //                    Progress_Bar.Value = 0;
                             //                }
 
-                            //                SnackBar.Title = "SUCCESS";
+                            //                SnackBar.Title = VTOL.Resources.Languages.Language.SUCCESS;
                             //                SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
                             //                SnackBar.Message = "The the multiple Mods in - " + mod_name + " - have been installed Succesfully";
                             //                SnackBar.Show();
@@ -4596,7 +4595,7 @@ int millisecondsDelay = 300)
                             //            Progress_Bar.Value = 0;
                             //        }
                                    
-                            //            SnackBar.Title = "SUCCESS";
+                            //            SnackBar.Title = VTOL.Resources.Languages.Language.SUCCESS;
                             //            SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
                             //            SnackBar.Message = "The Mod " + Path.GetFileNameWithoutExtension(Target_Zip).Replace("_", " ") + VTOL.Resources.Languages.Language.Page_Thunderstore_Unpack_To_Location_Custom_HasBeenDownloadedAndInstalled;
                             //            SnackBar.Show();
