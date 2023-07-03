@@ -200,11 +200,11 @@
         <Label x:Name="Filter_Label" Content="{x:Static properties:Language.Page_Mods_Filter}" Margin="146,99,0,0" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="False" Padding="0,0,0,0" Grid.Column="1" FontSize="14" MinHeight="19" SnapsToDevicePixels="False" VerticalAlignment="Top" HorizontalAlignment="Left" Width="47"/>
         <Label x:Name="Mod_Count_Label" Content ="Mod Count: 0" Margin="65,605,0,0" Height="16" VerticalAlignment="Top" HorizontalAlignment="Left" Width="495" Padding="0,0,0,0" Foreground="#52FFFFFF" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
         <Label Content ="{x:Static properties:Language.Page_Mods_RightClickForContextMenu}" Margin="0,605,5,0" Height="16" VerticalAlignment="Top" HorizontalAlignment="Right" Width="368" Padding="0,0,0,0" Grid.Column="1" HorizontalContentAlignment="Right" Foreground="#52FFFFFF" VerticalContentAlignment="Center"/>
-        <Border x:Name="Options_Panel_Mod" Background="#B2292929" Visibility="Collapsed" Grid.ColumnSpan="3">
+        <Border x:Name="Options_Panel_Mod" Background="#B2292929" Visibility="Collapsed" Grid.ColumnSpan="3" CornerRadius="12">
             <Grid>
                 <Border x:Name="MOD_INFO_PANEL" Visibility="Visible" Background="#FF191919" CornerRadius="12" HorizontalAlignment="Center" Width="536" Height="510" VerticalAlignment="Center">
                     <Grid>
-                        <Border CornerRadius="9" >
+                        <Border CornerRadius="9" BorderBrush="#FF191919" >
                             <Border.Background>
                                 <VisualBrush>
                                     <VisualBrush.Visual>

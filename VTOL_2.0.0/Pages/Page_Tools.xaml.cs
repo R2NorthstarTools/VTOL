@@ -3650,7 +3650,6 @@ int millisecondsDelay = 300)
                             SnackBar.Title = "INFO";
                             SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
                             SnackBar.Show();
-                            Thread.Sleep(1000);
                             if (Directory.Exists(Tools_Dir))
                             {
                                 if (!Directory.Exists(Tools_Dir + Sub_Name))
