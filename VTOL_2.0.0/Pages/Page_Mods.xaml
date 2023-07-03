@@ -208,9 +208,9 @@
                             <Border.Background>
                                 <VisualBrush>
                                     <VisualBrush.Visual>
-                                        <Image x:Name="Image_BG"  Source="/Resources/Icons/icon.png" Opacity="0.18" >
+                                        <Image x:Name="Image_BG"  Opacity="0.2" >
                                             <Image.BitmapEffect>
-                                                <BlurBitmapEffect KernelType="Gaussian" Radius="1" />
+                                                <BlurBitmapEffect KernelType="Gaussian" Radius="1.2" />
                                             </Image.BitmapEffect>
                                         </Image>
                                     </VisualBrush.Visual>
@@ -270,7 +270,14 @@
 
                         <Label  Content="{x:Static properties:Language.DESCRIPTION}" Margin="39,0,0,200" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="231"/>
                         <Label  Content="{x:Static properties:Language.DEPENDENCYLIST}" Margin="39,0,0,69" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="230"/>
-                        <ui:Button x:Name="Open_Folder_" Width="471" Height="37" Margin="0,449,0,0" VerticalAlignment="Top" Content="Open Folder" Padding="0,0,0,0" Appearance="Success" Icon="Folder32" Click="Open_Folder__Click" HorizontalAlignment="Center"></ui:Button>
+                        <ui:Button x:Name="Open_Folder_" Width="471" Height="37" Margin="0,449,0,0" VerticalAlignment="Top" Content="Open Folder" Padding="0,0,0,0" Appearance="Success" Icon="Folder32" Click="Open_Folder__Click" HorizontalAlignment="Center" Background="#B2049A28">
+                            <ui:Button.PressedBackground>
+                                <SolidColorBrush Color="#FF8FF393" Opacity="0.7"/>
+                            </ui:Button.PressedBackground>
+                            <ui:Button.MouseOverBackground>
+                                <SolidColorBrush Color="#FF176F1B" Opacity="0.9"/>
+                            </ui:Button.MouseOverBackground>
+                        </ui:Button>
                     </Grid>
                 </Border>
             </Grid>

@@ -1967,13 +1967,10 @@ namespace VTOL.Pages
         public static List<DirectoryInfo> ParseDirectoryStrings(string filePath, HashSet<string> folderNames)
         {
             List<DirectoryInfo> directoryInfoList = new List<DirectoryInfo>();
-            string text = File.ReadAllText(filePath);
-            string directoryPattern = @"(?<=\s|^)([A-Za-z]:)?(?:\\(?:[^\\/:*?""<>|\r\n]+\\)*[^\\/:*?""<>|\r\n]*)?(?=\\|$)";
-            MatchCollection matches = Regex.Matches(text, directoryPattern);
+            var text = File.ReadAllLines(filePath);
 
-            foreach (Match match in matches)
+            foreach (string directoryString in text)
             {
-                string directoryString = match.Value;
                 string lastFolderName = Path.GetFileName(directoryString);
 
                 if (folderNames.Contains(lastFolderName))
@@ -2048,20 +2045,21 @@ namespace VTOL.Pages
                             {
                                 Options_Panel_Mod.Visibility = Visibility.Visible;
                             });
+                            if (mc_File != null && File.Exists(mc_File))
+                            {
+                                var Check_dependents = ParseDirectoryStrings(mc_File, Main.Current_Installed_Mods);
+                                foreach (var dirobj in Check_dependents)
+                                {
+                                    DispatchIfNecessary(async () =>
+                                    {
+                                        Dependency_Tree.Items.Add("PARENT TO -" + dirobj.Name);
+                                    });
+                                }
+
+                            }
                             if (manifest_json != null && File.Exists(manifest_json))
                             {
-                                if (mc_File != null && File.Exists(mc_File))
-                                {
-                                    var Check_dependents = ParseDirectoryStrings(manifest_json, Main.Current_Installed_Mods);
-                                    foreach (var dirobj in Check_dependents)
-                                    {
-                                        DispatchIfNecessary(async () =>
-                                        {
-                                            Dependency_Tree.Items.Add("PARENT TO -"+ dirobj.Name);
-                                        });
-                                    }
-
-                                }
+                              
                                 var mymanifestString = File.ReadAllText(manifest_json);
                                 dynamic myMObject = JObject.Parse(mymanifestString);
 

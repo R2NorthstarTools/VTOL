@@ -3976,12 +3976,12 @@ int millisecondsDelay = 300)
                             
 
 
-                                // Check if file exists with its full path    
-                                if (File.Exists(Path.Combine(Destination, "icon.png")))
-                                {
-                                    // If file found, delete it    
-                                    await TryDeleteFile(Path.Combine(Destination, "icon.png"));
-                                }
+                                // Check if file exists with its full path    //Disabled For mod viewing
+                                //if (File.Exists(Path.Combine(Destination, "icon.png")))
+                                //{
+                                //    // If file found, delete it    
+                                //    await TryDeleteFile(Path.Combine(Destination, "icon.png"));
+                                //}
                                
 
                                     if (File.Exists(Path.Combine(Destination, "README.md")))
@@ -4039,9 +4039,13 @@ int millisecondsDelay = 300)
                                     // If file found, delete it    
                                     await TryMoveFile(Path.Combine(Destination, "manifest.json"), Path.Combine(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder", "manifest.json"),true);
                                 }
+                                if (File.Exists(Path.Combine(Destination, "icon.png")))
+                                {
+                                    // If file found, delete it    
+                                    await TryMoveFile(Path.Combine(Destination, "icon.png"), Path.Combine(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder", "icon.png"), true);
+                                }
 
-
-                                     await Clear_Folder(Destination);
+                                await Clear_Folder(Destination);
                                
                               
                                     await CopyFilesRecursively(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder", Destination);
@@ -4140,7 +4144,7 @@ int millisecondsDelay = 300)
                         if (Directory.Exists(pluginsFolderPath))
                         {
                             // Combine destination folder path and plugins folder name
-                            string destFolderPath = Path.Combine(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\", pluginsFolderName + @"\" + mod_name);
+                            string destFolderPath = Path.Combine(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\mods\", pluginsFolderName + @"\" + mod_name);
                             if (!Directory.Exists(destFolderPath))
                             {
                                 TryCreateDirectory(destFolderPath);
@@ -4159,18 +4163,13 @@ int millisecondsDelay = 300)
                             }
                             if (File.Exists(Path.Combine(Destination, "manifest.json")))
                             {
-                                //var myJsonString = File.ReadAllText(Path.Combine(Destination, "manifest.json"));
-                                //dynamic myJObject = JObject.Parse(myJsonString);
-                                //string name = myJObject.Name;
-                                //string version = myJObject.Version;
-                                //string Description = myJObject.Description;
-                                //string Content = Description + Environment.NewLine + version;
-
-                               
-                            
-                            // If file found, move it    
-                            await TryMoveFile(Path.Combine(Destination, "manifest.json"), Path.Combine(destFolderPath, "manifest.json"));
-                        }
+                                 await TryMoveFile(Path.Combine(Destination, "manifest.json"), Path.Combine(destFolderPath, "manifest.json"));
+                            }
+                            if (File.Exists(Path.Combine(Destination, "icon.png")))
+                            {
+                                // If file found, delete it    
+                                await TryMoveFile(Path.Combine(Destination, "icon.png"), Path.Combine(destFolderPath, "icon.png"));
+                            }
                             await TryDeleteDirectory(User_Settings_Vars.NorthstarInstallLocation + @"Northstar_TEMP_FILES\");
                             Update_ActionCard_Progress(Action_Card_, 40);
 
