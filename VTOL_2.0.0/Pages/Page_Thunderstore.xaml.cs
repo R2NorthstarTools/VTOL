@@ -4067,7 +4067,7 @@ int millisecondsDelay = 300)
                             await TryDeleteDirectory(User_Settings_Vars.NorthstarInstallLocation + @"Northstar_TEMP_FILES\");
                             Update_ActionCard_Progress(Action_Card_, 40,true);
 
-                            SnackBar.Title = "SUCCESS";
+                            SnackBar.Title = VTOL.Resources.Languages.Language.SUCCESS;
                             SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
                             SnackBar.Message = "The Mod " + Path.GetFileNameWithoutExtension(Target_Zip).Replace("_", " ") + VTOL.Resources.Languages.Language.Page_Thunderstore_Unpack_To_Location_Custom_HasBeenDownloadedAndInstalled;
                             SnackBar.Show();
@@ -4078,11 +4078,11 @@ int millisecondsDelay = 300)
                     }
                     else if (Script.Length > 1)
                     {
-                        if (File.Exists(Path.Combine(Destination, "manifest.json")))
-                        {
-                            // If file found, delete it    
-                            await TryDeleteFile(Path.Combine(Destination, "manifest.json"));
-                        }
+                        //if (File.Exists(Path.Combine(Destination, "manifest.json")))
+                        //{
+                        //    // If file found, delete it    
+                        //    await TryDeleteFile(Path.Combine(Destination, "manifest.json"));
+                        //}
                         Update_ActionCard_Progress(Action_Card_);
                         bool copy_direcory_list = false;
                         if (Script.Length > 2)
@@ -4119,7 +4119,7 @@ int millisecondsDelay = 300)
                             }
                             Update_ActionCard_Progress(Action_Card_, 10,true);
 
-                            SnackBar.Title = "SUCCESS";
+                            SnackBar.Title = VTOL.Resources.Languages.Language.SUCCESS;
                             SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
                             SnackBar.Message = "The the multiple Mods in - " + mod_name + " - have been installed Succesfully";
                             SnackBar.Show();
@@ -4182,7 +4182,7 @@ int millisecondsDelay = 300)
                                 }
                                 Update_ActionCard_Progress(Action_Card_, 10,true);
 
-                                SnackBar.Title = "SUCCESS";
+                                SnackBar.Title = VTOL.Resources.Languages.Language.SUCCESS;
                                 SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
                                 SnackBar.Message = "Plugins in the mod folder have been copied successfully.";
                                 SnackBar.Show();
@@ -4444,7 +4444,7 @@ int millisecondsDelay = 300)
                         DispatchIfNecessary(async () =>
                         {
 
-                            SnackBar.Title = "SUCCESS";
+                            SnackBar.Title = VTOL.Resources.Languages.Language.SUCCESS;
                             SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
                             string temp_;
                             if (Northstar_VEr_Temp != null && Northstar_VEr_Temp.Length > 2)
@@ -4570,7 +4570,7 @@ int millisecondsDelay = 300)
                             //                    Progress_Bar.Value = 0;
                             //                }
 
-                            //                SnackBar.Title = "SUCCESS";
+                            //                SnackBar.Title = VTOL.Resources.Languages.Language.SUCCESS;
                             //                SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
                             //                SnackBar.Message = "The the multiple Mods in - " + mod_name + " - have been installed Succesfully";
                             //                SnackBar.Show();
@@ -4596,7 +4596,7 @@ int millisecondsDelay = 300)
                             //            Progress_Bar.Value = 0;
                             //        }
                                    
-                            //            SnackBar.Title = "SUCCESS";
+                            //            SnackBar.Title = VTOL.Resources.Languages.Language.SUCCESS;
                             //            SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
                             //            SnackBar.Message = "The Mod " + Path.GetFileNameWithoutExtension(Target_Zip).Replace("_", " ") + VTOL.Resources.Languages.Language.Page_Thunderstore_Unpack_To_Location_Custom_HasBeenDownloadedAndInstalled;
                             //            SnackBar.Show();

@@ -2894,8 +2894,7 @@ int millisecondsDelay = 150)
                         if (File.Exists(Current_Install_Folder + "NorthstarLauncher.exe"))
                         {
                             Found_Install_Folder = true;
-                            //Console.WriteLine("Found");
-                            //Console.WriteLine(Current_Install_Folder);
+                          
 
                             Directory_Box.Text = Current_Install_Folder;
 
@@ -2910,7 +2909,7 @@ int millisecondsDelay = 150)
                             NSExe = Get_And_Set_Filepaths(Current_Install_Folder, "NorthstarLauncher.exe");
                             Check_Integrity_Of_NSINSTALL();
                             SnackBar.Appearance = ControlAppearance.Success;
-                            SnackBar.Title = "SUCCESS";
+                            SnackBar.Title = VTOL.Resources.Languages.Language.SUCCESS;
                             SnackBar.Message = VTOL.Resources.Languages.Language.Page_Home_Browse_Titanfall_Button_Click_TheLocation + Current_Install_Folder + VTOL.Resources.Languages.Language.Page_Home_Browse_Titanfall_Button_Click_IsValidAndHasBeenSet;
                             SnackBar.Show();
                             Restart_App();
@@ -3459,7 +3458,7 @@ int millisecondsDelay = 150)
                     {
                         await Task.Delay(2000);
                         SnackBar.Message = VTOL.Resources.Languages.Language.Page_Home_Install_NS_METHOD_GitHubRateLimitForDownloadTriesHasBeenExceededError403FromRemoteServerPleaseWait;
-                        SnackBar.Title = "ERROR";
+                        SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
                         SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Caution;
                         SnackBar.Show();
                         await Task.Delay(500);
@@ -3943,7 +3942,7 @@ int millisecondsDelay = 150)
 
                             unpack_flg = true;
                             SnackBar.Message = VTOL.Resources.Languages.Language.Unpack_To_Location_InstallationComplete;
-                            SnackBar.Title = "SUCCESS";
+                            SnackBar.Title = VTOL.Resources.Languages.Language.SUCCESS;
                             SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
                             SnackBar.Show();
                         });
@@ -4344,7 +4343,7 @@ int millisecondsDelay = 150)
                                 NSExe = Get_And_Set_Filepaths(Current_Install_Folder, "NorthstarLauncher.exe");
                                 Check_Integrity_Of_NSINSTALL();
                                 SnackBar.Appearance = ControlAppearance.Success;
-                                SnackBar.Title = "SUCCESS";
+                                SnackBar.Title = VTOL.Resources.Languages.Language.SUCCESS;
                                 SnackBar.Message = VTOL.Resources.Languages.Language.Page_Home_Browse_Titanfall_Button_Click_TheLocation + Current_Install_Folder + VTOL.Resources.Languages.Language.Page_Home_Browse_Titanfall_Button_Click_IsValidAndHasBeenSet;
                                 SnackBar.Show();
                                 WELCOME_BANNER.Visibility = Visibility.Collapsed;

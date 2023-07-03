@@ -70,6 +70,15 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CAUTION.
+        /// </summary>
+        public static string CAUTION {
+            get {
+                return ResourceManager.GetString("CAUTION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Release Candidate Detected.
         /// </summary>
         public static string Check_For_New_Northstar_Install_ReleaseCandidateDetected {
@@ -93,6 +102,51 @@ namespace VTOL.Resources.Languages {
         public static string Check_Integrity_Of_NSINSTALL_DirectoryCheckFailed {
             get {
                 return ResourceManager.GetString("Check_Integrity_Of_NSINSTALL_DirectoryCheckFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  Could not be Deleted.
+        /// </summary>
+        public static string CouldNotBeDeleted {
+            get {
+                return ResourceManager.GetString("CouldNotBeDeleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DEPENDENCY LIST.
+        /// </summary>
+        public static string DEPENDENCYLIST {
+            get {
+                return ResourceManager.GetString("DEPENDENCYLIST", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DESCRIPTION.
+        /// </summary>
+        public static string DESCRIPTION {
+            get {
+                return ResourceManager.GetString("DESCRIPTION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  ERROR.
+        /// </summary>
+        public static string ERROR {
+            get {
+                return ResourceManager.GetString("ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  has been Deleted.
+        /// </summary>
+        public static string HasBeenDeleted {
+            get {
+                return ResourceManager.GetString("HasBeenDeleted", resourceCulture);
             }
         }
         
@@ -187,6 +241,33 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to MANIFEST FILE NOT FOUND.
+        /// </summary>
+        public static string MANIFEST_FILE_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("MANIFEST_FILE_NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MANIFEST FILE NOT FOUND.
+        /// </summary>
+        public static string MANIFESTFILENOTFOUND {
+            get {
+                return ResourceManager.GetString("MANIFESTFILENOTFOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MANIFEST FILE NOT FOUND .
+        /// </summary>
+        public static string MANIFESTFILENOTFOUND_ {
+            get {
+                return ResourceManager.GetString("MANIFESTFILENOTFOUND_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to MOD INFO.
         /// </summary>
         public static string MODINFO {
@@ -196,11 +277,29 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to MOD NAME.
+        /// </summary>
+        public static string MODNAME {
+            get {
+                return ResourceManager.GetString("MODNAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to MOD SIZE ON DISK.
         /// </summary>
         public static string MODSIZEONDISK {
             get {
                 return ResourceManager.GetString("MODSIZEONDISK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NAME.
+        /// </summary>
+        public static string NAME {
+            get {
+                return ResourceManager.GetString("NAME", resourceCulture);
             }
         }
         
@@ -1749,11 +1848,29 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Requires - .
+        ///   Looks up a localized string similar to REQUIRES - .
         /// </summary>
-        public static string Requires {
+        public static string REQUIRES {
             get {
-                return ResourceManager.GetString("Requires", resourceCulture);
+                return ResourceManager.GetString("REQUIRES", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SUCCESS.
+        /// </summary>
+        public static string SUCCESS {
+            get {
+                return ResourceManager.GetString("SUCCESS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Mod at .
+        /// </summary>
+        public static string TheModAt {
+            get {
+                return ResourceManager.GetString("TheModAt", resourceCulture);
             }
         }
         

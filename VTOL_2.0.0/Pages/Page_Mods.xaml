@@ -135,7 +135,7 @@
                             <DockPanel   Height="62" HorizontalAlignment="Left" Margin="84,0,0,-2" Width="351" IsEnabled="False" Tag="Hidden" AutomationProperties.IsOffscreenBehavior="Offscreen" Opacity="0">
                                 <ui:Button x:Name="Info_Btn" Width="88" Height="42" Content="Info"  Background="#FF24ABBD" Tag ="{Binding Mod_Name_}"  ToolTip="{Binding Mod_Name_}" Margin="0,0,5,0" Click="Info_Btn_Click" ClickMode="Press" Icon="Info20"/>
 
-                                <ui:Button x:Name="Delete_Btn" Width="96" Height="42" Content="Delete"  Background="#FFB90000" Tag ="{Binding Mod_Name_}"  ToolTip="{Binding Mod_Name_}" Margin="0,0,30,0" Click="Delete_Btn_Click" Icon="DeleteDismiss24"/>
+                                <ui:Button x:Name="Delete_Btn" Width="96" Height="42" Content="Delete"  Background="#B29A0404" Tag ="{Binding Mod_Name_}"  ToolTip="{Binding Mod_Name_}" Margin="0,0,30,0" Click="Delete_Btn_Click" Icon="DeleteDismiss24" Foreground="White"/>
 
                             </DockPanel>
                             <ui:Button x:Name="Mod_Btn" Width="112" Height="42" Content="{Binding Label}"  Background="{Binding Is_Active_Color}" Tag ="{Binding En_Di}" Click="Mod_Btn_Click" ToolTip="{Binding Mod_Name_}" Margin="0,0,10,0" HorizontalAlignment="Right"/>
@@ -207,7 +207,7 @@
                             <ColumnDefinition Width="279*"/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <ui:Button  x:Name="Exit_BTN_ADD_Prfl" Icon="Dismiss24" Height="26" Margin="523,10,0,0" VerticalAlignment="Top"  BorderBrush="{x:Null}"  Padding="0,0,0,0" ToolTip="Exit" Background="#FF7B0000"  ClickMode="Press" Width="25" Click="EXIT" RenderTransformOrigin="0.5,0.5" >
+                        <ui:Button  x:Name="Exit_BTN_ADD_Prfl" Icon="Dismiss24" Height="26" Margin="523,10,0,0" VerticalAlignment="Top"  BorderBrush="{x:Null}"  Padding="0,0,0,0" ToolTip="Exit" Background="#B29A0404"  ClickMode="Press" Width="25" Click="EXIT" RenderTransformOrigin="0.5,0.5" >
                             <ui:Button.RenderTransform>
                                 <TransformGroup>
                                     <ScaleTransform ScaleX="1.2" ScaleY="1.2"/>
@@ -219,13 +219,13 @@
                         </ui:Button>
                         <Border Margin="48,159,45,211" CornerRadius="3" Background="#FF252525">
                             <TextBlock 
-         TextWrapping="Wrap"  x:Name="Description_Box"   Foreground="White" Padding="5,5,5,0" FontSize="13" IsManipulationEnabled="True"/>
+         TextWrapping="Wrap"  x:Name="Description_Box"   Foreground="White" Padding="9,5,7,7" FontSize="13" IsManipulationEnabled="True"/>
 
 
                         </Border>
 
 
-                        <TreeView x:Name="Dependency_Tree" Margin="48,336,45,65" Background="#FF252525" FontSize="13" Padding="-2,0,0,0">
+                        <TreeView x:Name="Dependency_Tree" Margin="48,336,45,65" Background="#FF252525" FontSize="13" Padding="-9,0,0,0">
 
                         </TreeView>
                         <Label Content="{x:Static properties:Language.MODINFO}" Margin="0,13,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" UseLayoutRounding="True" Padding="0,0,0,0" Background="{x:Null}" Foreground="White" FontSize="16" FontWeight="Bold" Height="23" VerticalAlignment="Top" HorizontalAlignment="Center" Width="240"/>
@@ -233,8 +233,8 @@
                         <Label  x:Name="INFO_VERSION_SET"  Content="v1.1.2" Margin="284,0,0,404" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Right" UseLayoutRounding="True" Padding="0,0,0,0" Height="23" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="229" FontSize="14"/>
                         <Label  x:Name="INFO_VERSION_MOD_SET"  Content="84" Margin="284,0,0,382" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Right" UseLayoutRounding="True" Padding="0,0,0,0" Height="22" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="229" FontSize="14"/>
                         <Label x:Name="INFO_MOD_SIZE_SET" Content="5GB" Margin="284,0,0,362" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Right" UseLayoutRounding="True" Padding="0,0,0,0" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="229" FontSize="14"/>
-                        <Label Content="{x:Static properties:Language.PATH}" Margin="48,0,0,404" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="23" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="231" FontSize="14"/>
-                        <Label  Content="{x:Static properties:Language.VERSION}" Margin="48,0,0,382" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="22" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="231" FontSize="14"/>
+                        <Label Content="{x:Static properties:Language.VERSION}" Margin="48,0,0,404" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="23" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="231" FontSize="14"/>
+                        <Label  Content="{x:Static properties:Language.PATH}" Margin="48,0,0,382" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="22" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="231" FontSize="14"/>
                         <Label x:Name="INFO_MODSIZE_SET"  Content="{x:Static properties:Language.MODSIZEONDISK}" Margin="48,0,0,362" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="231" FontSize="14"/>
                         <Separator HorizontalAlignment="Center" VerticalAlignment="Top" Height="118" Background="#4CFFFFFF" BorderBrush="#4CFFFFFF" Margin="0,30,0,0" Foreground="{x:Null}" MinHeight="45" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="0,0,1,0" RenderTransformOrigin="0.5,0.5" Width="4">
                             <Separator.RenderTransform>
@@ -246,12 +246,12 @@
                                 </TransformGroup>
                             </Separator.RenderTransform>
                         </Separator>
-                        <Label   x:Name="INFO_NAME_SET"   Content="NAME" Margin="48,0,0,427" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="23" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="237" FontSize="14"/>
-                        <Label x:Name="NAME"  Content="MODNAME" Margin="284,0,0,427" VerticalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="23" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="229" HorizontalContentAlignment="Right" FontSize="14"/>
+                        <Label   x:Name="INFO_NAME_SET"   Content="{x:Static properties:Language.NAME}" Margin="48,0,0,427" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="23" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="237" FontSize="14"/>
+                        <Label x:Name="NAME"  Content="name" Margin="284,0,0,427" VerticalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="23" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="229" HorizontalContentAlignment="Right" FontSize="14"/>
 
 
-                        <Label  Content="DESCRIPTION" Margin="48,0,0,194" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="231"/>
-                        <Label  Content="DEPENDENCY TREE" Margin="48,0,0,47" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="231"/>
+                        <Label  Content="{x:Static properties:Language.DESCRIPTION}" Margin="48,0,0,194" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="231"/>
+                        <Label  Content="{x:Static properties:Language.DEPENDENCYLIST}" Margin="50,0,0,49" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="230"/>
 
                     </Grid>
                 </Border>

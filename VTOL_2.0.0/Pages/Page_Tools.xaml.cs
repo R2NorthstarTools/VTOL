@@ -46,6 +46,9 @@ using System.Text.Json;
 using System.Windows.Threading;
 using System.Collections.ObjectModel;
 using System.Security.Policy;
+using Lsj.Util.Win32.Structs;
+using System.Net;
+using Exception = System.Exception;
 
 namespace VTOL.Pages
 {
@@ -715,7 +718,7 @@ namespace VTOL.Pages
                     {
 
                         SnackBar.Icon = SymbolRegular.ErrorCircle20;
-                        SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
+                        SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
                         SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Locate_Zip_Click_InvalidZipFound;
                         SnackBar.Show();
                         Zip_Box.Background = Brushes.IndianRed;
@@ -755,7 +758,7 @@ namespace VTOL.Pages
                 if (!Directory.Exists(dialog.SelectedPath))
                 {
                     SnackBar.Icon = SymbolRegular.ErrorCircle20;
-                    SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
+                    SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
                     SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Output_Button_Click_NotAnOutputDirectory;
                     SnackBar.Show();
                     Output_Box.Background = Brushes.IndianRed;
@@ -780,7 +783,7 @@ namespace VTOL.Pages
                 if (Mod_name.Text == null && Mod_name.Text == "" && Mod_version_number.Text == null && Mod_version_number.Text == "" && Mod_website_url.Text == null && Mod_website_url.Text == "" && Mod_description.Text == null && Mod_description.Text == "" && Mod_dependencies.Text == null && Mod_dependencies.Text == "")
                 {
                     SnackBar.Icon = SymbolRegular.ErrorCircle20;
-                    SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
+                    SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
                     SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_create_Manifest_OneOfTheManifestInputsAreEmpty;
                     SnackBar.Show();
                     return;
@@ -1071,7 +1074,7 @@ int millisecondsDelay = 300)
                         else
                         {
                             SnackBar.Icon = SymbolRegular.ErrorCircle20;
-                            SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
+                            SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
                             SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Save_Mod_Click_NoValidOutputPathFound;
                             SnackBar.Show();
                             Output_Box.Background = Brushes.IndianRed;
@@ -1085,14 +1088,14 @@ int millisecondsDelay = 300)
                             TryDeleteDirectory(Current_Output_Dir + @"\" + Mod_name.Text.Trim(), true);
                         }
                         SnackBar.Appearance = ControlAppearance.Success;
-                        SnackBar.Title = "SUCCESS";
+                        SnackBar.Title = VTOL.Resources.Languages.Language.SUCCESS;
                         SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Save_Mod_Click_SuccessfullyPackedAllItemsTo + Current_Output_Dir + @"\" + Mod_name.Text.Trim() + ".zip";
                         SnackBar.Show();
                     }
                     else
                     {
                         SnackBar.Icon = SymbolRegular.ErrorCircle20;
-                        SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
+                        SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
                         SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Save_Mod_Click_NoValidModICONFound;
                         SnackBar.Show();
                         BitmapImage bitmap = new BitmapImage();
@@ -1107,7 +1110,7 @@ int millisecondsDelay = 300)
                 else
                 {
                     SnackBar.Icon = SymbolRegular.ErrorCircle20;
-                    SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
+                    SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
                     SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Save_Mod_Click_NoValidZipFileToPackWasFound;
                     SnackBar.Show();
                     Output_Box.Background = Brushes.IndianRed;
@@ -1153,7 +1156,7 @@ int millisecondsDelay = 300)
                         {
 
                             SnackBar.Icon = SymbolRegular.ErrorCircle20;
-                            SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
+                            SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
                             SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Icon_Image_MouseDown_NotAValidPNGImage;
                             SnackBar.Show();
                             return;
@@ -1176,7 +1179,7 @@ int millisecondsDelay = 300)
                                 {
 
                                     SnackBar.Appearance = ControlAppearance.Success;
-                                    SnackBar.Title = "SUCCESS";
+                                    SnackBar.Title = VTOL.Resources.Languages.Language.SUCCESS;
                                     SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Icon_Image_MouseDown_ValidImageFoundAt + Mod_Icon_Path;
                                     SnackBar.Show();
                                     BitmapImage Mod_Icon = new BitmapImage();
@@ -1190,7 +1193,7 @@ int millisecondsDelay = 300)
                                 else
                                 {
                                     SnackBar.Icon = SymbolRegular.ErrorCircle20;
-                                    SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
+                                    SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
                                     SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Icon_Image_MouseDown_InvalidImageSizeMustBe256x256;
                                     SnackBar.Show();
                                     BitmapImage bitmap = new BitmapImage();
@@ -1205,7 +1208,7 @@ int millisecondsDelay = 300)
                             else
                             {
                                 SnackBar.Icon = SymbolRegular.ErrorCircle20;
-                                SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
+                                SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
                                 SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Icon_Image_MouseDown_ThatWasNotAProperPNG;
                                 SnackBar.Show();
                                 BitmapImage bitmap = new BitmapImage();
@@ -1320,7 +1323,7 @@ int millisecondsDelay = 300)
                         {
 
                             SnackBar.Icon = SymbolRegular.ErrorCircle20;
-                            SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
+                            SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
                             SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Icon_Image_MouseDown_NotAValidPNGImage;
                             SnackBar.Show();
                             return;
@@ -1343,7 +1346,7 @@ int millisecondsDelay = 300)
                                 {
 
                                     SnackBar.Appearance = ControlAppearance.Success;
-                                    SnackBar.Title = "SUCCESS";
+                                    SnackBar.Title = VTOL.Resources.Languages.Language.SUCCESS;
                                     SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Icon_Image_MouseDown_ValidImageFoundAt + Mod_Icon_Path;
                                     SnackBar.Show();
                                     BitmapImage Mod_Icon = new BitmapImage();
@@ -1358,7 +1361,7 @@ int millisecondsDelay = 300)
                                 else
                                 {
                                     SnackBar.Icon = SymbolRegular.ErrorCircle20;
-                                    SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
+                                    SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
                                     SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Icon_Image_MouseDown_InvalidImageSizeMustBe256x256;
                                     SnackBar.Show();
                                     BitmapImage bitmap = new BitmapImage();
@@ -1374,7 +1377,7 @@ int millisecondsDelay = 300)
                             else
                             {
                                 SnackBar.Icon = SymbolRegular.ErrorCircle20;
-                                SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
+                                SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
                                 SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Icon_Image_MouseDown_ThatWasNotAProperPNG;
                                 SnackBar.Show();
                                 BitmapImage bitmap = new BitmapImage();
@@ -1414,7 +1417,7 @@ int millisecondsDelay = 300)
                     {
 
                         SnackBar.Icon = SymbolRegular.ErrorCircle20;
-                        SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
+                        SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
                         SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Icon_Image_MouseDown_NotAValidPNGImage;
                         SnackBar.Show();
                         return;
@@ -1472,7 +1475,7 @@ int millisecondsDelay = 300)
                                 else
                                 {
                                     SnackBar.Icon = SymbolRegular.ErrorCircle20;
-                                    SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
+                                    SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
                                     SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Icon_Image_MouseDown_InvalidImageSizeMustBe256x256;
                                     SnackBar.Show();
                                     DashedBorder.Background = new ImageBrush();
@@ -1483,7 +1486,7 @@ int millisecondsDelay = 300)
                             else
                             {
                                 SnackBar.Icon = SymbolRegular.ErrorCircle20;
-                                SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
+                                SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
                                 SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Image_Icon_Drop_InvalidImageSizeMustBeSmallerThan2048X2048;
                                 SnackBar.Show();
                                 DashedBorder.Background = new ImageBrush();
@@ -1531,7 +1534,7 @@ int millisecondsDelay = 300)
                             {
 
                                 SnackBar.Icon = SymbolRegular.ErrorCircle20;
-                                SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
+                                SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
                                 SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Icon_Image_MouseDown_NotAValidPNGImage;
                                 SnackBar.Show();
                                 return;
@@ -1588,7 +1591,7 @@ int millisecondsDelay = 300)
                                     else
                                     {
                                         SnackBar.Icon = SymbolRegular.ErrorCircle20;
-                                        SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
+                                        SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
                                         SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Image_Icon_Drop_InvalidImageSizeMustBeSmallerThan2048X2048;
                                         SnackBar.Show();
                                         DashedBorder.Background = new ImageBrush();
@@ -1637,7 +1640,7 @@ int millisecondsDelay = 300)
                 if (Skin_Name.Text == "")
                 {
                     SnackBar.Appearance = ControlAppearance.Danger;
-                    SnackBar.Title = "ERROR";
+                    SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
                     SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_ProcessSkin_SkinNameNotSet;
                     SnackBar.Show();
                     return;
@@ -1645,7 +1648,7 @@ int millisecondsDelay = 300)
                 if (SelectedWeapon == null || Items_List.SelectedItem == null)
                 {
                     SnackBar.Appearance = ControlAppearance.Danger;
-                    SnackBar.Title = "ERROR";
+                    SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
                     SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_ProcessSkin_ItemNotSet;
                     SnackBar.Show();
                     return;
@@ -1653,7 +1656,7 @@ int millisecondsDelay = 300)
                 if (Output_Box.Text.Length == 0 && Output_Box.Text == null)
                 {
                     SnackBar.Appearance = ControlAppearance.Danger;
-                    SnackBar.Title = "ERROR";
+                    SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
                     SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_ProcessSkin_OutputPathIsNotSet;
                     SnackBar.Show();
                     return;
@@ -1664,7 +1667,7 @@ int millisecondsDelay = 300)
                     Emmision_.Tag == null)
                 {
                     SnackBar.Appearance = ControlAppearance.Danger;
-                    SnackBar.Title = "ERROR";
+                    SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
                     SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_ProcessSkin_MapsAreNotSet;
                     SnackBar.Show();
                     return;
@@ -1833,7 +1836,7 @@ int millisecondsDelay = 300)
                 }
 
                 SnackBar.Appearance = ControlAppearance.Success;
-                SnackBar.Title = "SUCCESS";
+                SnackBar.Title = VTOL.Resources.Languages.Language.SUCCESS;
                 SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_ProcessSkin_GeneratedTheSkinSuccessfully;
                 SnackBar.Show();
                 Zip_Box.Text = Current_Mod_To_Pack;
@@ -1845,7 +1848,7 @@ int millisecondsDelay = 300)
             {
                 //Removed PaperTrailSystem Due to lack of reliability.
                 SnackBar.Appearance = ControlAppearance.Danger;
-                SnackBar.Title = "ERROR";
+                SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
                 SnackBar.Message = ex.Message;
                 SnackBar.Show();
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
@@ -2027,7 +2030,7 @@ int millisecondsDelay = 300)
                 {
                     //Send_Error_Notif("Not An Output Directory");
                     SnackBar.Icon = SymbolRegular.ErrorCircle20;
-                    SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
+                    SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
                     SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Output_Button_Click_NotAnOutputDirectory;
                     SnackBar.Show();
                     Output_Box.Background = Brushes.IndianRed;
@@ -2071,21 +2074,21 @@ int millisecondsDelay = 300)
         //    if(Mod_Adv_Author_name == null || Mod_Adv_Author_name == "" || Mod_Adv_Author_name.Count() < 2)
         //    {
         //        SnackBar.Appearance = ControlAppearance.Danger;
-        //        SnackBar.Title = "ERROR";
+        //        SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
         //        SnackBar.Message = "Author Name Is Minimum 2 Letters";
         //        SnackBar.Show();
         //    }
         //    if (Mod_Adv_Version_Num == null || Mod_Adv_Version_Num == "" || Mod_Adv_Version_Num.Count() < 2 || !Regex.Match(Mod_Adv_Version_Num, "^\\d+.\\d+.\\d+$").Success)
         //    {
         //        SnackBar.Appearance = ControlAppearance.Danger;
-        //        SnackBar.Title = "ERROR";
+        //        SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
         //        SnackBar.Message = "Version Number Is Invalid";
         //        SnackBar.Show();
         //    }
         //    if (Mod_Adv_Skin_Name == null || Mod_Adv_Skin_Name == "" || Mod_Adv_Skin_Name.Count() < 2)
         //    {
         //        SnackBar.Appearance = ControlAppearance.Danger;
-        //        SnackBar.Title = "ERROR";
+        //        SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
         //        SnackBar.Message = "Skin Name Is Is Invalid";
         //        SnackBar.Show();
         //    }
@@ -2093,7 +2096,7 @@ int millisecondsDelay = 300)
         //        //if (Description_Box_Advocate.Document.Blocks.Count < 1)
         //        //{
         //        //    SnackBar.Appearance = ControlAppearance.Danger;
-        //        //    SnackBar.Title = "ERROR";
+        //        //    SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
         //        //    SnackBar.Message = "Description Is Invalid";
         //        //    SnackBar.Show();
         //        //}
@@ -2102,7 +2105,7 @@ int millisecondsDelay = 300)
 
 
         //        SnackBar.Appearance = ControlAppearance.Danger;
-        //        SnackBar.Title = "ERROR";
+        //        SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
         //        SnackBar.Message = "Skin Content Is Invalid!";
         //        SnackBar.Show();
         //        return;
@@ -2113,7 +2116,7 @@ int millisecondsDelay = 300)
 
 
         //        SnackBar.Appearance = ControlAppearance.Danger;
-        //        SnackBar.Title = "ERROR";
+        //        SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
         //        SnackBar.Message = "Output Path Is Invalid!";
         //        SnackBar.Show();
         //        return;
@@ -2125,7 +2128,7 @@ int millisecondsDelay = 300)
 
 
         //        SnackBar.Appearance = ControlAppearance.Danger;
-        //        SnackBar.Title = "ERROR";
+        //        SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
         //        SnackBar.Message = "RePak Path Is Invalid!";
         //        SnackBar.Show();
         //        return;
@@ -2136,7 +2139,7 @@ int millisecondsDelay = 300)
 
 
         //        SnackBar.Appearance = ControlAppearance.Danger;
-        //        SnackBar.Title = "ERROR";
+        //        SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
         //        SnackBar.Message = "Icon Content Is Invalid!";
         //        SnackBar.Show();
         //        return;
@@ -2180,7 +2183,7 @@ int millisecondsDelay = 300)
         //                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
         //                SnackBar.Appearance = ControlAppearance.Danger;
-        //            SnackBar.Title = "ERROR";
+        //            SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
         //            SnackBar.Message = "Unable to unzip skin!";
         //            SnackBar.Show();
         //            return;
@@ -2207,7 +2210,7 @@ int millisecondsDelay = 300)
         //            if (skinPaths.Length == 0)
         //            {
         //                SnackBar.Appearance = ControlAppearance.Danger;
-        //                SnackBar.Title = "ERROR";
+        //                SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
         //                SnackBar.Message = "No Skins found in zip!";
         //                SnackBar.Show();
         //                return;
@@ -2216,7 +2219,7 @@ int millisecondsDelay = 300)
         //            if (resolutions.Length == 0)
         //            {
         //                SnackBar.Appearance = ControlAppearance.Danger;
-        //                SnackBar.Title = "ERROR";
+        //                SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
         //                SnackBar.Message = "No Skins found in zip!";
         //                SnackBar.Show();
         //                return;
@@ -2236,7 +2239,7 @@ int millisecondsDelay = 300)
         //            if (highestRes == 0)
         //            {
         //                SnackBar.Appearance = ControlAppearance.Danger;
-        //                SnackBar.Title = "ERROR";
+        //                SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
         //                SnackBar.Message = "No valid image resolutions found in zip!";
         //                SnackBar.Show();
         //                return;
@@ -2246,7 +2249,7 @@ int millisecondsDelay = 300)
         //            if (files.Length == 0)
         //            {
         //                SnackBar.Appearance = ControlAppearance.Danger;
-        //                SnackBar.Title = "ERROR";
+        //                SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
         //                SnackBar.Message = "No files in highest resolution folder!";
         //                SnackBar.Show();
         //                return;
@@ -2264,7 +2267,7 @@ int millisecondsDelay = 300)
         //            if (colPath == "")
         //            {
         //                SnackBar.Appearance = ControlAppearance.Danger;
-        //                SnackBar.Title = "ERROR";
+        //                SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
         //                SnackBar.Message = "No _col texture found in highest resolution folder";
         //                SnackBar.Show();
         //                return;
@@ -2273,7 +2276,7 @@ int millisecondsDelay = 300)
         //            if (!DdsToPng(colPath, modTempFolderPath + "\\icon.png"))
         //            {
         //                SnackBar.Appearance = ControlAppearance.Danger;
-        //                SnackBar.Title = "ERROR";
+        //                SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
         //                SnackBar.Message = "Failed to convert dds to png for icon!";
         //                SnackBar.Show();
         //                return;
@@ -2313,7 +2316,7 @@ int millisecondsDelay = 300)
         //        else
         //        {
         //            SnackBar.Appearance = ControlAppearance.Danger;
-        //            SnackBar.Title = "ERROR";
+        //            SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
         //            SnackBar.Message = "No files in highest resolution folder!";
         //            SnackBar.Show();
 
@@ -2594,7 +2597,7 @@ int millisecondsDelay = 300)
         //            //Removed PaperTrailSystem Due to lack of reliability.
 
         //            SnackBar.Appearance = ControlAppearance.Danger;
-        //            SnackBar.Title = "ERROR";
+        //            SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
         //            SnackBar.Message = ex.Message;
         //            SnackBar.Show();
         //            Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
@@ -2625,7 +2628,7 @@ int millisecondsDelay = 300)
 
         //    // everything is done and good
         //    SnackBar.Appearance = ControlAppearance.Success;
-        //    SnackBar.Title = "SUCCESS";
+        //    SnackBar.Title = VTOL.Resources.Languages.Language.SUCCESS;
         //    SnackBar.Message = "Conversion Completed Successfully";
         //    SnackBar.Show();
 
@@ -2635,7 +2638,7 @@ int millisecondsDelay = 300)
         //    {
         //      //Removed PaperTrailSystem Due to lack of reliability.
         //        SnackBar.Appearance = ControlAppearance.Danger;
-        //        SnackBar.Title = "ERROR";
+        //        SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
         //        SnackBar.Message = ex.Message;
         //        SnackBar.Show();
         //        Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
@@ -2687,7 +2690,7 @@ int millisecondsDelay = 300)
             {
                 //Removed PaperTrailSystem Due to lack of reliability.
                 SnackBar.Appearance = ControlAppearance.Danger;
-                SnackBar.Title = "ERROR";
+                SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
                 SnackBar.Message = ex.Message;
                 SnackBar.Show();
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
@@ -3069,7 +3072,7 @@ int millisecondsDelay = 300)
                     if (!Directory.Exists(Tools_Dir))
                     {
                         SnackBar.Icon = SymbolRegular.ErrorCircle20;
-                        SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
+                        SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
                         SnackBar.Message = "Tools Directory Empty and could not be created!";
                         SnackBar.Show();
                     }
@@ -3130,7 +3133,7 @@ int millisecondsDelay = 300)
                     {
 
                         SnackBar.Icon = SymbolRegular.ErrorCircle20;
-                        SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
+                        SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
                         SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Locate_Zip_Click_InvalidZipFound;
                         SnackBar.Show();
 
@@ -3180,7 +3183,7 @@ int millisecondsDelay = 300)
             //            {
 
             //                SnackBar.Icon = SymbolRegular.ErrorCircle20;
-            //                SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
+            //                SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
             //                SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Icon_Image_MouseDown_NotAValidPNGImage;
             //                SnackBar.Show();
             //                return;
@@ -3203,7 +3206,7 @@ int millisecondsDelay = 300)
             //                    {
 
             //                        SnackBar.Appearance = ControlAppearance.Success;
-            //                        SnackBar.Title = "SUCCESS";
+            //                        SnackBar.Title = VTOL.Resources.Languages.Language.SUCCESS;
             //                        SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Icon_Image_MouseDown_ValidImageFoundAt + Mod_Icon_Path;
             //                        SnackBar.Show();
             //                        BitmapImage Mod_Icon = new BitmapImage();
@@ -3218,7 +3221,7 @@ int millisecondsDelay = 300)
             //                    else
             //                    {
             //                        SnackBar.Icon = SymbolRegular.ErrorCircle20;
-            //                        SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
+            //                        SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
             //                        SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Icon_Image_MouseDown_InvalidImageSizeMustBe256x256;
             //                        SnackBar.Show();
 
@@ -3230,7 +3233,7 @@ int millisecondsDelay = 300)
             //                else
             //                {
             //                    SnackBar.Icon = SymbolRegular.ErrorCircle20;
-            //                    SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
+            //                    SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
             //                    SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Icon_Image_MouseDown_ThatWasNotAProperPNG;
             //                    SnackBar.Show();
 
@@ -3267,7 +3270,7 @@ int millisecondsDelay = 300)
                 {
 
                     SnackBar.Icon = SymbolRegular.ErrorCircle20;
-                    SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
+                    SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
                     SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Icon_Image_MouseDown_NotAValidPNGImage;
                     SnackBar.Show();
                     return;
@@ -3303,7 +3306,7 @@ int millisecondsDelay = 300)
                         else
                         {
                             SnackBar.Icon = SymbolRegular.ErrorCircle20;
-                            SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
+                            SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
                             SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Icon_Image_MouseDown_InvalidImageSizeMustBe256x256;
                             SnackBar.Show();
                             DashedBorder.Background = new ImageBrush();
@@ -3345,7 +3348,7 @@ int millisecondsDelay = 300)
                     {
 
                         SnackBar.Icon = SymbolRegular.ErrorCircle20;
-                        SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
+                        SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
                         SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Locate_Zip_Click_InvalidZipFound;
                         SnackBar.Show();
 
@@ -3385,7 +3388,7 @@ int millisecondsDelay = 300)
                 if (!Directory.Exists(dialog.SelectedPath))
                 {
                     SnackBar.Icon = SymbolRegular.ErrorCircle20;
-                    SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
+                    SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
                     SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Output_Button_Click_NotAnOutputDirectory;
                     SnackBar.Show();
                     Output_Box.Background = Brushes.IndianRed;
@@ -3531,7 +3534,7 @@ int millisecondsDelay = 300)
                         //else
                         //{
                         //    SnackBar.Icon = SymbolRegular.ErrorCircle20;
-                        //    SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = "ERROR";
+                        //    SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
                         //    SnackBar.Message = "Python Installation Invalid, Cannot Start Script -:\n " + path;
                         //    SnackBar.Show();
                         //}
@@ -3544,7 +3547,7 @@ int millisecondsDelay = 300)
             catch (Exception ex)
             {
               Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-               
+
 
             }
 
@@ -3563,49 +3566,125 @@ int millisecondsDelay = 300)
             }
             catch (Exception ex)
             {
-              Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-              
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+
 
             }
         }
+
+      
+        public bool UrlIsValid(string url)
+        {
+            try
+            {
+               
+                    HttpWebRequest request = HttpWebRequest.Create(url) as HttpWebRequest;
+                    request.Timeout = 5000; //set the timeout to 5 seconds to keep the user from waiting too long for the page to load
+                    request.Method = "HEAD"; //Get only the header information -- no need to download any content
+
+                    using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
+                    {
+                        int statusCode = (int)response.StatusCode;
+                        if (statusCode >= 100 && statusCode < 400) //Good requests
+                        {
+                            return true;
+                        }
+                        else if (statusCode >= 500 && statusCode <= 510) //Server Errors
+                    {
+                       
+                            SnackBar.Message = String.Format("The remote server has thrown an internal error. Url is not valid: {0}", url);
+                            SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
+                            SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Danger;
+                            SnackBar.Show();
+                        return false;
+                        }
+                    }
+               
+            }
+            catch (WebException ex)
+            {
+                if (ex.Status == WebExceptionStatus.ProtocolError) //400 errors
+                {
+                    return false;
+                }
+                else
+                {
+                    
+                        SnackBar.Message = String.Format("Unhandled status [{0}] returned for url: {1}", ex.Status, url);
+                    SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
+                    SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Danger;
+                    SnackBar.Show();
+                  
+                }
+            }
+            catch (Exception ex)
+            {
+                
+                    SnackBar.Message = String.Format("Could not test url {0}.", url);
+                SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
+                SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Danger;
+                SnackBar.Show();
+              
+            }
+            return false;
+        }
         async Task Download_Zip_To_Path(string Sub_Name, string URL)
         {
-           
-            await Task.Run(() =>
+            try
             {
-                DispatchIfNecessary(async () =>
-                {
-                    SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Download_Zip_To_Path_DownloadingAndInstalling + Sub_Name;
-                    SnackBar.Title = "INFO";
-                    SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
-                    SnackBar.Show();
-                    Thread.Sleep(1000);
-                    if (Directory.Exists(Tools_Dir))
+               
+
+                    await Task.Run(() =>
                     {
-                        if (!Directory.Exists(Tools_Dir+ Sub_Name))
+                        DispatchIfNecessary(async () =>
                         {
-                           TryCreateDirectory(Tools_Dir +  Sub_Name);
-                        }
-                        IDownload downloader = DownloadBuilder.New()
-            .WithUrl(URL)
-            .WithDirectory(Tools_Dir + Sub_Name)
-            .WithFileName(Sub_Name + ".zip")
-            .WithConfiguration(new DownloadConfiguration())
+                            if (!UrlIsValid(URL))
+                            {
+                                SnackBar.Message = " Url is not valid";
+                                SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
+                                SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Danger;
+                                SnackBar.Show();
+                                return;
+                            }
+                            SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Download_Zip_To_Path_DownloadingAndInstalling + Sub_Name;
+                            SnackBar.Title = "INFO";
+                            SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
+                            SnackBar.Show();
+                            Thread.Sleep(1000);
+                            if (Directory.Exists(Tools_Dir))
+                            {
+                                if (!Directory.Exists(Tools_Dir + Sub_Name))
+                                {
+                                    TryCreateDirectory(Tools_Dir + Sub_Name);
+                                }
+                                IDownload downloader = DownloadBuilder.New()
+                    .WithUrl(URL)
+                    .WithDirectory(Tools_Dir + Sub_Name)
+                    .WithFileName(Sub_Name + ".zip")
+                    .WithConfiguration(new DownloadConfiguration())
 
-            .Build();
-                        downloader.DownloadFileCompleted += delegate (object sender, AsyncCompletedEventArgs e)
-                        {
+                    .Build();
+                                downloader.DownloadFileCompleted += delegate (object sender, AsyncCompletedEventArgs e)
+                                {
 
 
-                            downloader_DownloadCompleted(sender,e,Sub_Name, URL);
-                        };
+                                    downloader_DownloadCompleted(sender, e, Sub_Name, URL);
+                                };
 
-                        downloader.StartAsync();
+                                downloader.StartAsync();
 
-                      
-                    }
-                });
-            });
+
+                            }
+                        });
+                    });
+              
+            
+            }
+            catch (Exception ex)
+            {
+
+
+            }
         }
         void downloader_DownloadCompleted(object sender, AsyncCompletedEventArgs e, string Sub_Name, string URL)
         {
@@ -3807,6 +3886,24 @@ int millisecondsDelay = 300)
                             ESMT_TOOL_INSTALL.Content = VTOL.Resources.Languages.Language.Page_Tools_Check_For_Tools_Install;
                             ESMT_TOOL_INSTALL.Icon = SymbolRegular.ArrowDown32;
                             ESMT_TOOL_INSTALL.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF5B0606");
+                        }
+                        if (Directory.Exists(Tools_Dir + @"ADVOCATE_TOOL") && File.Exists(Tools_Dir + @"ADVOCATE_TOOL\" + "Advocate.exe"))
+                        {
+                            ADV_TOOL_INSTALL.Content = VTOL.Resources.Languages.Language.Page_Tools_Check_For_Tools_Launch;
+                            ADV_TOOL_INSTALL.Icon = SymbolRegular.Open28;
+                            ADV_TOOL_INSTALL.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF005D42");
+                            ADV_TOOL_FOLDER.IsEnabled = true;
+                            ADV_TOOL_FOLDER.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFAF7800");
+
+
+                        }
+                        else
+                        {
+                            ADV_TOOL_FOLDER.IsEnabled = false;
+                            ADV_TOOL_FOLDER.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF3A3A3A");
+                            ADV_TOOL_INSTALL.Content = VTOL.Resources.Languages.Language.Page_Tools_Check_For_Tools_Install;
+                            ADV_TOOL_INSTALL.Icon = SymbolRegular.ArrowDown32;
+                            ADV_TOOL_INSTALL.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF5B0606");
                         }
                     }
                     else
@@ -4100,6 +4197,35 @@ int millisecondsDelay = 300)
 
 
             }
+        }
+
+        private void ADV_TOOL_INSTALL_Click(object sender, RoutedEventArgs e)
+        {
+            if (Directory.Exists(Tools_Dir + @"ADVOCATE_TOOL") && File.Exists(Tools_Dir + @"ADVOCATE_TOOL\" + "Advocate.exe"))
+            {
+                Start_Command_Line(Tools_Dir + @"ADVOCATE_TOOL\" + "Advocate.exe", Tools_Dir + @"ADVOCATE_TOOL");
+
+            }
+            else
+            {
+                Download_Zip_To_Path("ADVOCATE_TOOL", "https://github.com/BigSpice/VTOL/raw/master/%5BTitanfall2_Downloadable_Tools%5D/ADVOCATE.zip");
+
+
+            }
+        }
+
+        private void ADV_TOOL_FOLDER_Click(object sender, RoutedEventArgs e)
+        {
+            if (Directory.Exists(Tools_Dir + @"ADVOCATE_TOOL"))
+            {
+                Open_Folder(Tools_Dir + @"ADVOCATE_TOOL");
+            }
+        }
+
+        private void ADV_TOOL_PAGE_Click(object sender, RoutedEventArgs e)
+        {
+            OPEN_WEBPAGE("https://github.com/ASpoonPlaysGames/Advocate");
+
         }
     }
 }

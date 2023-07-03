@@ -1253,7 +1253,7 @@ namespace VTOL.Pages
 					DispatchIfNecessary(async () =>
 					{
 						Main.Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Caution;
-						Main.Snackbar.Show("ERROR", "The Backup Failed!");
+						Main.Snackbar.Show(VTOL.Resources.Languages.Language.ERROR, "The Backup Failed!");
 					});
 				}
 			}
@@ -1309,7 +1309,7 @@ namespace VTOL.Pages
 							//Console.WriteLine(result);
 							//Console.WriteLine("Failed!");
 							Main.Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Caution;
-							Main.Snackbar.Show("ERROR", "The Profile " + SAVE_NAME__ + "Failed To Be Packed");
+							Main.Snackbar.Show(VTOL.Resources.Languages.Language.ERROR, "The Profile " + SAVE_NAME__ + "Failed To Be Packed");
 						}
 					}
 					catch (OperationCanceledException)
@@ -1317,7 +1317,7 @@ namespace VTOL.Pages
 						// Handle the cancellation
 						//Console.WriteLine("Cancelled!");
 						Main.Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Caution;
-						Main.Snackbar.Show("ERROR", "The Profile Creation of" + SAVE_NAME__ + "Failed");
+						Main.Snackbar.Show(VTOL.Resources.Languages.Language.ERROR, "The Profile Creation of" + SAVE_NAME__ + "Failed");
 						wave_progress.Visibility = Visibility.Visible;
 						Circe_progress.Visibility = Visibility.Hidden;
 						Loading_Panel.Visibility = Visibility.Hidden;
@@ -1441,7 +1441,7 @@ namespace VTOL.Pages
 						{
 							//Console.WriteLine(result);
 							//Console.WriteLine("Complete!");
-							Main.Snackbar.Title = "SUCCESS";
+							Main.Snackbar.Title = VTOL.Resources.Languages.Language.SUCCESS;
 							Main.Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
 							Main.Snackbar.Message = "Operation Complete - The Profile is now active";
 							Main.Snackbar.Show();
@@ -1455,7 +1455,7 @@ namespace VTOL.Pages
 						{
 						DispatchIfNecessary(async () =>
 						{
-							Main.Snackbar.Title = "ERROR";
+							Main.Snackbar.Title = VTOL.Resources.Languages.Language.ERROR;
 							Main.Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Caution;
 							Main.Snackbar.Message = "Operation Failed / Cancelled";
 							Main.Snackbar.Show();
@@ -1488,7 +1488,7 @@ namespace VTOL.Pages
 					{
 					DispatchIfNecessary(async () =>
 					{
-						Main.Snackbar.Title = "ERROR";
+						Main.Snackbar.Title = VTOL.Resources.Languages.Language.ERROR;
 						Main.Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Caution;
 						Main.Snackbar.Message = "Operation Failed / Cancelled";
 						Main.Snackbar.Show(); 

@@ -156,7 +156,7 @@ namespace VTOL.Pages
         public bool Reverse_ = false;
         Wpf.Ui.Controls.Snackbar Snackbar;
         Updater _updater;
-
+        string Mod_Settings_Mod_OLD_PATH;
         public Page_Mods()
         {
             InitializeComponent();
@@ -380,16 +380,29 @@ namespace VTOL.Pages
                                         bool Has_Manifest_or_plugins = await Check_Plugins_and_multi_mod(dirInfo.FullName, dirInfo.Name);
 
                                         if (Regex.IsMatch(dirInfo.Name.Trim(), @"^Northstar\.CustomServers\w{0,2}$") || Regex.IsMatch(dirInfo.Name.Trim(), @"^Northstar\.Custom\w{0,2}$") || Regex.IsMatch(dirInfo.Name.Trim(), @"^Northstar\.Client\w{0,2}$"))
-                                    {
-                                        IS_CORE_MOD_temp = "#FF8C7F24";
+                                        {
+                                            IS_CORE_MOD_temp = "#FF8C7F24";
 
-                                    }
-                                    else
-                                    {
-                                        IS_CORE_MOD_temp = "#00000000";
+                                        }
+                                        else
+                                        {
+                                            IS_CORE_MOD_temp = "#00000000";
 
-                                    }
-                                    if (Page_Home.IsDirectoryEmpty(dirInfo))
+                                        }
+                                        if (dirInfo.FullName.ToString().Contains("ModSettings"))
+                                        {
+                                            DialogF.ButtonLeftName = "Delete";
+                                            DialogF.ButtonLeftAppearance = Wpf.Ui.Common.ControlAppearance.Danger;
+                                            DialogF.ButtonRightName = "Cancel";
+
+                                            DialogF.ButtonRightAppearance = Wpf.Ui.Common.ControlAppearance.Secondary;
+                                            DialogF.Title = "WARNING!";
+                                            DialogF.Message = "You have Installed Mod Settings!, Mod Settings has been Depreceated and will cause Errors. \n Delete it Now?";
+                                            Mod_Settings_Mod_OLD_PATH = dirInfo.FullName;
+                                            DialogF.Show();
+
+                                        }
+                                        if (Page_Home.IsDirectoryEmpty(dirInfo))
                                     {
                                         if (Page_Home.IsDirectoryEmpty(new DirectoryInfo(dirInfo.FullName)) == true)
                                         {
@@ -870,7 +883,7 @@ namespace VTOL.Pages
                                 else
                                 {
 
-                                    Snackbar.Title = "ERROR";
+                                    Snackbar.Title = VTOL.Resources.Languages.Language.ERROR;
                                     Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Caution;
                                     Snackbar.Message = "File" + val + " Could not be Edited.";
                                     Snackbar.Show();
@@ -894,7 +907,7 @@ namespace VTOL.Pages
                                 }
                                 else
                                 {
-                                    Snackbar.Title = "ERROR";
+                                    Snackbar.Title = VTOL.Resources.Languages.Language.ERROR;
                                     Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Caution;
                                     Snackbar.Message = "File" + val + " Could not be Edited.";
                                     Snackbar.Show();
@@ -1989,7 +2002,7 @@ namespace VTOL.Pages
                                 else
                                 {
                                     
-                                    Dependency_Tree.Items.Add(VTOL.Resources.Languages.Language.Requires + myMObject.dependencies[x].ToString());
+                                    Dependency_Tree.Items.Add(VTOL.Resources.Languages.Language.REQUIRES + myMObject.dependencies[x].ToString());
                                     
                                 }
 
@@ -2001,11 +2014,13 @@ namespace VTOL.Pages
                         }
                         else
                         {
+                            Dependency_Tree.Items.Add(VTOL.Resources.Languages.Language.MANIFESTFILENOTFOUND);
 
-                            Snackbar.Title = "WARNING";
-                            Snackbar.Message = "The manifest File Cannot Be accessed or Found!";
-                            Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
-                            Snackbar.Show();
+
+                            //Snackbar.Title = "WARNING";
+                            //Snackbar.Message = "The manifest File Cannot Be accessed or Found!";
+                            //Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
+                            //Snackbar.Show();
                         }
 
 
@@ -2018,7 +2033,7 @@ namespace VTOL.Pages
                     else
                     {
 
-                        Snackbar.Title = "ERROR";
+                        Snackbar.Title = VTOL.Resources.Languages.Language.ERROR;
                         Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Danger;
                         Snackbar.Message = "The Mod Information File Cannot Be accessed or Found!";
                         Snackbar.Show();
@@ -2380,10 +2395,8 @@ namespace VTOL.Pages
 
         private void DialogF_ButtonRightClick(object sender, RoutedEventArgs e)
         {
-            Wpf.Ui.Controls.Dialog _Dialog;
-            _Dialog = sender as Wpf.Ui.Controls.Dialog;
+            DialogF.Hide();
 
-            Open_Folder(_Dialog.Tag.ToString());
 
         }
         public string Search_For_Mod_Thunderstore(string SearchQuery = "None")
@@ -2426,30 +2439,32 @@ namespace VTOL.Pages
         }
         private void DialogF_ButtonLeftClick(object sender, RoutedEventArgs e)
         {
+            Mod_List_Box.Refresh();
 
-            DialogF.Hide();
-
-            //DispatchIfNecessary(() =>
-            //{
-
-            //    Wpf.Ui.Controls.Dialog _Dialog;
-            //    _Dialog = sender as Wpf.Ui.Controls.Dialog;
-            //    Page_Thunderstore p = new Page_Thunderstore();
-            //    // p.InitializeComponent();
-            //    p.Thunderstore_List.ItemsSource = null;
+            if (IsValidPath(Mod_Settings_Mod_OLD_PATH))
+            {
+                bool isValid = TryDeleteDirectoryAsync(Mod_Settings_Mod_OLD_PATH, true).Result;
+                if (isValid == true){
 
 
+                    DialogF.Hide();
 
 
-
-            //    p.Call_Ts_Mods(true, Search_: true, SearchQuery: _Dialog.Title);
-            //    p.Search_Bar_Suggest_Mods.Text = _Dialog.Title.ToString();
-
-
-
-            //    p.Thunderstore_List.Refresh();
-            //    Main.RootNavigation.Navigate(typeof(VTOL.Pages.Page_Thunderstore));
-            //});
+                    Snackbar.Title = VTOL.Resources.Languages.Language.SUCCESS;
+                    Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
+                    Snackbar.Message = VTOL.Resources.Languages.Language.TheModAt + Mod_Settings_Mod_OLD_PATH + VTOL.Resources.Languages.Language.HasBeenDeleted;
+                    Snackbar.Show();
+                }
+                else
+                {
+                    Snackbar.Title =VTOL.Resources.Languages.Language.ERROR;
+                    Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Danger;
+                    Snackbar.Message = VTOL.Resources.Languages.Language.TheModAt + Mod_Settings_Mod_OLD_PATH + VTOL.Resources.Languages.Language.CouldNotBeDeleted;
+                    Snackbar.Show();
+                }
+                
+                
+            }
         }
 
         private void Dialog_ButtonRightClick(object sender, RoutedEventArgs e)
@@ -2660,7 +2675,7 @@ int millisecondsDelay = 150)
                     DispatchIfNecessary(async () =>
                     {
 
-                        Snackbar.Title = "SUCCESS";
+                        Snackbar.Title = VTOL.Resources.Languages.Language.SUCCESS;
                         Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
                         Snackbar.Message = "The Mod " + Path.GetFileNameWithoutExtension(Target_Zip).Replace("_", " ") + " has been Downloaded and Installed";
                         Snackbar.Show();

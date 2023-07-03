@@ -304,6 +304,7 @@
     <None Remove="Resources\Icons\Main_UI\VTOL_multires.ico" />
     <None Remove="Resources\Icons\Origin.ico" />
     <None Remove="Resources\Icons\Titanfall2_Icon.ico" />
+    <None Remove="Resources\Resource_Static\Advocate_banner.png" />
     <None Remove="Resources\Resource_Static\better_frog.png" />
     <None Remove="Resources\Resource_Static\Crowbar.png" />
     <None Remove="Resources\Resource_Static\harmony.png" />
@@ -770,6 +771,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Icons\Origin.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Resource_Static\Advocate_banner.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Resource_Static\better_frog.png">

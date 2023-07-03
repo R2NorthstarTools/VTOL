@@ -403,7 +403,7 @@ namespace VTOL.Pages
                         else
                         {
                             Main.Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Caution;
-                            Main.Snackbar.Show("ERROR", "File " + Path.GetFileName(file) + VTOL.Resources.Languages.Language.Page_Skins_Drag_Drop_Area_Drop_IsNotASkinZip);
+                            Main.Snackbar.Show(VTOL.Resources.Languages.Language.ERROR, "File " + Path.GetFileName(file) + VTOL.Resources.Languages.Language.Page_Skins_Drag_Drop_Area_Drop_IsNotASkinZip);
                             Install_Queue_Label.Content = VTOL.Resources.Languages.Language.Page_Skins_Drag_Drop_Area_Drop_DragToInstall;
                             Skin_Path.Text = "Path";
 
@@ -419,7 +419,7 @@ namespace VTOL.Pages
                     else
                     {
                         Main.Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Caution;
-                        Main.Snackbar.Show("ERROR", "File is Not a Zip!");
+                        Main.Snackbar.Show(VTOL.Resources.Languages.Language.ERROR, "File is Not a Zip!");
                         Install_Queue_Label.Content = "Drag to Install";
                         Skin_Path.Text = "Path";
 
@@ -556,7 +556,7 @@ namespace VTOL.Pages
                     else
                     {
                         Main.Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Caution;
-                        Main.Snackbar.Show("ERROR", "File "+ Path.GetFileName(openFileDialog.FileName) + VTOL.Resources.Languages.Language.Page_Skins_Browse_Click_IsNotASkinZip);
+                        Main.Snackbar.Show(VTOL.Resources.Languages.Language.ERROR, "File "+ Path.GetFileName(openFileDialog.FileName) + VTOL.Resources.Languages.Language.Page_Skins_Browse_Click_IsNotASkinZip);
                         Install_Queue_Label.Content = VTOL.Resources.Languages.Language.Page_Skins_Drag_Drop_Area_Drop_DragToInstall;
                         Skin_Path.Text = "Path";
 
@@ -570,7 +570,7 @@ namespace VTOL.Pages
             else
             {
                 //Main.Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Caution;
-                //Main.Snackbar.Show("ERROR", "File " + Path.GetFileName(openFileDialog.FileName) + " Not a Zip!");
+                //Main.Snackbar.Show(VTOL.Resources.Languages.Language.ERROR, "File " + Path.GetFileName(openFileDialog.FileName) + " Not a Zip!");
                 Install_Queue_Label.Content = "Drag to Install";
                 Skin_Path.Text = "Path";
 
