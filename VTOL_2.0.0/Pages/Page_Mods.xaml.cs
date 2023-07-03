@@ -397,7 +397,7 @@ namespace VTOL.Pages
 
                                             DialogF.ButtonRightAppearance = Wpf.Ui.Common.ControlAppearance.Secondary;
                                             DialogF.Title = "WARNING!";
-                                            DialogF.Message = "You have Installed Mod Settings!, Mod Settings has been Depreceated and will cause Errors. \n Delete it Now?";
+                                            DialogF.Message =VTOL.Resources.Languages.Language.YouHaveInstalledModSettingsModSettingsHasBeenDepreceatedAndWillCauseErrorsNDeleteItNow;
                                             Mod_Settings_Mod_OLD_PATH = dirInfo.FullName;
                                             DialogF.Show();
 
@@ -2017,7 +2017,7 @@ namespace VTOL.Pages
                             Dependency_Tree.Items.Add(VTOL.Resources.Languages.Language.MANIFESTFILENOTFOUND);
 
 
-                            //Snackbar.Title = "WARNING";
+                            //Snackbar.Title = VTOL.Resources.Languages.Language.WARNING;
                             //Snackbar.Message = "The manifest File Cannot Be accessed or Found!";
                             //Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
                             //Snackbar.Show();

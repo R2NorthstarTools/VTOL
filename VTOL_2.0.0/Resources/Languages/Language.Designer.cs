@@ -1909,5 +1909,24 @@ namespace VTOL.Resources.Languages {
                 return ResourceManager.GetString("VERSION", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  &quot;WARNING.
+        /// </summary>
+        public static string WARNING {
+            get {
+                return ResourceManager.GetString("WARNING", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  &quot;You have Installed Mod Settings!, Mod Settings has been Depreceated and will cause Errors. \nDelete it Now?.
+        /// </summary>
+        public static string YouHaveInstalledModSettingsModSettingsHasBeenDepreceatedAndWillCauseErrorsNDeleteItNow {
+            get {
+                return ResourceManager.GetString("YouHaveInstalledModSettingsModSettingsHasBeenDepreceatedAndWillCauseErrorsNDelete" +
+                        "ItNow", resourceCulture);
+            }
+        }
     }
 }

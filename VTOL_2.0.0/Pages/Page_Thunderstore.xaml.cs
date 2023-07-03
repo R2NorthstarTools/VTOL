@@ -4010,11 +4010,7 @@ int millisecondsDelay = 300)
                     Destinfo.Attributes &= ~FileAttributes.ReadOnly;
                     if (Script.Length != 0 && Script.Length <= 1)
                     {
-                        //if (File.Exists(Path.Combine(Destination, "manifest.json")))
-                        //{
-                        //    // If file found, delete it    
-                        //    await TryDeleteFile(Path.Combine(Destination, "manifest.json"));
-                        //}
+                      
                         var File_ = Script.FirstOrDefault();
 
 
@@ -4037,11 +4033,15 @@ int millisecondsDelay = 300)
                                 
                                     await CopyFilesRecursively(firstFolder, Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder");
 
-                                
+
+                                if (File.Exists(Path.Combine(Destination, "manifest.json")))
+                                {
+                                    // If file found, delete it    
+                                    await TryMoveFile(Path.Combine(Destination, "manifest.json"), Path.Combine(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder", "manifest.json"),true);
+                                }
 
 
-                                
-                                    await Clear_Folder(Destination);
+                                     await Clear_Folder(Destination);
                                
                               
                                     await CopyFilesRecursively(Destinfo.Parent.FullName + @"\" + "Temp_Working_Folder", Destination);
@@ -4220,11 +4220,11 @@ int millisecondsDelay = 300)
 
                 else if(NS_CANDIDATE_INSTALL == true && Skin_Install == false)
                 {
-                    if (File.Exists(Path.Combine(Destination, "manifest.json")))
-                    {
-                        // If file found, delete it    
-                        await TryDeleteFile(Path.Combine(Destination, "manifest.json"));
-                    }
+                    //if (File.Exists(Path.Combine(Destination, "manifest.json")))
+                    //{
+                    //    // If file found, delete it    
+                    //    await TryDeleteFile(Path.Combine(Destination, "manifest.json"));
+                    //}
                     DispatchIfNecessary(async () =>
                     {
                         Update_ActionCard_Progress(Action_Card_, 20);
@@ -4330,11 +4330,11 @@ int millisecondsDelay = 300)
                             Update_ActionCard_Progress(Action_Card_, 10);
 
                         }
-                        if (File.Exists(Path.Combine(Destination, "manifest.json")))
-                        {
-                            // If file found, delete it    
-                            await TryDeleteFile(Path.Combine(Destination, "manifest.json"));
-                        }
+                        //if (File.Exists(Path.Combine(Destination, "manifest.json")))
+                        //{
+                        //    // If file found, delete it    
+                        //    await TryDeleteFile(Path.Combine(Destination, "manifest.json"));
+                        //}
                         Update_ActionCard_Progress(Action_Card_, 5);
 
                         if (File.Exists(Path.Combine(Destination, "README.md")))
@@ -4469,11 +4469,11 @@ int millisecondsDelay = 300)
 
                 else 
                                 {
-                    if (File.Exists(Path.Combine(Destination, "manifest.json")))
-                    {
-                        // If file found, delete it    
-                        await TryDeleteFile(Path.Combine(Destination, "manifest.json"));
-                    }
+                    //if (File.Exists(Path.Combine(Destination, "manifest.json")))
+                    //{
+                    //    // If file found, delete it    
+                    //    await TryDeleteFile(Path.Combine(Destination, "manifest.json"));
+                    //}
                     var ext = new List<string> { "zip" };
                                     var myFiles = Directory.EnumerateFiles(Destination, "*.*", SearchOption.AllDirectories).Where(s => ext.Contains(Path.GetExtension(s).TrimStart('.').ToLowerInvariant()));
 

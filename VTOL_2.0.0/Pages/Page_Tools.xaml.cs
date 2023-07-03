@@ -4203,12 +4203,12 @@ int millisecondsDelay = 300)
         {
             if (Directory.Exists(Tools_Dir + @"ADVOCATE_TOOL") && File.Exists(Tools_Dir + @"ADVOCATE_TOOL\" + "Advocate.exe"))
             {
-                Start_Command_Line(Tools_Dir + @"ADVOCATE_TOOL\" + "Advocate.exe", Tools_Dir + @"ADVOCATE_TOOL");
+                Start_Exe(Tools_Dir + @"ADVOCATE_TOOL\" + "Advocate.exe");
 
             }
             else
             {
-                Download_Zip_To_Path("ADVOCATE_TOOL", "https://github.com/BigSpice/VTOL/raw/master/%5BTitanfall2_Downloadable_Tools%5D/ADVOCATE.zip");
+                Download_Zip_To_Path("ADVOCATE_TOOL", "https://github.com/BigSpice/MISC_STORE/raw/main/ADVOCATE.zip");
 
 
             }
