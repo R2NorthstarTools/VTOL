@@ -738,4 +738,10 @@
   <data name="WARNING" xml:space="preserve">
     <value> "WARNING</value>
   </data>
+  <data name="PARENTOF" xml:space="preserve">
+    <value>PARENT OF - </value>
+  </data>
+  <data name="PARENTTO" xml:space="preserve">
+    <value>PARENT TO -</value>
+  </data>
 </root>

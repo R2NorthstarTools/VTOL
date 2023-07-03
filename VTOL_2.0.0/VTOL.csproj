@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0-windows10.0.17763.0</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
@@ -286,6 +286,7 @@
     <None Remove="Resources\Icons\EA.ico" />
     <None Remove="Resources\Icons\GitHub-Mark-32px.png" />
     <None Remove="Resources\Icons\GitHub-Mark-Light-32px.png" />
+    <None Remove="Resources\Icons\icon.png" />
     <None Remove="Resources\Icons\Main_UI\advocate_announcement_1.png" />
     <None Remove="Resources\Icons\Main_UI\discord.ico" />
     <None Remove="Resources\Icons\Main_UI\gitbook.ico" />
@@ -769,6 +770,9 @@
     </Resource>
     <Resource Include="Resources\Icons\EA.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Icons\Origin.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

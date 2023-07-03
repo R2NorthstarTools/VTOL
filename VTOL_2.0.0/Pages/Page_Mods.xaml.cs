@@ -31,6 +31,8 @@ using VTOL;
 using System.Xml.Linq;
 using ABI.Windows.UI;
 using HandyControl.Tools.Extension;
+using System.Drawing.Drawing2D;
+using System.Drawing;
 
 namespace VTOL.Pages
 {
@@ -1941,9 +1943,10 @@ namespace VTOL.Pages
             return 0;
         }
 
-        public  string SizeSuffix(long value)
+        public string SizeSuffix(long value)
         {
-            try {
+            try
+            {
                 if (value < 1024)
                     return $"{value} B";
                 else if (value < 1048576)
@@ -1956,116 +1959,184 @@ namespace VTOL.Pages
 
             catch (Exception ex)
             {
-               Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
             }
             return null;
-}
+        }
+        public static List<DirectoryInfo> ParseDirectoryStrings(string filePath, HashSet<string> folderNames)
+        {
+            List<DirectoryInfo> directoryInfoList = new List<DirectoryInfo>();
+            string text = File.ReadAllText(filePath);
+            string directoryPattern = @"(?<=\s|^)([A-Za-z]:)?(?:\\(?:[^\\/:*?""<>|\r\n]+\\)*[^\\/:*?""<>|\r\n]*)?(?=\\|$)";
+            MatchCollection matches = Regex.Matches(text, directoryPattern);
+
+            foreach (Match match in matches)
+            {
+                string directoryString = match.Value;
+                string lastFolderName = Path.GetFileName(directoryString);
+
+                if (folderNames.Contains(lastFolderName))
+                {
+                    DirectoryInfo directoryInfo = new DirectoryInfo(directoryString);
+                    directoryInfoList.Add(directoryInfo);
+                }
+            }
+
+            return directoryInfoList;
+        }
         void Open_Mod_Info(string Mod_name)
         {
-
-            try
+            BackgroundWorker worker = new BackgroundWorker();
+            worker.DoWork += (sender, e) =>
             {
-                string FolderDir = Find_Folder(Mod_name, User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\mods");
 
-                if (Directory.Exists(FolderDir))
+
+                try
                 {
-                    Current_MOD_PATH = FolderDir;
-                    Dependency_Tree.Items.Clear();
+                    string FolderDir = Find_Folder(Mod_name, User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\mods");
 
-                    List<string> Dependencies = new List<string> { };
-                    string Dependencies_String = "";
-
-
-                    string mod_Json = FindFirstFile(FolderDir, "mod.json");
-                    string manifest_json = FindFirstFile(FolderDir, "manifest.json");
-
-
-                    if (mod_Json != null && File.Exists(mod_Json))
+                    if (Directory.Exists(FolderDir))
                     {
-                        var myJsonString = File.ReadAllText(mod_Json);
-                        dynamic myJObject = JObject.Parse(myJsonString);
-                        string name = "Name: " + myJObject.Name;
-                        string version = "Version: " + myJObject.Version;
-                        string Description = "Description: " + myJObject.Description;
-                        long size = GetDirectorySize(FolderDir);
-                        string size_str = "Mod Size on Disk: " + SizeSuffix(size);
-                        string Content = Description + Environment.NewLine + version + Environment.NewLine + size_str.Replace(",", ".");
-                        NAME.Content = myJObject.Name;
-                        INFO_MOD_SIZE_SET.Content = SizeSuffix(size);
-                        string cleaned = FolderDir.ToString().Substring(FolderDir.ToString().LastIndexOf("Titanfall2"));
-                        cleaned = cleaned.ToString().Substring(0, cleaned.ToString().LastIndexOf("mods") + 4);
-                        INFO_VERSION_MOD_SET.Content = cleaned;
-                        INFO_VERSION_SET.Content = myJObject.Version;
-                        Description_Box.Text = myJObject.Description;
-                        if (manifest_json != null && File.Exists(manifest_json))
+                        DispatchIfNecessary(async () =>
                         {
-                            var mymanifestString = File.ReadAllText(manifest_json);
-                            dynamic myMObject = JObject.Parse(mymanifestString);
+                            Current_MOD_PATH = FolderDir;
+                            Dependency_Tree.Items.Clear();
+                        });
+                        List<string> Dependencies = new List<string> { };
+                        string Dependencies_String = "";
+                        string mod_Json = FindFirstFile(FolderDir, "mod.json");
+                        string manifest_json = FindFirstFile(FolderDir, "manifest.json");
+                        string mc_File = FindFirstFile(FolderDir, "*.mc");
+                        string Icon_File = FindFirstFile(FolderDir, "icon.png");
 
-                            for (var x = 0;  x < myMObject.dependencies.Count; x++)
+
+                        if (mod_Json != null && File.Exists(mod_Json))
+                        {
+                            var myJsonString = File.ReadAllText(mod_Json);
+                            dynamic myJObject = JObject.Parse(myJsonString);
+                            string name = "Name: " + myJObject.Name;
+                            string version = "Version: " + myJObject.Version;
+                            string Description = "Description: " + myJObject.Description;
+                            long size = GetDirectorySize(FolderDir);
+                            string size_str = "Mod Size on Disk: " + SizeSuffix(size);
+                            string Content = Description + Environment.NewLine + version + Environment.NewLine + size_str.Replace(",", ".");
+                            string cleaned = FolderDir.ToString().Substring(FolderDir.ToString().LastIndexOf("Titanfall2"));
+                            cleaned = cleaned.ToString().Substring(0, cleaned.ToString().LastIndexOf("mods") + 4);
+
+                            DispatchIfNecessary(async () =>
                             {
-                                if (myMObject.dependencies[x].ToString().Contains("northstar-Northstar") || myMObject.dependencies[x].ToString().Contains("ebkr-r2modman-"))
-                                {
+                                NAME.Content = myJObject.Name;
+                                INFO_MOD_SIZE_SET.Content = SizeSuffix(size);
+                                INFO_VERSION_MOD_SET.Content = cleaned;
+                                INFO_VERSION_SET.Content = myJObject.Version;
+                                Description_Box.Text = myJObject.Description;
 
-                                    continue;
-                                }
-                                else
+
+                                if (Icon_File != null && File.Exists(Icon_File))
                                 {
-                                    
-                                    Dependency_Tree.Items.Add(VTOL.Resources.Languages.Language.REQUIRES + myMObject.dependencies[x].ToString());
-                                    
+                                    BitmapImage bitmapx = new BitmapImage();
+
+                                    bitmapx.BeginInit();
+                                    bitmapx.UriSource = new Uri(Icon_File);
+                                    bitmapx.EndInit();
+                                    Image_BG.Source = bitmapx;
+
                                 }
+                            });
+                            DispatchIfNecessary(async () =>
+                            {
+                                Options_Panel_Mod.Visibility = Visibility.Visible;
+                            });
+                            if (manifest_json != null && File.Exists(manifest_json))
+                            {
+                                if (mc_File != null && File.Exists(mc_File))
+                                {
+                                    var Check_dependents = ParseDirectoryStrings(manifest_json, Main.Current_Installed_Mods);
+                                    foreach (var dirobj in Check_dependents)
+                                    {
+                                        DispatchIfNecessary(async () =>
+                                        {
+                                            Dependency_Tree.Items.Add("PARENT TO -"+ dirobj.Name);
+                                        });
+                                    }
+
+                                }
+                                var mymanifestString = File.ReadAllText(manifest_json);
+                                dynamic myMObject = JObject.Parse(mymanifestString);
+
+                                for (var x = 0; x < myMObject.dependencies.Count; x++)
+                                {
+                                    if (myMObject.dependencies[x].ToString().Contains("northstar-Northstar") || myMObject.dependencies[x].ToString().Contains("ebkr-r2modman-"))
+                                    {
+
+                                        continue;
+                                    }
+                                    else
+                                    {
+                                        DispatchIfNecessary(async () =>
+                                        {
+                                            Dependency_Tree.Items.Add(VTOL.Resources.Languages.Language.REQUIRES + myMObject.dependencies[x].ToString());
+                                        });
+                                    }
+
+                                }
+
+
+
 
                             }
+                            else
+                            {
+                                DispatchIfNecessary(async () =>
+                                {
+                                    Dependency_Tree.Items.Add(VTOL.Resources.Languages.Language.MANIFESTFILENOTFOUND);
+                                });
 
-                            
+                                //Snackbar.Title = VTOL.Resources.Languages.Language.WARNING;
+                                //Snackbar.Message = "The manifest File Cannot Be accessed or Found!";
+                                //Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
+                                //Snackbar.Show();
+                            }
+
+
+
 
 
                         }
                         else
                         {
-                            Dependency_Tree.Items.Add(VTOL.Resources.Languages.Language.MANIFESTFILENOTFOUND);
-
-
-                            //Snackbar.Title = VTOL.Resources.Languages.Language.WARNING;
-                            //Snackbar.Message = "The manifest File Cannot Be accessed or Found!";
-                            //Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
-                            //Snackbar.Show();
+                            DispatchIfNecessary(async () =>
+                            {
+                                Snackbar.Title = VTOL.Resources.Languages.Language.ERROR;
+                                Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Danger;
+                                Snackbar.Message = "The Mod Information File Cannot Be accessed or Found!";
+                                Snackbar.Show();
+                            });
                         }
 
 
-                        Options_Panel_Mod.Visibility = Visibility.Visible;
-
-
 
 
                     }
-                    else
-                    {
 
-                        Snackbar.Title = VTOL.Resources.Languages.Language.ERROR;
-                        Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Danger;
-                        Snackbar.Message = "The Mod Information File Cannot Be accessed or Found!";
-                        Snackbar.Show();
-                    }
 
 
 
 
                 }
 
+                catch (Exception ex)
+                {
+                    Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+
+                }
 
 
 
+            };
 
-            }
-
-            catch (Exception ex)
-            {
-               Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-
-            }
+            worker.RunWorkerAsync();
         }
         void Open_Folder(string Folder)
         {
@@ -2806,6 +2877,8 @@ int millisecondsDelay = 150)
 
         private void EXIT(object sender, RoutedEventArgs e)
         {
+            Image_BG.Source = null;
+            GC.Collect();
             Options_Panel_Mod.Visibility = Visibility.Collapsed;
         }
 
