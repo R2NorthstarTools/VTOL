@@ -33,6 +33,9 @@ using ABI.Windows.UI;
 using HandyControl.Tools.Extension;
 using System.Drawing.Drawing2D;
 using System.Drawing;
+using Newtonsoft.Json;
+using HandyControl.Tools;
+using Lsj.Util.Win32.Structs;
 
 namespace VTOL.Pages
 {
@@ -160,6 +163,8 @@ namespace VTOL.Pages
         Updater _updater;
         string Mod_Settings_Mod_OLD_PATH;
         string Current_MOD_PATH;
+        int mismatchCount = 0;
+        List<string> mismatchedNames = new List<string>();
         public Page_Mods()
         {
             InitializeComponent();
@@ -289,16 +294,16 @@ namespace VTOL.Pages
             }
 
         }
-        public static async Task<bool> Check_Plugins_and_multi_mod(string Destination, string directory,bool checkIntegrity = false)
+        public static async Task<bool> Check_Plugins_and_multi_mod(string Destination, string directory, bool checkIntegrity = false)
         {
             string fileName = new DirectoryInfo(directory).Name + ".mc";
             string filePath = Path.Combine(Destination, fileName);
 
-           
+
             string pluginsFolderName = "plugins"; // Folder name to search for
 
             string pluginsFolderPath = Path.Combine(Destination, pluginsFolderName);
-            
+
             if (checkIntegrity)
             {
 
@@ -315,23 +320,75 @@ namespace VTOL.Pages
                     }
                 }
             }
-           
-                if (Directory.Exists(pluginsFolderPath))
-                {
-                    return true;
-                }
-                
-                if (File.Exists(filePath))
-                {
-                    return true;
-                }
-            
+
+            if (Directory.Exists(pluginsFolderPath))
+            {
+                return true;
+            }
+
+            if (File.Exists(filePath))
+            {
+                return true;
+            }
 
 
-            
 
-            
+
+
+
             return false;
+        }
+        public class HashSetConverter : JsonConverter<HashSet<string>>
+        {
+            public override HashSet<string> ReadJson(JsonReader reader, Type objectType, HashSet<string> existingValue, bool hasExistingValue, JsonSerializer serializer)
+            {
+                if (reader.TokenType == JsonToken.StartObject)
+                {
+                    JObject jsonObject = JObject.Load(reader);
+                    HashSet<string> hashSet = new HashSet<string>();
+
+                    foreach (var property in jsonObject.Properties())
+                    {
+                        if (property.Value.Type == JTokenType.Boolean && (bool)property.Value == true)
+                        {
+                            hashSet.Add(property.Name);
+                        }
+                    }
+
+                    return hashSet;
+                }
+
+                throw new JsonSerializationException("Invalid JSON format for HashSet<string>.");
+            }
+
+            public override void WriteJson(JsonWriter writer, HashSet<string> value, JsonSerializer serializer)
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public List<string> Mismatch_detector(DirectoryInfo[] dirs,HashSet<String> JSON_MODS)
+        {
+          
+
+            var directoryNames = dirs.Select(directory => directory.Name.Split('-')[0]).Where(name =>
+            {
+                bool match = JSON_MODS.Contains(name.Split('-')[0]);
+                if (!match)
+                {
+                    mismatchCount++;
+                    mismatchedNames.Add(name);
+                }
+                return match;
+            }).ToList();
+
+            if (mismatchCount > 0)
+            {
+                MessageBox.Show("Mismatch Count: " + mismatchCount + "\nMismatched Names:\n" + string.Join(Environment.NewLine, mismatchedNames));
+                MessageBox.Show("Directory Names\n" + string.Join(Environment.NewLine, dirs.ToList()));
+                MessageBox.Show("JSON_MODS\n" + string.Join(Environment.NewLine, JSON_MODS));
+            }
+            return null;
         }
         public async Task Call_Mods_From_Folder()
         {
@@ -365,8 +422,8 @@ namespace VTOL.Pages
                             string NS_Mod_Dir = User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\mods";
 
                             System.IO.DirectoryInfo rootDirs = new DirectoryInfo(NS_Mod_Dir);
-                          
-                             if (IsValidPath(rootDirs.FullName) == true)
+
+                            if (IsValidPath(rootDirs.FullName) == true)
                             {
 
                                 System.IO.DirectoryInfo[] subDirs = null;
@@ -376,22 +433,64 @@ namespace VTOL.Pages
                                 { RecurseSubdirectories = false }).ToArray();
 
 
-                                
+
                                 DispatchIfNecessary(async () =>
 
                                 {
-                                   
+
                                     Mod_Count_Label.Content = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_ModCount + subDirs.Length;
                                 });
-                                if (subDirs.Count() > 0)
-
-
-
+                                if (subDirs.Count() > 0){
+                                    int index = 0;
+                                    List<DirectoryInfo> existingDirectories = null;
+                                    try
                                     {
-                                        int index = 0;
+
+                                        if (File.Exists(@"D:\Games\Titanfall2\R2Northstar\enabledmods.json"))
+                                        {
+                                            var myJsonString = File.ReadAllText(@"D:\Games\Titanfall2\R2Northstar\enabledmods.json");
+                                         //   dynamic myJObject = JObject.Parse(myJsonString);
+
+                                            //HashSet<string> JSON_MODS = new HashSet<string>(stringList);
+                                            JsonSerializerSettings settings = new JsonSerializerSettings();
+                                            settings.Converters.Add(new HashSetConverter());
+
+                                            // Deserialize JSON object into a HashSet<string>
+                                            HashSet<string> JSON_MODS = JsonConvert.DeserializeObject<HashSet<string>>(myJsonString, settings);
+                                            // var directoryNames = dirs.Select(directory => directory.Name);
+                                          
+
+                                          
+                                            //Check for Mismatching Strings
+                                            List<string> missed = Mismatch_detector(dirs, JSON_MODS);
+                                            if (mismatchCount > 0)
+
+                                            {
+                                                missed = dirs.Where(directory => JSON_MODS.Contains(directory.Name.Split('-')[0])).Select(directory => directory.Name)
+   .ToList();
+                                                MessageBox.Show(string.Join(Environment.NewLine, missed));
 
 
-                                    foreach (var dirInfo in dirs)
+
+
+                                            }
+                                            existingDirectories = dirs.Where(directory => JSON_MODS.Contains(directory.Name.Split('-')[0])).ToList();
+
+                                            MessageBox.Show(string.Join(Environment.NewLine, existingDirectories));
+
+                                            // Filter the directory names to include only those that exist in the hash set
+
+
+
+                                        }
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        MessageBox.Show(ex.ToString());
+
+                                    }
+                                    //TODO migrate to using the enabled mod list instad of var directory info in existingDirectories
+                                    foreach (var dirInfo in existingDirectories)
                                     {
                                         try
                                         {
@@ -477,15 +576,125 @@ namespace VTOL.Pages
                                             {
                                                 Main.Current_Installed_Mods.Add(dirInfo.Name.Trim());
                                             });
-                                        }catch(Exception ex)
+                                        }
+                                        catch (Exception ex)
                                         {
                                             Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
                                         }
                                     }
 
-                                    }
-                           
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    //foreach (var dirInfo in dirs)
+                                    //{
+                                    //    try
+                                    //    {
+
+
+                                    //        Console.WriteLine($"Index: {index}, Value: {dirInfo}");
+                                    //        index++;
+
+                                    //        bool Has_Manifest_or_plugins = await Check_Plugins_and_multi_mod(dirInfo.FullName, dirInfo.Name);
+
+                                    //        if (Regex.IsMatch(dirInfo.Name.Trim(), @"^Northstar\.CustomServers\w{0,2}$") || Regex.IsMatch(dirInfo.Name.Trim(), @"^Northstar\.Custom\w{0,2}$") || Regex.IsMatch(dirInfo.Name.Trim(), @"^Northstar\.Client\w{0,2}$"))
+                                    //        {
+                                    //            IS_CORE_MOD_temp = "#FF8C7F24";
+
+                                    //        }
+                                    //        else
+                                    //        {
+                                    //            IS_CORE_MOD_temp = "#00000000";
+
+                                    //        }
+
+                                    //        if (dirInfo.FullName.ToString().Contains("ModSettings"))
+                                    //        {
+                                    //            DispatchIfNecessary(async () =>
+
+                                    //            {
+                                    //                DialogF.ButtonLeftName = "Delete";
+                                    //                DialogF.ButtonLeftAppearance = Wpf.Ui.Common.ControlAppearance.Danger;
+                                    //                DialogF.ButtonRightName = "Cancel";
+
+                                    //                DialogF.ButtonRightAppearance = Wpf.Ui.Common.ControlAppearance.Secondary;
+                                    //                DialogF.Title = "WARNING!";
+                                    //                DialogF.Message = VTOL.Resources.Languages.Language.YouHaveInstalledModSettingsModSettingsHasBeenDepreceatedAndWillCauseErrorsNDeleteItNow;
+                                    //                Mod_Settings_Mod_OLD_PATH = dirInfo.FullName;
+                                    //                DialogF.Show();
+                                    //            });
+                                    //        }
+
+                                    //        if (Page_Home.IsDirectoryEmpty(new DirectoryInfo(dirInfo.FullName)))
+                                    //        {
+
+                                    //            TryDeleteDirectoryAsync(dirInfo.FullName, true);
+
+                                    //            continue;
+
+                                    //        }
+                                    //        if (Template_traverse(dirInfo, "Locked_Folder") == true)
+                                    //        {
+
+
+                                    //            if (Directory.Exists(dirInfo + @"\Locked_Folder") && Page_Home.IsDirectoryEmpty(new DirectoryInfo(dirInfo + @"\Locked_Folder")))
+                                    //            {
+                                    //                TryDeleteDirectoryAsync(dirInfo + @"\Locked_Folder");
+                                    //            }
+                                    //            int Flag_mod = 0;
+                                    //            string ToolTip_Dynamic = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_ThereIsAnIssueDetectedWithYourMod;
+
+                                    //            if (!File.Exists(dirInfo.FullName + @"\Locked_Folder" + @"\mod.json") && Has_Manifest_or_plugins == false)
+                                    //            {
+                                    //                ToolTip_Dynamic = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_PleaseOpenYourFolderAt + dirInfo.Parent + VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_AndManuallyRepairTheMod + dirInfo.Name;
+                                    //                Flag_mod = 100;
+                                    //            }
+
+                                    //            Final_List.Add(new Card_ { Mod_Name_ = dirInfo.Name.Trim(), Mod_Date_ = dirInfo.CreationTime.ToString(), Is_Active_Color = "#B29A0404", Size__ = dirInfo.LastAccessTime.ToString(), En_Di = "Enable", Is_Active_ = true, Mod_Path_ = dirInfo.FullName, Flag = Flag_mod, Error_Tooltip = ToolTip_Dynamic, Label = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_Enable, IS_CORE_MOD = IS_CORE_MOD_temp });
+                                    //        }
+                                    //        else
+                                    //        {
+                                    //            int Flag_mod = 0;
+                                    //            string ToolTip_Dynamic = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_ThereIsAnIssueDetectedWithYourMod;
+
+                                    //            if (!File.Exists(dirInfo.FullName + @"\mod.json") && Has_Manifest_or_plugins == false)
+                                    //            {
+
+                                    //                ToolTip_Dynamic = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_PleaseOpenYourFolderAt + dirInfo.Parent + VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_AndManuallyRepairTheMod + dirInfo.Name;
+                                    //                Flag_mod = 100;
+                                    //            }
+
+                                    //            Final_List.Add(new Card_ { Mod_Name_ = dirInfo.Name.Trim(), Mod_Date_ = dirInfo.CreationTime.ToString(), Is_Active_Color = "#B2049A28", Size__ = dirInfo.LastAccessTime.ToString(), En_Di = "Disable", Is_Active_ = false, Mod_Path_ = dirInfo.FullName, Flag = Flag_mod, Error_Tooltip = ToolTip_Dynamic, Label = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_Disable_, IS_CORE_MOD = IS_CORE_MOD_temp });
+
+
+                                    //        }
+                                    //        DispatchIfNecessary(async () =>
+                                    //        {
+                                    //            Main.Current_Installed_Mods.Add(dirInfo.Name.Trim());
+                                    //        });
+                                    //    }catch(Exception ex)
+                                    //    {
+                                    //        Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+
+                                    //    }
+                                    //}
+
+                                }
+
                                 DispatchIfNecessary(async () =>
                                 {
 
