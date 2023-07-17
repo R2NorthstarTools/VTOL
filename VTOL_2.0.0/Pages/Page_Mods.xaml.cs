@@ -36,6 +36,10 @@ using System.Drawing;
 using Newtonsoft.Json;
 using HandyControl.Tools;
 using Lsj.Util.Win32.Structs;
+using VTOL.Advocate.Conversion.JSON;
+using System.Runtime;
+using System.Text.Json.Nodes;
+using Newtonsoft.Json.Serialization;
 
 namespace VTOL.Pages
 {
@@ -165,6 +169,8 @@ namespace VTOL.Pages
         string Current_MOD_PATH;
         int mismatchCount = 0;
         List<string> mismatchedNames = new List<string>();
+
+        List<NORTHSTARCOMPATIBLE_MOD> CLEANED_FORMAT_MODS;
         public Page_Mods()
         {
             InitializeComponent();
@@ -290,9 +296,30 @@ namespace VTOL.Pages
             }
             catch (Exception ex)
             {
-               Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
             }
 
+        }
+        public static List<NORTHSTARCOMPATIBLE_MOD> MismatchDetector(List<NORTHSTARCOMPATIBLE_MOD> mods, List<NORTHSTARCOMPATIBLE_MOD> jsonMods)
+        {
+            List<NORTHSTARCOMPATIBLE_MOD> mismatchedMods = new List<NORTHSTARCOMPATIBLE_MOD>();
+
+            foreach (NORTHSTARCOMPATIBLE_MOD mod in mods)
+            {
+                bool match = jsonMods.Any(jsonMod => jsonMod.Name == mod.Name);
+                if (!match)
+                {
+                    mismatchedMods.Add(mod);
+                }
+            }
+
+            if (mismatchedMods.Count == 0)
+            {
+                return mods;
+
+            }
+
+            return mismatchedMods;
         }
         public static async Task<bool> Check_Plugins_and_multi_mod(string Destination, string directory, bool checkIntegrity = false)
         {
@@ -367,57 +394,149 @@ namespace VTOL.Pages
             }
         }
 
-        public List<string> Mismatch_detector(DirectoryInfo[] dirs,HashSet<String> JSON_MODS)
+
+       
+        public class NORTHSTARCOMPATIBLE_MOD
+        {
+            public string Name { get; set; }
+            public bool Value { get; set; }
+            public DirectoryInfo DIRECTORY_INFO { get; set; }
+            
+
+}
+public static List<NORTHSTARCOMPATIBLE_MOD> MergeModsIntoJsonFile(string filePath, List<NORTHSTARCOMPATIBLE_MOD> JSON_FILE, List<NORTHSTARCOMPATIBLE_MOD> modsToMerge)
         {
           
+            // Merge the existing and new Mods
+            List<NORTHSTARCOMPATIBLE_MOD> mergedMods = new List<NORTHSTARCOMPATIBLE_MOD>(JSON_FILE);
+            mergedMods.AddRange(modsToMerge);
 
-            var directoryNames = dirs.Select(directory => directory.Name.Split('-')[0]).Where(name =>
+
+            using (StreamWriter writer = new StreamWriter(filePath))
             {
-                bool match = JSON_MODS.Contains(name.Split('-')[0]);
-                if (!match)
+                writer.WriteLine("{");
+
+                for (int i = 0; i < mergedMods.Count; i++)
                 {
-                    mismatchCount++;
-                    mismatchedNames.Add(name);
+                    NORTHSTARCOMPATIBLE_MOD mod = mergedMods[i];
+                    writer.Write($"  \"{mod.Name}\": {mod.Value.ToString().ToLower()}");
+
+                    if (i < mergedMods.Count - 1)
+                    {
+                        writer.WriteLine(",");
+                    }
+                    else
+                    {
+                        writer.WriteLine();
+                    }
                 }
-                return match;
-            }).ToList();
 
-            if (mismatchCount > 0)
-            {
-                MessageBox.Show("Mismatch Count: " + mismatchCount + "\nMismatched Names:\n" + string.Join(Environment.NewLine, mismatchedNames));
-                MessageBox.Show("Directory Names\n" + string.Join(Environment.NewLine, dirs.ToList()));
-                MessageBox.Show("JSON_MODS\n" + string.Join(Environment.NewLine, JSON_MODS));
+                writer.WriteLine("}");
             }
-            return null;
+
+            // Serialize the merged Mods back to JSON
+           // string updatedJson = JsonConvert.SerializeObject(mergedMods, Formatting.None);
+
+            // Write the updated JSON back to the file
+            //File.WriteAllText(filePath, updatedJson);
+
+            // Return the updated list of Mods
+            return mergedMods;
         }
-        public async Task Call_Mods_From_Folder()
+
+        public static List<NORTHSTARCOMPATIBLE_MOD> ReadJsonValues(string json)
         {
-            bool install_Prompt = false;
-            string IS_CORE_MOD_temp = "#00000000";
-            try
+            List<NORTHSTARCOMPATIBLE_MOD> mods = new List<NORTHSTARCOMPATIBLE_MOD>();
+            JObject data = JObject.Parse(json);
+            foreach (var property in data.Properties())
             {
-               
+                string name = property.Name;
+                bool value = (bool)property.Value;
 
-                  
-                Final_List.Clear();
-
-
-
-
-
-
-                if (User_Settings_Vars.NorthstarInstallLocation != null || User_Settings_Vars.NorthstarInstallLocation != "" || Directory.Exists(User_Settings_Vars.NorthstarInstallLocation))
+                NORTHSTARCOMPATIBLE_MOD mod = new NORTHSTARCOMPATIBLE_MOD
                 {
+                    Name = name,
+                    Value = value
+                };
+
+                mods.Add(mod);
+            }
+
+            return mods;
+        }
+        public List<NORTHSTARCOMPATIBLE_MOD> READ_UPDATE_MOD_LIST(DirectoryInfo[] modsToUpdate, bool UPDATE_Folders = false)
+        {
+            List<NORTHSTARCOMPATIBLE_MOD> OUTPUT = new List<NORTHSTARCOMPATIBLE_MOD>();
+
+            foreach (var dirInfo in modsToUpdate)
+            {
+                NORTHSTARCOMPATIBLE_MOD Mod = new NORTHSTARCOMPATIBLE_MOD();
+
+                Mod.Name = (dirInfo.Name.Split('-')[0]);
+                Mod.DIRECTORY_INFO = null;
+                try
+                {
+                    
 
 
+                        if (File.Exists(dirInfo.FullName + @"\Locked_Folder" + @"\mod.json"))
+                        {
+
+                            Mod.Value = false;
+                            Mod.DIRECTORY_INFO = dirInfo;
+
+                            OUTPUT.Add(Mod);
+
+                        TryMoveFile(dirInfo.FullName + @"\Locked_Folder" + @"\mod.json", dirInfo.FullName + @"\mod.json", true);
+                            if (UPDATE_Folders == true) {
+                                if (IsDirectoryEmpty(new DirectoryInfo(dirInfo.FullName + @"\Locked_Folder")) )
+                                {
 
 
-               
-                    if (Directory.Exists(User_Settings_Vars.NorthstarInstallLocation))
+                                    TryDeleteDirectoryAsync(dirInfo.FullName + @"\Locked_Folder");
+                                }
+
+                            }
+
+                    }
+
+                    else
                     {
 
-                        if (User_Settings_Vars.CurrentVersion != "NODATA")
+                        if (File.Exists(dirInfo.FullName + @"\mod.json"))
                         {
+                            Mod.Value = true;
+                            Mod.DIRECTORY_INFO = dirInfo;
+
+                            OUTPUT.Add(Mod);
+                        }
+
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+
+                }
+             //   MessageBox.Show(Mod.DIRECTORY_INFO.FullName);
+            }
+            return OUTPUT;
+
+        }
+        public async Task Call_Mods_From_Folder()
+{
+    bool install_Prompt = false;
+    string IS_CORE_MOD_temp = "#00000000";
+    try
+    {
+        Final_List.Clear();
+        if (User_Settings_Vars.NorthstarInstallLocation != null || User_Settings_Vars.NorthstarInstallLocation != "" || Directory.Exists(User_Settings_Vars.NorthstarInstallLocation))
+        {
+            if (Directory.Exists(User_Settings_Vars.NorthstarInstallLocation))
+            {
+                if (User_Settings_Vars.CurrentVersion != "NODATA")
+                {
 
                             string NS_Mod_Dir = User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\mods";
 
@@ -443,142 +562,128 @@ namespace VTOL.Pages
                                 if (subDirs.Count() > 0){
                                     int index = 0;
                                     List<DirectoryInfo> existingDirectories = null;
-                                    try
-                                    {
+                                   string Json_Path = FindFirstFile(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\", "enabledmods.json");
+                                   
 
                                         if (File.Exists(@"D:\Games\Titanfall2\R2Northstar\enabledmods.json"))
                                         {
                                             var myJsonString = File.ReadAllText(@"D:\Games\Titanfall2\R2Northstar\enabledmods.json");
-                                         //   dynamic myJObject = JObject.Parse(myJsonString);
-
-                                            //HashSet<string> JSON_MODS = new HashSet<string>(stringList);
-                                            JsonSerializerSettings settings = new JsonSerializerSettings();
-                                            settings.Converters.Add(new HashSetConverter());
-
-                                            // Deserialize JSON object into a HashSet<string>
-                                            HashSet<string> JSON_MODS = JsonConvert.DeserializeObject<HashSet<string>>(myJsonString, settings);
-                                            // var directoryNames = dirs.Select(directory => directory.Name);
-                                          
-
-                                          
-                                            //Check for Mismatching Strings
-                                            List<string> missed = Mismatch_detector(dirs, JSON_MODS);
-                                            if (mismatchCount > 0)
-
-                                            {
-                                                missed = dirs.Where(directory => JSON_MODS.Contains(directory.Name.Split('-')[0])).Select(directory => directory.Name)
-   .ToList();
-                                                MessageBox.Show(string.Join(Environment.NewLine, missed));
+                                            //   dynamic myJObject = JObject.Parse(myJsonString);
+                                            List<NORTHSTARCOMPATIBLE_MOD> READ_JSON_MODS = ReadJsonValues(myJsonString);
+                                        List<NORTHSTARCOMPATIBLE_MOD> DIRECTORY_MODS = MismatchDetector(READ_UPDATE_MOD_LIST(dirs), READ_JSON_MODS);
+                                        CLEANED_FORMAT_MODS = DIRECTORY_MODS;
+                                        if (Json_Path != null)
 
 
+                                        {
+                                         //   CLEANED_FORMAT_MODS = MergeModsIntoJsonFile(Json_Path,READ_JSON_MODS, DIRECTORY_MODS);
+                                        }
+                                        //   MessageBox.Show("Mismatchedd Mods:\n" + string.Join(Environment.NewLine, DIRECTORY_MODS.Select(mod => mod.Name)));
 
 
-                                            }
-                                            existingDirectories = dirs.Where(directory => JSON_MODS.Contains(directory.Name.Split('-')[0])).ToList();
+                                            existingDirectories = dirs.Where(directory => READ_JSON_MODS.Any(mod => mod.Name == directory.Name.Split('-')[0])).ToList();
 
-                                            MessageBox.Show(string.Join(Environment.NewLine, existingDirectories));
+                                            //MessageBox.Show(string.Join(Environment.NewLine, missed));
 
                                             // Filter the directory names to include only those that exist in the hash set
 
 
 
                                         }
-                                    }
-                                    catch (Exception ex)
-                                    {
-                                        MessageBox.Show(ex.ToString());
-
-                                    }
+                                   
                                     //TODO migrate to using the enabled mod list instad of var directory info in existingDirectories
-                                    foreach (var dirInfo in existingDirectories)
+                                    foreach (var dirInfo in CLEANED_FORMAT_MODS)
                                     {
                                         try
                                         {
-
-
-                                            Console.WriteLine($"Index: {index}, Value: {dirInfo}");
-                                            index++;
-
-                                            bool Has_Manifest_or_plugins = await Check_Plugins_and_multi_mod(dirInfo.FullName, dirInfo.Name);
-
-                                            if (Regex.IsMatch(dirInfo.Name.Trim(), @"^Northstar\.CustomServers\w{0,2}$") || Regex.IsMatch(dirInfo.Name.Trim(), @"^Northstar\.Custom\w{0,2}$") || Regex.IsMatch(dirInfo.Name.Trim(), @"^Northstar\.Client\w{0,2}$"))
+                                            if (dirInfo.DIRECTORY_INFO != null)
                                             {
-                                                IS_CORE_MOD_temp = "#FF8C7F24";
 
-                                            }
-                                            else
-                                            {
-                                                IS_CORE_MOD_temp = "#00000000";
+                                                Console.WriteLine($"Index: {index}, Value: {dirInfo}");
+                                                index++;
 
-                                            }
-
-                                            if (dirInfo.FullName.ToString().Contains("ModSettings"))
-                                            {
-                                                DispatchIfNecessary(async () =>
-
+                                                bool Has_Manifest_or_plugins = await Check_Plugins_and_multi_mod(dirInfo.DIRECTORY_INFO.FullName, dirInfo.DIRECTORY_INFO.Name);
+                                                if (Regex.IsMatch(dirInfo.Name.Trim(), @"^Northstar\.CustomServers\w{0,2}$") || Regex.IsMatch(dirInfo.Name.Trim(), @"^Northstar\.Custom\w{0,2}$") || Regex.IsMatch(dirInfo.Name.Trim(), @"^Northstar\.Client\w{0,2}$"))
                                                 {
-                                                    DialogF.ButtonLeftName = "Delete";
-                                                    DialogF.ButtonLeftAppearance = Wpf.Ui.Common.ControlAppearance.Danger;
-                                                    DialogF.ButtonRightName = "Cancel";
+                                                    IS_CORE_MOD_temp = "#FF8C7F24";
 
-                                                    DialogF.ButtonRightAppearance = Wpf.Ui.Common.ControlAppearance.Secondary;
-                                                    DialogF.Title = "WARNING!";
-                                                    DialogF.Message = VTOL.Resources.Languages.Language.YouHaveInstalledModSettingsModSettingsHasBeenDepreceatedAndWillCauseErrorsNDeleteItNow;
-                                                    Mod_Settings_Mod_OLD_PATH = dirInfo.FullName;
-                                                    DialogF.Show();
+                                                }
+                                                else
+                                                {
+                                                    IS_CORE_MOD_temp = "#00000000";
+
+                                                }
+
+                                                if (dirInfo.DIRECTORY_INFO.FullName.ToString().Contains("ModSettings"))
+                                                {
+                                                    DispatchIfNecessary(async () =>
+
+                                                    {
+                                                        DialogF.ButtonLeftName = "Delete";
+                                                        DialogF.ButtonLeftAppearance = Wpf.Ui.Common.ControlAppearance.Danger;
+                                                        DialogF.ButtonRightName = "Cancel";
+
+                                                        DialogF.ButtonRightAppearance = Wpf.Ui.Common.ControlAppearance.Secondary;
+                                                        DialogF.Title = "WARNING!";
+                                                        DialogF.Message = VTOL.Resources.Languages.Language.YouHaveInstalledModSettingsModSettingsHasBeenDepreceatedAndWillCauseErrorsNDeleteItNow;
+                                                        Mod_Settings_Mod_OLD_PATH = dirInfo.DIRECTORY_INFO.FullName;
+                                                        DialogF.Show();
+                                                    });
+                                                }
+
+                                                if (Page_Home.IsDirectoryEmpty(new DirectoryInfo(dirInfo.DIRECTORY_INFO.FullName)))
+                                                {
+
+                                                    TryDeleteDirectoryAsync(dirInfo.DIRECTORY_INFO.FullName, true);
+
+                                                    continue;
+
+                                                }
+                                                if (Directory.Exists(dirInfo.DIRECTORY_INFO.FullName + @"\Locked_Folder") && Page_Home.IsDirectoryEmpty(new DirectoryInfo(dirInfo.DIRECTORY_INFO.FullName + @"\Locked_Folder")))
+                                                {
+                                                    TryDeleteDirectory(dirInfo.DIRECTORY_INFO.FullName + @"\Locked_Folder");
+                                                }
+                                                if (dirInfo.Value == false)
+                                                {
+
+
+                                                   
+                                                    int Flag_mod = 0;
+                                                    string ToolTip_Dynamic = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_ThereIsAnIssueDetectedWithYourMod;
+
+                                                    if (!File.Exists(dirInfo.DIRECTORY_INFO.FullName + @"\mod.json") && Has_Manifest_or_plugins == false)
+                                                    {
+                                                        ToolTip_Dynamic = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_PleaseOpenYourFolderAt + dirInfo.DIRECTORY_INFO.Parent + VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_AndManuallyRepairTheMod + dirInfo.Name;
+                                                        Flag_mod = 100;
+                                                    }
+
+                                                    Final_List.Add(new Card_ { Mod_Name_ = dirInfo.Name.Trim(), Mod_Date_ = dirInfo.DIRECTORY_INFO.CreationTime.ToString(), Is_Active_Color = "#B29A0404", Size__ = dirInfo.DIRECTORY_INFO.LastAccessTime.ToString(), En_Di = "Enable", Is_Active_ = true, Mod_Path_ = dirInfo.Name, Flag = Flag_mod, Error_Tooltip = ToolTip_Dynamic, Label = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_Enable, IS_CORE_MOD = IS_CORE_MOD_temp });
+                                                }
+                                                else
+                                                {
+                                                    int Flag_mod = 0;
+                                                    string ToolTip_Dynamic = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_ThereIsAnIssueDetectedWithYourMod;
+
+                                                    if (!File.Exists(dirInfo.DIRECTORY_INFO.FullName + @"\mod.json") && Has_Manifest_or_plugins == false)
+                                                    {
+
+                                                        ToolTip_Dynamic = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_PleaseOpenYourFolderAt + dirInfo.DIRECTORY_INFO.Parent + VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_AndManuallyRepairTheMod + dirInfo.Name;
+                                                        Flag_mod = 100;
+                                                    }
+
+                                                    Final_List.Add(new Card_ { Mod_Name_ = dirInfo.Name.Trim(), Mod_Date_ = dirInfo.DIRECTORY_INFO.CreationTime.ToString(), Is_Active_Color = "#B2049A28", Size__ = dirInfo.DIRECTORY_INFO.LastAccessTime.ToString(), En_Di = "Disable", Is_Active_ = false, Mod_Path_ = dirInfo.Name, Flag = Flag_mod, Error_Tooltip = ToolTip_Dynamic, Label = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_Disable_, IS_CORE_MOD = IS_CORE_MOD_temp });
+
+
+                                                }
+                                                DispatchIfNecessary(async () =>
+                                                {
+                                                    Main.Current_Installed_Mods.Add(dirInfo.Name.Trim());
                                                 });
                                             }
-
-                                            if (Page_Home.IsDirectoryEmpty(new DirectoryInfo(dirInfo.FullName)))
-                                            {
-
-                                                TryDeleteDirectoryAsync(dirInfo.FullName, true);
-
-                                                continue;
-
-                                            }
-                                            if (Template_traverse(dirInfo, "Locked_Folder") == true)
-                                            {
-
-
-                                                if (Directory.Exists(dirInfo + @"\Locked_Folder") && Page_Home.IsDirectoryEmpty(new DirectoryInfo(dirInfo + @"\Locked_Folder")))
-                                                {
-                                                    TryDeleteDirectoryAsync(dirInfo + @"\Locked_Folder");
-                                                }
-                                                int Flag_mod = 0;
-                                                string ToolTip_Dynamic = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_ThereIsAnIssueDetectedWithYourMod;
-
-                                                if (!File.Exists(dirInfo.FullName + @"\Locked_Folder" + @"\mod.json") && Has_Manifest_or_plugins == false)
-                                                {
-                                                    ToolTip_Dynamic = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_PleaseOpenYourFolderAt + dirInfo.Parent + VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_AndManuallyRepairTheMod + dirInfo.Name;
-                                                    Flag_mod = 100;
-                                                }
-
-                                                Final_List.Add(new Card_ { Mod_Name_ = dirInfo.Name.Trim(), Mod_Date_ = dirInfo.CreationTime.ToString(), Is_Active_Color = "#B29A0404", Size__ = dirInfo.LastAccessTime.ToString(), En_Di = "Enable", Is_Active_ = true, Mod_Path_ = dirInfo.FullName, Flag = Flag_mod, Error_Tooltip = ToolTip_Dynamic, Label = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_Enable, IS_CORE_MOD = IS_CORE_MOD_temp });
-                                            }
-                                            else
-                                            {
-                                                int Flag_mod = 0;
-                                                string ToolTip_Dynamic = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_ThereIsAnIssueDetectedWithYourMod;
-
-                                                if (!File.Exists(dirInfo.FullName + @"\mod.json") && Has_Manifest_or_plugins == false)
-                                                {
-
-                                                    ToolTip_Dynamic = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_PleaseOpenYourFolderAt + dirInfo.Parent + VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_AndManuallyRepairTheMod + dirInfo.Name;
-                                                    Flag_mod = 100;
-                                                }
-
-                                                Final_List.Add(new Card_ { Mod_Name_ = dirInfo.Name.Trim(), Mod_Date_ = dirInfo.CreationTime.ToString(), Is_Active_Color = "#B2049A28", Size__ = dirInfo.LastAccessTime.ToString(), En_Di = "Disable", Is_Active_ = false, Mod_Path_ = dirInfo.FullName, Flag = Flag_mod, Error_Tooltip = ToolTip_Dynamic, Label = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_Disable_, IS_CORE_MOD = IS_CORE_MOD_temp });
-
-
-                                            }
-                                            DispatchIfNecessary(async () =>
-                                            {
-                                                Main.Current_Installed_Mods.Add(dirInfo.Name.Trim());
-                                            });
                                         }
                                         catch (Exception ex)
                                         {
+
                                             Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
                                         }
@@ -609,7 +714,7 @@ namespace VTOL.Pages
                                     //        Console.WriteLine($"Index: {index}, Value: {dirInfo}");
                                     //        index++;
 
-                                    //        bool Has_Manifest_or_plugins = await Check_Plugins_and_multi_mod(dirInfo.FullName, dirInfo.Name);
+                                    //        bool Has_Manifest_or_plugins = await Check_Plugins_and_multi_mod(dirInfo.FullPathFullName, dirInfo.Name);
 
                                     //        if (Regex.IsMatch(dirInfo.Name.Trim(), @"^Northstar\.CustomServers\w{0,2}$") || Regex.IsMatch(dirInfo.Name.Trim(), @"^Northstar\.Custom\w{0,2}$") || Regex.IsMatch(dirInfo.Name.Trim(), @"^Northstar\.Client\w{0,2}$"))
                                     //        {
@@ -1075,7 +1180,7 @@ namespace VTOL.Pages
 
                 if (Directory.Exists(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\mods\"))
                 {
-
+                    //TODO, move the move mods method
 
 
                     if (val != null)
