@@ -59,7 +59,7 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
@@ -124,7 +124,7 @@
     <value>Скин -</value>
   </data>
   <data name="Page_Skins_Install_Skin_From_Path_HasBeenInstalled" xml:space="preserve">
-    <value> - был установлен</value>
+    <value>- был установлен</value>
   </data>
   <data name="Page_Skins_Drag_Drop_Area_Drop_IsNotASkinZip" xml:space="preserve">
     <value>не является .zip файлом со скином!</value>
@@ -145,19 +145,19 @@
     <value>Открываем следующий URL - </value>
   </data>
   <data name="Page_Home_Auto_Install__NORTHSTARISNOTINSTALLEDANDAUTOINSTALLFAILED" xml:space="preserve">
-    <value>NORTHSTAR НЕ УСТАНОВЛЕН И АВТОЗАГРУЗКА БЫЛА НЕУДАЧНОЙ!</value>
+    <value>NORTHSTAR НЕ УСТАНОВЛЕН И АВТОУСТАНОВКА БЫЛА НЕУДАЧНОЙ!</value>
   </data>
   <data name="Page_Home_INIT_NORTHSTARAUTOINSTALLWILLNOWBEGINPLEASEWAITABOUT30SECONDS" xml:space="preserve">
     <value>АВТОУСТАНОВКА NORTHSTAR НАЧАЛАСЬ, ПОДОЖДИТЕ ПРИМЕРНО 30 СЕКУНД!</value>
   </data>
   <data name="Page_Home_timer_Tick_MasterServerCheckedAndTimedOutTooMuchTurningOffMasterServerChecks" xml:space="preserve">
-    <value>Слишком много попыток проверки главного сервера! Отключение проверки главного сервера.</value>
+    <value>Слишком много неудачных попыток проверки главного сервера! Отключаем проверки главного сервера.</value>
   </data>
   <data name="Page_Home_Origin_Client_Card_Click_TheOriginClientIsAlreadyRunning" xml:space="preserve">
     <value>Клиент Origin уже запущен!</value>
   </data>
   <data name="Page_Home_Browse_Titanfall_Button_Click_IsValidAndHasBeenSet" xml:space="preserve">
-    <value>действителен и был установлен</value>
+    <value>  корректен и был установлен</value>
   </data>
   <data name="Page_Home_Browse_Titanfall_Button_Click_TheLocation" xml:space="preserve">
     <value>Директория - ' </value>
@@ -184,17 +184,17 @@
     <value>Доступно обновление, начинается загрузка и установка!</value>
   </data>
   <data name="Check_For_New_Northstar_Install_ReleaseCandidateDetected" xml:space="preserve">
-    <value>release_candidate_detected (I couldn’t translate this)</value>
+    <value>Найдена бета-версия</value>
     <comment>I couldn’t translate this</comment>
   </data>
   <data name="Unpack_To_Location_TheFile" xml:space="preserve">
-    <value> Файл - </value>
+    <value>Файл - </value>
   </data>
   <data name="Unpack_To_Location_WasNotFound" xml:space="preserve">
     <value> не был найден!</value>
   </data>
   <data name="Page_Home_Unpack_To_Location_WasNotFound" xml:space="preserve">
-    <value>не был найден!</value>
+    <value> не был найден!</value>
   </data>
   <data name="Page_Home_Unpack_To_Location_TheFile" xml:space="preserve">
     <value>Файл -</value>
@@ -314,7 +314,7 @@
     <value>Открыть папку с Titanfall 2</value>
   </data>
   <data name="Page_Home_LocateTitanfall2Install" xml:space="preserve">
-    <value>Найти установку Titanfall 2</value>
+    <value>Указать путь к установке Titanfall 2</value>
   </data>
   <data name="Page_Home_ManuallyChangeTheTitanfall2InstallDirectory" xml:space="preserve">
     <value>Вручную изменить директорию установки Titanfall 2</value>
@@ -407,7 +407,7 @@
     <value>Открыть страницу руководства</value>
   </data>
   <data name="Page_Skins_Browse" xml:space="preserve">
-    <value>Просматривать</value>
+    <value>Поиск</value>
   </data>
   <data name="Page_Thunderstore_TheseAreTheCollectionOfModsHostedOnTheThunderStoreModPlatform" xml:space="preserve">
     <value>Здесь находятся моды, размещенные на платформе Thunderstore.</value>
@@ -528,5 +528,221 @@
   </data>
   <data name="Page_Tools_LocateModContent" xml:space="preserve">
     <value>Найти содержимое модификации</value>
+  </data>
+  <data name="Page_Thunderstore_CardAction_Click_DoYouWantToInstallTheseAndTheMod" xml:space="preserve">
+    <value>Хотите установить нижеперечисленное и мод -</value>
+  </data>
+  <data name="MainWindow_Mods" xml:space="preserve">
+    <value>Моды</value>
+  </data>
+  <data name="MainWindow_Skins" xml:space="preserve">
+    <value>Скины</value>
+  </data>
+  <data name="MainWindow_Server" xml:space="preserve">
+    <value>Сервер</value>
+  </data>
+  <data name="MainWindow_Tools" xml:space="preserve">
+    <value>Инструменты</value>
+  </data>
+  <data name="MainWindow_About" xml:space="preserve">
+    <value>О программе</value>
+  </data>
+  <data name="Page_Tools_OpenFolder" xml:space="preserve">
+    <value>Открыть папку</value>
+  </data>
+  <data name="Page_Tools_WebPage_" xml:space="preserve">
+    <value>Веб-страница</value>
+  </data>
+  <data name="Page_Mods_ReverseFilterOrder" xml:space="preserve">
+    <value>Обратить порядок сортировки</value>
+  </data>
+  <data name="Page_Tools_Download_Zip_To_Path_DownloadingAndInstalling" xml:space="preserve">
+    <value>Качаем и устанавливаем </value>
+  </data>
+  <data name="Page_Tools_Locate_Repak_Exe_Click_ExeLocated" xml:space="preserve">
+    <value>.exe найден!</value>
+  </data>
+  <data name="Page_Tools_LaunchArguments" xml:space="preserve">
+    <value>Параметры запуска</value>
+  </data>
+  <data name="MainWindow_Home" xml:space="preserve">
+    <value>Домашняя страница</value>
+  </data>
+  <data name="Page_Thunderstore_Sort" xml:space="preserve">
+    <value>Сортировка</value>
+  </data>
+  <data name="Page_Thunderstore_Category" xml:space="preserve">
+    <value>Категория</value>
+  </data>
+  <data name="Page_Mods_Delete" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="Page_Mods_Open_Mod_Info_OpenFolder" xml:space="preserve">
+    <value>Открыть папку</value>
+  </data>
+  <data name="Page_Mods_Info" xml:space="preserve">
+    <value>Инфо</value>
+  </data>
+  <data name="MainWindow_NewLogChangesHaveBeenDetectedPleaseClickMeToOpenYourLogsFolder" xml:space="preserve">
+    <value>Обнаружены изменения лог-файла. Нажмите сюда, чтобы открыть папку логов.</value>
+  </data>
+  <data name="Page_Server_Export_Server_Config_Click_PleaseRecheckYourSaveLocation" xml:space="preserve">
+    <value> Пожалуйста, перепроверьте директорию сохранения</value>
+  </data>
+  <data name="Page_Settings_Settings_LostFocus_AChangeInLanguageWasDetectedNVTOLRequiresARestartToDisplayTheseChangesNWouldYouLikeToRestartNow" xml:space="preserve">
+    <value>@Обнаружено изменение языка @Чтобы отобразить изменения, VTOL нужно перезапустить. @Перезапустить сейчас?</value>
+  </data>
+  <data name="Page_Settings_Settings_LostFocus_Restart" xml:space="preserve">
+    <value>Перезапустить</value>
+  </data>
+  <data name="Page_Settings_Settings_LostFocus_LanguageChangeDetected" xml:space="preserve">
+    <value>-Язык был изменён-</value>
+  </data>
+  <data name="Page_Home_Page_Home_EAClientRunning" xml:space="preserve">
+    <value>EA Клиент запущен</value>
+  </data>
+  <data name="Page_Home_Origin_Client_Card_Click_TheEAClientIsAlreadyRunning" xml:space="preserve">
+    <value>EA Клиент уже запущен</value>
+  </data>
+  <data name="MainWindow_Profiles" xml:space="preserve">
+    <value>Профили</value>
+  </data>
+  <data name="Page_Profiles_ImportProfile" xml:space="preserve">
+    <value>Импортировать профиль</value>
+  </data>
+  <data name="Page_Profiles_BackupCurrentProfileOnImport" xml:space="preserve">
+    <value>Сохранить резервную копию текущего профиля</value>
+  </data>
+  <data name="Page_Profiles_ExcludeModFolderOnImport" xml:space="preserve">
+    <value>Не импортировать папку с модами</value>
+  </data>
+  <data name="Page_Profiles_ExcludeModFolder" xml:space="preserve">
+    <value>Не экспортировать папку с модами</value>
+  </data>
+  <data name="Page_Profiles_ChangeSaveLocation" xml:space="preserve">
+    <value>Изменить путь сохранения</value>
+  </data>
+  <data name="Page_Profiles_ExportProfile" xml:space="preserve">
+    <value>Экспортировать профиль</value>
+  </data>
+  <data name="Page_Profiles_AddProfile" xml:space="preserve">
+    <value>Добавить профиль</value>
+  </data>
+  <data name="Page_Profiles_IMPORT" xml:space="preserve">
+    <value>ИМПОРТИРОВАТЬ</value>
+  </data>
+  <data name="Page_Profiles_PROFILES" xml:space="preserve">
+    <value>ПРОФИЛИ</value>
+  </data>
+  <data name="Page_Profiles_SaveLocation" xml:space="preserve">
+    <value>Сохранить в</value>
+  </data>
+  <data name="Page_Profiles_NameOfProfile" xml:space="preserve">
+    <value>Имя профиля</value>
+  </data>
+  <data name="Page_Thunderstore_ConvertDateToString_Today" xml:space="preserve">
+    <value> Сегодня</value>
+  </data>
+  <data name="Page_Thunderstore_ConvertDateToString_Yesterday" xml:space="preserve">
+    <value>Вчера</value>
+  </data>
+  <data name="Page_Thunderstore_ConvertDateToString_1WeekAgo" xml:space="preserve">
+    <value>неделю назад</value>
+  </data>
+  <data name="Page_Thunderstore_ConvertDateToString_MinutesAgo" xml:space="preserve">
+    <value>пару минут назад</value>
+  </data>
+  <data name="Page_Thunderstore_ConvertDateToString_DaysAgo" xml:space="preserve">
+    <value>пару дней назад</value>
+  </data>
+  <data name="Page_Thunderstore_ConvertDateToString_HoursAgo" xml:space="preserve">
+    <value>пару часов назад</value>
+  </data>
+  <data name="Page_Home_Install_NS_METHOD_GitHubRateLimitForDownloadTriesHasBeenExceededError403FromRemoteServerPleaseWait" xml:space="preserve">
+    <value>Достигнут лимит запросов GitHub (ошибка 403). Подождите с минуту (или час)</value>
+  </data>
+  <data name="MODSIZEONDISK" xml:space="preserve">
+    <value>ЗАНИМАЕМОЕ МЕСТО НА ДИСКЕ</value>
+  </data>
+  <data name="VERSION" xml:space="preserve">
+    <value>ВЕРСИЯ</value>
+  </data>
+  <data name="PATH" xml:space="preserve">
+    <value>ПУТЬ</value>
+  </data>
+  <data name="MODINFO" xml:space="preserve">
+    <value>ИНФОРМАЦИЯ О МОДЕ</value>
+  </data>
+  <data name="CouldNotBeDeleted" xml:space="preserve">
+    <value> не удалось удалить</value>
+  </data>
+  <data name="TheModAt" xml:space="preserve">
+    <value>Мод в </value>
+  </data>
+  <data name="ERROR" xml:space="preserve">
+    <value> ОШИБКА</value>
+  </data>
+  <data name="SUCCESS" xml:space="preserve">
+    <value>УСПЕШНО</value>
+  </data>
+  <data name="CAUTION" xml:space="preserve">
+    <value>ВНИМАНИЕ</value>
+  </data>
+  <data name="DESCRIPTION" xml:space="preserve">
+    <value>ОПИСАНИЕ</value>
+  </data>
+  <data name="MODNAME" xml:space="preserve">
+    <value>НАЗВАНИЕ МОДА</value>
+  </data>
+  <data name="NAME" xml:space="preserve">
+    <value>НАЗВАНИЕ</value>
+  </data>
+  <data name="MANIFESTFILENOTFOUND" xml:space="preserve">
+    <value>ФАЙЛ МАНИФЕСТА НЕ НАЙДЕН</value>
+  </data>
+  <data name="MANIFESTFILENOTFOUND_" xml:space="preserve">
+    <value>ФАЙЛ МАНИФЕСТА НЕ НАЙДЕН </value>
+  </data>
+  <data name="WARNING" xml:space="preserve">
+    <value> "ВНИМАНИЕ</value>
+  </data>
+  <data name="PARENTOF" xml:space="preserve">
+    <value>РОДИТЕЛЬСКИЙ ДЛЯ - </value>
+  </data>
+  <data name="PARENTTO" xml:space="preserve">
+    <value>РОДИТЕЛЬСКИЙ ДЛЯ -</value>
+  </data>
+  <data name="MainWindow_Settings" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="Page_Tools_Check_For_Tools_Install" xml:space="preserve">
+    <value>Установить</value>
+  </data>
+  <data name="Page_Tools_Check_For_Tools_Launch" xml:space="preserve">
+    <value>Запустить</value>
+  </data>
+  <data name="Page_Profiles_ChangeTheEntireApplicationByImportingOrExportingProfiles" xml:space="preserve">
+    <value>Изменяйте все настройки сразу с помощью импорта и экспорта профилей</value>
+  </data>
+  <data name="Page_Home_INIT_ReInstallNorthstar" xml:space="preserve">
+    <value>Переустановить Northstar</value>
+  </data>
+  <data name="Page_Home_Check_For_New_Northstar_Install_With_Notif_ThereIsANewNorthstarVersionAvailablePleaseUpdateYourNorthstarInstall" xml:space="preserve">
+    <value>Доступна новая версия Northstar. Пожалуйста, обновите Northstar.</value>
+  </data>
+  <data name="REQUIRES" xml:space="preserve">
+    <value>НЕОБХОДИМЫ - </value>
+  </data>
+  <data name="HasBeenDeleted" xml:space="preserve">
+    <value> удалён</value>
+  </data>
+  <data name="DEPENDENCYLIST" xml:space="preserve">
+    <value>СПИСОК ЗАВИСИМОСТЕЙ</value>
+  </data>
+  <data name="MANIFEST_FILE_NOT_FOUND" xml:space="preserve">
+    <value>ФАЙЛ МАНИФЕСТА НЕ НАЙДЕН</value>
+  </data>
+  <data name="YouHaveInstalledModSettingsModSettingsHasBeenDepreceatedAndWillCauseErrorsNDeleteItNow" xml:space="preserve">
+    <value> "Вы установили «Mod Settings»! «Mod Settings» устарел и может вызывать ошибки. \nУдалить «Mod Settings»?</value>
   </data>
 </root>

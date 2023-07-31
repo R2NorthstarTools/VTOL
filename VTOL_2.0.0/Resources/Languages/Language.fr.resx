@@ -59,7 +59,7 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
@@ -124,10 +124,10 @@
     <value>Veuillez attendre le redémarrage de VTOL !</value>
   </data>
   <data name="Page_Skins_Install_Skin_From_Path_TheSkin" xml:space="preserve">
-    <value>Le skin - </value>
+    <value>Le skin -</value>
   </data>
   <data name="Page_Skins_Install_Skin_From_Path_HasBeenInstalled" xml:space="preserve">
-    <value> - a été installé</value>
+    <value>- a été installé</value>
   </data>
   <data name="Page_Skins_Drag_Drop_Area_Drop_IsNotASkinZip" xml:space="preserve">
     <value>n'est pas un fichier zip de skin ! </value>
