@@ -121,10 +121,10 @@
     <value>请等待 VTOL 重启!</value>
   </data>
   <data name="Page_Skins_Install_Skin_From_Path_TheSkin" xml:space="preserve">
-    <value>皮肤 - </value>
+    <value>皮肤 -</value>
   </data>
   <data name="Page_Skins_Install_Skin_From_Path_HasBeenInstalled" xml:space="preserve">
-    <value> -已经被安装!</value>
+    <value>-已经被安装!</value>
   </data>
   <data name="Page_Skins_Drag_Drop_Area_Drop_IsNotASkinZip" xml:space="preserve">
     <value>  不是皮肤zip压缩包!</value>
@@ -136,10 +136,10 @@
     <value>可使用的皮肤:</value>
   </data>
   <data name="Page_Skins_Browse_Click_CompatibleSkinFoundAt" xml:space="preserve">
-    <value> 可使用的皮肤路径 :</value>
+    <value>可使用的皮肤路径 : </value>
   </data>
   <data name="Page_Skins_Browse_Click_IsNotASkinZip" xml:space="preserve">
-    <value>  不是皮肤zip压缩包!</value>
+    <value> 不是皮肤zip压缩包!</value>
   </data>
   <data name="Page_Skins_OPEN_WEBPAGE_OpeningTheFollowingURL" xml:space="preserve">
     <value>正在打开这个链接:</value>
@@ -154,46 +154,46 @@
     <value>主服务器超时时间过长. 正在关闭主服务器检查.</value>
   </data>
   <data name="Page_Home_Origin_Client_Card_Click_TheOriginClientIsAlreadyRunning" xml:space="preserve">
-    <value> Origin 客户端已经在运行了!</value>
+    <value>Origin 客户端已经在运行了!</value>
   </data>
   <data name="Page_Home_Browse_Titanfall_Button_Click_IsValidAndHasBeenSet" xml:space="preserve">
     <value>  是有效的并且已经被设置</value>
   </data>
   <data name="Page_Home_Browse_Titanfall_Button_Click_TheLocation" xml:space="preserve">
-    <value>路径 - '</value>
+    <value>路径 - ' </value>
   </data>
   <data name="Page_Home_Browse_Titanfall_Button_Click_IsNotValid" xml:space="preserve">
-    <value>   不是有效的</value>
+    <value> 不是有效的</value>
   </data>
   <data name="Browse_Titanfall_Button_Click_TheLocation" xml:space="preserve">
-    <value>路径 - '</value>
+    <value>路径 - </value>
   </data>
   <data name="Check_Integrity_Of_NSINSTALL_DirectoryCheckFailed" xml:space="preserve">
-    <value>路径检查失败!</value>
+    <value>路径检查失败</value>
   </data>
   <data name="Read_Latest_Release_InvalidReleaseDonwloadURL" xml:space="preserve">
-    <value>错误的发行版下载链接!</value>
+    <value>无效的资源下载链接!</value>
   </data>
   <data name="Parse_Release_ReleaseNotFound" xml:space="preserve">
-    <value>发行版本未找到!</value>
+    <value>资源未找到!</value>
   </data>
   <data name="Unpack_To_Location_InstallationComplete" xml:space="preserve">
     <value>安装成功!</value>
   </data>
   <data name="Check_For_New_Northstar_Install_UpdateAvailableDownloadingAndInstallingNow" xml:space="preserve">
-    <value>升级可用, 正在下载并安装!</value>
+    <value>有新的版本, 正在下载并安装!</value>
   </data>
   <data name="Check_For_New_Northstar_Install_ReleaseCandidateDetected" xml:space="preserve">
     <value>检测到预发行版本</value>
   </data>
   <data name="Unpack_To_Location_TheFile" xml:space="preserve">
-    <value> 文件 -</value>
+    <value>文件 - </value>
   </data>
   <data name="Unpack_To_Location_WasNotFound" xml:space="preserve">
     <value> 未找到!</value>
   </data>
   <data name="Page_Home_Unpack_To_Location_WasNotFound" xml:space="preserve">
-    <value>未找到!</value>
+    <value> 未找到!</value>
   </data>
   <data name="Page_Home_Unpack_To_Location_TheFile" xml:space="preserve">
     <value>文件 -</value>
@@ -280,7 +280,7 @@
     <value>不能读取输入</value>
   </data>
   <data name="Page_Server_Read_Convar_args_CannotSetThePath" xml:space="preserve">
-    <value> 不能设置路径</value>
+    <value>不能设置路径</value>
   </data>
   <data name="Page_Server_Launch_Northstar_Advanced_Click_CouldNotFindNorthstarExe" xml:space="preserve">
     <value>未找到 Northstar.exe!</value>
@@ -322,10 +322,10 @@
     <value>更新 NorthStar</value>
   </data>
   <data name="Page_Home_NorthstarInstallation" xml:space="preserve">
-    <value>NorthStar 安装程序</value>
+    <value>NorthStar 安装程序 </value>
   </data>
   <data name="Page_Home_LaunchNorthstar" xml:space="preserve">
-    <value>启动 +NorthStar </value>
+    <value>启动 +NorthStar</value>
   </data>
   <data name="Page_Home_Install_NS_METHOD_SequenceContainsNoElements" xml:space="preserve">
     <value>序列不包含任何元素</value>
@@ -337,10 +337,10 @@
     <value>右键打开菜单</value>
   </data>
   <data name="Page_Mods_ListedHereAreTheModsThatAreCurrentlyInstalled" xml:space="preserve">
-    <value>展示在这里的是已经安装的 Mods</value>
+    <value>展示在这里的是已经安装的 Mods。</value>
   </data>
   <data name="Page_About_AboutVTOLAndDocumentationOnItsUse" xml:space="preserve">
-    <value>关于 VTOL 及其使用文档</value>
+    <value>关于 VTOL 及其使用文档。</value>
   </data>
   <data name="Page_About_ABOUT" xml:space="preserve">
     <value>关于</value>
@@ -409,7 +409,7 @@
     <value>浏览</value>
   </data>
   <data name="Page_Thunderstore_TheseAreTheCollectionOfModsHostedOnTheThunderStoreModPlatform" xml:space="preserve">
-    <value>在 ThunderStore 平台上的模组</value>
+    <value>在 ThunderStore 平台上的模组。</value>
   </data>
   <data name="Page_Thunderstore_THUNDERSTORE" xml:space="preserve">
     <value>ThunderStore</value>
@@ -475,13 +475,13 @@
     <value>请前往路径 - </value>
   </data>
   <data name="Page_Mods_Call_Mods_From_Folder_AndManuallyRepairTheMod" xml:space="preserve">
-    <value> 并手动修复该Mod -</value>
+    <value> 并手动修复该Mod - </value>
   </data>
   <data name="Page_Mods_Call_Mods_From_Folder_ThereIsAnIssueDetectedWithYourMod" xml:space="preserve">
     <value>在您的Mod中发现问题!</value>
   </data>
   <data name="Page_Mods_Call_Mods_From_Folder_ModCount" xml:space="preserve">
-    <value>Mod数量:</value>
+    <value>Mod数量: </value>
   </data>
   <data name="Page_Home_INIT_InvalidInstallPathPleaseManuallyLocateTheCorrectFolder" xml:space="preserve">
     <value>安装目录错误，请手动选择正确的目录！</value>
@@ -490,7 +490,7 @@
     <value>当前 Titanfall 2 路径</value>
   </data>
   <data name="Page_Tools_PackageAsADDSSkin" xml:space="preserve">
-    <value>包装为DDS皮肤文件</value>
+    <value>包装为DDS皮肤文件？</value>
   </data>
   <data name="Page_Server_Load_Files__ReloadArguments" xml:space="preserve">
     <value>重新载入参数</value>
@@ -527,5 +527,215 @@
   </data>
   <data name="Page_Tools_LocateModContent" xml:space="preserve">
     <value>定位修改内容</value>
+  </data>
+  <data name="MainWindow_Home" xml:space="preserve">
+    <value>主页</value>
+  </data>
+  <data name="MainWindow_Mods" xml:space="preserve">
+    <value>模组</value>
+  </data>
+  <data name="MainWindow_Server" xml:space="preserve">
+    <value>服务器</value>
+  </data>
+  <data name="MainWindow_Tools" xml:space="preserve">
+    <value>工具</value>
+  </data>
+  <data name="MainWindow_Skins" xml:space="preserve">
+    <value>皮肤</value>
+  </data>
+  <data name="MainWindow_About" xml:space="preserve">
+    <value>关于</value>
+  </data>
+  <data name="Page_Tools_OpenFolder" xml:space="preserve">
+    <value>打开文件夹</value>
+  </data>
+  <data name="Page_Tools_WebPage_" xml:space="preserve">
+    <value>网站</value>
+  </data>
+  <data name="Page_Tools_Check_For_Tools_Launch" xml:space="preserve">
+    <value>启动</value>
+  </data>
+  <data name="Page_Tools_Download_Zip_To_Path_DownloadingAndInstalling" xml:space="preserve">
+    <value>正在下载和安装 </value>
+  </data>
+  <data name="Page_Tools_LaunchArguments" xml:space="preserve">
+    <value>启动项</value>
+  </data>
+  <data name="Page_Mods_ReverseFilterOrder" xml:space="preserve">
+    <value>反转排序顺序</value>
+  </data>
+  <data name="Page_Thunderstore_Sort" xml:space="preserve">
+    <value>排序方式</value>
+  </data>
+  <data name="Page_Thunderstore_Category" xml:space="preserve">
+    <value>标签</value>
+  </data>
+  <data name="Page_Mods_Info" xml:space="preserve">
+    <value>详细信息</value>
+  </data>
+  <data name="Page_Mods_Delete" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="Page_Profiles_ExcludeModFolderOnImport" xml:space="preserve">
+    <value>不导入模组文件夹</value>
+  </data>
+  <data name="Page_Profiles_ChangeSaveLocation" xml:space="preserve">
+    <value>更改保存位置</value>
+  </data>
+  <data name="Page_Profiles_ImportProfile" xml:space="preserve">
+    <value>导入配置文件</value>
+  </data>
+  <data name="Page_Profiles_BackupCurrentProfileOnImport" xml:space="preserve">
+    <value>导入前备份当前配置文件</value>
+  </data>
+  <data name="Page_Thunderstore_ConvertDateToString_Yesterday" xml:space="preserve">
+    <value>昨天</value>
+  </data>
+  <data name="Page_Thunderstore_ConvertDateToString_MinutesAgo" xml:space="preserve">
+    <value>分钟前</value>
+  </data>
+  <data name="Page_Thunderstore_ConvertDateToString_DaysAgo" xml:space="preserve">
+    <value>天前</value>
+  </data>
+  <data name="Page_Thunderstore_ConvertDateToString_HoursAgo" xml:space="preserve">
+    <value>小时前</value>
+  </data>
+  <data name="Page_Home_INIT_ReInstallNorthstar" xml:space="preserve">
+    <value>重新安装Northstar</value>
+  </data>
+  <data name="Page_Profiles_IMPORT" xml:space="preserve">
+    <value>导入</value>
+  </data>
+  <data name="Page_Profiles_ExportProfile" xml:space="preserve">
+    <value>导出配置文件</value>
+  </data>
+  <data name="Page_Profiles_AddProfile" xml:space="preserve">
+    <value>添加配置文件</value>
+  </data>
+  <data name="Page_Profiles_PROFILES" xml:space="preserve">
+    <value>配置文件</value>
+  </data>
+  <data name="Page_Profiles_SaveLocation" xml:space="preserve">
+    <value>保存位置</value>
+  </data>
+  <data name="Page_Profiles_NameOfProfile" xml:space="preserve">
+    <value>配置文件名称</value>
+  </data>
+  <data name="MODSIZEONDISK" xml:space="preserve">
+    <value>模组所占用硬盘空间</value>
+  </data>
+  <data name="VERSION" xml:space="preserve">
+    <value>版本号</value>
+  </data>
+  <data name="PATH" xml:space="preserve">
+    <value>模组路径</value>
+  </data>
+  <data name="MODINFO" xml:space="preserve">
+    <value>模组信息</value>
+  </data>
+  <data name="HasBeenDeleted" xml:space="preserve">
+    <value> 已被删除</value>
+  </data>
+  <data name="CouldNotBeDeleted" xml:space="preserve">
+    <value> 无法被删除</value>
+  </data>
+  <data name="SUCCESS" xml:space="preserve">
+    <value>完成</value>
+  </data>
+  <data name="DESCRIPTION" xml:space="preserve">
+    <value>模组说明</value>
+  </data>
+  <data name="DEPENDENCYLIST" xml:space="preserve">
+    <value>前置模组</value>
+  </data>
+  <data name="REQUIRES" xml:space="preserve">
+    <value>需要 - </value>
+  </data>
+  <data name="NAME" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="MANIFESTFILENOTFOUND" xml:space="preserve">
+    <value>未找到清单文件</value>
+  </data>
+  <data name="MANIFESTFILENOTFOUND_" xml:space="preserve">
+    <value>未找到清单文件 </value>
+  </data>
+  <data name="MANIFEST_FILE_NOT_FOUND" xml:space="preserve">
+    <value>未找到清单文件</value>
+  </data>
+  <data name="Page_Thunderstore_CardAction_Click_DoYouWantToInstallTheseAndTheMod" xml:space="preserve">
+    <value>是否安装这些和Mod -</value>
+  </data>
+  <data name="MainWindow_Settings" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="Page_Tools_Check_For_Tools_Install" xml:space="preserve">
+    <value>安装</value>
+  </data>
+  <data name="Page_Mods_Open_Mod_Info_OpenFolder" xml:space="preserve">
+    <value>打开所在文件夹</value>
+  </data>
+  <data name="Page_Thunderstore_ConvertDateToString_Today" xml:space="preserve">
+    <value> 今天</value>
+  </data>
+  <data name="Page_Thunderstore_ConvertDateToString_1WeekAgo" xml:space="preserve">
+    <value>一周前</value>
+  </data>
+  <data name="Page_Profiles_ExcludeModFolder" xml:space="preserve">
+    <value>不备份模组文件夹</value>
+  </data>
+  <data name="Page_Profiles_ChangeTheEntireApplicationByImportingOrExportingProfiles" xml:space="preserve">
+    <value>通过导入或导出配置文件修改本软件</value>
+  </data>
+  <data name="MainWindow_Profiles" xml:space="preserve">
+    <value>配置文件</value>
+  </data>
+  <data name="Page_Tools_Locate_Repak_Exe_Click_ExeLocated" xml:space="preserve">
+    <value>程序已定位！</value>
+  </data>
+  <data name="MainWindow_NewLogChangesHaveBeenDetectedPleaseClickMeToOpenYourLogsFolder" xml:space="preserve">
+    <value>检测到新的日志更改，请单击此处打开您的日志文件夹。</value>
+  </data>
+  <data name="Page_Settings_Settings_LostFocus_Restart" xml:space="preserve">
+    <value>重启</value>
+  </data>
+  <data name="Page_Settings_Settings_LostFocus_LanguageChangeDetected" xml:space="preserve">
+    <value>-检测到语言修改-</value>
+  </data>
+  <data name="Page_Home_Page_Home_EAClientRunning" xml:space="preserve">
+    <value>EA客户端正在运行</value>
+  </data>
+  <data name="Page_Home_Origin_Client_Card_Click_TheEAClientIsAlreadyRunning" xml:space="preserve">
+    <value>EA客户端已经在运行中</value>
+  </data>
+  <data name="Page_Home_Check_For_New_Northstar_Install_With_Notif_ThereIsANewNorthstarVersionAvailablePleaseUpdateYourNorthstarInstall" xml:space="preserve">
+    <value>有新版本Northstar可用。请更新您的Northstar。</value>
+  </data>
+  <data name="Page_Home_Install_NS_METHOD_GitHubRateLimitForDownloadTriesHasBeenExceededError403FromRemoteServerPleaseWait" xml:space="preserve">
+    <value>已超过GitHub下载次数的速率限制。来自远程服务器的错误403。请稍后重试</value>
+  </data>
+  <data name="TheModAt" xml:space="preserve">
+    <value>该模组位于 </value>
+  </data>
+  <data name="ERROR" xml:space="preserve">
+    <value> 错误</value>
+  </data>
+  <data name="CAUTION" xml:space="preserve">
+    <value>警告</value>
+  </data>
+  <data name="MODNAME" xml:space="preserve">
+    <value>模组名称</value>
+  </data>
+  <data name="YouHaveInstalledModSettingsModSettingsHasBeenDepreceatedAndWillCauseErrorsNDeleteItNow" xml:space="preserve">
+    <value> "您已安装Mod Settings！Mod Settings已经弃用，并可能会出现错误。 \n是否立即删除？</value>
+  </data>
+  <data name="WARNING" xml:space="preserve">
+    <value> "警告</value>
+  </data>
+  <data name="Page_Server_Export_Server_Config_Click_PleaseRecheckYourSaveLocation" xml:space="preserve">
+    <value> 请重新检查你的保存位置</value>
+  </data>
+  <data name="Page_Settings_Settings_LostFocus_AChangeInLanguageWasDetectedNVTOLRequiresARestartToDisplayTheseChangesNWouldYouLikeToRestartNow" xml:space="preserve">
+    <value>@检测到语言修改 @VTOL 需要重新启动来加载这些资源。 @你想立即重新启动吗？。</value>
   </data>
 </root>
