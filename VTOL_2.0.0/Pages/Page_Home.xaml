@@ -394,7 +394,7 @@
                                 Please Locate your Titanfall 2 Install Folder. Titanfall 2 can be commonly be found in <LineBreak/> SteamLibrary/steamapps/common/Titanfall2 <LineBreak/> or <LineBreak/> Program Files (x86)/Steam/steamapps/common/Titanfall2
                             </TextBlock>
 
-                            <ui:Button x:Name="Locate_Titanfall_Install" Height="35" Width="678" HorizontalAlignment="Center" Content="Locate Tiitanfall 2 Folder" Padding="0,0,0,0" Icon="SlideMultipleSearch24" Appearance="Secondary" Margin="0,2,0,0" MouseEnter="EXE_BUTTON_MouseEnter" MouseLeave="EXE_BUTTON_MouseLeave" BorderBrush="{x:Null}" BorderThickness="2,2,2,2" Click="Locate_Titanfall_Install_Click">
+                            <ui:Button x:Name="Locate_Titanfall_Install" Height="35" Width="678" HorizontalAlignment="Center" Content="Locate Titanfall 2 Folder" Padding="0,0,0,0" Icon="SlideMultipleSearch24" Appearance="Secondary" Margin="0,2,0,0" MouseEnter="EXE_BUTTON_MouseEnter" MouseLeave="EXE_BUTTON_MouseLeave" BorderBrush="{x:Null}" BorderThickness="2,2,2,2" Click="Locate_Titanfall_Install_Click">
                                 <ui:Button.Background>
                                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                         <GradientStop Color="#FF005831" Offset="1"/>
