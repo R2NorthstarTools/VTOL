@@ -452,6 +452,7 @@ public static List<NORTHSTARCOMPATIBLE_MOD> MergeModsIntoJsonFile(string filePat
             {
                 string name = property.Name;
                 bool value = (bool)property.Value;
+              
 
                 NORTHSTARCOMPATIBLE_MOD mod = new NORTHSTARCOMPATIBLE_MOD
                 {
