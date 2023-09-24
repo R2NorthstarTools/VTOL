@@ -64,7 +64,7 @@
                 <ContentPresenter Grid.Column="2"/>
 
                 <!-- Download Button -->
-                <Button Content="Download" Grid.Column="3" HorizontalAlignment="Right" Margin="6,0" Visibility="{Binding IsDownloadButtonVisible, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                <!-- <Button Content="Download" Grid.Column="3" HorizontalAlignment="Right" Margin="6,0" Visibility="{Binding IsDownloadButtonVisible, Converter={StaticResource BooleanToVisibilityConverter}}"/> -->
             </Grid>
         </HierarchicalDataTemplate>
     </Page.Resources>
@@ -482,7 +482,7 @@
 
                                 <ui:Button ToolTip="{x:Static properties:Language.Page_Tools_WebPage_}"  x:Name="LEGION_INSTALL_PAGE"  Margin="447,0,0,0" VerticalAlignment="Top" Background="#CC3E3E3E" BorderBrush="{x:Null}" Height="24" Icon="BookInformation24" Padding="0,0,0,0" Width="24" ClickMode="Press" Click="LEGION_INSTALL_PAGE_Click"></ui:Button>
 
-                                <ui:Button x:Name="LEGION_INSTALL_FOLDER"   VerticalAlignment="Top" Icon="Open24" HorizontalAlignment="Stretch"  Background="#FFAF7800" Margin="312,161,10,0" Content="{x:Static properties:Language.Page_Tools_OpenFolder}" Foreground="White" BorderBrush="#029C9C9C" OverridesDefaultStyle="False" ClickMode="Press" Appearance="Primary" IconFilled="True" IconForeground="White" Click="LEGION_INSTALL_FOLDER_Click">
+                                <ui:Button x:Name="LEGION_INSTALL_FOLDER"   VerticalAlignment="Top" Icon="Open24" HorizontalAlignment="Stretch"  Background="#FFAF7800" Margin="312,161,10,0" Content="{x:Static properties:Language.Page_Tools_OpenFolder}" Foreground="White" BorderBrush="#029C9C9C" OverridesDefaultStyle="False" ClickMode="Press" Appearance="Primary" IconFilled="True" Click="LEGION_INSTALL_FOLDER_Click">
                                     <ui:Button.MouseOverBackground>
                                         <SolidColorBrush Color="#FF795300" Opacity="0.9"/>
                                     </ui:Button.MouseOverBackground>
@@ -506,7 +506,7 @@
                                         <ImageBrush Stretch="UniformToFill" ImageSource="/Resources/Resource_Static/harmony.png" TileMode="None"/>
                                     </Border.Background>
                                 </Border>
-                                <ui:Button x:Name="HARMONY_INSTALL_FOLDER"  VerticalAlignment="Top" Icon="Open24" HorizontalAlignment="Stretch"  Background="#FFAF7800" Margin="312,161,10,0" Content="{x:Static properties:Language.Page_Tools_OpenFolder}" Foreground="White" BorderBrush="#029C9C9C" OverridesDefaultStyle="False" ClickMode="Press" Appearance="Primary" IconFilled="True" IconForeground="White" Click="HARMONY_INSTALL_FOLDER_Click">
+                                <ui:Button x:Name="HARMONY_INSTALL_FOLDER"  VerticalAlignment="Top" Icon="Open24" HorizontalAlignment="Stretch"  Background="#FFAF7800" Margin="312,161,10,0" Content="{x:Static properties:Language.Page_Tools_OpenFolder}" Foreground="White" BorderBrush="#029C9C9C" OverridesDefaultStyle="False" ClickMode="Press" Appearance="Primary" IconFilled="True" Click="HARMONY_INSTALL_FOLDER_Click">
                                     <ui:Button.MouseOverBackground>
                                         <SolidColorBrush Color="#FF795300" Opacity="0.9"/>
                                     </ui:Button.MouseOverBackground>
@@ -530,7 +530,7 @@
                                         <ImageBrush Stretch="UniformToFill" ImageSource="/Resources/Resource_Static/Crowbar.png" TileMode="None"/>
                                     </Border.Background>
                                 </Border>
-                                <ui:Button x:Name="CROWBAR_INSTALL_FOLDER"  VerticalAlignment="Top" Icon="Open24" HorizontalAlignment="Stretch"  Background="#FFAF7800" Margin="312,161,10,0" Content="{x:Static properties:Language.Page_Tools_OpenFolder}" Foreground="White" BorderBrush="#029C9C9C" OverridesDefaultStyle="False" ClickMode="Press" Appearance="Primary" IconFilled="True" IconForeground="White" Click="CROWBAR_INSTALL_FOLDER_Click">
+                                <ui:Button x:Name="CROWBAR_INSTALL_FOLDER"  VerticalAlignment="Top" Icon="Open24" HorizontalAlignment="Stretch"  Background="#FFAF7800" Margin="312,161,10,0" Content="{x:Static properties:Language.Page_Tools_OpenFolder}" Foreground="White" BorderBrush="#029C9C9C" OverridesDefaultStyle="False" ClickMode="Press" Appearance="Primary" IconFilled="True" Click="CROWBAR_INSTALL_FOLDER_Click">
                                     <ui:Button.MouseOverBackground>
                                         <SolidColorBrush Color="#FF795300" Opacity="0.9"/>
                                     </ui:Button.MouseOverBackground>
@@ -566,7 +566,7 @@
                                 </Border>
                                 <ui:Button ToolTip="Advanced"  x:Name="Advanced_Repak"  Margin="447,23,0,0" VerticalAlignment="Top" Background="#CC3E3E3E" BorderBrush="{x:Null}" Height="24" Icon="Settings28" Padding="0,0,0,0" Width="24" ClickMode="Press" Click="Advanced_Repak_Click"></ui:Button>
 
-                                <ui:Button x:Name="REPAK_INSTALL_FOLDER"  VerticalAlignment="Top" Icon="Open24" HorizontalAlignment="Stretch"  Background="#FFAF7800" Margin="312,161,10,0" Content="{x:Static properties:Language.Page_Tools_OpenFolder}" Foreground="White" BorderBrush="#029C9C9C" OverridesDefaultStyle="False" ClickMode="Press" Appearance="Primary" IconFilled="True" IconForeground="White" Click="REPAK_INSTALL_FOLDER_Click">
+                                <ui:Button x:Name="REPAK_INSTALL_FOLDER"  VerticalAlignment="Top" Icon="Open24" HorizontalAlignment="Stretch"  Background="#FFAF7800" Margin="312,161,10,0" Content="{x:Static properties:Language.Page_Tools_OpenFolder}" Foreground="White" BorderBrush="#029C9C9C" OverridesDefaultStyle="False" ClickMode="Press" Appearance="Primary" IconFilled="True" Click="REPAK_INSTALL_FOLDER_Click">
                                     <ui:Button.MouseOverBackground>
                                         <SolidColorBrush Color="#FF795300" Opacity="0.9"/>
                                     </ui:Button.MouseOverBackground>
@@ -590,7 +590,7 @@
                                         <ImageBrush Stretch="UniformToFill" ImageSource="/Resources/Resource_Static/VTF_EDIT.png" TileMode="None"/>
                                     </Border.Background>
                                 </Border>
-                                <ui:Button x:Name="VTF_TOOL_FOLDER" VerticalAlignment="Top" Icon="Open24" HorizontalAlignment="Stretch"  Background="#FFAF7800" Margin="312,161,10,0" Content="{x:Static properties:Language.Page_Tools_OpenFolder}" Foreground="White" BorderBrush="#029C9C9C" OverridesDefaultStyle="False" ClickMode="Press" Appearance="Primary" IconFilled="True" IconForeground="White">
+                                <ui:Button x:Name="VTF_TOOL_FOLDER" VerticalAlignment="Top" Icon="Open24" HorizontalAlignment="Stretch"  Background="#FFAF7800" Margin="312,161,10,0" Content="{x:Static properties:Language.Page_Tools_OpenFolder}" Foreground="White" BorderBrush="#029C9C9C" OverridesDefaultStyle="False" ClickMode="Press" Appearance="Primary" IconFilled="True" >
                                     <ui:Button.MouseOverBackground>
                                         <SolidColorBrush Color="#FF795300" Opacity="0.9"/>
                                     </ui:Button.MouseOverBackground>
@@ -614,7 +614,7 @@
                                         <ImageBrush Stretch="UniformToFill" ImageSource="/Resources/Resource_Static/Titanfall_2_Vpk_Tool_.png" TileMode="None"/>
                                     </Border.Background>
                                 </Border>
-                                <ui:Button x:Name="VPK_TOOL_FOLDER" VerticalAlignment="Top" Icon="Open24" HorizontalAlignment="Stretch"  Background="#FFAF7800" Margin="312,161,10,0" Content="{x:Static properties:Language.Page_Tools_OpenFolder}" Foreground="White" BorderBrush="#029C9C9C" OverridesDefaultStyle="False" ClickMode="Press" Appearance="Primary" IconFilled="True" IconForeground="White" Click="VPK_TOOL_FOLDER_Click">
+                                <ui:Button x:Name="VPK_TOOL_FOLDER" VerticalAlignment="Top" Icon="Open24" HorizontalAlignment="Stretch"  Background="#FFAF7800" Margin="312,161,10,0" Content="{x:Static properties:Language.Page_Tools_OpenFolder}" Foreground="White" BorderBrush="#029C9C9C" OverridesDefaultStyle="False" ClickMode="Press" Appearance="Primary" IconFilled="True" Click="VPK_TOOL_FOLDER_Click">
                                     <ui:Button.MouseOverBackground>
                                         <SolidColorBrush Color="#FF795300" Opacity="0.9"/>
                                     </ui:Button.MouseOverBackground>
@@ -639,7 +639,7 @@
                                         <ImageBrush Stretch="UniformToFill" ImageSource="/Resources/Resource_Static/MDL_SHIT_Banner.png" TileMode="None"/>
                                     </Border.Background>
                                 </Border>
-                                <ui:Button x:Name="MDL_TOOL_FOLDER" VerticalAlignment="Top" Icon="Open24" HorizontalAlignment="Stretch"  Background="#FFAF7800" Margin="312,161,10,0" Content="{x:Static properties:Language.Page_Tools_OpenFolder}" Foreground="White" BorderBrush="#029C9C9C" OverridesDefaultStyle="False" ClickMode="Press" Appearance="Primary" IconFilled="True" IconForeground="White" Click="MDL_TOOL_FOLDER_Click">
+                                <ui:Button x:Name="MDL_TOOL_FOLDER" VerticalAlignment="Top" Icon="Open24" HorizontalAlignment="Stretch"  Background="#FFAF7800" Margin="312,161,10,0" Content="{x:Static properties:Language.Page_Tools_OpenFolder}" Foreground="White" BorderBrush="#029C9C9C" OverridesDefaultStyle="False" ClickMode="Press" Appearance="Primary" IconFilled="True"  Click="MDL_TOOL_FOLDER_Click">
                                     <ui:Button.MouseOverBackground>
                                         <SolidColorBrush Color="#FF795300" Opacity="0.9"/>
                                     </ui:Button.MouseOverBackground>
@@ -664,7 +664,7 @@
                                         <ImageBrush Stretch="UniformToFill" ImageSource="/Resources/Resource_Static/better_frog.png" TileMode="None"/>
                                     </Border.Background>
                                 </Border>
-                                <ui:Button x:Name="ESMT_TOOL_FOLDER" VerticalAlignment="Top" Icon="Open24" HorizontalAlignment="Stretch"  Background="#FFAF7800" Margin="312,161,10,0" Content="{x:Static properties:Language.Page_Tools_OpenFolder}" Foreground="White" BorderBrush="#029C9C9C" OverridesDefaultStyle="False" ClickMode="Press" Appearance="Primary" IconFilled="True" IconForeground="White" Click="ESMT_TOOL_FOLDER_Click">
+                                <ui:Button x:Name="ESMT_TOOL_FOLDER" VerticalAlignment="Top" Icon="Open24" HorizontalAlignment="Stretch"  Background="#FFAF7800" Margin="312,161,10,0" Content="{x:Static properties:Language.Page_Tools_OpenFolder}" Foreground="White" BorderBrush="#029C9C9C" OverridesDefaultStyle="False" ClickMode="Press" Appearance="Primary" IconFilled="True" Click="ESMT_TOOL_FOLDER_Click">
                                     <ui:Button.MouseOverBackground>
                                         <SolidColorBrush Color="#FF795300" Opacity="0.9"/>
                                     </ui:Button.MouseOverBackground>
@@ -689,7 +689,7 @@
                                         <ImageBrush Stretch="UniformToFill" ImageSource="/Resources/Resource_Static/Advocate_banner.png" TileMode="None"/>
                                     </Border.Background>
                                 </Border>
-                                <ui:Button x:Name="ADV_TOOL_FOLDER" VerticalAlignment="Top" Icon="Open24" HorizontalAlignment="Stretch"  Background="#FFAF7800" Margin="312,161,10,0" Content="{x:Static properties:Language.Page_Tools_OpenFolder}" Foreground="White" BorderBrush="#029C9C9C" OverridesDefaultStyle="False" ClickMode="Press" Appearance="Primary" IconFilled="True" IconForeground="White" Click="ADV_TOOL_FOLDER_Click">
+                                <ui:Button x:Name="ADV_TOOL_FOLDER" VerticalAlignment="Top" Icon="Open24" HorizontalAlignment="Stretch"  Background="#FFAF7800" Margin="312,161,10,0" Content="{x:Static properties:Language.Page_Tools_OpenFolder}" Foreground="White" BorderBrush="#029C9C9C" OverridesDefaultStyle="False" ClickMode="Press" Appearance="Primary" IconFilled="True" Click="ADV_TOOL_FOLDER_Click">
                                     <ui:Button.MouseOverBackground>
                                         <SolidColorBrush Color="#FF795300" Opacity="0.9"/>
                                     </ui:Button.MouseOverBackground>

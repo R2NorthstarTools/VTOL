@@ -1112,7 +1112,7 @@ int millisecondsDelay = 150)
 
                 Sort.SelectedIndex = -1;
                 Search_Bar_Suggest_Mods.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFFFFFFF");
-                Search_Bar_Suggest_Mods.IconForeground = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFFFFFFF");
+               // Search_Bar_Suggest_Mods.IconForeground = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFFFFFFF");
                 search_a_flag = false;
             });
         }
@@ -1124,7 +1124,7 @@ int millisecondsDelay = 150)
                 Search_Bar_Suggest_Mods.IsReadOnly = true;
                 search_a_flag = true;
                 Search_Bar_Suggest_Mods.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#34FFFFFF");
-                Search_Bar_Suggest_Mods.IconForeground = (SolidColorBrush)new BrushConverter().ConvertFrom("#34FFFFFF");
+               // Search_Bar_Suggest_Mods.IconForeground = (SolidColorBrush)new BrushConverter().ConvertFrom("#34FFFFFF");
             });
         }
         async Task clear_box()
@@ -5178,7 +5178,7 @@ int millisecondsDelay = 300)
                                 Search_Bar_Suggest_Mods.IsReadOnly = true;
                                 search_a_flag = true;
                                 Search_Bar_Suggest_Mods.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#34FFFFFF");
-                                Search_Bar_Suggest_Mods.IconForeground = (SolidColorBrush)new BrushConverter().ConvertFrom("#34FFFFFF");
+                               // Search_Bar_Suggest_Mods.IconForeground = (SolidColorBrush)new BrushConverter().ConvertFrom("#34FFFFFF");
                             });
                             Current_Mod_Filter_Tags = String.Join(",", comboBox.SelectedItems.Cast<String>()).Split(',').ToList();
                         }
