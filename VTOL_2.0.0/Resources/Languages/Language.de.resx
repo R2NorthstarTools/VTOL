@@ -59,7 +59,7 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
@@ -117,4 +117,631 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Page_Skins_Install_Skin_From_Path_HasBeenInstalled" xml:space="preserve">
+    <value>- wurde Installiert!</value>
+  </data>
+  <data name="Page_Skins_Drag_Drop_Area_Drop_IsNotASkinZip" xml:space="preserve">
+    <value>  ist keine Skin Zip!</value>
+  </data>
+  <data name="Page_Skins_Drag_Drop_Area_Drop_CompatibleSkinSFound" xml:space="preserve">
+    <value>Kompatible Skin(s) gefunden: </value>
+  </data>
+  <data name="Page_Skins_Browse_Click_IsNotASkinZip" xml:space="preserve">
+    <value> ist keine Skin Zip!</value>
+  </data>
+  <data name="Page_Skins_OPEN_WEBPAGE_OpeningTheFollowingURL" xml:space="preserve">
+    <value>Öffnen der folgenden URL - </value>
+  </data>
+  <data name="Page_Home_INIT_NORTHSTARAUTOINSTALLWILLNOWBEGINPLEASEWAITABOUT30SECONDS" xml:space="preserve">
+    <value>Der NORTHSTAR AUTO INSTALL BEGINNT JETZT, BITE WARTEN SIE FÜR ETWA 30 SEKUNDEN!</value>
+  </data>
+  <data name="Page_Home_timer_Tick_MasterServerCheckedAndTimedOutTooMuchTurningOffMasterServerChecks" xml:space="preserve">
+    <value>Der Master Server hat zu oft geprüft und die Zeit überschritten. Ausschalten von Master Server Checks</value>
+  </data>
+  <data name="Page_Home_Origin_Client_Card_Click_TheOriginClientIsAlreadyRunning" xml:space="preserve">
+    <value>Der Origin Client läuft bereits!</value>
+  </data>
+  <data name="PleaseWaitAsVTOLRestarts" xml:space="preserve">
+    <value>Bitte warten Sie, während VTOL neu startet!</value>
+  </data>
+  <data name="Parse_Release_ReleaseNotFound" xml:space="preserve">
+    <value>Release wurde nicht gefunden!</value>
+  </data>
+  <data name="Page_Home_Unpack_To_Location_IsNotAZip" xml:space="preserve">
+    <value>ist keine zip!</value>
+  </data>
+  <data name="Check_Integrity_Of_NSINSTALL_DirectoryCheckFailed" xml:space="preserve">
+    <value>Verzeichnisprüfung fehlgeschlagen</value>
+  </data>
+  <data name="Unpack_To_Location_InstallationComplete" xml:space="preserve">
+    <value>Installation beendet!</value>
+  </data>
+  <data name="Unpack_To_Location_WasNotFound" xml:space="preserve">
+    <value> Wurde nicht gefunden!</value>
+  </data>
+  <data name="Page_Home_INIT_InstallNorthstar" xml:space="preserve">
+    <value>Northstar installieren</value>
+  </data>
+  <data name="Check_For_New_Northstar_Install_UpdateAvailableDownloadingAndInstallingNow" xml:space="preserve">
+    <value>Ein Update ist verfügbar, wird heruntergeladen und aktualisiert!</value>
+  </data>
+  <data name="Page_Home_Unpack_To_Location_TheFile" xml:space="preserve">
+    <value>Die Datei - </value>
+  </data>
+  <data name="Page_Tools_ProcessSkin_SkinNameNotSet" xml:space="preserve">
+    <value>Skin Name wurde nicht gesezt!</value>
+  </data>
+  <data name="Page_Home_INIT_UpdateNorthstar" xml:space="preserve">
+    <value>Update Northstar</value>
+  </data>
+  <data name="Page_Tools_Locate_Zip_Click_InvalidZipFound" xml:space="preserve">
+    <value>Ungültige Zip gefunden</value>
+  </data>
+  <data name="Page_Tools_Output_Button_Click_NotAnOutputDirectory" xml:space="preserve">
+    <value>Kein Ausgabeverzeichnis</value>
+  </data>
+  <data name="Page_Tools_Save_Mod_Click_NoValidZipFileToPackWasFound" xml:space="preserve">
+    <value>Es wurde keine gültige Zip-Datei zum Packen gefunden</value>
+  </data>
+  <data name="Page_Tools_Save_Mod_Click_NoValidModICONFound" xml:space="preserve">
+    <value>Keine gültige Mod ICON gefunden</value>
+  </data>
+  <data name="Page_Tools_Save_Mod_Click_NoValidOutputPathFound" xml:space="preserve">
+    <value>Kein gültiger Output Pfad gefunden</value>
+  </data>
+  <data name="Page_Tools_Save_Mod_Click_SuccessfullyPackedAllItemsTo" xml:space="preserve">
+    <value> Alle Items wurden erfolgreich verpackt zu -</value>
+  </data>
+  <data name="Page_Tools_Icon_Image_MouseDown_NotAValidPNGImage" xml:space="preserve">
+    <value>Ist kein gültiges PNG BIld</value>
+  </data>
+  <data name="Page_Tools_Icon_Image_MouseDown_ValidImageFoundAt" xml:space="preserve">
+    <value>Gultiges BIld gefinden in - </value>
+  </data>
+  <data name="Page_Tools_Icon_Image_MouseDown_ThatWasNotAProperPNG" xml:space="preserve">
+    <value>Das war kein richtiges PNG</value>
+  </data>
+  <data name="Page_Tools_ProcessSkin_ItemNotSet" xml:space="preserve">
+    <value>Item nicht gesetzt!</value>
+  </data>
+  <data name="Page_Tools_ProcessSkin_OutputPathIsNotSet" xml:space="preserve">
+    <value>Output pfad ist nicht eingestellt!</value>
+  </data>
+  <data name="Page_Tools_ProcessSkin_MapsAreNotSet" xml:space="preserve">
+    <value>Maps sind nicht festgelegt!</value>
+  </data>
+  <data name="Page_Tools_ProcessSkin_GeneratedTheSkinSuccessfully" xml:space="preserve">
+    <value>Der Skin wurde erfolgreich generiert!</value>
+  </data>
+  <data name="Page_Home_MasterServer" xml:space="preserve">
+    <value>Master Server</value>
+  </data>
+  <data name="Page_Home_OpenTitanfall2Folder" xml:space="preserve">
+    <value>Titanfall 2 Ordner öffnen</value>
+  </data>
+  <data name="Page_Server_OnKeyDownHandler_Dedi_Arg_Saved" xml:space="preserve">
+    <value>Gespeichert</value>
+  </data>
+  <data name="Page_Server_Launch_Northstar_Dedicated_Click_CouldNotFindDedicatedBat" xml:space="preserve">
+    <value>Die Dedicated bat konte nicht gefunden werden!</value>
+  </data>
+  <data name="Page_Server_OnKeyDownHandler_Dedi_Arg_AutoSaveFailed" xml:space="preserve">
+    <value>Auto Speichern fehlgeschlagen</value>
+  </data>
+  <data name="Page_Server_Validate_Combo_Box_CannotReadInput" xml:space="preserve">
+    <value>Input konnte nicht gelesen werden</value>
+  </data>
+  <data name="Page_Server_Launch_Northstar_Advanced_Click_CouldNotFindNorthstarExe" xml:space="preserve">
+    <value>Die Northstar.exe konnte nicht gefunden werden!</value>
+  </data>
+  <data name="Page_Server_StartupArgumentsNorthstarDedicatedClient" xml:space="preserve">
+    <value>Startup-Argumente Northstar Dedicated Client</value>
+  </data>
+  <data name="Page_Home_ToggleChecking" xml:space="preserve">
+    <value>Toggle Überprüfung</value>
+  </data>
+  <data name="Page_Home_ShowsThePingLatencyOverTime" xml:space="preserve">
+    <value>Zeigt die Ping+Latenz über die Zeit an</value>
+  </data>
+  <data name="Page_Home_LocateTitanfall2Install" xml:space="preserve">
+    <value>Titanfall 2 installation suchen</value>
+  </data>
+  <data name="Page_Home_ManuallyChangeTheTitanfall2InstallDirectory" xml:space="preserve">
+    <value>Manuelles Ändern des Titanfall 2 Installationsverzeichnisses</value>
+  </data>
+  <data name="Page_Home_UpdateNorthstar" xml:space="preserve">
+    <value>Update Northstar</value>
+  </data>
+  <data name="Page_Home_LaunchTitanfall2Northstar" xml:space="preserve">
+    <value>Titanfall 2 Northstar starten</value>
+  </data>
+  <data name="Page_Server_LoadFiles" xml:space="preserve">
+    <value>Datei laden</value>
+  </data>
+  <data name="Page_Server_ImportServerConfig" xml:space="preserve">
+    <value>Import Server Config</value>
+  </data>
+  <data name="Page_Server_ConfigureImportAndExportDedicatedServerAndClientSettings" xml:space="preserve">
+    <value>Konfiguration, Import und Export dedizierte Server und Client Einstellung</value>
+  </data>
+  <data name="Page_Server_SERVER" xml:space="preserve">
+    <value>SERVER</value>
+  </data>
+  <data name="Page_Server_ExportServerConfig" xml:space="preserve">
+    <value>Export Server Konfig</value>
+  </data>
+  <data name="Page_Home_Install_NS_METHOD_SequenceContainsNoElements" xml:space="preserve">
+    <value>Sequenz enthält keine Elemente</value>
+  </data>
+  <data name="MainWindow_MainWindow_VTOLSYSTEMSFAILEDTOFINDYOURDOCUMENTSFOLDER" xml:space="preserve">
+    <value>VTOL SYSTEMS KONNTE IHREN DOKUMENTENORDNER NICHT FINDEN</value>
+  </data>
+  <data name="Page_Mods_RightClickForContextMenu" xml:space="preserve">
+    <value>Rechtsklick für Kontextmenü</value>
+  </data>
+  <data name="Page_Mods_ListedHereAreTheModsThatAreCurrentlyInstalled" xml:space="preserve">
+    <value>Hier sind die Mods aufgelistet, die derzeit installiert sind.</value>
+  </data>
+  <data name="Page_About_AboutVTOLAndDocumentationOnItsUse" xml:space="preserve">
+    <value>Über VTOL und Dokumentation über seine Verwendung.</value>
+  </data>
+  <data name="Page_About_ABOUT" xml:space="preserve">
+    <value>ÜBER</value>
+  </data>
+  <data name="Page_About_CheckForUpdate" xml:space="preserve">
+    <value>Auf Update prüfen</value>
+  </data>
+  <data name="Page_About_ConfigureUpdates" xml:space="preserve">
+    <value>Updates konfigurieren</value>
+  </data>
+  <data name="Page_About_DefualtTextboxText" xml:space="preserve">
+    <value>Standart Textbox Text</value>
+  </data>
+  <data name="Page_Settings_SETTINGS" xml:space="preserve">
+    <value>EINSTELLUNGEN</value>
+  </data>
+  <data name="Page_Skins_InstallDDSForamttedSkinsHere" xml:space="preserve">
+    <value>Installieren Sie DDS Foramtted Skins hier</value>
+  </data>
+  <data name="Page_Skins_SKINS" xml:space="preserve">
+    <value>SKINS</value>
+  </data>
+  <data name="Page_Skins_OpenTheFAQPage" xml:space="preserve">
+    <value>DIe FAQ-Seite öffnen</value>
+  </data>
+  <data name="Page_Skins_Browse" xml:space="preserve">
+    <value>Browse</value>
+  </data>
+  <data name="Page_Thunderstore_THUNDERSTORE" xml:space="preserve">
+    <value>THUNDERSTORE</value>
+  </data>
+  <data name="Page_Tools_ToolsForEaseOfDevelopmentOnTheNorthstarClient" xml:space="preserve">
+    <value>Tools für eine einfache Entwicklung auf dem Northstar-Client</value>
+  </data>
+  <data name="Page_Tools_TOOLS" xml:space="preserve">
+    <value>WERKZEUGE</value>
+  </data>
+  <data name="Page_Home_OriginClientRunning" xml:space="preserve">
+    <value>Origin-Client läuft</value>
+  </data>
+  <data name="Page_Tools_Content" xml:space="preserve">
+    <value>Inhalt</value>
+  </data>
+  <data name="Page_Tools_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Page_Tools_Version" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="Page_Tools_Webpage" xml:space="preserve">
+    <value>Webseite</value>
+  </data>
+  <data name="Page_Tools_Description" xml:space="preserve">
+    <value>Beschreibung</value>
+  </data>
+  <data name="Page_Tools_Dependencies" xml:space="preserve">
+    <value>Abhängigkeiten</value>
+  </data>
+  <data name="Page_Tools_OutputDirectory" xml:space="preserve">
+    <value>Output Verzeichnis</value>
+  </data>
+  <data name="Page_Tools_Icon" xml:space="preserve">
+    <value>Icon</value>
+  </data>
+  <data name="Page_Tools_Item" xml:space="preserve">
+    <value>Item</value>
+  </data>
+  <data name="Page_Tools_LocateSkinContent" xml:space="preserve">
+    <value>Skin Content lokalisieren</value>
+  </data>
+  <data name="Page_Tools_TestReadmeText" xml:space="preserve">
+    <value>Test Readme Text</value>
+  </data>
+  <data name="Page_Tools_VersionNumber" xml:space="preserve">
+    <value>Versionsnummer</value>
+  </data>
+  <data name="Page_Tools_AuthorName" xml:space="preserve">
+    <value>Name des Autors</value>
+  </data>
+  <data name="Page_Tools_SkinName" xml:space="preserve">
+    <value>Skin Name</value>
+  </data>
+  <data name="Page_Tools_Locate_Repak_Exe" xml:space="preserve">
+    <value>Ortung_Repak_Exe</value>
+  </data>
+  <data name="Page_Mods_Call_Mods_From_Folder_ThereIsAnIssueDetectedWithYourMod" xml:space="preserve">
+    <value>Es wurde ein Problem mit Ihrem Mod erkannt!</value>
+  </data>
+  <data name="Page_Mods_Call_Mods_From_Folder_ModCount" xml:space="preserve">
+    <value>Mod-Anzahl: </value>
+  </data>
+  <data name="Page_Home_CurrentTitanfall2Path" xml:space="preserve">
+    <value>Aktueller Titanfall 2 Pfad</value>
+  </data>
+  <data name="Page_Tools_PackageAsADDSSkin" xml:space="preserve">
+    <value>Paket als DDS-Skin?</value>
+  </data>
+  <data name="Page_Server_Load_Files__ReloadArguments" xml:space="preserve">
+    <value>Argumente neu laden</value>
+  </data>
+  <data name="Page_Skins_MakingYourOwnSkin" xml:space="preserve">
+    <value>Make your Own Skin</value>
+  </data>
+  <data name="Page_Tools_OutputAsAThunderstoreMod" xml:space="preserve">
+    <value>Output als Thunderstore-Mod</value>
+  </data>
+  <data name="Page_Tools_CreateSkin" xml:space="preserve">
+    <value>Skin erstellen</value>
+  </data>
+  <data name="Page_Tools_ConvertSkin" xml:space="preserve">
+    <value>Skin umwandeln</value>
+  </data>
+  <data name="Page_Tools_LocateTheModZipManually" xml:space="preserve">
+    <value>Suchen Sie die Mod-Zip-Datei manuell</value>
+  </data>
+  <data name="Page_Tools_LocateRepakExe" xml:space="preserve">
+    <value>Repak Exe lokalisieren</value>
+  </data>
+  <data name="Page_Tools_ChooseYourItem" xml:space="preserve">
+    <value>Wählen Sie Ihr Item</value>
+  </data>
+  <data name="Page_Server_StartupArgumentsNorthstarClient" xml:space="preserve">
+    <value>Startargumente Northstar Client</value>
+  </data>
+  <data name="MainWindow_Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="MainWindow_Mods" xml:space="preserve">
+    <value>Mods</value>
+  </data>
+  <data name="MainWindow_Skins" xml:space="preserve">
+    <value>Skins</value>
+  </data>
+  <data name="MainWindow_Server" xml:space="preserve">
+    <value>Server</value>
+  </data>
+  <data name="MainWindow_Tools" xml:space="preserve">
+    <value>Werkzeuge</value>
+  </data>
+  <data name="MainWindow_About" xml:space="preserve">
+    <value>Über</value>
+  </data>
+  <data name="Page_Mods_Open_Mod_Info_OpenFolder" xml:space="preserve">
+    <value>Öffne Ordner</value>
+  </data>
+  <data name="Page_Tools_Check_For_Tools_Launch" xml:space="preserve">
+    <value>Starten</value>
+  </data>
+  <data name="Page_Tools_LaunchArguments" xml:space="preserve">
+    <value>Startargumente</value>
+  </data>
+  <data name="MainWindow_Settings" xml:space="preserve">
+    <value>Einstellungen</value>
+  </data>
+  <data name="Page_Tools_WebPage_" xml:space="preserve">
+    <value>Webseite</value>
+  </data>
+  <data name="Page_Tools_Check_For_Tools_Install" xml:space="preserve">
+    <value>Installieren</value>
+  </data>
+  <data name="Page_Tools_Download_Zip_To_Path_DownloadingAndInstalling" xml:space="preserve">
+    <value>Herunterladen und Installieren </value>
+  </data>
+  <data name="Page_Tools_Locate_Repak_Exe_Click_ExeLocated" xml:space="preserve">
+    <value>Exe gefunden!</value>
+  </data>
+  <data name="Page_Thunderstore_Sort" xml:space="preserve">
+    <value>Sortieren</value>
+  </data>
+  <data name="Page_Thunderstore_Category" xml:space="preserve">
+    <value>Kategorie</value>
+  </data>
+  <data name="Page_Mods_Info" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="Page_Mods_Delete" xml:space="preserve">
+    <value>Löschen</value>
+  </data>
+  <data name="Page_Mods_Call_Mods_From_Folder_Enable" xml:space="preserve">
+    <value>Aktiviert</value>
+  </data>
+  <data name="Page_Mods_Call_Mods_From_Folder_Disable_" xml:space="preserve">
+    <value>Deaktiviert</value>
+  </data>
+  <data name="Page_Tools_LocateModContent" xml:space="preserve">
+    <value>Mod-Inhalt finden</value>
+  </data>
+  <data name="Unpack_To_Location_TheFile" xml:space="preserve">
+    <value>Die Datei - </value>
+  </data>
+  <data name="Page_Home_Browse_Titanfall_Button_Click_TheLocation" xml:space="preserve">
+    <value>Der Standort - </value>
+  </data>
+  <data name="Page_Server_Read_Convar_args_CannotSetThePath" xml:space="preserve">
+    <value>Pfad konnte nicht gesetzt werden</value>
+  </data>
+  <data name="Browse_Titanfall_Button_Click_TheLocation" xml:space="preserve">
+    <value>Der Standort - </value>
+  </data>
+  <data name="Page_Home_Browse_Titanfall_Button_Click_IsNotValid" xml:space="preserve">
+    <value> Ist nicht gültig</value>
+  </data>
+  <data name="Page_Home_LaunchNorthstar" xml:space="preserve">
+    <value>Start +Northstar</value>
+  </data>
+  <data name="MainWindow_NewLogChangesHaveBeenDetectedPleaseClickMeToOpenYourLogsFolder" xml:space="preserve">
+    <value>Es wurden neue Logänderung festgestellt, bitte klicken Sie auf mich, um Ihren Logsordner zu öffnen.</value>
+  </data>
+  <data name="Page_Server_Export_Server_Config_Click_PleaseRecheckYourSaveLocation" xml:space="preserve">
+    <value> Bitte überprüfen Sie Ihren Speicherort erneut</value>
+  </data>
+  <data name="Page_Settings_Settings_LostFocus_AChangeInLanguageWasDetectedNVTOLRequiresARestartToDisplayTheseChangesNWouldYouLikeToRestartNow" xml:space="preserve">
+    <value>@Eine Änderung in der Sprache wurde erkannt @VTOL erfordert einen Neustart, um diese Änderungen anzuzeigen. @Wollen Sie jetzt neu starten?.</value>
+  </data>
+  <data name="Page_Settings_Settings_LostFocus_Restart" xml:space="preserve">
+    <value>Neustart</value>
+  </data>
+  <data name="Page_Settings_Settings_LostFocus_LanguageChangeDetected" xml:space="preserve">
+    <value>-Sprachänderung erkannt-</value>
+  </data>
+  <data name="Page_Profiles_ImportProfile" xml:space="preserve">
+    <value>Import Profil</value>
+  </data>
+  <data name="Page_Home_Install_NS_METHOD_GitHubRateLimitForDownloadTriesHasBeenExceededError403FromRemoteServerPleaseWait" xml:space="preserve">
+    <value>GitHub Ratenlimit für Download-Versuche wurde überschritten. Fehler 403 vom Remote-Server. Bitte warten</value>
+  </data>
+  <data name="Page_Profiles_NameOfProfile" xml:space="preserve">
+    <value>Name des Profils</value>
+  </data>
+  <data name="Page_Profiles_SaveLocation" xml:space="preserve">
+    <value>Pfad speichern</value>
+  </data>
+  <data name="Page_Profiles_PROFILES" xml:space="preserve">
+    <value>PROFILE</value>
+  </data>
+  <data name="Page_Home_INIT_ReInstallNorthstar" xml:space="preserve">
+    <value>Northstar neu installieren</value>
+  </data>
+  <data name="Page_Thunderstore_ConvertDateToString_HoursAgo" xml:space="preserve">
+    <value>Stunden zuvor</value>
+  </data>
+  <data name="Page_Thunderstore_ConvertDateToString_DaysAgo" xml:space="preserve">
+    <value>Tage zuvor</value>
+  </data>
+  <data name="Page_Thunderstore_ConvertDateToString_MinutesAgo" xml:space="preserve">
+    <value>Minuten zuvor</value>
+  </data>
+  <data name="Page_Thunderstore_ConvertDateToString_1WeekAgo" xml:space="preserve">
+    <value>vor 1 Woche</value>
+  </data>
+  <data name="Page_Thunderstore_ConvertDateToString_Yesterday" xml:space="preserve">
+    <value>Gestern</value>
+  </data>
+  <data name="Page_Thunderstore_ConvertDateToString_Today" xml:space="preserve">
+    <value> Heute</value>
+  </data>
+  <data name="Page_Profiles_IMPORT" xml:space="preserve">
+    <value>IMPORT</value>
+  </data>
+  <data name="Page_Profiles_AddProfile" xml:space="preserve">
+    <value>Profil hinzufügen</value>
+  </data>
+  <data name="Page_Profiles_ChangeTheEntireApplicationByImportingOrExportingProfiles" xml:space="preserve">
+    <value>Ändern Sie die gesamte Anwendung durch Importieren oder Exportieren von Profilen</value>
+  </data>
+  <data name="Page_Home_Origin_Client_Card_Click_TheEAClientIsAlreadyRunning" xml:space="preserve">
+    <value>Der EA Client läuft bereits</value>
+  </data>
+  <data name="Page_Home_Page_Home_EAClientRunning" xml:space="preserve">
+    <value>EA Client läuft</value>
+  </data>
+  <data name="MainWindow_Profiles" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="Page_Profiles_ExcludeModFolderOnImport" xml:space="preserve">
+    <value>Mod Ordner beim Import ausschließen</value>
+  </data>
+  <data name="Page_Profiles_BackupCurrentProfileOnImport" xml:space="preserve">
+    <value>Aktuelles Profil beim Import sichern</value>
+  </data>
+  <data name="Page_Profiles_ExcludeModFolder" xml:space="preserve">
+    <value>Mod-Ordner ausschließen</value>
+  </data>
+  <data name="Page_Profiles_ChangeSaveLocation" xml:space="preserve">
+    <value>Speicherort ändern</value>
+  </data>
+  <data name="Page_Profiles_ExportProfile" xml:space="preserve">
+    <value>Profil exportieren</value>
+  </data>
+  <data name="Page_Home_Check_For_New_Northstar_Install_With_Notif_ThereIsANewNorthstarVersionAvailablePleaseUpdateYourNorthstarInstall" xml:space="preserve">
+    <value>Es ist eine neue Northstar-Version verfügbar. Bitte updaten Sie Ihre Northstar-Installation.</value>
+  </data>
+  <data name="MODSIZEONDISK" xml:space="preserve">
+    <value>MOD-GRÖSSE AUF DER FESTPLATTE</value>
+  </data>
+  <data name="VERSION" xml:space="preserve">
+    <value>VERSION</value>
+  </data>
+  <data name="PATH" xml:space="preserve">
+    <value>PATH</value>
+  </data>
+  <data name="MODINFO" xml:space="preserve">
+    <value>MOD INFO</value>
+  </data>
+  <data name="CAUTION" xml:space="preserve">
+    <value>ACHTUNG</value>
+  </data>
+  <data name="WARNING" xml:space="preserve">
+    <value> "WARNUNG</value>
+  </data>
+  <data name="REQUIRES" xml:space="preserve">
+    <value>ERFORDERLICH - </value>
+  </data>
+  <data name="HasBeenDeleted" xml:space="preserve">
+    <value> wurde gelöscht</value>
+  </data>
+  <data name="CouldNotBeDeleted" xml:space="preserve">
+    <value> Kann nicht gelöscht werden</value>
+  </data>
+  <data name="TheModAt" xml:space="preserve">
+    <value>Der Mod bei </value>
+  </data>
+  <data name="ERROR" xml:space="preserve">
+    <value> FEHLER</value>
+  </data>
+  <data name="SUCCESS" xml:space="preserve">
+    <value>ERFOLG</value>
+  </data>
+  <data name="DEPENDENCYLIST" xml:space="preserve">
+    <value>ABHÄNGIGKEITSLISTE</value>
+  </data>
+  <data name="MODNAME" xml:space="preserve">
+    <value>MOD NAME</value>
+  </data>
+  <data name="NAME" xml:space="preserve">
+    <value>NAME</value>
+  </data>
+  <data name="MANIFESTFILENOTFOUND" xml:space="preserve">
+    <value>MANIFESTDATEI NICHT GEFUNDEN</value>
+  </data>
+  <data name="MANIFESTFILENOTFOUND_" xml:space="preserve">
+    <value>MANIFESTDATEI NICHT GEFUNDEN </value>
+  </data>
+  <data name="MANIFEST_FILE_NOT_FOUND" xml:space="preserve">
+    <value>MANIFEST DATEI NICHT GEFUNDEN</value>
+  </data>
+  <data name="YouHaveInstalledModSettingsModSettingsHasBeenDepreceatedAndWillCauseErrorsNDeleteItNow" xml:space="preserve">
+    <value> "Sie haben Mod Settings installiert, Mod Settings wurde gelöscht und wird Fehler verursachen. \nLöschen Sie sie jetzt?</value>
+  </data>
+  <data name="PARENTOF" xml:space="preserve">
+    <value>PARENT OF - </value>
+  </data>
+  <data name="PARENTTO" xml:space="preserve">
+    <value>PARENT TO -</value>
+  </data>
+  <data name="DESCRIPTION" xml:space="preserve">
+    <value>BESCHREIBUNG</value>
+  </data>
+  <data name="Page_Skins_Install_Skin_From_Path_TheSkin" xml:space="preserve">
+    <value>Der Skin -</value>
+  </data>
+  <data name="Read_Latest_Release_InvalidReleaseDonwloadURL" xml:space="preserve">
+    <value>Ungültige Download-URL für die Release Version!</value>
+  </data>
+  <data name="Check_For_New_Northstar_Install_ReleaseCandidateDetected" xml:space="preserve">
+    <value>Release Kanidat gefunden</value>
+  </data>
+  <data name="Page_Tools_Locate_Zip_Click_ValidZipFound" xml:space="preserve">
+    <value>Passende Zip gefunden</value>
+  </data>
+  <data name="Page_Home_WelcomeTo" xml:space="preserve">
+    <value>Willkommen zu</value>
+  </data>
+  <data name="Page_Home_CustomModdingAndServerFramework" xml:space="preserve">
+    <value>Custom Modding und Server Framework</value>
+  </data>
+  <data name="Page_Mods_MODS" xml:space="preserve">
+    <value>MODS</value>
+  </data>
+  <data name="Page_Mods_Filter" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="Page_Home_Unpack_To_Location_WasNotFound" xml:space="preserve">
+    <value> Wurde nicht gefunden!</value>
+  </data>
+  <data name="Page_Skins_Drag_Drop_Area_Drop_DragToInstall" xml:space="preserve">
+    <value>Zum Installieren hereinziehen</value>
+  </data>
+  <data name="Page_Home_Auto_Install__NORTHSTARISNOTINSTALLEDANDAUTOINSTALLFAILED" xml:space="preserve">
+    <value>NORTHSTAR IST NICHT INSTALLIERT UND DIE AUTOMATISCHE INSTALLATION IST FEHLGESCHLAGEN!</value>
+  </data>
+  <data name="Page_Home_Browse_Titanfall_Button_Click_IsValidAndHasBeenSet" xml:space="preserve">
+    <value>  ist gültig und wurde gesetzt</value>
+  </data>
+  <data name="Page_Skins_Browse_Click_CompatibleSkinFoundAt" xml:space="preserve">
+    <value>Kompatibler Skin Gefunden bei: </value>
+  </data>
+  <data name="Page_Home_Run_Origin_CouldNotFindEAOriginInstallPleaseStartManuallyOrRepairYourInstallation" xml:space="preserve">
+    <value> EA Origin Installation konnte nicht gefunden werden, bitte starten Sie manuell, oder reparieren Sie Ihre Installation!</value>
+  </data>
+  <data name="Page_Server_LaunchNorthstarDedicatedServer" xml:space="preserve">
+    <value>Northstar dedizierte Server starten</value>
+  </data>
+  <data name="Page_Tools_Icon_Image_MouseDown_InvalidImageSizeMustBe256x256" xml:space="preserve">
+    <value>Ungültige Bildgröße!. Muss 256x256 sein</value>
+  </data>
+  <data name="Page_Tools_create_Manifest_OneOfTheManifestInputsAreEmpty" xml:space="preserve">
+    <value> Einer der Manifest-Eingänge ist leer</value>
+  </data>
+  <data name="Page_Thunderstore_Unpack_To_Location_Custom_HasBeenDownloadedAndInstalled" xml:space="preserve">
+    <value> wurde heruntergeladen und installiert</value>
+  </data>
+  <data name="Page_Tools_Image_Icon_Drop_InvalidImageSizeMustBeSmallerThan2048X2048" xml:space="preserve">
+    <value>Ungültige Bildgröße!. Muss kleiner als 2048 x 2048 sein</value>
+  </data>
+  <data name="Page_Home_IndicatesIfOriginIsRunningClickToLaunchIfInactive" xml:space="preserve">
+    <value>Zeigt an, ob Origin ausgeführt wird (Klicken Sie zum Starten, wenn es inaktiv ist)</value>
+  </data>
+  <data name="Page_Home_NorthstarInstallation" xml:space="preserve">
+    <value>Northstar Installation </value>
+  </data>
+  <data name="Page_Server_LaunchNorthstarDedicatedClient" xml:space="preserve">
+    <value>Northstar Dedicated Client starten</value>
+  </data>
+  <data name="Page_Server_LaunchNorthstarClient" xml:space="preserve">
+    <value>Northstar Client starten</value>
+  </data>
+  <data name="Page_Settings_FineTuneAndConfigureVTOLHere" xml:space="preserve">
+    <value>Feinabstimmung und Konfiguration von VTOL hier</value>
+  </data>
+  <data name="Page_Skins_InstallSkin" xml:space="preserve">
+    <value>Skin installieren</value>
+  </data>
+  <data name="Page_Skins_OpenAGuidePage" xml:space="preserve">
+    <value>Öffnen Sie eine Anleitungsseite</value>
+  </data>
+  <data name="Page_Thunderstore_TheseAreTheCollectionOfModsHostedOnTheThunderStoreModPlatform" xml:space="preserve">
+    <value>Das eine Sammlung von Mods, die auf der ThunderStore Mod-Plattform gehostet werden.</value>
+  </data>
+  <data name="Page_Tools_DragAndDropOrClickToPopulateTheMaps" xml:space="preserve">
+    <value>Drag and Drop oder Klicken zum Ausfüllen der Maps</value>
+  </data>
+  <data name="Page_Mods_Call_Mods_From_Folder_PleaseOpenYourFolderAt" xml:space="preserve">
+    <value>Bitte öffnen Sie Ihren Ordner unter - </value>
+  </data>
+  <data name="Page_Mods_Call_Mods_From_Folder_AndManuallyRepairTheMod" xml:space="preserve">
+    <value> und die Mod manuell reparieren - </value>
+  </data>
+  <data name="Page_Home_INIT_InvalidInstallPathPleaseManuallyLocateTheCorrectFolder" xml:space="preserve">
+    <value>Ungültiger Installationspfad, bitte suchen Sie manuell den richtigen Ordner!</value>
+  </data>
+  <data name="Page_Thunderstore_CardAction_Click_DoYouWantToInstallTheseAndTheMod" xml:space="preserve">
+    <value>Möchten Sie diese und den Mod installieren -</value>
+  </data>
+  <data name="Page_Tools_OpenFolder" xml:space="preserve">
+    <value>Ordner öffnen</value>
+  </data>
+  <data name="Page_Mods_ReverseFilterOrder" xml:space="preserve">
+    <value>Umgekehrte Filterreihenfolge</value>
+  </data>
 </root>

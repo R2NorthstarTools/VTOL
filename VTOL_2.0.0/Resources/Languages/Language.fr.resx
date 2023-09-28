@@ -127,7 +127,7 @@
     <value>Le skin -</value>
   </data>
   <data name="Page_Skins_Install_Skin_From_Path_HasBeenInstalled" xml:space="preserve">
-    <value>- a été installé</value>
+    <value>- a été installé !</value>
   </data>
   <data name="Page_Skins_Drag_Drop_Area_Drop_IsNotASkinZip" xml:space="preserve">
     <value>n'est pas un fichier zip de skin ! </value>
@@ -139,10 +139,10 @@
     <value>Skin(s) compatible(s) trouvé(s) : </value>
   </data>
   <data name="Page_Skins_Browse_Click_CompatibleSkinFoundAt" xml:space="preserve">
-    <value>Skin compatible trouvé à : </value>
+    <value>Skin(s) compatible(s) trouvé(s) : </value>
   </data>
   <data name="Page_Skins_Browse_Click_IsNotASkinZip" xml:space="preserve">
-    <value>n'est pas un fichier zip de skin !</value>
+    <value> - n'est pas un fichier zip de skin !</value>
   </data>
   <data name="Page_Skins_OPEN_WEBPAGE_OpeningTheFollowingURL" xml:space="preserve">
     <value>Ouverture de l'URL suivante - </value>
@@ -157,19 +157,19 @@
     <value>Trop de vérifications infructueuses du serveur maître. Désactivations des vérifications du serveur maître</value>
   </data>
   <data name="Page_Home_Origin_Client_Card_Click_TheOriginClientIsAlreadyRunning" xml:space="preserve">
-    <value>Le client Origin est déjà en cours d'exécution!</value>
+    <value>Le client Origin est déjà en cours d'exécution !</value>
   </data>
   <data name="Page_Home_Browse_Titanfall_Button_Click_IsValidAndHasBeenSet" xml:space="preserve">
     <value>est valide et a été appliqué</value>
   </data>
   <data name="Page_Home_Browse_Titanfall_Button_Click_TheLocation" xml:space="preserve">
-    <value>L'emplacement - ' </value>
+    <value>L'emplacement - </value>
   </data>
   <data name="Page_Home_Browse_Titanfall_Button_Click_IsNotValid" xml:space="preserve">
-    <value>n'est pas valide</value>
+    <value> n'est pas valide</value>
   </data>
   <data name="Browse_Titanfall_Button_Click_TheLocation" xml:space="preserve">
-    <value>L'emplacement - ' </value>
+    <value>L'emplacement - </value>
   </data>
   <data name="Check_Integrity_Of_NSINSTALL_DirectoryCheckFailed" xml:space="preserve">
     <value>La vérification du dossier a échoué</value>
@@ -196,7 +196,7 @@
     <value>n'a pas été trouvé !</value>
   </data>
   <data name="Page_Home_Unpack_To_Location_WasNotFound" xml:space="preserve">
-    <value>n'a pas été trouvé !</value>
+    <value> n'a pas été trouvé !</value>
   </data>
   <data name="Page_Home_Unpack_To_Location_TheFile" xml:space="preserve">
     <value>Le fichier - </value>
@@ -498,10 +498,10 @@
     <value>Fabriquer sa propre peau</value>
   </data>
   <data name="Page_Tools_ConvertSkin" xml:space="preserve">
-    <value>Convertir la peau</value>
+    <value>Convertir le skin</value>
   </data>
   <data name="Page_Tools_CreateSkin" xml:space="preserve">
-    <value>Créer une peau</value>
+    <value>Créer un skin</value>
   </data>
   <data name="Page_Tools_LocateRepakExe" xml:space="preserve">
     <value>Localiser Repak Exe</value>
@@ -529,5 +529,221 @@
   </data>
   <data name="Page_Tools_LocateModContent" xml:space="preserve">
     <value>Localiser le contenu du mod</value>
+  </data>
+  <data name="MainWindow_Home" xml:space="preserve">
+    <value>Accueil</value>
+  </data>
+  <data name="MainWindow_Skins" xml:space="preserve">
+    <value>Skins</value>
+  </data>
+  <data name="MainWindow_Server" xml:space="preserve">
+    <value>Serveur</value>
+  </data>
+  <data name="MainWindow_Tools" xml:space="preserve">
+    <value>Outils</value>
+  </data>
+  <data name="MainWindow_About" xml:space="preserve">
+    <value>À Propos</value>
+  </data>
+  <data name="MainWindow_Settings" xml:space="preserve">
+    <value>Paramètres</value>
+  </data>
+  <data name="Page_Tools_OpenFolder" xml:space="preserve">
+    <value>Ouvrir le dossier</value>
+  </data>
+  <data name="Page_Tools_WebPage_" xml:space="preserve">
+    <value>Page web</value>
+  </data>
+  <data name="Page_Tools_Check_For_Tools_Launch" xml:space="preserve">
+    <value>Lancer</value>
+  </data>
+  <data name="Page_Tools_Check_For_Tools_Install" xml:space="preserve">
+    <value>Installer</value>
+  </data>
+  <data name="Page_Tools_Locate_Repak_Exe_Click_ExeLocated" xml:space="preserve">
+    <value>Exe localisé !</value>
+  </data>
+  <data name="Page_Tools_LaunchArguments" xml:space="preserve">
+    <value>Arguments de lancement</value>
+  </data>
+  <data name="Page_Mods_ReverseFilterOrder" xml:space="preserve">
+    <value>Inverser l'ordre du filtre(s)</value>
+  </data>
+  <data name="Page_Thunderstore_Sort" xml:space="preserve">
+    <value>Trier</value>
+  </data>
+  <data name="Page_Thunderstore_Category" xml:space="preserve">
+    <value>Catégorie</value>
+  </data>
+  <data name="Page_Mods_Info" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="Page_Mods_Delete" xml:space="preserve">
+    <value>Supprimer</value>
+  </data>
+  <data name="Page_Mods_Open_Mod_Info_OpenFolder" xml:space="preserve">
+    <value>Ouvrir le dossier</value>
+  </data>
+  <data name="Page_Server_Export_Server_Config_Click_PleaseRecheckYourSaveLocation" xml:space="preserve">
+    <value> Verifiez votre emplacement de sauvegarde</value>
+  </data>
+  <data name="Page_Settings_Settings_LostFocus_AChangeInLanguageWasDetectedNVTOLRequiresARestartToDisplayTheseChangesNWouldYouLikeToRestartNow" xml:space="preserve">
+    <value>@Un changement de language a été detecté, @VTOL doit redémarrer pour que les changements puissent avoir effet. @Voulez vous redémarrer maintenant ?</value>
+  </data>
+  <data name="Page_Settings_Settings_LostFocus_Restart" xml:space="preserve">
+    <value>Redémarrer</value>
+  </data>
+  <data name="Page_Settings_Settings_LostFocus_LanguageChangeDetected" xml:space="preserve">
+    <value>-Changement de language détecté-</value>
+  </data>
+  <data name="MainWindow_Profiles" xml:space="preserve">
+    <value>Profils</value>
+  </data>
+  <data name="Page_Profiles_ImportProfile" xml:space="preserve">
+    <value>Importer le profil</value>
+  </data>
+  <data name="Page_Profiles_ExcludeModFolderOnImport" xml:space="preserve">
+    <value>Exclure le dossier des mods lors de l'importation</value>
+  </data>
+  <data name="Page_Profiles_BackupCurrentProfileOnImport" xml:space="preserve">
+    <value>Sauvegarder le profil actuel lors de l'importation</value>
+  </data>
+  <data name="Page_Profiles_ExcludeModFolder" xml:space="preserve">
+    <value>Exclure le dossier des mods</value>
+  </data>
+  <data name="Page_Profiles_ChangeSaveLocation" xml:space="preserve">
+    <value>Changer l'emplacement de sauvegarde</value>
+  </data>
+  <data name="Page_Profiles_ExportProfile" xml:space="preserve">
+    <value>Exporter le profil</value>
+  </data>
+  <data name="Page_Profiles_IMPORT" xml:space="preserve">
+    <value>IMPORTER</value>
+  </data>
+  <data name="Page_Profiles_ChangeTheEntireApplicationByImportingOrExportingProfiles" xml:space="preserve">
+    <value>Changer l'entièreté de l'application en important ou exportant des profils</value>
+  </data>
+  <data name="Page_Profiles_PROFILES" xml:space="preserve">
+    <value>PROFILS</value>
+  </data>
+  <data name="Page_Profiles_SaveLocation" xml:space="preserve">
+    <value>Emplacement de sauvegarde</value>
+  </data>
+  <data name="Page_Profiles_NameOfProfile" xml:space="preserve">
+    <value>Nom du profil</value>
+  </data>
+  <data name="Page_Thunderstore_ConvertDateToString_Today" xml:space="preserve">
+    <value> Aujourd'hui</value>
+  </data>
+  <data name="Page_Thunderstore_ConvertDateToString_Yesterday" xml:space="preserve">
+    <value>Hier</value>
+  </data>
+  <data name="Page_Thunderstore_ConvertDateToString_1WeekAgo" xml:space="preserve">
+    <value>Il y a 1 semaine</value>
+  </data>
+  <data name="Page_Thunderstore_ConvertDateToString_HoursAgo" xml:space="preserve">
+    <value>Il y a quelques heures</value>
+  </data>
+  <data name="Page_Thunderstore_ConvertDateToString_DaysAgo" xml:space="preserve">
+    <value>Il y a quelques jours</value>
+  </data>
+  <data name="Page_Thunderstore_ConvertDateToString_MinutesAgo" xml:space="preserve">
+    <value>Il y a quelques minutes</value>
+  </data>
+  <data name="Page_Home_INIT_ReInstallNorthstar" xml:space="preserve">
+    <value>Re-installer Northstar</value>
+  </data>
+  <data name="Page_Home_Check_For_New_Northstar_Install_With_Notif_ThereIsANewNorthstarVersionAvailablePleaseUpdateYourNorthstarInstall" xml:space="preserve">
+    <value>Il y a une nouvelle version de Northstar Disponible. S'il vous plaît mettez à jour votre installation de Northstar.</value>
+  </data>
+  <data name="Page_Home_Install_NS_METHOD_GitHubRateLimitForDownloadTriesHasBeenExceededError403FromRemoteServerPleaseWait" xml:space="preserve">
+    <value>La limite de requête de GitHub pour les téléchargements a été excédé. Erreur 403 du server. S'il vous plaît attendez.</value>
+  </data>
+  <data name="MODSIZEONDISK" xml:space="preserve">
+    <value>Taille du mod sur le disque</value>
+  </data>
+  <data name="VERSION" xml:space="preserve">
+    <value>VERSION</value>
+  </data>
+  <data name="PATH" xml:space="preserve">
+    <value>CHEMIN</value>
+  </data>
+  <data name="MODINFO" xml:space="preserve">
+    <value>INFO DU MOD</value>
+  </data>
+  <data name="REQUIRES" xml:space="preserve">
+    <value>REQUIERT - </value>
+  </data>
+  <data name="HasBeenDeleted" xml:space="preserve">
+    <value> a été supprimé</value>
+  </data>
+  <data name="CouldNotBeDeleted" xml:space="preserve">
+    <value> N'a pas pu être supprimer</value>
+  </data>
+  <data name="TheModAt" xml:space="preserve">
+    <value>Le mod à </value>
+  </data>
+  <data name="ERROR" xml:space="preserve">
+    <value> ERREUR</value>
+  </data>
+  <data name="SUCCESS" xml:space="preserve">
+    <value>SUCCÈS</value>
+  </data>
+  <data name="CAUTION" xml:space="preserve">
+    <value>ATTENTION</value>
+  </data>
+  <data name="DESCRIPTION" xml:space="preserve">
+    <value>DESCRIPTION</value>
+  </data>
+  <data name="DEPENDENCYLIST" xml:space="preserve">
+    <value>LISTE DE DEPENDANCES</value>
+  </data>
+  <data name="MODNAME" xml:space="preserve">
+    <value>NOM DU MOD</value>
+  </data>
+  <data name="NAME" xml:space="preserve">
+    <value>NOM</value>
+  </data>
+  <data name="MANIFESTFILENOTFOUND" xml:space="preserve">
+    <value>FICHIERS DU MANIFESTE NON TROUVER</value>
+  </data>
+  <data name="MANIFESTFILENOTFOUND_" xml:space="preserve">
+    <value>FICHIERS DU MANIFESTE NON TROUVER </value>
+  </data>
+  <data name="MANIFEST_FILE_NOT_FOUND" xml:space="preserve">
+    <value>FICHIERS DU MANIFESTE NON TROUVER</value>
+  </data>
+  <data name="YouHaveInstalledModSettingsModSettingsHasBeenDepreceatedAndWillCauseErrorsNDeleteItNow" xml:space="preserve">
+    <value> "Vous avez Installer "Mod Settings"!, "Mod Settings" à été déprecié et CAUSERA des Erreurs. \nVoulez vous le supprimer maintenant ?</value>
+  </data>
+  <data name="WARNING" xml:space="preserve">
+    <value> "ATTENTION</value>
+  </data>
+  <data name="PARENTOF" xml:space="preserve">
+    <value>PARENT DE- </value>
+  </data>
+  <data name="PARENTTO" xml:space="preserve">
+    <value>PARENT A-</value>
+  </data>
+  <data name="MainWindow_Mods" xml:space="preserve">
+    <value>Mods</value>
+  </data>
+  <data name="Page_Thunderstore_CardAction_Click_DoYouWantToInstallTheseAndTheMod" xml:space="preserve">
+    <value>Voulez-vous installer ceux-ci et le mod -</value>
+  </data>
+  <data name="Page_Tools_Download_Zip_To_Path_DownloadingAndInstalling" xml:space="preserve">
+    <value>Téléchargement et installation </value>
+  </data>
+  <data name="Page_Home_Page_Home_EAClientRunning" xml:space="preserve">
+    <value>Application EA démarrer</value>
+  </data>
+  <data name="Page_Home_Origin_Client_Card_Click_TheEAClientIsAlreadyRunning" xml:space="preserve">
+    <value>L'application EA est déjà démarrer</value>
+  </data>
+  <data name="Page_Profiles_AddProfile" xml:space="preserve">
+    <value>Ajouter le profil</value>
+  </data>
+  <data name="MainWindow_NewLogChangesHaveBeenDetectedPleaseClickMeToOpenYourLogsFolder" xml:space="preserve">
+    <value>De nouveaux changements ont été détectés dans les journaux, veuillez cliquer sur moi pour ouvrir votre dossier de journaux.</value>
   </data>
 </root>
