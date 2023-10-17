@@ -3804,21 +3804,21 @@ int millisecondsDelay = 150)
             try
             {
                 unpack_flg = false;
-                if (Directory.Exists(Current_Install_Folder + User_Settings_Vars.Profile_Path + @"\mods\Northstar.Client\Locked_Folder"))
+                if (Directory.Exists(Current_Install_Folder + User_Settings_Vars.Profile_Path + @"\packages\Northstar.Client\Locked_Folder"))
                 {
-                    TryDeleteDirectory(Current_Install_Folder + User_Settings_Vars.Profile_Path + @"\mods\Northstar.Client\Locked_Folder", true);
+                    TryDeleteDirectory(Current_Install_Folder + User_Settings_Vars.Profile_Path + @"\packages\Northstar.Client\Locked_Folder", true);
 
                 }
-                if (Directory.Exists(Current_Install_Folder + User_Settings_Vars.Profile_Path + @"\mods\Northstar.Custom\Locked_Folder"))
+                if (Directory.Exists(Current_Install_Folder + User_Settings_Vars.Profile_Path + @"\packages\Northstar.Custom\Locked_Folder"))
                 {
-                    TryDeleteDirectory(Current_Install_Folder + User_Settings_Vars.Profile_Path + @"\mods\Northstar.Custom\Locked_Folder", true);
+                    TryDeleteDirectory(Current_Install_Folder + User_Settings_Vars.Profile_Path + @"\packages\Northstar.Custom\Locked_Folder", true);
 
 
 
                 }
-                if (Directory.Exists(Current_Install_Folder + User_Settings_Vars.Profile_Path + @"\mods\Northstar.CustomServers\Locked_Folder"))
+                if (Directory.Exists(Current_Install_Folder + User_Settings_Vars.Profile_Path + @"\packages\Northstar.CustomServers\Locked_Folder"))
                 {
-                    TryDeleteDirectory(Current_Install_Folder + User_Settings_Vars.Profile_Path + @"\mods\Northstar.CustomServers\Locked_Folder", true);
+                    TryDeleteDirectory(Current_Install_Folder + User_Settings_Vars.Profile_Path + @"\packages\Northstar.CustomServers\Locked_Folder", true);
 
 
                 }
@@ -3894,7 +3894,7 @@ int millisecondsDelay = 150)
 
                                 if (File.Exists(Current_Install_Folder + @"TempCopyFolder\autoexec_ns_server.cfg"))
                                 {
-                                    TryCopyFile(Current_Install_Folder + @"TempCopyFolder\autoexec_ns_server.cfg", Current_Install_Folder + User_Settings_Vars.Profile_Path + @"\mods\Northstar.CustomServers\mod\cfg\autoexec_ns_server.cfg", true);
+                                    TryCopyFile(Current_Install_Folder + @"TempCopyFolder\autoexec_ns_server.cfg", Current_Install_Folder + User_Settings_Vars.Profile_Path + @"\packages\Northstar.CustomServers\mod\cfg\autoexec_ns_server.cfg", true);
                                 }
                                 if (File.Exists(Current_Install_Folder + @"TempCopyFolder\ns_startup_args_dedi.txt"))
                                 {

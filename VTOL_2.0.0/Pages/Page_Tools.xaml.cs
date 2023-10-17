@@ -2196,7 +2196,7 @@ int millisecondsDelay = 300)
         //        ////////////////////////////////////
 
 
-        //       TryCreateDirectory(modTempFolderPath + "\\mods\\" + Mod_Adv_Author_name + "." + Mod_Adv_Skin_Name + "\\paks");
+        //       TryCreateDirectory(modTempFolderPath + "\\packages\\" + Mod_Adv_Author_name + "." + Mod_Adv_Skin_Name + "\\paks");
 
 
         //        /////////////////////
@@ -2338,7 +2338,7 @@ int millisecondsDelay = 300)
 
 
         //        string modJson = string.Format("{{\n\"Name\": \"{0}\",\n\"Description\": \"\",\n\"Version\": \"{1}\",\n\"LoadPriority\": 1,\n\"ConVars\":[],\n\"Scripts\":[],\n\"Localisation\":[]\n}}", Mod_Adv_Author_name + "." + Mod_Adv_Skin_Name, Mod_Adv_Version_Num);
-        //        File.WriteAllText(modTempFolderPath + "\\mods\\" + Mod_Adv_Author_name + "." + Mod_Adv_Skin_Name + "\\mod.json", modJson);
+        //        File.WriteAllText(modTempFolderPath + "\\packages\\" + Mod_Adv_Author_name + "." + Mod_Adv_Skin_Name + "\\mod.json", modJson);
 
 
         //            //////////////////////////////////////////////////////////////////
@@ -2480,7 +2480,7 @@ int millisecondsDelay = 300)
 
 
 
-        //        //    string map = string.Format("{{\n\"name\":\"{0}\",\n\"assetsDir\":\"{1}\",\n\"outputDir\":\"{2}\",\n\"version\": 7,\n\"files\":[\n", Mod_Adv_Skin_Name, (repakTempFolderPath + "\\assets").Replace('\\', '/'), (modTempFolderPath + "\\mods\\" + Mod_Adv_Author_name + "." + Mod_Adv_Skin_Name + "\\paks").Replace('\\', '/'));
+        //        //    string map = string.Format("{{\n\"name\":\"{0}\",\n\"assetsDir\":\"{1}\",\n\"outputDir\":\"{2}\",\n\"version\": 7,\n\"files\":[\n", Mod_Adv_Skin_Name, (repakTempFolderPath + "\\assets").Replace('\\', '/'), (modTempFolderPath + "\\packages\\" + Mod_Adv_Author_name + "." + Mod_Adv_Skin_Name + "\\paks").Replace('\\', '/'));
         //        //// this tracks the textures that we have already added to the json, so we can avoid duplicates in there
         //        //List<string> textures = new();
         //        //bool isFirst = true;
@@ -2573,7 +2573,7 @@ int millisecondsDelay = 300)
 
         //        string rpakjson = string.Format("{{\n\"Preload\":\n{{\n\"{0}\":true\n}}\n}}", Mod_Adv_Skin_Name + ".rpak");
 
-        //        File.WriteAllText(modTempFolderPath + "\\mods\\" + Mod_Adv_Author_name + "." + Mod_Adv_Skin_Name + "\\paks\\rpak.json", rpakjson);
+        //        File.WriteAllText(modTempFolderPath + "\\packages\\" + Mod_Adv_Author_name + "." + Mod_Adv_Skin_Name + "\\paks\\rpak.json", rpakjson);
 
 
         //        ///////////////////

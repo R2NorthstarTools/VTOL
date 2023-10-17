@@ -178,7 +178,7 @@ namespace VTOL.Pages
 		public bool _Completed_Mod_call = false;
 
 		bool Do_Not_save_Mods = false;
-		string[] Folders = new string[] { @"R2Northstar\plugins", @"R2Northstar\mods", @"bin\x64_dedi" };
+		string[] Folders = new string[] { @"R2Northstar\plugins", @"R2Northstar\packages", @"bin\x64_dedi" };
 		string[] Files = new string[] { "Northstar.dll", "NorthstarLauncher.exe", "r2ds.bat", "discord_game_sdk.dll" , "wsock32.dll", "ns_startup_args.txt", "ns_startup_args_dedi.txt", "placeholder_playerdata.pdata", "LEGAL.txt" };
 		bool Skip_Mods = false;
 		bool Backup_Profile_Current = false;
@@ -346,8 +346,8 @@ namespace VTOL.Pages
 						string dataAsString = data.ToString();
 						if (Skip_Mods == true)
 						{
-							data.Folders = data.Folders.Where(folder => !folder.Contains("R2Northstar\\mods")).ToArray();
-							data.Files = data.Files.Where(file => !file.Path.Contains("R2Northstar\\mods")).ToArray();
+							data.Folders = data.Folders.Where(folder => !folder.Contains("R2Northstar\\packages")).ToArray();
+							data.Files = data.Files.Where(file => !file.Path.Contains("R2Northstar\\packages")).ToArray();
 
 						}
 						if(Backup_Profile_Current == true)
@@ -1045,12 +1045,12 @@ namespace VTOL.Pages
 
 				if (Do_Not_save_Mods == true)
 				{
-					//string NS_Mod_Dir = Main.User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\mods";
+					//string NS_Mod_Dir = Main.User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\packages";
 					//Console.WriteLine("Skipped Mods");
 
-					includedFoldersPath = allFolders.Where(f => !f.Contains("R2Northstar\\mods") && includedFolders.Any(i => f.StartsWith(System.IO.Path.Combine(path, i))));
+					includedFoldersPath = allFolders.Where(f => !f.Contains("R2Northstar\\packages") && includedFolders.Any(i => f.StartsWith(System.IO.Path.Combine(path, i))));
 
-					includedFilesPath = allFiles.Where(f => !f.Contains("R2Northstar\\mods") && includedFiles.Contains(System.IO.Path.GetFileName(f)) || includedFoldersPath.Any(folder => f.StartsWith(folder)));
+					includedFilesPath = allFiles.Where(f => !f.Contains("R2Northstar\\packages") && includedFiles.Contains(System.IO.Path.GetFileName(f)) || includedFoldersPath.Any(folder => f.StartsWith(folder)));
 
 				}
 				else
@@ -1215,7 +1215,7 @@ namespace VTOL.Pages
 			var token = _cts.Token;
 
 			bool result = false;
-			string NS_Mod_Dir = Main.User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\mods";
+			string NS_Mod_Dir = Main.User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\packages";
 
 			if (Directory.Exists(target_directory) && Directory.Exists(NS_Mod_Dir))
 			{
@@ -1653,7 +1653,7 @@ namespace VTOL.Pages
             try { 
 			//Profile_Name.Text = SAVE_NAME__;
 			//Profile_Location.Text = SAVE_PATH__;
-			string NS_Mod_Dir = Main.User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\mods";
+			string NS_Mod_Dir = Main.User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\packages";
 			if (!Directory.Exists(NS_Mod_Dir))
 			{
 				return;

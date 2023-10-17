@@ -1845,7 +1845,7 @@ namespace VTOL.Pages
                     {
                         Ns_dedi_File = GetFile(User_Settings_Vars.NorthstarInstallLocation, "ns_startup_args_dedi.txt").First();
 
-                        if (Directory.Exists(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\mods"))
+                        if (Directory.Exists(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\packages"))
                         {
                             Convar_File = GetFile(User_Settings_Vars.NorthstarInstallLocation, "autoexec_ns_server.cfg").First();
 
