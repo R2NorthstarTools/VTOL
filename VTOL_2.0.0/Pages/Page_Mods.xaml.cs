@@ -506,6 +506,8 @@ namespace VTOL.Pages
                             Mod.Value = false;
 
                         }
+                        Mod.IsValidandinstalled = true;
+
                         Mod.DIRECTORY_INFO = dirInfo;
                         OUTPUT.Add(Mod);
                     }
@@ -643,7 +645,7 @@ namespace VTOL.Pages
 
                                                     if (Verified_Installed_Mod.IsValidandinstalled == false )
                                                     {
-                                                        IS_CORE_MOD_temp = "#c80815";
+                                                       IS_CORE_MOD_temp = "#c80815";
 
                                                         ToolTip_Dynamic = "The Mod Is not Registered Properly in the Backend List, Please Fix the Mod formatting or update your TF2 Mod List";
                                                         Flag_mod = 100;
