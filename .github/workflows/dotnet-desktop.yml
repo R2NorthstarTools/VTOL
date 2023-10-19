@@ -69,7 +69,7 @@ jobs:
         dotnet-version: 6.0.x
 
     - name: Publish Portable VTOL
-      run: dotnet publish "D:\Development Northstar AmVCX C++ branch 19023 ID0\VTOL.sln" -r win-x64 /p:PublishSingleFile=True --self-contained true --output "D:\Development Northstar AmVCX C++ branch 19023 ID 44\Portable_2023_VTOL\3.0.0"
+      run: dotnet publish VTOL.sln -r win-x64 /p:PublishSingleFile=True --self-contained true --output "D:\Development Northstar AmVCX C++ branch 19023 ID 44\Portable_2023_VTOL\3.0.0"
 
     - name: Run Tests
       run: dotnet test -c Release --no-build --verbosity normal --filter "Category!=LongRunning"
