@@ -47,20 +47,29 @@ on:
 
 env:
   PROJECT_PATH: VTOL_2.0.0/VTOL.csproj
-
 jobs:
-  deploy:
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v2
+ deploy:
+  runs-on: windows-latest
+  steps:
+    - uses: actions/checkout@v2
 
-      - uses: actions/setup-dotnet@v1
+    - uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 6.0.x
+      
+      - run: mkdir -p /actions
 
       - run: dotnet restore ${{ env.PROJECT_PATH }}
 
-      - run: dotnet build ${{ env.PROJECT_PATH }} -c Release --no-restore
+      #  - run: dotnet build ${{ env.PROJECT_PATH }} -c Release --no-restore
 
-      - run: dotnet publish ${{ env.PROJECT_PATH }} -c Release --self-contained -r win-x64 -p:PublishSingleFile=true --no-build
+        - run: dotnet publish ${{ env.PROJECT_PATH }} -r win-x64 /p:PublishSingleFile=True --self-contained true --output "/actions"
 
+  - uses: actions/checkout@v3
+
+        - run: mkdir -p /actions
+
+  - uses: actions/upload-artifact@v3
+          with:
+            name: VTOL_RELEASE
+              path: /actions/VTOL.exe  
