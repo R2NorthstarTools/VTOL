@@ -204,18 +204,12 @@ namespace VTOL
                         if (path == null || !Directory.Exists(path))
                         {
                             Send_Caution_Notif("INVALID FOLDER");
-
-
-
-
                         }
                         else
                         {
-
                             Properties.Settings.Default.BACKUP_SAVE_DEST = path + @"\";
                             Properties.Settings.Default.Save();
                             Send_Info_Notif("RESTARTING TO SET HARD VALUES");
-
                             Restart();
                         }
                     }

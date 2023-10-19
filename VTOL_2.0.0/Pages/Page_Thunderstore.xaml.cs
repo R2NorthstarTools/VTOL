@@ -4078,7 +4078,7 @@ int millisecondsDelay = 300)
 
 
 
-                        MoveDirectory___(Destination, Destinfo1.Parent + @"\" + (Name.ToString().Replace(".", "-")).Replace(" ", "_") + "-" + Version.ToString());
+                        MoveDirectory___(Destination, Destinfo1.Parent + @"\" + (Name.ToString()).Replace(" ", "_") + "-" + Version.ToString());
 
 
                         string Json_Path = FindFirstFile(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\", "enabledmods.json");

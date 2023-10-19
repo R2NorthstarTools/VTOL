@@ -21,6 +21,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using VTOL.Advocate.Conversion.JSON;
+using static VTOL.Pages.Page_Profiles;
 using Path = System.IO.Path;
 
 namespace VTOL.Pages
@@ -240,9 +241,24 @@ namespace VTOL.Pages
 
 
         }
-       
 
-        
+        public static JToken FuzzySearchJson(string searchTerm, JObject jsonObject)
+        {
+            searchTerm = searchTerm.ToLower();
+
+            // Iterate through the properties of the JSON object
+            foreach (var property in jsonObject.Properties())
+            {
+                // Compare the search term to the property name with a fuzzy matching threshold
+                if (property.Name.ToLower().LevenshteinDistanceTo(searchTerm) <= 2)
+                {
+                    return property.Value;
+                }
+            }
+
+            return null; // If no match is found
+        }
+
         public List<NORTHSTARCOMPATIBLE_MOD> READ_UPDATE_MOD_LIST(DirectoryInfo[] modsToUpdate, bool UPDATE_Folders = false)
         {
             List<NORTHSTARCOMPATIBLE_MOD> OUTPUT = new List<NORTHSTARCOMPATIBLE_MOD>();
@@ -259,10 +275,11 @@ namespace VTOL.Pages
                   // Read the JSON file
                    string  jsonContent = File.ReadAllText(Json_Path);
                 
-                if (jsonContent.IsNullOrEmpty() == true || jsonContent.Length < 5)
-                    {
+            if (jsonContent.IsNullOrEmpty() == true && jsonContent.Length < 5)
+                   {
+                         File.WriteAllText(Json_Path, "{\t\t\n\n}");
 
-                        foreach (var dirInfo in modsToUpdate)
+                    foreach (var dirInfo in modsToUpdate)
                     {
                         NORTHSTARCOMPATIBLE_MOD Mod = new NORTHSTARCOMPATIBLE_MOD();
 
@@ -276,7 +293,7 @@ namespace VTOL.Pages
                         string dirNameWithoutVersion = match.Success ? dirName.Replace(match.Value, "") : dirName;
                         // Handle the case where the value is null
                         Mod.Name = dirNameWithoutVersion;
-                        Mod.Value = true; // or some other appropriate value
+                        Mod.Value = false; // or some other appropriate value
                             Mod.IsValidandinstalled = false; // or some other appropriate value
                             if (dirInfo.Exists)
                             {
@@ -288,9 +305,9 @@ namespace VTOL.Pages
                         }
                         // Handle case where json is null or empty
                         return OUTPUT;
-                    }
-                    else
-                    {
+                }
+             else
+                 {
                     try
                     {
                         ////// Parse the JSON content
@@ -300,9 +317,12 @@ namespace VTOL.Pages
                         {
                             NORTHSTARCOMPATIBLE_MOD Mod = new NORTHSTARCOMPATIBLE_MOD();
 
-                            Mod.Name = (dirInfo.Name.Split('-')[0]);
-                            Mod.DIRECTORY_INFO = null;
+                            Mod.Name = (dirInfo.Name.Split('-')[1]);
+                            if (dirInfo.Exists)
+                            {
+                                Mod.DIRECTORY_INFO = dirInfo; // or some other appropriate value
 
+                            }
                             if (jsonObject.TryGetValue(Mod.Name.Replace("_", " "), out JToken value))
                             {
                                 if (value != null && value.Type == JTokenType.Boolean)
@@ -318,11 +338,7 @@ namespace VTOL.Pages
 
                                 Mod.IsValidandinstalled = true;
 
-                                if (dirInfo.Exists)
-                                {
-                                    Mod.DIRECTORY_INFO = dirInfo; // or some other appropriate value
-
-                                }
+                               
                                 OUTPUT.Add(Mod);
                             }
                             else
@@ -330,11 +346,7 @@ namespace VTOL.Pages
                                 // Handle the case where the value is null
                                 Mod.Value = false; // or some other appropriate value
                                 Mod.IsValidandinstalled = false; // or some other appropriate value
-                                if (dirInfo.Exists)
-                                {
-                                    Mod.DIRECTORY_INFO = dirInfo; // or some other appropriate value
-
-                                }
+                                
                                 OUTPUT.Add(Mod);
                             }
 
@@ -2007,8 +2019,7 @@ int millisecondsDelay = 300)
                             {
                                 NAME.Content = myJObject.Name;
                                 INFO_MOD_SIZE_SET.Content = SizeSuffix(size);
-                                INFO_VERSION_MOD_SET.Content = TruncatePath(FolderDir, "packages");
-                                ;
+                                INFO_VERSION_MOD_SET.Content = TruncatePath(FolderDir, "packages");                                
                                 INFO_VERSION_SET.Content = myJObject.Version;
                                 Description_Box.Text = myJObject.Description;
 
@@ -2295,6 +2306,7 @@ int millisecondsDelay = 300)
                     if (jsonContent.IsNullOrEmpty() != true && jsonContent.Length > 5)
                     {// Parse the JSON content
 
+
                         JObject jsonObject = JObject.Parse(jsonContent);
                         string Name = workingmod.Replace("_", " ");
                         if (jsonObject.TryGetValue(Name, out _))
@@ -2311,7 +2323,12 @@ int millisecondsDelay = 300)
                         File.WriteAllText(Json_Path, updatedJson);
 
                     }
-                        
+                    else
+                    {
+                        File.WriteAllText(Json_Path, "{\t\t\n\n}");
+
+                    }
+
 
                 }
 
