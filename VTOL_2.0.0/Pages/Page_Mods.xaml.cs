@@ -241,24 +241,9 @@ namespace VTOL.Pages
 
 
         }
+       
 
-        public static JToken FuzzySearchJson(string searchTerm, JObject jsonObject)
-        {
-            searchTerm = searchTerm.ToLower();
-
-            // Iterate through the properties of the JSON object
-            foreach (var property in jsonObject.Properties())
-            {
-                // Compare the search term to the property name with a fuzzy matching threshold
-                if (property.Name.ToLower().LevenshteinDistanceTo(searchTerm) <= 2)
-                {
-                    return property.Value;
-                }
-            }
-
-            return null; // If no match is found
-        }
-
+        
         public List<NORTHSTARCOMPATIBLE_MOD> READ_UPDATE_MOD_LIST(DirectoryInfo[] modsToUpdate, bool UPDATE_Folders = false)
         {
             List<NORTHSTARCOMPATIBLE_MOD> OUTPUT = new List<NORTHSTARCOMPATIBLE_MOD>();
@@ -323,7 +308,18 @@ namespace VTOL.Pages
                                 Mod.DIRECTORY_INFO = dirInfo; // or some other appropriate value
 
                             }
-                            if (jsonObject.TryGetValue(Mod.Name.Replace("_", " "), out JToken value))
+                           // JToken value = null;
+
+                            //foreach (var kvp in jsonObject)
+                            //{
+                            //    string cleanedKey = kvp.Key;
+                            //    if (cleanedKey == Mod.Name.Replace("_", " ").Trim())
+                            //    {
+                            //        value = kvp.Value;
+                            //        break;
+                            //    }
+                            //}
+                            if (jsonObject.TryGetValue(Mod.Name.Replace("_", " ").Trim(), out JToken value))//TODO cannot search properly due to json side unable to trim, the json siede has chars i cant trim off to compare properly as the fact is i loose that info on clean , nead A. broader search or B. clean strings on json side reliably
                             {
                                 if (value != null && value.Type == JTokenType.Boolean)
                                 {
@@ -346,7 +342,11 @@ namespace VTOL.Pages
                                 // Handle the case where the value is null
                                 Mod.Value = false; // or some other appropriate value
                                 Mod.IsValidandinstalled = false; // or some other appropriate value
-                                
+                                if (dirInfo.Exists)
+                                {
+                                    Mod.DIRECTORY_INFO = dirInfo; // or some other appropriate value
+
+                                }
                                 OUTPUT.Add(Mod);
                             }
 

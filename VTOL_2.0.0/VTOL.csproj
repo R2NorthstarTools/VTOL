@@ -323,6 +323,7 @@
 
   <ItemGroup>
 	  <PackageReference Include="FileTransferManager" Version="1.0.6" />
+	  <PackageReference Include="FuzzyString" Version="1.0.0" />
 	  <PackageReference Include="Magick.NET-Q16-x86" Version="12.2.1" />
 	  <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
 	  <PackageReference Include="Microsoft.NETCore.Targets" Version="5.0.0" PrivateAssets="all" />
