@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace VTOL.Titanfall2_Requisite.WeaponData.Default.AssaultRifle
+﻿namespace VTOL.Titanfall2_Requisite.WeaponData.Default.AssaultRifle
 {
     class R101
     {

@@ -4,15 +4,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace VTOL.Scripts
 {
-   //RUN PROFILES AFTER
-//I REPEAT
-//AFTER!
-//INIT();
+    //RUN PROFILES AFTER
+    //I REPEAT
+    //AFTER!
+    //INIT();
     class Profile
     {
         public string name = "Northstar";
@@ -50,11 +48,11 @@ namespace VTOL.Scripts
 
         public ProfileManager()
         {
-            
+
         }
-        
+
         // Initialize the whole thing, which accepts a predefined Default Profile for NorthstarCN maybe
-        public bool InitializeProfiles(Profile FallbackProfile) 
+        public bool InitializeProfiles(Profile FallbackProfile)
         {
             files_p = FindFirstFiles(DocumentsFolder + @"\VTOL_DATA\Profiles\", "Profile.Json");
             //Construct a default profile here, just for testing
@@ -65,13 +63,13 @@ namespace VTOL.Scripts
                 LoadProfiles();// Just load the profile to memory if local config is found.
                 return true;
             }
-            else 
+            else
             {
                 // Create structures for C# to not panic about folders and files not found.
                 if (InitializeLocalProfileConfig())
                 {
                     // If no profile is found, use the fallback profile or create a new one if no fallback specified.
-                    if (FallbackProfile == null )
+                    if (FallbackProfile == null)
                     {
                         Profile defaultprofile = new Profile(
                             "Northstar",
@@ -84,7 +82,8 @@ namespace VTOL.Scripts
 
                         m_LoadedProfiles.Add(defaultprofile);
                     }
-                    else {
+                    else
+                    {
                         m_LoadedProfiles.Add(FallbackProfile);
                     }
 
@@ -92,11 +91,11 @@ namespace VTOL.Scripts
                     WriteProfiles();
                     return true;
                 }
-                else 
+                else
                 {
                     // whoa harddrive go boom? how could this fail?
                 }
-                
+
             }
 
 
@@ -170,31 +169,31 @@ namespace VTOL.Scripts
             // simply return string.Empty.
             return null;
         }
-        public void SelectProfile(int profileidx) 
+        public void SelectProfile(int profileidx)
         {
             currentProfile = (m_LoadedProfiles[profileidx]);
             ExecuteProfile();
         }
-        public void SelectProfile(string profilename) 
+        public void SelectProfile(string profilename)
         {
-            for (int i = 0; i < m_LoadedProfiles.Count; i++) 
+            for (int i = 0; i < m_LoadedProfiles.Count; i++)
             {
-                if (m_LoadedProfiles[i].name == profilename) 
+                if (m_LoadedProfiles[i].name == profilename)
                 {
-                    currentProfile=(m_LoadedProfiles[i]);
+                    currentProfile = (m_LoadedProfiles[i]);
                     ExecuteProfile();
                 }
             }
-            
+
         }
 
-        public void ExecuteProfile() 
+        public void ExecuteProfile()
         {
             // Do post profile selection things with currentProfile here.
             Console.WriteLine("Do post profile selection things with currentProfile here.");
 
         }
-        public bool ProfileConfigExists() 
+        public bool ProfileConfigExists()
         {
             Console.WriteLine("Test some file structures and config file integrity");
 
@@ -277,7 +276,7 @@ namespace VTOL.Scripts
                 }
             }
 
-           // m_LoadedProfiles.Clear();
+            // m_LoadedProfiles.Clear();
             Console.WriteLine("Loading Profiles from disk");
             Console.WriteLine(string.Join(",", m_LoadedProfiles));
 

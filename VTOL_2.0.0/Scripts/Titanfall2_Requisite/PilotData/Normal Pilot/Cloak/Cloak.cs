@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Titanfall2_SkinTool.Titanfall2.PilotData.Normal_Pilot.Cloak
 {
@@ -67,11 +63,11 @@ namespace Titanfall2_SkinTool.Titanfall2.PilotData.Normal_Pilot.Cloak
             else if (str.Contains("cards"))
             {
                 //wtf this part,texture the same with ghillie?
-                throw new Exception("BUG!"+"\n"+"In Texture Part.");
+                throw new Exception("BUG!" + "\n" + "In Texture Part.");
             }
             else
             {
-                throw new Exception("BUG!"+"\n"+ "In Pilot Part.");
+                throw new Exception("BUG!" + "\n" + "In Pilot Part.");
             }
         }
     }

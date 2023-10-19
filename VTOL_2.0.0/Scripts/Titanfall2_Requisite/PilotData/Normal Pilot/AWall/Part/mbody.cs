@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Titanfall2_SkinTool.Titanfall2.PilotData.Normal_Pilot.AWall.Part
 {
@@ -47,7 +43,7 @@ namespace Titanfall2_SkinTool.Titanfall2.PilotData.Normal_Pilot.AWall.Part
             }
             else
             {
-                throw new Exception("BUG!"+"\n"+"In Texture Part.");
+                throw new Exception("BUG!" + "\n" + "In Texture Part.");
             }
         }
 
@@ -112,7 +108,7 @@ namespace Titanfall2_SkinTool.Titanfall2.PilotData.Normal_Pilot.AWall.Part
         {
             int i = 1;
             ReallyData[] ReallyDatas = new ReallyData[4];
-            ReallyDatas[0].seek =964497408;
+            ReallyDatas[0].seek = 964497408;
             ReallyDatas[0].length = 131072;
             ReallyDatas[0].seeklength = 148;
             while (i <= 3)

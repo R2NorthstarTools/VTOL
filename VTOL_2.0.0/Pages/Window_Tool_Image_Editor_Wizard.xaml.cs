@@ -1,16 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace VTOL.Pages
 {
@@ -25,7 +14,7 @@ namespace VTOL.Pages
         public Window_Tool_Image_Editor_Wizard()
         {
             InitializeComponent();
-       
+
         }
 
         private void Window_Closed(object sender, EventArgs e)
@@ -37,7 +26,7 @@ namespace VTOL.Pages
         //{
         //    Last_Saved_Skin_Path = e.Location;
         //    Console.WriteLine("Saved To - " + e.Location);
-           
+
 
         //}
     }

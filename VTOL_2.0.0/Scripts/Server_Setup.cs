@@ -1,16 +1,12 @@
-﻿using System.Text.Json;
+﻿using System.Collections.Generic;
+using System.Text.Json;
 using System.Text.Json.Serialization;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace VTOL
 {
     public partial class Server_Setup
     {
-      
+
         [JsonPropertyName("Startup_Arguments")]
         public List<Startup_Arguments> Startup_Arguments { get; set; }
         [JsonPropertyName("Convar_Arguments")]
@@ -68,7 +64,7 @@ namespace VTOL
 
         public static Server_Setup FromJson(string json)
         {
-                return JsonSerializer.Deserialize<Server_Setup>(json);
+            return JsonSerializer.Deserialize<Server_Setup>(json);
         }
 
 

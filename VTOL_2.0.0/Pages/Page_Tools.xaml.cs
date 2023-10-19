@@ -1,11 +1,26 @@
-﻿using System;
+﻿using BCnEncoder.Encoder;
+using Downloader;
+using ImageMagick;
+using ImageMagick.Formats;
+using Microsoft.Win32;
+using Pfim;
+using Serilog;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp.Processing;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Globalization;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
-using System.Text;
+using System.Net;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -14,41 +29,17 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using ZipFile_ = Ionic.Zip.ZipFile;
-using System.Drawing.Imaging;
-using Microsoft.Win32;
-using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.PixelFormats;
-using SixLabors.ImageSharp.Processing;
+using System.Windows.Threading;
 using Wpf.Ui.Common;
 using Brushes = System.Windows.Media.Brushes;
+using Exception = System.Exception;
 using Image = SixLabors.ImageSharp.Image;
 using Path = System.IO.Path;
-using ZipFile = System.IO.Compression.ZipFile;
-using BCnEncoder.Encoder;
-using ImageMagick;
-using ImageMagick.Formats;
-using Serilog;
-using System.Globalization;
-using Pfim;
 using PixelFormat = System.Drawing.Imaging.PixelFormat;
-using System.Diagnostics;
-using System.Windows.Media.Animation;
-using System.Text.RegularExpressions;
-using System.Reflection;
-using Downloader;
-using System.ComponentModel;
-using System.Runtime.InteropServices;
-using System.Text.Json;
-using System.Windows.Threading;
-using System.Collections.ObjectModel;
-using System.Security.Policy;
-using Lsj.Util.Win32.Structs;
-using System.Net;
-using Exception = System.Exception;
+using ZipFile = System.IO.Compression.ZipFile;
+using ZipFile_ = Ionic.Zip.ZipFile;
 
 namespace VTOL.Pages
 {
@@ -1401,7 +1392,8 @@ int millisecondsDelay = 300)
 
         private void Image_Icon_Drop(object sender, DragEventArgs e)
         {
-            try {
+            try
+            {
                 if (e.Data.GetDataPresent(DataFormats.FileDrop))
                 {
                     HandyControl.Controls.DashedBorder DashedBorder = (HandyControl.Controls.DashedBorder)sender;
@@ -1882,7 +1874,8 @@ int millisecondsDelay = 300)
         private string GetSkinPackRootPath()
         {
             string f = null;
-            DispatchIfNecessary(async () => {
+            DispatchIfNecessary(async () =>
+            {
                 f = Output_Directory.Text + "\\" + SelectedWeapon + "_" + Skin_Name.Text + ".zip";
             });
             return f;
@@ -2650,7 +2643,8 @@ int millisecondsDelay = 300)
 
         private bool DdsToPng(string imagePath, string outputPath)
         {
-            try {
+            try
+            {
                 // yoinked from pfim usage example
                 using (var image = Pfimage.FromFile(imagePath))
                 {
@@ -3066,7 +3060,8 @@ int millisecondsDelay = 300)
         {
             try
             {
-                if (!Directory.Exists(Tools_Dir)) {
+                if (!Directory.Exists(Tools_Dir))
+                {
 
                     TryCreateDirectory(Tools_Dir);
                     if (!Directory.Exists(Tools_Dir))
@@ -3248,89 +3243,89 @@ int millisecondsDelay = 300)
             //       Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
             //    }
-       // }
-    }
+            // }
+        }
 
-    private void Image_Icon_Advocate_Drop(object sender, DragEventArgs e)
-    {
-        try
+        private void Image_Icon_Advocate_Drop(object sender, DragEventArgs e)
         {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            try
             {
-                HandyControl.Controls.DashedBorder DashedBorder = (HandyControl.Controls.DashedBorder)sender;
-                Console.WriteLine(DashedBorder.Name);
-
-                // Note that you can have more than one file.
-                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-                string map_Path = files.FirstOrDefault();
-
-
-
-                if (!File.Exists(map_Path))
+                if (e.Data.GetDataPresent(DataFormats.FileDrop))
                 {
+                    HandyControl.Controls.DashedBorder DashedBorder = (HandyControl.Controls.DashedBorder)sender;
+                    Console.WriteLine(DashedBorder.Name);
 
-                    SnackBar.Icon = SymbolRegular.ErrorCircle20;
-                    SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
-                    SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Icon_Image_MouseDown_NotAValidPNGImage;
-                    SnackBar.Show();
-                    return;
+                    // Note that you can have more than one file.
+                    string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+                    string map_Path = files.FirstOrDefault();
 
-                }
-                else
-                {
-                    if (Path.GetExtension(map_Path).Contains("png"))
+
+
+                    if (!File.Exists(map_Path))
                     {
-                        int imgwidth;
-                        int imgheight;
 
-                        using (var image = SixLabors.ImageSharp.Image.Load(map_Path))
+                        SnackBar.Icon = SymbolRegular.ErrorCircle20;
+                        SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
+                        SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Icon_Image_MouseDown_NotAValidPNGImage;
+                        SnackBar.Show();
+                        return;
+
+                    }
+                    else
+                    {
+                        if (Path.GetExtension(map_Path).Contains("png"))
                         {
-                            imgwidth = image.Width;
-                            imgheight = image.Height;
-                        }
+                            int imgwidth;
+                            int imgheight;
+
+                            using (var image = SixLabors.ImageSharp.Image.Load(map_Path))
+                            {
+                                imgwidth = image.Width;
+                                imgheight = image.Height;
+                            }
 
 
 
-                        if (imgwidth == 256 && imgheight == 256)
-                        {
+                            if (imgwidth == 256 && imgheight == 256)
+                            {
 
-                            BitmapImage map_ = new BitmapImage();
-                            map_.BeginInit();
+                                BitmapImage map_ = new BitmapImage();
+                                map_.BeginInit();
 
-                            map_.UriSource = new Uri(map_Path);
-                            map_.EndInit();
+                                map_.UriSource = new Uri(map_Path);
+                                map_.EndInit();
 
-                            DashedBorder.Background = new ImageBrush(map_);
-                            Mod_Adv_Icon_Path = map_Path;
-                        }
-                        else
-                        {
-                            SnackBar.Icon = SymbolRegular.ErrorCircle20;
-                            SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
-                            SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Icon_Image_MouseDown_InvalidImageSizeMustBe256x256;
-                            SnackBar.Show();
-                            DashedBorder.Background = new ImageBrush();
-                            return;
+                                DashedBorder.Background = new ImageBrush(map_);
+                                Mod_Adv_Icon_Path = map_Path;
+                            }
+                            else
+                            {
+                                SnackBar.Icon = SymbolRegular.ErrorCircle20;
+                                SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
+                                SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Icon_Image_MouseDown_InvalidImageSizeMustBe256x256;
+                                SnackBar.Show();
+                                DashedBorder.Background = new ImageBrush();
+                                return;
+
+                            }
 
                         }
 
                     }
 
+
+
+
                 }
 
-
-
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
             }
 
         }
-        catch (Exception ex)
-        {
-            Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-
-        }
-
-    }
         private void Locate_Repak_Exe_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -3343,7 +3338,7 @@ int millisecondsDelay = 300)
                 if (openFileDialog.ShowDialog() == true)
                 {
                     Mod_Adv_Repak_Path = openFileDialog.FileName;
-                  
+
                     if (!File.Exists(Mod_Adv_Repak_Path))
                     {
 
@@ -3374,7 +3369,7 @@ int millisecondsDelay = 300)
             }
             catch (Exception ex)
             {
-               Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
             }
         }
@@ -3410,7 +3405,7 @@ int millisecondsDelay = 300)
         {
             //Convert();
         }
-        async void Start_Exe(string path , string args = null)
+        async void Start_Exe(string path, string args = null)
         {
             try
             {
@@ -3432,7 +3427,7 @@ int millisecondsDelay = 300)
                             SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
                             SnackBar.Show();
                         });
-                            if (args != null && args.Trim() != "")
+                        if (args != null && args.Trim() != "")
                         {
                             Process.Start(new ProcessStartInfo
                             {
@@ -3461,7 +3456,7 @@ int millisecondsDelay = 300)
         }
         public bool Check_Python_Installation()
         {
-            string result = "" ;
+            string result = "";
 
             ProcessStartInfo pycheck = new ProcessStartInfo();
             pycheck.FileName = "@python.exe";
@@ -3488,7 +3483,7 @@ int millisecondsDelay = 300)
             }
             return false;
         }
-        async void Start_Command_Line(string path,string working_dir,bool Custom_ = false, string args = "")
+        async void Start_Command_Line(string path, string working_dir, bool Custom_ = false, string args = "")
         {
             try
             {
@@ -3546,7 +3541,7 @@ int millisecondsDelay = 300)
             }
             catch (Exception ex)
             {
-              Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
 
             }
@@ -3572,34 +3567,34 @@ int millisecondsDelay = 300)
             }
         }
 
-      
+
         public bool UrlIsValid(string url)
         {
             try
             {
-               
-                    HttpWebRequest request = HttpWebRequest.Create(url) as HttpWebRequest;
-                    request.Timeout = 5000; //set the timeout to 5 seconds to keep the user from waiting too long for the page to load
-                    request.Method = "HEAD"; //Get only the header information -- no need to download any content
 
-                    using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
+                HttpWebRequest request = HttpWebRequest.Create(url) as HttpWebRequest;
+                request.Timeout = 5000; //set the timeout to 5 seconds to keep the user from waiting too long for the page to load
+                request.Method = "HEAD"; //Get only the header information -- no need to download any content
+
+                using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
+                {
+                    int statusCode = (int)response.StatusCode;
+                    if (statusCode >= 100 && statusCode < 400) //Good requests
                     {
-                        int statusCode = (int)response.StatusCode;
-                        if (statusCode >= 100 && statusCode < 400) //Good requests
-                        {
-                            return true;
-                        }
-                        else if (statusCode >= 500 && statusCode <= 510) //Server Errors
-                    {
-                       
-                            SnackBar.Message = String.Format("The remote server has thrown an internal error. Url is not valid: {0}", url);
-                            SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
-                            SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Danger;
-                            SnackBar.Show();
-                        return false;
-                        }
+                        return true;
                     }
-               
+                    else if (statusCode >= 500 && statusCode <= 510) //Server Errors
+                    {
+
+                        SnackBar.Message = String.Format("The remote server has thrown an internal error. Url is not valid: {0}", url);
+                        SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
+                        SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Danger;
+                        SnackBar.Show();
+                        return false;
+                    }
+                }
+
             }
             catch (WebException ex)
             {
@@ -3609,22 +3604,22 @@ int millisecondsDelay = 300)
                 }
                 else
                 {
-                    
-                        SnackBar.Message = String.Format("Unhandled status [{0}] returned for url: {1}", ex.Status, url);
+
+                    SnackBar.Message = String.Format("Unhandled status [{0}] returned for url: {1}", ex.Status, url);
                     SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
                     SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Danger;
                     SnackBar.Show();
-                  
+
                 }
             }
             catch (Exception ex)
             {
-                
-                    SnackBar.Message = String.Format("Could not test url {0}.", url);
+
+                SnackBar.Message = String.Format("Could not test url {0}.", url);
                 SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
                 SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Danger;
                 SnackBar.Show();
-              
+
             }
             return false;
         }
@@ -3632,52 +3627,52 @@ int millisecondsDelay = 300)
         {
             try
             {
-               
 
-                    await Task.Run(() =>
+
+                await Task.Run(() =>
+                {
+                    DispatchIfNecessary(async () =>
                     {
-                        DispatchIfNecessary(async () =>
+                        if (!UrlIsValid(URL))
                         {
-                            if (!UrlIsValid(URL))
-                            {
-                                SnackBar.Message = " Url is not valid";
-                                SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
-                                SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Danger;
-                                SnackBar.Show();
-                                return;
-                            }
-                            SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Download_Zip_To_Path_DownloadingAndInstalling + Sub_Name;
-                            SnackBar.Title = "INFO";
-                            SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
+                            SnackBar.Message = " Url is not valid";
+                            SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
+                            SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Danger;
                             SnackBar.Show();
-                            if (Directory.Exists(Tools_Dir))
+                            return;
+                        }
+                        SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Download_Zip_To_Path_DownloadingAndInstalling + Sub_Name;
+                        SnackBar.Title = "INFO";
+                        SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
+                        SnackBar.Show();
+                        if (Directory.Exists(Tools_Dir))
+                        {
+                            if (!Directory.Exists(Tools_Dir + Sub_Name))
                             {
-                                if (!Directory.Exists(Tools_Dir + Sub_Name))
-                                {
-                                    TryCreateDirectory(Tools_Dir + Sub_Name);
-                                }
-                                IDownload downloader = DownloadBuilder.New()
-                    .WithUrl(URL)
-                    .WithDirectory(Tools_Dir + Sub_Name)
-                    .WithFileName(Sub_Name + ".zip")
-                    .WithConfiguration(new DownloadConfiguration())
-
-                    .Build();
-                                downloader.DownloadFileCompleted += delegate (object sender, AsyncCompletedEventArgs e)
-                                {
-
-
-                                    downloader_DownloadCompleted(sender, e, Sub_Name, URL);
-                                };
-
-                                downloader.StartAsync();
-
-
+                                TryCreateDirectory(Tools_Dir + Sub_Name);
                             }
-                        });
+                            IDownload downloader = DownloadBuilder.New()
+                .WithUrl(URL)
+                .WithDirectory(Tools_Dir + Sub_Name)
+                .WithFileName(Sub_Name + ".zip")
+                .WithConfiguration(new DownloadConfiguration())
+
+                .Build();
+                            downloader.DownloadFileCompleted += delegate (object sender, AsyncCompletedEventArgs e)
+                            {
+
+
+                                downloader_DownloadCompleted(sender, e, Sub_Name, URL);
+                            };
+
+                            downloader.StartAsync();
+
+
+                        }
                     });
-              
-            
+                });
+
+
             }
             catch (Exception ex)
             {
@@ -3687,12 +3682,12 @@ int millisecondsDelay = 300)
         }
         void downloader_DownloadCompleted(object sender, AsyncCompletedEventArgs e, string Sub_Name, string URL)
         {
-              ZipFile_ zipFile = new ZipFile_(Tools_Dir + Sub_Name+@"\" +Sub_Name + ".zip");
+            ZipFile_ zipFile = new ZipFile_(Tools_Dir + Sub_Name + @"\" + Sub_Name + ".zip");
 
-             zipFile.ExtractAll(Tools_Dir, Ionic.Zip.ExtractExistingFileAction.OverwriteSilently);
-            
+            zipFile.ExtractAll(Tools_Dir, Ionic.Zip.ExtractExistingFileAction.OverwriteSilently);
+
             Check_For_Tools();
-            
+
             if (File.Exists(Tools_Dir + Sub_Name + @"\" + Sub_Name + ".zip"))
             {
 
@@ -3703,7 +3698,8 @@ int millisecondsDelay = 300)
         {
             await Task.Run(() =>
             {
-                DispatchIfNecessary(async () => {
+                DispatchIfNecessary(async () =>
+                {
                     SnackBar.Message = VTOL.Resources.Languages.Language.Page_Skins_OPEN_WEBPAGE_OpeningTheFollowingURL + URL;
                     SnackBar.Title = "INFO";
                     SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
@@ -3726,11 +3722,11 @@ int millisecondsDelay = 300)
             {
                 DispatchIfNecessary(async () =>
                 {
-                   
+
                     if (Directory.Exists(Tools_Dir))
                     {
                         //Legion+
-                        if(Directory.Exists(Tools_Dir + @"LEGION+") && File.Exists(Tools_Dir + @"LEGION+\" + "LegionPlus.exe"))
+                        if (Directory.Exists(Tools_Dir + @"LEGION+") && File.Exists(Tools_Dir + @"LEGION+\" + "LegionPlus.exe"))
                         {
                             LEGION_INSTALL.Content = VTOL.Resources.Languages.Language.Page_Tools_Check_For_Tools_Launch;
                             LEGION_INSTALL.Icon = SymbolRegular.Open28;
@@ -3908,7 +3904,7 @@ int millisecondsDelay = 300)
                     else
                     {
 
-                       TryCreateDirectory(Tools_Dir);
+                        TryCreateDirectory(Tools_Dir);
                         Check_For_Tools();
 
                     }
@@ -3917,11 +3913,11 @@ int millisecondsDelay = 300)
 
             });
         }
-       
+
 
         private void LEGION_INSTALL_FOLDER_Click(object sender, RoutedEventArgs e)
         {
-            if (Directory.Exists(Tools_Dir + @"LEGION+") )
+            if (Directory.Exists(Tools_Dir + @"LEGION+"))
             {
                 Open_Folder(Tools_Dir + @"LEGION+");
             }
@@ -4022,7 +4018,7 @@ int millisecondsDelay = 300)
             if (Directory.Exists(Tools_Dir + @"RePak") && File.Exists(Tools_Dir + @"RePak\" + "RePak.exe"))
             {
                 Start_Exe(Tools_Dir + @"RePak\" + "RePak.exe", Properties.Settings.Default.RePak_Launch_Args);
-              //  Start_Command_Line(Tools_Dir + @"RePak\" + "RePak.exe", Tools_Dir + @"RePak",true, Properties.Settings.Default.RePak_Launch_Args);
+                //  Start_Command_Line(Tools_Dir + @"RePak\" + "RePak.exe", Tools_Dir + @"RePak",true, Properties.Settings.Default.RePak_Launch_Args);
 
             }
             else
@@ -4133,13 +4129,13 @@ int millisecondsDelay = 300)
         private void Startup_Args_RpAk_LostFocus(object sender, RoutedEventArgs e)
         {
             Startup_Args_RpAk.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#34FFFFFF");
-          
+
         }
 
         private void Startup_Args_RpAk_GotFocus(object sender, RoutedEventArgs e)
         {
             Startup_Args_RpAk.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFFFFFFF");
-           
+
         }
 
         private void MDL_TOOL_INSTALL_Click(object sender, RoutedEventArgs e)
@@ -4179,10 +4175,10 @@ int millisecondsDelay = 300)
             }
         }
 
-      
 
-       
-         
+
+
+
         private void ESMT_TOOL_INSTALL_Click(object sender, RoutedEventArgs e)
         {
             if (Directory.Exists(Tools_Dir + @"ESMT_Easy_sound_modding_tool") && File.Exists(Tools_Dir + @"ESMT_Easy_sound_modding_tool\" + "main.py"))

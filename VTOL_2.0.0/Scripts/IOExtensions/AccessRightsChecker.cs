@@ -31,10 +31,10 @@ namespace IOExtensions
                 }
                 else
                 {
-                    
+
                     rules = FileSystemAclExtensions.GetAccessControl(dInfo).GetAccessRules(true, true, typeof(SecurityIdentifier));
                 }
-                
+
                 var identity = WindowsIdentity.GetCurrent();
                 string userSID = identity.User.Value;
 

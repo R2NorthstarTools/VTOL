@@ -8,25 +8,17 @@ using System.Globalization;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Wpf.Ui.Common;
 using Wpf.Ui.Controls;
 using static VTOL.Pages.Server_Template_Selector;
-using MessageBox = System.Windows.MessageBox;
 using Path = System.IO.Path;
 using TextBox = System.Windows.Controls.TextBox;
 
@@ -106,7 +98,7 @@ namespace VTOL.Pages
         private string Auto_exec = "";
         private bool Started_Selection = false;
         private string _filePath;
-         public bool init_ = false;
+        public bool init_ = false;
         Snackbar SnackBar;
         public Page_Server()
         {
@@ -165,7 +157,7 @@ namespace VTOL.Pages
 
                 Arg_List.Add(new Arg_Set
                 {
-                    Name = items.Name.Trim().ToUpper().Replace("_"," "),
+                    Name = items.Name.Trim().ToUpper().Replace("_", " "),
                     Type = items.Type,
                     Default = items.Default,
                     Description = items.Description_Tooltip,
@@ -222,12 +214,12 @@ namespace VTOL.Pages
 
         private void OnKeyDownHandler_Dedi_Arg(object sender, KeyEventArgs e)
         {
-           
+
         }
 
         private void OnKeyDownHandler_Nrml_Arg(object sender, KeyEventArgs e)
         {
-           
+
         }
         private void Validate_Combo_Box(object sender, SelectionChangedEventArgs e)
         {
@@ -347,7 +339,7 @@ namespace VTOL.Pages
                 SnackBar.Show();
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
-               //Removed PaperTrailSystem Due to lack of reliability.
+                //Removed PaperTrailSystem Due to lack of reliability.
 
             }
         }
@@ -385,7 +377,7 @@ namespace VTOL.Pages
             {
 
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-              //Removed PaperTrailSystem Due to lack of reliability.
+                //Removed PaperTrailSystem Due to lack of reliability.
 
 
             }
@@ -414,7 +406,7 @@ namespace VTOL.Pages
             catch (Exception ex)
             {
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-              //Removed PaperTrailSystem Due to lack of reliability.
+                //Removed PaperTrailSystem Due to lack of reliability.
 
             }
             return false;
@@ -452,7 +444,7 @@ namespace VTOL.Pages
             }
             catch (Exception ex)
             {
-               Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
             }
             return null;
 
@@ -576,7 +568,7 @@ namespace VTOL.Pages
             }
             catch (Exception ex)
             {
-               Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
 
 
@@ -620,7 +612,7 @@ namespace VTOL.Pages
                     {
                         SnackBar.Appearance = ControlAppearance.Danger;
                         SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
-                        SnackBar.Message =VTOL.Resources.Languages.Language.Page_Server_Read_Convar_args_CannotSetThePath;
+                        SnackBar.Message = VTOL.Resources.Languages.Language.Page_Server_Read_Convar_args_CannotSetThePath;
                         SnackBar.Show();
 
                     }
@@ -639,7 +631,7 @@ namespace VTOL.Pages
                 {
                     //Console.WriteLine(String.Format(" array[{0}] = {1}", i, intake[i]));
                 }
-             
+
                 if (Array.Exists(intake, element => element.StartsWith(Convar_Name)))
                 {
 
@@ -658,7 +650,7 @@ namespace VTOL.Pages
             }
             catch (Exception ex)
             {
-               Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
 
 
@@ -717,7 +709,7 @@ namespace VTOL.Pages
             }
             catch (Exception ex)
             {
-               Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
 
 
@@ -820,17 +812,17 @@ namespace VTOL.Pages
 
 
                     String x = String.Join(" ", intermid_.ToArray());
-                   
+
                     using (StreamWriter sw = new StreamWriter(RootFolder, false, Encoding.UTF8, 65536))
                     {
                         sw.WriteLine(Regex.Replace(x, @"\s+", " "));
                     }
-                   
+
                 }
             }
             catch (Exception ex)
             {
-               Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
 
 
@@ -1097,7 +1089,7 @@ namespace VTOL.Pages
             }
             catch (Exception ex)
             {
-               Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
 
             }
@@ -1448,7 +1440,7 @@ namespace VTOL.Pages
             }
             catch (Exception ex)
             {
-               Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
 
             }
@@ -1488,54 +1480,58 @@ namespace VTOL.Pages
 
                 if (File.Exists(Ns_dedi_File))
                 {
-                    DispatchIfNecessary(async () => {
+                    DispatchIfNecessary(async () =>
+                    {
                         //Dedicated_Server_Startup_ARGS.Background = Brushes.White;
                         Arg_Box_Dedi.Text = Read_From_TextFile_OneLine(Ns_dedi_File);
 
                     });
                 }
                 else
+                {
+                    DispatchIfNecessary(async () =>
                     {
-                        DispatchIfNecessary(async () => {
-                            //Send_Error_Notif(GetTextResource("NOTIF_ERROR_CANNOT_FIND_FILE_SETPATH"));
-                            Arg_Box_Dedi.Text = "Err, File not found - ns_startup_args_dedi.txt";
-                            //Dedicated_Server_Startup_ARGS.Background = Brushes.Red;
-                        });
+                        //Send_Error_Notif(GetTextResource("NOTIF_ERROR_CANNOT_FIND_FILE_SETPATH"));
+                        Arg_Box_Dedi.Text = "Err, File not found - ns_startup_args_dedi.txt";
+                        //Dedicated_Server_Startup_ARGS.Background = Brushes.Red;
+                    });
 
                 }
 
 
                 if (File.Exists(NS_Startup))
-                        {
-                            DispatchIfNecessary(async () => {
-                                Arg_Box.Text = Read_From_TextFile_OneLine(NS_Startup);
-                            });
+                {
+                    DispatchIfNecessary(async () =>
+                    {
+                        Arg_Box.Text = Read_From_TextFile_OneLine(NS_Startup);
+                    });
 
                 }
                 else
-                            {
-                                DispatchIfNecessary(async () => {
-                                    //Send_Error_Notif(GetTextResource("NOTIF_ERROR_CANNOT_FIND_FILE_CREATE"));
-                                    Arg_Box.Text = "Err, File not found - ns_startup_args.txt";
-                                });
+                {
+                    DispatchIfNecessary(async () =>
+                    {
+                        //Send_Error_Notif(GetTextResource("NOTIF_ERROR_CANNOT_FIND_FILE_CREATE"));
+                        Arg_Box.Text = "Err, File not found - ns_startup_args.txt";
+                    });
                 }
 
                 if (File.Exists(Convar_File))
                 {
 
-                   // Dedicated_Convar_ARGS.Text = Convar_File;
+                    // Dedicated_Convar_ARGS.Text = Convar_File;
                     //Dedicated_Convar_ARGS.Background = Brushes.White;
 
 
                 }
-                
-                    //{
-                    //    Send_Error_Notif(GetTextResource("NOTIF_ERROR_CANNOT_FIND_FILE_SETPATH"));
-                    //    Dedicated_Convar_ARGS.Background = Brushes.Red;
 
-                    //Dedicated_Convar_ARGS.Text = "Err, File not found - autoexec_ns_server.cfg";
+                //{
+                //    Send_Error_Notif(GetTextResource("NOTIF_ERROR_CANNOT_FIND_FILE_SETPATH"));
+                //    Dedicated_Convar_ARGS.Background = Brushes.Red;
+
+                //Dedicated_Convar_ARGS.Text = "Err, File not found - autoexec_ns_server.cfg";
             }
-        
+
 
 
             else
@@ -1618,7 +1614,7 @@ namespace VTOL.Pages
 
                             Load_Files.Content = VTOL.Resources.Languages.Language.Page_Server_Load_Files__ReloadArguments;
                         });
-                       
+
 
 
                     }
@@ -1649,7 +1645,7 @@ namespace VTOL.Pages
 
 
             });
-            }
+        }
         private void Load_Files_Click(object sender, RoutedEventArgs e)
         {
             init_ = true;
@@ -1662,7 +1658,7 @@ namespace VTOL.Pages
             }
             catch (Exception ex)
             {
-               Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
 
             }
@@ -1770,11 +1766,11 @@ namespace VTOL.Pages
                     }
                     Convar_File = GetFile(User_Settings_Vars.NorthstarInstallLocation, "autoexec_ns_server.cfg").First();
                     Ns_dedi_File = GetFile(User_Settings_Vars.NorthstarInstallLocation, "ns_startup_args_dedi.txt").First();
-                  
+
                 }
                 else
                 {
-                   TryCreateDirectory(User_Settings_Vars.NorthstarInstallLocation + @"VTOL_Dedicated_Workspace");
+                    TryCreateDirectory(User_Settings_Vars.NorthstarInstallLocation + @"VTOL_Dedicated_Workspace");
                     string extractPath = Path.GetFullPath(User_Settings_Vars.NorthstarInstallLocation + @"VTOL_Dedicated_Workspace");
 
 
@@ -1840,7 +1836,7 @@ namespace VTOL.Pages
                             }
                         }
                     }
-                    
+
                     if (Directory.Exists(User_Settings_Vars.NorthstarInstallLocation))
                     {
                         Ns_dedi_File = GetFile(User_Settings_Vars.NorthstarInstallLocation, "ns_startup_args_dedi.txt").First();
@@ -1876,7 +1872,7 @@ namespace VTOL.Pages
             }
             catch (Exception ex)
             {
-               Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
 
             }
@@ -1896,7 +1892,7 @@ namespace VTOL.Pages
                     string x = strRootDirectory + "/" + DateTime.Now.ToString("yyyyMMddhhmmss");
                     TryCreateDirectory(x);
                     DirectoryInfo dirTemp = new DirectoryInfo(x);
-                        
+
 
                     // Copy all files to the temporary directory
                     foreach (string strFilePath in filesToZip)
@@ -1964,7 +1960,7 @@ namespace VTOL.Pages
                     {
                         SnackBar.Appearance = ControlAppearance.Danger;
                         SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
-                        SnackBar.Message =VTOL.Resources.Languages.Language.Page_Server_Export_Server_Config_Click_PleaseRecheckYourSaveLocation;
+                        SnackBar.Message = VTOL.Resources.Languages.Language.Page_Server_Export_Server_Config_Click_PleaseRecheckYourSaveLocation;
                         SnackBar.Show();
 
 
@@ -1973,7 +1969,7 @@ namespace VTOL.Pages
                 }
                 else
                 {
-                   TryCreateDirectory(User_Settings_Vars.NorthstarInstallLocation + @"VTOL_Dedicated_Workspace");
+                    TryCreateDirectory(User_Settings_Vars.NorthstarInstallLocation + @"VTOL_Dedicated_Workspace");
 
                     if (File.Exists(Ns_dedi_File) && File.Exists(Convar_File))
                     {
@@ -2000,7 +1996,7 @@ namespace VTOL.Pages
             }
             catch (Exception ex)
             {
-               Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
 
             }
@@ -2261,7 +2257,7 @@ int millisecondsDelay = 300)
         }
         private void Launch_Northstar_Advanced_Click(object sender, RoutedEventArgs e)
         {
-           string NSExe = Get_And_Set_Filepaths(User_Settings_Vars.NorthstarInstallLocation, "NorthstarLauncher.exe");
+            string NSExe = Get_And_Set_Filepaths(User_Settings_Vars.NorthstarInstallLocation, "NorthstarLauncher.exe");
             if (File.Exists(NS_Startup))
             {
                 saveAsyncFile(Arg_Box.Text, NS_Startup, false, false);
@@ -2428,7 +2424,7 @@ int millisecondsDelay = 300)
             }
             catch (Exception ex)
             {
-              Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
                 SnackBar.Appearance = ControlAppearance.Danger;
                 SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
                 SnackBar.Message = VTOL.Resources.Languages.Language.Page_Server_OnKeyDownHandler_Dedi_Arg_AutoSaveFailed;
@@ -2436,7 +2432,7 @@ int millisecondsDelay = 300)
 
             }
         }
-        
+
 
         private void Arg_Box_LostFocus(object sender, RoutedEventArgs e)
         {
@@ -2464,7 +2460,7 @@ int millisecondsDelay = 300)
             }
             catch (Exception ex)
             {
-              Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
                 SnackBar.Appearance = ControlAppearance.Danger;
                 SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
                 SnackBar.Message = VTOL.Resources.Languages.Language.Page_Server_OnKeyDownHandler_Dedi_Arg_AutoSaveFailed;

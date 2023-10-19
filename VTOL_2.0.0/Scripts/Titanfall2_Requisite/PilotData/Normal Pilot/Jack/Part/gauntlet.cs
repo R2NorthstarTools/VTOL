@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Titanfall2_SkinTool.Titanfall2.PilotData.Normal_Pilot.Jack.Part
 {
@@ -51,7 +47,7 @@ namespace Titanfall2_SkinTool.Titanfall2.PilotData.Normal_Pilot.Jack.Part
             }
             else
             {
-                throw new Exception("BUG!"+"\n"+"In Texture Part.");
+                throw new Exception("BUG!" + "\n" + "In Texture Part.");
             }
         }
         //Jack Cooper col layer use BC7U Compression

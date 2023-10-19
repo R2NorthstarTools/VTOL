@@ -1,13 +1,5 @@
 ﻿using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Media.Animation;
-using VTOL.Pages;
 namespace VTOL
 {
     /// <summary>
@@ -19,7 +11,7 @@ namespace VTOL
         const string FriendlyName = "  Thunderstore Mod Manager Protocol";
         public static void RegisterUriScheme()
         {
-          
+
 
             using (var key = Registry.CurrentUser.CreateSubKey("SOFTWARE\\Classes\\" + UriScheme))
             {
@@ -44,19 +36,19 @@ namespace VTOL
                 }
             }
         }
-        private async void  Application_Startup(object sender, StartupEventArgs e)
+        private async void Application_Startup(object sender, StartupEventArgs e)
         {
 
 
 
 
             //SplashScreen splashScreen = new SplashScreen(@"\Pages\Splash.jpg");
-            
+
             //splashScreen.Show(true, true); 
-            
+
             // Auto-close: NO, On top: YES
-                                            //    var splashScreen = new Splash_();
-                                            //    splashScreen.Show();
+            //    var splashScreen = new Splash_();
+            //    splashScreen.Show();
 
             //    // Async load the main window
             //   // var mainWindow = new MainWindow();

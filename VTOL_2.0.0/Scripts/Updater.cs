@@ -1,17 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Reflection;
 
 //using System.Text.Json;
 using System.Threading.Tasks;
-using System.Windows.Forms;
-using Newtonsoft.Json;
-using Windows.Web.Http;
-using System.Windows.Documents;
 using VTOL._EventArgs;
 
 namespace VTOL
@@ -167,7 +161,7 @@ namespace VTOL
 
             using (StreamReader reader = new StreamReader(stream))
             {
-                
+
 
                 json = reader.ReadToEnd();
             }
@@ -231,7 +225,7 @@ namespace VTOL
                         Thunderstore = Thunderstore_V1.FromJson(json);
 
                     }
-                   
+
                 }
                 else
                 {
@@ -257,7 +251,7 @@ namespace VTOL
                     //    File.Delete(AppDataFolder + @"\VTOL_DATA\VARS\Thunderstore.json");
                     //}
                 }
-               
+
 
 
 
@@ -297,7 +291,7 @@ namespace VTOL
 
             if (currentVersion < newestVersion)
             {
-               UpdateAvailable?.Invoke(this, new VersionEventArgs(newestVersion, currentVersion));
+                UpdateAvailable?.Invoke(this, new VersionEventArgs(newestVersion, currentVersion));
                 State = UpdaterState.Idle;
                 return true;
             }
@@ -334,36 +328,37 @@ namespace VTOL
 
 
             }
-            try { 
-            if (custom == true)
+            try
             {
-
-
-                if (currentVersion < newestVersion && (Convert.ToInt32(currentVersion.ToString().Replace(".", "")) < Convert.ToInt32(newestVersion.ToString().Replace(".", ""))))
+                if (custom == true)
                 {
 
-                    UpdateAvailable?.Invoke(this, new VersionEventArgs(newestVersion, currentVersion));
-                    State = UpdaterState.Idle;
-                    return true;
+
+                    if (currentVersion < newestVersion && (Convert.ToInt32(currentVersion.ToString().Replace(".", "")) < Convert.ToInt32(newestVersion.ToString().Replace(".", ""))))
+                    {
+
+                        UpdateAvailable?.Invoke(this, new VersionEventArgs(newestVersion, currentVersion));
+                        State = UpdaterState.Idle;
+                        return true;
+                    }
                 }
-            }
-            else
-            {
-                if (currentVersion < newestVersion)
+                else
                 {
+                    if (currentVersion < newestVersion)
+                    {
 
-                    UpdateAvailable?.Invoke(this, new VersionEventArgs(newestVersion, currentVersion));
-                    State = UpdaterState.Idle;
-                    return true;
+                        UpdateAvailable?.Invoke(this, new VersionEventArgs(newestVersion, currentVersion));
+                        State = UpdaterState.Idle;
+                        return true;
+                    }
+
                 }
-
             }
-        }
-             catch (Exception ex)
+            catch (Exception ex)
             {
-            return false;
+                return false;
             }
-    State = UpdaterState.Idle;
+            State = UpdaterState.Idle;
             return false;
         }
 

@@ -1,4 +1,6 @@
-﻿using Ionic.Zip;
+﻿using HandyControl.Tools.Extension;
+using Ionic.Zip;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Serilog;
 using System;
@@ -8,39 +10,18 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
-using Wpf.Ui;
-using Wpf.Ui.Common.Interfaces;
-using Path = System.IO.Path;
-using VTOL;
-using System.Xml.Linq;
-using ABI.Windows.UI;
-using HandyControl.Tools.Extension;
-using System.Drawing.Drawing2D;
-using System.Drawing;
-using Newtonsoft.Json;
-using HandyControl.Tools;
-using Lsj.Util.Win32.Structs;
 using VTOL.Advocate.Conversion.JSON;
-using System.Runtime;
-using System.Text.Json.Nodes;
-using Newtonsoft.Json.Serialization;
-using System.Net.Http.Json;
+using Path = System.IO.Path;
 
 namespace VTOL.Pages
 {
@@ -248,160 +229,8 @@ namespace VTOL.Pages
             else
                 action.Invoke();
         }
-        async void Call_Mods_From_Folder_Lite()
-        {
-
-            try
-            {
-
-                if (User_Settings_Vars.NorthstarInstallLocation != null || User_Settings_Vars.NorthstarInstallLocation != "" || Directory.Exists(User_Settings_Vars.NorthstarInstallLocation))
-                {
-
-                    if (Directory.Exists(User_Settings_Vars.NorthstarInstallLocation))
-                    {
-
-
-                        Main.Current_Installed_Mods.Clear();
-
-                        string NS_Mod_Dir = User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\packages";
-
-                        System.IO.DirectoryInfo rootDirs = new DirectoryInfo(@NS_Mod_Dir);
-                        if (IsValidPath(NS_Mod_Dir) == true)
-                        {
-
-                            System.IO.DirectoryInfo[] subDirs = null;
-                            subDirs = rootDirs.GetDirectories();
-
-
-                            foreach (System.IO.DirectoryInfo dirInfo in subDirs)
-                            {
-
-
-                                Main.Current_Installed_Mods.Add(dirInfo.Name.Trim());
-
-                            }
-                            Console.WriteLine("Finished_Mod_Load");
-                            DispatchIfNecessary(async () =>
-                            {
-
-                                ApplyDataBinding();
-                            });
-                        }
-
-
-
-                    }
-
-
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-            }
-
-        }
-        public static List<NORTHSTARCOMPATIBLE_MOD> MismatchDetector(List<NORTHSTARCOMPATIBLE_MOD> mods, List<NORTHSTARCOMPATIBLE_MOD> jsonMods)
-        {
-            List<NORTHSTARCOMPATIBLE_MOD> mismatchedMods = new List<NORTHSTARCOMPATIBLE_MOD>();
-            List<NORTHSTARCOMPATIBLE_MOD> matchedMods = new List<NORTHSTARCOMPATIBLE_MOD>();
-
-            foreach (NORTHSTARCOMPATIBLE_MOD mod in mods)
-            {
-                bool match = jsonMods.Any(jsonMod => jsonMod.Name == mod.Name);
-                if (match)
-                {
-                    matchedMods.Add(mod);
-
-                }
-                else
-                {
-                    mismatchedMods.Add(mod);
-
-                }
-
-
-            }
-
-
-
-            return matchedMods;
-        }
-        public static async Task<bool> Check_Plugins_and_multi_mod(string Destination, string directory, bool checkIntegrity = false)
-        {
-            string fileName = new DirectoryInfo(directory).Name + ".mc";
-            string filePath = Path.Combine(Destination, fileName);
-
-
-            string pluginsFolderName = "plugins"; // Folder name to search for
-
-            string pluginsFolderPath = Path.Combine(Destination, pluginsFolderName);
-
-            if (checkIntegrity)
-            {
-
-                if (File.Exists(filePath))
-                {
-                    string[] lines = await File.ReadAllLinesAsync(filePath);
-
-                    foreach (string line in lines)
-                    {
-                        if (!Directory.Exists(line))
-                        {
-                            return true;
-                        }
-                    }
-                }
-            }
-
-            if (Directory.Exists(pluginsFolderPath))
-            {
-                return true;
-            }
-
-            if (File.Exists(filePath))
-            {
-                return true;
-            }
-
-
-
-
-
-
-            return false;
-        }
-        public class HashSetConverter : JsonConverter<HashSet<string>>
-        {
-            public override HashSet<string> ReadJson(JsonReader reader, Type objectType, HashSet<string> existingValue, bool hasExistingValue, JsonSerializer serializer)
-            {
-                if (reader.TokenType == JsonToken.StartObject)
-                {
-                    JObject jsonObject = JObject.Load(reader);
-                    HashSet<string> hashSet = new HashSet<string>();
-
-                    foreach (var property in jsonObject.Properties())
-                    {
-                        if (property.Value.Type == JTokenType.Boolean && (bool)property.Value == true)
-                        {
-                            hashSet.Add(property.Name);
-                        }
-                    }
-
-                    return hashSet;
-                }
-
-                throw new JsonSerializationException("Invalid JSON format for HashSet<string>.");
-            }
-
-            public override void WriteJson(JsonWriter writer, HashSet<string> value, JsonSerializer serializer)
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-
        
+      
         public class NORTHSTARCOMPATIBLE_MOD
         {
             public string Name { get; set; }
@@ -411,139 +240,135 @@ namespace VTOL.Pages
 
 
         }
-        public static List<NORTHSTARCOMPATIBLE_MOD> MergeModsIntoJsonFile(string filePath, List<NORTHSTARCOMPATIBLE_MOD> JSON_FILE, List<NORTHSTARCOMPATIBLE_MOD> modsToMerge)
-        {
-          
-            // Merge the existing and new Mods
-            List<NORTHSTARCOMPATIBLE_MOD> mergedMods = new List<NORTHSTARCOMPATIBLE_MOD>(JSON_FILE);
-            mergedMods.AddRange(modsToMerge);
+       
 
-
-            using (StreamWriter writer = new StreamWriter(filePath))
-            {
-                writer.WriteLine("{");
-
-                for (int i = 0; i < mergedMods.Count; i++)
-                {
-                    NORTHSTARCOMPATIBLE_MOD mod = mergedMods[i];
-                    writer.Write($"  \"{mod.Name}\": {mod.Value.ToString().ToLower()}");
-
-                    if (i < mergedMods.Count - 1)
-                    {
-                        writer.WriteLine(",");
-                    }
-                    else
-                    {
-                        writer.WriteLine();
-                    }
-                }
-
-                writer.WriteLine("}");
-            }
-
-            // Serialize the merged Mods back to JSON
-           // string updatedJson = JsonConvert.SerializeObject(mergedMods, Formatting.None);
-
-            // Write the updated JSON back to the file
-            //File.WriteAllText(filePath, updatedJson);
-
-            // Return the updated list of Mods
-            return mergedMods;
-        }
-
-        public static List<NORTHSTARCOMPATIBLE_MOD> ReadJsonValues(string json)
-        {
-            List<NORTHSTARCOMPATIBLE_MOD> mods = new List<NORTHSTARCOMPATIBLE_MOD>();
-            JObject data = JObject.Parse(json);
-            foreach (var property in data.Properties())
-            {
-                string name = property.Name;
-                bool value = (bool)property.Value;
-              
-
-                NORTHSTARCOMPATIBLE_MOD mod = new NORTHSTARCOMPATIBLE_MOD
-                {
-                    Name = name,
-                    Value = value
-                };
-
-                mods.Add(mod);
-            }
-
-            return mods;
-        }
+        
         public List<NORTHSTARCOMPATIBLE_MOD> READ_UPDATE_MOD_LIST(DirectoryInfo[] modsToUpdate, bool UPDATE_Folders = false)
         {
             List<NORTHSTARCOMPATIBLE_MOD> OUTPUT = new List<NORTHSTARCOMPATIBLE_MOD>();
-            string Json_Path = FindFirstFile(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\", "enabledmods.json");
-
-            if (File.Exists(Json_Path) == true)
-            {
-                // Read the JSON file
-                string jsonContent = File.ReadAllText(Json_Path);
-                // Parse the JSON content
-                JObject jsonObject = JObject.Parse(jsonContent);
-
-                foreach (var dirInfo in modsToUpdate)
+            
+                if (modsToUpdate.Count() <= 0)
                 {
-                    NORTHSTARCOMPATIBLE_MOD Mod = new NORTHSTARCOMPATIBLE_MOD();
+                    return OUTPUT;
+                }
+                
+                string Json_Path = FindFirstFile(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\", "enabledmods.json");
 
-                    Mod.Name = (dirInfo.Name.Split('-')[0]);
-                    Mod.DIRECTORY_INFO = null;
-
-                    if (jsonObject.TryGetValue(Mod.Name.Replace("_", " "), out JToken value))
+                if (File.Exists(Json_Path) == true)
+                {
+                  // Read the JSON file
+                   string  jsonContent = File.ReadAllText(Json_Path);
+                
+                if (jsonContent.IsNullOrEmpty() == true || jsonContent.Length < 5)
                     {
-                        if (value.Type == JTokenType.Boolean)
-                        {
 
-                            bool isValueTrue = (bool)value;
-                            Mod.Value = isValueTrue;
-                            Console.WriteLine(isValueTrue.ToString());
+                        foreach (var dirInfo in modsToUpdate)
+                    {
+                        NORTHSTARCOMPATIBLE_MOD Mod = new NORTHSTARCOMPATIBLE_MOD();
+
+
+                        string dirName = dirInfo.Name;
+
+                        // Use the regex pattern to extract the version number
+                        string pattern = @"-\d+\.\d+\.\d+$";
+                        Match match = Regex.Match(dirName, pattern);
+                        // Remove the version number from the directory name
+                        string dirNameWithoutVersion = match.Success ? dirName.Replace(match.Value, "") : dirName;
+                        // Handle the case where the value is null
+                        Mod.Name = dirNameWithoutVersion;
+                        Mod.Value = true; // or some other appropriate value
+                            Mod.IsValidandinstalled = false; // or some other appropriate value
+                            if (dirInfo.Exists)
+                            {
+                                Mod.DIRECTORY_INFO = dirInfo; // or some other appropriate value
+
+                            }
+                            OUTPUT.Add(Mod);
 
                         }
-                        else
-                        {
-                            Mod.Value = false;
-
-                        }
-                        Mod.IsValidandinstalled = true;
-
-                        Mod.DIRECTORY_INFO = dirInfo;
-                        OUTPUT.Add(Mod);
+                        // Handle case where json is null or empty
+                        return OUTPUT;
                     }
                     else
                     {
-                        Mod.DIRECTORY_INFO = dirInfo;
-                        // Console.WriteLine("Could not find - " + Mod.Name);
-                        Mod.Value = false;
-                        Mod.IsValidandinstalled = false;
-                        OUTPUT.Add(Mod);
+                    try
+                    {
+                        ////// Parse the JSON content
+                        JObject jsonObject = JObject.Parse(jsonContent);
 
+                        foreach (var dirInfo in modsToUpdate)
+                        {
+                            NORTHSTARCOMPATIBLE_MOD Mod = new NORTHSTARCOMPATIBLE_MOD();
+
+                            Mod.Name = (dirInfo.Name.Split('-')[0]);
+                            Mod.DIRECTORY_INFO = null;
+
+                            if (jsonObject.TryGetValue(Mod.Name.Replace("_", " "), out JToken value))
+                            {
+                                if (value != null && value.Type == JTokenType.Boolean)
+                                {
+                                    bool isValueTrue = (bool)value;
+                                    Mod.Value = isValueTrue;
+                                    Console.WriteLine(isValueTrue.ToString());
+                                }
+                                else
+                                {
+                                    Mod.Value = false;
+                                }
+
+                                Mod.IsValidandinstalled = true;
+
+                                if (dirInfo.Exists)
+                                {
+                                    Mod.DIRECTORY_INFO = dirInfo; // or some other appropriate value
+
+                                }
+                                OUTPUT.Add(Mod);
+                            }
+                            else
+                            {
+                                // Handle the case where the value is null
+                                Mod.Value = false; // or some other appropriate value
+                                Mod.IsValidandinstalled = false; // or some other appropriate value
+                                if (dirInfo.Exists)
+                                {
+                                    Mod.DIRECTORY_INFO = dirInfo; // or some other appropriate value
+
+                                }
+                                OUTPUT.Add(Mod);
+                            }
+
+
+
+
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Invalid JSON: " + ex.Message);
+
+                        Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
                     }
-
-
-
-
-                    //   MessageBox.Show(Mod.DIRECTORY_INFO.FullName);
                 }
-            }
+                }
+           
             return OUTPUT;
 
         }
         public async Task Call_Mods_From_Folder()
-{
-    bool install_Prompt = false;
-    string IS_CORE_MOD_temp = "#00000000";
-    try
-    {
-        Final_List.Clear();
-        if (User_Settings_Vars.NorthstarInstallLocation != null || User_Settings_Vars.NorthstarInstallLocation != "" || Directory.Exists(User_Settings_Vars.NorthstarInstallLocation))
         {
-            if (Directory.Exists(User_Settings_Vars.NorthstarInstallLocation))
+            bool install_Prompt = false;
+            string IS_CORE_MOD_temp = "#00000000";
+            try
             {
-                if (User_Settings_Vars.CurrentVersion != "NODATA")
+                Final_List.Clear();
+                if (User_Settings_Vars.NorthstarInstallLocation != null || User_Settings_Vars.NorthstarInstallLocation != "" || Directory.Exists(User_Settings_Vars.NorthstarInstallLocation))
                 {
+                    if (Directory.Exists(User_Settings_Vars.NorthstarInstallLocation))
+                    {
+                        if (User_Settings_Vars.CurrentVersion != "NODATA")
+                        {
 
                             string NS_Mod_Dir = User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\packages";
 
@@ -558,48 +383,28 @@ namespace VTOL.Pages
                                 var dirs = rootDirs.EnumerateDirectories("*", new EnumerationOptions
                                 { RecurseSubdirectories = false }).ToArray();
 
-
-
                                 DispatchIfNecessary(async () =>
 
                                 {
 
                                     Mod_Count_Label.Content = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_ModCount + subDirs.Length;
                                 });
-                                if (subDirs.Count() > 0){
+                                if (subDirs.Count() > 0)
+                                {
                                     int index = 0;
                                     List<DirectoryInfo> existingDirectories = null;
-                                   string Json_Path = FindFirstFile(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\", "enabledmods.json");
-                                   
+                                    string Json_Path = FindFirstFile(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\", "enabledmods.json");
 
-                                        if (File.Exists(Json_Path))
-                                        {
-                                            var myJsonString = File.ReadAllText(Json_Path);
-                                            //   dynamic myJObject = JObject.Parse(myJsonString);
-                                            List<NORTHSTARCOMPATIBLE_MOD> READ_JSON_MODS = ReadJsonValues(myJsonString);
-                                           //List<NORTHSTARCOMPATIBLE_MOD> DIRECTORY_MODS = MismatchDetector(READ_UPDATE_MOD_LIST(dirs), READ_JSON_MODS);
+
+                                    if (File.Exists(Json_Path))
+                                    {
+                                    
                                         List<NORTHSTARCOMPATIBLE_MOD> DIRECTORY_MODS = READ_UPDATE_MOD_LIST(dirs);
 
                                         CLEANED_FORMAT_MODS = DIRECTORY_MODS;
-                                        if (Json_Path != null)
+                                       
+                                    }
 
-
-                                        {
-                                         //   CLEANED_FORMAT_MODS = MergeModsIntoJsonFile(Json_Path,READ_JSON_MODS, DIRECTORY_MODS);
-                                        }
-                                        //   MessageBox.Show("Mismatchedd Mods:\n" + string.Join(Environment.NewLine, DIRECTORY_MODS.Select(mod => mod.Name)));
-
-
-                                            //existingDirectories = dirs.Where(directory => READ_JSON_MODS.Any(mod => mod.Name == directory.Name.Split('-')[0])).ToList();
-
-                                            //MessageBox.Show(string.Join(Environment.NewLine, missed));
-
-                                            // Filter the directory names to include only those that exist in the hash set
-
-
-
-                                        }
-                                   
                                     //TODO migrate to using the enabled mod list instad of var directory info in existingDirectories
                                     foreach (var Verified_Installed_Mod in CLEANED_FORMAT_MODS)
                                     {
@@ -608,10 +413,9 @@ namespace VTOL.Pages
                                             if (Verified_Installed_Mod.DIRECTORY_INFO != null)
                                             {
 
-                                                Console.WriteLine($"Index: {index}, Value: {Verified_Installed_Mod}");
                                                 index++;
 
-                                               // bool Has_Manifest_or_plugins = await Check_Plugins_and_multi_mod(Verified_Installed_Mod.DIRECTORY_INFO.FullName, Verified_Installed_Mod.DIRECTORY_INFO.Name);
+                                                // bool Has_Manifest_or_plugins = await Check_Plugins_and_multi_mod(Verified_Installed_Mod.DIRECTORY_INFO.FullName, Verified_Installed_Mod.DIRECTORY_INFO.Name);
                                                 if (Regex.IsMatch(Verified_Installed_Mod.Name.Trim(), @"^Northstar\.CustomServers\w{0,2}$") || Regex.IsMatch(Verified_Installed_Mod.Name.Trim(), @"^Northstar\.Custom\w{0,2}$") || Regex.IsMatch(Verified_Installed_Mod.Name.Trim(), @"^Northstar\.Client\w{0,2}$"))
                                                 {
                                                     IS_CORE_MOD_temp = "#FF8C7F24";
@@ -639,13 +443,13 @@ namespace VTOL.Pages
                                                 {
 
 
-                                                   
+
                                                     int Flag_mod = 0;
                                                     string ToolTip_Dynamic = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_ThereIsAnIssueDetectedWithYourMod;
 
-                                                    if (Verified_Installed_Mod.IsValidandinstalled == false )
+                                                    if (Verified_Installed_Mod.IsValidandinstalled == false)
                                                     {
-                                                       IS_CORE_MOD_temp = "#c80815";
+                                                        IS_CORE_MOD_temp = "#c80815";
 
                                                         ToolTip_Dynamic = "The Mod Is not Registered Properly in the Backend List, Please Fix the Mod formatting or update your TF2 Mod List";
                                                         Flag_mod = 100;
@@ -686,115 +490,6 @@ namespace VTOL.Pages
                                         }
                                     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                    //foreach (var dirInfo in dirs)
-                                    //{
-                                    //    try
-                                    //    {
-
-
-                                    //        Console.WriteLine($"Index: {index}, Value: {dirInfo}");
-                                    //        index++;
-
-                                    //        bool Has_Manifest_or_plugins = await Check_Plugins_and_multi_mod(dirInfo.FullPathFullName, dirInfo.Name);
-
-                                    //        if (Regex.IsMatch(dirInfo.Name.Trim(), @"^Northstar\.CustomServers\w{0,2}$") || Regex.IsMatch(dirInfo.Name.Trim(), @"^Northstar\.Custom\w{0,2}$") || Regex.IsMatch(dirInfo.Name.Trim(), @"^Northstar\.Client\w{0,2}$"))
-                                    //        {
-                                    //            IS_CORE_MOD_temp = "#FF8C7F24";
-
-                                    //        }
-                                    //        else
-                                    //        {
-                                    //            IS_CORE_MOD_temp = "#00000000";
-
-                                    //        }
-
-                                    //        if (dirInfo.FullName.ToString().Contains("ModSettings"))
-                                    //        {
-                                    //            DispatchIfNecessary(async () =>
-
-                                    //            {
-                                    //                DialogF.ButtonLeftName = "Delete";
-                                    //                DialogF.ButtonLeftAppearance = Wpf.Ui.Common.ControlAppearance.Danger;
-                                    //                DialogF.ButtonRightName = "Cancel";
-
-                                    //                DialogF.ButtonRightAppearance = Wpf.Ui.Common.ControlAppearance.Secondary;
-                                    //                DialogF.Title = "WARNING!";
-                                    //                DialogF.Message = VTOL.Resources.Languages.Language.YouHaveInstalledModSettingsModSettingsHasBeenDepreceatedAndWillCauseErrorsNDeleteItNow;
-                                    //                Mod_Settings_Mod_OLD_PATH = dirInfo.FullName;
-                                    //                DialogF.Show();
-                                    //            });
-                                    //        }
-
-                                    //        if (Page_Home.IsDirectoryEmpty(new DirectoryInfo(dirInfo.FullName)))
-                                    //        {
-
-                                    //            TryDeleteDirectoryAsync(dirInfo.FullName, true);
-
-                                    //            continue;
-
-                                    //        }
-                                    //        if (Template_traverse(dirInfo, "Locked_Folder") == true)
-                                    //        {
-
-
-                                    //            if (Directory.Exists(dirInfo + @"\Locked_Folder") && Page_Home.IsDirectoryEmpty(new DirectoryInfo(dirInfo + @"\Locked_Folder")))
-                                    //            {
-                                    //                TryDeleteDirectoryAsync(dirInfo + @"\Locked_Folder");
-                                    //            }
-                                    //            int Flag_mod = 0;
-                                    //            string ToolTip_Dynamic = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_ThereIsAnIssueDetectedWithYourMod;
-
-                                    //            if (!File.Exists(dirInfo.FullName + @"\Locked_Folder" + @"\mod.json") && Has_Manifest_or_plugins == false)
-                                    //            {
-                                    //                ToolTip_Dynamic = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_PleaseOpenYourFolderAt + dirInfo.Parent + VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_AndManuallyRepairTheMod + dirInfo.Name;
-                                    //                Flag_mod = 100;
-                                    //            }
-
-                                    //            Final_List.Add(new Card_ { Mod_Name_ = dirInfo.Name.Trim(), Mod_Date_ = dirInfo.CreationTime.ToString(), Is_Active_Color = "#B29A0404", Size__ = dirInfo.LastAccessTime.ToString(), En_Di = "Enable", Is_Active_ = true, Mod_Path_ = dirInfo.FullName, Flag = Flag_mod, Error_Tooltip = ToolTip_Dynamic, Label = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_Enable, IS_CORE_MOD = IS_CORE_MOD_temp });
-                                    //        }
-                                    //        else
-                                    //        {
-                                    //            int Flag_mod = 0;
-                                    //            string ToolTip_Dynamic = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_ThereIsAnIssueDetectedWithYourMod;
-
-                                    //            if (!File.Exists(dirInfo.FullName + @"\mod.json") && Has_Manifest_or_plugins == false)
-                                    //            {
-
-                                    //                ToolTip_Dynamic = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_PleaseOpenYourFolderAt + dirInfo.Parent + VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_AndManuallyRepairTheMod + dirInfo.Name;
-                                    //                Flag_mod = 100;
-                                    //            }
-
-                                    //            Final_List.Add(new Card_ { Mod_Name_ = dirInfo.Name.Trim(), Mod_Date_ = dirInfo.CreationTime.ToString(), Is_Active_Color = "#B2049A28", Size__ = dirInfo.LastAccessTime.ToString(), En_Di = "Disable", Is_Active_ = false, Mod_Path_ = dirInfo.FullName, Flag = Flag_mod, Error_Tooltip = ToolTip_Dynamic, Label = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_Disable_, IS_CORE_MOD = IS_CORE_MOD_temp });
-
-
-                                    //        }
-                                    //        DispatchIfNecessary(async () =>
-                                    //        {
-                                    //            Main.Current_Installed_Mods.Add(dirInfo.Name.Trim());
-                                    //        });
-                                    //    }catch(Exception ex)
-                                    //    {
-                                    //        Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-
-                                    //    }
-                                    //}
-
                                 }
 
                                 DispatchIfNecessary(async () =>
@@ -810,233 +505,233 @@ namespace VTOL.Pages
 
 
                 }
-               
+
             }
             catch (Exception ex)
             {
-              Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
             }
 
 
         }
 
-		        public async Task<bool> TryDeleteDirectoryAsync(
+        public async Task<bool> TryDeleteDirectoryAsync(
         string directoryPath, bool overwrite = true,
         int maxRetries = 10,
         int millisecondsDelay = 30)
-		        {
-			        if (directoryPath == null)
-				        throw new ArgumentNullException(directoryPath);
-			        if (maxRetries < 1)
-				        throw new ArgumentOutOfRangeException(nameof(maxRetries));
-			        if (millisecondsDelay < 1)
-				        throw new ArgumentOutOfRangeException(nameof(millisecondsDelay));
+        {
+            if (directoryPath == null)
+                throw new ArgumentNullException(directoryPath);
+            if (maxRetries < 1)
+                throw new ArgumentOutOfRangeException(nameof(maxRetries));
+            if (millisecondsDelay < 1)
+                throw new ArgumentOutOfRangeException(nameof(millisecondsDelay));
 
-			        for (int i = 0; i < maxRetries; ++i)
-			        {
-				        try
-				        {
-					        if (Directory.Exists(directoryPath))
-					        {
-						        Directory.Delete(directoryPath, overwrite);
-					        }
+            for (int i = 0; i < maxRetries; ++i)
+            {
+                try
+                {
+                    if (Directory.Exists(directoryPath))
+                    {
+                        Directory.Delete(directoryPath, overwrite);
+                    }
 
-					        return true;
-				        }
-				        catch (IOException)
-				        {
-					        Thread.Sleep(millisecondsDelay);
-				        }
-				        catch (UnauthorizedAccessException)
-				        {
-					        Thread.Sleep(millisecondsDelay);
-				        }
-			        }
+                    return true;
+                }
+                catch (IOException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+            }
 
-			        return false;
-		        }
-		        public bool TryDeleteDirectory(
-        string directoryPath, bool overwrite = true,
-        int maxRetries = 10,
-        int millisecondsDelay = 300)
-		        {
-			        if (directoryPath == null)
-				        throw new ArgumentNullException(directoryPath);
-			        if (maxRetries < 1)
-				        throw new ArgumentOutOfRangeException(nameof(maxRetries));
-			        if (millisecondsDelay < 1)
-				        throw new ArgumentOutOfRangeException(nameof(millisecondsDelay));
+            return false;
+        }
+        public bool TryDeleteDirectory(
+string directoryPath, bool overwrite = true,
+int maxRetries = 10,
+int millisecondsDelay = 300)
+        {
+            if (directoryPath == null)
+                throw new ArgumentNullException(directoryPath);
+            if (maxRetries < 1)
+                throw new ArgumentOutOfRangeException(nameof(maxRetries));
+            if (millisecondsDelay < 1)
+                throw new ArgumentOutOfRangeException(nameof(millisecondsDelay));
 
-			        for (int i = 0; i < maxRetries; ++i)
-			        {
-				        try
-				        {
-					        if (Directory.Exists(directoryPath))
-					        {
-						        Directory.Delete(directoryPath, overwrite);
-					        }
+            for (int i = 0; i < maxRetries; ++i)
+            {
+                try
+                {
+                    if (Directory.Exists(directoryPath))
+                    {
+                        Directory.Delete(directoryPath, overwrite);
+                    }
 
-					        return true;
-				        }
-				        catch (IOException)
-				        {
-					        Thread.Sleep(millisecondsDelay);
-				        }
-				        catch (UnauthorizedAccessException)
-				        {
-					        Thread.Sleep(millisecondsDelay);
-				        }
-			        }
+                    return true;
+                }
+                catch (IOException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+            }
 
-			        return false;
-		        }
-		        public bool TryCreateDirectory(
-           string directoryPath,
-           int maxRetries = 10,
-           int millisecondsDelay = 200)
-		        {
-			        if (directoryPath == null)
-				        throw new ArgumentNullException(directoryPath);
-			        if (maxRetries < 1)
-				        throw new ArgumentOutOfRangeException(nameof(maxRetries));
-			        if (millisecondsDelay < 1)
-				        throw new ArgumentOutOfRangeException(nameof(millisecondsDelay));
+            return false;
+        }
+        public bool TryCreateDirectory(
+   string directoryPath,
+   int maxRetries = 10,
+   int millisecondsDelay = 200)
+        {
+            if (directoryPath == null)
+                throw new ArgumentNullException(directoryPath);
+            if (maxRetries < 1)
+                throw new ArgumentOutOfRangeException(nameof(maxRetries));
+            if (millisecondsDelay < 1)
+                throw new ArgumentOutOfRangeException(nameof(millisecondsDelay));
 
-			        for (int i = 0; i < maxRetries; ++i)
-			        {
-				        try
-				        {
+            for (int i = 0; i < maxRetries; ++i)
+            {
+                try
+                {
 
-					        Directory.CreateDirectory(directoryPath);
+                    Directory.CreateDirectory(directoryPath);
 
-					        if (Directory.Exists(directoryPath))
-					        {
+                    if (Directory.Exists(directoryPath))
+                    {
 
-						        return true;
-					        }
+                        return true;
+                    }
 
 
-				        }
-				        catch (IOException)
-				        {
-					        Thread.Sleep(millisecondsDelay);
-				        }
-				        catch (UnauthorizedAccessException)
-				        {
-					        Thread.Sleep(millisecondsDelay);
-				        }
-			        }
+                }
+                catch (IOException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+            }
 
-			        return false;
-		        }
-		        public bool TryMoveFile(
-           string Origin, string Destination, bool overwrite = true,
-           int maxRetries = 10,
-           int millisecondsDelay = 200)
-		        {
-			        if (Origin == null)
-				        throw new ArgumentNullException(Origin);
-			        if (maxRetries < 1)
-				        throw new ArgumentOutOfRangeException(nameof(maxRetries));
-			        if (millisecondsDelay < 1)
-				        throw new ArgumentOutOfRangeException(nameof(millisecondsDelay));
+            return false;
+        }
+        public bool TryMoveFile(
+   string Origin, string Destination, bool overwrite = true,
+   int maxRetries = 10,
+   int millisecondsDelay = 200)
+        {
+            if (Origin == null)
+                throw new ArgumentNullException(Origin);
+            if (maxRetries < 1)
+                throw new ArgumentOutOfRangeException(nameof(maxRetries));
+            if (millisecondsDelay < 1)
+                throw new ArgumentOutOfRangeException(nameof(millisecondsDelay));
 
-			        for (int i = 0; i < maxRetries; ++i)
-			        {
-				        try
-				        {
-					        if (File.Exists(Origin))
-					        {
-						        File.Move(Origin, Destination, overwrite);
-					        }
+            for (int i = 0; i < maxRetries; ++i)
+            {
+                try
+                {
+                    if (File.Exists(Origin))
+                    {
+                        File.Move(Origin, Destination, overwrite);
+                    }
 
-					        return true;
-				        }
-				        catch (IOException)
-				        {
-					        Thread.Sleep(millisecondsDelay);
-				        }
-				        catch (UnauthorizedAccessException)
-				        {
-					        Thread.Sleep(millisecondsDelay);
-				        }
-			        }
+                    return true;
+                }
+                catch (IOException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+            }
 
-			        return false;
-		        }
-		        public bool TryCopyFile(
-          string Origin, string Destination, bool overwrite = true,
-          int maxRetries = 10,
-          int millisecondsDelay = 300)
-		        {
-			        if (Origin == null)
-				        throw new ArgumentNullException(Origin);
-			        if (maxRetries < 1)
-				        throw new ArgumentOutOfRangeException(nameof(maxRetries));
-			        if (millisecondsDelay < 1)
-				        throw new ArgumentOutOfRangeException(nameof(millisecondsDelay));
+            return false;
+        }
+        public bool TryCopyFile(
+  string Origin, string Destination, bool overwrite = true,
+  int maxRetries = 10,
+  int millisecondsDelay = 300)
+        {
+            if (Origin == null)
+                throw new ArgumentNullException(Origin);
+            if (maxRetries < 1)
+                throw new ArgumentOutOfRangeException(nameof(maxRetries));
+            if (millisecondsDelay < 1)
+                throw new ArgumentOutOfRangeException(nameof(millisecondsDelay));
 
-			        for (int i = 0; i < maxRetries; ++i)
-			        {
-				        try
-				        {
-					        if (File.Exists(Origin))
-					        {
-						        File.Copy(Origin, Destination, true);
-					        }
-					        Thread.Sleep(millisecondsDelay);
+            for (int i = 0; i < maxRetries; ++i)
+            {
+                try
+                {
+                    if (File.Exists(Origin))
+                    {
+                        File.Copy(Origin, Destination, true);
+                    }
+                    Thread.Sleep(millisecondsDelay);
 
-					        return true;
-				        }
-				        catch (IOException)
-				        {
-					        Thread.Sleep(millisecondsDelay);
-				        }
-				        catch (UnauthorizedAccessException)
-				        {
-					        Thread.Sleep(millisecondsDelay);
-				        }
-			        }
+                    return true;
+                }
+                catch (IOException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+            }
 
-			        return false;
-		        }
-		        public bool TryDeleteFile(
-        string Origin,
-        int maxRetries = 10,
-        int millisecondsDelay = 300)
-		        {
-			        if (Origin == null)
-				        throw new ArgumentNullException(Origin);
-			        if (maxRetries < 1)
-				        throw new ArgumentOutOfRangeException(nameof(maxRetries));
-			        if (millisecondsDelay < 1)
-				        throw new ArgumentOutOfRangeException(nameof(millisecondsDelay));
+            return false;
+        }
+        public bool TryDeleteFile(
+string Origin,
+int maxRetries = 10,
+int millisecondsDelay = 300)
+        {
+            if (Origin == null)
+                throw new ArgumentNullException(Origin);
+            if (maxRetries < 1)
+                throw new ArgumentOutOfRangeException(nameof(maxRetries));
+            if (millisecondsDelay < 1)
+                throw new ArgumentOutOfRangeException(nameof(millisecondsDelay));
 
-			        for (int i = 0; i < maxRetries; ++i)
-			        {
-				        try
-				        {
-					        if (File.Exists(Origin))
-					        {
-						        File.Delete(Origin);
-					        }
-					        Thread.Sleep(millisecondsDelay);
+            for (int i = 0; i < maxRetries; ++i)
+            {
+                try
+                {
+                    if (File.Exists(Origin))
+                    {
+                        File.Delete(Origin);
+                    }
+                    Thread.Sleep(millisecondsDelay);
 
-					        return true;
-				        }
-				        catch (IOException)
-				        {
-					        Thread.Sleep(millisecondsDelay);
-				        }
-				        catch (UnauthorizedAccessException)
-				        {
-					        Thread.Sleep(millisecondsDelay);
-				        }
-			        }
+                    return true;
+                }
+                catch (IOException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    Thread.Sleep(millisecondsDelay);
+                }
+            }
 
-			        return false;
-		        }
-       
+            return false;
+        }
+
         public bool Template_traverse(System.IO.DirectoryInfo root, String Search)
         {
 
@@ -1131,7 +826,7 @@ namespace VTOL.Pages
             }
             catch (Exception ex)
             {
-               Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
                 isValid = false;
             }
 
@@ -1164,7 +859,7 @@ namespace VTOL.Pages
             }
             catch (Exception ex)
             {
-               Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
             }
         }
@@ -1183,112 +878,43 @@ namespace VTOL.Pages
                     if (val != null)
                     {
 
-                       
-                            string Json_Path = FindFirstFile(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\", "enabledmods.json");
+
+                        string Json_Path = FindFirstFile(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\", "enabledmods.json");
 
 
-                            if (File.Exists(Json_Path))
-                            {
-                                // Read the JSON file
-                                string jsonContent = File.ReadAllText(Json_Path);
+                        if (File.Exists(Json_Path))
+                        {
+                            // Read the JSON file
+                            string jsonContent = File.ReadAllText(Json_Path);
                             // Parse the JSON content
                             JObject jsonObject = JObject.Parse(jsonContent);
                             string Name = val.Replace("_", " ");
                             if (jsonObject.TryGetValue(Name, out _))
-                                {
-                                    if (Enable_Disable != null)
-                                    {
-                                        // Insert a new property
-                                        jsonObject[Name] = Enable_Disable;
-                                    }
-                                }
-                                // Convert back to JSON string
-                                string updatedJson = jsonObject.ToString();
-
-                               // string updatedJson = JsonConvert.SerializeObject(jsonObject, Formatting.Indented);
-
-                                // Write back to the file
-                                File.WriteAllText(Json_Path, updatedJson);
-
-                            }
-                            else
                             {
-
-                                        Snackbar.Title = VTOL.Resources.Languages.Language.ERROR;
-                                       Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Caution;
-                                       Snackbar.Message = "File" + Json_Path + " Could not be Edited.";
-                                       Snackbar.Show();
-                                    
+                                if (Enable_Disable != null)
+                                {
+                                    // Insert a new property
+                                    jsonObject[Name] = Enable_Disable;
+                                }
                             }
-                            //if (Enable_Disable == true)
-                            //{
-                            //    if (File.Exists(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\packages\" + val + @"\Locked_Folder" + @"\mod.json"))
-                            //    {
-                            //        TryMoveFile(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\packages\" + val + @"\Locked_Folder" + @"\mod.json", User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\packages\" + val + @"\mod.json", true);
+                            // Convert back to JSON string
+                            string updatedJson = jsonObject.ToString();
 
-                            //        DirectoryInfo Locked = new DirectoryInfo(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\packages\" + val + @"\Locked_Folder");
-                            //        if (Page_Home.IsDirectoryEmpty(Locked))
-                            //        {
+                            // string updatedJson = JsonConvert.SerializeObject(jsonObject, Formatting.Indented);
 
-                            //            TryDeleteDirectory(Locked.FullName);
+                            // Write back to the file
+                            File.WriteAllText(Json_Path, updatedJson);
 
-                            //        }
+                        }
+                        else
+                        {
 
+                            Snackbar.Title = VTOL.Resources.Languages.Language.ERROR;
+                            Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Caution;
+                            Snackbar.Message = "File" + Json_Path + " Could not be Edited.";
+                            Snackbar.Show();
 
-                            //    }
-                            //    else
-                            //    {
-
-                            //        Snackbar.Title = VTOL.Resources.Languages.Language.ERROR;
-                            //        Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Caution;
-                            //        Snackbar.Message = "File" + val + " Could not be Edited.";
-                            //        Snackbar.Show();
-                            //    }
-
-
-
-
-
-                            //}
-                            //else
-                            //{
-                            //    if (File.Exists(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\packages\" + val + @"\mod.json"))
-                            //    {
-                            //        TryCreateDirectory(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\packages\" + val + @"\Locked_Folder");
-
-                            //        TryMoveFile(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\packages\" + val + @"\mod.json", User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\packages\" + val + @"\Locked_Folder" + @"\mod.json", true);
-
-
-
-                            //    }
-                            //    else
-                            //    {
-                            //        Snackbar.Title = VTOL.Resources.Languages.Language.ERROR;
-                            //        Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Caution;
-                            //        Snackbar.Message = "File" + val + " Could not be Edited.";
-                            //        Snackbar.Show();
-                            //    }
-
-
-                            //}
-
-
-
-                        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                        }
                     }
                     else
                     {
@@ -1507,7 +1133,7 @@ namespace VTOL.Pages
             }
             catch (Exception ex)
             {
-               Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
             }
         }
@@ -1557,7 +1183,7 @@ namespace VTOL.Pages
                 Search_Bar_Suggest_Mods.Text = "~Search";
             }
             Search_Bar_Suggest_Mods.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#34FFFFFF");
-           // Search_Bar_Suggest_Mods.IconForeground = (SolidColorBrush)new BrushConverter().ConvertFrom("#34FFFFFF");
+            // Search_Bar_Suggest_Mods.IconForeground = (SolidColorBrush)new BrushConverter().ConvertFrom("#34FFFFFF");
         }
 
         IEnumerable<Card_> Keep_List_State(bool Searching, bool reverse = false)
@@ -2065,7 +1691,7 @@ namespace VTOL.Pages
             }
             catch (Exception ex)
             {
-               //Removed PaperTrailSystem Due to lack of reliability.
+                //Removed PaperTrailSystem Due to lack of reliability.
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
             }
@@ -2115,7 +1741,7 @@ namespace VTOL.Pages
             }
             catch (Exception ex)
             {
-               //Removed PaperTrailSystem Due to lack of reliability.
+                //Removed PaperTrailSystem Due to lack of reliability.
 
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
@@ -2164,7 +1790,7 @@ namespace VTOL.Pages
             }
             catch (Exception ex)
             {
-              //Removed PaperTrailSystem Due to lack of reliability.
+                //Removed PaperTrailSystem Due to lack of reliability.
 
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
@@ -2186,7 +1812,7 @@ namespace VTOL.Pages
             }
             catch (Exception ex)
             {
-               //Removed PaperTrailSystem Due to lack of reliability.
+                //Removed PaperTrailSystem Due to lack of reliability.
 
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy-MM- dd-HH-mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
@@ -2197,7 +1823,7 @@ namespace VTOL.Pages
         {
         }
 
-       
+
         private string Find_Folder(string searchQuery, string folderPath)
         {
             searchQuery = "*" + searchQuery + "*";
@@ -2221,7 +1847,7 @@ namespace VTOL.Pages
                 }
                 catch (Exception ex)
                 {
-                    
+
                     return string.Empty;
                 }
 
@@ -2265,7 +1891,7 @@ namespace VTOL.Pages
 
             catch (Exception ex)
             {
-               
+
 
             }
             // If no file was found (neither in this directory nor in the child directories)
@@ -2274,15 +1900,16 @@ namespace VTOL.Pages
         }
         public long GetDirectorySize(string path)
         {
-            try { 
-            DirectoryInfo directoryInfo = new DirectoryInfo(path);
-            return directoryInfo.EnumerateFiles("*", SearchOption.AllDirectories)
-                               .Sum(file => file.Length);
+            try
+            {
+                DirectoryInfo directoryInfo = new DirectoryInfo(path);
+                return directoryInfo.EnumerateFiles("*", SearchOption.AllDirectories)
+                                   .Sum(file => file.Length);
             }
 
             catch (Exception ex)
             {
-               Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
             }
             return 0;
@@ -2374,7 +2001,7 @@ namespace VTOL.Pages
                             long size = GetDirectorySize(FolderDir);
                             string size_str = "Mod Size on Disk: " + SizeSuffix(size);
                             string Content = Description + Environment.NewLine + version + Environment.NewLine + size_str.Replace(",", ".");
-                      
+
 
                             DispatchIfNecessary(async () =>
                             {
@@ -2415,7 +2042,7 @@ namespace VTOL.Pages
                             }
                             if (manifest_json != null && File.Exists(manifest_json))
                             {
-                              
+
                                 var mymanifestString = File.ReadAllText(manifest_json);
                                 dynamic myMObject = JObject.Parse(mymanifestString);
 
@@ -2504,8 +2131,8 @@ namespace VTOL.Pages
             }
             catch (Exception ex)
             {
-               //Removed PaperTrailSystem Due to lack of reliability.
-               Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                //Removed PaperTrailSystem Due to lack of reliability.
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
             }
         }
@@ -2539,7 +2166,7 @@ namespace VTOL.Pages
 
             catch (Exception ex)
             {
-               //Removed PaperTrailSystem Due to lack of reliability.
+                //Removed PaperTrailSystem Due to lack of reliability.
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
             }
@@ -2573,7 +2200,7 @@ namespace VTOL.Pages
 
             catch (Exception ex)
             {
-               //Removed PaperTrailSystem Due to lack of reliability.
+                //Removed PaperTrailSystem Due to lack of reliability.
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
             }
@@ -2603,7 +2230,7 @@ namespace VTOL.Pages
             catch (Exception ex)
             {
 
-               //Removed PaperTrailSystem Due to lack of reliability.
+                //Removed PaperTrailSystem Due to lack of reliability.
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
             }
@@ -2617,7 +2244,7 @@ namespace VTOL.Pages
 
             try
             {
-               
+
                 string FolderDir = Find_Folder(Mod_name, User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\packages");
                 if (Directory.Exists(FolderDir))
                 {
@@ -2664,21 +2291,27 @@ namespace VTOL.Pages
                 {
                     // Read the JSON file
                     string jsonContent = File.ReadAllText(Json_Path);
-                    // Parse the JSON content
-                    JObject jsonObject = JObject.Parse(jsonContent);
-                    string Name = workingmod.Replace("_", " ");
-                    if (jsonObject.TryGetValue(Name, out _))
-                    {
-                        jsonObject.Remove(Name);
+
+                    if (jsonContent.IsNullOrEmpty() != true && jsonContent.Length > 5)
+                    {// Parse the JSON content
+
+                        JObject jsonObject = JObject.Parse(jsonContent);
+                        string Name = workingmod.Replace("_", " ");
+                        if (jsonObject.TryGetValue(Name, out _))
+                        {
+                            jsonObject.Remove(Name);
+
+                        }
+                        // Convert back to JSON string
+                        string updatedJson = jsonObject.ToString();
+
+                        // string updatedJson = JsonConvert.SerializeObject(jsonObject, Formatting.Indented);
+
+                        // Write back to the file
+                        File.WriteAllText(Json_Path, updatedJson);
 
                     }
-                    // Convert back to JSON string
-                    string updatedJson = jsonObject.ToString();
-
-                    // string updatedJson = JsonConvert.SerializeObject(jsonObject, Formatting.Indented);
-
-                    // Write back to the file
-                    File.WriteAllText(Json_Path, updatedJson);
+                        
 
                 }
 
@@ -2788,7 +2421,7 @@ namespace VTOL.Pages
             }
             catch (Exception ex)
             {
-              Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
             }
         }
@@ -2894,7 +2527,7 @@ namespace VTOL.Pages
             }
             catch (Exception ex)
             {
-               //Removed PaperTrailSystem Due to lack of reliability.
+                //Removed PaperTrailSystem Due to lack of reliability.
 
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
@@ -2908,7 +2541,8 @@ namespace VTOL.Pages
             if (IsValidPath(Mod_Settings_Mod_OLD_PATH))
             {
                 bool isValid = TryDeleteDirectoryAsync(Mod_Settings_Mod_OLD_PATH, true).Result;
-                if (isValid == true){
+                if (isValid == true)
+                {
 
 
                     DialogF.Hide();
@@ -2921,13 +2555,13 @@ namespace VTOL.Pages
                 }
                 else
                 {
-                    Snackbar.Title =VTOL.Resources.Languages.Language.ERROR;
+                    Snackbar.Title = VTOL.Resources.Languages.Language.ERROR;
                     Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Danger;
                     Snackbar.Message = VTOL.Resources.Languages.Language.TheModAt + Mod_Settings_Mod_OLD_PATH + VTOL.Resources.Languages.Language.CouldNotBeDeleted;
                     Snackbar.Show();
                 }
-                
-                
+
+
             }
         }
 

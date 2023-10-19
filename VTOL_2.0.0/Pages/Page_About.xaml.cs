@@ -1,22 +1,11 @@
-﻿using Serilog;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Diagnostics;
-using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Path = System.IO.Path;
 
 namespace VTOL.Pages
@@ -30,7 +19,7 @@ namespace VTOL.Pages
         public MainWindow Main = GetMainWindow();
 
         private static String updaterModulePath;
-        bool is_portable_= true;
+        bool is_portable_ = true;
         Wpf.Ui.Controls.Snackbar SnackBar;
 
         async Task Set_About()
@@ -107,7 +96,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
         {
             InitializeComponent();
             string Header = Path.GetFullPath(Path.Combine(System.Reflection.Assembly.GetExecutingAssembly().Location, @"../"));
-      
+
 
 
             updaterModulePath = Path.Combine(Header, "VTOL_Updater.exe");
@@ -153,11 +142,11 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
         {
             try
             {
-             
+
                 var thisApp = Assembly.GetExecutingAssembly();
                 AssemblyName name = new AssemblyName(thisApp.FullName);
                 Updater Update = new Updater("BigSpice", "VTOL");
-                
+
 
                 if (Update.CheckForUpdate())
                 {
@@ -187,7 +176,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             }
             catch (Exception ex)
             {
-                
+
 
             }
 
@@ -197,7 +186,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
         private void Check_Click(object sender, RoutedEventArgs e)
         {
 
-            if (is_portable_==false)
+            if (is_portable_ == false)
             {
                 if (File.Exists(updaterModulePath))
                 {
@@ -205,7 +194,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
                     Process process = Process.Start(updaterModulePath, "/checknow ");
                     // process.Close();
                 }
-               
+
             }
             else
             {
@@ -213,7 +202,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
 
                 Check_For_New_Update();
-                
+
 
             }
 

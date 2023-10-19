@@ -1,26 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Serilog;
+using System;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
+using System.Diagnostics;
+using System.Globalization;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.IO;
-using System.Threading;
-using System.Globalization;
-using System.Reflection;
-using Wpf.Ui.Common;
-using System.Diagnostics;
 using System.Windows.Threading;
-using Serilog;
+using Wpf.Ui.Common;
 
 namespace VTOL.Pages
 {
@@ -38,7 +28,7 @@ namespace VTOL.Pages
         string OLD_MSG;
         string OLD_TITLE;
         DispatcherTimer timer = new DispatcherTimer();
-     
+
         public enum Language
         {
             English,
@@ -243,7 +233,7 @@ namespace VTOL.Pages
                 User_Settings_Vars.Repo = Settings_.Repo;
                 User_Settings_Vars.RepoUrl = Settings_.Repo_Url;
                 User_Settings_Vars.Auto_Update_Northstar = Settings_.Auto_Update_Northstar;
-               
+
                 Properties.Settings.Default.Hide_Console_Window = Settings_.Hide_Console_Window;
                 Properties.Settings.Default.EA_APP_SUPPORT = Settings_.Enable_EA_APP_Usage;
                 Properties.Settings.Default.Backup_arg_Files = Settings_.Do_Not_Overwrite_Config_Files;
@@ -273,11 +263,11 @@ namespace VTOL.Pages
 
                     }
                 });
-              
+
             }
             catch (Exception ex)
             {
-               Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
 
 
@@ -373,7 +363,7 @@ namespace VTOL.Pages
                     });
                     return;
                 }
-                
+
                 else
                 {
                     Settings_.Restart_As_Admin = false;
@@ -422,12 +412,12 @@ namespace VTOL.Pages
 
         private void Settings_MouseUp(object sender, MouseButtonEventArgs e)
         {
-           
+
         }
 
         private void Settings_ManipulationStarted(object sender, ManipulationStartedEventArgs e)
         {
-        
+
         }
 
         private void Settings_TargetUpdated(object sender, DataTransferEventArgs e)
@@ -442,7 +432,7 @@ namespace VTOL.Pages
 
         private void Settings_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-           
+
 
             timer.Start();
 

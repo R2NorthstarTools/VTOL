@@ -1,37 +1,29 @@
-﻿using System;
+﻿using Microsoft.Xaml.Behaviors;
+using Newtonsoft.Json.Linq;
+using Pixelmaniac.Notifications;
+using Serilog;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
+using System.Reflection;
+using System.Security.Principal;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Parallax;
-using Newtonsoft.Json.Linq;
-using Microsoft.Win32;
-using VTOL.Scripts;
-using System.Globalization;
-using Serilog;
-using System.Threading;
-using System.Reflection;
-using System.Diagnostics;
-using System.Security.Principal;
 using VTOL.Pages;
-using Pixelmaniac.Notifications;
-using Microsoft.Xaml.Behaviors;
 
 namespace VTOL
 {
-    
-        public class FadeInOutBehavior : Behavior<UIElement>
+
+    public class FadeInOutBehavior : Behavior<UIElement>
     {
         protected override void OnAttached()
         {
@@ -83,13 +75,13 @@ namespace VTOL
         public NotificationManager NotificationManager;
 
         public bool Is_Focused = true;
-       // public List<string> Current_Installed_Mods = new List<string>();
+        // public List<string> Current_Installed_Mods = new List<string>();
         public HashSet<string> Current_Installed_Mods = new HashSet<string>();
 
         bool failed_folder = false;
         public bool minimize_to_tray = false;
-        
-     
+
+
         public string ProductVersion
         {
             get
@@ -111,11 +103,11 @@ namespace VTOL
         private void UserInterfaceCustomScale(double customScale)
         {
             // Change scale of window content
-        
-            ScaleTransform dpiTransform = new ScaleTransform(1.5,1.5);
-      
+
+            ScaleTransform dpiTransform = new ScaleTransform(1.5, 1.5);
+
             this.LayoutTransform = dpiTransform;
-       
+
         }
         public MainWindow()
         {
@@ -123,13 +115,14 @@ namespace VTOL
 
             try
             {
-               
-                NotificationManager =  new NotificationManager();
-                minimize_to_tray =  Properties.Settings.Default.Minimize_to_Tray;
+
+                NotificationManager = new NotificationManager();
+                minimize_to_tray = Properties.Settings.Default.Minimize_to_Tray;
                 Profile_TAG.Content = Properties.Settings.Default.Profile_Name;
-                
+
                 if (!File.Exists(AppDataFolder + @"\VTOL_DATA\Settings\User_Settings.Json"))
-                {    string DocumentsFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                {
+                    string DocumentsFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 
                     if (Directory.Exists(DocumentsFolder) && Directory.Exists(AppDataFolder))
                     {
@@ -201,15 +194,15 @@ namespace VTOL
                 {
                     failed_folder = true;
                     Send_Danger_Notif("VTOL SYSTEMS FAILED TO FIND YOUR APPDATA FOLDER, LOCATE A SAVE DATA FOLDER", 10000);
-                        var folderDlg = new Ookii.Dialogs.Wpf.VistaFolderBrowserDialog();
-                        folderDlg.ShowNewFolderButton = true;
-                        // Show the FolderBrowserDialog.  
-                        var result = folderDlg.ShowDialog();
-                        if (result == true)
+                    var folderDlg = new Ookii.Dialogs.Wpf.VistaFolderBrowserDialog();
+                    folderDlg.ShowNewFolderButton = true;
+                    // Show the FolderBrowserDialog.  
+                    var result = folderDlg.ShowDialog();
+                    if (result == true)
+                    {
+                        string path = folderDlg.SelectedPath;
+                        if (path == null || !Directory.Exists(path))
                         {
-                            string path = folderDlg.SelectedPath;
-                            if (path == null || !Directory.Exists(path))
-                            {
                             Send_Caution_Notif("INVALID FOLDER");
 
 
@@ -217,7 +210,7 @@ namespace VTOL
 
                         }
                         else
-                            {
+                        {
 
                             Properties.Settings.Default.BACKUP_SAVE_DEST = path + @"\";
                             Properties.Settings.Default.Save();
@@ -225,7 +218,7 @@ namespace VTOL
 
                             Restart();
                         }
-                        }
+                    }
 
 
 
@@ -238,7 +231,7 @@ namespace VTOL
 
 
                 }
-                
+
                 if (User_Settings_Vars != null)
                 {
 
@@ -294,7 +287,7 @@ namespace VTOL
   true                                  // Whether to change accents automatically
 );
 
-               
+
 
                 VERSION_TEXT.Text = "VTOL - " + ProductVersion + " |";
 
@@ -328,9 +321,9 @@ namespace VTOL
         }
         void Restart()
         {
-         
 
-           
+
+
             var currentExecutablePath = Process.GetCurrentProcess().MainModule.FileName;
             Process.Start(currentExecutablePath);
             Application.Current.Shutdown();
@@ -486,7 +479,7 @@ namespace VTOL
 
             return false;
         }
-       
+
         public void Send_Success_Notif(string Input_Message)
         {
 
@@ -550,7 +543,7 @@ namespace VTOL
 
 
 
-      
+
         private void Grid_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
@@ -586,7 +579,7 @@ namespace VTOL
             if (Wpf.Ui.Appearance.Theme.GetAppTheme() == ThemeType)
             {
 
-				Wpf.Ui.Appearance.Theme.Apply(
+                Wpf.Ui.Appearance.Theme.Apply(
 Wpf.Ui.Appearance.ThemeType.Light, // Theme type
 Wpf.Ui.Appearance.BackgroundType.Mica, // Background type
 true // Whether to change accents automatically
@@ -649,26 +642,26 @@ true // Whether to change accents automatically
                 string path = User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\logs\";
 
 
-                    if (Directory.Exists(path) )
+                if (Directory.Exists(path))
                 {
-                       
 
-                        string pattern = "*.dmp";
-                        var dirInfo = new DirectoryInfo(path);
-                        var file = (from f in dirInfo.GetFiles(pattern) orderby f.LastWriteTime descending select f).FirstOrDefault();
-                        string p = file.FullName;
-                        string args = string.Format("/e, /select, \"{0}\"", p);
 
-                        ProcessStartInfo info = new ProcessStartInfo();
-                        info.FileName = "explorer";
-                        info.Arguments = args;
-                        Process.Start(info);
+                    string pattern = "*.dmp";
+                    var dirInfo = new DirectoryInfo(path);
+                    var file = (from f in dirInfo.GetFiles(pattern) orderby f.LastWriteTime descending select f).FirstOrDefault();
+                    string p = file.FullName;
+                    string args = string.Format("/e, /select, \"{0}\"", p);
+
+                    ProcessStartInfo info = new ProcessStartInfo();
+                    info.FileName = "explorer";
+                    info.Arguments = args;
+                    Process.Start(info);
                     Properties.Settings.Default.LOG_Folder_Counter = Directory.GetFiles(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\logs\").Where(s => s.EndsWith(".dmp")).Count();
                     Properties.Settings.Default.Save();
 
                     Log_Folder_warning.Visibility = Visibility.Hidden;
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -711,7 +704,8 @@ true // Whether to change accents automatically
         {
             await Task.Run(() =>
             {
-                DispatchIfNecessary(async () => {
+                DispatchIfNecessary(async () =>
+                {
                     Snackbar.Message = "Opening the Following URL - " + URL;
                     Snackbar.Title = "INFO";
                     Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
@@ -738,16 +732,17 @@ true // Whether to change accents automatically
             {
                 Northstar_Dialog.Visibility = Visibility.Visible;
             }
-            
+
         }
 
         private void Changelog_Click(object sender, RoutedEventArgs e)
         {
-            try { 
-            string url = @"https://github.com/R2Northstar/Northstar/releases/tag/v" + NORTHSTAR_BUTTON.Content.ToString().Replace("Northstar Version", "").Replace("-", "").Trim().Replace(" ", "");
+            try
+            {
+                string url = @"https://github.com/R2Northstar/Northstar/releases/tag/v" + NORTHSTAR_BUTTON.Content.ToString().Replace("Northstar Version", "").Replace("-", "").Trim().Replace(" ", "");
 
-            OPEN_WEBPAGE(url);
-            
+                OPEN_WEBPAGE(url);
+
             }
 
 
@@ -805,27 +800,27 @@ true // Whether to change accents automatically
 
         private void RootNavigation_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-           
+
         }
 
         private void RootNavigation_TargetUpdated(object sender, DataTransferEventArgs e)
         {
-           
+
         }
 
         private void RootNavigation_SourceUpdated(object sender, DataTransferEventArgs e)
         {
-           
+
         }
 
         private void Northstar_Dialog_LostFocus(object sender, RoutedEventArgs e)
         {
-          
+
         }
 
         private void Northstar_Dialog_LostMouseCapture(object sender, MouseEventArgs e)
         {
-           
+
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
@@ -881,7 +876,7 @@ true // Whether to change accents automatically
 
         private void RestartNorthstar_Click(object sender, RoutedEventArgs e)
         {
-           
+
         }
 
         private void OpenMods_Click(object sender, RoutedEventArgs e)
@@ -932,10 +927,11 @@ true // Whether to change accents automatically
         private void Main_Win_Control_StateChanged(object sender, EventArgs e)
         {
 
-            try {
+            try
+            {
                 if (minimize_to_tray == true)
                 {
-                   
+
 
                     if (this.WindowState == WindowState.Minimized)
                     {
@@ -951,15 +947,15 @@ true // Whether to change accents automatically
                 {
                     this.ShowInTaskbar = true;
 
-                   
+
 
                 }
 
 
             }
-        
-  catch (Exception ex)
-  {
+
+            catch (Exception ex)
+            {
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
 
@@ -968,13 +964,13 @@ true // Whether to change accents automatically
             }
 
 
-}
+        }
 
         private void Reload__Click(object sender, RoutedEventArgs e)
         {
 
             Restart();
-        
+
         }
 
         private void Main_Win_Control_Loaded(object sender, RoutedEventArgs e)
@@ -997,13 +993,13 @@ true // Whether to change accents automatically
 
         private void Action_Center_Progress_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            
+
         }
 
         private void Action_Center_Progress_Checked(object sender, RoutedEventArgs e)
         {
-           
-               
+
+
 
             if (Action_Center_Panel.Opacity < 1)
             {
@@ -1043,11 +1039,12 @@ true // Whether to change accents automatically
         {
             try
             {
-                DispatchIfNecessary(async () => {
-                Wpf.Ui.Controls.Button Button;
-                 Button = sender as Wpf.Ui.Controls.Button;
-               
-                  
+                DispatchIfNecessary(async () =>
+                {
+                    Wpf.Ui.Controls.Button Button;
+                    Button = sender as Wpf.Ui.Controls.Button;
+
+
                     RootNavigation.Navigate(typeof(Pages.Page_Thunderstore));
 
                     Page_Thunderstore Page = RootFrame.Content as Page_Thunderstore;
@@ -1070,12 +1067,12 @@ true // Whether to change accents automatically
 
         private void Cancel_Button_SourceUpdated(object sender, DataTransferEventArgs e)
         {
-            
+
         }
 
         private void Cancel_Button_TargetUpdated(object sender, DataTransferEventArgs e)
         {
-           
+
         }
 
         private void Action_Center_TargetUpdated(object sender, DataTransferEventArgs e)
@@ -1090,24 +1087,25 @@ true // Whether to change accents automatically
 
         private void SymbolIcon_LayoutUpdated(object sender, EventArgs e)
         {
-           
+
 
         }
 
         private void SymbolIcon_TargetUpdated(object sender, DataTransferEventArgs e)
         {
-            
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                DispatchIfNecessary(async () => {
-                   Button Button;
+                DispatchIfNecessary(async () =>
+                {
+                    Button Button;
                     Button = sender as Button;
 
-                    
+
                     RootNavigation.Navigate(typeof(Pages.Page_Thunderstore));
 
                     Page_Thunderstore Page = RootFrame.Content as Page_Thunderstore;
@@ -1116,7 +1114,7 @@ true // Whether to change accents automatically
 
                         if (Page._downloadQueue != null)
                         {
-                            Page._downloadQueue.CancelDownload("",true);
+                            Page._downloadQueue.CancelDownload("", true);
                         }
                     }
                 });

@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using VTOL.Titanfall2_Requisite.WeaponData.Default.SubmachineGun;
 using VTOL.Titanfall2_Requisite.WeaponData.Default.AntiTitan;
 using VTOL.Titanfall2_Requisite.WeaponData.Default.AssaultRifle;
 using VTOL.Titanfall2_Requisite.WeaponData.Default.Attachment;
@@ -11,7 +6,6 @@ using VTOL.Titanfall2_Requisite.WeaponData.Default.Grenadier;
 using VTOL.Titanfall2_Requisite.WeaponData.Default.JackParts;
 using VTOL.Titanfall2_Requisite.WeaponData.Default.LightMachineGun;
 using VTOL.Titanfall2_Requisite.WeaponData.Default.Titan;
-using VTOL.Titanfall2_Requisite.WeaponData.Default;
 
 namespace VTOL.Titanfall2_Requisite.WeaponData
 {
@@ -5274,7 +5268,7 @@ namespace VTOL.Titanfall2_Requisite.WeaponData
             }
             else if (WeaponName.Contains("Skin31"))
             {
-             //Custom Skin Slots here.
+                //Custom Skin Slots here.
             }
         }
     }

@@ -1,9 +1,8 @@
-﻿using SixLabors.ImageSharp.PixelFormats;
+﻿using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
 using System;
 using System.IO;
-using SixLabors.ImageSharp;
 using Image = SixLabors.ImageSharp.Image;
-using System.Windows;
 namespace VTOL
 {
     public class DDSImage

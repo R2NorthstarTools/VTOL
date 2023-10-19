@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 //Created By zxcPandora at https://github.com/zxcPandora/Titanfall2-SkinTool
 namespace VTOL
 {
     class StarpakControl
     {
         public StarpakControl(string name, long seek, int length, int type, string GamePath, string SelectedGame, int imagecheck, string Action)
-        {                     
+        {
             string FileName = null;
             string ControlPath = null;
             byte[] byData = new byte[length];

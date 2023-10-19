@@ -3,7 +3,6 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
 using VTOL.Native;
-using Walterlv.Windows.Interop;
 
 namespace VTOL
 {
@@ -20,7 +19,7 @@ namespace VTOL
 
         public static bool GetIsEnabled(DependencyObject element)
         {
-            return (bool) element.GetValue(IsEnabledProperty);
+            return (bool)element.GetValue(IsEnabledProperty);
         }
 
         private static void OnIsEnabledChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -52,7 +51,7 @@ namespace VTOL
 
         public static WindowBlur GetWindowBlur(DependencyObject element)
         {
-            return (WindowBlur) element.GetValue(WindowBlurProperty);
+            return (WindowBlur)element.GetValue(WindowBlurProperty);
         }
 
         private static void OnWindowBlurChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -69,7 +68,7 @@ namespace VTOL
         private void Attach(Window window)
         {
             _window = window;
-            var source = (HwndSource) PresentationSource.FromVisual(window);
+            var source = (HwndSource)PresentationSource.FromVisual(window);
             if (source == null)
             {
                 window.SourceInitialized += OnSourceInitialized;
@@ -94,7 +93,7 @@ namespace VTOL
 
         private void OnSourceInitialized(object sender, EventArgs e)
         {
-            ((Window) sender).SourceInitialized -= OnSourceInitialized;
+            ((Window)sender).SourceInitialized -= OnSourceInitialized;
             AttachCore();
         }
 

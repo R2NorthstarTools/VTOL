@@ -1,29 +1,18 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using Serilog;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Globalization;
 using System.IO;
-using System.IO.Compression;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Threading;
-using Serilog;
-using System.Globalization;
 using Path = System.IO.Path;
-using Microsoft.Win32;
 using ZipFile = Ionic.Zip.ZipFile;
-using Ionic.Zip;
-using System.Diagnostics;
-using System.Reflection;
 
 namespace VTOL.Pages
 {
@@ -53,19 +42,19 @@ namespace VTOL.Pages
         {
             ZipFile zipFile = new ZipFile(zipFullPath);
 
-           
-                foreach (var entry in zipFile.Entries)
-                {
-                    if (entry.FileName.Contains(Search, StringComparison.OrdinalIgnoreCase))
-                    {
 
-                        return true;
-                    }
+            foreach (var entry in zipFile.Entries)
+            {
+                if (entry.FileName.Contains(Search, StringComparison.OrdinalIgnoreCase))
+                {
+
+                    return true;
                 }
-            
+            }
+
             return false;
         }
-       
+
         private int ImageCheck(String ImageName)
         {
             int result = -1;
@@ -106,7 +95,7 @@ namespace VTOL.Pages
             }
             return result;
         }
-      
+
         private bool IsPilot(string Name)
         {
             if (Name.Contains("Stim_") || Name.Contains("PhaseShift_") || Name.Contains("HoloPilot_") || Name.Contains("PulseBlade_") || Name.Contains("Grapple_") || Name.Contains("AWall_") || Name.Contains("Cloak_") || Name.Contains("Public_"))
@@ -129,140 +118,140 @@ namespace VTOL.Pages
                 {
 
                     if (ZipHasFile(".dds", Zip_Path))
-                {
-
-
-                    if (Directory.Exists(User_Settings_Vars.NorthstarInstallLocation + @"Skins_Unpack_Mod_MNGR"))
                     {
 
-                        current_skin_folder = User_Settings_Vars.NorthstarInstallLocation+ @"Skins_Unpack_Mod_MNGR";
+
+                        if (Directory.Exists(User_Settings_Vars.NorthstarInstallLocation + @"Skins_Unpack_Mod_MNGR"))
+                        {
+
+                            current_skin_folder = User_Settings_Vars.NorthstarInstallLocation + @"Skins_Unpack_Mod_MNGR";
                             ZipFile zipFile = new ZipFile(Zip_Path);
 
-                            zipFile.ExtractAll(User_Settings_Vars.NorthstarInstallLocation+ @"Skins_Unpack_Mod_MNGR", Ionic.Zip.ExtractExistingFileAction.OverwriteSilently);
+                            zipFile.ExtractAll(User_Settings_Vars.NorthstarInstallLocation + @"Skins_Unpack_Mod_MNGR", Ionic.Zip.ExtractExistingFileAction.OverwriteSilently);
                             //Skin_Path = Current_Install_Folder + @"\Skins_Unpack_Mod_MNGR";
 
                         }
-                    else
-                    {
+                        else
+                        {
 
-                       TryCreateDirectory(User_Settings_Vars.NorthstarInstallLocation+ @"Skins_Unpack_Mod_MNGR");
-                        current_skin_folder = User_Settings_Vars.NorthstarInstallLocation+ @"Skins_Unpack_Mod_MNGR";
+                            TryCreateDirectory(User_Settings_Vars.NorthstarInstallLocation + @"Skins_Unpack_Mod_MNGR");
+                            current_skin_folder = User_Settings_Vars.NorthstarInstallLocation + @"Skins_Unpack_Mod_MNGR";
 
                             ZipFile zipFile = new ZipFile(Zip_Path);
 
-                            zipFile.ExtractAll(User_Settings_Vars.NorthstarInstallLocation+ @"Skins_Unpack_Mod_MNGR", Ionic.Zip.ExtractExistingFileAction.OverwriteSilently);
+                            zipFile.ExtractAll(User_Settings_Vars.NorthstarInstallLocation + @"Skins_Unpack_Mod_MNGR", Ionic.Zip.ExtractExistingFileAction.OverwriteSilently);
 
                         }
-                }
-                else
-                {
-                    //Send_Error_Notif(GetTextResource("NOTIF_ERROR_SKIN_INCOMPATIBLE"));
-                    Log.Error("Issue With Skin Install!");
+                    }
+                    else
+                    {
+                        //Send_Error_Notif(GetTextResource("NOTIF_ERROR_SKIN_INCOMPATIBLE"));
+                        Log.Error("Issue With Skin Install!");
 
 
-                }
+                    }
 
 
 
 
-                //Block Taken From Skin Tool
-                List<string> FileList = new List<string>();
-                if (current_skin_folder != null)
-                {
-                    FindSkinFiles(current_skin_folder, FileList, ".dds");
+                    //Block Taken From Skin Tool
+                    List<string> FileList = new List<string>();
+                    if (current_skin_folder != null)
+                    {
+                        FindSkinFiles(current_skin_folder, FileList, ".dds");
 
-                }
-                else
+                    }
+                    else
                     {
                         Log.Error("Issue With Skin Install!");
 
                         return;
-                }
-
-
-
-                var matchingvalues = FileList.FirstOrDefault(stringToCheck => stringToCheck.Contains(""));
-                for (int i = 0; i < FileList.Count; i++)
-                {
-                    if (FileList[i].Contains("col")) // (you use the word "contains". either equals or indexof might be appropriate)
-                    {
-
-                        //Console.WriteLine(i);
-                    }
-                }
-                int DDSFolderExist = 0;
-
-                DDSFolderExist = FileList.Count;
-                if (DDSFolderExist == 0)
-                {
-                    Log.Error("Could Not Find Skins in Zip??");
-                }
-
-                foreach (var i in FileList)
-                {
-                    int FolderLength = current_skin_folder.Length;
-                    String FileString = i.Substring(FolderLength);
-                    int imagecheck = ImageCheck(i);
-                    //the following code is waiting for the custom model
-                    Int64 toseek = 0;
-                    int tolength = 0;
-                    int totype = 0;
-                    switch (GetTextureType(i))
-                    {
-                        case 1://Weapon
-                               //Need to recode weapon part
-
-                            VTOL.Titanfall2_Requisite.WeaponData.WeaponDataControl wdc = new VTOL.Titanfall2_Requisite.WeaponData.WeaponDataControl(i, imagecheck);
-                            toseek = Convert.ToInt64(wdc.FilePath[0, 1]);
-                            tolength = Convert.ToInt32(wdc.FilePath[0, 2]);
-                            totype = Convert.ToInt32(wdc.FilePath[0, 3]);
-
-
-                            break;
-                        case 2://Pilot
-                            VTOL.Titanfall2_Requisite.PilotDataControl.PilotDataControl pdc = new VTOL.Titanfall2_Requisite.PilotDataControl.PilotDataControl(i, imagecheck);
-                            toseek = Convert.ToInt64(pdc.Seek);
-                            tolength = Convert.ToInt32(pdc.Length);
-                            totype = Convert.ToInt32(pdc.SeekLength);
-                            break;
-                        case 3://Titan
-                            VTOL.Titanfall2_Requisite.TitanDataControl.TitanDataControl tdc = new VTOL.Titanfall2_Requisite.TitanDataControl.TitanDataControl(i, imagecheck);
-                            toseek = Convert.ToInt64(tdc.Seek);
-                            tolength = Convert.ToInt32(tdc.Length);
-                            totype = Convert.ToInt32(tdc.SeekLength);
-                            break;
-
-                        default:
-                            Log.Error("Issue With Skin Install!");
-
-                            break;
                     }
 
 
-                    StarpakControl sc = new StarpakControl(i, toseek, tolength, totype, User_Settings_Vars.NorthstarInstallLocation, "Titanfall2", imagecheck, "Replace");
+
+                    var matchingvalues = FileList.FirstOrDefault(stringToCheck => stringToCheck.Contains(""));
+                    for (int i = 0; i < FileList.Count; i++)
+                    {
+                        if (FileList[i].Contains("col")) // (you use the word "contains". either equals or indexof might be appropriate)
+                        {
+
+                            //Console.WriteLine(i);
+                        }
+                    }
+                    int DDSFolderExist = 0;
+
+                    DDSFolderExist = FileList.Count;
+                    if (DDSFolderExist == 0)
+                    {
+                        Log.Error("Could Not Find Skins in Zip??");
+                    }
+
+                    foreach (var i in FileList)
+                    {
+                        int FolderLength = current_skin_folder.Length;
+                        String FileString = i.Substring(FolderLength);
+                        int imagecheck = ImageCheck(i);
+                        //the following code is waiting for the custom model
+                        Int64 toseek = 0;
+                        int tolength = 0;
+                        int totype = 0;
+                        switch (GetTextureType(i))
+                        {
+                            case 1://Weapon
+                                   //Need to recode weapon part
+
+                                VTOL.Titanfall2_Requisite.WeaponData.WeaponDataControl wdc = new VTOL.Titanfall2_Requisite.WeaponData.WeaponDataControl(i, imagecheck);
+                                toseek = Convert.ToInt64(wdc.FilePath[0, 1]);
+                                tolength = Convert.ToInt32(wdc.FilePath[0, 2]);
+                                totype = Convert.ToInt32(wdc.FilePath[0, 3]);
 
 
-                }
+                                break;
+                            case 2://Pilot
+                                VTOL.Titanfall2_Requisite.PilotDataControl.PilotDataControl pdc = new VTOL.Titanfall2_Requisite.PilotDataControl.PilotDataControl(i, imagecheck);
+                                toseek = Convert.ToInt64(pdc.Seek);
+                                tolength = Convert.ToInt32(pdc.Length);
+                                totype = Convert.ToInt32(pdc.SeekLength);
+                                break;
+                            case 3://Titan
+                                VTOL.Titanfall2_Requisite.TitanDataControl.TitanDataControl tdc = new VTOL.Titanfall2_Requisite.TitanDataControl.TitanDataControl(i, imagecheck);
+                                toseek = Convert.ToInt64(tdc.Seek);
+                                tolength = Convert.ToInt32(tdc.Length);
+                                totype = Convert.ToInt32(tdc.SeekLength);
+                                break;
 
-                FileList.Clear();
-                DirectoryInfo di = new DirectoryInfo(current_skin_folder);
-                FileInfo[] files = di.GetFiles();
+                            default:
+                                Log.Error("Issue With Skin Install!");
 
-                DispatchIfNecessary(async () =>
-                {
-                    Main.Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
-                    Main.Snackbar.Show("SUCCESS!", VTOL.Resources.Languages.Language.Page_Skins_Install_Skin_From_Path_TheSkin + Path.GetFileNameWithoutExtension(Zip_Path) + VTOL.Resources.Languages.Language.Page_Skins_Install_Skin_From_Path_HasBeenInstalled);
-                });
+                                break;
+                        }
 
-                foreach (FileInfo file in files)
-                {
-                    file.Delete();
-                }
-                foreach (DirectoryInfo dir_ in di.GetDirectories())
-                {
-                    dir_.Delete(true);
-                }
-                TryDeleteDirectory(current_skin_folder);
+
+                        StarpakControl sc = new StarpakControl(i, toseek, tolength, totype, User_Settings_Vars.NorthstarInstallLocation, "Titanfall2", imagecheck, "Replace");
+
+
+                    }
+
+                    FileList.Clear();
+                    DirectoryInfo di = new DirectoryInfo(current_skin_folder);
+                    FileInfo[] files = di.GetFiles();
+
+                    DispatchIfNecessary(async () =>
+                    {
+                        Main.Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
+                        Main.Snackbar.Show("SUCCESS!", VTOL.Resources.Languages.Language.Page_Skins_Install_Skin_From_Path_TheSkin + Path.GetFileNameWithoutExtension(Zip_Path) + VTOL.Resources.Languages.Language.Page_Skins_Install_Skin_From_Path_HasBeenInstalled);
+                    });
+
+                    foreach (FileInfo file in files)
+                    {
+                        file.Delete();
+                    }
+                    foreach (DirectoryInfo dir_ in di.GetDirectories())
+                    {
+                        dir_.Delete(true);
+                    }
+                    TryDeleteDirectory(current_skin_folder);
 
                     Task.Delay(500).Wait();
 
@@ -273,7 +262,7 @@ namespace VTOL.Pages
             }
             catch (Exception ex)
             {
-               Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
             }
 
@@ -301,7 +290,7 @@ namespace VTOL.Pages
             }
             catch (Exception ex)
             {
-               Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
             }
         }
@@ -438,7 +427,7 @@ namespace VTOL.Pages
                     Main.Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
                     Main.Snackbar.Show("INFO", VTOL.Resources.Languages.Language.Page_Skins_Drag_Drop_Area_Drop_CompatibleSkinSFound + String.Join(" | ", names));
                 }
-               
+
             }
             if (Skin_List.Count() > 0)
             {
@@ -492,27 +481,27 @@ namespace VTOL.Pages
 
                     });
                     await Task.Delay(1500);
-                   
+
 
                 }
                 names.Clear();
                 Skin_List.Clear();
-                DispatchIfNecessary( () =>
+                DispatchIfNecessary(() =>
                 {
                     Install_Queue_Label.Content = "Drag to Install";
                     Skin_Path.Text = "Path";
 
                     Skin_Install_Progress.Value = 0;
-                   
 
-                        clear_queue.Visibility = Visibility.Hidden;
 
-                    
+                    clear_queue.Visibility = Visibility.Hidden;
+
+
                 });
             });
         }
- 
-          
+
+
         private void Install_Skin_Click(object sender, RoutedEventArgs e)
         {
             Skin_Install_Progress.Value = 0;
@@ -525,7 +514,7 @@ namespace VTOL.Pages
                 Skin_Install_Progress.Value = 0;
                 Install_Queue_Label.Content = "Drag to Install";
                 Skin_Path.Text = "Path";
-                
+
             });
 
 
@@ -539,14 +528,14 @@ namespace VTOL.Pages
 
             if (openFileDialog.ShowDialog() == true)
             {
-                if (openFileDialog.FileName.Contains(".zip") )
+                if (openFileDialog.FileName.Contains(".zip"))
                 {
 
                     if (ZipHasFile(".dds", openFileDialog.FileName))
                     {
                         Main.Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
 
-                        Main.Snackbar.Show("INFO",VTOL.Resources.Languages.Language.Page_Skins_Browse_Click_CompatibleSkinFoundAt + openFileDialog.FileName);
+                        Main.Snackbar.Show("INFO", VTOL.Resources.Languages.Language.Page_Skins_Browse_Click_CompatibleSkinFoundAt + openFileDialog.FileName);
 
                         Skin_List.Add(openFileDialog.FileName);
                         Skin_Path.Text = openFileDialog.FileName;
@@ -556,7 +545,7 @@ namespace VTOL.Pages
                     else
                     {
                         Main.Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Caution;
-                        Main.Snackbar.Show(VTOL.Resources.Languages.Language.ERROR, "File "+ Path.GetFileName(openFileDialog.FileName) + VTOL.Resources.Languages.Language.Page_Skins_Browse_Click_IsNotASkinZip);
+                        Main.Snackbar.Show(VTOL.Resources.Languages.Language.ERROR, "File " + Path.GetFileName(openFileDialog.FileName) + VTOL.Resources.Languages.Language.Page_Skins_Browse_Click_IsNotASkinZip);
                         Install_Queue_Label.Content = VTOL.Resources.Languages.Language.Page_Skins_Drag_Drop_Area_Drop_DragToInstall;
                         Skin_Path.Text = "Path";
 
@@ -582,12 +571,13 @@ namespace VTOL.Pages
             }
         }
 
-        
+
         async Task OPEN_WEBPAGE(string URL)
         {
             await Task.Run(() =>
             {
-                DispatchIfNecessary(async () => {
+                DispatchIfNecessary(async () =>
+                {
                     SnackBar.Message = VTOL.Resources.Languages.Language.Page_Skins_OPEN_WEBPAGE_OpeningTheFollowingURL + URL;
                     SnackBar.Title = "INFO";
                     SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
@@ -602,7 +592,7 @@ namespace VTOL.Pages
                 });
             });
         }
-        
+
 
         private void Making_Your_Own_Click(object sender, RoutedEventArgs e)
         {

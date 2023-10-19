@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Titanfall2_SkinTool.Titanfall2.PilotData.Normal_Pilot.Stim
 {
@@ -12,12 +8,12 @@ namespace Titanfall2_SkinTool.Titanfall2.PilotData.Normal_Pilot.Stim
         public string Length { get; private set; }
         public string SeekLength { get; private set; }
         //兴奋剂铁驭
-        public Stim(String PilotPart,int imagecheck)
+        public Stim(String PilotPart, int imagecheck)
         {
-            String str = PilotPart.Substring(1,PilotPart.Length-5);
+            String str = PilotPart.Substring(1, PilotPart.Length - 5);
             if (str.Contains("fbody"))
             {
-                Part.fbody fb = new Part.fbody(str,imagecheck);
+                Part.fbody fb = new Part.fbody(str, imagecheck);
                 Seek = fb.Seek;
                 Length = fb.Length;
                 SeekLength = fb.SeekLength;
@@ -73,7 +69,7 @@ namespace Titanfall2_SkinTool.Titanfall2.PilotData.Normal_Pilot.Stim
             }
             else
             {
-                throw new Exception("BUG!"+"\n"+"In Pilot Part.");
+                throw new Exception("BUG!" + "\n" + "In Pilot Part.");
             }
         }
     }

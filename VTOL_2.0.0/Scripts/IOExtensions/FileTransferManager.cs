@@ -37,7 +37,7 @@ namespace IOExtensions
                 }
             };
 
-            if(cancellationToken.IsCancellationRequested)
+            if (cancellationToken.IsCancellationRequested)
             {
                 return TransferResult.Cancelled;
             }
@@ -106,13 +106,13 @@ namespace IOExtensions
             }
             else
             {
-                if(cancellationToken.IsCancellationRequested)
+                if (cancellationToken.IsCancellationRequested)
                 {
                     return TransferResult.Cancelled;
                 }
 
                 var destinationFile = Helpers.CorrectFileDestinationPath(source, destination);
-                
+
                 return CopyFileWithProgress(source, destinationFile, progress, cancellationToken);
             }
         }
@@ -131,14 +131,14 @@ namespace IOExtensions
                 {
                     destinationNewRootDir = Directory.CreateDirectory(Path.Combine(destinationDirectory, rootSource.Name));
                 }
-                
+
                 foreach (var directory in rootSource.EnumerateDirectories("*", SearchOption.AllDirectories))
                 {
-                    if(cancellationToken.IsCancellationRequested)
+                    if (cancellationToken.IsCancellationRequested)
                     {
                         return TransferResult.Cancelled;
                     }
-                    var newName = directory.FullName.Substring(rootSourceLength+1);
+                    var newName = directory.FullName.Substring(rootSourceLength + 1);
                     Directory.CreateDirectory(Path.Combine(destinationNewRootDir.FullName, newName));
                 }
 
@@ -149,7 +149,7 @@ namespace IOExtensions
                         return TransferResult.Cancelled;
                     }
 
-                    var newName = file.FullName.Substring(rootSourceLength+1);
+                    var newName = file.FullName.Substring(rootSourceLength + 1);
                     var fileCopyStartTimestamp = DateTime.Now;
                     var result = CopyFileWithProgress(file.FullName, Path.Combine(destinationNewRootDir.FullName, newName), (partialProgress) =>
                     {
@@ -168,7 +168,7 @@ namespace IOExtensions
                     {
                         return TransferResult.Failed;
                     }
-                    else if(result == TransferResult.Cancelled)
+                    else if (result == TransferResult.Cancelled)
                     {
                         return TransferResult.Cancelled;
                     }
@@ -211,15 +211,15 @@ namespace IOExtensions
                     return NativeMethods.CopyProgressResult.PROGRESS_STOP;
                 }
             };
-            if(cancellationToken.IsCancellationRequested)
+            if (cancellationToken.IsCancellationRequested)
             {
                 return TransferResult.Cancelled;
             }
-            
+
             var ctr = cancellationToken.Register(() => pbCancel = 1);
 
             var result = NativeMethods.CopyFileEx(sourceFile, newFile, lpProgressRoutine, IntPtr.Zero, ref pbCancel, NativeMethods.CopyFileFlags.COPY_FILE_FAIL_IF_EXISTS);
-            if(cancellationToken.IsCancellationRequested)
+            if (cancellationToken.IsCancellationRequested)
             {
                 return TransferResult.Cancelled;
             }
