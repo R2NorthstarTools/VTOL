@@ -44,9 +44,7 @@ on:
   pull_request:
     branches: [ "master" ]
 
-jobs:
 
-  build:
 env:
   PROJECT_PATH: VTOL/VTOL_2.0.0/.csproj
 
