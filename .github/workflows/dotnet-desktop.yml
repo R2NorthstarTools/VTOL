@@ -46,7 +46,7 @@ on:
 
 
 env:
-  PROJECT_PATH: VTOL/VTOL_2.0.0/.csproj
+  PROJECT_PATH: VTOL_2.0.0/.csproj
 
 jobs:
   deploy:
