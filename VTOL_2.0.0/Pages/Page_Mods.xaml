@@ -134,9 +134,9 @@
                         <Grid Height="60" RenderTransformOrigin="0.5,0.5" Width="435">
 
                             <DockPanel   Height="62" HorizontalAlignment="Left" Margin="84,0,0,-2" Width="351" IsEnabled="False" Tag="Hidden" AutomationProperties.IsOffscreenBehavior="Offscreen" Opacity="0">
-                                <ui:Button x:Name="Info_Btn" Width="88" Height="42" Content="Info"  Background="#FF24ABBD" Tag ="{Binding Mod_Name_}"  ToolTip="{Binding Mod_Name_}" Margin="0,0,5,0" Click="Info_Btn_Click" ClickMode="Press" Icon="Info20"/>
+                                <ui:Button x:Name="Info_Btn" Width="88" Height="42" Content="Info"  Background="#FF24ABBD" Tag ="{Binding Mod_Path_}" Margin="0,0,5,0" Click="Info_Btn_Click" ClickMode="Press" Icon="Info20"/>
 
-                                <ui:Button x:Name="Delete_Btn" Width="96" Height="42" Content="Delete"  Background="#B29A0404" Tag ="{Binding Mod_Name_}"  ToolTip="{Binding Mod_Name_}" Margin="0,0,30,0" Click="Delete_Btn_Click" Icon="DeleteDismiss24" Foreground="White"/>
+                                <ui:Button x:Name="Delete_Btn" Width="96" Height="42" Content="Delete"  Background="#B29A0404" Tag ="{Binding Mod_Name_}"  ToolTip="{Binding Mod_Path_}" Margin="0,0,30,0" Click="Delete_Btn_Click" Icon="DeleteDismiss24" Foreground="White"/>
 
                             </DockPanel>
                             <ui:Button x:Name="Mod_Btn" Width="112" Height="42" Content="{Binding Label}"  Background="{Binding Is_Active_Color}" Tag ="{Binding En_Di}" Click="Mod_Btn_Click" ToolTip="{Binding Mod_Name_}" Margin="0,0,10,0" HorizontalAlignment="Right"/>

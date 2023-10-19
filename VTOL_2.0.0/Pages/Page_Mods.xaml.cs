@@ -1,4 +1,5 @@
-﻿using HandyControl.Tools.Extension;
+﻿using FuzzyString;
+using HandyControl.Tools.Extension;
 using Ionic.Zip;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -241,9 +242,25 @@ namespace VTOL.Pages
 
 
         }
-       
 
-        
+
+        static bool CustomKeyComparer(string key1, string key2)
+        {
+            return string.Equals(key1, key2, StringComparison.OrdinalIgnoreCase);
+
+
+            //use case code
+            //JToken value = null;
+            //bool containsKey = jsonObject.Properties().Any(p => CustomKeyComparer(p.Name, Mod.Name.Replace("_", " ").Trim()));
+
+            //if (containsKey)
+            //{
+            //     value = jsonObject[Mod.Name.Replace("_", " ").Trim()];
+
+
+
+
+        }
         public List<NORTHSTARCOMPATIBLE_MOD> READ_UPDATE_MOD_LIST(DirectoryInfo[] modsToUpdate, bool UPDATE_Folders = false)
         {
             List<NORTHSTARCOMPATIBLE_MOD> OUTPUT = new List<NORTHSTARCOMPATIBLE_MOD>();
@@ -301,59 +318,85 @@ namespace VTOL.Pages
                         foreach (var dirInfo in modsToUpdate)
                         {
                             NORTHSTARCOMPATIBLE_MOD Mod = new NORTHSTARCOMPATIBLE_MOD();
-
-                            Mod.Name = (dirInfo.Name.Split('-')[1]);
-                            if (dirInfo.Exists)
+                            string File_found = FindFirstFile(dirInfo.FullName, "mod.json");
+                            if (File.Exists(File_found))
                             {
-                                Mod.DIRECTORY_INFO = dirInfo; // or some other appropriate value
+                                string mod_json = File.ReadAllText(File_found);
 
-                            }
-                           // JToken value = null;
-
-                            //foreach (var kvp in jsonObject)
-                            //{
-                            //    string cleanedKey = kvp.Key;
-                            //    if (cleanedKey == Mod.Name.Replace("_", " ").Trim())
-                            //    {
-                            //        value = kvp.Value;
-                            //        break;
-                            //    }
-                            //}
-                            if (jsonObject.TryGetValue(Mod.Name.Replace("_", " ").Trim(), out JToken value))//TODO cannot search properly due to json side unable to trim, the json siede has chars i cant trim off to compare properly as the fact is i loose that info on clean , nead A. broader search or B. clean strings on json side reliably
-                            {
-                                if (value != null && value.Type == JTokenType.Boolean)
+                                if (!mod_json.IsNullOrEmpty() && mod_json.Length > 10)
                                 {
-                                    bool isValueTrue = (bool)value;
-                                    Mod.Value = isValueTrue;
-                                    Console.WriteLine(isValueTrue.ToString());
+
+                                    JObject modjson = JObject.Parse(mod_json);
+                                    Mod.Name = modjson.SelectToken("Name").Value<string>();
+
+
                                 }
                                 else
                                 {
-                                    Mod.Value = false;
+                                    Mod.Name = (dirInfo.Name.Split('-')[1]);
+
+
                                 }
 
-                                Mod.IsValidandinstalled = true;
-
-                               
-                                OUTPUT.Add(Mod);
-                            }
-                            else
-                            {
-                                // Handle the case where the value is null
-                                Mod.Value = false; // or some other appropriate value
-                                Mod.IsValidandinstalled = false; // or some other appropriate value
                                 if (dirInfo.Exists)
                                 {
                                     Mod.DIRECTORY_INFO = dirInfo; // or some other appropriate value
 
                                 }
-                                OUTPUT.Add(Mod);
+
+
+
+                                if (jsonObject.TryGetValue(Mod.Name.Replace("_", " ").Trim(), out JToken value))
+                                {
+
+
+                                    if (value != null && value.Type == JTokenType.Boolean)
+                                    {
+                                        bool isValueTrue = (bool)value;
+                                        Mod.Value = isValueTrue;
+                                    }
+                                    else
+                                    {
+                                        Mod.Value = false;
+                                    }
+
+                                    Mod.IsValidandinstalled = true;
+
+
+                                    OUTPUT.Add(Mod);
+                                }
+                                else
+                                {
+                                    // Handle the case where the value is null
+                                    Mod.Value = false; // or some other appropriate value
+                                    Mod.IsValidandinstalled = false; // or some other appropriate value
+                                    if (dirInfo.Exists)
+                                    {
+                                        Mod.DIRECTORY_INFO = dirInfo; // or some other appropriate value
+
+                                    }
+                                    OUTPUT.Add(Mod);
+                                }
+
+                            }
+                            else
+                            {
+
+                                Mod.IsValidandinstalled = false;
+
+                                string dirName = dirInfo.Name;
+
+                                string pattern = @"-\d+\.\d+\.\d+$";
+                                Match match = Regex.Match(dirName, pattern);
+                                // Remove the version number from the directory name
+                                string dirNameWithoutVersion = match.Success ? dirName.Replace(match.Value, "") : dirName;
+                                // Handle the case where the value is null
+                                Mod.Name = "!" + dirNameWithoutVersion + "!";
                             }
 
 
-
-
                         }
+                       
                     }
                     catch (Exception ex)
                     {
@@ -463,11 +506,11 @@ namespace VTOL.Pages
                                                     {
                                                         IS_CORE_MOD_temp = "#c80815";
 
-                                                        ToolTip_Dynamic = "The Mod Is not Registered Properly in the Backend List, Please Fix the Mod formatting or update your TF2 Mod List";
+                                                        ToolTip_Dynamic = "The Mod Is not Registered Properly in the Backend List, Please Fix the Mod formatting or update your TF2 Mod List by Launching the Game";
                                                         Flag_mod = 100;
                                                     }
 
-                                                    Final_List.Add(new Card_ { Mod_Name_ = Verified_Installed_Mod.Name.Trim(), Mod_Date_ = Verified_Installed_Mod.DIRECTORY_INFO.CreationTime.ToString(), Is_Active_Color = "#B29A0404", Size__ = Verified_Installed_Mod.DIRECTORY_INFO.LastAccessTime.ToString(), En_Di = "Enable", Is_Active_ = true, Mod_Path_ = Verified_Installed_Mod.Name, Flag = Flag_mod, Error_Tooltip = ToolTip_Dynamic, Label = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_Enable, IS_CORE_MOD = IS_CORE_MOD_temp });
+                                                    Final_List.Add(new Card_ { Mod_Name_ = Verified_Installed_Mod.Name.Trim(), Mod_Date_ = Verified_Installed_Mod.DIRECTORY_INFO.CreationTime.ToString(), Is_Active_Color = "#B29A0404", Size__ = Verified_Installed_Mod.DIRECTORY_INFO.LastAccessTime.ToString(), En_Di = "Enable", Is_Active_ = true, Mod_Path_ = Verified_Installed_Mod.DIRECTORY_INFO.FullName, Flag = Flag_mod, Error_Tooltip = ToolTip_Dynamic, Label = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_Enable, IS_CORE_MOD = IS_CORE_MOD_temp });
                                                 }
                                                 else
                                                 {
@@ -479,11 +522,11 @@ namespace VTOL.Pages
                                                         IS_CORE_MOD_temp = "#c80815";
 
 
-                                                        ToolTip_Dynamic = "The Mod Is not Registered Properly in the Backend List, Please Fix the Mod formatting or update your TF2 Mod List";
+                                                        ToolTip_Dynamic = "The Mod Is not Registered Properly in the Backend List, Please Fix the Mod formatting or update your TF2 Mod List by Launching the Game";
                                                         Flag_mod = 100;
                                                     }
 
-                                                    Final_List.Add(new Card_ { Mod_Name_ = Verified_Installed_Mod.Name.Trim(), Mod_Date_ = Verified_Installed_Mod.DIRECTORY_INFO.CreationTime.ToString(), Is_Active_Color = "#B2049A28", Size__ = Verified_Installed_Mod.DIRECTORY_INFO.LastAccessTime.ToString(), En_Di = "Disable", Is_Active_ = false, Mod_Path_ = Verified_Installed_Mod.Name, Flag = Flag_mod, Error_Tooltip = ToolTip_Dynamic, Label = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_Disable_, IS_CORE_MOD = IS_CORE_MOD_temp });
+                                                    Final_List.Add(new Card_ { Mod_Name_ = Verified_Installed_Mod.Name.Trim(), Mod_Date_ = Verified_Installed_Mod.DIRECTORY_INFO.CreationTime.ToString(), Is_Active_Color = "#B2049A28", Size__ = Verified_Installed_Mod.DIRECTORY_INFO.LastAccessTime.ToString(), En_Di = "Disable", Is_Active_ = false, Mod_Path_ = Verified_Installed_Mod.DIRECTORY_INFO.FullName, Flag = Flag_mod, Error_Tooltip = ToolTip_Dynamic, Label = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_Disable_, IS_CORE_MOD = IS_CORE_MOD_temp });
 
 
                                                 }
@@ -1835,16 +1878,71 @@ int millisecondsDelay = 300)
         {
         }
 
-
+        private string CleanSearchQuery(string searchQuery)
+        {
+            // Remove special characters, spaces, and make the query case-insensitive
+            return Regex.Replace(searchQuery, @"[^\w]+", string.Empty, RegexOptions.IgnoreCase);
+        }
+       
         private string Find_Folder(string searchQuery, string folderPath)
         {
-            searchQuery = "*" + searchQuery + "*";
+            List<FuzzyStringComparisonOptions> options = new List<FuzzyStringComparisonOptions>();
+               searchQuery = CleanSearchQuery(searchQuery);
 
+            // Choose which algorithms should weigh in for the comparison
+            options.Add(FuzzyStringComparisonOptions.UseLevenshteinDistance);
+            options.Add(FuzzyStringComparisonOptions.UseNormalizedLevenshteinDistance);
+            options.Add(FuzzyStringComparisonOptions.UseLongestCommonSubstring);
+            options.Add(FuzzyStringComparisonOptions.UseHammingDistance);
+
+            // Choose the relative strength of the comparison - is it almost exactly equal? or is it just close?
+            FuzzyStringComparisonTolerance tolerance = FuzzyStringComparisonTolerance.Strong;
+
+            
+
+            // Get a boolean determination of approximate equality
             var directory = new DirectoryInfo(folderPath);
+            var directories = directory
+    .EnumerateDirectories()
+    .FirstOrDefault(dir =>
+    {
+        string secondPart = dir.Name.Split('-')[1];
+        bool similarity = searchQuery.ApproximatelyEquals(secondPart, options, tolerance);
+        Console.WriteLine($"Comparing {secondPart} with {searchQuery}. Similarity: {similarity}");
+        return similarity = true || dir.Name.Contains(searchQuery, StringComparison.OrdinalIgnoreCase);
+    });
 
-            var directories = directory.GetDirectories(searchQuery, SearchOption.AllDirectories);
-            return directories[0].ToString();
+
+
+            if (directories != null)
+            {
+                return directories.FullName;
+            }
+            else
+            {
+                return null;
+            }
         }
+        //private string Find_Folder(string searchQuery, string folderPath)
+        //{
+        //    searchQuery = CleanSearchQuery(searchQuery);
+        //    Console.WriteLine(searchQuery);
+        //    var directory = new DirectoryInfo(folderPath);
+
+        //    var directories = directory
+        //        .EnumerateDirectories()
+        //        .FirstOrDefault(dir =>
+        //        CleanSearchQuery(dir.Name.Split('-')[1]).Equals(searchQuery, StringComparison.OrdinalIgnoreCase));
+
+        //    if (directories != null)
+        //    {
+        //        return directories.FullName;
+        //    }
+        //    else
+        //    {
+        //        return null;
+        //    }
+        //}
         public static string FindFirstFile(string path, string searchPattern)
         {
 
@@ -1977,7 +2075,8 @@ int millisecondsDelay = 300)
 
             return fullPath;
         }
-        void Open_Mod_Info(string Mod_name)
+
+        void Open_Mod_Info(string FolderDir)
         {
             BackgroundWorker worker = new BackgroundWorker();
             worker.DoWork += (sender, e) =>
@@ -1986,8 +2085,7 @@ int millisecondsDelay = 300)
 
                 try
                 {
-                    string FolderDir = Find_Folder(Mod_name, User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\packages\");
-
+                   
                     if (Directory.Exists(FolderDir))
                     {
                         DispatchIfNecessary(async () =>
@@ -1999,10 +2097,7 @@ int millisecondsDelay = 300)
                         string Dependencies_String = "";
                         string mod_Json = FindFirstFile(FolderDir, "mod.json");
                         string manifest_json = FindFirstFile(FolderDir, "manifest.json");
-                        string mc_File = FindFirstFile(FolderDir, "*.mc");
                         string Icon_File = FindFirstFile(FolderDir, "icon.png");
-
-
                         if (mod_Json != null && File.Exists(mod_Json))
                         {
                             var myJsonString = File.ReadAllText(mod_Json);
@@ -2039,18 +2134,7 @@ int millisecondsDelay = 300)
                             {
                                 Options_Panel_Mod.Visibility = Visibility.Visible;
                             });
-                            if (mc_File != null && File.Exists(mc_File))
-                            {
-                                var Check_dependents = ParseDirectoryStrings(mc_File, Main.Current_Installed_Mods);
-                                foreach (var dirobj in Check_dependents)
-                                {
-                                    DispatchIfNecessary(async () =>
-                                    {
-                                        Dependency_Tree.Items.Add("PARENT TO -" + dirobj.Name);
-                                    });
-                                }
-
-                            }
+                            
                             if (manifest_json != null && File.Exists(manifest_json))
                             {
 
@@ -2197,7 +2281,7 @@ int millisecondsDelay = 300)
                     {
 
 
-                        Delete_Mod(Name_);
+                        Delete_Mod(Name_,Button_.ToolTip.ToString());
 
                     }
                 }
@@ -2248,7 +2332,7 @@ int millisecondsDelay = 300)
             return null;
         }
         string temp_Dir;
-        void Delete_Mod(string Mod_name)
+        void Delete_Mod(string Mod_name, string FolderDir)
         {
 
 
@@ -2256,7 +2340,7 @@ int millisecondsDelay = 300)
             try
             {
 
-                string FolderDir = Find_Folder(Mod_name, User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\packages");
+                //string FolderDir = Find_Folder(Mod_name, User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\packages");
                 if (Directory.Exists(FolderDir))
                 {
                     temp_Dir = FolderDir;
@@ -2272,7 +2356,7 @@ int millisecondsDelay = 300)
                     string Content = ("Are You Sure You Want To Delete The Mod - ") + Environment.NewLine + Mod_name + Environment.NewLine + "Permanently?";
                     Dialog.Message = Content;
                     Dialog.ButtonLeftClick += new RoutedEventHandler(Delete_Action);
-
+                    Dialog.Tag = FolderDir;
                     Dialog.Show();
                     workingmod = Mod_name;
 
@@ -2290,14 +2374,17 @@ int millisecondsDelay = 300)
             }
 
         }
-        void Delete_Action(object sender, RoutedEventArgs e)
+       
+        protected virtual void Delete_Action(object sender, RoutedEventArgs e)
         {
 
             try
             {
+                var btn = sender as Wpf.Ui.Controls.Dialog;
+
                 string Json_Path = FindFirstFile(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\", "enabledmods.json");
 
-
+               
                 if (File.Exists(Json_Path))
                 {
                     // Read the JSON file
@@ -2332,7 +2419,7 @@ int millisecondsDelay = 300)
 
                 }
 
-
+                string delete_mod_path = Dialog.Tag.ToString();
                 if (!Directory.Exists(temp_Dir))
                 {
                     Dialog.Hide();
