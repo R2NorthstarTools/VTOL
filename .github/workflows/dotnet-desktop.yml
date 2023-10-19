@@ -47,29 +47,22 @@ on:
 jobs:
 
   build:
+env:
+  PROJECT_PATH: VTOL/VTOL_2.0.0/.csproj
 
-    strategy:
-      matrix:
-        configuration: [Debug, Release]
-
-    runs-on: windows-latest  # For a list of available runner types, refer to
-                             # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
-
-    env:
-      Solution_Name: VTOL.sln                         # Replace with your solution name, i.e. MyWpfApp.sln.
-   
-
+jobs:
+  deploy:
+    runs-on: windows-latest
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Set Up .NET 6.0
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 6.0.x
+      - uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 6.0.x
 
-    - name: Publish Portable VTOL
-      run: dotnet publish VTOL.sln -r win-x64 /p:PublishSingleFile=True --self-contained true --output "D:\Development Northstar AmVCX C++ branch 19023 ID 44\Portable_2023_VTOL\3.0.0"
+      - run: dotnet restore ${{ env.PROJECT_PATH }}
 
-    - name: Run Tests
-      run: dotnet test -c Release --no-build --verbosity normal --filter "Category!=LongRunning"
+      - run: dotnet build ${{ env.PROJECT_PATH }} -c Release --no-restore
+
+      - run: dotnet publish ${{ env.PROJECT_PATH }} -c Release --self-contained -r win-x64 -p:PublishSingleFile=true --no-build
+
