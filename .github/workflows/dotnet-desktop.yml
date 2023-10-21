@@ -1,0 +1,34 @@
+
+name: .NET Core Desktop
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+env:
+  PROJECT_PATH: VTOL_2.0.0/VTOL.csproj
+jobs:
+ deploy:
+  runs-on: windows-latest
+  steps:
+    - uses: actions/checkout@v2
+    
+    - run: mkdir -p /actions
+
+    - uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x     
+
+    - run: dotnet restore ${{ env.PROJECT_PATH }}
+
+    - run: dotnet publish ${{ env.PROJECT_PATH }} -r win-x64 /p:PublishSingleFile=True --self-contained true --output "/actions"
+
+    - run: dir /actions
+
+    - uses: actions/checkout@v3
+
+    - uses: actions/upload-artifact@v3
+      with:
+        name: VTOL_NIGHTLY-artifact
+        path: /actions/VTOL.exe  
