@@ -1984,35 +1984,7 @@ int millisecondsDelay = 300)
 
 
         }
-        //TODO Treenode
-        //private void ExecuteOnDemandLoading(object obj)
-        //{
-        //    var node = obj as TreeViewNode;
-
-        //    // Skip the repeated population of child items when every time the node expands.
-        //    if (node.ChildNodes.Count > 0)
-        //    {
-        //        node.IsExpanded = true;
-        //        return;
-        //    }
-
-        //    //Animation starts for expander to show progressing of load on demand
-        //    node.ShowExpanderAnimation = true;
-        //    var sfTreeView = Application.Current.MainWindow.FindName("sfTreeView") as SfTreeView;
-        //    sfTreeView.Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, new Action(() =>
-        //    {
-        //        currentNode = node;
-        //        timer.Start();
-        //    }));
-        //}
-        //private bool CanExecuteOnDemandLoading(object sender)
-        //{
-        //    var hasChildNodes = ((sender as TreeViewNode).Content as Data_Tree).HasChildNodes;
-        //    if (hasChildNodes)
-        //        return true;
-        //    else
-        //        return false;
-        //}
+      
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             System.Windows.Forms.FolderBrowserDialog dialog = new System.Windows.Forms.FolderBrowserDialog();

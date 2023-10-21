@@ -2540,9 +2540,9 @@ int millisecondsDelay = 150)
 
                         downloader.DownloadFileCompleted += delegate (object sender4, AsyncCompletedEventArgs e4)
                         {
+                            string MODName = words[4] + "-" + words[1];
 
-
-                            downloader_DownloadCompleted(sender4, e4, Progress_Bar, words[1], words[4], Destinfo.FullName + @"NS_Downloaded_Mods\" + words[4] + "-" + separatedname[0]+ ".zip", Skin_Install_, NS_CANDIDATE_INSTALL);
+                            downloader_DownloadCompleted(sender4, e4, Progress_Bar, MODName, words[4], Destinfo.FullName + @"NS_Downloaded_Mods\" + words[4] + "-" + separatedname[0]+ ".zip", Skin_Install_, NS_CANDIDATE_INSTALL);
                         };
                         downloader.StartAsync();
                         if (cancellationToken.IsCancellationRequested)
@@ -3240,14 +3240,21 @@ int millisecondsDelay = 300)
 
                     if (manidata.SelectToken("namespace") == null)
                     {
-                        // Create a new JObject for the namespace
-                        JObject namespaceObject = new JObject();
-                        namespaceObject["namespace"] = namespace_;
-                        Console.WriteLine("Namespace not found - Inserting : " + namespaceObject.ToString() + "   " + Destinfo1.FullName);
+                       // namespace__ = manidata.SelectToken("namespace").Value<string>();
 
+                        // Create a new JObject for the namespace
+                        Console.WriteLine("Namespace not found - Inserting : " + namespace_.ToString());
+                        //  namespaceObject[namespace__] = namespace_;
+                        manidata["namespace"] = namespace_;
+
+                       // string updatedJson = JsonConvert.SerializeObject(namespaceObject, Formatting.Indented);
+
+                        File.WriteAllText(manifest_json, manidata.ToString());
+
+                        Console.WriteLine("File updated and saved.");
                     }
 
-                }
+                 }
                 if (File.Exists(Mod_json))
                 {
                    
@@ -3256,9 +3263,7 @@ int millisecondsDelay = 300)
                         string Name = data.SelectToken("Name").Value<string>();
                         string Version = data.SelectToken("Version").Value<string>();
                        
-                        //todo get namespace from endpoint
 
-                        MoveDirectory___(Destination, Destinfo1.Parent + @"\" + (namespace_.ToString()).Replace(" ", "_") + "-"+ (Name.ToString()).Replace(" ", "_") + "-" + Version.ToString());
 
 
                     string Json_Path = FindFirstFile(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\", "enabledmods.json");
@@ -3811,7 +3816,7 @@ int millisecondsDelay = 300)
                     if (parts.Length >= 2) // check if there are at least two parts
                     {
                         URl = parts[0];
-                        name = parts[parts.Length - 3]; // get the second last item
+                        name = parts[4] + "-"+parts[1]; // get the second last item
                     }
                     Main.DispatchIfNecessary(() =>
                     {
@@ -3880,7 +3885,7 @@ int millisecondsDelay = 300)
                     var item = _queue_List_Clear.FirstOrDefault(i =>
                 {
                     return i.Name.ToLower().Contains(name.ToLower());
-                });
+                });//todo fix clear
 
                     if (item != null)
                     {
@@ -3954,20 +3959,20 @@ int millisecondsDelay = 300)
                 string[] parts = Button.Tag.ToString().Split('|');
                 if (parts.Length >= 2) // check if there are at least two parts
                 {
-                    name = parts[parts.Length - 3]; // get the second last item
+                    name = parts[1]; // get the second last item
                 }
                 Console.WriteLine(Button.Tag.ToString());
 
                 DispatchIfNecessary(async () =>
                 {
-                    if (Button.Tag.ToString().Contains("http") || Button.Tag.ToString().Contains("https"))
+                    if (parts[0].Contains("http") || parts[0].Contains("https"))
                     {
                         var item = new DownloadQueueItem
                         {
                             Name = name,
                             DownloadUrl = Button.Tag.ToString(),
                             DestinationPath = User_Settings_Vars.NorthstarInstallLocation + @"NS_Downloaded_Mods",
-                            Extract = tags.Contains("DDS"),
+                            Extract = false,
                             IsNorthstarRelease = Button.Tag.ToString().Contains("Northstar Release Candidate") || Button.Tag.ToString().Contains("NorthstarReleaseCandidate") || (Button.Tag.ToString().Contains("Northstar") && Button.ToolTip.ToString().Count() < 5),
                             Progress = Progress_Bar
 

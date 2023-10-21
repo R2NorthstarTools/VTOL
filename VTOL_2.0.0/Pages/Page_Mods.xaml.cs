@@ -317,7 +317,7 @@ namespace VTOL.Pages
                 }
              else
                  {
-                    try
+                    try//todo fix icon png left behind
                     {
                         ////// Parse the JSON content
                         JObject jsonObject = JObject.Parse(jsonContent);
@@ -468,7 +468,6 @@ namespace VTOL.Pages
                                        
                                     }
 
-                                    //TODO migrate to using the enabled mod list instad of var directory info in existingDirectories
                                     foreach (var Verified_Installed_Mod in CLEANED_FORMAT_MODS)
                                     {
                                         try
@@ -932,7 +931,6 @@ int millisecondsDelay = 300)
 
                 if (Directory.Exists(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\packages\"))
                 {
-                    //TODO, move the move mods method
 
 
                     if (val != null)
