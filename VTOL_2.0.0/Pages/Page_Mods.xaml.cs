@@ -240,6 +240,7 @@ namespace VTOL.Pages
             public DirectoryInfo DIRECTORY_INFO { get; set; }
             public bool IsValidandinstalled { get; set; }
 
+            public bool Namespace { get; set; }
 
         }
 
@@ -283,16 +284,22 @@ namespace VTOL.Pages
 
                     foreach (var dirInfo in modsToUpdate)
                     {
+                        string dirName = "";
                         NORTHSTARCOMPATIBLE_MOD Mod = new NORTHSTARCOMPATIBLE_MOD();
+                        string[] Split_Name = (dirInfo.Name).Split('-');
+                        if (Split_Name.Length >= 1)
+                        {
 
+                            dirName = Split_Name[1];
+                        }
 
-                        string dirName = dirInfo.Name;
-
+                       
                         // Use the regex pattern to extract the version number
                         string pattern = @"-\d+\.\d+\.\d+$";
                         Match match = Regex.Match(dirName, pattern);
                         // Remove the version number from the directory name
                         string dirNameWithoutVersion = match.Success ? dirName.Replace(match.Value, "") : dirName;
+                        Console.WriteLine(dirNameWithoutVersion + "\n\n" + dirName);
                         // Handle the case where the value is null
                         Mod.Name = dirNameWithoutVersion;
                         Mod.Value = false; // or some other appropriate value
@@ -319,6 +326,7 @@ namespace VTOL.Pages
                         {
                             NORTHSTARCOMPATIBLE_MOD Mod = new NORTHSTARCOMPATIBLE_MOD();
                             string File_found = FindFirstFile(dirInfo.FullName, "mod.json");
+                           
                             if (File.Exists(File_found))
                             {
                                 string mod_json = File.ReadAllText(File_found);
@@ -490,10 +498,7 @@ namespace VTOL.Pages
                                                     continue;
 
                                                 }
-                                                if (Directory.Exists(Verified_Installed_Mod.DIRECTORY_INFO.FullName + @"\Locked_Folder") && Page_Home.IsDirectoryEmpty(new DirectoryInfo(Verified_Installed_Mod.DIRECTORY_INFO.FullName + @"\Locked_Folder")))
-                                                {
-                                                    TryDeleteDirectory(Verified_Installed_Mod.DIRECTORY_INFO.FullName + @"\Locked_Folder");
-                                                }
+                                               
                                                 if (Verified_Installed_Mod.Value == false)
                                                 {
 
@@ -522,7 +527,7 @@ namespace VTOL.Pages
                                                         IS_CORE_MOD_temp = "#c80815";
 
 
-                                                        ToolTip_Dynamic = "The Mod Is not Registered Properly in the Backend List, Please Fix the Mod formatting or update your TF2 Mod List by Launching the Game";
+                                                        ToolTip_Dynamic = "The Mod Is not Registered Properly in the Backend List, Please Fix the Mod formatting or update your TF2 Mod List";
                                                         Flag_mod = 100;
                                                     }
 
@@ -2152,7 +2157,27 @@ int millisecondsDelay = 300)
                                     {
                                         DispatchIfNecessary(async () =>
                                         {
-                                            Dependency_Tree.Items.Add(VTOL.Resources.Languages.Language.REQUIRES + myMObject.dependencies[x].ToString());
+                                            TreeViewItem treeViewItem = new TreeViewItem();
+                                            treeViewItem.Header = VTOL.Resources.Languages.Language.REQUIRES + myMObject.dependencies[x].ToString();                                                                                 
+                                            
+                                            bool contains = Main.Current_Installed_Mods.Any(str1 =>
+                                                myMObject.dependencies[x].ToString().Replace("-", " ").Replace(".", " ")
+                                                .IndexOf(str1.Replace("-", " ").Replace(".", " "), StringComparison.OrdinalIgnoreCase) >= 0
+                                            );
+                                            // Choose the relative strength of the comparison - is it almost exactly equal? or is it just close?
+                                            if (contains)
+                                            {
+                                                treeViewItem.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#1F2FC132")); // Change to your desired hex value
+                                            }
+                                            else
+                                            {
+                                                treeViewItem.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#69E84040")); // Change to your desired hex value
+
+                                            }
+
+                                            Dependency_Tree.Items.Add(treeViewItem);
+                                            SlowBlink(treeViewItem,0.7);
+
                                         });
                                     }
 
@@ -2441,6 +2466,7 @@ int millisecondsDelay = 300)
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex + $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
@@ -2599,6 +2625,25 @@ int millisecondsDelay = 300)
             DialogF.Hide();
 
 
+        }
+        public void SlowBlink(Control control, double minimumOpacity)
+        {
+            DispatchIfNecessary(async () =>
+            {
+                // Create a DoubleAnimation to animate the control's Opacity property
+                var animation = new DoubleAnimation
+                {
+                    From = 1.0,
+                    To = minimumOpacity,
+                    Duration = new Duration(TimeSpan.FromSeconds(0.6)),
+                    AutoReverse = true,
+                    RepeatBehavior = RepeatBehavior.Forever
+
+                };
+
+                // Apply the animation to the control's Opacity property
+                control.BeginAnimation(UIElement.OpacityProperty, animation);
+            });
         }
         public string Search_For_Mod_Thunderstore(string SearchQuery = "None")
 
@@ -2995,14 +3040,30 @@ int millisecondsDelay = 150)
 
         private void EXIT(object sender, RoutedEventArgs e)
         {
+            if (Image_BG.Source !=null && File.Exists(Image_BG.Source.ToString()))
+            {
+                Console.WriteLine(Image_BG.Source.ToString());
+                File.Delete(Image_BG.Source.ToString());
+            }
             Image_BG.Source = null;
+
+            Options_Panel_Mod.Hide();
             GC.Collect();
-            Options_Panel_Mod.Visibility = Visibility.Collapsed;
+
         }
 
         private void Options_Panel_Mod_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            Options_Panel_Mod.Visibility = Visibility.Collapsed;
+            if (Image_BG.Source != null && File.Exists(Image_BG.Source.ToString()))
+            {
+                Console.WriteLine(Image_BG.Source.ToString());
+                File.Delete(Image_BG.Source.ToString());
+            }
+            Image_BG.Source = null;
+            Options_Panel_Mod.Hide();
+
+
+            GC.Collect();
 
         }
 

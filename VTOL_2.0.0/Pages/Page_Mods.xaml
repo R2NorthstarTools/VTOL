@@ -243,7 +243,7 @@
 
                         </Border>
 
-                        <TreeView x:Name="Dependency_Tree"  Margin="32,316,33,85" Background="#C0101010" FontSize="13" Padding="-9,0,0,0" BorderBrush="#FF565656">
+                        <TreeView x:Name="Dependency_Tree"  Margin="32,316,32,85" Background="#C0101010" FontSize="13" Padding="-3,0,0,0" BorderBrush="#FF565656">
 
                         </TreeView>
                         <Label Content="{x:Static properties:Language.MODINFO}" Margin="0,13,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" UseLayoutRounding="True" Padding="0,0,0,0" Background="{x:Null}" Foreground="White" FontSize="16" FontWeight="Bold" Height="23" VerticalAlignment="Top" HorizontalAlignment="Center" Width="240"/>
