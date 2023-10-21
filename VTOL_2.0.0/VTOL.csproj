@@ -272,6 +272,7 @@
     <None Remove="Resources\Backgrounds\DBG5Qi9U0AEphM7.jpg" />
     <None Remove="Resources\Backgrounds\FAqBg.png" />
     <None Remove="Resources\Backgrounds\HD-wallpaper-titanfall-2-colony-reborn-dlc-titanfall-2-games-2016-games-xbox-games.jpg" />
+    <None Remove="Resources\Backgrounds\Home_Nav.png" />
     <None Remove="Resources\Backgrounds\jack.jpg" />
     <None Remove="Resources\Backgrounds\profiles_bg.png" />
     <None Remove="Resources\Backgrounds\Skin_How_To_BG.png" />
@@ -765,6 +766,9 @@
     </Resource>
     <Resource Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(6).jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Backgrounds\Home_Nav.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Backgrounds\profiles_bg.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

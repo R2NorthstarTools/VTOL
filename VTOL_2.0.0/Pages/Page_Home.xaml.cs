@@ -403,6 +403,7 @@ namespace VTOL.Pages
                 BitmapImage bitmap = new BitmapImage();
 
                 bitmap.BeginInit();
+                bitmap.CacheOption = BitmapCacheOption.OnLoad;
                 bitmap.UriSource = new Uri(_Images[random.Next(0, _Images.Count - 1)]);
                 bitmap.EndInit();
                 Image.Source = bitmap;
