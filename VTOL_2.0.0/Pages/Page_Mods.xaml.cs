@@ -354,7 +354,7 @@ namespace VTOL.Pages
 
 
 
-                                if (jsonObject.TryGetValue(Mod.Name.Replace("_", " ").Trim(), out JToken value))
+                                if (jsonObject.TryGetValue(Mod.Name.Trim(), out JToken value))
                                 {
 
 
@@ -446,12 +446,7 @@ namespace VTOL.Pages
                                 var dirs = rootDirs.EnumerateDirectories("*", new EnumerationOptions
                                 { RecurseSubdirectories = false }).ToArray();
 
-                                DispatchIfNecessary(async () =>
-
-                                {
-
-                                    Mod_Count_Label.Content = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_ModCount + subDirs.Length;
-                                });
+                               
                                 if (subDirs.Count() > 0)
                                 {
                                     int index = 0;
@@ -467,13 +462,19 @@ namespace VTOL.Pages
                                         CLEANED_FORMAT_MODS = DIRECTORY_MODS;
                                        
                                     }
+                                    DispatchIfNecessary(async () =>
 
+                                    {
+
+                                        Mod_Count_Label.Content = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_ModCount + CLEANED_FORMAT_MODS.Count;
+                                    });
                                     foreach (var Verified_Installed_Mod in CLEANED_FORMAT_MODS)
                                     {
                                         try
                                         {
                                             if (Verified_Installed_Mod.DIRECTORY_INFO != null)
                                             {
+                                               
 
                                                 index++;
 
@@ -946,7 +947,7 @@ int millisecondsDelay = 300)
                             string jsonContent = File.ReadAllText(Json_Path);
                             // Parse the JSON content
                             JObject jsonObject = JObject.Parse(jsonContent);
-                            string Name = val.Replace("_", " ");
+                            string Name = val;
                             if (jsonObject.TryGetValue(Name, out _))
                             {
                                 if (Enable_Disable != null)
@@ -2418,7 +2419,7 @@ int millisecondsDelay = 300)
 
 
                         JObject jsonObject = JObject.Parse(jsonContent);
-                        string Name = workingmod.Replace("_", " ");
+                        string Name = workingmod;
                         if (jsonObject.TryGetValue(Name, out _))
                         {
                             jsonObject.Remove(Name);
