@@ -1062,7 +1062,6 @@ true // Whether to change accents automatically
 
             }
             Action_Center_Panel.IsHitTestVisible = false;
-
         }
 
         private void Cancel_Button_Click(object sender, RoutedEventArgs e)

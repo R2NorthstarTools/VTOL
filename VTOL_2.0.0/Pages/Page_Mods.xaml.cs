@@ -239,6 +239,7 @@ namespace VTOL.Pages
             public bool Value { get; set; }
             public DirectoryInfo DIRECTORY_INFO { get; set; }
             public bool IsValidandinstalled { get; set; }
+            public bool Has_Valid_Mod { get; set; }
 
             public bool Namespace { get; set; }
 
@@ -351,8 +352,13 @@ namespace VTOL.Pages
                                     Mod.DIRECTORY_INFO = dirInfo; // or some other appropriate value
 
                                 }
+                                Mod.Has_Valid_Mod = false;
 
-
+                                if (Directory.Exists(Mod.DIRECTORY_INFO.FullName + @"\mods"))
+                                {
+                                    Mod.Has_Valid_Mod = true;
+                                }
+                                
 
                                 if (jsonObject.TryGetValue(Mod.Name.Trim(), out JToken value))
                                 {
@@ -512,6 +518,13 @@ namespace VTOL.Pages
                                                         IS_CORE_MOD_temp = "#c80815";
 
                                                         ToolTip_Dynamic = "The Mod Is not Registered Properly in the Backend List, Please Fix the Mod formatting or update your TF2 Mod List by Launching the Game";
+                                                        Flag_mod = 100;
+                                                    }
+                                                    else if(Verified_Installed_Mod.Has_Valid_Mod == false)
+                                                    {
+                                                        IS_CORE_MOD_temp = "#c80815";
+
+                                                        ToolTip_Dynamic = "The Mod Is Not Formatted Properly. Please Fix the Mod formatting";
                                                         Flag_mod = 100;
                                                     }
 

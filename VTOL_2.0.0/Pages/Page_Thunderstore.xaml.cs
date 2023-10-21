@@ -671,7 +671,7 @@ int millisecondsDelay = 150)
                 CookFaveMods();
                 Call_Mods_From_Folder_Lite();
                 Call_Ts_Mods();
-
+               
 
             };
             worker.RunWorkerCompleted += (sender, eventArgs) =>
@@ -4534,7 +4534,22 @@ int millisecondsDelay = 300)
 
         private void Page_Loaded_1(object sender, RoutedEventArgs e)
         {
+            DispatchIfNecessary(async () =>
+            {
+                if (Main.Progress_Header.Opacity < 1)
+                {
 
+                    DoubleAnimation da = new DoubleAnimation
+                    {
+                        From = Main.Progress_Header.Opacity,
+                        To = 1,
+                        Duration = new Duration(TimeSpan.FromSeconds(0.2)),
+                        AutoReverse = false
+                    };
+                    Main.Progress_Header.BeginAnimation(OpacityProperty, da);
+                    Main.Progress_Header.IsHitTestVisible = true;
+                }
+            });
 
         }
 
@@ -4750,6 +4765,36 @@ int millisecondsDelay = 300)
         {
             DispatchIfNecessary(async () =>
             {
+                if (Action_Center.Count <= 0)
+                {
+                    if (Main.Progress_Header.Opacity > 0.2)
+                    {
+
+                        DoubleAnimation da = new DoubleAnimation
+                        {
+                            From = Main.Progress_Header.Opacity,
+                            To = 0,
+                            Duration = new Duration(TimeSpan.FromSeconds(0.2)),
+                            AutoReverse = false
+                        };
+                        Main.Progress_Header.BeginAnimation(OpacityProperty, da);
+
+                    }
+                    if (Main.Action_Center_Panel.Opacity > 0.2)
+                    {
+
+                        DoubleAnimation da = new DoubleAnimation
+                        {
+                            From = Main.Action_Center_Panel.Opacity,
+                            To = 0,
+                            Duration = new Duration(TimeSpan.FromSeconds(0.2)),
+                            AutoReverse = false
+                        };
+                        Main.Action_Center_Panel.BeginAnimation(OpacityProperty, da);
+
+                    }
+                    Main.Progress_Header.IsHitTestVisible = false;
+                }
                 await SaveHSetAsync();
             });
         }
