@@ -12,6 +12,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.ExceptionServices;
+using System.Security.Policy;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -639,7 +640,6 @@ int millisecondsDelay = 150)
         public HashSet<string> Fave_Mods = new HashSet<string>();
         private int Mod_Update_Counter = 0;
         private List<Action_Card> Action_Center = new List<Action_Card>();
-        public DownloadQueue _downloadQueue;
         private ObservableCollection<Grid_> thunderstoreItems = new ObservableCollection<Grid_>();
 
         public Page_Thunderstore()
@@ -3872,24 +3872,74 @@ int millisecondsDelay = 300)
                         });
                         foreach (var mod in removedCards)
                         {
-                            _inProgress.RemoveWhere(item => item == mod.URL);
-                            _queue.RemoveAll(item => item.Name.ToLower().Contains(mod.Name.ToLower()));
-                            _queue_List_Clear.RemoveAll(item => item.Name.ToLower().Contains(mod.Name.ToLower()));
+                            _inProgress.RemoveWhere(i =>
+                            {
+                                string name__ = "";
+
+                                string[] parts = i.Split('|');
+                                if (parts.Length >= 2)
+                                {
+
+                                    name__ = parts[4] + "-" + parts[1];
+                                }
+
+
+                                return mod.Name.ToLower().Contains(name__.ToLower());
+
+                            });
+                            _queue.RemoveAll(i =>
+                            {
+                                string name__ = "";
+
+                                string[] parts = i.DownloadUrl.Split('|');
+                                if (parts.Length >= 2)
+                                {
+
+                                    name__ = parts[4] + "-" + parts[1];
+                                }
+
+
+                                return name__.ToLower().Contains(name.ToLower());
+
+                            }); 
+                            _queue_List_Clear.RemoveAll(i =>
+                            {
+                                string name__ = "";
+
+                                string[] parts = i.DownloadUrl.Split('|');
+                                if (parts.Length >= 2)
+                                {
+
+                                    name__ = parts[4] + "-" + parts[1];
+                                }
+
+
+                                return name__.ToLower().Contains(name.ToLower());
+
+                            });
 
                         }
 
                         return;
                     }
-
+                    string name__ = "";
 
                     var item = _queue_List_Clear.FirstOrDefault(i =>
-                {
-                    return i.Name.ToLower().Contains(name.ToLower());
+                    {
+
+                        string[] parts = i.DownloadUrl.Split('|');
+                        if (parts.Length >= 2) 
+                        {
+
+                            name__ = parts[4] + "-" + parts[1]; 
+                        }
+                        return name__.ToLower().Contains(name.ToLower());
                 });//todo fix clear
 
                     if (item != null)
                     {
-                        Action_Card card = _myClass.Action_Center.FirstOrDefault(c => c.GetType() == typeof(Action_Card) && c.Name.ToLower() == item.Name.ToLower());
+
+                        Action_Card card = _myClass.Action_Center.FirstOrDefault(c => c.GetType() == typeof(Action_Card) && c.Name.ToLower().Contains(name__.ToLower()));
                         if (card != null)
                         {
                             if (card.Completed == "Dismiss16"
@@ -3929,7 +3979,7 @@ int millisecondsDelay = 300)
 
         public void InitializeDownloadQueue()
         {
-            _downloadQueue = new DownloadQueue(this);
+            Main._downloadQueue = new DownloadQueue(this);
         }
 
         // create a new DownloadQueueItem for each download and add to the queue
@@ -3977,7 +4027,7 @@ int millisecondsDelay = 300)
                             Progress = Progress_Bar
 
                         };
-                        _downloadQueue.Enqueue(item);
+                        Main._downloadQueue.Enqueue(item);
 
                     }
 

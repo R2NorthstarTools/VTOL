@@ -21,6 +21,7 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using VTOL.Pages;
+using static VTOL.Pages.Page_Thunderstore;
 
 namespace VTOL
 {
@@ -82,6 +83,7 @@ namespace VTOL
 
         bool failed_folder = false;
         public bool minimize_to_tray = false;
+        public DownloadQueue _downloadQueue;
 
         // The enum flag for DwmSetWindowAttribute's second parameter, which tells the function what attribute to set.
         // Copied from dwmapi.h
@@ -1073,17 +1075,12 @@ true // Whether to change accents automatically
                     Button = sender as Wpf.Ui.Controls.Button;
 
 
-                    RootNavigation.Navigate(typeof(Pages.Page_Thunderstore));
 
-                    Page_Thunderstore Page = RootFrame.Content as Page_Thunderstore;
-                    if (Page != null)
-                    {
-
-                        if (Page._downloadQueue != null)
+                        if (_downloadQueue != null)
                         {
-                            Page._downloadQueue.CancelDownload(Button.Tag.ToString());
+                           _downloadQueue.CancelDownload(Button.Tag.ToString());
                         }
-                    }
+                    
                 });
             }
             catch (Exception ex)
@@ -1134,22 +1131,21 @@ true // Whether to change accents automatically
                     Button = sender as Button;
 
 
-                    RootNavigation.Navigate(typeof(Pages.Page_Thunderstore));
+                  //  RootNavigation.Navigate(typeof(Pages.Page_Thunderstore));
 
-                    Page_Thunderstore Page = RootFrame.Content as Page_Thunderstore;
-                    if (Page != null)
-                    {
+                  //  Page_Thunderstore Page = RootFrame.Content as Page_Thunderstore;
+                   
 
-                        if (Page._downloadQueue != null)
+                        if (_downloadQueue != null)
                         {
-                            Page._downloadQueue.CancelDownload("", true);
+                            _downloadQueue.CancelDownload("", true);
                         }
-                    }
+                    
                 });
             }
             catch (Exception ex)
             {
-
+                Console.WriteLine(ex.ToString());
 
             }
 
