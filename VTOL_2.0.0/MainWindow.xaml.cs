@@ -144,13 +144,13 @@ namespace VTOL
         public MainWindow()
         {
             InitializeComponent();
-            IntPtr hWnd = new WindowInteropHelper(GetWindow(this)).EnsureHandle();
-            var attribute = DWMWINDOWATTRIBUTE.DWMWA_WINDOW_CORNER_PREFERENCE;
-            var preference = DWM_WINDOW_CORNER_PREFERENCE.DWMWCP_ROUND;
-            DwmSetWindowAttribute(hWnd, attribute, ref preference, sizeof(uint));
-
+           
             try
             {
+                IntPtr hWnd = new WindowInteropHelper(GetWindow(this)).EnsureHandle();
+                var attribute = DWMWINDOWATTRIBUTE.DWMWA_WINDOW_CORNER_PREFERENCE;
+                var preference = DWM_WINDOW_CORNER_PREFERENCE.DWMWCP_ROUND;
+                DwmSetWindowAttribute(hWnd, attribute, ref preference, sizeof(uint));
 
                 NotificationManager = new NotificationManager();
                 minimize_to_tray = Properties.Settings.Default.Minimize_to_Tray;
@@ -340,7 +340,7 @@ namespace VTOL
             catch (Exception ex)
             {
 
-                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                Console.WriteLine(ex+ $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
             }
 
