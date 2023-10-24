@@ -648,6 +648,7 @@ int millisecondsDelay = 150)
         public Page_Thunderstore()
         {
             InitializeComponent();
+            InfoChangeEvent += new SomeInfoChangeDelegate(OnInfoChanged);
             Check_Reverse(false);
             User_Settings_Vars = Main.User_Settings_Vars;
             DocumentsFolder = Main.AppDataFolder;
@@ -1168,7 +1169,45 @@ int millisecondsDelay = 150)
             });
         }
 
+        public delegate void SomeInfoChangeDelegate(object o);
+        public event SomeInfoChangeDelegate InfoChangeEvent = null;
+        void OnInfoChanged(object o)
+        {
+            DispatchIfNecessary(async () =>
+            {
+                itemsList = Thunderstore_List.Items.Cast<Grid_>().ToList();
+                //  Thunderstore_List.ItemsSource = List;
+                Loading_Ring.Visibility = Visibility.Hidden;
+                Thunderstore_List.Items.Refresh();
+            });
+        }
 
+
+        protected void SomeWorkerThread(object o)
+        {
+            //int i = 0;
+            //while (true)
+            //{
+            DispatchIfNecessary(async () =>
+            {
+                foreach (var TS_MOD in _updater.Thunderstore)
+                {
+                    AsyncLoadListViewItem(TS_MOD, false, "#");
+                }
+            });
+            //Legacy Grid_ Card = LoadListViewItem(TS_MOD, Search_, SearchQuery.Replace(" ", "_"));
+            //    if (Card != null)
+            //    {
+            //    Thunderstore_List.Items.Add(Card);
+            //   // ReplaceLoadingCardWithMod(Card);
+
+            //}
+
+        
+
+
+            // }
+        }
         public async Task Call_Ts_Mods()
         {
 
@@ -1181,8 +1220,8 @@ int millisecondsDelay = 150)
                 List<Grid_> List = null;
                 _updater = new Updater("https://northstar.thunderstore.io/api/v1/package/");
 
-                var NON_UI = new Thread(() =>
-                {
+                //var NON_UI = new Thread(() =>
+                //{
                     _updater.Download_Cutom_JSON();
                     if (_updater.Thunderstore != null)
                     {
@@ -1191,7 +1230,10 @@ int millisecondsDelay = 150)
                             DispatchIfNecessary(async () =>
                             {
                                 Thunderstore_List.Items.Clear();
-                                loadConvertItemLazy();
+                               // loadConvertItemLazy();
+                                Thread t = new Thread(new ParameterizedThreadStart(SomeWorkerThread));
+                                t.Start();
+
 
                             });                            //if (Search_ == false)
                             //{
@@ -1229,18 +1271,27 @@ int millisecondsDelay = 150)
                         }
                     }
 
-                });
-                NON_UI.IsBackground = true;
+                //});
+                //NON_UI.IsBackground = true;
 
-                NON_UI.Start();
-                NON_UI.Join();
-                DispatchIfNecessary(async () =>
-                {
-                    itemsList = Thunderstore_List.Items.Cast<Grid_>().ToList();
-                    //  Thunderstore_List.ItemsSource = List;
-                    Loading_Ring.Visibility = Visibility.Hidden;
+                //NON_UI.Start();
+                //NON_UI.Join();
+              
+                
+                
+                
+                
+                
+                
+                
+                
+                //DispatchIfNecessary(async () =>
+                //{
+                //    itemsList = Thunderstore_List.Items.Cast<Grid_>().ToList();
+                //    //  Thunderstore_List.ItemsSource = List;
+                //    Loading_Ring.Visibility = Visibility.Hidden;
 
-                });
+                //});
 
 
 
@@ -1419,7 +1470,7 @@ int millisecondsDelay = 150)
 
                 if (Sort.SelectedItem != null)
                 {
-                    Thunderstore_List.ItemsSource = null;
+                  //  Thunderstore_List.ItemsSource = null;
 
                     BackgroundWorker worker = new BackgroundWorker();
                     worker.DoWork += (sender, e) =>
@@ -1447,7 +1498,7 @@ int millisecondsDelay = 150)
                     worker.RunWorkerCompleted += (sender, eventArgs) =>
                     {
 
-                        Thunderstore_List.Refresh();
+                      //  Thunderstore_List.Items.Refresh();
 
 
                     };
@@ -1843,17 +1894,20 @@ int millisecondsDelay = 150)
 
 
             }
-
-            foreach (var TS_MOD in List)
+            DispatchIfNecessary(async () =>
             {
 
-                if (TS_MOD != null)
+                foreach (var TS_MOD in List)
                 {
-                    Thunderstore_List.Items.Add(TS_MOD);
+
+                    if (TS_MOD != null)
+                    {
+                        Thunderstore_List.Items.Add(TS_MOD);
+                        InfoChangeEvent(TS_MOD);
+                    }
 
                 }
-
-            }
+            });
         }
 
 
@@ -2011,6 +2065,7 @@ int millisecondsDelay = 150)
 
                                 Thunderstore_List.Items.Add(Card);
 
+                                InfoChangeEvent(Card);
 
                             }
                         });
@@ -2086,6 +2141,7 @@ int millisecondsDelay = 150)
                                     Button_Color = bg_color, 
                                     is_Favourite_ = is_favourite });
                                 Thunderstore_List.Items.Add(Card);
+                                InfoChangeEvent(Card);
 
                             }
                         });
@@ -2199,6 +2255,7 @@ int millisecondsDelay = 150)
                                 Button_Color = bg_color, 
                                 is_Favourite_ = is_favourite });
                             Thunderstore_List.Items.Add(Card);
+                            InfoChangeEvent(Card);
 
                         }
                     });
@@ -2219,7 +2276,6 @@ int millisecondsDelay = 150)
 
 
                         downloads = (Downloads.Sum()).ToString();
-                        Console.WriteLine("ver- "+Split_Name[0] +"|"+ Split_Name[1] + " [fullname] " + versions.First().FullName);
                         
                         for (var x = 0; x < versions.First().Dependencies.Count; x++)
                         {
@@ -2308,6 +2364,7 @@ int millisecondsDelay = 150)
                                 Button_Color = bg_color, 
                                 is_Favourite_ = is_favourite });
                             Thunderstore_List.Items.Add(Card);
+                            InfoChangeEvent(Card);
 
                         }
                     });
@@ -2387,8 +2444,9 @@ int millisecondsDelay = 150)
             //}
             foreach (var TS_MOD in _updater.Thunderstore)
             {
+                    AsyncLoadListViewItem(TS_MOD, Search_, SearchQuery.Replace(" ", "_"));
+              
                 //Legacy Grid_ Card = LoadListViewItem(TS_MOD, Search_, SearchQuery.Replace(" ", "_"));
-                AsyncLoadListViewItem(TS_MOD, Search_, SearchQuery.Replace(" ", "_"));
                 //    if (Card != null)
                 //    {
                 //    Thunderstore_List.Items.Add(Card);
@@ -4584,7 +4642,7 @@ int millisecondsDelay = 300)
                     worker.RunWorkerCompleted += (sender, eventArgs) =>
                     {
 
-                        Thunderstore_List.Refresh();
+                        Thunderstore_List.Items.Refresh();
 
 
                     };
@@ -4641,7 +4699,7 @@ int millisecondsDelay = 300)
                     worker.RunWorkerCompleted += (sender, eventArgs) =>
                     {
 
-                        Thunderstore_List.Refresh();
+                      //  Thunderstore_List.Items.Refresh();
 
 
                     };
@@ -4970,6 +5028,10 @@ int millisecondsDelay = 300)
         private void Search_Bar_Suggest_Mods_TextInput(object sender, TextCompositionEventArgs e)
         {
 
+        }
+
+        private void Thunderstore_List_SourceUpdated(object sender, DataTransferEventArgs e)
+        {
         }
     }
 

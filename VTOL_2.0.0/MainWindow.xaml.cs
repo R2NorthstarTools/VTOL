@@ -5,6 +5,7 @@ using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.Eventing.Reader;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -144,13 +145,28 @@ namespace VTOL
         public MainWindow()
         {
             InitializeComponent();
-           
+
             try
             {
-                IntPtr hWnd = new WindowInteropHelper(GetWindow(this)).EnsureHandle();
-                var attribute = DWMWINDOWATTRIBUTE.DWMWA_WINDOW_CORNER_PREFERENCE;
-                var preference = DWM_WINDOW_CORNER_PREFERENCE.DWMWCP_ROUND;
-                DwmSetWindowAttribute(hWnd, attribute, ref preference, sizeof(uint));
+
+                //win 10
+                if (Environment.OSVersion.Platform == PlatformID.Win32NT && (Environment.OSVersion.Version.Build < 22000) ){
+
+                    Main_Win_Control.AllowsTransparency = true;
+                    Main_Win_Control.WindowStyle = WindowStyle.None;
+                    Main_Win_Control.BorderThickness = new Thickness(0);
+                }
+                else
+                //win 11
+                {
+                    IntPtr hWnd = new WindowInteropHelper(GetWindow(this)).EnsureHandle();
+                    var attribute = DWMWINDOWATTRIBUTE.DWMWA_WINDOW_CORNER_PREFERENCE;
+                    var preference = DWM_WINDOW_CORNER_PREFERENCE.DWMWCP_ROUND;
+                    DwmSetWindowAttribute(hWnd, attribute, ref preference, sizeof(uint));
+                    Main_Win_Control.BorderThickness = new Thickness(1);
+
+                }
+
 
                 NotificationManager = new NotificationManager();
                 minimize_to_tray = Properties.Settings.Default.Minimize_to_Tray;
@@ -308,7 +324,7 @@ namespace VTOL
 
                     Send_Danger_Notif("Could Not Read User Settings, Please Run as Admin or Repair/Clean your Installation", 10000);
 
-                }
+                }//todo update tools
 
                 Wpf.Ui.Appearance.Theme.Apply(
             Wpf.Ui.Appearance.ThemeType.Unknown,

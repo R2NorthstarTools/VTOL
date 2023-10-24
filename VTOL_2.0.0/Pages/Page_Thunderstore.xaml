@@ -52,7 +52,7 @@
 
         </Image>
 
-        <ui:VirtualizingItemsControl x:Name="Thunderstore_List"  VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.ScrollUnit="Pixel" ItemsSource="{Binding itemsList}"  Margin="35,174,35,0" ScrollViewer.CanContentScroll="True" Foreground="White" Width="1078" Height="445" CacheLengthUnit="Pixel" UseLayoutRounding="True" ScrollViewer.VerticalScrollBarVisibility="Visible" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Top" Background="#E85A5A5A"  >
+        <ui:VirtualizingItemsControl x:Name="Thunderstore_List"  VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.ScrollUnit="Pixel" ItemsSource="{Binding itemsList}"  Margin="35,174,35,0" ScrollViewer.CanContentScroll="True" Foreground="White" Width="1078" Height="445" CacheLengthUnit="Pixel" UseLayoutRounding="True" ScrollViewer.VerticalScrollBarVisibility="Visible" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Top" Background="#E85A5A5A" SourceUpdated="Thunderstore_List_SourceUpdated"  >
             <!--<ui:CardExpander
             HorizontalContentAlignment="Center"
           
