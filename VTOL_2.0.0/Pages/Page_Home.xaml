@@ -28,6 +28,10 @@
             <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality" />
         </Style>
 
+        <xf:AnimationSettings x:Key="FadeIn"
+						  Kind="FadeFrom"
+						  Opacity="0"
+                              Duration="3"/>
 
 
         <SolidColorBrush x:Key="Theme_Black_Transparent" Color="#FF040404" Opacity="0.9"/>
@@ -136,7 +140,7 @@
                        
                        
                        >
-                <TextBlock TextWrapping="Wrap" Text="Titanfall 2 +Northstar" Height="64" Width="498" Foreground="White" FontSize="48" FontFamily="Segoe UI" FontWeight="Bold" DockPanel.Dock="Left">
+                <TextBlock TextWrapping="Wrap" Text="Titanfall 2 +Northstar" Height="64" Width="498" Foreground="White" FontSize="48" FontFamily="Segoe UI" FontWeight="Bold" DockPanel.Dock="Left"    >
 
 
                     <TextBlock.Effect>
@@ -308,6 +312,9 @@
 
 
                 </Grid>
+                <ui:Button Grid.Column="1" Content="" Margin="551,3,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"  Icon="ArrowSwap24" Background="{x:Null}" CornerRadius="30,30,30,30" Width="40" Padding="0,0,0,0" Height="40" BorderThickness="2,2,2,2" SnapsToDevicePixels="True" ClipToBounds="True" Foreground="#FF018C49" BorderBrush="{x:Null}" IconFilled="True" ClickMode="Press" RenderTransformOrigin="0.5,0.5">
+                    
+                </ui:Button>
 
 
 
@@ -384,9 +391,9 @@
 
                     </Grid>
                     <ui:Button  x:Name="Welcome_Close" Icon="Dismiss24" Height="28" Margin="694,9,0,0" VerticalAlignment="Top"  BorderBrush="{x:Null}"  Padding="0,0,0,0" ToolTip="Exit" Background="Red"   ClickMode="Press" Width="28" Click="Welcome_Close_Click" Template="{DynamicResource ButtonControlTemplatex}" >
-                    <Border  Width="35" HorizontalAlignment="Center" VerticalAlignment="Center" Height="21" Margin="0,0,1,0.8">
-                        <ui:SymbolIcon Symbol="Dismiss16"  />
-                    </Border>
+                        <Border  Width="35" HorizontalAlignment="Center" VerticalAlignment="Center" Height="21" Margin="0,0,1,0.8">
+                            <ui:SymbolIcon Symbol="Dismiss16"  />
+                        </Border>
                     </ui:Button>
                     <Border  Background="#EB0A0606"   CornerRadius="8" Margin="0,260,0,0" BorderThickness="0,1,0,0"
 >
