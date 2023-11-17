@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0-windows10.0.17763.0</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
@@ -278,6 +278,7 @@
     <None Remove="Resources\Backgrounds\jack.jpg" />
     <None Remove="Resources\Backgrounds\profiles_bg.png" />
     <None Remove="Resources\Backgrounds\Skin_How_To_BG.png" />
+    <None Remove="Resources\Backgrounds\Splash.jpg" />
     <None Remove="Resources\Backgrounds\star_shower.png" />
     <None Remove="Resources\Backgrounds\TF2_Achievement_BT_Prime.png" />
     <None Remove="Resources\Backgrounds\TF2_TheFoldWeapon_Loadscreen_1.png" />
