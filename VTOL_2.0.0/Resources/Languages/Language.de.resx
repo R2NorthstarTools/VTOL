@@ -744,4 +744,13 @@
   <data name="Page_Mods_ReverseFilterOrder" xml:space="preserve">
     <value>Umgekehrte Filterreihenfolge</value>
   </data>
+  <data name="TheModIsNotRegisteredProperlyInTheBackendListPleaseFixTheM2odFormattingOrUpdateYourTF2ModList__" xml:space="preserve">
+    <value>Der Mod ist nicht richtig in der Backend-Liste registriert, bitte korrigieren Sie die M2od-Formatierung oder aktualisieren Sie die TF2 Mod-Liste";</value>
+  </data>
+  <data name="TheModIsNotRegisteredProperlyInTheBackendListPleaseFixTheM2odFormattingOrUpdateYourTF2ModList_" xml:space="preserve">
+    <value>Der Mod ist nicht richtig in der Backend-Liste registriert, bitte korrigieren Sie die M2od-Formatierung oder aktualisieren Sie die TF2 Mod-Liste</value>
+  </data>
+  <data name="TheModIsNotRegisteredProperlyInTheBackendListPleaseFixTheM2odFormattingOrUpdateYourTF2ModList" xml:space="preserve">
+    <value>Der Mod ist nicht richtig in der Backend-Liste registriert, bitte korrigieren Sie die M2od-Formatierung oder aktualisieren Sie die TF2 Mod-Liste</value>
+  </data>
 </root>

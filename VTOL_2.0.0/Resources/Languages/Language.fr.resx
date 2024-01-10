@@ -746,4 +746,13 @@
   <data name="MainWindow_NewLogChangesHaveBeenDetectedPleaseClickMeToOpenYourLogsFolder" xml:space="preserve">
     <value>De nouveaux changements ont été détectés dans les journaux, veuillez cliquer sur moi pour ouvrir votre dossier de journaux.</value>
   </data>
+  <data name="TheModIsNotRegisteredProperlyInTheBackendListPleaseFixTheM2odFormattingOrUpdateYourTF2ModList__" xml:space="preserve">
+    <value>Le mod n'est pas enregistré correctement, veuillez le réparer ou mettre à jour votre liste de mods" ;</value>
+  </data>
+  <data name="TheModIsNotRegisteredProperlyInTheBackendListPleaseFixTheM2odFormattingOrUpdateYourTF2ModList_" xml:space="preserve">
+    <value>Le mod n'est pas enregistré correctement, veuillez le réparer ou mettre à jour votre liste de mods</value>
+  </data>
+  <data name="TheModIsNotRegisteredProperlyInTheBackendListPleaseFixTheM2odFormattingOrUpdateYourTF2ModList" xml:space="preserve">
+    <value>Le mod n'est pas enregistré correctement, veuillez le réparer ou mettre à jour votre liste de mods</value>
+  </data>
 </root>
