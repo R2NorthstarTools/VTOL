@@ -4033,7 +4033,7 @@ int millisecondsDelay = 300)
 
         private void LEGION_INSTALL_PAGE_Click(object sender, RoutedEventArgs e)
         {
-            OPEN_WEBPAGE("https://wiki.modme.co/wiki/apps/Legion.html");
+            OPEN_WEBPAGE("https://github.com/r-ex/LegionPlus");
         }
 
         private void HARMONY_INSTALL_PAGE_Click(object sender, RoutedEventArgs e)
@@ -4067,7 +4067,7 @@ int millisecondsDelay = 300)
         }
         private void MDL_TOOL_PAGE_Click(object sender, RoutedEventArgs e)
         {
-            OPEN_WEBPAGE("https://github.com/headassbtw/mdlshit-binaries");
+            OPEN_WEBPAGE("https://github.com/headassbtw/mdlshit/");
 
         }
         private void LEGION_INSTALL_STARTUP_ARGS_Click(object sender, RoutedEventArgs e)
