@@ -22,6 +22,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using VTOL.Advocate.Conversion.JSON;
+using static VTOL.MainWindow;
 using static VTOL.Pages.Page_Profiles;
 using Path = System.IO.Path;
 
@@ -241,7 +242,7 @@ namespace VTOL.Pages
             public bool IsValidandinstalled { get; set; }
             public bool Has_Valid_Mod { get; set; }
 
-            public bool Namespace { get; set; }
+            public string Namespace { get; set; }
 
         }
 
@@ -308,9 +309,10 @@ namespace VTOL.Pages
                             if (dirInfo.Exists)
                             {
                                 Mod.DIRECTORY_INFO = dirInfo; // or some other appropriate value
+                                Mod.Namespace = dirInfo.Name;
 
-                            }
-                            OUTPUT.Add(Mod);
+                        }
+                        OUTPUT.Add(Mod);
 
                         }
                         // Handle case where json is null or empty
@@ -350,6 +352,8 @@ namespace VTOL.Pages
                                 if (dirInfo.Exists)
                                 {
                                     Mod.DIRECTORY_INFO = dirInfo; // or some other appropriate value
+                                    Mod.Namespace = dirInfo.Name;
+
 
                                 }
                                 Mod.Has_Valid_Mod = false;
@@ -387,6 +391,7 @@ namespace VTOL.Pages
                                     if (dirInfo.Exists)
                                     {
                                         Mod.DIRECTORY_INFO = dirInfo; // or some other appropriate value
+                                        Mod.Namespace = dirInfo.Name;
 
                                     }
                                     OUTPUT.Add(Mod);
@@ -406,6 +411,7 @@ namespace VTOL.Pages
                                 string dirNameWithoutVersion = match.Success ? dirName.Replace(match.Value, "") : dirName;
                                 // Handle the case where the value is null
                                 Mod.Name = "!" + dirNameWithoutVersion + "!";
+
                             }
 
 
@@ -550,7 +556,20 @@ namespace VTOL.Pages
                                                 }
                                                 DispatchIfNecessary(async () =>
                                                 {
-                                                    Main.Current_Installed_Mods.Add(Verified_Installed_Mod.Name.Trim());
+                                                    string[] parts = Verified_Installed_Mod.Namespace.Split('-');
+                                                    string name = Verified_Installed_Mod.Namespace.Trim();
+                                                    string author = null;
+                                                    string ver = null;
+
+                                                    if (parts.Length > 1)
+                                                    {
+                                                        author = parts[0];
+                                                        name = parts[1];
+                                                        ver = parts[2];
+                                                    }
+
+
+                                                    Main.Current_Installed_Mods.Add(new GENERAL_MOD { Name = name, Version = ver, Author = author });
                                                 });
                                             }
                                         }
@@ -2170,14 +2189,23 @@ int millisecondsDelay = 300)
                                         DispatchIfNecessary(async () =>
                                         {
                                             TreeViewItem treeViewItem = new TreeViewItem();
-                                            treeViewItem.Header = VTOL.Resources.Languages.Language.REQUIRES + myMObject.dependencies[x].ToString();                                                                                 
-                                            
-                                            bool contains = Main.Current_Installed_Mods.Any(str1 =>
-                                                myMObject.dependencies[x].ToString().Replace("-", " ").Replace(".", " ")
-                                                .IndexOf(str1.Replace("-", " ").Replace(".", " "), StringComparison.OrdinalIgnoreCase) >= 0
-                                            );
+                                            treeViewItem.Header = VTOL.Resources.Languages.Language.REQUIRES + myMObject.dependencies[x].ToString();
+                                            string[] modParts = myMObject.dependencies[x].ToString().Split('-');
+                                            bool isHigherOrEqualVersion = false;
+                                            // Check if the array has at least two parts (name and version)
+                                            if (modParts.Length >= 1)
+                                            {
+                                                string modNameInMyObject = modParts[1];
+                                                string modVersionInMyObject = modParts[2];
+                                                GENERAL_MOD foundMod = Main.Current_Installed_Mods.FirstOrDefault(mod => string.Equals(mod.Name, modNameInMyObject, StringComparison.OrdinalIgnoreCase));
+                                                  if(foundMod != null)
+                                                {
+                                                    isHigherOrEqualVersion = Version.Parse(foundMod.Version) >= Version.Parse(modVersionInMyObject);
+
+                                                }
+                                            }                                         
                                             // Choose the relative strength of the comparison - is it almost exactly equal? or is it just close?
-                                            if (contains)
+                                            if (isHigherOrEqualVersion)
                                             {
                                                 treeViewItem.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#1F2FC132")); // Change to your desired hex value
                                             }

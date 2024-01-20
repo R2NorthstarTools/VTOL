@@ -3799,14 +3799,20 @@ int millisecondsDelay = 150)
             {
                 unpack_flg = false;
                 string searchPattern = @"Northstar.*";
-                string baseFolderPath = Path.Combine(Current_Install_Folder, User_Settings_Vars.Profile_Path, @"packages\");
+                string baseFolderPath = Path.Combine(Current_Install_Folder, User_Settings_Vars.Profile_Path);
 
                 string[] matchingFolders = Directory.GetDirectories(baseFolderPath, searchPattern, SearchOption.AllDirectories);
 
 
                 foreach (string folderPath in matchingFolders)
                 {
-                    TryDeleteDirectory(folderPath, true);
+                    if (Directory.Exists(folderPath))
+                    {
+                        MessageBox.Show(folderPath);
+
+                        TryDeleteDirectory(folderPath, true);
+
+                    }
                 }
 
               

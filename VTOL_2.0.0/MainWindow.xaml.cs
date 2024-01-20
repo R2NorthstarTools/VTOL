@@ -80,7 +80,7 @@ namespace VTOL
 
         public bool Is_Focused = true;
         // public List<string> Current_Installed_Mods = new List<string>();
-        public HashSet<string> Current_Installed_Mods = new HashSet<string>();
+        public HashSet<GENERAL_MOD> Current_Installed_Mods = new HashSet<GENERAL_MOD>();
 
         bool failed_folder = false;
         public bool minimize_to_tray = false;
@@ -90,10 +90,15 @@ namespace VTOL
         // Copied from dwmapi.h
 
 
+        public class GENERAL_MOD
+        {
+            public string Name { get; set; }
+            public string Version { get; set; }
+            public string Author { get; set; }
+        }
 
 
-
-        public enum DWMWINDOWATTRIBUTE
+            public enum DWMWINDOWATTRIBUTE
         {
             DWMWA_WINDOW_CORNER_PREFERENCE = 33
         }

@@ -30,6 +30,8 @@ using System.Windows.Threading;
 using System.Xml.Linq;
 using Threading;
 using Windows.Foundation.Collections;
+using static VTOL.MainWindow;
+using static VTOL.Pages.Page_Mods;
 using static VTOL.Pages.Page_Thunderstore;
 using Path = System.IO.Path;
 using Timer = System.Timers.Timer;
@@ -1374,7 +1376,7 @@ int millisecondsDelay = 150)
             return false;
         }
 
-        private void Compare_Mod_To_List(string modname, string Mod_version_current, HashSet<string> list, out string bg_color, out string label)
+        private void Compare_Mod_To_List(string modname, string Mod_version_current, HashSet<GENERAL_MOD> list, out string bg_color, out string label)
         {
             string res = "Install";
             string bg = "#FF005D42";
@@ -1391,10 +1393,10 @@ int millisecondsDelay = 150)
                     foreach (var item in list)
                     {
 
-                        if (Regex.Replace(item, @"(\d+\.)(\d+\.)(\d)", "").TrimEnd('-') == modname)
+                        if (Regex.Replace(item.Name, @"(\d+\.)(\d+\.)(\d)", "").TrimEnd('-') == modname)
                         {
                             Regex pattern = new Regex(@"\d+(\.\d+)+");
-                            Match m = pattern.Match(item);
+                            Match m = pattern.Match(item.Name);
                             string version = m.Value;
                             int result = versionCompare(version, Mod_version_current);
                             switch (result)
@@ -3028,9 +3030,20 @@ int millisecondsDelay = 300)
 
                             foreach (System.IO.DirectoryInfo dirInfo in subDirs)
                             {
+                                string[] parts = dirInfo.Name.Split('-');
+                                string name = dirInfo.Name;
+                                string author = null;
+                                string ver = null;
 
+                                if (parts.Length > 1)
+                                {
+                                    author = parts[0];
+                                    name = parts[1];
+                                    ver = parts[2];
+                                }
+                                
 
-                                Main.Current_Installed_Mods.Add(dirInfo.Name.Trim());
+                                Main.Current_Installed_Mods.Add(new GENERAL_MOD { Name = name, Version = ver, Author= author });
 
                             }
 

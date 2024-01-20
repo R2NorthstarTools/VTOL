@@ -5,38 +5,47 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VTOL"
         xmlns:Pages="clr-namespace:VTOL.Pages"
-               xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-                xmlns:parallax="clr-namespace:Parallax.WPF.Controls;assembly=Parallax.WPF"
-             xmlns:properties="clr-namespace:VTOL.Resources.Languages"
-      xmlns:xf="clr-namespace:XamlFlair;assembly=XamlFlair.WPF"
-
-          xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:parallax="clr-namespace:Parallax.WPF.Controls;assembly=Parallax.WPF"
+        xmlns:properties="clr-namespace:VTOL.Resources.Languages"
+        xmlns:xf="clr-namespace:XamlFlair;assembly=XamlFlair.WPF"
+        xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
         xmlns:hc="https://handyorg.github.io/handycontrol" x:Name="Main_Win_Control" x:Class="VTOL.MainWindow"
         UseLayoutRounding="True"
         RenderOptions.BitmapScalingMode="HighQuality"
         SnapsToDevicePixels="True"
         RenderOptions.ClearTypeHint="Enabled"
         mc:Ignorable="d"
+        Title="MainWindow" 
+        ResizeMode="CanMinimize" 
+        WindowStartupLocation="CenterScreen" 
+        WindowStyle="None" 
+        AllowsTransparency="True" 
+        AllowDrop="True"
+        GotFocus="Main_Win_Control_GotFocus"
+        LostFocus="Main_Win_Control_LostFocus"
+        Deactivated="Main_Win_Control_Deactivated" 
+        Activated="Main_Win_Control_Activated"
+        Closed="Main_Win_Control_Closed" 
+        StateChanged="Main_Win_Control_StateChanged" 
+        Loaded="Main_Win_Control_Loaded" 
+        Closing="Main_Win_Control_Closing" 
+        BorderBrush="#B27F7F7F" 
+        BorderThickness="1,1,1,1"  
         SizeToContent="WidthAndHeight"
-
-        Title="MainWindow" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" AllowDrop="True" GotFocus="Main_Win_Control_GotFocus" LostFocus="Main_Win_Control_LostFocus" Deactivated="Main_Win_Control_Deactivated" Activated="Main_Win_Control_Activated" Closed="Main_Win_Control_Closed" StateChanged="Main_Win_Control_StateChanged" Loaded="Main_Win_Control_Loaded" Closing="Main_Win_Control_Closing" BorderBrush="#B27F7F7F" BorderThickness="1,1,1,1"  
-        
         >
 
     <Window.Resources>
+
+        <ScaleTransform x:Key="windowScaleTransform" ScaleX="0.5" ScaleY="0.5" />
+
         <Storyboard x:Key="FadeInOut">
             <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"/>
         </Storyboard>
         <SolidColorBrush x:Key="Button_HOVER" Color="#FF2C4C4C" />
-        <ScaleTransform x:Key="windowScaleTransform" ScaleX="0.5" ScaleY="0.5" />
-
         <Style TargetType="Image">
-
             <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality" />
         </Style>
-
-
         <ControlTemplate x:Key="ButtonControlTemplate1" TargetType="{x:Type Button}">
             <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True" CornerRadius="20">
                 <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
@@ -314,11 +323,7 @@
                     />
                 <ui:NavigationSeparator />
 
-                <ui:NavigationItem x:Name="Skins"
-                    Content="{x:Static properties:Language.MainWindow_Skins}"
-                    Icon="InkStroke20" FontSize="10" PageType="{x:Type Pages:Page_Skins}" ClickMode="Press"
-                    />
-                <ui:NavigationSeparator />
+               
 
                 <ui:NavigationItem x:Name="Server"
                     Content="{x:Static properties:Language.MainWindow_Server}"
