@@ -18,8 +18,9 @@
         SnapsToDevicePixels="True"
         RenderOptions.ClearTypeHint="Enabled"
         mc:Ignorable="d"
+        SizeToContent="WidthAndHeight"
 
-        Title="MainWindow" Height="700" Width="1201" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" AllowDrop="True" GotFocus="Main_Win_Control_GotFocus" LostFocus="Main_Win_Control_LostFocus" Deactivated="Main_Win_Control_Deactivated" Activated="Main_Win_Control_Activated" Closed="Main_Win_Control_Closed" StateChanged="Main_Win_Control_StateChanged" Loaded="Main_Win_Control_Loaded" Closing="Main_Win_Control_Closing" BorderBrush="#B27F7F7F" BorderThickness="1,1,1,1"  
+        Title="MainWindow" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" AllowDrop="True" GotFocus="Main_Win_Control_GotFocus" LostFocus="Main_Win_Control_LostFocus" Deactivated="Main_Win_Control_Deactivated" Activated="Main_Win_Control_Activated" Closed="Main_Win_Control_Closed" StateChanged="Main_Win_Control_StateChanged" Loaded="Main_Win_Control_Loaded" Closing="Main_Win_Control_Closing" BorderBrush="#B27F7F7F" BorderThickness="1,1,1,1"  
         
         >
 
@@ -28,12 +29,12 @@
             <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"/>
         </Storyboard>
         <SolidColorBrush x:Key="Button_HOVER" Color="#FF2C4C4C" />
+        <ScaleTransform x:Key="windowScaleTransform" ScaleX="0.5" ScaleY="0.5" />
 
         <Style TargetType="Image">
 
             <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality" />
         </Style>
-
 
 
         <ControlTemplate x:Key="ButtonControlTemplate1" TargetType="{x:Type Button}">
@@ -115,6 +116,7 @@
         
         x:Name="RootMainGrid"
         Grid.Row="1"
+        Height="700" Width="1201" 
         Margin="0" AllowDrop="False">
 
         <Grid.ColumnDefinitions>
@@ -356,9 +358,9 @@
 
 
         <Grid xf:Animations.Primary="{StaticResource FadeIn}"
-            Margin="0,7,2,663" ScrollViewer.VerticalScrollBarVisibility="Disabled" Grid.ColumnSpan="2" AllowDrop="False" >
+            Margin="0,7,2,663" ScrollViewer.VerticalScrollBarVisibility="Disabled" Grid.ColumnSpan="2" AllowDrop="False" HorizontalAlignment="Center" >
 
-            <StatusBar Margin="0,0,554,0" Background="Transparent" BorderThickness="0,0,0,0" HorizontalAlignment="Right" Width="644" Padding="0,0,0,0">
+            <StatusBar Margin="0,0,554,0" Background="Transparent" BorderThickness="0,0,0,0" HorizontalAlignment="Center" Width="644" Padding="0,0,0,0">
                 <StatusBarItem Margin="-24,-11,0,-11" Width="598">
                     <StackPanel Orientation="Horizontal" Width="514" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
 
