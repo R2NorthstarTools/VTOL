@@ -3798,24 +3798,18 @@ int millisecondsDelay = 150)
             try
             {
                 unpack_flg = false;
-                if (Directory.Exists(Current_Install_Folder + User_Settings_Vars.Profile_Path + @"\packages\Northstar.Client\Locked_Folder"))
+                string searchPattern = @"Northstar.*";
+                string baseFolderPath = Path.Combine(Current_Install_Folder, User_Settings_Vars.Profile_Path, @"packages\");
+
+                string[] matchingFolders = Directory.GetDirectories(baseFolderPath, searchPattern, SearchOption.AllDirectories);
+
+
+                foreach (string folderPath in matchingFolders)
                 {
-                    TryDeleteDirectory(Current_Install_Folder + User_Settings_Vars.Profile_Path + @"\packages\Northstar.Client\Locked_Folder", true);
-
+                    TryDeleteDirectory(folderPath, true);
                 }
-                if (Directory.Exists(Current_Install_Folder + User_Settings_Vars.Profile_Path + @"\packages\Northstar.Custom\Locked_Folder"))
-                {
-                    TryDeleteDirectory(Current_Install_Folder + User_Settings_Vars.Profile_Path + @"\packages\Northstar.Custom\Locked_Folder", true);
 
-
-
-                }
-                if (Directory.Exists(Current_Install_Folder + User_Settings_Vars.Profile_Path + @"\packages\Northstar.CustomServers\Locked_Folder"))
-                {
-                    TryDeleteDirectory(Current_Install_Folder + User_Settings_Vars.Profile_Path + @"\packages\Northstar.CustomServers\Locked_Folder", true);
-
-
-                }
+              
                 string nrml = GetFile(Current_Install_Folder, @"ns_startup_args.txt");
                 string cfg = GetFile(Current_Install_Folder, @"autoexec_ns_server.cfg");
                 string dedi = GetFile(Current_Install_Folder, @"ns_startup_args_dedi.txt");

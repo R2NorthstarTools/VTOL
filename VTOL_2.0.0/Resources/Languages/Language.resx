@@ -732,9 +732,6 @@
   <data name="MANIFEST_FILE_NOT_FOUND" xml:space="preserve">
     <value>MANIFEST FILE NOT FOUND</value>
   </data>
-  <data name="YouHaveInstalledModSettingsModSettingsHasBeenDepreceatedAndWillCauseErrorsNDeleteItNow" xml:space="preserve">
-    <value> "You have Installed Mod Settings!, Mod Settings has been Depreceated and will cause Errors. \nDelete it Now?</value>
-  </data>
   <data name="WARNING" xml:space="preserve">
     <value> "WARNING</value>
   </data>

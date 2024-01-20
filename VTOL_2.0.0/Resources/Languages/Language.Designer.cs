@@ -1812,6 +1812,24 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PARENT OF - .
+        /// </summary>
+        public static string PARENTOF {
+            get {
+                return ResourceManager.GetString("PARENTOF", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PARENT TO -.
+        /// </summary>
+        public static string PARENTTO {
+            get {
+                return ResourceManager.GetString("PARENTTO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Release Not Found!.
         /// </summary>
         public static string Parse_Release_ReleaseNotFound {
@@ -1875,6 +1893,36 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The Mod Is not Registered Properly in the Backend List, Please Fix the M2od formatting or update your TF2 Mod List.
+        /// </summary>
+        public static string TheModIsNotRegisteredProperlyInTheBackendListPleaseFixTheM2odFormattingOrUpdateYourTF2ModList {
+            get {
+                return ResourceManager.GetString("TheModIsNotRegisteredProperlyInTheBackendListPleaseFixTheM2odFormattingOrUpdateYo" +
+                        "urTF2ModList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Mod Is not Registered Properly in the Backend List, Please Fix the M2od formatting or update your TF2 Mod List.
+        /// </summary>
+        public static string TheModIsNotRegisteredProperlyInTheBackendListPleaseFixTheM2odFormattingOrUpdateYourTF2ModList_ {
+            get {
+                return ResourceManager.GetString("TheModIsNotRegisteredProperlyInTheBackendListPleaseFixTheM2odFormattingOrUpdateYo" +
+                        "urTF2ModList_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Mod Is not Registered Properly in the Backend List, Please Fix the M2od formatting or update your TF2 Mod List&quot;;.
+        /// </summary>
+        public static string TheModIsNotRegisteredProperlyInTheBackendListPleaseFixTheM2odFormattingOrUpdateYourTF2ModList__ {
+            get {
+                return ResourceManager.GetString("TheModIsNotRegisteredProperlyInTheBackendListPleaseFixTheM2odFormattingOrUpdateYo" +
+                        "urTF2ModList__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Installation Complete!.
         /// </summary>
         public static string Unpack_To_Location_InstallationComplete {
@@ -1916,16 +1964,6 @@ namespace VTOL.Resources.Languages {
         public static string WARNING {
             get {
                 return ResourceManager.GetString("WARNING", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to  &quot;You have Installed Mod Settings!, Mod Settings has been Depreceated and will cause Errors. \nDelete it Now?.
-        /// </summary>
-        public static string YouHaveInstalledModSettingsModSettingsHasBeenDepreceatedAndWillCauseErrorsNDeleteItNow {
-            get {
-                return ResourceManager.GetString("YouHaveInstalledModSettingsModSettingsHasBeenDepreceatedAndWillCauseErrorsNDelete" +
-                        "ItNow", resourceCulture);
             }
         }
     }
