@@ -526,7 +526,7 @@ namespace VTOL.Pages
                                                         ToolTip_Dynamic = "The Mod Is not Registered Properly in the Backend List, Please Fix the Mod formatting or update your TF2 Mod List by Launching the Game";
                                                         Flag_mod = 100;
                                                     }
-                                                    else if(Verified_Installed_Mod.Has_Valid_Mod == false && !Verified_Installed_Mod.Name.Contains("Northstar") && !Verified_Installed_Mod.Name.Contains("audio"))
+                                                    else if(Verified_Installed_Mod.Has_Valid_Mod == false && !Verified_Installed_Mod.Name.Contains("Northstar") && !Directory.Exists(Verified_Installed_Mod.DIRECTORY_INFO.FullName + @"\audio") && !Directory.Exists(Verified_Installed_Mod.DIRECTORY_INFO.FullName + @"\vpk"))
                                                     {
                                                         IS_CORE_MOD_temp = "#c80815";
 

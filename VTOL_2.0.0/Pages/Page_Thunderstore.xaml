@@ -32,7 +32,8 @@
             <ComboBoxItem Name="Downloads">Downloads</ComboBoxItem>
             <ComboBoxItem Name="Update">Updates</ComboBoxItem>
             <ComboBoxItem Name="ReInstall">Installed</ComboBoxItem>
-            <ComboBoxItem x:Name="Favourites" Content="Favourites"/>
+            <ComboBoxItem Name="Favourites">Favourites</ComboBoxItem>
+            <ComboBoxItem Name="Empty">...</ComboBoxItem>
 
         </ComboBox>
         <ui:Button x:Name="padd" Content="" VerticalAlignment="Top" Height="35" Padding="0,0,0,0" Icon="ArrowSortDownLines20" BorderBrush="{x:Null}"  Width="40" HorizontalAlignment="Right" Margin="0,135,278.3,0" Click="padd_Click" Background="#07FFFFFF" ToolTip="{x:Static properties:Language.Page_Mods_ReverseFilterOrder}" MouseOverBackground="#4CFFFFFF"/>
