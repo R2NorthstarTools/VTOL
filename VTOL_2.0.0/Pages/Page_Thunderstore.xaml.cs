@@ -1,4 +1,5 @@
 ﻿using Downloader;
+using FuzzyString;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Serilog;
@@ -7,10 +8,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Diagnostics.Eventing.Reader;
 using System.Globalization;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Reactive.Joins;
 using System.Reflection;
 using System.Runtime.ExceptionServices;
 using System.Security.Policy;
@@ -674,7 +677,9 @@ int millisecondsDelay = 150)
             {
 
                 CookFaveMods();
+                if (Main.loaded_mods == false) { 
                 Call_Mods_From_Folder_Lite();
+            }
                 Call_Ts_Mods();
                
 
@@ -1393,11 +1398,9 @@ int millisecondsDelay = 150)
                     foreach (var item in list)
                     {
 
-                        if (Regex.Replace(item.Name, @"(\d+\.)(\d+\.)(\d)", "").TrimEnd('-') == modname)
+                        if (String.Equals(item.Name, modname, StringComparison.OrdinalIgnoreCase))
                         {
-                            Regex pattern = new Regex(@"\d+(\.\d+)+");
-                            Match m = pattern.Match(item.Name);
-                            string version = m.Value;
+                            string version = item.Version;
                             int result = versionCompare(version, Mod_version_current);
                             switch (result)
                             {
@@ -3018,6 +3021,7 @@ int millisecondsDelay = 300)
                         Main.Current_Installed_Mods.Clear();
 
                         string NS_Mod_Dir = User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\packages";
+                        System.IO.DirectoryInfo NS_Dirs = new DirectoryInfo(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\mods");
 
                         System.IO.DirectoryInfo rootDirs = new DirectoryInfo(@NS_Mod_Dir);
                         bool result = await IsValidPath(NS_Mod_Dir);
@@ -3025,7 +3029,7 @@ int millisecondsDelay = 300)
                         {
 
                             System.IO.DirectoryInfo[] subDirs = null;
-                            subDirs = rootDirs.GetDirectories();
+                            subDirs = rootDirs.GetDirectories().Concat(NS_Dirs.GetDirectories()).ToArray();
 
 
                             foreach (System.IO.DirectoryInfo dirInfo in subDirs)
@@ -3044,7 +3048,7 @@ int millisecondsDelay = 300)
                                 
 
                                 Main.Current_Installed_Mods.Add(new GENERAL_MOD { Name = name, Version = ver, Author= author });
-
+                                Main.loaded_mods = true;
                             }
 
                         }
@@ -3081,36 +3085,7 @@ int millisecondsDelay = 300)
                 control.BeginAnimation(UIElement.OpacityProperty, animation);
             });
         }
-        public class Benchmark
-        {
-            private Dictionary<string, long> _results = new Dictionary<string, long>();
-
-            public async Task TimeAsync(string name, Func<Task> func)
-            {
-                var sw = new Stopwatch();
-                sw.Start();
-                await func();
-                sw.Stop();
-                var time = sw.ElapsedMilliseconds;
-                if (_results.ContainsKey(name))
-                {
-                    _results[name] += time;
-                }
-                else
-                {
-                    _results.Add(name, time);
-                }
-            }
-
-            public void PrintResults()
-            {
-                Console.WriteLine("Results:");
-                foreach (var kvp in _results)
-                {
-                    Console.WriteLine($"{kvp.Key}: {kvp.Value} ms");
-                }
-            }
-        }
+     
         void Update_ActionCard_Progress(Action_Card Action_Card_, int Add_INT = 10, bool Completed = false, bool FailedEvent = false)
         {
             try
@@ -3284,6 +3259,7 @@ int millisecondsDelay = 300)
 
 
         }
+       
         public async Task Unpack_To_Location_Custom(string Target_Zip, string Destination, ProgressBar Progress_Bar, bool Clean_Thunderstore = false, bool clean_normal = false, bool plugin_install = false, bool NS_CANDIDATE_INSTALL = false, string mod_name = "~",string namespace_ = "~")
         {
             //add drag and drop
@@ -3294,11 +3270,12 @@ int millisecondsDelay = 300)
             });
             try
             {
-                // Start the benchmark timer
-                var benchmark = new Benchmark();
                 string Dir_Final = null;
-
-
+                string Old_MOD = Find_Folder(mod_name, User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\packages");
+                if (Directory.Exists(Old_MOD))
+                {
+                    TryDeleteDirectory(Old_MOD);
+                }
 
 
 
@@ -3455,7 +3432,6 @@ int millisecondsDelay = 300)
                                 {
                                     Progress_Bar.Value = 0;
                                 }
-
                                 SnackBar.Title = VTOL.Resources.Languages.Language.SUCCESS;
                                 SnackBar.Timeout = 10000;
                                 SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
@@ -3504,6 +3480,7 @@ int millisecondsDelay = 300)
                 }
                 else
                 {
+                  
                     await TryUnzipFile(Target_Zip, Destination);
 
                     Update_ActionCard_Progress(Action_Card_);
@@ -3591,6 +3568,7 @@ int millisecondsDelay = 300)
                                     Progress_Bar.Value = 0;
                                 }
                                 Update_ActionCard_Progress(Action_Card_, 40, true);
+                                
 
                                 SnackBar.Title = VTOL.Resources.Languages.Language.SUCCESS;
                                 SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
@@ -3838,63 +3816,54 @@ int millisecondsDelay = 300)
 
             }
         }
-
-        private string Find_Folder(string searchQuery, string folderPath)
+        static double CalculateSimilarity(string str1, string str2)
         {
-            searchQuery = "*" + searchQuery + "*";
+            int commonLength = Math.Min(str1.Length, str2.Length);
+            int commonPrefix = 0;
 
-            var directory = new DirectoryInfo(folderPath);
+            for (int i = 0; i < commonLength; i++)
+            {
+                if (str1[i] == str2[i])
+                {
+                    commonPrefix++;
+                }
+                else
+                {
+                    break;
+                }
+            }
 
-            var directories = directory.GetDirectories(searchQuery, SearchOption.AllDirectories);
-            return directories[0].ToString();
+            return (double)commonPrefix / Math.Max(str1.Length, str2.Length);
         }
-        async Task Install_Skin_Async_Starter(IEnumerable<string> in_, string Destination = "")
+        private string Find_Folder(string searchQuery, string folderPath)
         {
             try
             {
+                // Get all directories in the base directory
+                string[] directories = Directory.GetDirectories(folderPath);
 
-                await Task.Run(async () => //Task.Run automatically unwraps nested Task types!
+                foreach (string directory in directories)
                 {
+                    string folderName = Path.GetFileName(directory);
 
+                    // Check if the folder name is similar to the query folder
+                    double similarity = CalculateSimilarity(folderName, searchQuery);
 
-                    foreach (string i in in_)
+                    if (similarity >= 0.8)
                     {
-                        DispatchIfNecessary(async () =>
-                        {
-                            Skin_Processor_ Skinp = new Skin_Processor_();
-
-
-                            Skinp.Install_Skin_From_Path(i);
-
-
-                        });
-                        await Task.Delay(1500);
-
-
+                        return directory; // Return the first matching folder found
                     }
-
-                    if (Directory.Exists(Destination) && Destination != "")
-                    {
-                        TryDeleteDirectory(Destination, true);
-                    }
-                });
-
+                }
             }
             catch (Exception ex)
             {
-                //Removed PaperTrailSystem Due to lack of reliability.
-
-                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy-MM- dd-HH-mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-
+                Console.WriteLine($"Error: {ex.Message}");
             }
 
+            return null; // Return null if no matching folder is found
         }
-        private void ScrollViewer_MouseEnter(object sender, MouseEventArgs e)
-        {
-
-
-
-        }
+       
+      
 
         public class DownloadQueueItem
         {
@@ -5045,6 +5014,39 @@ int millisecondsDelay = 300)
 
         private void Thunderstore_List_SourceUpdated(object sender, DataTransferEventArgs e)
         {
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Reload_BTTN_Click(object sender, RoutedEventArgs e)
+        {
+            Loading_Ring.Visibility = Visibility.Hidden;
+            Search_Bar_Suggest_Mods.IsReadOnly = true;
+            search_a_flag = true;
+            Search_Bar_Suggest_Mods.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#34FFFFFF"); 
+            Sort.SelectedIndex = -1;
+            CookFaveMods();
+            Call_Mods_From_Folder_Lite();
+            Call_Ts_Mods();
+
+        }
+
+        private void Thunderstore_List_LayoutUpdated(object sender, EventArgs e)
+        {
+            if(Thunderstore_List.Items.Count < 2 || Thunderstore_List.Visibility != Visibility.Visible || _updater.Thunderstore == null || Main.loaded_mods == false){
+                Reload_BTTN.Visibility = Visibility.Visible;
+                Loading_Ring.Visibility = Visibility.Visible;
+
+
+            }
+            else
+            {
+                Reload_BTTN.Visibility = Visibility.Collapsed;
+
+            }
         }
     }
 

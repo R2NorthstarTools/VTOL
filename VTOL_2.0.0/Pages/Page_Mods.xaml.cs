@@ -1,6 +1,8 @@
 ﻿using FuzzyString;
 using HandyControl.Tools.Extension;
 using Ionic.Zip;
+using Lsj.Util.Win32.BaseTypes;
+using Lsj.Util.Win32.Structs;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Serilog;
@@ -448,28 +450,27 @@ namespace VTOL.Pages
                             string NS_Mod_Dir = User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\packages";
 
                             System.IO.DirectoryInfo rootDirs = new DirectoryInfo(NS_Mod_Dir);
+                            System.IO.DirectoryInfo NS_Dirs = new DirectoryInfo(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\mods");
+                        
+                            
 
                             if (IsValidPath(rootDirs.FullName) == true)
                             {
 
                                 System.IO.DirectoryInfo[] subDirs = null;
-                                subDirs = rootDirs.GetDirectories();
+                                subDirs = rootDirs.GetDirectories().Concat(NS_Dirs.GetDirectories()).ToArray();
 
-                                var dirs = rootDirs.EnumerateDirectories("*", new EnumerationOptions
-                                { RecurseSubdirectories = false }).ToArray();
-
+                                
                                
                                 if (subDirs.Count() > 0)
                                 {
-                                    int index = 0;
-                                    List<DirectoryInfo> existingDirectories = null;
                                     string Json_Path = FindFirstFile(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\", "enabledmods.json");
 
 
                                     if (File.Exists(Json_Path))
                                     {
                                     
-                                        List<NORTHSTARCOMPATIBLE_MOD> DIRECTORY_MODS = READ_UPDATE_MOD_LIST(dirs);
+                                        List<NORTHSTARCOMPATIBLE_MOD> DIRECTORY_MODS = READ_UPDATE_MOD_LIST(subDirs);
 
                                         CLEANED_FORMAT_MODS = DIRECTORY_MODS;
                                        
@@ -488,7 +489,6 @@ namespace VTOL.Pages
                                             {
                                                
 
-                                                index++;
 
                                                 // bool Has_Manifest_or_plugins = await Check_Plugins_and_multi_mod(Verified_Installed_Mod.DIRECTORY_INFO.FullName, Verified_Installed_Mod.DIRECTORY_INFO.Name);
                                                 if (Regex.IsMatch(Verified_Installed_Mod.Name.Trim(), @"^Northstar\.CustomServers\w{0,2}$") || Regex.IsMatch(Verified_Installed_Mod.Name.Trim(), @"^Northstar\.Custom\w{0,2}$") || Regex.IsMatch(Verified_Installed_Mod.Name.Trim(), @"^Northstar\.Client\w{0,2}$"))
@@ -526,7 +526,7 @@ namespace VTOL.Pages
                                                         ToolTip_Dynamic = "The Mod Is not Registered Properly in the Backend List, Please Fix the Mod formatting or update your TF2 Mod List by Launching the Game";
                                                         Flag_mod = 100;
                                                     }
-                                                    else if(Verified_Installed_Mod.Has_Valid_Mod == false)
+                                                    else if(Verified_Installed_Mod.Has_Valid_Mod == false && !Verified_Installed_Mod.Name.Contains("Northstar"))
                                                     {
                                                         IS_CORE_MOD_temp = "#c80815";
 
@@ -568,7 +568,7 @@ namespace VTOL.Pages
                                                         ver = parts[2];
                                                     }
 
-
+                                                    Main.loaded_mods = true;
                                                     Main.Current_Installed_Mods.Add(new GENERAL_MOD { Name = name, Version = ver, Author = author });
                                                 });
                                             }
@@ -1920,45 +1920,7 @@ int millisecondsDelay = 300)
             return Regex.Replace(searchQuery, @"[^\w]+", string.Empty, RegexOptions.IgnoreCase);
         }
        
-        private string Find_Folder(string searchQuery, string folderPath)
-        {
-            List<FuzzyStringComparisonOptions> options = new List<FuzzyStringComparisonOptions>();
-               searchQuery = CleanSearchQuery(searchQuery);
-
-            // Choose which algorithms should weigh in for the comparison
-            options.Add(FuzzyStringComparisonOptions.UseLevenshteinDistance);
-            options.Add(FuzzyStringComparisonOptions.UseNormalizedLevenshteinDistance);
-            options.Add(FuzzyStringComparisonOptions.UseLongestCommonSubstring);
-            options.Add(FuzzyStringComparisonOptions.UseHammingDistance);
-
-            // Choose the relative strength of the comparison - is it almost exactly equal? or is it just close?
-            FuzzyStringComparisonTolerance tolerance = FuzzyStringComparisonTolerance.Strong;
-
-            
-
-            // Get a boolean determination of approximate equality
-            var directory = new DirectoryInfo(folderPath);
-            var directories = directory
-    .EnumerateDirectories()
-    .FirstOrDefault(dir =>
-    {
-        string secondPart = dir.Name.Split('-')[1];
-        bool similarity = searchQuery.ApproximatelyEquals(secondPart, options, tolerance);
-        Console.WriteLine($"Comparing {secondPart} with {searchQuery}. Similarity: {similarity}");
-        return similarity = true || dir.Name.Contains(searchQuery, StringComparison.OrdinalIgnoreCase);
-    });
-
-
-
-            if (directories != null)
-            {
-                return directories.FullName;
-            }
-            else
-            {
-                return null;
-            }
-        }
+        
         //private string Find_Folder(string searchQuery, string folderPath)
         //{
         //    searchQuery = CleanSearchQuery(searchQuery);
@@ -2101,15 +2063,21 @@ int millisecondsDelay = 300)
             return directoryInfoList;
         }
         static string TruncatePath(string fullPath, string keyword)
-        {
-            int index = fullPath.IndexOf(keyword);
+        {   // Define the pattern to match "R2Northstar\" followed by any characters until the next directory separator
+            string pattern = @"\\R2Northstar\\([^\\]+)";
 
-            if (index >= 0)
+            // Use Regex to match the pattern
+            Match match = Regex.Match(fullPath, pattern, RegexOptions.IgnoreCase);
+
+            // If a match is found, extract the captured group
+            if (match.Success)
             {
-                return fullPath.Substring(index);
+                return "R2Northstar\\" + match.Groups[1].Value.Trim();
             }
 
-            return fullPath;
+            // If no match is found, return an empty string or handle it as needed
+            return string.Empty;
+
         }
 
         void Open_Mod_Info(string FolderDir)
@@ -3087,7 +3055,7 @@ int millisecondsDelay = 150)
             }
             Image_BG.Source = null;
 
-            Options_Panel_Mod.Hide();
+            Options_Panel_Mod.Collapse();
             GC.Collect();
 
         }
@@ -3100,7 +3068,7 @@ int millisecondsDelay = 150)
                 File.Delete(Image_BG.Source.ToString());
             }
             Image_BG.Source = null;
-            Options_Panel_Mod.Hide();
+            Options_Panel_Mod.Collapse();
 
 
             GC.Collect();
@@ -3114,6 +3082,17 @@ int millisecondsDelay = 150)
                 Open_Folder(Current_MOD_PATH);
 
             }
+        }
+      
+
+        private void INFO_VERSION_MOD_SET_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void INFO_VERSION_MOD_SET_LayoutUpdated(object sender, EventArgs e)
+        {
+
         }
     }
 }

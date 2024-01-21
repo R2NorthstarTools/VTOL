@@ -32,8 +32,10 @@
         Closing="Main_Win_Control_Closing" 
         BorderBrush="#B27F7F7F" 
         BorderThickness="1,1,1,1"  
-        SizeToContent="WidthAndHeight"
+            Height="700" Width="1201" 
+
         >
+    <!--SizeToContent="WidthAndHeight"-->
 
     <Window.Resources>
 
@@ -125,7 +127,6 @@
         
         x:Name="RootMainGrid"
         Grid.Row="1"
-        Height="700" Width="1201" 
         Margin="0" AllowDrop="False">
 
         <Grid.ColumnDefinitions>
@@ -303,7 +304,7 @@
             Grid.Column="0"
             Margin="6,40,6,0"
             Frame="{Binding ElementName=RootFrame}"
-            SelectedPageIndex="0" Navigated="RootNavigation_Navigated" Precache="False" TransitionDuration="420" Orientation="Vertical" LostFocus="RootNavigation_LostFocus" AllowDrop="False" TransitionType="FadeIn" PreviewMouseDown="RootNavigation_PreviewMouseDown" TargetUpdated="RootNavigation_TargetUpdated" SourceUpdated="RootNavigation_SourceUpdated" Foreground="#FFF10000" 
+            SelectedPageIndex="0" Navigated="RootNavigation_Navigated" Precache="False" TransitionDuration="420" Orientation="Vertical" LostFocus="RootNavigation_LostFocus" AllowDrop="False" PreviewMouseDown="RootNavigation_PreviewMouseDown" TargetUpdated="RootNavigation_TargetUpdated" SourceUpdated="RootNavigation_SourceUpdated" Foreground="#FFF10000" 
           >
             <ui:NavigationCompact.Items>
                 <ui:NavigationItem x:Name="Home"
@@ -323,7 +324,7 @@
                     />
                 <ui:NavigationSeparator />
 
-               
+
 
                 <ui:NavigationItem x:Name="Server"
                     Content="{x:Static properties:Language.MainWindow_Server}"
@@ -372,7 +373,13 @@
                         <Image Source="/Resources/Icons/Main_UI/VTOL_multires.ico" Height="30" Width="33" Margin="-11,0,0,0"        RenderOptions.BitmapScalingMode="HighQuality"
 />
                         <TextBlock x:Name="VERSION_TEXT" Text="VTOL - 0.0.0 |" FontWeight="Normal" FontFamily="Nacelle" TextDecorations="{x:Null}" FontStyle="Normal" Margin="10,0,0,0" VerticalAlignment="Center"/>
-                        <ui:Button  x:Name="NORTHSTAR_BUTTON" Width="176" Height="21" Content="Northstar Version 0.0.0" Padding="0,0.5,0,0" VerticalAlignment="Stretch" FontSize="12" BorderThickness="1,1,1,1" Margin="5,0,0,-1" Background="#33FFFFFF" VerticalContentAlignment="Center" BorderBrush="{x:Null}" Click="NORTHSTAR_BUTTON_Click" FontFamily="Nacelle">
+                        <ui:Button  x:Name="NORTHSTAR_BUTTON" Width="176" Height="21" Content="Northstar Version 0.0.0" Padding="0,0.5,0,0" VerticalAlignment="Stretch" FontSize="12" BorderThickness="1,1,1,1" Margin="5,0,0,-1" VerticalContentAlignment="Center" BorderBrush="{x:Null}" Click="NORTHSTAR_BUTTON_Click" FontFamily="Nacelle">
+                            <ui:Button.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0" MappingMode="RelativeToBoundingBox" SpreadMethod="Repeat">
+                                    <GradientStop Color="#D203606F" Offset="0.045"/>
+                                    <GradientStop Color="#A1268A77" Offset="1"/>
+                                </LinearGradientBrush>
+                            </ui:Button.Background>
                             <ui:Button.PressedBackground>
                                 <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.GradientActiveCaptionColorKey}}"/>
                             </ui:Button.PressedBackground>

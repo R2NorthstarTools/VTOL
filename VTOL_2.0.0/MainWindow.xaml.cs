@@ -77,7 +77,7 @@ namespace VTOL
         public string AppDataFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData));
 
         public NotificationManager NotificationManager;
-
+        public bool loaded_mods = false;
         public bool Is_Focused = true;
         // public List<string> Current_Installed_Mods = new List<string>();
         public HashSet<GENERAL_MOD> Current_Installed_Mods = new HashSet<GENERAL_MOD>();

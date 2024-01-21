@@ -3808,7 +3808,6 @@ int millisecondsDelay = 150)
                 {
                     if (Directory.Exists(folderPath))
                     {
-                        MessageBox.Show(folderPath);
 
                         TryDeleteDirectory(folderPath, true);
 

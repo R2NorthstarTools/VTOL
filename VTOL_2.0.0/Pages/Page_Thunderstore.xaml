@@ -52,7 +52,7 @@
 
         </Image>
 
-        <ui:VirtualizingItemsControl x:Name="Thunderstore_List"  VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.ScrollUnit="Pixel" ItemsSource="{Binding itemsList}"  Margin="35,174,35,0" ScrollViewer.CanContentScroll="True" Foreground="White" Width="1078" Height="445" CacheLengthUnit="Pixel" UseLayoutRounding="True" ScrollViewer.VerticalScrollBarVisibility="Visible" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Top" Background="#E85A5A5A" SourceUpdated="Thunderstore_List_SourceUpdated"  >
+        <ui:VirtualizingItemsControl x:Name="Thunderstore_List"  VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.ScrollUnit="Pixel" ItemsSource="{Binding itemsList}"  Margin="35,174,35,0" ScrollViewer.CanContentScroll="True" Foreground="White" Width="1078" Height="445" CacheLengthUnit="Pixel" UseLayoutRounding="True" ScrollViewer.VerticalScrollBarVisibility="Visible" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Top" Background="#E85A5A5A" SourceUpdated="Thunderstore_List_SourceUpdated" LayoutUpdated="Thunderstore_List_LayoutUpdated"  >
             <!--<ui:CardExpander
             HorizontalContentAlignment="Center"
           
@@ -231,7 +231,7 @@
 
                 </DataTemplate>
             </ui:VirtualizingItemsControl.ItemTemplate>
-           
+
             <!--<ListBox.ItemContainerStyle>
                 <Style TargetType="ListBoxItem">
 
@@ -266,6 +266,7 @@
 
 
         <ui:Dialog x:Name="Dialog" ButtonRightClick="Dialog_ButtonRightClick" Foreground="White" Focusable="False" ButtonLeftClick="Dialog_ButtonLeftClick" SnapsToDevicePixels="False"/>
+        <Button x:Name="Reload_BTTN"  Width="120" Height="30"  VerticalAlignment="Top" HorizontalAlignment="Center"  Margin="0,456,0,0" Background="#FF018156" Content="Reload" Click="Reload_BTTN_Click"></Button>
         <ui:ProgressRing x:Name="Loading_Ring" Width="120" Height="120"  IsIndeterminate="True"  Visibility="Visible" Margin="0,327,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" IsHitTestVisible="False" IsTabStop="False" Progress="40" OverridesDefaultStyle="False" EngAngle="20">
             <ui:ProgressRing.Foreground>
                 <RadialGradientBrush SpreadMethod="Pad" Center="1,1" GradientOrigin="1,1" RadiusX="2.8" RadiusY="2.9">
