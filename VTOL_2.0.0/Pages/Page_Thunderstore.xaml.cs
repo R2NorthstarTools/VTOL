@@ -3575,11 +3575,12 @@ int millisecondsDelay = 300)
                     }
                     else
                     {
+                        
                         Console.WriteLine("Candidate Detected ------\n\n\n\n\n");
 
                         DispatchIfNecessary(async () =>
                     {
-                        Update_ActionCard_Progress(Action_Card_, 20);
+                        Update_ActionCard_Progress(Action_Card_, 5);
 
 
                         if (Progress_Bar != null)
@@ -3607,22 +3608,20 @@ int millisecondsDelay = 300)
                                 await TryCopyFile(User_Settings_Vars.NorthstarInstallLocation + @"ns_startup_args.txt", User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder\ns_startup_args.txt", true);
                             }
 
-                            Update_ActionCard_Progress(Action_Card_, 10);
 
 
 
 
-                            if (File.Exists(User_Settings_Vars.NorthstarInstallLocation + User_Settings_Vars.Profile_Path + @"\packages\Northstar.CustomServers\mod\cfg\autoexec_ns_server.cfg"))
+                            if (File.Exists(User_Settings_Vars.NorthstarInstallLocation + User_Settings_Vars.Profile_Path + @"\mods\Northstar.CustomServers\mod\cfg\autoexec_ns_server.cfg"))
                             {
 
-                                await TryCopyFile(User_Settings_Vars.NorthstarInstallLocation + User_Settings_Vars.Profile_Path + @"\packages\Northstar.CustomServers\mod\cfg\autoexec_ns_server.cfg", User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder\autoexec_ns_server.cfg", true);
+                                await TryCopyFile(User_Settings_Vars.NorthstarInstallLocation + User_Settings_Vars.Profile_Path + @"\mods\Northstar.CustomServers\mod\cfg\autoexec_ns_server.cfg", User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder\autoexec_ns_server.cfg", true);
 
 
 
                             }
 
-                            await Task.Delay(200); ;
-                            Update_ActionCard_Progress(Action_Card_, 10);
+                            await Task.Delay(100) ;
 
 
                             if (File.Exists(User_Settings_Vars.NorthstarInstallLocation + @"ns_startup_args_dedi.txt"))
@@ -3636,7 +3635,21 @@ int millisecondsDelay = 300)
 
                         }
                         Update_ActionCard_Progress(Action_Card_, 10);
+                        string searchPattern = @"Northstar.*";
+                        string baseFolderPath = Path.Combine(User_Settings_Vars.NorthstarInstallLocation, User_Settings_Vars.Profile_Path + @"\mods");
 
+                        string[] matchingFolders = Directory.GetDirectories(baseFolderPath, searchPattern, SearchOption.AllDirectories);
+
+
+                        foreach (string folderPath in matchingFolders)
+                        {
+                            if (Directory.Exists(folderPath))
+                            {
+
+                                TryDeleteDirectory(folderPath, true);
+
+                            }
+                        }
                         string searchQuery3 = "*" + "Northstar.dll" + "*";
 
                         var Destinfo = new DirectoryInfo(Destination);
@@ -3665,7 +3678,6 @@ int millisecondsDelay = 300)
 
                             }
 
-                            Update_ActionCard_Progress(Action_Card_, 5);
 
 
 
@@ -3685,7 +3697,7 @@ int millisecondsDelay = 300)
                                 if (File.Exists(User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder\autoexec_ns_server.cfg"))
                                 {
 
-                                    await TryCopyFile(User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder\autoexec_ns_server.cfg", User_Settings_Vars.NorthstarInstallLocation + User_Settings_Vars.Profile_Path + @"\packages\Northstar.CustomServers\mod\cfg\autoexec_ns_server.cfg", true);
+                                    await TryCopyFile(User_Settings_Vars.NorthstarInstallLocation + @"TempCopyFolder\autoexec_ns_server.cfg", User_Settings_Vars.NorthstarInstallLocation + User_Settings_Vars.Profile_Path + @"\mods\Northstar.CustomServers\mod\cfg\autoexec_ns_server.cfg", true);
 
 
 

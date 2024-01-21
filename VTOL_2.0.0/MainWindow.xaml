@@ -366,14 +366,14 @@
         <Grid xf:Animations.Primary="{StaticResource FadeIn}"
             Margin="0,7,2,663" ScrollViewer.VerticalScrollBarVisibility="Disabled" Grid.ColumnSpan="2" AllowDrop="False" HorizontalAlignment="Center" >
 
-            <StatusBar Margin="0,0,554,0" Background="Transparent" BorderThickness="0,0,0,0" HorizontalAlignment="Center" Width="644" Padding="0,0,0,0">
+            <StatusBar Margin="0,-5,554,0" Background="Transparent" BorderThickness="0,0,0,0" HorizontalAlignment="Center" Width="644" Padding="0,0,0,0" Height="32">
                 <StatusBarItem Margin="-24,-11,0,-11" Width="598">
-                    <StackPanel Orientation="Horizontal" Width="514" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
+                    <StackPanel Orientation="Horizontal" Width="514" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center">
 
                         <Image Source="/Resources/Icons/Main_UI/VTOL_multires.ico" Height="30" Width="33" Margin="-11,0,0,0"        RenderOptions.BitmapScalingMode="HighQuality"
 />
                         <TextBlock x:Name="VERSION_TEXT" Text="VTOL - 0.0.0 |" FontWeight="Normal" FontFamily="Nacelle" TextDecorations="{x:Null}" FontStyle="Normal" Margin="10,0,0,0" VerticalAlignment="Center"/>
-                        <ui:Button  x:Name="NORTHSTAR_BUTTON" Width="176" Height="21" Content="Northstar Version 0.0.0" Padding="0,0.5,0,0" VerticalAlignment="Stretch" FontSize="12" BorderThickness="1,1,1,1" Margin="5,0,0,-1" VerticalContentAlignment="Center" BorderBrush="{x:Null}" Click="NORTHSTAR_BUTTON_Click" FontFamily="Nacelle">
+                        <ui:Button  x:Name="NORTHSTAR_BUTTON" Width="190" Height="21" Content="Northstar Version 0.0.0" Padding="0,0.5,0,0" VerticalAlignment="Stretch" FontSize="12" BorderThickness="1,1,1,1" Margin="5,0,0,-1" VerticalContentAlignment="Center" BorderBrush="{x:Null}" Click="NORTHSTAR_BUTTON_Click" FontFamily="Nacelle">
                             <ui:Button.Background>
                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0" MappingMode="RelativeToBoundingBox" SpreadMethod="Repeat">
                                     <GradientStop Color="#D203606F" Offset="0.045"/>
@@ -391,7 +391,7 @@
                     </StackPanel>
                 </StatusBarItem>
             </StatusBar>
-            <Border  PreviewMouseLeftButtonDown="Grid_PreviewMouseLeftButtonDown" Margin="306,-7,0,0" Background="#00000000" />
+            <Border  PreviewMouseLeftButtonDown="Grid_PreviewMouseLeftButtonDown" Margin="322,-7,0,0" Background="#00000000" />
             <Grid x:Name="Progress_Header" Margin="700,2,219,0" Opacity="0" IsHitTestVisible="False">
                 <hc:Divider Margin="273,-2,-16,4" Orientation="Vertical" LineStrokeThickness="1.3"></hc:Divider>
                 <hc:ProgressButton x:Name="Action_Center_Progress" Width="244" ClickMode="Press" Padding="5,0,25,0" Margin="0,-4,-5,0" HorizontalContentAlignment="Left" MouseDown="Action_Center_Progress_MouseDown" Foreground="#FF969696" Checked="Action_Center_Progress_Checked" Unchecked="Action_Center_Progress_Unchecked" Background="#FF1C1C1C" VerticalAlignment="Top">
