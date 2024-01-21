@@ -312,9 +312,9 @@
 
 
                 </Grid>
-                <ui:Button Grid.Column="1" Content="" Margin="551,3,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"  Icon="ArrowSwap24" Background="{x:Null}" CornerRadius="30,30,30,30" Width="40" Padding="0,0,0,0" Height="40" BorderThickness="2,2,2,2" SnapsToDevicePixels="True" ClipToBounds="True" Foreground="#FF018C49" BorderBrush="{x:Null}" IconFilled="True" ClickMode="Press" RenderTransformOrigin="0.5,0.5">
+                <!--<ui:Button Grid.Column="1" Content="" Margin="551,3,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"  Icon="ArrowSwap24" Background="{x:Null}" CornerRadius="30,30,30,30" Width="40" Padding="0,0,0,0" Height="40" BorderThickness="2,2,2,2" SnapsToDevicePixels="True" ClipToBounds="True" Foreground="#FF018C49" BorderBrush="{x:Null}" IconFilled="True" ClickMode="Press" RenderTransformOrigin="0.5,0.5">
                     
-                </ui:Button>
+                </ui:Button>-->
 
 
 
