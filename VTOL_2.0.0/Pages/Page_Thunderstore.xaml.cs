@@ -653,7 +653,6 @@ int millisecondsDelay = 150)
         public Page_Thunderstore()
         {
             InitializeComponent();
-            InfoChangeEvent += new SomeInfoChangeDelegate(OnInfoChanged);
             Check_Reverse(false);
             User_Settings_Vars = Main.User_Settings_Vars;
             DocumentsFolder = Main.AppDataFolder;
@@ -1176,18 +1175,7 @@ int millisecondsDelay = 150)
             });
         }
 
-        public delegate void SomeInfoChangeDelegate(object o);
-        public event SomeInfoChangeDelegate InfoChangeEvent = null;
-        void OnInfoChanged(object o)
-        {
-            DispatchIfNecessary(async () =>
-            {
-                itemsList = Thunderstore_List.Items.Cast<Grid_>().ToList();
-                //  Thunderstore_List.ItemsSource = List;
-                Loading_Ring.Visibility = Visibility.Hidden;
-                Thunderstore_List.Items.Refresh();
-            });
-        }
+       
 
 
         protected void SomeWorkerThread(object o)
@@ -1763,141 +1751,121 @@ int millisecondsDelay = 150)
 
         public void orderlistitems()
         {
+            Thunderstore_List.Items.Clear();
+
             List<Grid_> List = itemsList;
             if (Sort.SelectedItem != null && List != null)
             {
+                string value = Sort.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim();
+
                 if (Reverse_ == true)
                 {
-                    if (Sort.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Name"))
+                    switch (value)
                     {
+                        case "Name":
+                            List = List.OrderByDescending(ob => ob.Name).ToList();
 
-                        List = List.OrderByDescending(ob => ob.Name).ToList();
+                            break;
+                        case "Rating":
+                            List = List.OrderBy(ob => ob.Rating).ToList();
 
-                    }
-                    else if (Sort.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Rating"))
-                    {
-                        List = List.OrderBy(ob => ob.Rating).ToList();
+                            break;
 
-                    }
-                    else if (Sort.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Date"))
-                    {
-                        List = List.OrderBy(ob => Convert.ToDateTime(ob.raw_date)).ToList();
+                        case "Date":
+                            List = List.OrderBy(ob => Convert.ToDateTime(ob.raw_date)).ToList();
 
-                    }
-                    else if (Sort.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("File Size"))
-                    {
+                            break;
+                        case "File Size":
+                            List = List.OrderBy(ob => Convert.ToInt32(ob.raw_size)).ToList();
 
-                        List = List.OrderBy(ob => Convert.ToInt32(ob.raw_size)).ToList();
+                            break;
+                        case "Downloads":
+                            List = List.OrderBy(ob => Convert.ToInt32(ob.Downloads)).ToList();
 
-                    }
-                    else if (Sort.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Downloads"))
-                    {
-                        List = List.OrderBy(ob => Convert.ToInt32(ob.Downloads)).ToList();
+                            break;
 
-                    }
-                    else if (Sort.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Installed"))
-                    {
+                        case "Installed":
+                            List = List.Where(item => item.Button_label.ToString().Equals("Re-Install")).OrderByDescending(ob => ob.Name).ToList();
 
-                        //   List = List.OrderByDescending(x => x.Button_label.ToString().Contains("Re-Install")).ToList();
-                        List = List.Where(item => item.Button_label.ToString().Contains("Re-Install")).OrderByDescending(ob => ob.Name).ToList();
-                    }
-                    else if (Sort.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Update"))
-                    {
-                        //List = List.OrderByDescending(x => x.Button_label.Contains("Update")).ToList();
-                        List = List.Where(item => item.Button_label.ToString().Contains("Update")).OrderByDescending(ob => ob.Name).ToList();
-                        if (List.Count == 0)
-                        {
-                            DispatchIfNecessary(async () =>
+                            break;
+                        case "Updates":
+                            List = List.Where(item => item.Button_label.ToString().Equals("Update")).OrderByDescending(ob => ob.Name).ToList();
+                            if (List.Count == 0)
                             {
+                                DispatchIfNecessary(async () =>
+                                {
 
-                                Mod_Updates_Available.Visibility = Visibility.Hidden;
-                                Mod_Update_Counter = 0;
-                            });
+                                    Mod_Updates_Available.Visibility = Visibility.Hidden;
+                                    Mod_Update_Counter = 0;
+                                });
+                            }
+                            break;
+                        case "Favourites":
+                            List = List.Where(item => item.is_Favourite_.ToString().Equals("1")).OrderByDescending(ob => ob.Name).ToList();
+
+                            break;
+
+                        default:
+                            List = itemsList; 
+                            break;
 
 
-                        }
-                    }
-                    else if (Sort.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Favourites"))
-                    {
-                        List = List.Where(item => item.is_Favourite_.ToString().Equals("1")).OrderByDescending(ob => ob.Name).ToList();
-
-                    }
-
+                    }                
 
                 }
                 else
                 {
-
-                    if (Sort.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Name"))
+                    switch (value)
                     {
+                        case "Name":
+                            List = List.OrderBy(ob => ob.Name).ToList();
 
-                        List = List.OrderBy(ob => ob.Name).ToList();
+                            break;
+                        case "Rating":
+                            List = List.OrderByDescending(ob => ob.Rating).ToList();
 
-                    }
-                    else if (Sort.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Rating"))
-                    {
-                        List = List.OrderByDescending(ob => ob.Rating).ToList();
+                            break;
 
-                    }
-                    else if (Sort.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Date"))
-                    {
-                        List = List.OrderByDescending(ob => Convert.ToDateTime(ob.raw_date)).ToList();
+                        case "Date":
+                            List = List.OrderByDescending(ob => Convert.ToDateTime(ob.raw_date)).ToList();
 
-                    }
-                    else if (Sort.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("File Size"))
-                    {
-                        List = List.OrderByDescending(ob => Convert.ToInt32(ob.raw_size)).ToList();
+                            break;
+                        case "File Size":
+                            List = List.OrderByDescending(ob => Convert.ToInt32(ob.raw_size)).ToList();
 
-                    }
-                    else if (Sort.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Downloads"))
-                    {
-                        List = List.OrderByDescending(ob => Convert.ToInt32(ob.Downloads)).ToList();
+                            break;
+                        case "Downloads":
+                            List = List.OrderByDescending(ob => Convert.ToInt32(ob.Downloads)).ToList();
 
-                    }
-                    else if (Sort.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Installed"))
-                    {
+                            break;
 
-                        // List = List.OrderByDescending(x => x.Button_label.ToString().Contains("Re-Install")).ToList();
-                        List = List.Where(item => item.Button_label.ToString().Contains("Re-Install")).OrderBy(ob => ob.Name).ToList();
+                        case "Installed":
+                            List = List.Where(item => item.Button_label.ToString().Equals("Re-Install")).OrderBy(ob => ob.Name).ToList();
 
-
-                    }
-                    else if (Sort.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Update"))
-                    {
-                        // List = List.OrderBy(x => x.Button_label.Contains("Update")).ToList();
-                        List = List.Where(item => item.Button_label.ToString().Contains("Update")).OrderBy(ob => ob.Name).ToList();
-                        if (List.Count == 0)
-                        {
-                            DispatchIfNecessary(async () =>
+                            break;
+                        case "Updates":
+                            List = List.Where(item => item.Button_label.ToString().Equals("Update")).OrderBy(ob => ob.Name).ToList();
+                            if (List.Count == 0)
                             {
+                                DispatchIfNecessary(async () =>
+                                {
 
-                                Mod_Updates_Available.Visibility = Visibility.Hidden;
-                                Mod_Update_Counter = 0;
+                                    Mod_Updates_Available.Visibility = Visibility.Hidden;
+                                    Mod_Update_Counter = 0;
 
-                            });
+                                });
+                            }
+                            break;
+                        case "Favourites":
+                            List = List.Where(item => item.is_Favourite_.ToString().Equals("1")).OrderBy(ob => ob.Name).ToList();
 
+                            break;
 
-                        }
-
-                    }
-                    else if (Sort.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim().Contains("Favourites"))
-                    {
-                        //List = List.Where(item => item.Button_label.ToString().Contains("Favourites")).OrderByDescending(ob => ob.Name).ToList();
-                        List = List.Where(item => item.is_Favourite_.ToString().Equals("1")).OrderBy(ob => ob.Name).ToList();
-                    }
-
-
-
+                        default:
+                            List = itemsList;
+                            break;
+                    }                
                 }
-
-
-
-
-
-
-
-
-
             }
             DispatchIfNecessary(async () =>
             {
@@ -1908,10 +1876,15 @@ int millisecondsDelay = 150)
                     if (TS_MOD != null)
                     {
                         Thunderstore_List.Items.Add(TS_MOD);
-                        InfoChangeEvent(TS_MOD);
+
                     }
 
                 }
+                DispatchIfNecessary(async () =>
+                {
+                    Loading_Ring.Visibility = Visibility.Hidden;
+                    Thunderstore_List.Items.Refresh();
+                });
             });
         }
 
@@ -2069,8 +2042,12 @@ int millisecondsDelay = 150)
                                     Button_Color = bg_color, is_Favourite_ = is_favourite });
 
                                 Thunderstore_List.Items.Add(Card);
-
-                                InfoChangeEvent(Card);
+                                DispatchIfNecessary(async () =>
+                                {
+                                    itemsList = Thunderstore_List.Items.Cast<Grid_>().ToList();
+                                    Loading_Ring.Visibility = Visibility.Hidden;
+                                    Thunderstore_List.Items.Refresh();
+                                });
 
                             }
                         });
@@ -2146,7 +2123,12 @@ int millisecondsDelay = 150)
                                     Button_Color = bg_color, 
                                     is_Favourite_ = is_favourite });
                                 Thunderstore_List.Items.Add(Card);
-                                InfoChangeEvent(Card);
+                                DispatchIfNecessary(async () =>
+                                {
+                                    itemsList = Thunderstore_List.Items.Cast<Grid_>().ToList();
+                                    Loading_Ring.Visibility = Visibility.Hidden;
+                                    Thunderstore_List.Items.Refresh();
+                                });
 
                             }
                         });
@@ -2260,8 +2242,12 @@ int millisecondsDelay = 150)
                                 Button_Color = bg_color, 
                                 is_Favourite_ = is_favourite });
                             Thunderstore_List.Items.Add(Card);
-                            InfoChangeEvent(Card);
-
+                            DispatchIfNecessary(async () =>
+                            {
+                                itemsList = Thunderstore_List.Items.Cast<Grid_>().ToList();
+                                Loading_Ring.Visibility = Visibility.Hidden;
+                                Thunderstore_List.Items.Refresh();
+                            });
                         }
                     });
 
@@ -2369,8 +2355,12 @@ int millisecondsDelay = 150)
                                 Button_Color = bg_color, 
                                 is_Favourite_ = is_favourite });
                             Thunderstore_List.Items.Add(Card);
-                            InfoChangeEvent(Card);
-
+                            DispatchIfNecessary(async () =>
+                            {
+                                itemsList = Thunderstore_List.Items.Cast<Grid_>().ToList();
+                                Loading_Ring.Visibility = Visibility.Hidden;
+                                Thunderstore_List.Items.Refresh();
+                            });
                         }
                     });
                 }
@@ -4585,7 +4575,7 @@ int millisecondsDelay = 300)
         {
             try
             {
-                if (Sort.SelectedItem != null && Sort.SelectedItem.ToString().Length > 1)
+                if (Sort.SelectedItem != null )
                 {
                     Sort_Label.Visibility = Visibility.Hidden;
                 }
@@ -4596,12 +4586,11 @@ int millisecondsDelay = 300)
                 }
                 if (page_loaded == true)
                 {
-                    //Thunderstore_List.ItemsSource = null;
 
 
-                    BackgroundWorker worker = new BackgroundWorker();
-                    worker.DoWork += (sender, e) =>
-                    {
+                    //BackgroundWorker worker = new BackgroundWorker();
+                    //worker.DoWork += (sender, e) =>
+                    //{
 
 
                         //Call_Ts_Mods();
@@ -4612,7 +4601,6 @@ int millisecondsDelay = 300)
                             {
                                 DispatchIfNecessary(async () =>
                                 {
-                                    Thunderstore_List.Items.Clear();
 
                                     orderlistitems();
                                 });
@@ -4620,15 +4608,15 @@ int millisecondsDelay = 300)
                         }
 
 
-                    };
-                    worker.RunWorkerCompleted += (sender, eventArgs) =>
-                    {
+                    //};
+                    //worker.RunWorkerCompleted += (sender, eventArgs) =>
+                    //{
 
-                        Thunderstore_List.Items.Refresh();
+                    //   // Thunderstore_List.Items.Refresh();
 
 
-                    };
-                    worker.RunWorkerAsync();
+                    //};
+                    //worker.RunWorkerAsync();
 
                 }
             }
@@ -5036,7 +5024,7 @@ int millisecondsDelay = 300)
 
         private void Thunderstore_List_LayoutUpdated(object sender, EventArgs e)
         {
-            if(Thunderstore_List.Items.Count < 2 || Thunderstore_List.Visibility != Visibility.Visible || _updater.Thunderstore == null || Main.loaded_mods == false){
+            if(Thunderstore_List.Visibility != Visibility.Visible || _updater.Thunderstore == null || Main.loaded_mods == false || page_loaded == false){
                 Reload_BTTN.Visibility = Visibility.Visible;
                 Loading_Ring.Visibility = Visibility.Visible;
 
