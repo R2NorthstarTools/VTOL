@@ -116,8 +116,9 @@
     </Window.Resources>
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-            <GradientStop Color="#FF00312E" Offset="1"/>
-            <GradientStop Color="#FF000603" Offset="0.2"/>
+            <GradientStop Color="#FF144E50" Offset="0.834"/>
+            <GradientStop Color="#FF000603" Offset="0.309"/>
+            <GradientStop Color="#FF00503F" Offset="1"/>
         </LinearGradientBrush>
     </Window.Background>
 
@@ -350,7 +351,7 @@
                 <ui:NavigationSeparator />
                 <ui:NavigationItem x:Name="Settings"
                     Content="{x:Static properties:Language.MainWindow_Settings}" ClickMode="Press"
-                    Icon="Options16" PageType="{x:Type Pages:Page_Settings}"
+                    Icon="Options16" PageType="{x:Type Pages:Page_Settings}" Margin="0,0,0,4"
                    />
                 <!--  A navigation element that does not point to the page can be used as a button.  -->
 
@@ -367,17 +368,17 @@
             Margin="0,7,2,663" ScrollViewer.VerticalScrollBarVisibility="Disabled" Grid.ColumnSpan="2" AllowDrop="False" HorizontalAlignment="Center" >
 
             <StatusBar Margin="0,-5,554,0" Background="Transparent" BorderThickness="0,0,0,0" HorizontalAlignment="Center" Width="644" Padding="0,0,0,0" Height="32">
-                <StatusBarItem Margin="-24,-11,0,-11" Width="598">
+                <StatusBarItem Margin="-25,-10,0,-11" Width="598">
                     <StackPanel Orientation="Horizontal" Width="514" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center">
 
-                        <Image Source="/Resources/Icons/Main_UI/VTOL_multires.ico" Height="30" Width="33" Margin="-11,0,0,0"        RenderOptions.BitmapScalingMode="HighQuality"
+                        <Image Source="/Resources/Icons/Main_UI/VTOL_multires.ico" Height="30" Width="33" Margin="-10.5,0,0,0"        RenderOptions.BitmapScalingMode="HighQuality"
 />
                         <TextBlock x:Name="VERSION_TEXT" Text="VTOL - 0.0.0 |" FontWeight="Normal" FontFamily="Nacelle" TextDecorations="{x:Null}" FontStyle="Normal" Margin="10,0,0,0" VerticalAlignment="Center"/>
                         <ui:Button  x:Name="NORTHSTAR_BUTTON" Width="190" Height="21" Content="Northstar Version 0.0.0" Padding="0,0.5,0,0" VerticalAlignment="Stretch" FontSize="12" BorderThickness="1,1,1,1" Margin="5,0,0,-1" VerticalContentAlignment="Center" BorderBrush="{x:Null}" Click="NORTHSTAR_BUTTON_Click" FontFamily="Nacelle">
                             <ui:Button.Background>
                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0" MappingMode="RelativeToBoundingBox" SpreadMethod="Repeat">
-                                    <GradientStop Color="#D203606F" Offset="0.045"/>
-                                    <GradientStop Color="#A1268A77" Offset="1"/>
+                                    <GradientStop Color="#8C03606F" Offset="0"/>
+                                    <GradientStop Color="#4C268A77" Offset="1"/>
                                 </LinearGradientBrush>
                             </ui:Button.Background>
                             <ui:Button.PressedBackground>
