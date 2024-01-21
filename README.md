@@ -27,7 +27,7 @@ Total Downloads Since First Release:
  </a>
 </p>
 
-![image](https://github.com/R2NorthstarTools/VTOL/assets/23240514/9a72e40c-6b8c-4af6-851e-48c18b91db65)
+![image](https://github.com/R2NorthstarTools/VTOL/assets/23240514/20589496-f3ba-4968-a592-6bfa60694eb9)
 
 <h1 align="center" ><a href="https://r2northstar.gitbook.io/r2northstar-wiki/installing-northstar/northstar-installers/vtol-guide">OFFICIAL DOCUMENTATION LINKED HERE</a></h1>
 <br>
