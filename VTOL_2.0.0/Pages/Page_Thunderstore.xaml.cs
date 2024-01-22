@@ -685,8 +685,15 @@ int millisecondsDelay = 150)
             };
             worker.RunWorkerCompleted += (sender, eventArgs) =>
             {
+                DispatchIfNecessary(async () =>
+                {
 
-                Loading_Ring.Visibility = Visibility.Hidden;
+                    Couunter_Mods.Content = _updater.Thunderstore.Count().ToString();
+
+                    //(TODO)fix placement
+
+                    Loading_Ring.Visibility = Visibility.Hidden;
+                });
                 page_loaded = true;
 
             };
@@ -1180,9 +1187,7 @@ int millisecondsDelay = 150)
 
         protected void SomeWorkerThread(object o)
         {
-            //int i = 0;
-            //while (true)
-            //{
+         
             DispatchIfNecessary(async () =>
             {
                 foreach (var TS_MOD in _updater.Thunderstore)
@@ -1190,18 +1195,7 @@ int millisecondsDelay = 150)
                     AsyncLoadListViewItem(TS_MOD, false, "#");
                 }
             });
-            //Legacy Grid_ Card = LoadListViewItem(TS_MOD, Search_, SearchQuery.Replace(" ", "_"));
-            //    if (Card != null)
-            //    {
-            //    Thunderstore_List.Items.Add(Card);
-            //   // ReplaceLoadingCardWithMod(Card);
-
-            //}
-
-        
-
-
-            // }
+         
         }
         public async Task Call_Ts_Mods()
         {
@@ -1215,82 +1209,24 @@ int millisecondsDelay = 150)
                 List<Grid_> List = null;
                 _updater = new Updater("https://northstar.thunderstore.io/api/v1/package/");
 
-                //var NON_UI = new Thread(() =>
-                //{
                     _updater.Download_Cutom_JSON();
                     if (_updater.Thunderstore != null)
+                {
+                    if (_updater.Thunderstore.Count() > 0)
                     {
-                        if (_updater.Thunderstore.Count() > 0)
+                        DispatchIfNecessary(async () =>
                         {
-                            DispatchIfNecessary(async () =>
-                            {
-                                Thunderstore_List.Items.Clear();
-                               // loadConvertItemLazy();
-                                Thread t = new Thread(new ParameterizedThreadStart(SomeWorkerThread));
-                                t.Start();
+                            Thunderstore_List.Items.Clear();
+                            Thread t = new Thread(new ParameterizedThreadStart(SomeWorkerThread));
+                            t.Start();
 
 
-                            });                            //if (Search_ == false)
-                            //{
-                            //    if (tickle == false)
-                            //    {
-                            //        DispatchIfNecessary(async () =>
-                            //        {
-                            //            List = orderlist(LoadListViewData(Filter_Type, Search_, SearchQuery.Replace(" ", "_")));
-
-                            //        });
-                            //    }
-                            //    else
-                            //    {
-                            //        DispatchIfNecessary(async () =>
-                            //        {
-
-                            //            List = orderlist(LoadListViewData(Filter_Type, Search_, SearchQuery.Replace(" ", "_")));
-                            //        });
+                        });
 
 
-                            //    }
-
-
-
-                            //}
-                            //else
-                            //{
-
-                            //    List = LoadListViewData(Filter_Type, Search_, SearchQuery.Replace(" ", "_"));
-
-                            //}
-
-
-
-                        }
                     }
-
-                //});
-                //NON_UI.IsBackground = true;
-
-                //NON_UI.Start();
-                //NON_UI.Join();
-              
-                
-                
-                
-                
-                
-                
-                
-                
-                //DispatchIfNecessary(async () =>
-                //{
-                //    itemsList = Thunderstore_List.Items.Cast<Grid_>().ToList();
-                //    //  Thunderstore_List.ItemsSource = List;
-                //    Loading_Ring.Visibility = Visibility.Hidden;
-
-                //});
-
-
-
-
+                   
+                }
 
 
                 init = true;
@@ -1756,7 +1692,7 @@ int millisecondsDelay = 150)
             List<Grid_> List = itemsList;
             if (Sort.SelectedItem != null && List != null)
             {
-                string value = Sort.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem:", "").Trim();
+                string value = Convert.ToString(Sort.SelectedValue);
 
                 if (Reverse_ == true)
                 {
@@ -3543,7 +3479,7 @@ int millisecondsDelay = 300)
                                 // Convert back to JSON string
                                 string updatedJson = JsonConvert.SerializeObject(jsonObject, Formatting.Indented);
 
-                                // Write back to the file
+                                // Write back to the fileorder
                                 File.WriteAllText(Json_Path, updatedJson);
 
                             }
@@ -4715,7 +4651,7 @@ int millisecondsDelay = 300)
                     {
                         From = Main.Progress_Header.Opacity,
                         To = 1,
-                        Duration = new Duration(TimeSpan.FromSeconds(0.2)),
+                        Duration = new Duration(TimeSpan.FromSeconds(0.25)),
                         AutoReverse = false
                     };
                     Main.Progress_Header.BeginAnimation(OpacityProperty, da);
@@ -4768,11 +4704,15 @@ int millisecondsDelay = 300)
                             }
                             else
                             {
-                                DoubleAnimation x = new DoubleAnimation
-                                {
+                                //DoubleAnimation x = new DoubleAnimation
+                                //{
+                                //    From = Card_Action.Opacity,
+                                //    To = 0,
+                                //    Duration = new Duration(TimeSpan.FromSeconds(0.2)),
+                                //    AutoReverse = false
 
-                                };
-                                Card_Action.BeginAnimation(OpacityProperty, x);
+                                //};
+                                //Card_Action.BeginAnimation(OpacityProperty, x);
                                 Card_Action.IsEnabled = false;
                                 Card_Action.Icon = Wpf.Ui.Common.SymbolRegular.BoxMultiple20;
 
@@ -4966,6 +4906,10 @@ int millisecondsDelay = 300)
 
                     }
                     Main.Progress_Header.IsHitTestVisible = false;
+                    Main.Action_Center_Panel.IsHitTestVisible = false;
+                    Main.Action_Center_Panel.Visibility = Visibility.Collapsed;
+                    Main.Action_Center_Progress.IsChecked = false; 
+
                 }
                 await SaveHSetAsync();
             });

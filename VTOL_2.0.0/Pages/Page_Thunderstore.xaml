@@ -24,7 +24,7 @@
     </Page.Resources>
     <Grid  Focusable="True" OverridesDefaultStyle="True" ClipToBounds="True" Unloaded="Grid_Unloaded" GotFocus="Grid_GotFocus" UseLayoutRounding="True" Loaded="Grid_Loaded">
         <ui:TextBox x:Name="Search_Bar_Suggest_Mods"  TextWrapping="NoWrap" Height="36"  BorderThickness="0,0,0,0" Icon="Search48"  GotFocus="Search_Bar_Suggest_Mods_GotFocus" LostFocus="Search_Bar_Suggest_Mods_LostFocus"  Background="{x:Null}" TextChanged="Search_Bar_Suggest_Mods_TextChanged" Padding="0,8,0,7" Margin="48,135,547,0" VerticalAlignment="Top" KeyUp="TextInput_OnKeyUpDone" Foreground="#34FFFFFF" PlaceholderText="Search" TextInput="Search_Bar_Suggest_Mods_TextInput" />
-        <ComboBox x:Name="Sort" Margin="0,136,320,0" Background="{x:Null}" BorderThickness="0,0,0,1" Height="36" VerticalAlignment="Top" BorderBrush="#82FFFFFF" SelectedIndex="-1" SelectionChanged="Sort_SelectionChanged" Padding="10,9,10,4.3" VerticalContentAlignment="Bottom" MinHeight="0" ScrollViewer.VerticalScrollBarVisibility="Auto" IsTextSearchEnabled="False" LostFocus="Sort_LostFocus" Width="224" UseLayoutRounding="True" Grid.IsSharedSizeScope="True" HorizontalAlignment="Right" MinWidth="225">
+        <ComboBox x:Name="Sort" Margin="0,136,320,0"  SelectedValuePath="Content" Background="{x:Null}" BorderThickness="0,0,0,1" Height="36" VerticalAlignment="Top" BorderBrush="#82FFFFFF" SelectedIndex="-1" SelectionChanged="Sort_SelectionChanged" Padding="10,9,10,4.3" VerticalContentAlignment="Bottom" MinHeight="0" ScrollViewer.VerticalScrollBarVisibility="Auto" IsTextSearchEnabled="False" LostFocus="Sort_LostFocus" Width="224" UseLayoutRounding="True" Grid.IsSharedSizeScope="True" HorizontalAlignment="Right" MinWidth="225">
             <ComboBoxItem Name="Name">Name</ComboBoxItem>
             <ComboBoxItem Name="Rating">Rating</ComboBoxItem>
             <ComboBoxItem Name="Date">Date</ComboBoxItem>
@@ -39,10 +39,11 @@
         <ui:Button x:Name="padd" Content="" VerticalAlignment="Top" Height="35" Padding="0,0,0,0" Icon="ArrowSortDownLines20" BorderBrush="{x:Null}"  Width="40" HorizontalAlignment="Right" Margin="0,135,278.3,0" Click="padd_Click" Background="#07FFFFFF" ToolTip="{x:Static properties:Language.Page_Mods_ReverseFilterOrder}" MouseOverBackground="#4CFFFFFF"/>
 
         <hc:CheckComboBox x:Name="Search_Filters" ItemsSource="{Binding Final_List}"  Height="28" VerticalAlignment="Top" SelectedIndex="-1" ShowClearButton="True" Cursor="Hand" Padding="7,0,7,5" BorderThickness="0,0,0,1" BorderBrush="#FF999999" Background="#00000000" SelectionChanged="Search_Filters_SelectionChanged" hc:InfoElement.Placeholder="Filters" ToolTip="Filter Thunderstore List" ScrollViewer.CanContentScroll="False" Margin="0,138,35,0" HorizontalAlignment="Right" Width="243" VerticalContentAlignment="Bottom" HorizontalContentAlignment="Center"  />
-        <hc:Badge x:Name="Mod_Updates_Available" Content="Mod Updates Available" Margin="0,632,37,0" VerticalAlignment="Top" BadgeMargin="0,0,0,0" Height="19" Background="#FF45EC57" BorderBrush="#FF45EC57" Status="Processing" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Foreground="#FF8A8A8A" FontFamily="Nirmala UI" Visibility="Hidden" HorizontalAlignment="Right" Width="139"/>
+        <hc:Badge x:Name="Mod_Updates_Available" Content="Mod Updates Available" Margin="0,632,37,0" VerticalAlignment="Top" BadgeMargin="0,0,0,0" Height="19" Background="#FF45EC57" BorderBrush="#FF45EC57" Status="Processing" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Foreground="#FF8A8A8A" FontFamily="Nirmala UI" HorizontalAlignment="Right" Width="139"/>
+        <Label x:Name="Store_Mod_Label" Content="Store Mod Count:"  Foreground="#FF8A8A8A"  FontFamily="Nirmala UI" HorizontalAlignment="Right" Width="139" Margin="0,632,944,0" Padding="0,0,0,0" MinHeight="19" Height="19" VerticalAlignment="Top"/>
+        <Label x:Name="Couunter_Mods" Content="########"  Foreground="#FF8A8A8A" FontFamily="Nirmala UI"  HorizontalAlignment="Right" Width="116" Margin="0,632,870,0" Padding="0,0,0,0" MinHeight="19" Height="19" VerticalAlignment="Top"/>
 
-
-
+        (TODO) fix placement
         <Label x:Name="Category_Label" Margin="0,142,193,0" Background="{x:Null}" Foreground="#34FFFFFF" Content="{x:Static properties:Language.Page_Thunderstore_Category}" VerticalContentAlignment="Center" VerticalAlignment="Top" FontSize="14" IsHitTestVisible="False" Height="20" Padding="0,0,0,0" IsEnabled="False" HorizontalAlignment="Right" Width="75" HorizontalContentAlignment="Left"/>
         <Label x:Name="Sort_Label" Margin="0,144,460,0" Background="{x:Null}" Foreground="#34FFFFFF" Content="{x:Static properties:Language.Page_Thunderstore_Sort}" VerticalContentAlignment="Center" VerticalAlignment="Top" FontSize="14" IsHitTestVisible="False" Height="20" Padding="0,0,0,0" IsEnabled="False" HorizontalAlignment="Right" Width="75" HorizontalContentAlignment="Left"/>
 
@@ -53,7 +54,7 @@
 
         </Image>
 
-        <ui:VirtualizingItemsControl x:Name="Thunderstore_List"  VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.ScrollUnit="Pixel" ItemsSource="{Binding itemsList}"  Margin="35,174,35,0" ScrollViewer.CanContentScroll="True" Foreground="White" Width="1078" Height="445" CacheLengthUnit="Pixel" UseLayoutRounding="True" ScrollViewer.VerticalScrollBarVisibility="Visible" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Top" Background="#E85A5A5A" SourceUpdated="Thunderstore_List_SourceUpdated" LayoutUpdated="Thunderstore_List_LayoutUpdated"  >
+        <ui:VirtualizingItemsControl x:Name="Thunderstore_List"  VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.ScrollUnit="Pixel" ItemsSource="{Binding itemsList}"  Margin="35,174,35,0" ScrollViewer.CanContentScroll="True" Foreground="White" Width="1078" Height="445" CacheLengthUnit="Item" UseLayoutRounding="True" ScrollViewer.VerticalScrollBarVisibility="Visible" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Top" Background="#E85A5A5A" SourceUpdated="Thunderstore_List_SourceUpdated" LayoutUpdated="Thunderstore_List_LayoutUpdated"  >
             <!--<ui:CardExpander
             HorizontalContentAlignment="Center"
           

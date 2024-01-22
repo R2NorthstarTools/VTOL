@@ -1059,13 +1059,13 @@ true // Whether to change accents automatically
                 {
                     From = Action_Center_Panel.Opacity,
                     To = 1,
-                    Duration = new Duration(TimeSpan.FromSeconds(0.2)),
+                    Duration = new Duration(TimeSpan.FromSeconds(0.3)),
                     AutoReverse = false
                 };
                 Action_Center_Panel.BeginAnimation(OpacityProperty, da);
-
+                Action_Center_Panel.Visibility = Visibility.Visible;
+                Action_Center_Panel.IsHitTestVisible = true;
             }
-            Action_Center_Panel.IsHitTestVisible = true;
         }
 
         private void Action_Center_Progress_Unchecked(object sender, RoutedEventArgs e)
@@ -1080,9 +1080,10 @@ true // Whether to change accents automatically
                     AutoReverse = false
                 };
                 Action_Center_Panel.BeginAnimation(OpacityProperty, da);
+                Action_Center_Panel.Visibility = Visibility.Collapsed;
+                Action_Center_Panel.IsHitTestVisible = false;
 
             }
-            Action_Center_Panel.IsHitTestVisible = false;
         }
 
         private void Cancel_Button_Click(object sender, RoutedEventArgs e)
