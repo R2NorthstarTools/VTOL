@@ -269,7 +269,7 @@ namespace VTOL.Pages
                 DispatchIfNecessary(async () =>
                 {
                   
-                        Main.SwitchCursor(Settings_.Cursor.ToString());
+                  //      Main.SwitchCursor(Settings_.Cursor.ToString());
 
                     
                     if (curr_lang.ToString() != Settings_.Language.ToString())
