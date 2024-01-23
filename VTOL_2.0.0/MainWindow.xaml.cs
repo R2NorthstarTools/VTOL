@@ -374,7 +374,7 @@ namespace VTOL
         Cursor LeadWall, Ronin;
         public void SwitchCursor(string cur)
         {
-            string CursorDir = Directory.GetParent(System.Reflection.Assembly.GetExecutingAssembly().Location.ToString()).FullName + @"\Resources\Resources_Static\Cursors\";
+            string CursorDir = Directory.GetParent(System.Reflection.Assembly.GetExecutingAssembly().Location.ToString()).FullName + @"\Resources\Cursors\";
             LeadWall = new Cursor(CursorDir + "Leadwallcur.cur");
             Ronin = new Cursor(CursorDir + "NormalCurTf2.cur");
             if(Ronin == null || LeadWall == null) {

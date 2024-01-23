@@ -32,12 +32,16 @@
 
   <ItemGroup>
     <Compile Remove="LEGACY_NORTHSTAR_INSTALLER\**" />
+    <Compile Remove="Resources\Resource_Static\Cursors\**" />
     <Compile Remove="Version_1_VTOL_INSTALLER\**" />
     <EmbeddedResource Remove="LEGACY_NORTHSTAR_INSTALLER\**" />
+    <EmbeddedResource Remove="Resources\Resource_Static\Cursors\**" />
     <EmbeddedResource Remove="Version_1_VTOL_INSTALLER\**" />
     <None Remove="LEGACY_NORTHSTAR_INSTALLER\**" />
+    <None Remove="Resources\Resource_Static\Cursors\**" />
     <None Remove="Version_1_VTOL_INSTALLER\**" />
     <Page Remove="LEGACY_NORTHSTAR_INSTALLER\**" />
+    <Page Remove="Resources\Resource_Static\Cursors\**" />
     <Page Remove="Version_1_VTOL_INSTALLER\**" />
   </ItemGroup>
 
@@ -287,6 +291,8 @@
     <None Remove="Resources\Backgrounds\titanfall-2-screen.jpg" />
     <None Remove="Resources\Backgrounds\warning.png" />
     <None Remove="Resources\Backgrounds\_.jpg" />
+    <None Remove="Resources\Cursors\Leadwallcur.cur" />
+    <None Remove="Resources\Cursors\NormalCurTf2.cur" />
     <None Remove="Resources\Icons\EA.ico" />
     <None Remove="Resources\Icons\GitHub-Mark-32px.png" />
     <None Remove="Resources\Icons\GitHub-Mark-Light-32px.png" />
@@ -311,8 +317,6 @@
     <None Remove="Resources\Resource_Static\Advocate_banner.png" />
     <None Remove="Resources\Resource_Static\better_frog.png" />
     <None Remove="Resources\Resource_Static\Crowbar.png" />
-    <None Remove="Resources\Resource_Static\Cursors\Leadwallcur.cur" />
-    <None Remove="Resources\Resource_Static\Cursors\NormalCurTf2.cur" />
     <None Remove="Resources\Resource_Static\harmony.png" />
     <None Remove="Resources\Resource_Static\Leigon+.jpg" />
     <None Remove="Resources\Resource_Static\MDL_SHIT_Banner.png" />
@@ -778,6 +782,12 @@
     <Resource Include="Resources\Backgrounds\profiles_bg.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Cursors\Leadwallcur.cur">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Cursors\NormalCurTf2.cur">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Icons\EA.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -789,12 +799,6 @@
     </Resource>
     <Resource Include="Resources\Resource_Static\better_frog.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Resource_Static\Cursors\Leadwallcur.cur">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Resource_Static\Cursors\NormalCurTf2.cur">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Resource_Static\Leigon+.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
