@@ -568,7 +568,6 @@ namespace VTOL.Pages
                                                         ver = parts[2];
                                                     }
 
-                                                    Main.loaded_mods = true;
                                                     Main.Current_Installed_Mods.Add(new GENERAL_MOD { Name = name, Version = ver, Author = author });
                                                 });
                                             }
@@ -581,6 +580,8 @@ namespace VTOL.Pages
 
                                         }
                                     }
+                                    Main.loaded_mods = true;
+
 
                                 }
 

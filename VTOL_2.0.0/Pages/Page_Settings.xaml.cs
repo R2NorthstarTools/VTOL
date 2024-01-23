@@ -1,4 +1,6 @@
-﻿using Serilog;
+﻿
+using Json.Net;
+using Serilog;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -74,9 +76,16 @@ namespace VTOL.Pages
 
             public string Master_Server_Url { get; set; }
 
+            [Category("Themes")]
 
+            public Theme Theme { get; set; }
 
-
+        }
+        public enum Theme
+        {
+            Home_Green,
+            Final_Grey,
+            Redstone_Red
         }
         public Page_Settings()
         {
@@ -141,7 +150,8 @@ namespace VTOL.Pages
                 Enable_EA_APP_Usage = Properties.Settings.Default.EA_APP_SUPPORT,
                 Author = User_Settings_Vars.Author,
                 Auto_Update_Northstar = User_Settings_Vars.Auto_Update_Northstar,
-                Minimize_To_Tray = Properties.Settings.Default.Minimize_to_Tray
+                Minimize_To_Tray = Properties.Settings.Default.Minimize_to_Tray,
+                
             };
             Settings.SelectedObject = Settings_;
         }

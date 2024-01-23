@@ -648,7 +648,6 @@ int millisecondsDelay = 150)
         public HashSet<string> Fave_Mods = new HashSet<string>();
         private int Mod_Update_Counter = 0;
         private List<Action_Card> Action_Center = new List<Action_Card>();
-        private ObservableCollection<Grid_> thunderstoreItems = new ObservableCollection<Grid_>();
 
         public Page_Thunderstore()
         {
@@ -687,15 +686,17 @@ int millisecondsDelay = 150)
             {
                 DispatchIfNecessary(async () =>
                 {
+                    if(_updater != null)
+                    {
+                        Couunter_Mods.Content = _updater.Thunderstore.Count().ToString();
 
-                    Couunter_Mods.Content = _updater.Thunderstore.Count().ToString();
+                    }
 
-                    //(TODO)fix placement
 
                     Loading_Ring.Visibility = Visibility.Hidden;
                 });
                 page_loaded = true;
-
+                Main.Page_reset_ = true;
             };
             worker.RunWorkerAsync();
 
@@ -1136,15 +1137,7 @@ int millisecondsDelay = 150)
             });
         }
         string old_text="";
-        async Task clear_box()
-        {
-
-            DispatchIfNecessary(async () =>
-            {
-                Search_Bar_Suggest_Mods.Text = "";
-
-            });
-        }
+        
         private void Grid_MouseLeave(object sender, MouseEventArgs e)
         {
             DispatchIfNecessary(async () =>
@@ -1230,7 +1223,7 @@ int millisecondsDelay = 150)
 
 
                 init = true;
-
+                GC.Collect();
 
 
 
@@ -1740,7 +1733,10 @@ int millisecondsDelay = 150)
                             List = List.Where(item => item.is_Favourite_.ToString().Equals("1")).OrderByDescending(ob => ob.Name).ToList();
 
                             break;
+                        case "...":
+                             Main.Page_reset_ = true;
 
+                            break;
                         default:
                             List = itemsList; 
                             break;
@@ -1796,7 +1792,10 @@ int millisecondsDelay = 150)
                             List = List.Where(item => item.is_Favourite_.ToString().Equals("1")).OrderBy(ob => ob.Name).ToList();
 
                             break;
+                        case "...":
+                            Main.Page_reset_ = true;
 
+                            break;
                         default:
                             List = itemsList;
                             break;
@@ -2617,7 +2616,6 @@ int millisecondsDelay = 150)
         }
         void Dependency_Download(string Dependencies_To_Find_And_Download, ProgressBar Progress_Bar = null)
         {
-            Loaded_Async_Handler = true;
             try
             {
 
@@ -2650,16 +2648,7 @@ int millisecondsDelay = 150)
                 {
                     foreach (var y in Links)
                     {
-                        //var item = new DownloadQueueItem
-                        //{
-                        //    Name = name,
-                        //    DownloadUrl = Button.Tag.ToString(),
-                        //    DestinationPath = User_Settings_Vars.NorthstarInstallLocation + @"NS_Downloaded_Mods",
-                        //    Extract = tags.Contains("DDS"),
-                        //    IsNorthstarRelease = Button.Tag.ToString().Contains("Northstar Release Candidate") || Button.Tag.ToString().Contains("NorthstarReleaseCandidate") || (Button.Tag.ToString().Contains("Northstar") && Button.ToolTip.ToString().Count() < 5),
-                        //    Progress = Progress_Bar
-                        //};
-                        //_downloadQueue.Enqueue(item);
+                       
                         await Download_Zip_To_Path(y, User_Settings_Vars.NorthstarInstallLocation + @"NS_Downloaded_Mods", Progress_Bar);
                         Thread.Sleep(2500);
                     }
@@ -2678,8 +2667,6 @@ int millisecondsDelay = 150)
             Dialog.Hide();
 
         }
-        bool Loaded_Async_Handler = false;
-        string pack = null;
 
 
         private void CardAction_Click(object sender, RoutedEventArgs e)
@@ -2974,8 +2961,8 @@ int millisecondsDelay = 300)
                                 
 
                                 Main.Current_Installed_Mods.Add(new GENERAL_MOD { Name = name, Version = ver, Author= author });
-                                Main.loaded_mods = true;
                             }
+                            Main.loaded_mods = true;
 
                         }
 
@@ -4251,10 +4238,11 @@ int millisecondsDelay = 300)
 
                 DispatchIfNecessary(async () =>
                 {
-                    if (init == true)
+                    if (init == true) 
+
                     {
 
-                            if (_updater.Thunderstore != null)
+                        if (_updater.Thunderstore != null)
                         {
                             if (Search_Bar_Suggest_Mods.Text.Trim() != "" && Search_Bar_Suggest_Mods.Text != null && Search_Bar_Suggest_Mods.Text.Length != 0 && Search_Bar_Suggest_Mods.Text.Trim() != "#")
                             {
@@ -4314,6 +4302,7 @@ int millisecondsDelay = 300)
         private void Grid_Unloaded(object sender, RoutedEventArgs e)
         {
             TryDeleteDirectory(User_Settings_Vars.NorthstarInstallLocation + @"NS_Downloaded_Mods");
+          
         }
 
         private void Dialog_ButtonLeftClick(object sender, RoutedEventArgs e)
@@ -4377,16 +4366,15 @@ int millisecondsDelay = 300)
                                     });
                                 }
                             }
-                            // Call_Ts_Mods();
 
 
                         };
                         worker.RunWorkerCompleted += (sender, eventArgs) =>
                         {
 
-                            //Thunderstore_List.Refresh();
+                            Thunderstore_List.Refresh();
 
-
+                            //Trackchange
                         };
                         worker.RunWorkerAsync();
 
@@ -4607,7 +4595,14 @@ int millisecondsDelay = 300)
 
 
                         Call_Mods_From_Folder_Lite();
-                        // Call_Ts_Mods();
+                        if (Main.Page_reset_ == true)
+                        {
+                            
+                          //  Call_Ts_Mods();
+
+
+
+                        }
 
 
 
@@ -4616,7 +4611,7 @@ int millisecondsDelay = 300)
                     };
                     worker.RunWorkerCompleted += (sender, eventArgs) =>
                     {
-
+                        Main.Page_reset_ = false;
                       //  Thunderstore_List.Items.Refresh();
 
 
@@ -4908,9 +4903,10 @@ int millisecondsDelay = 300)
                     Main.Progress_Header.IsHitTestVisible = false;
                     Main.Action_Center_Panel.IsHitTestVisible = false;
                     Main.Action_Center_Panel.Visibility = Visibility.Collapsed;
-                    Main.Action_Center_Progress.IsChecked = false; 
+                    Main.Action_Center_Progress.IsChecked = false;
 
                 }
+                Thunderstore_List.Refresh();
                 await SaveHSetAsync();
             });
         }
@@ -4980,7 +4976,7 @@ int millisecondsDelay = 300)
 
         private void Thunderstore_List_LayoutUpdated(object sender, EventArgs e)
         {
-            if(Thunderstore_List.Visibility != Visibility.Visible || _updater.Thunderstore == null || Main.loaded_mods == false || page_loaded == false){
+            if(Thunderstore_List.Visibility != Visibility.Visible || _updater == null && itemsList.Count() ==0 ){
                 Reload_BTTN.Visibility = Visibility.Visible;
                 Loading_Ring.Visibility = Visibility.Visible;
 
