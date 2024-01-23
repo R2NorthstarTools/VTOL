@@ -782,12 +782,12 @@
     <Resource Include="Resources\Backgrounds\profiles_bg.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\Cursors\Leadwallcur.cur">
+    <Content Include="Resources\Cursors\Leadwallcur.cur">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Cursors\NormalCurTf2.cur">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    </Content>
+    <Content Include="Resources\Cursors\NormalCurTf2.cur">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Resource Include="Resources\Icons\EA.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>

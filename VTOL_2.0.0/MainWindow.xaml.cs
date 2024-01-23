@@ -382,7 +382,7 @@ namespace VTOL
             }
             switch (cur)
             {
-                case "Defualt":
+                case "Default":
                     this.Cursor = null;
 
                     break;

@@ -75,8 +75,8 @@ namespace VTOL.Pages
             [Category("Github")]
 
             public string Master_Server_Url { get; set; }
-            [Category("Cursor")]
-            public cur Cursor { get; set; }
+            //[Category("Cursor")]
+            //public cur Cursor { get; set; }
 
             //public Theme Theme { get; set; }
             //[Category("Themes")]
@@ -92,7 +92,7 @@ namespace VTOL.Pages
         }
         public enum cur
         {
-            Defualt,
+            Default,
             LeadWall,
             Ronin
         }
@@ -268,12 +268,10 @@ namespace VTOL.Pages
                 }
                 DispatchIfNecessary(async () =>
                 {
-                    if(Settings_.Cursor != cur.Defualt)
-                    {
+                  
                         Main.SwitchCursor(Settings_.Cursor.ToString());
 
-                    }
-
+                    
                     if (curr_lang.ToString() != Settings_.Language.ToString())
                     {
                         Dialog_.ButtonLeftName = VTOL.Resources.Languages.Language.Page_Settings_Settings_LostFocus_Restart;
