@@ -688,7 +688,7 @@ int millisecondsDelay = 150)
                 {
                     if(_updater != null)
                     {
-                        Couunter_Mods.Content = _updater.Thunderstore.Count().ToString();
+                        Couunter_Mods.Content = VTOL.Resources.Languages.Language.ThunderstoreModCount +":"+ _updater.Thunderstore.Count().ToString();
 
                     }
 

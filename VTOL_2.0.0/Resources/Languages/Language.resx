@@ -750,4 +750,10 @@
   <data name="TheModIsNotRegisteredProperlyInTheBackendListPleaseFixTheM2odFormattingOrUpdateYourTF2ModList__" xml:space="preserve">
     <value>The Mod Is not Registered Properly in the Backend List, Please Fix the M2od formatting or update your TF2 Mod List";</value>
   </data>
+  <data name="ThunderstoreModCount" xml:space="preserve">
+    <value>Thunderstore Mod Count</value>
+  </data>
+  <data name="ModUpdatesAvailable" xml:space="preserve">
+    <value>Mod Updates Available - </value>
+  </data>
 </root>

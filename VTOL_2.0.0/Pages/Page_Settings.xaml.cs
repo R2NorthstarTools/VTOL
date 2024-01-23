@@ -75,10 +75,13 @@ namespace VTOL.Pages
             [Category("Github")]
 
             public string Master_Server_Url { get; set; }
+            [Category("Cursor")]
+            public cur Cursor { get; set; }
 
-            [Category("Themes")]
+            //public Theme Theme { get; set; }
+            //[Category("Themes")]
 
-            public Theme Theme { get; set; }
+            //public Theme Theme { get; set; }
 
         }
         public enum Theme
@@ -86,6 +89,12 @@ namespace VTOL.Pages
             Home_Green,
             Final_Grey,
             Redstone_Red
+        }
+        public enum cur
+        {
+            Defualt,
+            LeadWall,
+            Ronin
         }
         public Page_Settings()
         {
@@ -259,6 +268,11 @@ namespace VTOL.Pages
                 }
                 DispatchIfNecessary(async () =>
                 {
+                    if(Settings_.Cursor != cur.Defualt)
+                    {
+                        Main.SwitchCursor(Settings_.Cursor.ToString());
+
+                    }
 
                     if (curr_lang.ToString() != Settings_.Language.ToString())
                     {

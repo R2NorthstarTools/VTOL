@@ -22,6 +22,7 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using VTOL.Pages;
+using VTOL.Titanfall2_Requisite.WeaponData.Default.Titan;
 using static VTOL.Pages.Page_Thunderstore;
 
 namespace VTOL
@@ -369,6 +370,34 @@ namespace VTOL
 
 
 
+        }
+        Cursor LeadWall, Ronin;
+        public void SwitchCursor(string cur)
+        {
+            string CursorDir = Directory.GetParent(System.Reflection.Assembly.GetExecutingAssembly().Location.ToString()).FullName + @"\Resources\Resources_Static\Cursors\";
+            LeadWall = new Cursor(CursorDir + "Leadwallcur.cur");
+            Ronin = new Cursor(CursorDir + "NormalCurTf2.cur");
+            if(Ronin == null || LeadWall == null) {
+                return;
+            }
+            switch (cur)
+            {
+                case "Defualt":
+                    this.Cursor = null;
+
+                    break;
+                case "LeadWall":
+                    this.Cursor = LeadWall;
+
+                    break;
+                case "Ronin":
+                    this.Cursor = Ronin;
+
+                    break;
+                default:
+                    this.Cursor = null;
+                    break;
+            }
         }
         void Restart()
         {

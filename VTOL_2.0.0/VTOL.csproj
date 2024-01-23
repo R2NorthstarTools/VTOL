@@ -20,9 +20,9 @@
 	  <RepositoryUrl>https://github.com/BigSpice/VTOL</RepositoryUrl>
 	  <RepositoryType>git</RepositoryType>
 	  <PackageTags>mod;installer;modmanager;northstar-client;titanfall2</PackageTags>
-	  <AssemblyVersion>3.0.2</AssemblyVersion>
-	  <FileVersion>3.0.2</FileVersion>
-	  <Version>3.0.2</Version>
+	  <AssemblyVersion>3.0.3</AssemblyVersion>
+	  <FileVersion>3.0.3</FileVersion>
+	  <Version>3.0.3</Version>
 	  <EnableNETAnalyzers>False</EnableNETAnalyzers>
 	  <ErrorReport>none</ErrorReport>
 	  <Title>VTOL</Title>
@@ -311,6 +311,8 @@
     <None Remove="Resources\Resource_Static\Advocate_banner.png" />
     <None Remove="Resources\Resource_Static\better_frog.png" />
     <None Remove="Resources\Resource_Static\Crowbar.png" />
+    <None Remove="Resources\Resource_Static\Cursors\Leadwallcur.cur" />
+    <None Remove="Resources\Resource_Static\Cursors\NormalCurTf2.cur" />
     <None Remove="Resources\Resource_Static\harmony.png" />
     <None Remove="Resources\Resource_Static\Leigon+.jpg" />
     <None Remove="Resources\Resource_Static\MDL_SHIT_Banner.png" />
@@ -423,7 +425,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <Resource Include="Resources\Backgrounds\405e3ab0-2648-4e8b-a4cc-51a008666e75.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\1008810.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -787,6 +789,12 @@
     </Resource>
     <Resource Include="Resources\Resource_Static\better_frog.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Resource_Static\Cursors\Leadwallcur.cur">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Resource_Static\Cursors\NormalCurTf2.cur">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Resource_Static\Leigon+.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

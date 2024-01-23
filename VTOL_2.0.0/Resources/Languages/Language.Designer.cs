@@ -295,6 +295,15 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mod Updates Available - .
+        /// </summary>
+        public static string ModUpdatesAvailable {
+            get {
+                return ResourceManager.GetString("ModUpdatesAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to NAME.
         /// </summary>
         public static string NAME {
@@ -1919,6 +1928,15 @@ namespace VTOL.Resources.Languages {
             get {
                 return ResourceManager.GetString("TheModIsNotRegisteredProperlyInTheBackendListPleaseFixTheM2odFormattingOrUpdateYo" +
                         "urTF2ModList__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thunderstore Mod Count.
+        /// </summary>
+        public static string ThunderstoreModCount {
+            get {
+                return ResourceManager.GetString("ThunderstoreModCount", resourceCulture);
             }
         }
         
