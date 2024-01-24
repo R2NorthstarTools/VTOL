@@ -355,6 +355,7 @@ namespace VTOL
                 }
                 //double dpiFactor = System.Windows.PresentationSource.FromVisual(this).CompositionTarget.TransformToDevice.M11;
                 UserInterfaceCustomScale(1.5);
+                Check_For_New_Update();
 
             }
 
