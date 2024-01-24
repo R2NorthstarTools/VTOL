@@ -3289,12 +3289,32 @@ int millisecondsDelay = 300)
                             ADV_TOOL_INSTALL.Icon = SymbolRegular.ArrowDown32;
                             ADV_TOOL_INSTALL.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF5B0606");
                         }
+
+                        //NINJA_RIPPER
+                        if (Directory.Exists(Tools_Dir + @"NINJA_RIP") && File.Exists(Tools_Dir + @"NINJA_RIP\x64\" + "NinjaRipper.exe"))
+                        {
+                            NINJA_RP_INSTALL.Content = VTOL.Resources.Languages.Language.Page_Tools_Check_For_Tools_Launch;
+                            NINJA_RP_INSTALL.Icon = SymbolRegular.Open28;
+                            NINJA_RP_INSTALL.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF005D42");
+                            NINJA_RP_FOLDER.IsEnabled = true;
+                            NINJA_RP_FOLDER.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFAF7800");
+
+
+                        }
+                        else
+                        {
+                            NINJA_RP_FOLDER.IsEnabled = false;
+                        NINJA_RP_FOLDER.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF3A3A3A");
+                        NINJA_RP_INSTALL.Content = VTOL.Resources.Languages.Language.Page_Tools_Check_For_Tools_Install;
+                        NINJA_RP_INSTALL.Icon = SymbolRegular.ArrowDown32;
+                        NINJA_RP_INSTALL.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF5B0606");
+                        }
+
                     }
                     else
                     {
 
                         TryCreateDirectory(Tools_Dir);
-                        Check_For_Tools();
 
                     }
                 });
