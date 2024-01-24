@@ -3620,9 +3620,9 @@ int millisecondsDelay = 300)
 
         private void NINJA_RP_INSTALL_Click(object sender, RoutedEventArgs e)
         {
-            if (Directory.Exists(Tools_Dir + @"NINJA_RIP") && File.Exists(Tools_Dir + @"NINJA_RIP\x64" + "NinjaRipper.exe"))
+            if (Directory.Exists(Tools_Dir + @"NINJA_RIP") && File.Exists(Tools_Dir + @"NINJA_RIP\x64\" + "NinjaRipper.exe"))
             {
-                Start_Exe(Tools_Dir + @"NINJA_RIP\x64" + "NinjaRipper.exe");
+                Start_Exe(Tools_Dir + @"NINJA_RIP\x64\" + "NinjaRipper.exe");
 
             }
             else
