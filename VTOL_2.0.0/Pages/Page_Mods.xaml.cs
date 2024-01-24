@@ -13,6 +13,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -459,10 +460,11 @@ namespace VTOL.Pages
 
                                 System.IO.DirectoryInfo[] subDirs = null;
                                 subDirs = rootDirs.GetDirectories().Concat(NS_Dirs.GetDirectories()).ToArray();
-
                                 
-                               
-                                if (subDirs.Count() > 0)
+
+
+
+                                    if (subDirs.Count() > 0)
                                 {
                                     string Json_Path = FindFirstFile(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\", "enabledmods.json");
 

@@ -18,6 +18,7 @@ using System.Reflection;
 using System.Runtime.ExceptionServices;
 using System.Security.Policy;
 using System.Text;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -32,6 +33,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Threading;
 using System.Xml.Linq;
 using Threading;
+using VTOL.Titanfall2_Requisite.WeaponData.Default.AntiTitan;
 using Windows.Foundation.Collections;
 using static VTOL.MainWindow;
 using static VTOL.Pages.Page_Mods;
@@ -1244,7 +1246,7 @@ int millisecondsDelay = 150)
             // part of version
 
             int vnum1 = 0, vnum2 = 0;
-
+            if(v1 == null || v2 == null) { return 3; }
             // loop until both string are
             // processed
 
@@ -1311,10 +1313,42 @@ int millisecondsDelay = 150)
                 {
 
 
-
+                    bool Northstar_flagged = false;
                     foreach (var item in list)
                     {
+                        if (modname.Equals(@"Northstar") && Northstar_flagged == false)
+                        {
+                            if (String.Equals(item.Name.Split(".")[0], modname, StringComparison.OrdinalIgnoreCase))
+                            {
+                                string version = item.Version;
+                                int result = versionCompare(version, Mod_version_current);
+                                switch (result)
+                                {
+                                    case 1:
+                                        res = "Re-Install";
+                                        bg = "#FFAD7F1A";
+                                        break;
+                                    case -1:
+                                        res = "Update";
+                                        bg = "#FF009817";
 
+                                        break;
+                                    case 0:
+                                        res = "Re-Install";
+                                        bg = "#FFAD7F1A";
+
+                                        break;
+                                    default:
+                                        res = "Install";
+                                        bg = "#FF005D42";
+
+                                        break;
+                                }
+                                label = res;
+                                bg_color = bg;
+                                Northstar_flagged = true;
+                            }
+                        }
                         if (String.Equals(item.Name, modname, StringComparison.OrdinalIgnoreCase))
                         {
                             string version = item.Version;
@@ -2944,26 +2978,44 @@ int millisecondsDelay = 300)
                             System.IO.DirectoryInfo[] subDirs = null;
                             subDirs = rootDirs.GetDirectories().Concat(NS_Dirs.GetDirectories()).ToArray();
 
-
+                            bool read_NS_version = true;
                             foreach (System.IO.DirectoryInfo dirInfo in subDirs)
                             {
                                 string[] parts = dirInfo.Name.Split('-');
                                 string name = dirInfo.Name;
                                 string author = null;
                                 string ver = null;
-
                                 if (parts.Length > 1)
                                 {
                                     author = parts[0];
                                     name = parts[1];
                                     ver = parts[2];
                                 }
-                                
 
-                                Main.Current_Installed_Mods.Add(new GENERAL_MOD { Name = name, Version = ver, Author= author });
+                                if (name.Contains("Northstar.") && dirInfo.Parent.Name.Equals(@"mods") && read_NS_version == true)
+                                {
+                                    parts = null;
+                                    parts = dirInfo.Name.Split('.');
+                                    author = parts[0];
+                                    name = dirInfo.Name;
+                                    string json = File.ReadAllText(dirInfo.FullName + @"\mod.json");
+                                    // Parse the JSON
+                                    dynamic data = JsonConvert.DeserializeObject(json);
+
+                                    // Access the value
+                                    ver = data["Version"];
+                                    if (ver != null) { read_NS_version = false; }
+
+                                }
+
+
+
+
+                                Main.Current_Installed_Mods.Add(new GENERAL_MOD { Name = name, Version = ver, Author = author });
+                                GC.Collect();
+
                             }
                             Main.loaded_mods = true;
-
                         }
 
 

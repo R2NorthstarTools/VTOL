@@ -2436,14 +2436,16 @@ int millisecondsDelay = 150)
         public bool Check_Process_Running(string ProcessName)
         {
             Process[] pname = Process.GetProcessesByName(ProcessName);
-            if (pname.Length == 0)
+            if (pname.Length != 0)
             {
-                return false;
-            }
-            else
-            {
+                GC.Collect();
                 return true;
             }
+            pname = null;
+            GC.Collect();
+            return false;
+           
+
         }
 
 
@@ -4089,39 +4091,39 @@ int millisecondsDelay = 150)
 
         private void EA_ORGIGIN_Client_Card_Loaded(object sender, RoutedEventArgs e)
         {
-            if (Properties.Settings.Default.EA_APP_SUPPORT == true)
-            {
-                EA_ORGIGIN_Client_Card.Content = VTOL.Resources.Languages.Language.Page_Home_Page_Home_EAClientRunning;
-                BitmapImage bitmapx = new BitmapImage();
+            //if (Properties.Settings.Default.EA_APP_SUPPORT == true)
+            //{
+            //    EA_ORGIGIN_Client_Card.Content = VTOL.Resources.Languages.Language.Page_Home_Page_Home_EAClientRunning;
+            //    BitmapImage bitmapx = new BitmapImage();
 
-                bitmapx.BeginInit();
-                bitmapx.UriSource = new Uri(@"pack://application:,,,/Resources/Icons/EA.ico");
-                bitmapx.EndInit();
-                CLIENT_CARD_IMAGE.Source = bitmapx;
-
-
-            }
-            else
-            {
-                BitmapImage bitmapy = new BitmapImage();
-
-                bitmapy.BeginInit();
-                bitmapy.UriSource = new Uri(@"pack://application:,,,/Resources/Icons/Origin.ico");
-                bitmapy.EndInit();
-                CLIENT_CARD_IMAGE.Source = bitmapy;
-
-                EA_ORGIGIN_Client_Card.Content = VTOL.Resources.Languages.Language.Page_Home_OriginClientRunning;
+            //    bitmapx.BeginInit();
+            //    bitmapx.UriSource = new Uri(@"pack://application:,,,/Resources/Icons/EA.ico");
+            //    bitmapx.EndInit();
+            //    CLIENT_CARD_IMAGE.Source = bitmapx;
 
 
-            }
+            //}
+            //else
+            //{
+            //    BitmapImage bitmapy = new BitmapImage();
 
-            BackgroundWorker worker_o = new BackgroundWorker();
-            worker_o.DoWork += (sender, e) =>
-            {
-                Check_EA_status();
-            };
+            //    bitmapy.BeginInit();
+            //    bitmapy.UriSource = new Uri(@"pack://application:,,,/Resources/Icons/Origin.ico");
+            //    bitmapy.EndInit();
+            //    CLIENT_CARD_IMAGE.Source = bitmapy;
 
-            worker_o.RunWorkerAsync();
+            //    EA_ORGIGIN_Client_Card.Content = VTOL.Resources.Languages.Language.Page_Home_OriginClientRunning;
+
+
+            //}
+
+            //BackgroundWorker worker_o = new BackgroundWorker();
+            //worker_o.DoWork += (sender, e) =>
+            //{
+            //    Check_EA_status();
+            //};
+
+            //worker_o.RunWorkerAsync();
         }
 
         private void Exit_BTN_Click(object sender, RoutedEventArgs e)
