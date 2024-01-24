@@ -20,14 +20,12 @@ namespace VTOL.Pages
 
         private static String updaterModulePath;
         bool is_portable_ = true;
-        Wpf.Ui.Controls.Snackbar SnackBar;
 
         async Task Set_About()
         {
 
             About_BOX.IsReadOnly = true;
             Paragraph paragraph = new Paragraph();
-            SnackBar = Main.Snackbar;
 
 
             string Text = @"-This Application Installs The Northstar Launcher Created by BobTheBob and can install the countless Mods Authored by the many Titanfall2 Modders.
@@ -59,7 +57,7 @@ Big Thanks to -
 @rrrfffrrr
 @themoonisacheese
 @xamionex
-Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/Ju1cy ";
+ ";
 
             About_BOX.Document.Blocks.Clear();
             Run run = new Run(Text);
@@ -121,68 +119,17 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             {
                 try
                 {
-                    Main.VTOL_UPDATE_BADGE.Visibility = Visibility.Hidden;
+                    Process process = Process.Start(updaterModulePath, "/configure ");
 
-                    Process[] processes = Process.GetProcessesByName(updaterModulePath);
-                    if (processes.Length > 0)
-                        processes[0].CloseMainWindow();
                 }
                 catch (Exception ex)
                 {
 
                 }
             }
-            else
-            {
-                //Send_Error_Notif(GetTextResource("NOTIF_ERROR_UPDATER_NOT_FOUND"));
-
-            }
+           
         }
-        void Check_For_New_Update()
-        {
-            try
-            {
-
-                var thisApp = Assembly.GetExecutingAssembly();
-                AssemblyName name = new AssemblyName(thisApp.FullName);
-                Updater Update = new Updater("BigSpice", "VTOL");
-
-
-                if (Update.CheckForUpdate())
-                {
-
-                    SnackBar.Message = "Update Available!, Please Check and Download The latest portable release.";
-                    SnackBar.Title = "INFO";
-                    SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
-                    SnackBar.Show();
-
-
-
-                }
-                else
-                {
-                    Main.VTOL_UPDATE_BADGE.Visibility = Visibility.Hidden;
-
-
-                    SnackBar.Message = "No Update Found";
-                    SnackBar.Title = "INFO";
-                    SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
-                    SnackBar.Show();
-                }
-
-
-
-
-            }
-            catch (Exception ex)
-            {
-
-
-            }
-
-
-
-        }
+ 
         private void Check_Click(object sender, RoutedEventArgs e)
         {
 
@@ -190,9 +137,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
             {
                 if (File.Exists(updaterModulePath))
                 {
-                    //   StartSilent();
                     Process process = Process.Start(updaterModulePath, "/checknow ");
-                    // process.Close();
                 }
 
             }
@@ -201,7 +146,7 @@ Every cent counts towards feeding my baby Ticks - https://www.buymeacoffee.com/J
 
 
 
-                Check_For_New_Update();
+                Main.Check_For_New_Update();
 
 
             }

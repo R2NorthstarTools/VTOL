@@ -1052,7 +1052,52 @@ true // Whether to change accents automatically
             Restart();
 
         }
+      public  void Check_For_New_Update()
+        {
+            try
+            {
 
+                var thisApp = Assembly.GetExecutingAssembly();
+                AssemblyName name = new AssemblyName(thisApp.FullName);
+                Updater Update = new Updater("BigSpice", "VTOL");
+
+
+                if (Update.CheckForUpdate())
+                {
+                    VTOL_UPDATE_BADGE.Visibility = Visibility.Visible;
+
+                    Snackbar.Message = "Update Available!, Please Check and Download The latest portable release.";
+                    Snackbar.Title = "INFO";
+                    Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
+                    Snackbar.Show();
+
+
+
+                }
+                else
+                {
+                    VTOL_UPDATE_BADGE.Visibility = Visibility.Hidden;
+
+
+                    Snackbar.Message = "No Update Found";
+                    Snackbar.Title = "INFO";
+                    Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
+                    Snackbar.Show();
+                }
+
+
+
+
+            }
+            catch (Exception ex)
+            {
+
+
+            }
+
+
+
+        }
         private void Main_Win_Control_Loaded(object sender, RoutedEventArgs e)
         {
             var geometry = new RectangleGeometry();
