@@ -2991,7 +2991,8 @@ int millisecondsDelay = 300)
                                     name = parts[1];
                                     ver = parts[2];
                                 }
-
+                                //TODO
+                                //116 - 300 ms delay, remove or improve asap
                                 if (name.Contains("Northstar.") && dirInfo.Parent.Name.Equals(@"mods") && read_NS_version == true)
                                 {
                                     parts = null;

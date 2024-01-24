@@ -3611,5 +3611,34 @@ int millisecondsDelay = 300)
             OPEN_WEBPAGE("https://github.com/ASpoonPlaysGames/Advocate");
 
         }
+
+        private void NINJA_RP_PAGE_Click(object sender, RoutedEventArgs e)
+        {
+            OPEN_WEBPAGE("https://gamebanana.com/tools/5638");
+
+        }
+
+        private void NINJA_RP_INSTALL_Click(object sender, RoutedEventArgs e)
+        {
+            if (Directory.Exists(Tools_Dir + @"NINJA_RIP") && File.Exists(Tools_Dir + @"NINJA_RIP\x64" + "NinjaRipper.exe"))
+            {
+                Start_Exe(Tools_Dir + @"NINJA_RIP\x64" + "NinjaRipper.exe");
+
+            }
+            else
+            {
+                Download_Zip_To_Path("NINJA_RIP", "https://github.com/BigSpice/MISC_STORE/raw/main/NINJA_RIP.zip");
+
+
+            }
+        }
+
+        private void NINJA_RP_FOLDER_Click(object sender, RoutedEventArgs e)
+        {
+            if (Directory.Exists(Tools_Dir + @"NINJA_RIP"))
+            {
+                Open_Folder(Tools_Dir + @"NINJA_RIP");
+            }
+        }
     }
 }
