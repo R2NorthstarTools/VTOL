@@ -3627,7 +3627,7 @@ int millisecondsDelay = 300)
             }
             else
             {
-                Download_Zip_To_Path("NINJA_RIP", "https://github.com/BigSpice/MISC_STORE/raw/main/NINJA_RIP.zip");
+                Download_Zip_To_Path("NINJA_RIP", "https://github.com/BigSpice/VTOL/raw/master/%5BTitanfall2_Downloadable_Tools%5D/NINJA_RIP.zip");
 
 
             }

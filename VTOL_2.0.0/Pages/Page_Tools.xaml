@@ -709,12 +709,12 @@
 
                                 <Label Margin="10,180,0,88" Content="NINJA RIPPER" FontSize="22" Foreground="White" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Width="297" Background="{x:Null}"/>
                                 <Border CornerRadius="5,5,9,9" Margin="0,0,0,127">
-                                    <ui:Button ToolTip="{x:Static properties:Language.Page_Tools_WebPage_}" x:Name="NINJA_RP_PAGE" Margin="447,0,0,0" VerticalAlignment="Top" Background="#CC3E3E3E" BorderBrush="{x:Null}" Height="24" Icon="BookInformation24" Padding="0,0,0,0" Width="24" ClickMode="Press" </ui:Button>
+                                    <ui:Button ToolTip="{x:Static properties:Language.Page_Tools_WebPage_}" x:Name="NINJA_RP_PAGE" Margin="447,0,0,0" VerticalAlignment="Top" Background="#CC3E3E3E" BorderBrush="{x:Null}" Height="24" Icon="BookInformation24" Padding="0,0,0,0" Width="24" ClickMode="Press" Click="NINJA_RP_PAGE_Click"></ui:Button>
                                     <Border.Background>
                                         <ImageBrush Stretch="UniformToFill" ImageSource="/Resources/Resource_Static/NINJA_RP.png" TileMode="None"/>
                                     </Border.Background>
                                 </Border>
-                                <ui:Button x:Name="NINJA_RP_FOLDER" VerticalAlignment="Top" Icon="Open24" HorizontalAlignment="Stretch"  Background="#FFAF7800" Margin="312,161,10,0" Content="{x:Static properties:Language.Page_Tools_OpenFolder}" Foreground="White" BorderBrush="#029C9C9C" OverridesDefaultStyle="False" ClickMode="Press" Appearance="Primary" IconFilled="True" >
+                                <ui:Button x:Name="NINJA_RP_FOLDER" VerticalAlignment="Top" Icon="Open24" HorizontalAlignment="Stretch"  Background="#FFAF7800" Margin="312,161,10,0" Content="{x:Static properties:Language.Page_Tools_OpenFolder}" Foreground="White" BorderBrush="#029C9C9C" OverridesDefaultStyle="False" ClickMode="Press" Appearance="Primary" IconFilled="True" Click="NINJA_RP_FOLDER_Click" >
                                     <ui:Button.MouseOverBackground>
                                         <SolidColorBrush Color="#FF795300" Opacity="0.9"/>
                                     </ui:Button.MouseOverBackground>
@@ -723,7 +723,7 @@
                                     </ui:Button.PressedBackground>
 
                                 </ui:Button>
-                                <ui:Button x:Name="NINJA_RP_INSTALL"  VerticalAlignment="Top" Icon="ArrowDown32" HorizontalAlignment="Stretch"  Background="#FF5B0606" Margin="10,237,10,0" Height="55" Content="Install" BorderBrush="{x:Null}" ClickMode="Press" />
+                                <ui:Button x:Name="NINJA_RP_INSTALL"  VerticalAlignment="Top" Icon="ArrowDown32" HorizontalAlignment="Stretch"  Background="#FF5B0606" Margin="10,237,10,0" Height="55" Content="Install" BorderBrush="{x:Null}" ClickMode="Press" Click="NINJA_RP_INSTALL_Click"/>
                                 <Label Margin="10,211,421,68" Content="V1.7.1" FontSize="14" Foreground="#FFB7B7B7" HorizontalContentAlignment="Center" Background="{x:Null}"/>
 
                             </Grid  >
