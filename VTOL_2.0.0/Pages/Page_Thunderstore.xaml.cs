@@ -4164,33 +4164,6 @@ int millisecondsDelay = 300)
                     }
 
                 });
-                //    if (tags.Contains("DDS"))
-                //    {
-
-                //            Download_Zip_To_Path(Button.Tag.ToString(), User_Settings_Vars.NorthstarInstallLocation + @"NS_Downloaded_Mods", Progress_Bar, true);
-
-                //    }
-                //    else if(Button.Tag.ToString().Contains("Northstar Release Candidate") || Button.Tag.ToString().Contains("NorthstarReleaseCandidate") || (Button.Tag.ToString().Contains("Northstar") && Button.ToolTip.ToString().Count() < 5))
-                //    {
-                //        Download_Zip_To_Path(Button.Tag.ToString(), User_Settings_Vars.NorthstarInstallLocation + @"NS_Downloaded_Mods", Progress_Bar, true,true);
-
-
-                //    }
-                //    else
-                //    {
-                //        Download_Zip_To_Path(Button.Tag.ToString(), User_Settings_Vars.NorthstarInstallLocation + @"NS_Downloaded_Mods", Progress_Bar, false);
-
-                //    }
-
-
-
-
-
-
-
-
-
-
             }
             catch (Exception ex)
             {
@@ -4229,11 +4202,7 @@ int millisecondsDelay = 300)
                         {
                             if (Search_Bar_Suggest_Mods.Text.Trim() != "" && Search_Bar_Suggest_Mods.Text != null && Search_Bar_Suggest_Mods.Text.Trim() != "#" )
                             {
-                                //  Thunderstore_List.ItemsSource = null;
-
-
-
-                                // Call_Ts_Mods(true, Search_: true, SearchQuery: Search_Bar_Suggest_Mods.Text);
+                               
 
 
                                 if (_updater.Thunderstore != null)
