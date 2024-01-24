@@ -756,4 +756,40 @@
   <data name="ModUpdatesAvailable" xml:space="preserve">
     <value>Mod Updates Available - </value>
   </data>
+  <data name="APPLICATIONUPDATEISAVAILABLE" xml:space="preserve">
+    <value>APPLICATION UPDATE IS AVAILABLE</value>
+  </data>
+  <data name="UpdateAvailablePleaseCheckAndDownloadTheLatestRelease" xml:space="preserve">
+    <value>Update Available!, Please Check and Download The latest release.</value>
+  </data>
+  <data name="INFO" xml:space="preserve">
+    <value>INFO</value>
+  </data>
+  <data name="VTOLRESTARTINGINADMINMODE" xml:space="preserve">
+    <value>VTOL RESTARTING IN ADMIN MODE</value>
+  </data>
+  <data name="CANCELLEDPERMISSIONS" xml:space="preserve">
+    <value>CANCELLED PERMISSIONS</value>
+  </data>
+  <data name="VTOLSYSTEMSFAILEDTOFINDYOURAPPDATAFOLDERLOCATEASAVEDATAFOLDER" xml:space="preserve">
+    <value>VTOL SYSTEMS FAILED TO FIND YOUR APPDATA FOLDER, LOCATE A SAVE DATA FOLDER</value>
+  </data>
+  <data name="RESTARTINGTOSETHARDVALUES" xml:space="preserve">
+    <value>RESTARTING TO SET HARD VALUES</value>
+  </data>
+  <data name="CouldNotReadUserSettingsPleaseRunAsAdminOrRepairCleanYourInstallation" xml:space="preserve">
+    <value>Could Not Read User Settings, Please Run as Admin or Repair/Clean your Installation</value>
+  </data>
+  <data name="DELETEMOD" xml:space="preserve">
+    <value>DELETE MOD</value>
+  </data>
+  <data name="AreYouSureYouWantToDeleteTheMod" xml:space="preserve">
+    <value>Are You Sure You Want To Delete The Mod - </value>
+  </data>
+  <data name="Permanently" xml:space="preserve">
+    <value>Permanently?</value>
+  </data>
+  <data name="TheModInformationFileCannotBeAccessedOrFound" xml:space="preserve">
+    <value>The Mod Information File Cannot Be accessed or Found!</value>
+  </data>
 </root>

@@ -722,7 +722,7 @@ namespace VTOL.Pages
                         if (Path.GetExtension(Current_Mod_To_Pack).Contains("zip") || Path.GetExtension(Current_Mod_To_Pack).Contains("Zip"))
                         {
                             SnackBar.Appearance = ControlAppearance.Info;
-                            SnackBar.Title = "INFO";
+                            SnackBar.Title = VTOL.Resources.Languages.Language.INFO;
                             SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Locate_Zip_Click_ValidZipFound;
                             SnackBar.Show();
                             Zip_Box.Text = Current_Mod_To_Pack;
@@ -2531,7 +2531,7 @@ int millisecondsDelay = 300)
                         if (Path.GetExtension(Mod_Adv_Skin_Path).Contains("zip") || Path.GetExtension(Mod_Adv_Skin_Path).Contains("Zip"))
                         {
                             SnackBar.Appearance = ControlAppearance.Info;
-                            SnackBar.Title = "INFO";
+                            SnackBar.Title = VTOL.Resources.Languages.Language.INFO;
                             SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Locate_Zip_Click_ValidZipFound;
                             SnackBar.Show();
                             //Zip_Box_Advocate.Text = Mod_Adv_Skin_Path;
@@ -2746,7 +2746,7 @@ int millisecondsDelay = 300)
                             Properties.Settings.Default.REpak_Folder_Path = openFileDialog.FileName;
                             Properties.Settings.Default.Save();
                             SnackBar.Appearance = ControlAppearance.Info;
-                            SnackBar.Title = "INFO";
+                            SnackBar.Title = VTOL.Resources.Languages.Language.INFO;
                             SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Locate_Repak_Exe_Click_ExeLocated;
                             SnackBar.Show();
                             //Zip_Box_Advocate_Copy.Text = Mod_Adv_Repak_Path;
@@ -2812,7 +2812,7 @@ int millisecondsDelay = 300)
                         DispatchIfNecessary(async () =>
                         {
                             SnackBar.Message = "FOUND AND STARTING - " + fileName;
-                            SnackBar.Title = "INFO";
+                            SnackBar.Title = VTOL.Resources.Languages.Language.INFO;
                             SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
                             SnackBar.Show();
                         });
@@ -3031,7 +3031,7 @@ int millisecondsDelay = 300)
                             return;
                         }
                         SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Download_Zip_To_Path_DownloadingAndInstalling + Sub_Name;
-                        SnackBar.Title = "INFO";
+                        SnackBar.Title = VTOL.Resources.Languages.Language.INFO;
                         SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
                         SnackBar.Show();
                         if (Directory.Exists(Tools_Dir))
@@ -3090,7 +3090,7 @@ int millisecondsDelay = 300)
                 DispatchIfNecessary(async () =>
                 {
                     SnackBar.Message = VTOL.Resources.Languages.Language.Page_Skins_OPEN_WEBPAGE_OpeningTheFollowingURL + URL;
-                    SnackBar.Title = "INFO";
+                    SnackBar.Title = VTOL.Resources.Languages.Language.INFO;
                     SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
                     SnackBar.Show();
                 });

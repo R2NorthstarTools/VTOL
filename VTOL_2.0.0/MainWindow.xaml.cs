@@ -251,7 +251,7 @@ namespace VTOL
                 else
                 {
                     failed_folder = true;
-                    Send_Danger_Notif("VTOL SYSTEMS FAILED TO FIND YOUR APPDATA FOLDER, LOCATE A SAVE DATA FOLDER", 10000);
+                    Send_Danger_Notif(VTOL.Resources.Languages.Language.VTOLSYSTEMSFAILEDTOFINDYOURAPPDATAFOLDERLOCATEASAVEDATAFOLDER, 10000);
                     var folderDlg = new Ookii.Dialogs.Wpf.VistaFolderBrowserDialog();
                     folderDlg.ShowNewFolderButton = true;
                     // Show the FolderBrowserDialog.  
@@ -267,14 +267,13 @@ namespace VTOL
                         {
                             Properties.Settings.Default.BACKUP_SAVE_DEST = path + @"\";
                             Properties.Settings.Default.Save();
-                            Send_Info_Notif("RESTARTING TO SET HARD VALUES");
+                            Send_Info_Notif(VTOL.Resources.Languages.Language.RESTARTINGTOSETHARDVALUES);
                             Restart();
                         }
                     }
 
 
 
-                    //Application.Current.Shutdown();
 
                 }
                 if (failed_folder == true)
@@ -328,7 +327,7 @@ namespace VTOL
                 else
                 {
 
-                    Send_Danger_Notif("Could Not Read User Settings, Please Run as Admin or Repair/Clean your Installation", 10000);
+                    Send_Danger_Notif(VTOL.Resources.Languages.Language.CouldNotReadUserSettingsPleaseRunAsAdminOrRepairCleanYourInstallation, 10000);
 
                 }//todo update tools
 
@@ -353,9 +352,8 @@ namespace VTOL
                     Admin_Label.Visibility = Visibility.Hidden;
 
                 }
-                //double dpiFactor = System.Windows.PresentationSource.FromVisual(this).CompositionTarget.TransformToDevice.M11;
-                UserInterfaceCustomScale(1.5);
-                Check_For_New_Update();
+               // UserInterfaceCustomScale(1.5);
+                Check_For_New_Update(true);
 
             }
 
@@ -580,7 +578,7 @@ namespace VTOL
         public void Send_Info_Notif(string Input_Message)
         {
             Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
-            Snackbar.Show("Info", Input_Message, Wpf.Ui.Common.SymbolRegular.Info24);
+            Snackbar.Show(VTOL.Resources.Languages.Language.INFO, Input_Message, Wpf.Ui.Common.SymbolRegular.Info24);
 
 
         }
@@ -787,8 +785,8 @@ true // Whether to change accents automatically
             {
                 DispatchIfNecessary(async () =>
                 {
-                    Snackbar.Message = "Opening the Following URL - " + URL;
-                    Snackbar.Title = "INFO";
+                    Snackbar.Message = VTOL.Resources.Languages.Language.Page_Skins_OPEN_WEBPAGE_OpeningTheFollowingURL + URL;
+                    Snackbar.Title = VTOL.Resources.Languages.Language.INFO;
                     Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
                     Snackbar.Show();
                 });
@@ -1053,7 +1051,7 @@ true // Whether to change accents automatically
             Restart();
 
         }
-      public  void Check_For_New_Update()
+      public  bool Check_For_New_Update(bool fastcheck_ = false)
         {
             try
             {
@@ -1062,31 +1060,62 @@ true // Whether to change accents automatically
                 AssemblyName name = new AssemblyName(thisApp.FullName);
                 Updater Update = new Updater("BigSpice", "VTOL");
 
+                if (fastcheck_) {
+                    string Header = Path.GetFullPath(Path.Combine(System.Reflection.Assembly.GetExecutingAssembly().Location, @"../"));
 
+                    string updaterModulePath = Path.Combine(Header, "VTOL_Updater.exe");
+
+                    if (File.Exists(updaterModulePath))
+                    {
+                        Process process = Process.Start(updaterModulePath, "/justcheck");
+                        process.WaitForExit();
+
+                        if (process.ExitCode == 0)
+                        {
+                            VTOL_UPDATE_BADGE.Visibility = Visibility.Visible;
+                            process.Close();
+                            Snackbar.Message = VTOL.Resources.Languages.Language.UpdateAvailablePleaseCheckAndDownloadTheLatestRelease;
+                            Snackbar.Title = VTOL.Resources.Languages.Language.APPLICATIONUPDATEISAVAILABLE;
+                            Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
+                            Snackbar.Timeout = 10000;
+                            Snackbar.Show();
+                            return true;
+
+                        }
+                        else
+                        {
+                            VTOL_UPDATE_BADGE.Visibility = Visibility.Hidden;
+                            process.Close();
+                            return false;
+
+                        }
+
+
+
+                    }
+                }
                 if (Update.CheckForUpdate())
                 {
                     VTOL_UPDATE_BADGE.Visibility = Visibility.Visible;
 
-                    Snackbar.Message = "Update Available!, Please Check and Download The latest portable release.";
-                    Snackbar.Title = "INFO";
+                    Snackbar.Message = VTOL.Resources.Languages.Language.UpdateAvailablePleaseCheckAndDownloadTheLatestRelease;
+                    Snackbar.Title = VTOL.Resources.Languages.Language.APPLICATIONUPDATEISAVAILABLE;
                     Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
+                    Snackbar.Timeout = 10000;
                     Snackbar.Show();
 
-
+                    return true;
 
                 }
                 else
                 {
                     VTOL_UPDATE_BADGE.Visibility = Visibility.Hidden;
 
-
-                    Snackbar.Message = "No Update Found";
-                    Snackbar.Title = "INFO";
-                    Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
-                    Snackbar.Show();
+                    return false;
+                   
                 }
 
-
+                return false;
 
 
             }
@@ -1096,6 +1125,7 @@ true // Whether to change accents automatically
 
             }
 
+            return false;
 
 
         }

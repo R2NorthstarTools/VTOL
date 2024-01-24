@@ -687,8 +687,8 @@ int millisecondsDelay = 150)
             {
                 DispatchIfNecessary(async () =>
                 {
-                    SnackBar.Message = "Opening the Following URL - " + URL;
-                    SnackBar.Title = "INFO";
+                    SnackBar.Message = VTOL.Resources.Languages.Language.Page_Skins_OPEN_WEBPAGE_OpeningTheFollowingURL + URL;
+                    SnackBar.Title = VTOL.Resources.Languages.Language.INFO;
                     SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
                     SnackBar.Show();
                 });
@@ -792,7 +792,7 @@ int millisecondsDelay = 150)
 
 
                         SnackBar.Appearance = ControlAppearance.Info;
-                        SnackBar.Title = "INFO";
+                        SnackBar.Title = VTOL.Resources.Languages.Language.INFO;
                         SnackBar.Message = VTOL.Resources.Languages.Language.PleaseWaitAsVTOLRestarts;
                         SnackBar.Show();
                     });
@@ -861,7 +861,7 @@ int millisecondsDelay = 150)
 
 
                 SnackBar.Appearance = ControlAppearance.Info;
-                SnackBar.Title = "INFO";
+                SnackBar.Title = VTOL.Resources.Languages.Language.INFO;
                 SnackBar.Message = VTOL.Resources.Languages.Language.PleaseWaitAsVTOLRestarts;
                 SnackBar.Show();
             });
@@ -1891,19 +1891,7 @@ int millisecondsDelay = 150)
             try
             {
                 FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(Current_Install_Folder + @"NorthstarLauncher.exe");
-                //if (myFileVersionInfo.FileVersion != null)
-                //{
-
-                //    if (myFileVersionInfo.FileVersion.Contains("rc") || myFileVersionInfo.FileVersion.Contains("EV"))
-                //    {
-                //        SnackBar.Message = VTOL.Resources.Languages.Language.Check_For_New_Northstar_Install_ReleaseCandidateDetected;
-                //        SnackBar.Title = "INFO";
-                //        SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
-                //        SnackBar.Show();
-                //        return;
-
-                //    }
-                //}
+               
                 Updater Update = new Updater(User_Settings_Vars.Author, User_Settings_Vars.Repo);
                 Update.Force_Version = User_Settings_Vars.CurrentVersion;
                 Update.Force_Version_ = true;
@@ -1911,7 +1899,7 @@ int millisecondsDelay = 150)
                 {
                     Update_Northstar_Button.Content = VTOL.Resources.Languages.Language.Page_Home_UpdateNorthstar;
                     SnackBar.Message = VTOL.Resources.Languages.Language.Page_Home_Check_For_New_Northstar_Install_With_Notif_ThereIsANewNorthstarVersionAvailablePleaseUpdateYourNorthstarInstall;
-                    SnackBar.Title = "INFO";
+                    SnackBar.Title = VTOL.Resources.Languages.Language.INFO;
                     SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
                     SnackBar.Timeout = 30000;
                     SnackBar.Show();
@@ -1992,33 +1980,9 @@ int millisecondsDelay = 150)
                 {
                     DispatchIfNecessary(async () =>
                 {
-                    string Header = Path.GetFullPath(Path.Combine(System.Reflection.Assembly.GetExecutingAssembly().Location, @"../"));
-
-
-
-                    updaterModulePath = Path.Combine(Header, "VTOL_Updater.exe");
-
+                   
                     Check_For_New_Northstar_Install_With_Notif();
-                    if (File.Exists(updaterModulePath))
-                    {
-                        Process process = Process.Start(updaterModulePath, "/justcheck");
-                        process.WaitForExit();
-
-                        if (process.ExitCode == 0)
-                        {
-                            Main.VTOL_UPDATE_BADGE.Visibility = Visibility.Visible;
-                            process.Close();
-                        }
-                        else
-                        {
-                            Main.VTOL_UPDATE_BADGE.Visibility = Visibility.Hidden;
-                            process.Close();
-
-                        }
-
-
-
-                    }
+                    Main.Check_For_New_Update(true);
                 });
                 }
             }
@@ -3301,7 +3265,7 @@ int millisecondsDelay = 150)
                     if (myFileVersionInfo.FileVersion.Contains("rc") || myFileVersionInfo.FileVersion.Contains("EV"))
                     {
                         SnackBar.Message = VTOL.Resources.Languages.Language.Check_For_New_Northstar_Install_ReleaseCandidateDetected;
-                        SnackBar.Title = "INFO";
+                        SnackBar.Title = VTOL.Resources.Languages.Language.INFO;
                         SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
                         SnackBar.Show();
                         return;
@@ -3316,7 +3280,7 @@ int millisecondsDelay = 150)
 
 
                         SnackBar.Message = VTOL.Resources.Languages.Language.Check_For_New_Northstar_Install_UpdateAvailableDownloadingAndInstallingNow;
-                        SnackBar.Title = "INFO";
+                        SnackBar.Title = VTOL.Resources.Languages.Language.INFO;
                         SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
                         SnackBar.Show();
                         if (!Current_Install_Folder.EndsWith(@"\"))

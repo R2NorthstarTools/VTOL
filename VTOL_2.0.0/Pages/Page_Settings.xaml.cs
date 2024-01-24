@@ -325,7 +325,7 @@ namespace VTOL.Pages
 
 
                 SnackBar.Appearance = ControlAppearance.Info;
-                SnackBar.Title = "INFO";
+                SnackBar.Title = VTOL.Resources.Languages.Language.INFO;
                 SnackBar.Message = VTOL.Resources.Languages.Language.PleaseWaitAsVTOLRestarts;
                 SnackBar.Show();
             });
@@ -344,8 +344,8 @@ namespace VTOL.Pages
 
 
                 SnackBar.Appearance = ControlAppearance.Info;
-                SnackBar.Title = "INFO";
-                SnackBar.Message = "VTOL RESTARTING IN ADMIN MODE";
+                SnackBar.Title = VTOL.Resources.Languages.Language.INFO;
+                SnackBar.Message = VTOL.Resources.Languages.Language.VTOLRESTARTINGINADMINMODE;
                 SnackBar.Show();
             });
 
@@ -378,8 +378,8 @@ namespace VTOL.Pages
 
 
                         SnackBar.Appearance = ControlAppearance.Info;
-                        SnackBar.Title = "INFO";
-                        SnackBar.Message = "CANCELLED PERMISSIONS";
+                        SnackBar.Title = VTOL.Resources.Languages.Language.INFO;
+                        SnackBar.Message = VTOL.Resources.Languages.Language.CANCELLEDPERMISSIONS;
                         SnackBar.Show();
                         Settings_.Restart_As_Admin = false;
                     });

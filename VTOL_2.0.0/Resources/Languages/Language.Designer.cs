@@ -61,11 +61,38 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to APPLICATION UPDATE IS AVAILABLE.
+        /// </summary>
+        public static string APPLICATIONUPDATEISAVAILABLE {
+            get {
+                return ResourceManager.GetString("APPLICATIONUPDATEISAVAILABLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are You Sure You Want To Delete The Mod - .
+        /// </summary>
+        public static string AreYouSureYouWantToDeleteTheMod {
+            get {
+                return ResourceManager.GetString("AreYouSureYouWantToDeleteTheMod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The Location - .
         /// </summary>
         public static string Browse_Titanfall_Button_Click_TheLocation {
             get {
                 return ResourceManager.GetString("Browse_Titanfall_Button_Click_TheLocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CANCELLED PERMISSIONS.
+        /// </summary>
+        public static string CANCELLEDPERMISSIONS {
+            get {
+                return ResourceManager.GetString("CANCELLEDPERMISSIONS", resourceCulture);
             }
         }
         
@@ -115,6 +142,24 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could Not Read User Settings, Please Run as Admin or Repair/Clean your Installation.
+        /// </summary>
+        public static string CouldNotReadUserSettingsPleaseRunAsAdminOrRepairCleanYourInstallation {
+            get {
+                return ResourceManager.GetString("CouldNotReadUserSettingsPleaseRunAsAdminOrRepairCleanYourInstallation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DELETE MOD.
+        /// </summary>
+        public static string DELETEMOD {
+            get {
+                return ResourceManager.GetString("DELETEMOD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to DEPENDENCY LIST.
         /// </summary>
         public static string DEPENDENCYLIST {
@@ -147,6 +192,15 @@ namespace VTOL.Resources.Languages {
         public static string HasBeenDeleted {
             get {
                 return ResourceManager.GetString("HasBeenDeleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to INFO.
+        /// </summary>
+        public static string INFO {
+            get {
+                return ResourceManager.GetString("INFO", resourceCulture);
             }
         }
         
@@ -1857,6 +1911,15 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Permanently?.
+        /// </summary>
+        public static string Permanently {
+            get {
+                return ResourceManager.GetString("Permanently", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please Wait as VTOL restarts!.
         /// </summary>
         public static string PleaseWaitAsVTOLRestarts {
@@ -1884,6 +1947,15 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to RESTARTING TO SET HARD VALUES.
+        /// </summary>
+        public static string RESTARTINGTOSETHARDVALUES {
+            get {
+                return ResourceManager.GetString("RESTARTINGTOSETHARDVALUES", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SUCCESS.
         /// </summary>
         public static string SUCCESS {
@@ -1898,6 +1970,15 @@ namespace VTOL.Resources.Languages {
         public static string TheModAt {
             get {
                 return ResourceManager.GetString("TheModAt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Mod Information File Cannot Be accessed or Found!.
+        /// </summary>
+        public static string TheModInformationFileCannotBeAccessedOrFound {
+            get {
+                return ResourceManager.GetString("TheModInformationFileCannotBeAccessedOrFound", resourceCulture);
             }
         }
         
@@ -1968,11 +2049,38 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Update Available!, Please Check and Download The latest release..
+        /// </summary>
+        public static string UpdateAvailablePleaseCheckAndDownloadTheLatestRelease {
+            get {
+                return ResourceManager.GetString("UpdateAvailablePleaseCheckAndDownloadTheLatestRelease", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to VERSION.
         /// </summary>
         public static string VERSION {
             get {
                 return ResourceManager.GetString("VERSION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to VTOL RESTARTING IN ADMIN MODE.
+        /// </summary>
+        public static string VTOLRESTARTINGINADMINMODE {
+            get {
+                return ResourceManager.GetString("VTOLRESTARTINGINADMINMODE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to VTOL SYSTEMS FAILED TO FIND YOUR APPDATA FOLDER, LOCATE A SAVE DATA FOLDER.
+        /// </summary>
+        public static string VTOLSYSTEMSFAILEDTOFINDYOURAPPDATAFOLDERLOCATEASAVEDATAFOLDER {
+            get {
+                return ResourceManager.GetString("VTOLSYSTEMSFAILEDTOFINDYOURAPPDATAFOLDERLOCATEASAVEDATAFOLDER", resourceCulture);
             }
         }
         

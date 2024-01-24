@@ -3892,7 +3892,7 @@ int millisecondsDelay = 300)
                         Main.Action_Center.Refresh();
 
                         Main.Snackbar.Message = "Download with the same URL is was already in progress or queued.";
-                        Main.Snackbar.Title = "INFO";
+                        Main.Snackbar.Title = VTOL.Resources.Languages.Language.INFO;
                         Main.Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
                         Main.Snackbar.Show();
                         await Task.Delay(2000);
@@ -4462,8 +4462,8 @@ int millisecondsDelay = 300)
                 {
                     DispatchIfNecessary(async () =>
                     {
-                        SnackBar.Message = "Opening the Following URL - " + URL;
-                        SnackBar.Title = "INFO";
+                        SnackBar.Message = VTOL.Resources.Languages.Language.Page_Skins_OPEN_WEBPAGE_OpeningTheFollowingURL + URL;
+                        SnackBar.Title = VTOL.Resources.Languages.Language.INFO;
                         SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
                         SnackBar.Show();
                     });
