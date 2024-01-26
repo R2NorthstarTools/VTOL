@@ -795,4 +795,34 @@
   <data name="DownloadWithTheSameURLIsWasAlreadyInProgressOrQueued" xml:space="preserve">
     <value>Download with the same URL is was already in progress or queued.</value>
   </data>
+  <data name="DownloadingFromThunderStore" xml:space="preserve">
+    <value>Downloading From ThunderStore</value>
+  </data>
+  <data name="HasNotBeenInstalledOnYourDevice" xml:space="preserve">
+    <value> has not been installed on your device.</value>
+  </data>
+  <data name="PleaseChooseToInstallThisPluginOntoYourDevice" xml:space="preserve">
+    <value>Please Choose to Install this Plugin onto your device.</value>
+  </data>
+  <data name="DoBeWarnedThatPluginsCanAffectYourDeviceIn" xml:space="preserve">
+    <value>Do be warned that plugins can affect your device in,</value>
+  </data>
+  <data name="UnintendedWays" xml:space="preserve">
+    <value>unintended ways. </value>
+  </data>
+  <data name="PleaseEnusreYouTrustThisMod" xml:space="preserve">
+    <value>please enusre you trust this mod.</value>
+  </data>
+  <data name="PLUGINDETECTED" xml:space="preserve">
+    <value>PLUGIN DETECTED</value>
+  </data>
+  <data name="ThePlugin" xml:space="preserve">
+    <value> "The Plugin </value>
+  </data>
+  <data name="HasBeenRemovedAndCleanedFromYourDevice" xml:space="preserve">
+    <value>has been removed and cleaned from your device.</value>
+  </data>
+  <data name="TheMod" xml:space="preserve">
+    <value>The Mod </value>
+  </data>
 </root>

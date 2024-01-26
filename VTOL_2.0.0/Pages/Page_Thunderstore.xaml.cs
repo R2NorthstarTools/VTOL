@@ -3340,9 +3340,9 @@ int millisecondsDelay = 300)
                         {
                             Wpf.Ui.Controls.MessageBox Mesagebox = new Wpf.Ui.Controls.MessageBox();
 
-                            Mesagebox.Title = "PLUGIN DETECTED";
+                            Mesagebox.Title = VTOL.Resources.Languages.Language.PLUGINDETECTED;
 
-                            Mesagebox.Content = "Please Choose to Install this Plugin onto your device.\nDo be warned that plugins can affect your device in, \nunintended ways. \nplease enusre you trust this mod.";
+                            Mesagebox.Content = VTOL.Resources.Languages.Language.PleaseChooseToInstallThisPluginOntoYourDevice+"\n"+VTOL.Resources.Languages.Language.DoBeWarnedThatPluginsCanAffectYourDeviceIn+"\n"+ VTOL.Resources.Languages.Language.UnintendedWays+"\n"+VTOL.Resources.Languages.Language.PleaseEnusreYouTrustThisMod;
                             Mesagebox.ButtonLeftName = "Install";
                             Mesagebox.ButtonRightName = "Delete";
                             Mesagebox.ButtonLeftAppearance = Wpf.Ui.Common.ControlAppearance.Success;
@@ -3368,7 +3368,7 @@ int millisecondsDelay = 300)
                                     SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
                                     SnackBar.Timeout = 10000;
                                     SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Danger;
-                                    SnackBar.Message = "The Plugin " + Path.GetFileNameWithoutExtension(Target_Zip).Replace("_", " ") + " has not been installed on your device.";
+                                    SnackBar.Message =VTOL.Resources.Languages.Language.ThePlugin + Path.GetFileNameWithoutExtension(Target_Zip).Replace("_", " ") + VTOL.Resources.Languages.Language.HasNotBeenInstalledOnYourDevice;
                                     SnackBar.Show();
                                     return;
 
@@ -3399,15 +3399,12 @@ int millisecondsDelay = 300)
 
                                     if (manidata.SelectToken("namespace") == null)
                                     {
-                                        // Create a new JObject for the namespace
-                                        Console.WriteLine("Namespace not found - Inserting : " + namespace_.ToString());
-                                        //  namespaceObject[namespace__] = namespace_;
+                                      
                                         manidata["namespace"] = namespace_;
 
 
                                         File.WriteAllText(manifest_json, manidata.ToString());
 
-                                        Console.WriteLine("File updated and saved.");
                                     }
 
 
@@ -3423,7 +3420,7 @@ int millisecondsDelay = 300)
                                 SnackBar.Title = VTOL.Resources.Languages.Language.SUCCESS;
                                 SnackBar.Timeout = 10000;
                                 SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
-                                SnackBar.Message = "The Plugin " + Path.GetFileNameWithoutExtension(Target_Zip).Replace("_", " ") + VTOL.Resources.Languages.Language.Page_Thunderstore_Unpack_To_Location_Custom_HasBeenDownloadedAndInstalled;
+                                SnackBar.Message =VTOL.Resources.Languages.Language.ThePlugin + Path.GetFileNameWithoutExtension(Target_Zip).Replace("_", " ") + VTOL.Resources.Languages.Language.Page_Thunderstore_Unpack_To_Location_Custom_HasBeenDownloadedAndInstalled;
                                 SnackBar.Show();
 
                                 Mesagebox.Close();
@@ -3447,7 +3444,7 @@ int millisecondsDelay = 300)
                                 SnackBar.Title = VTOL.Resources.Languages.Language.CAUTION;
                                 SnackBar.Timeout = 10000;
                                 SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Caution;
-                                SnackBar.Message = "The Plugin " + Path.GetFileNameWithoutExtension(Target_Zip).Replace("_", " ") + "has been removed and cleaned from your device.";
+                                SnackBar.Message = VTOL.Resources.Languages.Language.ThePlugin + Path.GetFileNameWithoutExtension(Target_Zip).Replace("_", " ") + VTOL.Resources.Languages.Language.HasBeenRemovedAndCleanedFromYourDevice;
                                 SnackBar.Show();
 
                                 Mesagebox.Close();
@@ -3981,7 +3978,7 @@ int millisecondsDelay = 300)
 
                         _myClass.Action_Center.Add(new Action_Card
                         {
-                            Action = "Downloading From ThunderStore",
+                            Action = VTOL.Resources.Languages.Language.DownloadingFromThunderStore,
                             Name = name,
                             Description = item.DestinationPath,
                             Progress = 0,

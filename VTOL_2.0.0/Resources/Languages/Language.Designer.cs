@@ -178,6 +178,24 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do be warned that plugins can affect your device in,.
+        /// </summary>
+        public static string DoBeWarnedThatPluginsCanAffectYourDeviceIn {
+            get {
+                return ResourceManager.GetString("DoBeWarnedThatPluginsCanAffectYourDeviceIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Downloading From ThunderStore.
+        /// </summary>
+        public static string DownloadingFromThunderStore {
+            get {
+                return ResourceManager.GetString("DownloadingFromThunderStore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Download with the same URL is was already in progress or queued..
         /// </summary>
         public static string DownloadWithTheSameURLIsWasAlreadyInProgressOrQueued {
@@ -201,6 +219,24 @@ namespace VTOL.Resources.Languages {
         public static string HasBeenDeleted {
             get {
                 return ResourceManager.GetString("HasBeenDeleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to has been removed and cleaned from your device..
+        /// </summary>
+        public static string HasBeenRemovedAndCleanedFromYourDevice {
+            get {
+                return ResourceManager.GetString("HasBeenRemovedAndCleanedFromYourDevice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  has not been installed on your device..
+        /// </summary>
+        public static string HasNotBeenInstalledOnYourDevice {
+            get {
+                return ResourceManager.GetString("HasNotBeenInstalledOnYourDevice", resourceCulture);
             }
         }
         
@@ -1929,11 +1965,38 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please Choose to Install this Plugin onto your device..
+        /// </summary>
+        public static string PleaseChooseToInstallThisPluginOntoYourDevice {
+            get {
+                return ResourceManager.GetString("PleaseChooseToInstallThisPluginOntoYourDevice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to please enusre you trust this mod..
+        /// </summary>
+        public static string PleaseEnusreYouTrustThisMod {
+            get {
+                return ResourceManager.GetString("PleaseEnusreYouTrustThisMod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please Wait as VTOL restarts!.
         /// </summary>
         public static string PleaseWaitAsVTOLRestarts {
             get {
                 return ResourceManager.GetString("PleaseWaitAsVTOLRestarts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PLUGIN DETECTED.
+        /// </summary>
+        public static string PLUGINDETECTED {
+            get {
+                return ResourceManager.GetString("PLUGINDETECTED", resourceCulture);
             }
         }
         
@@ -1970,6 +2033,15 @@ namespace VTOL.Resources.Languages {
         public static string SUCCESS {
             get {
                 return ResourceManager.GetString("SUCCESS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Mod .
+        /// </summary>
+        public static string TheMod {
+            get {
+                return ResourceManager.GetString("TheMod", resourceCulture);
             }
         }
         
@@ -2022,11 +2094,29 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to  &quot;The Plugin .
+        /// </summary>
+        public static string ThePlugin {
+            get {
+                return ResourceManager.GetString("ThePlugin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Thunderstore Mod Count.
         /// </summary>
         public static string ThunderstoreModCount {
             get {
                 return ResourceManager.GetString("ThunderstoreModCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to unintended ways. .
+        /// </summary>
+        public static string UnintendedWays {
+            get {
+                return ResourceManager.GetString("UnintendedWays", resourceCulture);
             }
         }
         
