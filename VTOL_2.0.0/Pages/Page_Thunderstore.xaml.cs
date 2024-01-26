@@ -1213,7 +1213,6 @@ int millisecondsDelay = 150)
                             Thunderstore_List.Items.Clear();
                             Thread t = new Thread(new ParameterizedThreadStart(SomeWorkerThread));
                             t.Start();
-                            GC.Collect();
 
 
                         });
@@ -3037,7 +3036,6 @@ int millisecondsDelay = 300)
 
                             }
                             Main.loaded_mods = true;
-                            GC.Collect();
 
                         }
 
