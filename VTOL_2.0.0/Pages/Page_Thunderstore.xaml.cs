@@ -1999,13 +1999,13 @@ int millisecondsDelay = 150)
                                     description = Descrtiption, 
                                     owner = updater.Owner, 
                                     Rating = rating, 
-                                    download_url = download_url + "|" + MOD_Name + "-" + versions.First().VersionNumber + "|" + Tags + "|" + Dependencies_ +"|" + Split_Name[0],
+                                    download_url = download_url + "|" + versions.First().FullName  + "|" + Tags + "|" + Dependencies_ +"|" + Split_Name[0],
                                     Webpage = updater.PackageUrl, 
                                     File_Size = FileSize, 
                                     Tag = Tags, 
                                     Downloads = downloads, 
                                     Dependencies = Dependencies_, 
-                                    FullName = updater.FullName, 
+                                    FullName = versions.First().FullName, 
                                     raw_size = raw_size, 
                                     Update_data = MOD_Name + "|" + versions.First().VersionNumber, Button_label = label, 
                                     Button_Color = bg_color, is_Favourite_ = is_favourite });
@@ -2079,13 +2079,13 @@ int millisecondsDelay = 150)
                                     description = Descrtiption, 
                                     owner = updater.Owner,
                                     Rating = rating,
-                                    download_url = download_url + "|" + MOD_Name + "-" + versions.First().VersionNumber + "|" + Tags + "|" + Dependencies_ + "|" + Split_Name[0], 
+                                    download_url = download_url + "|" + versions.First().FullName  + "|" + Tags + "|" + Dependencies_ + "|" + Split_Name[0], 
                                     Webpage = updater.PackageUrl, 
                                     File_Size = FileSize,
                                     Tag = Tags, 
                                     Downloads = downloads,
                                     Dependencies = Dependencies_,
-                                    FullName = updater.FullName, 
+                                    FullName = versions.First().FullName, 
                                     raw_size = raw_size,
                                     Update_data = MOD_Name + "|" + versions.First().VersionNumber,
                                     Button_label = label, 
@@ -2198,13 +2198,13 @@ int millisecondsDelay = 150)
                                 description = Descrtiption, 
                                 owner = updater.Owner, 
                                 Rating = rating, 
-                                download_url = download_url + "|" + MOD_Name + "-" + versions.First().VersionNumber + "|" + Tags + "|" + Dependencies_ + "|" + Split_Name[0], 
+                                download_url = download_url + "|" + versions.First().FullName  + "|" + Tags + "|" + Dependencies_ + "|" + Split_Name[0], 
                                 Webpage = updater.PackageUrl, 
                                 File_Size = FileSize, 
                                 Tag = Tags, 
                                 Downloads = downloads, 
                                 Dependencies = Dependencies_,
-                                FullName = updater.FullName, 
+                                FullName = versions.First().FullName, 
                                 raw_size = raw_size, 
                                 Update_data = MOD_Name + "|" + versions.First().VersionNumber, 
                                 Button_label = label, 
@@ -2311,13 +2311,13 @@ int millisecondsDelay = 150)
                                 description = Descrtiption, 
                                 owner = updater.Owner, 
                                 Rating = rating, 
-                                download_url = download_url + "|" + MOD_Name + "-" + versions.First().VersionNumber + "|" + Tags + "|" + Dependencies_ + "|" + Split_Name[0], 
+                                download_url = download_url + "|" + versions.First().FullName + "|" + Tags + "|" + Dependencies_ + "|" + Split_Name[0], 
                                 Webpage = updater.PackageUrl, 
                                 File_Size = FileSize,
                                 Tag = Tags, 
                                 Downloads = downloads, 
                                 Dependencies = Dependencies_,
-                                FullName = updater.FullName, 
+                                FullName = versions.First().FullName, 
                                 raw_size = raw_size,
                                 Update_data = MOD_Name + "|" + versions.First().VersionNumber, 
                                 Button_label = label,
@@ -2553,7 +2553,7 @@ int millisecondsDelay = 150)
 
 
         }
-        async Task Download_Zip_To_Path(string url, string path, ProgressBar Progress_Bar = null, bool Plugin_Install = false, bool NS_CANDIDATE_INSTALL = false, CancellationToken cancellationToken = default)
+        async Task Download_Zip_To_Path(string url, string path, ProgressBar Progress_Bar = null, bool Plugin_Install = false, bool NS_CANDIDATE_INSTALL = false, CancellationToken cancellationToken = default, DownloadQueueItem item_ = null)
         {
             await Task.Run(() =>
             {//Regex.Replace(item, @"(\d+\.)(\d+\.)(\d)", "").TrimEnd('-')
@@ -2569,15 +2569,23 @@ int millisecondsDelay = 150)
 
 
                         string[] words = url.Split("|");
-                        string[] separatedname = words[1].Split("-");
+                        IDownload downloader = null;
+                        string[] separatedname = null;
+                        if (words.Length < 2)
+                        {
+                            return;
+                        }
 
-                        IDownload downloader = DownloadBuilder.New()
-        .WithUrl(words[0])
-        .WithDirectory(path)
-        .WithFileName(words[4] + "-" + separatedname[0] + ".zip")
-        .WithConfiguration(new DownloadConfiguration())
+                             downloader = DownloadBuilder.New()
+           .WithUrl(words[0])
+           .WithDirectory(path)
+           .WithFileName(item_.Name + ".zip")
+           .WithConfiguration(new DownloadConfiguration())
 
-        .Build();
+           .Build();
+
+                        
+                        
 
                         if (Progress_Bar != null)
                         {
@@ -2607,9 +2615,8 @@ int millisecondsDelay = 150)
 
                         downloader.DownloadFileCompleted += delegate (object sender4, AsyncCompletedEventArgs e4)
                         {
-                            string MODName = words[4] + "-" + words[1];
 
-                            downloader_DownloadCompleted(sender4, e4, Progress_Bar, MODName, words[4], Destinfo.FullName + @"NS_Downloaded_Mods\" + words[4] + "-" + separatedname[0]+ ".zip", Plugin_Install, NS_CANDIDATE_INSTALL);
+                            downloader_DownloadCompleted(sender4, e4, Progress_Bar, item_.Name, item_.Namespace, Destinfo.FullName + @"NS_Downloaded_Mods\" + item_.Name+ ".zip", Plugin_Install, NS_CANDIDATE_INSTALL);
                         };
                         downloader.StartAsync();
                         if (cancellationToken.IsCancellationRequested)
@@ -2648,6 +2655,12 @@ int millisecondsDelay = 150)
             else
                 action.Invoke();
         }
+        public class L_INFO
+        {
+           public string name;
+            public string url;
+
+        }
         void Dependency_Download(string Dependencies_To_Find_And_Download, ProgressBar Progress_Bar = null)
         {
             try
@@ -2655,7 +2668,7 @@ int millisecondsDelay = 150)
 
                 List<string> Mods = new List<string>();
                 Mods = Dependencies_To_Find_And_Download?.Split("\n").ToList();
-                List<string> Links = new List<string>();
+                List<L_INFO> Links = new List<L_INFO>();
 
                 foreach (var x in Mods)
                 {
@@ -2664,31 +2677,40 @@ int millisecondsDelay = 150)
 
                     if (Is_Valid_URl(URL))
                     {
-                        Links.Add(URL);
+                        Links.Add(new L_INFO { name = x, url = URL });
 
 
 
                     }
 
-                }//updated dependecies
-
-                var queue = new SerialQueue();
-
+                }
+                //updated dependecies
 
 
+                Progress_Bar = new ProgressBar();
+                string[] names = Dependencies_To_Find_And_Download.Split(@"\");
 
-
-                queue.Enqueue(async () =>
+                foreach (var y in Links)
                 {
-                    foreach (var y in Links)
-                    {
-                       
-                        await Download_Zip_To_Path(y, User_Settings_Vars.NorthstarInstallLocation + @"NS_Downloaded_Mods", Progress_Bar);
-                        Thread.Sleep(2500);
+                    string namespace_ = y.name.Split("-")[0];
+
+                    var item = new DownloadQueueItem
+                        {
+                            Name = y.name,
+                            DownloadUrl = y.url,
+                            DestinationPath = User_Settings_Vars.NorthstarInstallLocation + @"NS_Downloaded_Mods",
+                            Extract = false,
+                            IsNorthstarRelease = false,
+                            Progress = Progress_Bar,
+                            Namespace = namespace_
+
+                        };
+                         Main._downloadQueue.Enqueue(item);
+                      //  await Download_Zip_To_Path(y, User_Settings_Vars.NorthstarInstallLocation + @"NS_Downloaded_Mods", Progress_Bar);
                     }
 
-                });
-
+         
+               
 
 
 
@@ -3539,7 +3561,7 @@ int millisecondsDelay = 300)
                                 SnackBar.Title = VTOL.Resources.Languages.Language.SUCCESS;
                                 SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
                                 SnackBar.Message = "The Mod " + Path.GetFileNameWithoutExtension(Target_Zip).Replace("_", " ") + VTOL.Resources.Languages.Language.Page_Thunderstore_Unpack_To_Location_Custom_HasBeenDownloadedAndInstalled;
-                                SnackBar.Show();
+                                SnackBar.ShowAsync();
 
 
                             });
@@ -3743,7 +3765,7 @@ int millisecondsDelay = 300)
                                     temp_ = Path.GetFileNameWithoutExtension(Target_Zip).Replace("_", " ") + VTOL.Resources.Languages.Language.Page_Thunderstore_Unpack_To_Location_Custom_HasBeenDownloadedAndInstalled;
                                 }
                                 SnackBar.Message = temp_;
-                                SnackBar.Show();
+                                SnackBar.ShowAsync();
 
 
                             });
@@ -3891,10 +3913,10 @@ int millisecondsDelay = 300)
                         _queue_List_Clear.RemoveAll(item => item.Name.ToLower().Contains(item.Name.ToLower()));
                         Main.Action_Center.Refresh();
 
-                        Main.Snackbar.Message = "Download with the same URL is was already in progress or queued.";
+                        Main.Snackbar.Message = VTOL.Resources.Languages.Language.DownloadWithTheSameURLIsWasAlreadyInProgressOrQueued;
                         Main.Snackbar.Title = VTOL.Resources.Languages.Language.INFO;
                         Main.Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
-                        Main.Snackbar.Show();
+                        Main.Snackbar.ShowAsync();
                         await Task.Delay(2000);
                     });
                 }
@@ -3941,15 +3963,16 @@ int millisecondsDelay = 300)
             {
                 try
                 {
-                    string name = "";
+                    string name = item.Name;
                     string URl = "";
 
                     string[] parts = item.DownloadUrl.Split('|');
-                    if (parts.Length >= 2) // check if there are at least two parts
+                    if (parts.Length >= 2)
                     {
                         URl = parts[0];
-                        name = parts[4] + "-"+parts[1]; // get the second last item
+
                     }
+                    
                     Main.DispatchIfNecessary(() =>
                     {
                         Main.Action_Center.ItemsSource = null;
@@ -3969,8 +3992,8 @@ int millisecondsDelay = 300)
                         Main.Action_Center.ItemsSource = _myClass.Action_Center;
                         Main.Action_Center.Refresh();
                     });
-                    await Task.Run(() => _myClass.Download_Zip_To_Path(item.DownloadUrl, item.DestinationPath, item.Progress, item.Extract, item.IsNorthstarRelease, cancellationToken));
-
+                    await Task.Run(() => _myClass.Download_Zip_To_Path(item.DownloadUrl, item.DestinationPath, item.Progress, item.Extract, item.IsNorthstarRelease, cancellationToken,item));
+                    Thread.Sleep(200);
 
                 }
                 catch (Exception ex)
@@ -4006,47 +4029,21 @@ int millisecondsDelay = 300)
                         {
                             _inProgress.RemoveWhere(i =>
                             {
-                                string name__ = "";
+                                return i.ToLower().Contains(name.ToLower());
 
-                                string[] parts = i.Split('|');
-                                if (parts.Length >= 2)
-                                {
-
-                                    name__ = parts[4] + "-" + parts[1];
-                                }
-
-
-                                return mod.Name.ToLower().Contains(name__.ToLower());
 
                             });
                             _queue.RemoveAll(i =>
                             {
-                                string name__ = "";
+                                return i.Name.ToLower().Contains(name.ToLower());
 
-                                string[] parts = i.DownloadUrl.Split('|');
-                                if (parts.Length >= 2)
-                                {
-
-                                    name__ = parts[4] + "-" + parts[1];
-                                }
-
-
-                                return name__.ToLower().Contains(name.ToLower());
 
                             }); 
                             _queue_List_Clear.RemoveAll(i =>
                             {
-                                string name__ = "";
 
-                                string[] parts = i.DownloadUrl.Split('|');
-                                if (parts.Length >= 2)
-                                {
+                                return i.Name.ToLower().Contains(name.ToLower());
 
-                                    name__ = parts[4] + "-" + parts[1];
-                                }
-
-
-                                return name__.ToLower().Contains(name.ToLower());
 
                             });
 
@@ -4058,14 +4055,9 @@ int millisecondsDelay = 300)
 
                     var item = _queue_List_Clear.FirstOrDefault(i =>
                     {
+                        return i.Name.ToLower().Contains(name.ToLower());
 
-                        string[] parts = i.DownloadUrl.Split('|');
-                        if (parts.Length >= 2) 
-                        {
 
-                            name__ = parts[4] + "-" + parts[1]; 
-                        }
-                        return name__.ToLower().Contains(name.ToLower());
                 });//todo fix clear
 
                     if (item != null)
@@ -4143,12 +4135,14 @@ int millisecondsDelay = 300)
                 {
                     name = parts[1]; // get the second last item
                 }
-                Console.WriteLine(Button.Tag.ToString());
+                 Console.WriteLine(Button.Tag.ToString());
 
                 DispatchIfNecessary(async () =>
                 {
                     if (parts[0].Contains("http") || parts[0].Contains("https"))
                     {
+                        string namespace_ =name.Split("-")[0];
+
                         var item = new DownloadQueueItem
                         {
                             Name = name,
@@ -4156,7 +4150,8 @@ int millisecondsDelay = 300)
                             DestinationPath = User_Settings_Vars.NorthstarInstallLocation + @"NS_Downloaded_Mods",
                             Extract = false,
                             IsNorthstarRelease = Button.Tag.ToString().Contains("Northstar Release Candidate") || Button.Tag.ToString().Contains("NorthstarReleaseCandidate") || (Button.Tag.ToString().Contains("Northstar") && Button.ToolTip.ToString().Count() < 5),
-                            Progress = Progress_Bar
+                            Progress = Progress_Bar,
+                            Namespace = namespace_
 
                         };
                         Main._downloadQueue.Enqueue(item);

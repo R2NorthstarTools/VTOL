@@ -792,4 +792,7 @@
   <data name="TheModInformationFileCannotBeAccessedOrFound" xml:space="preserve">
     <value>The Mod Information File Cannot Be accessed or Found!</value>
   </data>
+  <data name="DownloadWithTheSameURLIsWasAlreadyInProgressOrQueued" xml:space="preserve">
+    <value>Download with the same URL is was already in progress or queued.</value>
+  </data>
 </root>

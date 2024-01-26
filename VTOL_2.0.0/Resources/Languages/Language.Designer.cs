@@ -178,6 +178,15 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Download with the same URL is was already in progress or queued..
+        /// </summary>
+        public static string DownloadWithTheSameURLIsWasAlreadyInProgressOrQueued {
+            get {
+                return ResourceManager.GetString("DownloadWithTheSameURLIsWasAlreadyInProgressOrQueued", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to  ERROR.
         /// </summary>
         public static string ERROR {
