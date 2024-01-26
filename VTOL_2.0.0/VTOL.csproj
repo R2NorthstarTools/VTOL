@@ -22,7 +22,7 @@
 	  <PackageTags>mod;installer;modmanager;northstar-client;titanfall2</PackageTags>
 	  <AssemblyVersion>3.0.4</AssemblyVersion>
 	  <FileVersion>3.0.4</FileVersion>
-	  <Version>3.0.3</Version>
+	  <Version>3.0.4</Version>
 	  <EnableNETAnalyzers>False</EnableNETAnalyzers>
 	  <ErrorReport>none</ErrorReport>
 	  <Title>VTOL</Title>

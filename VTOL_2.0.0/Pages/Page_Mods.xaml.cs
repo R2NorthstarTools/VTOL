@@ -164,18 +164,8 @@ namespace VTOL.Pages
             InitializeComponent();
             User_Settings_Vars = Main.User_Settings_Vars;
             Snackbar = Main.Snackbar;
-
-            BackgroundWorker worker = new BackgroundWorker();
-            worker.DoWork += (sender, e) =>
-            {
-                //  Call_Mods_From_Folder();
-                Check_Reverse(false);
-
-
-
-            };
-
-            worker.RunWorkerAsync();
+           
+          
 
 
 
@@ -576,10 +566,7 @@ namespace VTOL.Pages
                                         }
                                         catch (Exception ex)
                                         {
-                                            Console.WriteLine(ex);
-
-                                            Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-
+                                           
                                         }
                                     }
                                     Main.loaded_mods = true;
@@ -604,7 +591,6 @@ namespace VTOL.Pages
             }
             catch (Exception ex)
             {
-                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
             }
 
 
@@ -932,29 +918,26 @@ int millisecondsDelay = 300)
             try
             {
                 Mod_List_Box.ItemsSource = null;
+                _Completed_Mod_call = true;
+                var sorted = Keep_List_State(false, Reverse_);
+                Mod_List_Box.ItemsSource = sorted;
+                _Completed_Mod_call = true;
 
                 if (Search_Bar_Suggest_Mods.Text.Trim() != "" && Search_Bar_Suggest_Mods.Text.Trim() != "~Search")
                 {
-                    var sorted = Keep_List_State(true, Reverse_);
-                    Mod_List_Box.ItemsSource = sorted;
-                    _Completed_Mod_call = true;
-                }
-                else
-                {
-
-                    var sorted = Keep_List_State(false, Reverse_);
-                    Mod_List_Box.ItemsSource = sorted;
-
-                    _Completed_Mod_call = true;
-
+                     sorted = Keep_List_State(true, Reverse_);
 
                 }
-
                 Mod_List_Box.Refresh();
+
+
+
+
+
+
             }
             catch (Exception ex)
             {
-                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
             }
         }
@@ -2108,23 +2091,18 @@ int millisecondsDelay = 300)
                 }
 
                 string delete_mod_path = Dialog.Tag.ToString();
-                if (!Directory.Exists(temp_Dir))
+                if (Directory.Exists(temp_Dir))
                 {
-                    Dialog.Hide();
 
-                    //Send_Success_Notif("Successfully Deleted - " + Mod);
-                    Call_Mods_From_Folder();
-                }
-                else
-                {
                     TryDeleteDirectory(temp_Dir, true);
 
-                    Dialog.Hide();
-
-                    //Send_Error_Notif("Could not Delete! - " + Mod);
-                    Call_Mods_From_Folder();
-
                 }
+
+
+                Dialog.Hide();
+
+                Call_Mods_From_Folder();
+
                 temp_Dir = null;
             }
             catch (Exception ex)
@@ -2266,16 +2244,7 @@ int millisecondsDelay = 300)
 
         private void Mod_Grid_Loaded(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                Call_Mods_From_Folder();
-            }
-            catch (Exception ex)
-            {
-
-                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-
-            }
+            
         }
 
         private void Mod_Grid_Unloaded(object sender, RoutedEventArgs e)
@@ -2748,6 +2717,38 @@ int millisecondsDelay = 150)
         private void INFO_VERSION_MOD_SET_LayoutUpdated(object sender, EventArgs e)
         {
 
+        }
+
+        private void Page_Initialized(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                BackgroundWorker worker = new BackgroundWorker();
+                worker.DoWork += (sender, e) =>
+                {
+
+
+
+                    Call_Mods_From_Folder();
+
+                    Check_Reverse(false);
+                    GC.Collect();
+
+
+                };
+
+                worker.RunWorkerAsync();
+
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
     }
 }

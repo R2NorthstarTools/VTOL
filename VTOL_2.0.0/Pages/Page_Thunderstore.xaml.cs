@@ -677,20 +677,20 @@ int millisecondsDelay = 150)
             {
 
                 CookFaveMods();
-                if (Main.loaded_mods == false) { 
-                Call_Mods_From_Folder_Lite();
-            }
+                if (Main.loaded_mods == false) {
+                    Call_Mods_From_Folder_Lite();
+                }
                 Call_Ts_Mods();
-               
+
 
             };
             worker.RunWorkerCompleted += (sender, eventArgs) =>
             {
                 DispatchIfNecessary(async () =>
                 {
-                    if(_updater != null)
+                    if (_updater != null)
                     {
-                        Couunter_Mods.Content = VTOL.Resources.Languages.Language.ThunderstoreModCount +":"+ _updater.Thunderstore.Count().ToString();
+                        Couunter_Mods.Content = VTOL.Resources.Languages.Language.ThunderstoreModCount + ":" + _updater.Thunderstore.Count().ToString();
 
                     }
 
@@ -1117,7 +1117,7 @@ int millisecondsDelay = 150)
         {
             DispatchIfNecessary(async () =>
             {
-                
+
                 Search_Bar_Suggest_Mods.IsReadOnly = false;
 
                 Sort.SelectedIndex = -1;
@@ -1138,8 +1138,8 @@ int millisecondsDelay = 150)
                 // Search_Bar_Suggest_Mods.IconForeground = (SolidColorBrush)new BrushConverter().ConvertFrom("#34FFFFFF");
             });
         }
-        string old_text="";
-        
+        string old_text = "";
+
         private void Grid_MouseLeave(object sender, MouseEventArgs e)
         {
             DispatchIfNecessary(async () =>
@@ -1177,20 +1177,19 @@ int millisecondsDelay = 150)
             });
         }
 
-       
+
 
 
         protected void SomeWorkerThread(object o)
         {
-         
-            DispatchIfNecessary(async () =>
+
+
+            foreach (var TS_MOD in _updater.Thunderstore)
             {
-                foreach (var TS_MOD in _updater.Thunderstore)
-                {
-                    AsyncLoadListViewItem(TS_MOD, false, "#");
-                }
-            });
-         
+                AsyncLoadListViewItem(TS_MOD, false, "#");
+            }
+
+
         }
         public async Task Call_Ts_Mods()
         {
@@ -1204,8 +1203,8 @@ int millisecondsDelay = 150)
                 List<Grid_> List = null;
                 _updater = new Updater("https://northstar.thunderstore.io/api/v1/package/");
 
-                    _updater.Download_Cutom_JSON();
-                    if (_updater.Thunderstore != null)
+                _updater.Download_Cutom_JSON();
+                if (_updater.Thunderstore != null)
                 {
                     if (_updater.Thunderstore.Count() > 0)
                     {
@@ -1214,18 +1213,18 @@ int millisecondsDelay = 150)
                             Thunderstore_List.Items.Clear();
                             Thread t = new Thread(new ParameterizedThreadStart(SomeWorkerThread));
                             t.Start();
+                            GC.Collect();
 
 
                         });
 
 
                     }
-                   
+
                 }
 
 
                 init = true;
-                GC.Collect();
 
 
 
@@ -1246,7 +1245,7 @@ int millisecondsDelay = 150)
             // part of version
 
             int vnum1 = 0, vnum2 = 0;
-            if(v1 == null || v2 == null) { return 3; }
+            if (v1 == null || v2 == null) { return 3; }
             // loop until both string are
             // processed
 
@@ -1426,7 +1425,7 @@ int millisecondsDelay = 150)
 
                 if (Sort.SelectedItem != null)
                 {
-                  //  Thunderstore_List.ItemsSource = null;
+                    //  Thunderstore_List.ItemsSource = null;
 
                     BackgroundWorker worker = new BackgroundWorker();
                     worker.DoWork += (sender, e) =>
@@ -1454,7 +1453,7 @@ int millisecondsDelay = 150)
                     worker.RunWorkerCompleted += (sender, eventArgs) =>
                     {
 
-                      //  Thunderstore_List.Items.Refresh();
+                        //  Thunderstore_List.Items.Refresh();
 
 
                     };
@@ -1768,15 +1767,15 @@ int millisecondsDelay = 150)
 
                             break;
                         case "...":
-                             Main.Page_reset_ = true;
+                            Main.Page_reset_ = true;
 
                             break;
                         default:
-                            List = itemsList; 
+                            List = itemsList;
                             break;
 
 
-                    }                
+                    }
 
                 }
                 else
@@ -1833,7 +1832,7 @@ int millisecondsDelay = 150)
                         default:
                             List = itemsList;
                             break;
-                    }                
+                    }
                 }
             }
             DispatchIfNecessary(async () =>
@@ -1876,7 +1875,7 @@ int millisecondsDelay = 150)
             string Update_data = "";
             string Button_label = "";
             string MOD_Name = "";
-            
+
             if (updater.FullName.Contains("r2modman"))
             {
                 return;
@@ -1901,7 +1900,7 @@ int millisecondsDelay = 150)
                 return;
             }
 
-                foreach (var items in versions)
+            foreach (var items in versions)
             {
 
                 Downloads.Add(Convert.ToInt32(items.Downloads));
@@ -1918,7 +1917,7 @@ int millisecondsDelay = 150)
 
                 if (updater.Categories.Select(x => x).Intersect(Current_Mod_Filter_Tags).Any())
                 {
-                    if (Search_ == true && SearchQuery !="#")
+                    if (Search_ == true && SearchQuery != "#")
                     {
 
 
@@ -1991,23 +1990,23 @@ int millisecondsDelay = 150)
                         {
                             if (Card != null)
                             {
-                                Card = (new Grid_ { NameSpace = Split_Name[0], 
-                                    Name = MOD_Name.Replace("_", " ") + "-" + versions.First().VersionNumber, 
+                                Card = (new Grid_ { NameSpace = Split_Name[0],
+                                    Name = MOD_Name.Replace("_", " ") + "-" + versions.First().VersionNumber,
                                     Icon = ICON,
                                     raw_date = updater.DateCreated.ToString(),
-                                    date_created = ConvertDateToString(updater.DateCreated), 
-                                    description = Descrtiption, 
-                                    owner = updater.Owner, 
-                                    Rating = rating, 
-                                    download_url = download_url + "|" + versions.First().FullName  + "|" + Tags + "|" + Dependencies_ +"|" + Split_Name[0],
-                                    Webpage = updater.PackageUrl, 
-                                    File_Size = FileSize, 
-                                    Tag = Tags, 
-                                    Downloads = downloads, 
-                                    Dependencies = Dependencies_, 
-                                    FullName = versions.First().FullName, 
-                                    raw_size = raw_size, 
-                                    Update_data = MOD_Name + "|" + versions.First().VersionNumber, Button_label = label, 
+                                    date_created = ConvertDateToString(updater.DateCreated),
+                                    description = Descrtiption,
+                                    owner = updater.Owner,
+                                    Rating = rating,
+                                    download_url = download_url + "|" + versions.First().FullName + "|" + Tags + "|" + Dependencies_ + "|" + Split_Name[0],
+                                    Webpage = updater.PackageUrl,
+                                    File_Size = FileSize,
+                                    Tag = Tags,
+                                    Downloads = downloads,
+                                    Dependencies = Dependencies_,
+                                    FullName = versions.First().FullName,
+                                    raw_size = raw_size,
+                                    Update_data = MOD_Name + "|" + versions.First().VersionNumber, Button_label = label,
                                     Button_Color = bg_color, is_Favourite_ = is_favourite });
 
                                 Thunderstore_List.Items.Add(Card);
@@ -2073,23 +2072,23 @@ int millisecondsDelay = 150)
                             {
                                 Card = (new Grid_ { NameSpace = Split_Name[0],
                                     Name = MOD_Name.Replace("_", " ") + "-" + versions.First().VersionNumber,
-                                    Icon = ICON, 
-                                    raw_date = updater.DateCreated.ToString(), 
-                                    date_created = ConvertDateToString(updater.DateCreated), 
-                                    description = Descrtiption, 
+                                    Icon = ICON,
+                                    raw_date = updater.DateCreated.ToString(),
+                                    date_created = ConvertDateToString(updater.DateCreated),
+                                    description = Descrtiption,
                                     owner = updater.Owner,
                                     Rating = rating,
-                                    download_url = download_url + "|" + versions.First().FullName  + "|" + Tags + "|" + Dependencies_ + "|" + Split_Name[0], 
-                                    Webpage = updater.PackageUrl, 
+                                    download_url = download_url + "|" + versions.First().FullName + "|" + Tags + "|" + Dependencies_ + "|" + Split_Name[0],
+                                    Webpage = updater.PackageUrl,
                                     File_Size = FileSize,
-                                    Tag = Tags, 
+                                    Tag = Tags,
                                     Downloads = downloads,
                                     Dependencies = Dependencies_,
-                                    FullName = versions.First().FullName, 
+                                    FullName = versions.First().FullName,
                                     raw_size = raw_size,
                                     Update_data = MOD_Name + "|" + versions.First().VersionNumber,
-                                    Button_label = label, 
-                                    Button_Color = bg_color, 
+                                    Button_label = label,
+                                    Button_Color = bg_color,
                                     is_Favourite_ = is_favourite });
                                 Thunderstore_List.Items.Add(Card);
                                 DispatchIfNecessary(async () =>
@@ -2190,25 +2189,25 @@ int millisecondsDelay = 150)
                         // is_nsfw = updater.HasNsfwContent ? 100 : 0;
                         if (Card != null)
                         {
-                            Card = (new Grid_ { NameSpace = Split_Name[0], 
-                                Name = MOD_Name.Replace("_", " ") + "-" + versions.First().VersionNumber, 
-                                Icon = ICON, 
+                            Card = (new Grid_ { NameSpace = Split_Name[0],
+                                Name = MOD_Name.Replace("_", " ") + "-" + versions.First().VersionNumber,
+                                Icon = ICON,
                                 raw_date = updater.DateCreated.ToString(),
-                                date_created = ConvertDateToString(updater.DateCreated), 
-                                description = Descrtiption, 
-                                owner = updater.Owner, 
-                                Rating = rating, 
-                                download_url = download_url + "|" + versions.First().FullName  + "|" + Tags + "|" + Dependencies_ + "|" + Split_Name[0], 
-                                Webpage = updater.PackageUrl, 
-                                File_Size = FileSize, 
-                                Tag = Tags, 
-                                Downloads = downloads, 
+                                date_created = ConvertDateToString(updater.DateCreated),
+                                description = Descrtiption,
+                                owner = updater.Owner,
+                                Rating = rating,
+                                download_url = download_url + "|" + versions.First().FullName + "|" + Tags + "|" + Dependencies_ + "|" + Split_Name[0],
+                                Webpage = updater.PackageUrl,
+                                File_Size = FileSize,
+                                Tag = Tags,
+                                Downloads = downloads,
                                 Dependencies = Dependencies_,
-                                FullName = versions.First().FullName, 
-                                raw_size = raw_size, 
-                                Update_data = MOD_Name + "|" + versions.First().VersionNumber, 
-                                Button_label = label, 
-                                Button_Color = bg_color, 
+                                FullName = versions.First().FullName,
+                                raw_size = raw_size,
+                                Update_data = MOD_Name + "|" + versions.First().VersionNumber,
+                                Button_label = label,
+                                Button_Color = bg_color,
                                 is_Favourite_ = is_favourite });
                             Thunderstore_List.Items.Add(Card);
                             DispatchIfNecessary(async () =>
@@ -2225,33 +2224,33 @@ int millisecondsDelay = 150)
 
 
                 }
-                    else
+                else
+                {
+
+
+
+
+
+
+
+
+                    downloads = (Downloads.Sum()).ToString();
+
+                    for (var x = 0; x < versions.First().Dependencies.Count; x++)
                     {
-
-
-
-
-
-
-
-
-                        downloads = (Downloads.Sum()).ToString();
-                        
-                        for (var x = 0; x < versions.First().Dependencies.Count; x++)
+                        if (versions.First().Dependencies[x].Contains("northstar-Northstar") || versions.First().Dependencies[x].Contains("ebkr-r2modman-"))
                         {
-                            if (versions.First().Dependencies[x].Contains("northstar-Northstar") || versions.First().Dependencies[x].Contains("ebkr-r2modman-"))
-                            {
 
-                                continue;
-                            }
-                            else
-                            {
-                                Dependencies.Add(versions.First().Dependencies[x]);
-
-                            }
+                            continue;
+                        }
+                        else
+                        {
+                            Dependencies.Add(versions.First().Dependencies[x]);
 
                         }
-                    
+
+                    }
+
 
                     download_url = versions.First().DownloadUrl;
 
@@ -2259,7 +2258,7 @@ int millisecondsDelay = 150)
                     FileSize = versions.First().FileSize.ToString();
                     Descrtiption = versions.First().Description;
                     Dependencies_ = String.Join(", ", Dependencies);
-                    if(Dependencies_.Length <= 1)
+                    if (Dependencies_.Length <= 1)
                     {
                         Dependencies_ = "-";
                     }
@@ -2303,25 +2302,25 @@ int millisecondsDelay = 150)
                         // is_nsfw = updater.HasNsfwContent ? 100 : 0;
                         if (Card != null)
                         {
-                            Card = (new Grid_ { NameSpace = Split_Name[0], 
-                                Name = MOD_Name.Replace("_", " ") + "-" + versions.First().VersionNumber, 
+                            Card = (new Grid_ { NameSpace = Split_Name[0],
+                                Name = MOD_Name.Replace("_", " ") + "-" + versions.First().VersionNumber,
                                 Icon = ICON,
                                 raw_date = updater.DateCreated.ToString(),
-                                date_created = ConvertDateToString(updater.DateCreated), 
-                                description = Descrtiption, 
-                                owner = updater.Owner, 
-                                Rating = rating, 
-                                download_url = download_url + "|" + versions.First().FullName + "|" + Tags + "|" + Dependencies_ + "|" + Split_Name[0], 
-                                Webpage = updater.PackageUrl, 
+                                date_created = ConvertDateToString(updater.DateCreated),
+                                description = Descrtiption,
+                                owner = updater.Owner,
+                                Rating = rating,
+                                download_url = download_url + "|" + versions.First().FullName + "|" + Tags + "|" + Dependencies_ + "|" + Split_Name[0],
+                                Webpage = updater.PackageUrl,
                                 File_Size = FileSize,
-                                Tag = Tags, 
-                                Downloads = downloads, 
+                                Tag = Tags,
+                                Downloads = downloads,
                                 Dependencies = Dependencies_,
-                                FullName = versions.First().FullName, 
+                                FullName = versions.First().FullName,
                                 raw_size = raw_size,
-                                Update_data = MOD_Name + "|" + versions.First().VersionNumber, 
+                                Update_data = MOD_Name + "|" + versions.First().VersionNumber,
                                 Button_label = label,
-                                Button_Color = bg_color, 
+                                Button_Color = bg_color,
                                 is_Favourite_ = is_favourite });
                             Thunderstore_List.Items.Add(Card);
                             DispatchIfNecessary(async () =>
@@ -2334,11 +2333,11 @@ int millisecondsDelay = 150)
                     });
                 }
             }
-        //}
-        //    catch (Exception ex)
-        //        {
-        //        Console.WriteLine(ex.Source+"\n\n\n" + ex.Message);
-        //    }
+            //}
+            //    catch (Exception ex)
+            //        {
+            //        Console.WriteLine(ex.Source+"\n\n\n" + ex.Message);
+            //    }
 
 
 
@@ -2408,8 +2407,8 @@ int millisecondsDelay = 150)
             //}
             foreach (var TS_MOD in _updater.Thunderstore)
             {
-                    AsyncLoadListViewItem(TS_MOD, Search_, SearchQuery.Replace(" ", "_"));
-              
+                AsyncLoadListViewItem(TS_MOD, Search_, SearchQuery.Replace(" ", "_"));
+
                 //Legacy Grid_ Card = LoadListViewItem(TS_MOD, Search_, SearchQuery.Replace(" ", "_"));
                 //    if (Card != null)
                 //    {
@@ -2421,7 +2420,7 @@ int millisecondsDelay = 150)
             }
         }
 
-        
+
         public string Search_For_Mod_Thunderstore(string SearchQuery = "None")
 
         {
@@ -2454,7 +2453,7 @@ int millisecondsDelay = 150)
             }
             return null;
         }
-        
+
         public class Action_Card
         {
             public string Date { get; set; }
@@ -2541,7 +2540,7 @@ int millisecondsDelay = 150)
         {
             if (NS_CANDIDATE_INSTALL == true)
             {
-                await Unpack_To_Location_Custom(Location, User_Settings_Vars.NorthstarInstallLocation + @"Northstar_TEMP_FILES\", Progress_Bar, true, false, Plugin_Install, NS_CANDIDATE_INSTALL, Mod_Name,NameSpace);
+                await Unpack_To_Location_Custom(Location, User_Settings_Vars.NorthstarInstallLocation + @"Northstar_TEMP_FILES\", Progress_Bar, true, false, Plugin_Install, NS_CANDIDATE_INSTALL, Mod_Name, NameSpace);
 
             }
             else
@@ -2576,16 +2575,16 @@ int millisecondsDelay = 150)
                             return;
                         }
 
-                             downloader = DownloadBuilder.New()
-           .WithUrl(words[0])
-           .WithDirectory(path)
-           .WithFileName(item_.Name + ".zip")
-           .WithConfiguration(new DownloadConfiguration())
+                        downloader = DownloadBuilder.New()
+      .WithUrl(words[0])
+      .WithDirectory(path)
+      .WithFileName(item_.Name + ".zip")
+      .WithConfiguration(new DownloadConfiguration())
 
-           .Build();
+      .Build();
 
-                        
-                        
+
+
 
                         if (Progress_Bar != null)
                         {
@@ -2616,7 +2615,7 @@ int millisecondsDelay = 150)
                         downloader.DownloadFileCompleted += delegate (object sender4, AsyncCompletedEventArgs e4)
                         {
 
-                            downloader_DownloadCompleted(sender4, e4, Progress_Bar, item_.Name, item_.Namespace, Destinfo.FullName + @"NS_Downloaded_Mods\" + item_.Name+ ".zip", Plugin_Install, NS_CANDIDATE_INSTALL);
+                            downloader_DownloadCompleted(sender4, e4, Progress_Bar, item_.Name, item_.Namespace, Destinfo.FullName + @"NS_Downloaded_Mods\" + item_.Name + ".zip", Plugin_Install, NS_CANDIDATE_INSTALL);
                         };
                         downloader.StartAsync();
                         if (cancellationToken.IsCancellationRequested)
@@ -2657,7 +2656,7 @@ int millisecondsDelay = 150)
         }
         public class L_INFO
         {
-           public string name;
+            public string name;
             public string url;
 
         }
@@ -2695,22 +2694,22 @@ int millisecondsDelay = 150)
                     string namespace_ = y.name.Split("-")[0];
 
                     var item = new DownloadQueueItem
-                        {
-                            Name = y.name,
-                            DownloadUrl = y.url,
-                            DestinationPath = User_Settings_Vars.NorthstarInstallLocation + @"NS_Downloaded_Mods",
-                            Extract = false,
-                            IsNorthstarRelease = false,
-                            Progress = Progress_Bar,
-                            Namespace = namespace_
+                    {
+                        Name = y.name,
+                        DownloadUrl = y.url,
+                        DestinationPath = User_Settings_Vars.NorthstarInstallLocation + @"NS_Downloaded_Mods",
+                        Extract = false,
+                        IsNorthstarRelease = false,
+                        Progress = Progress_Bar,
+                        Namespace = namespace_
 
-                        };
-                         Main._downloadQueue.Enqueue(item);
-                      //  await Download_Zip_To_Path(y, User_Settings_Vars.NorthstarInstallLocation + @"NS_Downloaded_Mods", Progress_Bar);
-                    }
+                    };
+                    Main._downloadQueue.Enqueue(item);
+                    //  await Download_Zip_To_Path(y, User_Settings_Vars.NorthstarInstallLocation + @"NS_Downloaded_Mods", Progress_Bar);
+                }
 
-         
-               
+
+
 
 
 
@@ -3035,10 +3034,11 @@ int millisecondsDelay = 300)
 
 
                                 Main.Current_Installed_Mods.Add(new GENERAL_MOD { Name = name, Version = ver, Author = author });
-                                GC.Collect();
 
                             }
                             Main.loaded_mods = true;
+                            GC.Collect();
+
                         }
 
 
@@ -3073,7 +3073,7 @@ int millisecondsDelay = 300)
                 control.BeginAnimation(UIElement.OpacityProperty, animation);
             });
         }
-     
+
         void Update_ActionCard_Progress(Action_Card Action_Card_, int Add_INT = 10, bool Completed = false, bool FailedEvent = false)
         {
             try
@@ -3203,7 +3203,7 @@ int millisecondsDelay = 300)
             // simply return string.Empty.
             return string.Empty;
         }
-        public static string FindFolder( string folderName, string searchPattern)
+        public static string FindFolder(string folderName, string searchPattern)
         {
             string[] folders = null;
 
@@ -3247,8 +3247,8 @@ int millisecondsDelay = 300)
 
 
         }
-       
-        public async Task Unpack_To_Location_Custom(string Target_Zip, string Destination, ProgressBar Progress_Bar, bool Clean_Thunderstore = false, bool clean_normal = false, bool plugin_install = false, bool NS_CANDIDATE_INSTALL = false, string mod_name = "~",string namespace_ = "~")
+
+        public async Task Unpack_To_Location_Custom(string Target_Zip, string Destination, ProgressBar Progress_Bar, bool Clean_Thunderstore = false, bool clean_normal = false, bool plugin_install = false, bool NS_CANDIDATE_INSTALL = false, string mod_name = "~", string namespace_ = "~")
         {
             //add drag and drop
             var Action_Card_ = Action_Center.FirstOrDefault(i =>
@@ -3322,7 +3322,7 @@ int millisecondsDelay = 300)
                     return;
                 }
                 Update_ActionCard_Progress(Action_Card_);
-                
+
                 //checkling for plugins
                 bool containsFolder = CheckIfFolderExistsInZip(Target_Zip, "plugins");
 
@@ -3330,19 +3330,19 @@ int millisecondsDelay = 300)
                 if (containsFolder)
                 {
 
-                    
+
 
                     Console.WriteLine("Plugin Detected ------\n\n\n\n\n");
 
                     bool consent_TM = false;
-                   
+
                     DispatchIfNecessary(async () =>
                         {
                             Wpf.Ui.Controls.MessageBox Mesagebox = new Wpf.Ui.Controls.MessageBox();
 
                             Mesagebox.Title = VTOL.Resources.Languages.Language.PLUGINDETECTED;
 
-                            Mesagebox.Content = VTOL.Resources.Languages.Language.PleaseChooseToInstallThisPluginOntoYourDevice+"\n"+VTOL.Resources.Languages.Language.DoBeWarnedThatPluginsCanAffectYourDeviceIn+"\n"+ VTOL.Resources.Languages.Language.UnintendedWays+"\n"+VTOL.Resources.Languages.Language.PleaseEnusreYouTrustThisMod;
+                            Mesagebox.Content = VTOL.Resources.Languages.Language.PleaseChooseToInstallThisPluginOntoYourDevice + "\n" + VTOL.Resources.Languages.Language.DoBeWarnedThatPluginsCanAffectYourDeviceIn + "\n" + VTOL.Resources.Languages.Language.UnintendedWays + "\n" + VTOL.Resources.Languages.Language.PleaseEnusreYouTrustThisMod;
                             Mesagebox.ButtonLeftName = "Install";
                             Mesagebox.ButtonRightName = "Delete";
                             Mesagebox.ButtonLeftAppearance = Wpf.Ui.Common.ControlAppearance.Success;
@@ -3363,12 +3363,12 @@ int millisecondsDelay = 300)
                                     {
                                         Progress_Bar.Value = 0;
                                     }
-                                    Update_ActionCard_Progress(Action_Card_, 40, false,true);
+                                    Update_ActionCard_Progress(Action_Card_, 40, false, true);
 
                                     SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
                                     SnackBar.Timeout = 10000;
                                     SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Danger;
-                                    SnackBar.Message =VTOL.Resources.Languages.Language.ThePlugin + Path.GetFileNameWithoutExtension(Target_Zip).Replace("_", " ") + VTOL.Resources.Languages.Language.HasNotBeenInstalledOnYourDevice;
+                                    SnackBar.Message = VTOL.Resources.Languages.Language.ThePlugin + Path.GetFileNameWithoutExtension(Target_Zip).Replace("_", " ") + VTOL.Resources.Languages.Language.HasNotBeenInstalledOnYourDevice;
                                     SnackBar.Show();
                                     return;
 
@@ -3383,11 +3383,11 @@ int millisecondsDelay = 300)
                             Mesagebox.ButtonLeftClick += delegate (object sender, System.Windows.RoutedEventArgs e)
                             {
                                 consent_TM = true;
-                                 TryUnzipFile(Target_Zip, Destination);
+                                TryUnzipFile(Target_Zip, Destination);
 
                                 Update_ActionCard_Progress(Action_Card_);
 
-                                 Call_Mods_From_Folder_Lite();
+                                Call_Mods_From_Folder_Lite();
                                 var Destinfo1 = new DirectoryInfo(Destination);
                                 Destinfo1.Attributes &= ~FileAttributes.ReadOnly;
                                 string manifest_json = FindFirstFile(Destinfo1.FullName, "manifest.json");
@@ -3399,7 +3399,7 @@ int millisecondsDelay = 300)
 
                                     if (manidata.SelectToken("namespace") == null)
                                     {
-                                      
+
                                         manidata["namespace"] = namespace_;
 
 
@@ -3420,7 +3420,7 @@ int millisecondsDelay = 300)
                                 SnackBar.Title = VTOL.Resources.Languages.Language.SUCCESS;
                                 SnackBar.Timeout = 10000;
                                 SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
-                                SnackBar.Message =VTOL.Resources.Languages.Language.ThePlugin + Path.GetFileNameWithoutExtension(Target_Zip).Replace("_", " ") + VTOL.Resources.Languages.Language.Page_Thunderstore_Unpack_To_Location_Custom_HasBeenDownloadedAndInstalled;
+                                SnackBar.Message = VTOL.Resources.Languages.Language.ThePlugin + Path.GetFileNameWithoutExtension(Target_Zip).Replace("_", " ") + VTOL.Resources.Languages.Language.Page_Thunderstore_Unpack_To_Location_Custom_HasBeenDownloadedAndInstalled;
                                 SnackBar.Show();
 
                                 Mesagebox.Close();
@@ -3439,7 +3439,7 @@ int millisecondsDelay = 300)
                                 {
                                     Progress_Bar.Value = 0;
                                 }
-                                Update_ActionCard_Progress(Action_Card_, 40, false,true);
+                                Update_ActionCard_Progress(Action_Card_, 40, false, true);
 
                                 SnackBar.Title = VTOL.Resources.Languages.Language.CAUTION;
                                 SnackBar.Timeout = 10000;
@@ -3453,7 +3453,7 @@ int millisecondsDelay = 300)
                             };
 
 
-                             Mesagebox.Show();
+                            Mesagebox.Show();
                             if (Progress_Bar != null)
                             {
                                 Progress_Bar.Value = 0;
@@ -3465,7 +3465,7 @@ int millisecondsDelay = 300)
                 }
                 else
                 {
-                  
+
                     await TryUnzipFile(Target_Zip, Destination);
 
                     Update_ActionCard_Progress(Action_Card_);
@@ -3553,7 +3553,7 @@ int millisecondsDelay = 300)
                                     Progress_Bar.Value = 0;
                                 }
                                 Update_ActionCard_Progress(Action_Card_, 40, true);
-                                
+
 
                                 SnackBar.Title = VTOL.Resources.Languages.Language.SUCCESS;
                                 SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
@@ -3570,7 +3570,7 @@ int millisecondsDelay = 300)
                     }
                     else
                     {
-                        
+
                         Console.WriteLine("Candidate Detected ------\n\n\n\n\n");
 
                         DispatchIfNecessary(async () =>
@@ -3616,7 +3616,7 @@ int millisecondsDelay = 300)
 
                             }
 
-                            await Task.Delay(100) ;
+                            await Task.Delay(100);
 
 
                             if (File.Exists(User_Settings_Vars.NorthstarInstallLocation + @"ns_startup_args_dedi.txt"))
@@ -3859,8 +3859,8 @@ int millisecondsDelay = 300)
 
             return null; // Return null if no matching folder is found
         }
-       
-      
+
+
 
         public class DownloadQueueItem
         {
@@ -3969,7 +3969,7 @@ int millisecondsDelay = 300)
                         URl = parts[0];
 
                     }
-                    
+
                     Main.DispatchIfNecessary(() =>
                     {
                         Main.Action_Center.ItemsSource = null;
@@ -3989,7 +3989,7 @@ int millisecondsDelay = 300)
                         Main.Action_Center.ItemsSource = _myClass.Action_Center;
                         Main.Action_Center.Refresh();
                     });
-                    await Task.Run(() => _myClass.Download_Zip_To_Path(item.DownloadUrl, item.DestinationPath, item.Progress, item.Extract, item.IsNorthstarRelease, cancellationToken,item));
+                    await Task.Run(() => _myClass.Download_Zip_To_Path(item.DownloadUrl, item.DestinationPath, item.Progress, item.Extract, item.IsNorthstarRelease, cancellationToken, item));
                     Thread.Sleep(200);
 
                 }
@@ -4035,7 +4035,7 @@ int millisecondsDelay = 300)
                                 return i.Name.ToLower().Contains(name.ToLower());
 
 
-                            }); 
+                            });
                             _queue_List_Clear.RemoveAll(i =>
                             {
 
@@ -4055,7 +4055,7 @@ int millisecondsDelay = 300)
                         return i.Name.ToLower().Contains(name.ToLower());
 
 
-                });//todo fix clear
+                    });//todo fix clear
 
                     if (item != null)
                     {
@@ -4132,13 +4132,13 @@ int millisecondsDelay = 300)
                 {
                     name = parts[1]; // get the second last item
                 }
-                 Console.WriteLine(Button.Tag.ToString());
+                Console.WriteLine(Button.Tag.ToString());
 
                 DispatchIfNecessary(async () =>
                 {
                     if (parts[0].Contains("http") || parts[0].Contains("https"))
                     {
-                        string namespace_ =name.Split("-")[0];
+                        string namespace_ = name.Split("-")[0];
 
                         var item = new DownloadQueueItem
                         {
@@ -4192,9 +4192,9 @@ int millisecondsDelay = 300)
                     {
                         if (init == true)
                         {
-                            if (Search_Bar_Suggest_Mods.Text.Trim() != "" && Search_Bar_Suggest_Mods.Text != null && Search_Bar_Suggest_Mods.Text.Trim() != "#" )
+                            if (Search_Bar_Suggest_Mods.Text.Trim() != "" && Search_Bar_Suggest_Mods.Text != null && Search_Bar_Suggest_Mods.Text.Trim() != "#")
                             {
-                               
+
 
 
                                 if (_updater.Thunderstore != null)
@@ -4252,54 +4252,41 @@ int millisecondsDelay = 300)
 
                 DispatchIfNecessary(async () =>
                 {
-                    if (init == true) 
+                    if (init == true)
 
                     {
 
                         if (_updater.Thunderstore != null)
                         {
-                            if (Search_Bar_Suggest_Mods.Text.Trim() != "" && Search_Bar_Suggest_Mods.Text != null && Search_Bar_Suggest_Mods.Text.Length != 0 && Search_Bar_Suggest_Mods.Text.Trim() != "#")
+                            if (_updater.Thunderstore.Count() > 0)
                             {
-                                if (_updater.Thunderstore.Count() > 0)
+                                DispatchIfNecessary(async () =>
                                 {
-                                    DispatchIfNecessary(async () =>
-                                    {
-                                        Thunderstore_List.Items.Clear();
+                                    Thunderstore_List.Items.Clear();
+                                });
+                                if (Search_Bar_Suggest_Mods.Text.Trim() != "" && Search_Bar_Suggest_Mods.Text != null && Search_Bar_Suggest_Mods.Text.Length != 0 && Search_Bar_Suggest_Mods.Text.Trim() != "#")
+                                {
 
-                                        loadConvertItemLazy(Search_: true, SearchQuery: Search_Bar_Suggest_Mods.Text);
+                                    loadConvertItemLazy(Search_: true, SearchQuery: Search_Bar_Suggest_Mods.Text);
 
-                                    });
+                                }
+                                else
+                                {
+                                    loadConvertItemLazy();
+
+
                                 }
                             }
-                            else
-                            {
-                                if (_updater.Thunderstore.Count() > 0)
-                                {
-                                    DispatchIfNecessary(async () =>
-                                    {
-                                        Thunderstore_List.Items.Clear();
-
-                                        loadConvertItemLazy();
-
-                                    });
-                                }
-
-                            }
-                            }
-
-
-
-
-
-
 
                         }
-                       
+
+                    }
 
 
 
 
-                    
+
+
 
 
                 });
@@ -4316,7 +4303,7 @@ int millisecondsDelay = 300)
         private void Grid_Unloaded(object sender, RoutedEventArgs e)
         {
             TryDeleteDirectory(User_Settings_Vars.NorthstarInstallLocation + @"NS_Downloaded_Mods");
-          
+
         }
 
         private void Dialog_ButtonLeftClick(object sender, RoutedEventArgs e)
@@ -4525,7 +4512,7 @@ int millisecondsDelay = 300)
         {
             try
             {
-                if (Sort.SelectedItem != null )
+                if (Sort.SelectedItem != null)
                 {
                     Sort_Label.Visibility = Visibility.Hidden;
                 }
@@ -4543,19 +4530,19 @@ int millisecondsDelay = 300)
                     //{
 
 
-                        //Call_Ts_Mods();
+                    //Call_Ts_Mods();
 
-                        if (_updater.Thunderstore != null)
+                    if (_updater.Thunderstore != null)
+                    {
+                        if (_updater.Thunderstore.Count() > 0)
                         {
-                            if (_updater.Thunderstore.Count() > 0)
+                            DispatchIfNecessary(async () =>
                             {
-                                DispatchIfNecessary(async () =>
-                                {
 
-                                    orderlistitems();
-                                });
-                            }
+                                orderlistitems();
+                            });
                         }
+                    }
 
 
                     //};
@@ -4601,40 +4588,41 @@ int millisecondsDelay = 300)
             {
 
 
-                if (page_loaded == true)
-                {
-                    BackgroundWorker worker = new BackgroundWorker();
-                    worker.DoWork += (sender, e) =>
-                    {
+                //if (page_loaded == true)
+                //{
+                //    BackgroundWorker worker = new BackgroundWorker();
+                //    worker.DoWork += (sender, e) =>
+                //    {
 
 
-                        Call_Mods_From_Folder_Lite();
-                        if (Main.Page_reset_ == true)
-                        {
-                            
-                          //  Call_Ts_Mods();
+                //        Call_Mods_From_Folder_Lite();
+                //        if (Main.Page_reset_ == true)
+                //        {
 
-
-
-                        }
+                //          //  Call_Ts_Mods();
 
 
 
-
-
-                    };
-                    worker.RunWorkerCompleted += (sender, eventArgs) =>
-                    {
-                        Main.Page_reset_ = false;
-                      //  Thunderstore_List.Items.Refresh();
-
-
-                    };
+                //        }
 
 
 
-                    worker.RunWorkerAsync();
-                }
+
+
+                //    };
+                //    worker.RunWorkerCompleted += (sender, eventArgs) =>
+                //    {
+                //        Main.Page_reset_ = false;
+                //      //  Thunderstore_List.Items.Refresh();
+
+
+                //    };
+
+
+
+                //    worker.RunWorkerAsync();
+                //}
+            
             }
             catch (Exception ex)
             {

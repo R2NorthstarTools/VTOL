@@ -10,7 +10,7 @@
  xmlns:parallax="clr-namespace:Parallax.WPF"
       xmlns:I="http://schemas.microsoft.com/xaml/behaviors"
       d:DesignHeight="670" d:DesignWidth="1148"
-      Title="Page_Mods" KeepAlive="True" Unloaded="Page_Unloaded">
+      Title="Page_Mods" KeepAlive="True" Unloaded="Page_Unloaded" Initialized="Page_Initialized" Loaded="Page_Loaded">
     <Page.Resources>
         <Style TargetType="Image">
 

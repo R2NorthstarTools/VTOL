@@ -10,7 +10,7 @@
 	          xmlns:cntrls="clr-namespace:VTOL"
 
       d:DesignHeight="670" d:DesignWidth="1148"
-      Title="Page_Thunderstore" UseLayoutRounding="True" Loaded="Page_Loaded_1" Unloaded="Page_Unloaded">
+      Title="Page_Thunderstore" UseLayoutRounding="True" Loaded="Page_Loaded_1" Unloaded="Page_Unloaded" >
     <Page.Resources>
         <local:NegatingConverter x:Key="NegatingConverter" />
         <Storyboard x:Key="slide">

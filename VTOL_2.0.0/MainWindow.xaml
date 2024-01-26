@@ -134,14 +134,7 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <hc:Badge x:Name="VTOL_UPDATE_BADGE" Margin="0,460,0,204" BadgeMargin="32,4,10,0" Status="Processing" ToolTip="Update For VTOL Available" BorderBrush="#FF00FF84" HorizontalAlignment="Right" Width="52" Visibility="Hidden">
-            <hc:Badge.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FF00FF9C" Offset="0.005"/>
-                    <GradientStop Color="#FF00A455" Offset="1"/>
-                </LinearGradientBrush>
-            </hc:Badge.Background>
-        </hc:Badge>
+        <hc:Badge x:Name="VTOL_UPDATE_BADGE" Margin="0,399,0,265" BadgeMargin="32,4,10,0" Status="Processing" ToolTip="Update For VTOL Available" BorderBrush="#FF5EFFC6" HorizontalAlignment="Center" Width="52" Visibility="Hidden" Background="#FF5EFFC6" Foreground="#FFFDFDFD"/>
         <ui:NotifyIcon
                     Icon="/Resources/Icons/Main_UI/VTOL_multires.ico"
                     MenuOnRightClick="True"
@@ -200,7 +193,7 @@
                 x:Name="mask"
                CornerRadius="8" Background="#FF0E0E0E"
             />
-               
+
                 <Frame x:Name="RootFrame" GotFocus="RootFrame_GotFocus">
                     <Frame.OpacityMask>
                         <VisualBrush Visual="{Binding ElementName=mask}"/>
