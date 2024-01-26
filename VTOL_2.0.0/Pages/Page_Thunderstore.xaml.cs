@@ -3557,7 +3557,7 @@ int millisecondsDelay = 300)
 
                                 SnackBar.Title = VTOL.Resources.Languages.Language.SUCCESS;
                                 SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
-                                SnackBar.Message = "The Mod " + Path.GetFileNameWithoutExtension(Target_Zip).Replace("_", " ") + VTOL.Resources.Languages.Language.Page_Thunderstore_Unpack_To_Location_Custom_HasBeenDownloadedAndInstalled;
+                                SnackBar.Message = VTOL.Resources.Languages.Language.TheMod + Path.GetFileNameWithoutExtension(Target_Zip).Replace("_", " ") + VTOL.Resources.Languages.Language.Page_Thunderstore_Unpack_To_Location_Custom_HasBeenDownloadedAndInstalled;
                                 SnackBar.ShowAsync();
 
 
