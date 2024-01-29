@@ -248,7 +248,7 @@ namespace VTOL.Pages
                         }
                         catch (Exception ex)
                         {
-                            Log.Error(ex.Message + " \n\n\n\n" + ex.InnerException);
+                            Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
 
 
                         }
@@ -541,7 +541,7 @@ namespace VTOL.Pages
                 }
                 catch (Exception ex)
                 {
-                    Log.Error(ex.Message + " \n\n\n\n" + ex.InnerException);
+                    Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
                     return false;
                 }
             }
@@ -578,7 +578,7 @@ int millisecondsDelay = 150)
                 }
                 catch (IOException ex)
                 {
-                    Log.Error(ex.Message + " \n\n\n\n" + ex.InnerException);
+                    Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
 
                     Thread.Sleep(millisecondsDelay);
                 }
@@ -682,7 +682,7 @@ int millisecondsDelay = 150)
         {
 
             // Log the exception, display it, etc
-            Log.Error((e.ExceptionObject as Exception), $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
+            Log.Error((e.ExceptionObject as Exception), $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
         }
         async Task OPEN_WEBPAGE(string URL)
         {
@@ -1363,6 +1363,10 @@ int millisecondsDelay = 150)
 
             try
             {
+                if(path == null || !Directory.Exists(path))
+                {
+                    return false;
+                }
                 string fullPath = Path.GetFullPath(path);
 
                 if (allowRelativePaths)
@@ -1484,7 +1488,7 @@ int millisecondsDelay = 150)
                 }
                 catch(Exception ex)
                 {
-                    Log.Error(ex.Message + " \n\n\n\n" + ex.InnerException);
+                    Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
 
                 }
 
@@ -2136,7 +2140,7 @@ int millisecondsDelay = 150)
 
             catch (WebException wex)
             {
-                Log.Error(wex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
+                Log.Error(wex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{wex.InnerException}{Environment.NewLine}");
                 if (wex.Response != null)
                 {
                     if (((HttpWebResponse)wex.Response).StatusCode == HttpStatusCode.NotFound)
@@ -2713,7 +2717,7 @@ int millisecondsDelay = 150)
                                     }
                                     catch (Exception ex)
                                     {
-                                        Log.Error(ex.Message + " \n\n\n\n" + ex.InnerException);
+                                        Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
 
                                         continue;
                                     }
@@ -3485,7 +3489,7 @@ int millisecondsDelay = 150)
                 }
                 catch (IOException ex)
                 {
-                    Log.Error(ex.Message + " \n\n\n\n" + ex.InnerException);
+                    Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
 
                     Thread.Sleep(millisecondsDelay);
                 }
@@ -3630,7 +3634,7 @@ int millisecondsDelay = 150)
                 }
                 catch (IOException ex) 
                 {
-                    Log.Error(ex.Message + " \n\n\n\n" + ex.InnerException);
+                    Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
 
                     Thread.Sleep(millisecondsDelay);
                 }
@@ -3666,7 +3670,7 @@ int millisecondsDelay = 150)
                 }
                 catch (IOException ex)
                 {
-                    Log.Error(ex.Message + " \n\n\n\n" + ex.InnerException);
+                    Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
 
                     Thread.Sleep(millisecondsDelay);
                 }
@@ -3705,7 +3709,7 @@ int millisecondsDelay = 150)
                 catch (IOException ex)
                 {
 
-                    Log.Error(ex.Message + " \n\n\n\n" + ex.InnerException);
+                    Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
 
                     Thread.Sleep(millisecondsDelay);
                 }
@@ -3742,7 +3746,7 @@ int millisecondsDelay = 150)
                 }
                 catch (IOException ex)
                 {
-                    Log.Error(ex.Message + " \n\n\n\n" + ex.InnerException);
+                    Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
 
                     Thread.Sleep(millisecondsDelay);
                 }
@@ -3780,7 +3784,7 @@ int millisecondsDelay = 150)
                 }
                 catch (IOException ex)
                 {
-                    Log.Error(ex.Message + " \n\n\n\n" + ex.InnerException);
+                    Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
 
                     Thread.Sleep(millisecondsDelay);
                 }

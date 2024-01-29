@@ -196,7 +196,7 @@ namespace VTOL.Pages
                 }
                 catch (IOException ex)
                 {
-                    Log.Error(ex.Message + " \n\n\n\n" + ex.InnerException);
+                    Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
 
                     Thread.Sleep(millisecondsDelay);
                 }
@@ -237,7 +237,7 @@ namespace VTOL.Pages
                 }
                 catch (IOException ex)
                 {
-                    Log.Error(ex.Message + " \n\n\n\n" + ex.InnerException);
+                    Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
 
                     Thread.Sleep(millisecondsDelay);
                 }
@@ -274,7 +274,7 @@ namespace VTOL.Pages
                 }
                 catch (IOException ex)
                 {
-                    Log.Error(ex.Message + " \n\n\n\n" + ex.InnerException);
+                    Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
 
                     Thread.Sleep(millisecondsDelay);
                 }
@@ -1235,10 +1235,12 @@ int millisecondsDelay = 150)
 
                         });
 
-                        Thunderstore_List.Items.Refresh();
 
                     }
-
+                    DispatchIfNecessary(async () =>
+                    {
+                        Thunderstore_List.Items.Refresh();
+                    });
                 }
 
 
@@ -1782,6 +1784,7 @@ int millisecondsDelay = 150)
                             break;
                         case "Favourites":
                             List = List.Where(item => item.is_Favourite_.ToString().Equals("1")).OrderByDescending(ob => ob.Name).ToList();
+                            Main.Page_reset_ = true;
 
                             break;
                         case "...":
@@ -1841,6 +1844,7 @@ int millisecondsDelay = 150)
                             break;
                         case "Favourites":
                             List = List.Where(item => item.is_Favourite_.ToString().Equals("1")).OrderBy(ob => ob.Name).ToList();
+                            Main.Page_reset_ = true;
 
                             break;
                         case "...":
@@ -2390,16 +2394,7 @@ int millisecondsDelay = 150)
 
         private void loadConvertItemLazy(bool Search_ = false, string SearchQuery = "#")
         {
-            //for (int i = 0; i < _updater.Thunderstore.Length; i++)
-            //{
-
-            //int listSize = _updater.Thunderstore.Count();
-
-            //// Add the loading cards representing the list size
-            //for (int i = 0; i < listSize; i++)
-            //{
-            //    AddLoadingCard();
-            //}
+          
             foreach (var TS_MOD in _updater.Thunderstore)
             {
                 AsyncLoadListViewItem(TS_MOD, Search_, SearchQuery.Replace(" ", "_"));
@@ -3147,7 +3142,7 @@ int millisecondsDelay = 300)
                 }
                 catch (Exception ex)
                 {
-                    Log.Error(ex.Message + " \n\n\n\n" + ex.InnerException);
+                    Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
 
 
                     return string.Empty;
@@ -3942,7 +3937,7 @@ int millisecondsDelay = 300)
                     }
                     catch (Exception ex)
                     {
-                        Log.Error(ex.Message + " \n\n\n\n" + ex.InnerException);
+                        Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
                     }
                     finally
                     {
@@ -3992,7 +3987,7 @@ int millisecondsDelay = 300)
                 }
                 catch (Exception ex)
                 {
-                    Log.Error(ex.Message + " \n\n\n\n" + ex.InnerException);
+                    Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
                 }
             }
 
@@ -4087,7 +4082,7 @@ int millisecondsDelay = 300)
                 }
                 catch (Exception ex)
                 {
-                    Log.Error(ex.Message + " \n\n\n\n" + ex.InnerException);
+                    Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
                 }
             }
         }
@@ -4256,10 +4251,9 @@ int millisecondsDelay = 300)
                         {
                             if (_updater.Thunderstore.Count() > 0)
                             {
-                                DispatchIfNecessary(async () =>
-                                {
+                                
                                     Thunderstore_List.Items.Clear();
-                                });
+                               
                                 if (Search_Bar_Suggest_Mods.Text.Trim() != "" && Search_Bar_Suggest_Mods.Text != null && Search_Bar_Suggest_Mods.Text.Length != 0 && Search_Bar_Suggest_Mods.Text.Trim() != "#")
                                 {
 
@@ -4298,6 +4292,14 @@ int millisecondsDelay = 300)
 
         private void Grid_Unloaded(object sender, RoutedEventArgs e)
         {
+            if (Main.Page_reset_ == true)
+            {
+
+                Thunderstore_List.Items.Clear();
+                itemsList.Clear();
+
+
+            }
             TryDeleteDirectory(User_Settings_Vars.NorthstarInstallLocation + @"NS_Downloaded_Mods");
 
         }
@@ -4584,41 +4586,46 @@ int millisecondsDelay = 300)
             {
 
 
-                //if (page_loaded == true)
-                //{
-                //    BackgroundWorker worker = new BackgroundWorker();
-                //    worker.DoWork += (sender, e) =>
-                //    {
+                if (page_loaded == true)
+                {
+                    BackgroundWorker worker = new BackgroundWorker();
+                    worker.DoWork += (sender, e) =>
+                    {
+                        DispatchIfNecessary(async () =>
+                        {
 
-
-                //        Call_Mods_From_Folder_Lite();
-                //        if (Main.Page_reset_ == true)
-                //        {
-
-                //          //  Call_Ts_Mods();
-
-
-
-                //        }
-
-
-
-
-
-                //    };
-                //    worker.RunWorkerCompleted += (sender, eventArgs) =>
-                //    {
-                //        Main.Page_reset_ = false;
-                //      //  Thunderstore_List.Items.Refresh();
-
-
-                //    };
+                            if (Main.Page_reset_ == true)
+                            {
+                                Loading_Ring.Visibility = Visibility.Hidden;
+                                Search_Bar_Suggest_Mods.IsReadOnly = true;
+                                search_a_flag = true;
+                                Search_Bar_Suggest_Mods.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#34FFFFFF");
+                                Sort.SelectedIndex = -1;
+                                CookFaveMods();
+                                Call_Mods_From_Folder_Lite();
+                                Call_Ts_Mods();
 
 
 
-                //    worker.RunWorkerAsync();
-                //}
-            
+                            }
+
+                        });
+
+
+
+                    };
+                    worker.RunWorkerCompleted += (sender, eventArgs) =>
+                    {
+                        Main.Page_reset_ = false;
+
+
+                    };
+
+
+
+                    worker.RunWorkerAsync();
+                }
+
             }
             catch (Exception ex)
             {
@@ -4816,6 +4823,8 @@ int millisecondsDelay = 300)
                         }
                         else
                         {
+                            Main.Page_reset_ = true;
+
                             Fave_Mods.Add(Favourite_.ToolTip.ToString());
                             Favourite_.Tag = "1";
                             Favourite_.Filled = true;

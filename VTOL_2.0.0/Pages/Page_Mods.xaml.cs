@@ -852,7 +852,7 @@ int millisecondsDelay = 300)
             }
             catch (Exception e)
             {
-                Log.Error(e, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
+                Log.Error(e, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{e.InnerException}{Environment.NewLine}");
 
 
                 if (e.Message == "Sequence contains no elements")
