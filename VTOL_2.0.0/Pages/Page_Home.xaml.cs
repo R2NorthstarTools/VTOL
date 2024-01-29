@@ -414,14 +414,10 @@ namespace VTOL.Pages
 
                 INIT();
 
-                if (IsValidPath(Current_Install_Folder) == false || !Directory.Exists(User_Settings_Vars.NorthstarInstallLocation))
+                if (IsValidPath(Current_Install_Folder) == false && !Directory.Exists(User_Settings_Vars.NorthstarInstallLocation))
                 {
                     ShowWelcome();
 
-                }
-
-                if (IsDirectoryValid(Current_Install_Folder) == false)
-                {
 
                     if (showcntr < 2)
                     {
@@ -432,33 +428,9 @@ namespace VTOL.Pages
                         showcntr = Properties.Settings.Default.Banner_CNTR;
                     }
                 }
-                if (Properties.Settings.Default.EA_APP_SUPPORT == true)
+                if (Properties.Settings.Default.EA_APP_SUPPORT == false)
                 {
-                    EA_ORGIGIN_Client_Card.Content = VTOL.Resources.Languages.Language.Page_Home_Page_Home_EAClientRunning;
-                    BitmapImage bitmapx = new BitmapImage();
 
-                    bitmapx.BeginInit();
-                    bitmapx.UriSource = new Uri(@"pack://application:,,,/Resources/Icons/EA.ico");
-                    bitmapx.EndInit();
-                    CLIENT_CARD_IMAGE.Source = bitmapx;
-
-                    if (Check_Process_Running("EABackgroundService") == true)
-                    {
-                        EA_ORGIGIN_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#B2037F10");
-                        EA_ORGIGIN_Client_Card.IconFilled = true;
-
-                    }
-                    else
-                    {
-
-                        EA_ORGIGIN_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#99630000");
-                        EA_ORGIGIN_Client_Card.IconFilled = false;
-
-                    }
-
-                }
-                else
-                {
                     BitmapImage bitmapy = new BitmapImage();
 
                     bitmapy.BeginInit();
@@ -480,6 +452,23 @@ namespace VTOL.Pages
                         EA_ORGIGIN_Client_Card.IconFilled = false;
 
                     }
+
+                }
+
+                EA_ORGIGIN_Client_Card.Content = VTOL.Resources.Languages.Language.Page_Home_Page_Home_EAClientRunning;
+                BitmapImage bitmapx = new BitmapImage();
+
+                bitmapx.BeginInit();
+                bitmapx.UriSource = new Uri(@"pack://application:,,,/Resources/Icons/EA.ico");
+                bitmapx.EndInit();
+                CLIENT_CARD_IMAGE.Source = bitmapx;
+
+                EA_ORGIGIN_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#99630000");
+                EA_ORGIGIN_Client_Card.IconFilled = false;
+                if (Check_Process_Running("EABackgroundService") == true)
+                {
+                    EA_ORGIGIN_Client_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#B2037F10");
+                    EA_ORGIGIN_Client_Card.IconFilled = true;
 
                 }
 
@@ -766,8 +755,6 @@ int millisecondsDelay = 150)
                     if (myFileVersionInfo.FileVersion != null)
                     {
 
-                        // Print the file name and version number.
-                        //Console.WriteLine(myFileVersionInfo.FileVersion);
                         Current_Ver_ = myFileVersionInfo.FileVersion;
                     }
                     else
@@ -933,7 +920,6 @@ int millisecondsDelay = 150)
 
 
                             Current_Install_Folder = fix.Replace(@"\\", @"\").Replace("/", @"\");
-                            //Console.WriteLine("Replaced");
 
                         }
                     }
@@ -978,7 +964,6 @@ int millisecondsDelay = 150)
                 else
                 {
 
-                    //Console.WriteLine("Null_Settings");
                     string FINAL = "";
                     Current_Install_Folder = InstalledApplications.GetApplictionInstallPath("Titanfall2");
 
@@ -1071,24 +1056,13 @@ int millisecondsDelay = 150)
 
                 if (Dir.Exists && Current_Install_Folder != "NODATA")
                 {
-                    //Console.WriteLine("VALID_PATH");
-
                     if (File.Exists(Current_Install_Folder + "Titanfall2.exe"))
                     {
-                        //Console.WriteLine("VALID_INSTALL");
-
-
                         if (File.Exists(Current_Install_Folder + @"NorthstarLauncher.exe"))
                         {
-                            //Console.WriteLine("VALID_NS");
-
-                            // Get the file version info for the notepad.
                             FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(Current_Install_Folder + @"NorthstarLauncher.exe");
                             if (myFileVersionInfo.FileVersion != null)
                             {
-
-                                // Print the file name and version number.
-                                //Console.WriteLine(myFileVersionInfo.FileVersion);
                                 Current_Ver_ = myFileVersionInfo.FileVersion;
                             }
                             if (Current_Ver_ == null)
@@ -1144,19 +1118,15 @@ int millisecondsDelay = 150)
                                 string fix = Current_Install_Folder + @"\";
                                 User_Settings_Vars.NorthstarInstallLocation = fix;
                                 Current_Install_Folder = fix.Replace(@"\\", @"\").Replace("/", @"\");
-                                //Console.WriteLine("Replaced2");
 
                             }
-                            //Console.WriteLine("INVALID_NS");
-
+                           
                             SnackBar.Appearance = ControlAppearance.Caution;
                             SnackBar.Title = "CAUTION";
                             SnackBar.Message = VTOL.Resources.Languages.Language.Page_Home_INIT_NORTHSTARAUTOINSTALLWILLNOWBEGINPLEASEWAITABOUT30SECONDS;
                             SnackBar.Timeout = 8000;
                             SnackBar.Show();
 
-                            //Task check_task = Task.Run(() => Auto_Install_(false));
-                            // check_task.Wait();
 
                             Auto_Install_(false);
 
@@ -1176,15 +1146,6 @@ int millisecondsDelay = 150)
 
                     }
 
-                    //Console.WriteLine(Current_Install_Folder);
-
-
-
-
-
-
-
-
 
                 }
                 else
@@ -1201,16 +1162,10 @@ int millisecondsDelay = 150)
                     {
 
                         FINAL = Path;
-
-
-
-                        //  throw new Exception("Automated Path Finding Failed!");
-
                     }
                     if (IsValidPath(FINAL))
                     {
 
-                        //Console.WriteLine(Path);
 
                         Current_Install_Folder = Path;
                         User_Settings_Vars.NorthstarInstallLocation = Path;
@@ -1224,8 +1179,7 @@ int millisecondsDelay = 150)
                         }
                         if (Directory.Exists(Current_Install_Folder))
                         {
-                            //Task check_task = Task.Run(() => Auto_Install_(false));
-                            // check_task.Wait();
+                          
                             Auto_Install_(false);
                         }
                         else
@@ -1294,37 +1248,6 @@ int millisecondsDelay = 150)
 
                     }
                 }
-
-                // string[] arguments = Environment.GetCommandLineArgs();
-
-                ////Console.WriteLine("GetCommandLineArgs: {0}", string.Join(", ", arguments));
-
-
-
-
-
-
-
-
-
-
-
-
-                if (Directory.Exists(Current_Install_Folder + @"Skins_Unpack_Mod_MNGR"))
-                {
-                    try
-                    {
-                        TryDeleteDirectory(Current_Install_Folder + @"Skins_Unpack_Mod_MNGR", true);
-                    }
-                    catch (Exception ex)
-                    {
-                        Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
-                    }
-
-
-
-
-                }
                 if (User_Settings_Vars.NorthstarInstallLocation != Current_Install_Folder)
                 {
                     User_Settings_Vars.NorthstarInstallLocation = Current_Install_Folder;
@@ -1359,7 +1282,7 @@ int millisecondsDelay = 150)
 
         public bool IsValidPath(string path, bool allowRelativePaths = false)
         {
-            bool isValid = false; ;
+            bool isValid = false; 
 
             try
             {
@@ -1654,11 +1577,9 @@ int millisecondsDelay = 150)
                     {
                         TryDeleteDirectory(outt, true);
                     }
-                    //Write_To_Log(ErrorManager(e));
-
-                    //Send_Fatal_Notif(GetTextResource("NOTIF_FATAL_COMMON_LOG"));
+                    
                 }
-                // Log_Box.AppendText("\nCould not Find the Install at " +root+ " - Continuing Traversal");
+               
             }
 
 
@@ -2334,10 +2255,9 @@ int millisecondsDelay = 150)
         }
         private async void FadeAndMinimizeWindow(MainWindow window)
         {
-            DoubleAnimation animation = new DoubleAnimation(0, TimeSpan.FromSeconds(1));
-            //  window.BeginAnimation(UIElement.OpacityProperty, animation);
-            //  await Task.Delay(TimeSpan.FromSeconds(1));
-            // window.WindowState = WindowState.Minimized;
+            DoubleAnimation animation = new DoubleAnimation(0, TimeSpan.FromSeconds(1.3));
+            window.BeginAnimation(UIElement.OpacityProperty, animation);
+            await Task.Delay(TimeSpan.FromSeconds(1.3));
             window.Minimize();
             return;
         }
@@ -2390,8 +2310,8 @@ int millisecondsDelay = 150)
                 else
                 {
                     Launch_Northstar.IsEnabled = false;
-                    SnackBar.Message = "ERROR - ON Launch, Could Not Find Northstar.exe!";
-                    SnackBar.Title = "FATAL - ERROR";
+                    SnackBar.Message = VTOL.Resources.Languages.Language.ERRORONLaunchCouldNotFindNorthstarExe;
+                    SnackBar.Title = VTOL.Resources.Languages.Language.FATALERROR;
                     SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Danger;
                     SnackBar.Show();
 
@@ -2401,8 +2321,8 @@ int millisecondsDelay = 150)
             else
             {
                 Launch_Northstar.IsEnabled = false;
-                SnackBar.Message = "ERROR - ON Launch, Could Not Find Northstar.exe!";
-                SnackBar.Title = "FATAL - ERROR";
+                SnackBar.Message = VTOL.Resources.Languages.Language.ERRORONLaunchCouldNotFindNorthstarExe;
+                SnackBar.Title = VTOL.Resources.Languages.Language.FATALERROR;
                 SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Danger;
                 SnackBar.Show();
 

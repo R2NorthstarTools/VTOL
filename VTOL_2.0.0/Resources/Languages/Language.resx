@@ -825,4 +825,10 @@
   <data name="TheMod" xml:space="preserve">
     <value>The Mod </value>
   </data>
+  <data name="ERRORONLaunchCouldNotFindNorthstarExe" xml:space="preserve">
+    <value>ERROR - ON Launch, Could Not Find Northstar.exe!</value>
+  </data>
+  <data name="FATALERROR" xml:space="preserve">
+    <value>FATAL - ERROR</value>
+  </data>
 </root>

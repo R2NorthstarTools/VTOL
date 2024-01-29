@@ -616,29 +616,30 @@ namespace VTOL
         public void Minimize()
         {
             this.WindowState = WindowState.Minimized;
-            this.Opacity = 1;
-            this.Opacity = 100;
 
         }
-        public void Maximize()
+        public void Maximize()  
         {
-            this.WindowState = WindowState.Maximized;
-            this.Opacity = 100;
+            DoubleAnimation animation = new DoubleAnimation(100, TimeSpan.FromSeconds(0.5));
+            this.BeginAnimation(UIElement.OpacityProperty, animation);
 
         }
 
         private void MaximizeButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Opacity = 100;
 
             this.WindowState = WindowState.Minimized;
-            this.Opacity = 100;
+            Maximize();
 
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown();
+            if (Directory.Exists(AppDataFolder + @"\VTOL_DATA\temp"))
+            {
+                TryDeleteDirectory(AppDataFolder + @"\VTOL_DATA\temp",true, 2, 20);
+            }
+                Application.Current.Shutdown();
         }
 
 
@@ -774,7 +775,8 @@ true // Whether to change accents automatically
 
         private void Main_Win_Control_GotFocus(object sender, RoutedEventArgs e)
         {
-
+            this.Maximize();
+            
         }
 
         private void Main_Win_Control_LostFocus(object sender, RoutedEventArgs e)
@@ -1039,12 +1041,15 @@ true // Whether to change accents automatically
                     }
                     else
                     {
+                        this.Maximize();
                         this.ShowInTaskbar = true;
 
                     }
                 }
                 else
                 {
+                    this.Maximize();
+
                     this.ShowInTaskbar = true;
 
 

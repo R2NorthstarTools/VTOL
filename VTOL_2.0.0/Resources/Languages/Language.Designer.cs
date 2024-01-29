@@ -214,6 +214,24 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ERROR - ON Launch, Could Not Find Northstar.exe!.
+        /// </summary>
+        public static string ERRORONLaunchCouldNotFindNorthstarExe {
+            get {
+                return ResourceManager.GetString("ERRORONLaunchCouldNotFindNorthstarExe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FATAL - ERROR.
+        /// </summary>
+        public static string FATALERROR {
+            get {
+                return ResourceManager.GetString("FATALERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to  has been Deleted.
         /// </summary>
         public static string HasBeenDeleted {
