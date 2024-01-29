@@ -118,7 +118,7 @@
 
 
             <Button x:Name="Discord_Button" Template="{DynamicResource ButtonControlTemplate1}"
-                  Background="#FF202044" Margin="0,333,41,0" VerticalAlignment="Top" Height="30" HorizontalAlignment="Right" Width="57" Click="Discord_Button_Click" ToolTip="Discord" 
+                  Background="#FF202044" Margin="0,333,41,0" VerticalAlignment="Top" Height="30" HorizontalAlignment="Right" Width="57" Click="Discord_Button_Click" ToolTip="Discord" ClickMode="Press" 
                           
                   >
                 <Border  Width="35" HorizontalAlignment="Center" VerticalAlignment="Center" Height="21">
@@ -249,12 +249,12 @@
                 <TextBlock HorizontalAlignment="Left" Margin="34,129,0,0" TextWrapping="Wrap" Text="{x:Static properties:Language.Page_Home_NorthstarInstallation}" VerticalAlignment="Top" Height="14" Width="148" Foreground="{DynamicResource TextFillColorSecondaryBrush}"
  FontFamily="Segoe UI" Grid.Column="1"/>
                 <TextBox x:Name="Directory_Box" Text="------------------------------------------------------------------------------------------" Margin="32,158,2,0" VerticalAlignment="Top" Height="35" IsReadOnly="True" UndoLimit="0" Grid.Column="1" ToolTip="{x:Static properties:Language.Page_Home_CurrentTitanfall2Path}" />
-                <ui:Button x:Name="Update_Northstar_Button" Padding="6" Appearance="Secondary" FontSize="14" Height="40" Margin="32,216,40,0" VerticalAlignment="Top" HorizontalAlignment="Stretch" Content="{x:Static properties:Language.Page_Home_INIT_ReInstallNorthstar}" Grid.ColumnSpan="2" Grid.Column="1" Click="Update_Northstar_Button_Click" ToolTip="{x:Static properties:Language.Page_Home_UpdateNorthstar}" />
+                <ui:Button x:Name="Update_Northstar_Button" Padding="6" Appearance="Secondary" FontSize="14" Height="40" Margin="32,216,40,0" VerticalAlignment="Top" HorizontalAlignment="Stretch" Content="{x:Static properties:Language.Page_Home_INIT_ReInstallNorthstar}" Grid.ColumnSpan="2" Grid.Column="1" Click="Update_Northstar_Button_Click" ToolTip="{x:Static properties:Language.Page_Home_UpdateNorthstar}" ClickMode="Press" />
                 <ProgressBar x:Name="ProgressBar" Margin="32,261,40,21" Grid.Column="1" Grid.ColumnSpan="2" Foreground="{Binding Source={x:Static SystemParameters.WindowGlassBrush}}" Opacity="0" >
 
                 </ProgressBar>
-                <ui:Button x:Name="Browse_Titanfall_Button" Padding="6" Appearance="Secondary" FontSize="14" Height="36" Margin="71,158,40,0" VerticalAlignment="Top" HorizontalAlignment="Stretch" Content="{x:Static properties:Language.Page_Home_LocateTitanfall2Install}" Grid.Column="2" Click="Browse_Titanfall_Button_Click" ToolTip="{x:Static properties:Language.Page_Home_ManuallyChangeTheTitanfall2InstallDirectory}" />
-                <ui:Button x:Name="Browse_Titanfall_Install" Padding="6" Appearance="Secondary" FontSize="14" Height="36" Margin="15,158,0,0" VerticalAlignment="Top"  Grid.Column="2"  Icon="OpenFolder28" Width="51" ToolTip="{x:Static properties:Language.Page_Home_OpenTitanfall2Folder}" Click="Browse_Titanfall_Install_Click"/>
+                <ui:Button x:Name="Browse_Titanfall_Button" Padding="6" Appearance="Secondary" FontSize="14" Height="36" Margin="71,158,40,0" VerticalAlignment="Top" HorizontalAlignment="Stretch" Content="{x:Static properties:Language.Page_Home_LocateTitanfall2Install}" Grid.Column="2" Click="Browse_Titanfall_Button_Click" ToolTip="{x:Static properties:Language.Page_Home_ManuallyChangeTheTitanfall2InstallDirectory}" ClickMode="Press" />
+                <ui:Button x:Name="Browse_Titanfall_Install" Padding="6" Appearance="Secondary" FontSize="14" Height="36" Margin="15,158,0,0" VerticalAlignment="Top"  Grid.Column="2"  Icon="OpenFolder28" Width="51" ToolTip="{x:Static properties:Language.Page_Home_OpenTitanfall2Folder}" Click="Browse_Titanfall_Install_Click" ClickMode="Press"/>
 
                 <Grid Grid.ColumnSpan="3">
 
@@ -321,7 +321,7 @@
             </Grid>
             <Button x:Name="GIT_Button" 
                 Background="#99000000" Margin="0,333,103,0" VerticalAlignment="Top" Height="30" 
-                          Template="{DynamicResource ButtonControlTemplate1}" HorizontalAlignment="Right" Width="57" Click="GIT_Button_Click" ToolTip="Gitbook"
+                          Template="{DynamicResource ButtonControlTemplate1}" HorizontalAlignment="Right" Width="57" Click="GIT_Button_Click" ToolTip="Gitbook" ClickMode="Press"
                   >
 
                 <Border  Width="36" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20">
@@ -362,7 +362,7 @@
                                                            
                                        This can cause issues for Northstar and VTOL, a more compatible location would be -: C:/Progam Files/Games/Titanfall2.             
                                        Please Follow here for More steps>id_>c#linkstringtest>Lnk_>" Foreground="White" Width="682" HorizontalAlignment="Center" TextAlignment="Center" TextTrimming="CharacterEllipsis" LineStackingStrategy="MaxHeight"/>
-                            <ui:Button x:Name="EXE_BUTTON" Height="44" Width="320" HorizontalAlignment="Center" Background="#FF00422E" Content="Assign VTOL.exe Administrator Rights" Padding="0,0,0,0" Icon="ShieldCheckmark48" Appearance="Secondary" Margin="0,8,0,10" MouseEnter="EXE_BUTTON_MouseEnter" MouseLeave="EXE_BUTTON_MouseLeave" Click="EXE_BUTTON_Click" BorderBrush="{x:Null}" BorderThickness="2,2,2,2"/>
+                            <ui:Button x:Name="EXE_BUTTON" Height="44" Width="320" HorizontalAlignment="Center" Background="#FF00422E" Content="Assign VTOL.exe Administrator Rights" Padding="0,0,0,0" Icon="ShieldCheckmark48" Appearance="Secondary" Margin="0,8,0,10" MouseEnter="EXE_BUTTON_MouseEnter" MouseLeave="EXE_BUTTON_MouseLeave" Click="EXE_BUTTON_Click" BorderBrush="{x:Null}" BorderThickness="2,2,2,2" ClickMode="Press"/>
                             <TextBlock TextWrapping="WrapWithOverflow" Height="56" Text="VTOL can automatically be configured to run as admin always.
  
                                        
@@ -404,7 +404,7 @@
                                 Please Locate your Titanfall 2 Install Folder. Titanfall 2 can be commonly be found in <LineBreak/> SteamLibrary/steamapps/common/Titanfall2 <LineBreak/> or <LineBreak/> Program Files (x86)/Steam/steamapps/common/Titanfall2
                             </TextBlock>
 
-                            <ui:Button x:Name="Locate_Titanfall_Install" Height="35" Width="678" HorizontalAlignment="Center" Content="Locate Titanfall 2 Folder" Padding="0,0,0,0" Icon="SlideMultipleSearch24" Appearance="Secondary" Margin="0,2,0,0" MouseEnter="EXE_BUTTON_MouseEnter" MouseLeave="EXE_BUTTON_MouseLeave" BorderBrush="{x:Null}" BorderThickness="2,2,2,2" Click="Locate_Titanfall_Install_Click">
+                            <ui:Button x:Name="Locate_Titanfall_Install" Height="35" Width="678" HorizontalAlignment="Center" Content="Locate Titanfall 2 Folder" Padding="0,0,0,0" Icon="SlideMultipleSearch24" Appearance="Secondary" Margin="0,2,0,0" MouseEnter="EXE_BUTTON_MouseEnter" MouseLeave="EXE_BUTTON_MouseLeave" BorderBrush="{x:Null}" BorderThickness="2,2,2,2" Click="Locate_Titanfall_Install_Click" ClickMode="Press">
                                 <ui:Button.Background>
                                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                         <GradientStop Color="#FF005831" Offset="1"/>

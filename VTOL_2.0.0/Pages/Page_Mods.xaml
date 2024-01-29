@@ -84,7 +84,7 @@
                 </ContextMenu>
             </hc:SimplePanel.ContextMenu>
         </hc:SimplePanel>
-        <ui:Button x:Name="padd" Content="" VerticalAlignment="Top" Margin="0,93,5,0" Height="33" Padding="0,0,0,0" Icon="ArrowSortDownLines20" BorderBrush="{x:Null}" Click="padd_Click" Grid.Column="1" Width="33" HorizontalAlignment="Right" ToolTip="{x:Static properties:Language.Page_Mods_ReverseFilterOrder}"  MouseOverBackground="#4CFFFFFF"/>
+        <ui:Button x:Name="padd" Content="" VerticalAlignment="Top" Margin="0,93,5,0" Height="33" Padding="0,0,0,0" Icon="ArrowSortDownLines20" BorderBrush="{x:Null}" Click="padd_Click" Grid.Column="1" Width="33" HorizontalAlignment="Right" ToolTip="{x:Static properties:Language.Page_Mods_ReverseFilterOrder}"  MouseOverBackground="#4CFFFFFF" ClickMode="Press"/>
         <Image Source="/Resources/Icons/Main_UI/Northstar-512.ico" Grid.ColumnSpan="3" Margin="640,174,-180,-174" Opacity="0.05" IsHitTestVisible="False">
 
         </Image>
@@ -139,7 +139,7 @@
                                 <ui:Button x:Name="Delete_Btn" Width="96" Height="42" Content="Delete"  Background="#B29A0404" Tag ="{Binding Mod_Name_}"  ToolTip="{Binding Mod_Path_}" Margin="0,0,30,0" Click="Delete_Btn_Click" Icon="DeleteDismiss24" Foreground="White"/>
 
                             </DockPanel>
-                            <ui:Button x:Name="Mod_Btn" Width="112" Height="42" Content="{Binding Label}"  Background="{Binding Is_Active_Color}" Tag ="{Binding En_Di}" Click="Mod_Btn_Click" ToolTip="{Binding Mod_Name_}" Margin="0,0,10,0" HorizontalAlignment="Right"/>
+                            <ui:Button x:Name="Mod_Btn" Width="112" Height="42" Content="{Binding Label}"  Background="{Binding Is_Active_Color}" Tag ="{Binding En_Di}" Click="Mod_Btn_Click" ToolTip="{Binding Mod_Name_}" Margin="0,0,10,0" HorizontalAlignment="Right" ClickMode="Press"/>
                             <ui:SymbolIcon RenderTransformOrigin="0.5,0.5" Width="16" HorizontalAlignment="Left" Margin="285,0,0,0" Symbol="Warning12" Foreground="Red" Opacity="{Binding Flag}" ToolTip="{Binding Error_Tooltip}" >
                                 <ui:SymbolIcon.RenderTransform>
                                     <TransformGroup>
@@ -270,7 +270,7 @@
 
                         <Label  Content="{x:Static properties:Language.DESCRIPTION}" Margin="39,0,0,200" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="231"/>
                         <Label  Content="{x:Static properties:Language.DEPENDENCYLIST}" Margin="39,0,0,69" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="230"/>
-                        <ui:Button x:Name="Open_Folder_" Width="471" Height="37" Margin="0,449,0,0" VerticalAlignment="Top" Content="Open Folder" Padding="0,0,0,0" Appearance="Success" Icon="Folder32" Click="Open_Folder__Click" HorizontalAlignment="Center" Background="#B2049A28">
+                        <ui:Button x:Name="Open_Folder_" Width="471" Height="37" Margin="0,449,0,0" VerticalAlignment="Top" Content="Open Folder" Padding="0,0,0,0" Appearance="Success" Icon="Folder32" Click="Open_Folder__Click" HorizontalAlignment="Center" Background="#B2049A28" ClickMode="Press">
                             <ui:Button.PressedBackground>
                                 <SolidColorBrush Color="#FF8FF393" Opacity="0.7"/>
                             </ui:Button.PressedBackground>

@@ -39,7 +39,7 @@
         <!--<Border Margin="50,116,50,110" Background="#FF2B2B2B"></Border>
 
         <mdxam:MarkdownScrollViewer x:Name="MarkDown_Display" Margin="50,116,50,110" Background="#FF505050" Foreground="White" />-->
-        <ui:Button x:Name="Cofigure" Content="{x:Static properties:Language.Page_About_ConfigureUpdates}" Height="45" Margin="182,590,594,0" VerticalAlignment="Top" Icon="Settings32" HorizontalAlignment="Stretch" Click="Button_Click" Background="#FF383838"/>
-        <ui:Button x:Name="Check" Content="{x:Static properties:Language.Page_About_CheckForUpdate}" Height="45" Margin="0,590,182,0" VerticalAlignment="Top" Icon="DatabaseSearch24" HorizontalAlignment="Right" Width="372" Click="Check_Click" Background="#FF383838"/>
+        <ui:Button x:Name="Cofigure" Content="{x:Static properties:Language.Page_About_ConfigureUpdates}" Height="45" Margin="182,590,594,0" VerticalAlignment="Top" Icon="Settings32" HorizontalAlignment="Stretch" Click="Button_Click" Background="#FF383838" ClickMode="Press"/>
+        <ui:Button x:Name="Check" Content="{x:Static properties:Language.Page_About_CheckForUpdate}" Height="45" Margin="0,590,182,0" VerticalAlignment="Top" Icon="DatabaseSearch24" HorizontalAlignment="Right" Width="372" Click="Check_Click" Background="#FF383838" ClickMode="Press"/>
     </Grid>
 </Page>

@@ -705,7 +705,6 @@ int millisecondsDelay = 150)
                     Loading_Ring.Visibility = Visibility.Hidden;
                 });
                 page_loaded = true;
-                Main.Page_reset_ = true;
             };
             worker.RunWorkerAsync();
 
@@ -4510,54 +4509,44 @@ int millisecondsDelay = 300)
         {
             try
             {
-                if (Sort.SelectedItem != null)
+
+                if (page_loaded != true)
                 {
-                    Sort_Label.Visibility = Visibility.Hidden;
+                    return;
+                }
+                    if (Sort.SelectedIndex == -1)
+                {
+                    Sort.Background = null;
+
+                    Sort_Label.Visibility = Visibility.Visible;
+                    return;
                 }
                 else
                 {
-                    Sort_Label.Visibility = Visibility.Visible;
+                    
+                    Sort.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#4C018156");
 
-                }
-                if (page_loaded == true)
-                {
+                    Sort_Label.Visibility = Visibility.Hidden;
 
-
-                    //BackgroundWorker worker = new BackgroundWorker();
-                    //worker.DoWork += (sender, e) =>
-                    //{
-
-
-                    //Call_Ts_Mods();
 
                     if (_updater.Thunderstore != null)
-                    {
-                        if (_updater.Thunderstore.Count() > 0)
                         {
-                            DispatchIfNecessary(async () =>
+                            if (_updater.Thunderstore.Count() > 0)
                             {
+                                DispatchIfNecessary(async () =>
+                                {
 
-                                orderlistitems();
-                            });
+                                    orderlistitems();
+                                });
+                            }
                         }
-                    }
 
-
-                    //};
-                    //worker.RunWorkerCompleted += (sender, eventArgs) =>
-                    //{
-
-                    //   // Thunderstore_List.Items.Refresh();
-
-
-                    //};
-                    //worker.RunWorkerAsync();
+                    
 
                 }
             }
             catch (Exception ex)
             {
-                //Removed PaperTrailSystem Due to lack of reliability.
 
                 Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy-MM- dd-HH-mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
 
