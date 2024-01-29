@@ -756,7 +756,7 @@ int millisecondsDelay = 150)
                 if (File.Exists(Current_Install_Folder + @"NorthstarLauncher.exe") && File.Exists(Current_Install_Folder + @"Titanfall2.exe"))
                 {
                     NSExe = Get_And_Set_Filepaths(Current_Install_Folder, "NorthstarLauncher.exe");
-                    await Task.Delay(200);
+                    await Task.Delay(400);
 
                     // Get the file version info for the notepad.
                     FileVersionInfo myFileVersionInfo = FileVersionInfo.GetVersionInfo(Current_Install_Folder + @"NorthstarLauncher.exe");
@@ -938,18 +938,7 @@ int millisecondsDelay = 150)
                     {
                         string FINAL = "";
                         Current_Install_Folder = InstalledApplications.GetApplictionInstallPath("Titanfall2");
-                        if (Directory.Exists(Current_Install_Folder))
-                        {
-                            FINAL = Current_Install_Folder;
-                            if (!Current_Install_Folder.EndsWith(@"\"))
-                            {
-                                string fix = Current_Install_Folder + @"\";
-                                User_Settings_Vars.NorthstarInstallLocation = fix;
-                                Current_Install_Folder = fix.Replace(@"\\", @"\").Replace("/", @"\");
-                            }
-
-                        }
-                        else
+                        if (!Directory.Exists(Current_Install_Folder))
                         {
 
 
@@ -963,7 +952,21 @@ int millisecondsDelay = 150)
                             return;
 
 
+
+
+
+
+
                         }
+                             FINAL = Current_Install_Folder;
+                            if (!Current_Install_Folder.EndsWith(@"\"))
+                            {
+                                string fix = Current_Install_Folder + @"\";
+                                User_Settings_Vars.NorthstarInstallLocation = fix;
+                                Current_Install_Folder = fix.Replace(@"\\", @"\").Replace("/", @"\");
+                            }
+
+                       
 
                     }
 
@@ -2402,11 +2405,9 @@ int millisecondsDelay = 150)
             Process[] pname = Process.GetProcessesByName(ProcessName);
             if (pname.Length != 0)
             {
-                GC.Collect();
                 return true;
             }
             pname = null;
-            GC.Collect();
             return false;
            
 
@@ -2422,27 +2423,31 @@ int millisecondsDelay = 150)
             try
             {
                 DirectoryInfo directory = new DirectoryInfo(rootDir);
-                FileInfo[] files = directory.GetFiles("*" + Filename + "*.*");
 
-                foreach (FileInfo file in files)
-                {
-                    if (file.Name.Equals(Filename))
+
+                IEnumerable<string> filesOrDirectories = FileDirectorySearch.Search(rootDir, Filename);
+
+                string _Location = filesOrDirectories.FirstOrDefault();
+
+
+               if (File.Exists(_Location))
                     {
-                        return file.FullName;
-                    }
-                }
+                        return _Location;
+                   }
+               
 
-                return "\nCould not find " + Filename + "\n";
+                return null;
             }
 
             catch (Exception ex)
             {
-                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
-                //Removed PaperTrailSystem Due to lack of reliability.                
+                return null;
+
+
             }
 
 
-            return "Exited with No Due to Missing Or Inaccurate Path";
+            return null;
 
 
         }
@@ -2847,8 +2852,13 @@ int millisecondsDelay = 150)
                     {
                         Current_Install_Folder = path + @"\";
                         DirectoryInfo Dir = new DirectoryInfo(Current_Install_Folder);
+                         string searchfile = "Titanfall2.exe";
 
-                        if (Dir.Exists && File.Exists(Current_Install_Folder + "Titanfall2.exe"))
+                            IEnumerable<string> filesOrDirectories = FileDirectorySearch.Search(Current_Install_Folder, searchfile);
+
+                           string Titanfall2_Location = filesOrDirectories.FirstOrDefault();
+                        
+                        if (Dir.Exists && File.Exists(Titanfall2_Location))
                         {
                             if (File.Exists(Current_Install_Folder + "NorthstarLauncher.exe"))
                             {
@@ -3765,20 +3775,25 @@ int millisecondsDelay = 150)
             {
                 unpack_flg = false;
                 string searchPattern = @"Northstar.*";
-                string baseFolderPath = Path.Combine(Current_Install_Folder, User_Settings_Vars.Profile_Path);
+                string baseFolderPath = Path.Combine(Current_Install_Folder, User_Settings_Vars.Profile_Path) + @"\mods";
 
-                string[] matchingFolders = Directory.GetDirectories(baseFolderPath, searchPattern, SearchOption.AllDirectories);
-
-
-                foreach (string folderPath in matchingFolders)
+                if (Directory.Exists(baseFolderPath))
                 {
-                    if (Directory.Exists(folderPath))
+                    string[] matchingFolders = Directory.GetDirectories(baseFolderPath, searchPattern, SearchOption.AllDirectories);
+
+
+                    foreach (string folderPath in matchingFolders)
                     {
+                        if (Directory.Exists(folderPath))
+                        {
 
-                        TryDeleteDirectory(folderPath, true);
+                            TryDeleteDirectory(folderPath, true);
 
+                        }
                     }
+
                 }
+                
 
               
                 string nrml = GetFile(Current_Install_Folder, @"ns_startup_args.txt");
