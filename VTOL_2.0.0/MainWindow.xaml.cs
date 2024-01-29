@@ -160,7 +160,7 @@ namespace VTOL
             try
             {
                 AppDataFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData));
-                LOG_Folder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)) + @"\[VTOL]__ERROR_LOGS\";
+                LOG_Folder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)) + @"\VTOL_ERROR_LOGS\";
                 //win 10
                 if (Environment.OSVersion.Platform == PlatformID.Win32NT && (Environment.OSVersion.Version.Build < 22000) ){
 
@@ -307,8 +307,7 @@ namespace VTOL
                 if (User_Settings_Vars != null)
                 {
 
-                    // ProfileManager Profile_ = new ProfileManager();
-                    //  Profile_.InitializeProfiles(null);
+                    ;
                     string language = "en-EN";
                     switch (User_Settings_Vars.Language)
                     {
@@ -350,14 +349,9 @@ namespace VTOL
 
                     Send_Danger_Notif(VTOL.Resources.Languages.Language.CouldNotReadUserSettingsPleaseRunAsAdminOrRepairCleanYourInstallation, 10000);
 
-                }//todo update tools
+                }
 
-                Wpf.Ui.Appearance.Theme.Apply(
-            Wpf.Ui.Appearance.ThemeType.Unknown,
-  // Theme type
-  Wpf.Ui.Appearance.BackgroundType.None, // Background type
-  true                                  // Whether to change accents automatically
-);
+                Wpf.Ui.Appearance.Theme.Apply(Wpf.Ui.Appearance.ThemeType.Unknown, Wpf.Ui.Appearance.BackgroundType.None, true);
 
 
 
@@ -373,7 +367,6 @@ namespace VTOL
                     Admin_Label.Visibility = Visibility.Hidden;
 
                 }
-               // UserInterfaceCustomScale(1.5);
                 Check_For_New_Update(true);
 
             }

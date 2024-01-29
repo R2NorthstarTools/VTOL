@@ -260,7 +260,6 @@ namespace VTOL.Pages
         public List<NORTHSTARCOMPATIBLE_MOD> READ_UPDATE_MOD_LIST(DirectoryInfo[] modsToUpdate, bool UPDATE_Folders = false)
         {
             List<NORTHSTARCOMPATIBLE_MOD> OUTPUT = new List<NORTHSTARCOMPATIBLE_MOD>();
-            
                 if (modsToUpdate.Count() <= 0)
                 {
                     return OUTPUT;
@@ -272,8 +271,8 @@ namespace VTOL.Pages
                 {
                   // Read the JSON file
                    string  jsonContent = File.ReadAllText(Json_Path);
-                
-            if (jsonContent.IsNullOrEmpty() == true && jsonContent.Length < 5)
+                    
+                 if (jsonContent.IsNullOrEmpty() == true && jsonContent.Length < 5)
                    {
                          File.WriteAllText(Json_Path, "{\t\t\n\n}");
 
@@ -293,8 +292,18 @@ namespace VTOL.Pages
                         string pattern = @"-\d+\.\d+\.\d+$";
                         Match match = Regex.Match(dirName, pattern);
                         // Remove the version number from the directory name
-                        string dirNameWithoutVersion = match.Success ? dirName.Replace(match.Value, "") : dirName;
-                        Console.WriteLine(dirNameWithoutVersion + "\n\n" + dirName);
+                        string dirNameWithoutVersion = null;
+
+                        dirNameWithoutVersion = match.Success ? dirName.Replace(match.Value, "") : dirName;
+
+                        if (dirNameWithoutVersion == null)
+                        {
+
+                            dirNameWithoutVersion = match.Success ? dirInfo.Name.Replace(match.Value, "") : dirInfo.Name;
+                            // Handle the case where the value is null
+
+
+                        }
                         // Handle the case where the value is null
                         Mod.Name = dirNameWithoutVersion;
                         Mod.Value = false; // or some other appropriate value
@@ -413,7 +422,6 @@ namespace VTOL.Pages
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine("Invalid JSON: " + ex.Message);
 
                         Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
 
@@ -465,7 +473,7 @@ namespace VTOL.Pages
                                         List<NORTHSTARCOMPATIBLE_MOD> DIRECTORY_MODS = READ_UPDATE_MOD_LIST(subDirs);
 
                                         CLEANED_FORMAT_MODS = DIRECTORY_MODS;
-                                       
+
                                     }
                                     DispatchIfNecessary(async () =>
 
@@ -473,6 +481,7 @@ namespace VTOL.Pages
 
                                         Mod_Count_Label.Content = VTOL.Resources.Languages.Language.Page_Mods_Call_Mods_From_Folder_ModCount + CLEANED_FORMAT_MODS.Count;
                                     });
+
                                     foreach (var Verified_Installed_Mod in CLEANED_FORMAT_MODS)
                                     {
                                         try
@@ -550,10 +559,10 @@ namespace VTOL.Pages
                                                 {
                                                     string[] parts = Verified_Installed_Mod.Namespace.Split('-');
                                                     string name = Verified_Installed_Mod.Namespace.Trim();
-                                                    string author = null;
-                                                    string ver = null;
+                                                    string author = "NA";
+                                                    string ver = "NA";
 
-                                                    if (parts.Length > 1)
+                                                    if (parts.Length == 3 )
                                                     {
                                                         author = parts[0];
                                                         name = parts[1];
@@ -566,7 +575,8 @@ namespace VTOL.Pages
                                         }
                                         catch (Exception ex)
                                         {
-                                           
+                                            Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
+
                                         }
                                     }
                                     Main.loaded_mods = true;
@@ -591,6 +601,8 @@ namespace VTOL.Pages
             }
             catch (Exception ex)
             {
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
+
             }
 
 
@@ -938,6 +950,7 @@ int millisecondsDelay = 300)
             }
             catch (Exception ex)
             {
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
 
             }
         }
@@ -1593,6 +1606,7 @@ int millisecondsDelay = 300)
                 }
                 catch (Exception ex)
                 {
+                    Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
 
                     return string.Empty;
                 }
@@ -1612,8 +1626,10 @@ int millisecondsDelay = 300)
                         // Exception could occur due to insufficient permission.
                         directories = Directory.GetDirectories(path);
                     }
-                    catch (Exception)
+                    catch (Exception e)
                     {
+                        Log.Error(e, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{e.InnerException}{Environment.NewLine}");
+
                         return string.Empty;
                     }
 
@@ -1635,9 +1651,10 @@ int millisecondsDelay = 300)
 
 
 
-            catch (Exception ex)
+            catch (Exception e)
             {
 
+                Log.Error(e, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{e.InnerException}{Environment.NewLine}");
 
             }
             // If no file was found (neither in this directory nor in the child directories)
@@ -2747,6 +2764,7 @@ int millisecondsDelay = 150)
             }
             catch (Exception ex)
             {
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
 
             }
         }
