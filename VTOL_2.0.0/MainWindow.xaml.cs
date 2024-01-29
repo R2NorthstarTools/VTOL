@@ -75,7 +75,7 @@ namespace VTOL
         private Wpf.Ui.Appearance.ThemeType ThemeType = Wpf.Ui.Appearance.ThemeType.Dark;
         bool Profile_card = false;
         public User_Settings User_Settings_Vars = new User_Settings();
-        public string AppDataFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData));
+        public string AppDataFolder = null;
 
         public NotificationManager NotificationManager;
         public bool loaded_mods = false;
@@ -86,7 +86,7 @@ namespace VTOL
         bool failed_folder = false;
         public bool minimize_to_tray = false;
         public DownloadQueue _downloadQueue;
-
+        public string LOG_Folder;
         // The enum flag for DwmSetWindowAttribute's second parameter, which tells the function what attribute to set.
         // Copied from dwmapi.h
 
@@ -159,7 +159,8 @@ namespace VTOL
 
             try
             {
-
+                AppDataFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData));
+                LOG_Folder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)) + @"\[VTOL]__ERROR_LOGS\";
                 //win 10
                 if (Environment.OSVersion.Platform == PlatformID.Win32NT && (Environment.OSVersion.Version.Build < 22000) ){
 
@@ -288,6 +289,21 @@ namespace VTOL
 
                 }
 
+
+                if (!Directory.Exists(LOG_Folder))
+                {
+
+                    TryCreateDirectory(LOG_Folder);
+                  
+                }
+
+
+                Log.Logger = new LoggerConfiguration().MinimumLevel.Debug().WriteTo.File(LOG_Folder + "\\User - Log.log", rollingInterval: RollingInterval.Hour).CreateLogger();
+
+
+
+
+
                 if (User_Settings_Vars != null)
                 {
 
@@ -366,7 +382,7 @@ namespace VTOL
             catch (Exception ex)
             {
 
-                Console.WriteLine(ex+ $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
+                Log.Error(ex+ $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
             }
 
@@ -1127,7 +1143,7 @@ true // Whether to change accents automatically
             catch (Exception ex)
             {
 
-
+                Log.Error(ex.Message + " \n\n\n\n" + ex.InnerException);
             }
 
             return false;
@@ -1216,6 +1232,7 @@ true // Whether to change accents automatically
             }
             catch (Exception ex)
             {
+                Log.Error(ex.Message + " \n\n\n\n" + ex.InnerException);
 
 
             }
@@ -1276,7 +1293,7 @@ true // Whether to change accents automatically
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                Log.Error(ex.Message + " \n\n\n\n" + ex.InnerException);
 
             }
 

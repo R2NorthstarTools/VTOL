@@ -194,8 +194,10 @@ namespace VTOL.Pages
 
                     return true;
                 }
-                catch (IOException)
+                catch (IOException ex)
                 {
+                    Log.Error(ex.Message + " \n\n\n\n" + ex.InnerException);
+
                     Thread.Sleep(millisecondsDelay);
                 }
                 catch (UnauthorizedAccessException)
@@ -233,8 +235,10 @@ namespace VTOL.Pages
 
 
                 }
-                catch (IOException)
+                catch (IOException ex)
                 {
+                    Log.Error(ex.Message + " \n\n\n\n" + ex.InnerException);
+
                     Thread.Sleep(millisecondsDelay);
                 }
                 catch (UnauthorizedAccessException)
@@ -268,8 +272,10 @@ namespace VTOL.Pages
 
                     return true;
                 }
-                catch (IOException)
+                catch (IOException ex)
                 {
+                    Log.Error(ex.Message + " \n\n\n\n" + ex.InnerException);
+
                     Thread.Sleep(millisecondsDelay);
                 }
                 catch (UnauthorizedAccessException)
@@ -655,6 +661,7 @@ int millisecondsDelay = 150)
         {
             InitializeComponent();
             Check_Reverse(false);
+            InfoChangeEvent += new SomeInfoChangeDelegate(OnInfoChanged);
             User_Settings_Vars = Main.User_Settings_Vars;
             DocumentsFolder = Main.AppDataFolder;
             SnackBar = Main.Snackbar;
@@ -1179,7 +1186,18 @@ int millisecondsDelay = 150)
 
 
 
-
+        public delegate void SomeInfoChangeDelegate(object o);
+        public event SomeInfoChangeDelegate InfoChangeEvent = null;
+        void OnInfoChanged(object o)
+        {
+            DispatchIfNecessary(async () =>
+            {
+               // itemsList = Thunderstore_List.Items.Cast<Grid_>().ToList();
+                  Reload_BTTN.Visibility = Visibility.Collapsed;
+                Loading_Ring.Visibility = Visibility.Hidden;
+                Thunderstore_List.Items.Refresh();
+            });
+        }
         protected void SomeWorkerThread(object o)
         {
 
@@ -1202,7 +1220,6 @@ int millisecondsDelay = 150)
 
                 List<Grid_> List = null;
                 _updater = new Updater("https://northstar.thunderstore.io/api/v1/package/");
-
                 _updater.Download_Cutom_JSON();
                 if (_updater.Thunderstore != null)
                 {
@@ -1210,6 +1227,7 @@ int millisecondsDelay = 150)
                     {
                         DispatchIfNecessary(async () =>
                         {
+                            itemsList.Clear();
                             Thunderstore_List.Items.Clear();
                             Thread t = new Thread(new ParameterizedThreadStart(SomeWorkerThread));
                             t.Start();
@@ -1217,6 +1235,7 @@ int millisecondsDelay = 150)
 
                         });
 
+                        Thunderstore_List.Items.Refresh();
 
                     }
 
@@ -2009,12 +2028,8 @@ int millisecondsDelay = 150)
                                     Button_Color = bg_color, is_Favourite_ = is_favourite });
 
                                 Thunderstore_List.Items.Add(Card);
-                                DispatchIfNecessary(async () =>
-                                {
-                                    itemsList = Thunderstore_List.Items.Cast<Grid_>().ToList();
-                                    Loading_Ring.Visibility = Visibility.Hidden;
-                                    Thunderstore_List.Items.Refresh();
-                                });
+                                itemsList.Add(Card);
+
 
                             }
                         });
@@ -2090,13 +2105,7 @@ int millisecondsDelay = 150)
                                     Button_Color = bg_color,
                                     is_Favourite_ = is_favourite });
                                 Thunderstore_List.Items.Add(Card);
-                                DispatchIfNecessary(async () =>
-                                {
-                                    itemsList = Thunderstore_List.Items.Cast<Grid_>().ToList();
-                                    Loading_Ring.Visibility = Visibility.Hidden;
-                                    Thunderstore_List.Items.Refresh();
-                                });
-
+                                itemsList.Add(Card);
                             }
                         });
 
@@ -2209,12 +2218,8 @@ int millisecondsDelay = 150)
                                 Button_Color = bg_color,
                                 is_Favourite_ = is_favourite });
                             Thunderstore_List.Items.Add(Card);
-                            DispatchIfNecessary(async () =>
-                            {
-                                itemsList = Thunderstore_List.Items.Cast<Grid_>().ToList();
-                                Loading_Ring.Visibility = Visibility.Hidden;
-                                Thunderstore_List.Items.Refresh();
-                            });
+                            itemsList.Add(Card);
+
                         }
                     });
 
@@ -2322,21 +2327,12 @@ int millisecondsDelay = 150)
                                 Button_Color = bg_color,
                                 is_Favourite_ = is_favourite });
                             Thunderstore_List.Items.Add(Card);
-                            DispatchIfNecessary(async () =>
-                            {
-                                itemsList = Thunderstore_List.Items.Cast<Grid_>().ToList();
-                                Loading_Ring.Visibility = Visibility.Hidden;
-                                Thunderstore_List.Items.Refresh();
-                            });
+                            itemsList.Add(Card);
                         }
                     });
                 }
             }
-            //}
-            //    catch (Exception ex)
-            //        {
-            //        Console.WriteLine(ex.Source+"\n\n\n" + ex.Message);
-            //    }
+          
 
 
 
@@ -3112,6 +3108,7 @@ int millisecondsDelay = 300)
             }
             catch (Exception ex)
             {
+                Log.Error(ex.Message + " \n\n\n\n" + ex.InnerException);
 
 
             }
@@ -3150,6 +3147,8 @@ int millisecondsDelay = 300)
                 }
                 catch (Exception ex)
                 {
+                    Log.Error(ex.Message + " \n\n\n\n" + ex.InnerException);
+
 
                     return string.Empty;
                 }
@@ -3195,6 +3194,7 @@ int millisecondsDelay = 300)
             catch (Exception ex)
             {
 
+                Log.Error(ex.Message + " \n\n\n\n" + ex.InnerException);
 
             }
             // If no file was found (neither in this directory nor in the child directories)
@@ -3220,7 +3220,7 @@ int millisecondsDelay = 300)
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error: " + ex.Message);
+                Log.Error(ex.Message + " \n\n\n\n" + ex.InnerException);
                 return null; // Handle the exception as per your application's needs
             }
         }
@@ -3774,7 +3774,6 @@ int millisecondsDelay = 300)
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex + $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}");
 
                 DispatchIfNecessary(async () =>
                 {
@@ -3852,7 +3851,7 @@ int millisecondsDelay = 300)
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error: {ex.Message}");
+                Log.Error(ex.Message + " \n\n\n\n" + ex.InnerException);
             }
 
             return null; // Return null if no matching folder is found
@@ -3943,7 +3942,7 @@ int millisecondsDelay = 300)
                     }
                     catch (Exception ex)
                     {
-                        // log error
+                        Log.Error(ex.Message + " \n\n\n\n" + ex.InnerException);
                     }
                     finally
                     {
@@ -3993,7 +3992,7 @@ int millisecondsDelay = 300)
                 }
                 catch (Exception ex)
                 {
-                    // log error
+                    Log.Error(ex.Message + " \n\n\n\n" + ex.InnerException);
                 }
             }
 
@@ -4088,7 +4087,7 @@ int millisecondsDelay = 300)
                 }
                 catch (Exception ex)
                 {
-                    // log error
+                    Log.Error(ex.Message + " \n\n\n\n" + ex.InnerException);
                 }
             }
         }
@@ -4157,7 +4156,6 @@ int millisecondsDelay = 300)
             }
             catch (Exception ex)
             {
-                //Removed PaperTrailSystem Due to lack of reliability.
 
 
 
@@ -4931,6 +4929,7 @@ int millisecondsDelay = 300)
             }
             catch (Exception ex)
             {
+                Log.Error(ex.Message + " \n\n\n\n" + ex.InnerException);
 
             }
         }

@@ -248,6 +248,7 @@ namespace VTOL.Pages
                         }
                         catch (Exception ex)
                         {
+                            Log.Error(ex.Message + " \n\n\n\n" + ex.InnerException);
 
 
                         }
@@ -538,15 +539,15 @@ namespace VTOL.Pages
                     }
                     File.Delete(testFilePath);
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
-                    Console.WriteLine($"Error: Unable to access directory. {e.Message}");
+                    Log.Error(ex.Message + " \n\n\n\n" + ex.InnerException);
                     return false;
                 }
             }
             else
             {
-                Console.WriteLine("Error: Directory does not exist.");
+                Log.Error("Error: Directory does not exist.");
             }
 
             return true;
@@ -575,8 +576,10 @@ int millisecondsDelay = 150)
 
                     return true;
                 }
-                catch (IOException)
+                catch (IOException ex)
                 {
+                    Log.Error(ex.Message + " \n\n\n\n" + ex.InnerException);
+
                     Thread.Sleep(millisecondsDelay);
                 }
                 catch (UnauthorizedAccessException)
@@ -1479,8 +1482,9 @@ int millisecondsDelay = 150)
                     RegistryKey originReg = Registry.LocalMachine.OpenSubKey("SOFTWARE").OpenSubKey("Respawn").OpenSubKey("Titanfall2");
                     if (originReg.GetValue("Install Dir") != null) return (string)originReg.GetValue("Install Dir");
                 }
-                catch
+                catch(Exception ex)
                 {
+                    Log.Error(ex.Message + " \n\n\n\n" + ex.InnerException);
 
                 }
 
@@ -1531,8 +1535,9 @@ int millisecondsDelay = 150)
                 RegistryKey originReg = Registry.LocalMachine.OpenSubKey("SOFTWARE").OpenSubKey("Respawn").OpenSubKey("Titanfall2");
                 if (originReg.GetValue("Install Dir") != null) return (string)originReg.GetValue("Install Dir");
             }
-            catch
+            catch ( Exception ex)
             {
+                Log.Error(ex.Message + " \n\n\n\n" + ex.InnerException);
 
             }
 
@@ -2067,7 +2072,7 @@ int millisecondsDelay = 150)
             catch (Exception ex)
             {
 
-                //i dont need to log this
+                Log.Error(ex.Message + " \n\n\n\n" + ex.InnerException);
             }
         }
 
@@ -2441,6 +2446,8 @@ int millisecondsDelay = 150)
 
             catch (Exception ex)
             {
+                Log.Error(ex.Message + " \n\n\n\n" + ex.InnerException);
+
                 return null;
 
 
@@ -2704,8 +2711,10 @@ int millisecondsDelay = 150)
                                         //kill running process
                                         runingProcess[i].Kill();
                                     }
-                                    catch
+                                    catch (Exception ex)
                                     {
+                                        Log.Error(ex.Message + " \n\n\n\n" + ex.InnerException);
+
                                         continue;
                                     }
                                 }
@@ -3084,8 +3093,10 @@ int millisecondsDelay = 150)
                     stream.Close();
                 }
             }
-            catch (IOException)
+            catch (IOException ex)
             {
+                Log.Error(ex.Message + " \n\n\n\n" + ex.InnerException);
+
                 //the file is unavailable because it is:
                 //still being written to
                 //or being processed by another thread
@@ -3472,8 +3483,10 @@ int millisecondsDelay = 150)
                     }
 
                 }
-                catch (IOException)
+                catch (IOException ex)
                 {
+                    Log.Error(ex.Message + " \n\n\n\n" + ex.InnerException);
+
                     Thread.Sleep(millisecondsDelay);
                 }
                 catch (UnauthorizedAccessException)
@@ -3615,8 +3628,10 @@ int millisecondsDelay = 150)
 
                     return true;
                 }
-                catch (IOException)
+                catch (IOException ex) 
                 {
+                    Log.Error(ex.Message + " \n\n\n\n" + ex.InnerException);
+
                     Thread.Sleep(millisecondsDelay);
                 }
                 catch (UnauthorizedAccessException)
@@ -3649,8 +3664,10 @@ int millisecondsDelay = 150)
 
                     return true;
                 }
-                catch (IOException)
+                catch (IOException ex)
                 {
+                    Log.Error(ex.Message + " \n\n\n\n" + ex.InnerException);
+
                     Thread.Sleep(millisecondsDelay);
                 }
                 catch (UnauthorizedAccessException)
@@ -3685,8 +3702,11 @@ int millisecondsDelay = 150)
 
                     return true;
                 }
-                catch (IOException)
+                catch (IOException ex)
                 {
+
+                    Log.Error(ex.Message + " \n\n\n\n" + ex.InnerException);
+
                     Thread.Sleep(millisecondsDelay);
                 }
                 catch (UnauthorizedAccessException)
@@ -3720,8 +3740,10 @@ int millisecondsDelay = 150)
 
                     return true;
                 }
-                catch (IOException)
+                catch (IOException ex)
                 {
+                    Log.Error(ex.Message + " \n\n\n\n" + ex.InnerException);
+
                     Thread.Sleep(millisecondsDelay);
                 }
                 catch (UnauthorizedAccessException)
@@ -3756,8 +3778,10 @@ int millisecondsDelay = 150)
 
                     return true;
                 }
-                catch (IOException)
+                catch (IOException ex)
                 {
+                    Log.Error(ex.Message + " \n\n\n\n" + ex.InnerException);
+
                     Thread.Sleep(millisecondsDelay);
                 }
                 catch (UnauthorizedAccessException)
