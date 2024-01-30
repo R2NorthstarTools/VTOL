@@ -577,7 +577,7 @@ namespace VTOL
         {
 
             Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Success;
-            Snackbar.Show("Success", Input_Message, Wpf.Ui.Common.SymbolRegular.Check24);
+            Snackbar.ShowAsync("Success", Input_Message, Wpf.Ui.Common.SymbolRegular.Check24);
             //Dialog.Show("Feeel Fine", "23 Hours no sleep");
 
         }
@@ -585,14 +585,14 @@ namespace VTOL
         public void Send_Caution_Notif(string Input_Message)
         {
             Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Caution;
-            Snackbar.Show("Caution", Input_Message, Wpf.Ui.Common.SymbolRegular.ErrorCircleSettings20);
+            Snackbar.ShowAsync("Caution", Input_Message, Wpf.Ui.Common.SymbolRegular.ErrorCircleSettings20);
 
         }
 
         public void Send_Info_Notif(string Input_Message)
         {
             Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
-            Snackbar.Show(VTOL.Resources.Languages.Language.INFO, Input_Message, Wpf.Ui.Common.SymbolRegular.Info24);
+            Snackbar.ShowAsync(VTOL.Resources.Languages.Language.INFO, Input_Message, Wpf.Ui.Common.SymbolRegular.Info24);
 
 
         }
@@ -602,7 +602,7 @@ namespace VTOL
 
             Snackbar.Timeout = time;
             Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Danger;
-            Snackbar.Show("Danger", Input_Message, Wpf.Ui.Common.SymbolRegular.Warning24);
+            Snackbar.ShowAsync("Danger", Input_Message, Wpf.Ui.Common.SymbolRegular.Warning24);
         }
 
 
