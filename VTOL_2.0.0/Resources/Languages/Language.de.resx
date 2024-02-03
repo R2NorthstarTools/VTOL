@@ -753,4 +753,82 @@
   <data name="TheModIsNotRegisteredProperlyInTheBackendListPleaseFixTheM2odFormattingOrUpdateYourTF2ModList" xml:space="preserve">
     <value>Der Mod ist nicht richtig in der Backend-Liste registriert, bitte korrigieren Sie die M2od-Formatierung oder aktualisieren Sie die TF2 Mod-Liste</value>
   </data>
+  <data name="INFO" xml:space="preserve">
+    <value>INFO</value>
+  </data>
+  <data name="CANCELLEDPERMISSIONS" xml:space="preserve">
+    <value>ENTFALLENE BERECHTIGUNGEN</value>
+  </data>
+  <data name="VTOLSYSTEMSFAILEDTOFINDYOURAPPDATAFOLDERLOCATEASAVEDATAFOLDER" xml:space="preserve">
+    <value>VTOL SYSTEMS KONNTE IHREN APPDATA-ORDNER NICHT FINDEN, SUCHEN SIE EINEN ORDNER FÜR SICHERE DATEN</value>
+  </data>
+  <data name="RESTARTINGTOSETHARDVALUES" xml:space="preserve">
+    <value>NEUSTARTEN, UM FESTE WERTE ZU SETZEN</value>
+  </data>
+  <data name="DELETEMOD" xml:space="preserve">
+    <value>MOD LÖSCHEN</value>
+  </data>
+  <data name="AreYouSureYouWantToDeleteTheMod" xml:space="preserve">
+    <value>Sind Sie sicher, dass Sie diese MOD löschen möchten- </value>
+  </data>
+  <data name="Permanently" xml:space="preserve">
+    <value>Dauerhaft?</value>
+  </data>
+  <data name="TheModInformationFileCannotBeAccessedOrFound" xml:space="preserve">
+    <value>Die Mod-Informationsdatei kann nicht aufgerufen oder gefunden werden!</value>
+  </data>
+  <data name="VTOLRESTARTINGINADMINMODE" xml:space="preserve">
+    <value>VTOL WIRD IM ADMIN-MODUS NEU GESTARTET</value>
+  </data>
+  <data name="DownloadingFromThunderStore" xml:space="preserve">
+    <value>Herunterladen vom ThunderStore</value>
+  </data>
+  <data name="HasNotBeenInstalledOnYourDevice" xml:space="preserve">
+    <value> wurde nicht auf Ihrem Gerät installiert.</value>
+  </data>
+  <data name="PleaseChooseToInstallThisPluginOntoYourDevice" xml:space="preserve">
+    <value>Bitte wählen Sie, um dieses Plugin auf Ihrem Gerät zu installieren.</value>
+  </data>
+  <data name="UnintendedWays" xml:space="preserve">
+    <value>unbeabsichtigte Wege. </value>
+  </data>
+  <data name="PleaseEnusreYouTrustThisMod" xml:space="preserve">
+    <value>Bitte versichern Sie sich, dass Sie dieser mod vertrauen.</value>
+  </data>
+  <data name="PLUGINDETECTED" xml:space="preserve">
+    <value>PLUGIN ERKANNT</value>
+  </data>
+  <data name="ThePlugin" xml:space="preserve">
+    <value> Plugin </value>
+  </data>
+  <data name="HasBeenRemovedAndCleanedFromYourDevice" xml:space="preserve">
+    <value>wurde von Ihrem Gerät entfernt und bereinigt.</value>
+  </data>
+  <data name="TheMod" xml:space="preserve">
+    <value>Die Mod </value>
+  </data>
+  <data name="FATALERROR" xml:space="preserve">
+    <value>FATAL - ERROR</value>
+  </data>
+  <data name="ModUpdatesAvailable" xml:space="preserve">
+    <value>Mod Updates verfügbar- </value>
+  </data>
+  <data name="APPLICATIONUPDATEISAVAILABLE" xml:space="preserve">
+    <value>ANWENDUNGS UPDATE IST VERFÜGBAR</value>
+  </data>
+  <data name="UpdateAvailablePleaseCheckAndDownloadTheLatestRelease" xml:space="preserve">
+    <value>Update verfügbar!, Bitte</value>
+  </data>
+  <data name="CouldNotReadUserSettingsPleaseRunAsAdminOrRepairCleanYourInstallation" xml:space="preserve">
+    <value>Benutzereinstellungen konnten nicht gelesen werden, bitte als Administrator ausführen oder die Installation reparieren/bereinigen</value>
+  </data>
+  <data name="DownloadWithTheSameURLIsWasAlreadyInProgressOrQueued" xml:space="preserve">
+    <value>Der Download mit der gleichen URL ist bereits im Gange oder steht in der Warteschlange.</value>
+  </data>
+  <data name="DoBeWarnedThatPluginsCanAffectYourDeviceIn" xml:space="preserve">
+    <value>Seien Sie gewarnt, dass Plugins Ihr Gerät in beeinträchtigen können,</value>
+  </data>
+  <data name="ERRORONLaunchCouldNotFindNorthstarExe" xml:space="preserve">
+    <value>ERROR- BEIM Start konnte nicht die Northstar.exe finden!</value>
+  </data>
 </root>

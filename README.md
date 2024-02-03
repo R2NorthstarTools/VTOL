@@ -5,9 +5,9 @@
 <h2  align="center">PLEASE USE THE PORTABLE IF THE INSTALLER FAILS</h1><br>
 
 <p align="center">
-<a href="https://bit.ly/VTOL_2023"><img src="https://user-images.githubusercontent.com/23240514/189295456-52b2bfd1-1759-4c20-931c-ad78b1537f45.png" width="200" alignment="center"></a><br>
+<a href="https://nightly.link/R2NorthstarTools/VTOL/workflows/dotnet-desktop/master/VTOL_NIGHTLY-artifact"><img src="https://user-images.githubusercontent.com/23240514/189295456-52b2bfd1-1759-4c20-931c-ad78b1537f45.png" width="200" alignment="center"></a><br>
 </p>
-<h1  align="center"><a href="https://bit.ly/VTOL_2023">Click To download the latest Portable Release</a></h1><br><br><br><br>
+<h1  align="center"><a href="https://nightly.link/R2NorthstarTools/VTOL/workflows/dotnet-desktop/master/VTOL_NIGHTLY-artifact">Click To download the latest Portable Release</a></h1><br><br><br><br>
 
 
 Users on the latest release:
