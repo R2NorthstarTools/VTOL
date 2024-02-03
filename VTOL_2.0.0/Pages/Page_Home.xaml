@@ -202,8 +202,8 @@
                 </TextBlock>
 
             </DockPanel>
-
-            <ui:Button xf:Animations.Primary="{StaticResource FadeIn}"  x:Name="Launch_Northstar" Margin="36,268,0,0" VerticalAlignment="Top" Height="62" Appearance="Primary" Background="{Binding Source={x:Static SystemParameters.WindowGlassBrush}}"  Foreground="White" BorderThickness="2,2,2,2" Width="333" BorderBrush="{x:Null}" Click="Launch_Northstar_Click" FontSize="16" FontWeight="Normal" FontStyle="Normal" Opacity="0.6" ClickMode="Press" ToolTip="{x:Static properties:Language.Page_Home_LaunchNorthstar}">
+            <hc:TransitioningContentControl TransitionMode="Fade">
+                <ui:Button xf:Animations.Primary="{StaticResource FadeIn}"  x:Name="Launch_Northstar" Margin="36,268,0,0" VerticalAlignment="Top" Height="62" Appearance="Primary" Background="{Binding Source={x:Static SystemParameters.WindowGlassBrush}}"  Foreground="White" BorderThickness="2,2,2,2" Width="333" BorderBrush="{x:Null}" Click="Launch_Northstar_Click" FontSize="16" FontWeight="Normal" FontStyle="Normal" Opacity="0.6" ClickMode="Press" ToolTip="{x:Static properties:Language.Page_Home_LaunchNorthstar}">
 
                 <ui:Button.Effect>
                     <DropShadowEffect
@@ -216,7 +216,8 @@
                 </ui:Button.Effect>
 
             </ui:Button>
-            <Label Content="{x:Static properties:Language.Page_Home_LaunchTitanfall2Northstar}" Background="{x:Null}" Foreground="White" Margin="65,287,0,0" Padding="0,0,0,0" VerticalAlignment="Top" Width="276" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="24" FontSize="14" IsHitTestVisible="False"/>
+                </hc:TransitioningContentControl>
+                    <Label Content="{x:Static properties:Language.Page_Home_LaunchTitanfall2Northstar}" Background="{x:Null}" Foreground="White" Margin="65,287,0,0" Padding="0,0,0,0" VerticalAlignment="Top" Width="276" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="24" FontSize="14" IsHitTestVisible="False"/>
 
 
 

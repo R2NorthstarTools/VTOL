@@ -1282,8 +1282,8 @@ int millisecondsDelay = 150)
 
         public bool IsValidPath(string path, bool allowRelativePaths = false)
         {
-            bool isValid = false; 
-
+            bool isValid = false;
+         
             try
             {
                 if(path == null || !Directory.Exists(path))

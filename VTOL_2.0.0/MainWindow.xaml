@@ -530,8 +530,9 @@
             </Grid>
         </Border>
 
-        <ui:Snackbar x:Name="Snackbar" Grid.Column="1" Margin="197,608,197,0" VerticalAlignment="Top" MessageForeground="White" IconForeground="White"  Timeout="5000"  Height="60"  Content="" Icon="Info24" FontSize="14" AllowDrop="False"  />
 
+        <ui:Snackbar x:Name="Snackbar" Grid.Column="1" Margin="197,608,197,0" VerticalAlignment="Top" MessageForeground="White" IconForeground="White"  Timeout="5000"  Height="60"  Content="" Icon="Info24" FontSize="14" AllowDrop="False"  />
+        
     </Grid>
 
 

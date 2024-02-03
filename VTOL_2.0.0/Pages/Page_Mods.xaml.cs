@@ -260,6 +260,9 @@ namespace VTOL.Pages
         public List<NORTHSTARCOMPATIBLE_MOD> READ_UPDATE_MOD_LIST(DirectoryInfo[] modsToUpdate, bool UPDATE_Folders = false)
         {
             List<NORTHSTARCOMPATIBLE_MOD> OUTPUT = new List<NORTHSTARCOMPATIBLE_MOD>();
+
+            try//todo fix icon png left behind
+            {
                 if (modsToUpdate.Count() <= 0)
                 {
                     return OUTPUT;
@@ -322,113 +325,123 @@ namespace VTOL.Pages
                 }
              else
                  {
-                    try//todo fix icon png left behind
-                    {
+                   
                         ////// Parse the JSON content
                         JObject jsonObject = JObject.Parse(jsonContent);
 
                         foreach (var dirInfo in modsToUpdate)
                         {
-                            NORTHSTARCOMPATIBLE_MOD Mod = new NORTHSTARCOMPATIBLE_MOD();
-                            string File_found = FindFirstFile(dirInfo.FullName, "mod.json");
-                           
-                            if (File.Exists(File_found))
+                            try//todo fix icon png left behind
                             {
-                                string mod_json = File.ReadAllText(File_found);
+                                NORTHSTARCOMPATIBLE_MOD Mod = new NORTHSTARCOMPATIBLE_MOD();
+                                string File_found = FindFirstFile(dirInfo.FullName, "mod.json");
 
-                                if (!mod_json.IsNullOrEmpty() && mod_json.Length > 10)
+                                if (File.Exists(File_found))
                                 {
+                                    string mod_json = File.ReadAllText(File_found);
 
-                                    JObject modjson = JObject.Parse(mod_json);
-                                    Mod.Name = modjson.SelectToken("Name").Value<string>();
-
-
-                                }
-                                else
-                                {
-                                    Mod.Name = (dirInfo.Name.Split('-')[1]);
-
-
-                                }
-
-                                if (dirInfo.Exists)
-                                {
-                                    Mod.DIRECTORY_INFO = dirInfo; // or some other appropriate value
-                                    Mod.Namespace = dirInfo.Name;
-
-
-                                }
-                                Mod.Has_Valid_Mod = false;
-
-                                if (Directory.Exists(Mod.DIRECTORY_INFO.FullName + @"\mods"))
-                                {
-                                    Mod.Has_Valid_Mod = true;
-                                }
-                                
-
-                                if (jsonObject.TryGetValue(Mod.Name.Trim(), out JToken value))
-                                {
-
-
-                                    if (value != null && value.Type == JTokenType.Boolean)
+                                    if (!mod_json.IsNullOrEmpty() && mod_json.Length > 10)
                                     {
-                                        bool isValueTrue = (bool)value;
-                                        Mod.Value = isValueTrue;
+
+                                        JObject modjson = JObject.Parse(mod_json);
+                                        Mod.Name = modjson.SelectToken("Name").Value<string>();
+
+
                                     }
                                     else
                                     {
-                                        Mod.Value = false;
+                                        Mod.Name = (dirInfo.Name.Split('-')[1]);
+
+
                                     }
 
-                                    Mod.IsValidandinstalled = true;
-
-
-                                    OUTPUT.Add(Mod);
-                                }
-                                else
-                                {
-                                    // Handle the case where the value is null
-                                    Mod.Value = false; // or some other appropriate value
-                                    Mod.IsValidandinstalled = false; // or some other appropriate value
                                     if (dirInfo.Exists)
                                     {
                                         Mod.DIRECTORY_INFO = dirInfo; // or some other appropriate value
                                         Mod.Namespace = dirInfo.Name;
 
+
                                     }
-                                    OUTPUT.Add(Mod);
+                                    Mod.Has_Valid_Mod = false;
+
+                                    if (Directory.Exists(Mod.DIRECTORY_INFO.FullName + @"\mods"))
+                                    {
+                                        Mod.Has_Valid_Mod = true;
+                                    }
+
+
+                                    if (jsonObject.TryGetValue(Mod.Name.Trim(), out JToken value))
+                                    {
+
+
+                                        if (value != null && value.Type == JTokenType.Boolean)
+                                        {
+                                            bool isValueTrue = (bool)value;
+                                            Mod.Value = isValueTrue;
+                                        }
+                                        else
+                                        {
+                                            Mod.Value = false;
+                                        }
+
+                                        Mod.IsValidandinstalled = true;
+
+
+                                        OUTPUT.Add(Mod);
+                                    }
+                                    else
+                                    {
+                                        // Handle the case where the value is null
+                                        Mod.Value = false; // or some other appropriate value
+                                        Mod.IsValidandinstalled = false; // or some other appropriate value
+                                        if (dirInfo.Exists)
+                                        {
+                                            Mod.DIRECTORY_INFO = dirInfo; // or some other appropriate value
+                                            Mod.Namespace = dirInfo.Name;
+
+                                        }
+                                        OUTPUT.Add(Mod);
+                                    }
+
+                                }
+                                else
+                                {
+
+                                    Mod.IsValidandinstalled = false;
+
+                                    string dirName = dirInfo.Name;
+
+                                    string pattern = @"-\d+\.\d+\.\d+$";
+                                    Match match = Regex.Match(dirName, pattern);
+                                    // Remove the version number from the directory name
+                                    string dirNameWithoutVersion = match.Success ? dirName.Replace(match.Value, "") : dirName;
+                                    // Handle the case where the value is null
+                                    Mod.Name = "!" + dirNameWithoutVersion + "!";
+
                                 }
 
+
                             }
-                            else
+                            catch (Exception ex)
                             {
 
-                                Mod.IsValidandinstalled = false;
-
-                                string dirName = dirInfo.Name;
-
-                                string pattern = @"-\d+\.\d+\.\d+$";
-                                Match match = Regex.Match(dirName, pattern);
-                                // Remove the version number from the directory name
-                                string dirNameWithoutVersion = match.Success ? dirName.Replace(match.Value, "") : dirName;
-                                // Handle the case where the value is null
-                                Mod.Name = "!" + dirNameWithoutVersion + "!";
+                                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
 
                             }
-
 
                         }
                        
-                    }
-                    catch (Exception ex)
-                    {
-
-                        Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
-
-                    }
+                   
                 }
                 }
-           
+            }
+            catch (Exception ex)
+            {
+
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
+                return OUTPUT;
+
+            }
             return OUTPUT;
 
         }
