@@ -614,9 +614,17 @@ namespace VTOL.Pages
                 Tools_Dir = Main.User_Settings_Vars.NorthstarInstallLocation + @"VTOL_ExternalTools\";
             }
             catch (Exception ex)
-            {
-                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
-            }
+            {    
+    var st = new System.Diagnostics.StackTrace(ex, true);
+    var frame = st.GetFrame(0);
+    var line = frame.GetFileLineNumber();
+    var method = frame.GetMethod().Name;
+    var className = frame.GetMethod().DeclaringType.Name;
+    var variables = ""; // You would need to add logic to capture variable values
+
+    Log.Fatal(ex, $"An error occurred at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}" +
+                   $" Line Number: {line}, Method Name: {method}, Class Name: {className}, Variables: {variables}" +
+                   $"{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");}
 
         }
 
@@ -809,10 +817,17 @@ namespace VTOL.Pages
                 }
             }
             catch (Exception ex)
-            {
-                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
+            {    
+    var st = new System.Diagnostics.StackTrace(ex, true);
+    var frame = st.GetFrame(0);
+    var line = frame.GetFileLineNumber();
+    var method = frame.GetMethod().Name;
+    var className = frame.GetMethod().DeclaringType.Name;
+    var variables = ""; // You would need to add logic to capture variable values
 
-            }
+    Log.Fatal(ex, $"An error occurred at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}" +
+                   $" Line Number: {line}, Method Name: {method}, Class Name: {className}, Variables: {variables}" +
+                   $"{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");}
         }
         public async Task saveAsyncFile(string Text, string Filename, bool ForceTxt = true, bool append = true)
         {
@@ -1112,9 +1127,17 @@ int millisecondsDelay = 300)
                 }
             }
             catch (Exception ex)
-            {
-                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
-                //Removed PaperTrailSystem Due to lack of reliability.
+            {    
+    var st = new System.Diagnostics.StackTrace(ex, true);
+    var frame = st.GetFrame(0);
+    var line = frame.GetFileLineNumber();
+    var method = frame.GetMethod().Name;
+    var className = frame.GetMethod().DeclaringType.Name;
+    var variables = ""; // You would need to add logic to capture variable values
+
+    Log.Fatal(ex, $"An error occurred at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}" +
+                   $" Line Number: {line}, Method Name: {method}, Class Name: {className}, Variables: {variables}" +
+                   $"{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");//Removed PaperTrailSystem Due to lack of reliability.
             }
         }
 
@@ -1212,10 +1235,17 @@ int millisecondsDelay = 300)
                     }
                 }
                 catch (Exception ex)
-                {
-                    Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
+                {    
+    var st = new System.Diagnostics.StackTrace(ex, true);
+    var frame = st.GetFrame(0);
+    var line = frame.GetFileLineNumber();
+    var method = frame.GetMethod().Name;
+    var className = frame.GetMethod().DeclaringType.Name;
+    var variables = ""; // You would need to add logic to capture variable values
 
-                }
+    Log.Fatal(ex, $"An error occurred at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}" +
+                   $" Line Number: {line}, Method Name: {method}, Class Name: {className}, Variables: {variables}" +
+                   $"{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");}
             }
         }
 
@@ -1281,9 +1311,17 @@ int millisecondsDelay = 300)
                 }
             }
             catch (Exception ex)
-            {
-                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
-                //Removed PaperTrailSystem Due to lack of reliability.
+            {    
+    var st = new System.Diagnostics.StackTrace(ex, true);
+    var frame = st.GetFrame(0);
+    var line = frame.GetFileLineNumber();
+    var method = frame.GetMethod().Name;
+    var className = frame.GetMethod().DeclaringType.Name;
+    var variables = ""; // You would need to add logic to capture variable values
+
+    Log.Fatal(ex, $"An error occurred at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}" +
+                   $" Line Number: {line}, Method Name: {method}, Class Name: {className}, Variables: {variables}" +
+                   $"{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");//Removed PaperTrailSystem Due to lack of reliability.
             }
 
         }
@@ -1383,10 +1421,17 @@ int millisecondsDelay = 300)
 
                 }
                 catch (Exception ex)
-                {
-                    Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
+                {    
+    var st = new System.Diagnostics.StackTrace(ex, true);
+    var frame = st.GetFrame(0);
+    var line = frame.GetFileLineNumber();
+    var method = frame.GetMethod().Name;
+    var className = frame.GetMethod().DeclaringType.Name;
+    var variables = ""; // You would need to add logic to capture variable values
 
-                }
+    Log.Fatal(ex, $"An error occurred at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}" +
+                   $" Line Number: {line}, Method Name: {method}, Class Name: {className}, Variables: {variables}" +
+                   $"{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");}
             }
         }
 
@@ -1496,9 +1541,17 @@ int millisecondsDelay = 300)
 
             }
             catch (Exception ex)
-            {
-                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
-                //Removed PaperTrailSystem Due to lack of reliability.
+            {    
+    var st = new System.Diagnostics.StackTrace(ex, true);
+    var frame = st.GetFrame(0);
+    var line = frame.GetFileLineNumber();
+    var method = frame.GetMethod().Name;
+    var className = frame.GetMethod().DeclaringType.Name;
+    var variables = ""; // You would need to add logic to capture variable values
+
+    Log.Fatal(ex, $"An error occurred at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}" +
+                   $" Line Number: {line}, Method Name: {method}, Class Name: {className}, Variables: {variables}" +
+                   $"{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");//Removed PaperTrailSystem Due to lack of reliability.
             }
 
         }
@@ -1611,9 +1664,17 @@ int millisecondsDelay = 300)
                 }
             }
             catch (Exception ex)
-            {
-                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
-                //Removed PaperTrailSystem Due to lack of reliability.
+            {    
+    var st = new System.Diagnostics.StackTrace(ex, true);
+    var frame = st.GetFrame(0);
+    var line = frame.GetFileLineNumber();
+    var method = frame.GetMethod().Name;
+    var className = frame.GetMethod().DeclaringType.Name;
+    var variables = ""; // You would need to add logic to capture variable values
+
+    Log.Fatal(ex, $"An error occurred at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}" +
+                   $" Line Number: {line}, Method Name: {method}, Class Name: {className}, Variables: {variables}" +
+                   $"{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");//Removed PaperTrailSystem Due to lack of reliability.
             }
         }
         void add_Progress()
@@ -1671,10 +1732,17 @@ int millisecondsDelay = 300)
                         File.Delete(GetSkinPackRootPath());
                     }
                     catch (Exception ex)
-                    {
-                        Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
+                    {    
+    var st = new System.Diagnostics.StackTrace(ex, true);
+    var frame = st.GetFrame(0);
+    var line = frame.GetFileLineNumber();
+    var method = frame.GetMethod().Name;
+    var className = frame.GetMethod().DeclaringType.Name;
+    var variables = ""; // You would need to add logic to capture variable values
 
-                        return;
+    Log.Fatal(ex, $"An error occurred at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}" +
+                   $" Line Number: {line}, Method Name: {method}, Class Name: {className}, Variables: {variables}" +
+                   $"{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");return;
                     }
                 }
 
@@ -1842,10 +1910,17 @@ int millisecondsDelay = 300)
                 SnackBar.Appearance = ControlAppearance.Danger;
                 SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
                 SnackBar.Message = ex.Message;
-                SnackBar.Show();
-                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
+                SnackBar.Show();    
+    var st = new System.Diagnostics.StackTrace(ex, true);
+    var frame = st.GetFrame(0);
+    var line = frame.GetFileLineNumber();
+    var method = frame.GetMethod().Name;
+    var className = frame.GetMethod().DeclaringType.Name;
+    var variables = ""; // You would need to add logic to capture variable values
 
-            }
+    Log.Fatal(ex, $"An error occurred at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}" +
+                   $" Line Number: {line}, Method Name: {method}, Class Name: {className}, Variables: {variables}" +
+                   $"{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");}
 
 
 
@@ -2075,10 +2150,17 @@ int millisecondsDelay = 300)
                 SnackBar.Appearance = ControlAppearance.Danger;
                 SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
                 SnackBar.Message = ex.Message;
-                SnackBar.Show();
-                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
+                SnackBar.Show();    
+    var st = new System.Diagnostics.StackTrace(ex, true);
+    var frame = st.GetFrame(0);
+    var line = frame.GetFileLineNumber();
+    var method = frame.GetMethod().Name;
+    var className = frame.GetMethod().DeclaringType.Name;
+    var variables = ""; // You would need to add logic to capture variable values
 
-            }
+    Log.Fatal(ex, $"An error occurred at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}" +
+                   $" Line Number: {line}, Method Name: {method}, Class Name: {className}, Variables: {variables}" +
+                   $"{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");}
             return false;
         }
 
@@ -2496,10 +2578,17 @@ int millisecondsDelay = 300)
 
             }
             catch (Exception ex)
-            {
-                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
+            {    
+    var st = new System.Diagnostics.StackTrace(ex, true);
+    var frame = st.GetFrame(0);
+    var line = frame.GetFileLineNumber();
+    var method = frame.GetMethod().Name;
+    var className = frame.GetMethod().DeclaringType.Name;
+    var variables = ""; // You would need to add logic to capture variable values
 
-            }
+    Log.Fatal(ex, $"An error occurred at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}" +
+                   $" Line Number: {line}, Method Name: {method}, Class Name: {className}, Variables: {variables}" +
+                   $"{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");}
         }
 
         private void Locate_Zip_Advocate_Click(object sender, RoutedEventArgs e)
@@ -2542,10 +2631,17 @@ int millisecondsDelay = 300)
 
             }
             catch (Exception ex)
-            {
-                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
+            {    
+    var st = new System.Diagnostics.StackTrace(ex, true);
+    var frame = st.GetFrame(0);
+    var line = frame.GetFileLineNumber();
+    var method = frame.GetMethod().Name;
+    var className = frame.GetMethod().DeclaringType.Name;
+    var variables = ""; // You would need to add logic to capture variable values
 
-            }
+    Log.Fatal(ex, $"An error occurred at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}" +
+                   $" Line Number: {line}, Method Name: {method}, Class Name: {className}, Variables: {variables}" +
+                   $"{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");}
         }
 
 
@@ -2553,86 +2649,6 @@ int millisecondsDelay = 300)
         private void Image_Icon_Advocate_MouseDown(object sender, MouseButtonEventArgs e)
         {
 
-            //if (e.LeftButton == MouseButtonState.Pressed)
-            //{
-            //    try
-            //    {
-            //        OpenFileDialog openFileDialog = new OpenFileDialog();
-            //        openFileDialog.Filter = "Png files (*.png)|*.png|All files (*.*)|*.*";
-            //        openFileDialog.RestoreDirectory = true;
-            //        if (openFileDialog.ShowDialog() == true)
-            //        {
-            //            Mod_Adv_Icon_Path = openFileDialog.FileName;
-            //            if (!File.Exists(Mod_Adv_Icon_Path))
-            //            {
-
-            //                SnackBar.Icon = SymbolRegular.ErrorCircle20;
-            //                SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
-            //                SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Icon_Image_MouseDown_NotAValidPNGImage;
-            //                SnackBar.Show();
-            //                return;
-
-            //            }
-            //            else
-            //            {
-            //                if (Path.GetExtension(Mod_Adv_Icon_Path).Contains("png"))
-            //                {
-            //                    int imgwidth;
-            //                    int imgheight;
-
-            //                    using (var image = SixLabors.ImageSharp.Image.Load(Mod_Adv_Icon_Path))
-            //                    {
-            //                        imgwidth = image.Width;
-            //                        imgheight = image.Height;
-            //                    }
-
-            //                    if (imgwidth == 256 && imgheight == 256)
-            //                    {
-
-            //                        SnackBar.Appearance = ControlAppearance.Success;
-            //                        SnackBar.Title = VTOL.Resources.Languages.Language.SUCCESS;
-            //                        SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Icon_Image_MouseDown_ValidImageFoundAt + Mod_Icon_Path;
-            //                        SnackBar.Show();
-            //                        BitmapImage Mod_Icon = new BitmapImage();
-            //                        Mod_Icon.BeginInit();
-
-            //                        Mod_Icon.UriSource = new Uri(Mod_Adv_Icon_Path);
-            //                        Mod_Icon.EndInit();
-
-            //                        Image_Icon_Advocate.Background = new ImageBrush(Mod_Icon);
-
-            //                    }
-            //                    else
-            //                    {
-            //                        SnackBar.Icon = SymbolRegular.ErrorCircle20;
-            //                        SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
-            //                        SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Icon_Image_MouseDown_InvalidImageSizeMustBe256x256;
-            //                        SnackBar.Show();
-
-            //                        return;
-
-            //                    }
-
-            //                }
-            //                else
-            //                {
-            //                    SnackBar.Icon = SymbolRegular.ErrorCircle20;
-            //                    SnackBar.Appearance = ControlAppearance.Danger; SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
-            //                    SnackBar.Message = VTOL.Resources.Languages.Language.Page_Tools_Icon_Image_MouseDown_ThatWasNotAProperPNG;
-            //                    SnackBar.Show();
-
-            //                    return;
-            //                }
-            //            }
-            //        }
-
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //       Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
-
-            //    }
-            // }
         }
 
         private void Image_Icon_Advocate_Drop(object sender, DragEventArgs e)
@@ -2709,10 +2725,17 @@ int millisecondsDelay = 300)
 
             }
             catch (Exception ex)
-            {
-                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
+            {    
+    var st = new System.Diagnostics.StackTrace(ex, true);
+    var frame = st.GetFrame(0);
+    var line = frame.GetFileLineNumber();
+    var method = frame.GetMethod().Name;
+    var className = frame.GetMethod().DeclaringType.Name;
+    var variables = ""; // You would need to add logic to capture variable values
 
-            }
+    Log.Fatal(ex, $"An error occurred at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}" +
+                   $" Line Number: {line}, Method Name: {method}, Class Name: {className}, Variables: {variables}" +
+                   $"{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");}
 
         }
         private void Locate_Repak_Exe_Click(object sender, RoutedEventArgs e)
@@ -2757,10 +2780,17 @@ int millisecondsDelay = 300)
 
             }
             catch (Exception ex)
-            {
-                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
+            {    
+    var st = new System.Diagnostics.StackTrace(ex, true);
+    var frame = st.GetFrame(0);
+    var line = frame.GetFileLineNumber();
+    var method = frame.GetMethod().Name;
+    var className = frame.GetMethod().DeclaringType.Name;
+    var variables = ""; // You would need to add logic to capture variable values
 
-            }
+    Log.Fatal(ex, $"An error occurred at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}" +
+                   $" Line Number: {line}, Method Name: {method}, Class Name: {className}, Variables: {variables}" +
+                   $"{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");}
         }
 
         private void Output_Button_Advocate_Click(object sender, RoutedEventArgs e)
@@ -2929,11 +2959,17 @@ int millisecondsDelay = 300)
                 });
             }
             catch (Exception ex)
-            {
-                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
+            {    
+    var st = new System.Diagnostics.StackTrace(ex, true);
+    var frame = st.GetFrame(0);
+    var line = frame.GetFileLineNumber();
+    var method = frame.GetMethod().Name;
+    var className = frame.GetMethod().DeclaringType.Name;
+    var variables = ""; // You would need to add logic to capture variable values
 
-
-            }
+    Log.Fatal(ex, $"An error occurred at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}" +
+                   $" Line Number: {line}, Method Name: {method}, Class Name: {className}, Variables: {variables}" +
+                   $"{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");}
 
 
 
@@ -2949,11 +2985,17 @@ int millisecondsDelay = 300)
 
             }
             catch (Exception ex)
-            {
-                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
+            {    
+    var st = new System.Diagnostics.StackTrace(ex, true);
+    var frame = st.GetFrame(0);
+    var line = frame.GetFileLineNumber();
+    var method = frame.GetMethod().Name;
+    var className = frame.GetMethod().DeclaringType.Name;
+    var variables = ""; // You would need to add logic to capture variable values
 
-
-            }
+    Log.Fatal(ex, $"An error occurred at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}" +
+                   $" Line Number: {line}, Method Name: {method}, Class Name: {className}, Variables: {variables}" +
+                   $"{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");}
         }
 
 
