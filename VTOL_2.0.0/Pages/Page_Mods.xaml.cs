@@ -203,6 +203,7 @@ namespace VTOL.Pages
 
             foreach (Window window in Application.Current.Windows)
             {
+                try { 
                 Type type = typeof(MainWindow);
                 if (window != null && window.DependencyObjectType.Name == type.Name)
                 {
@@ -213,6 +214,13 @@ namespace VTOL.Pages
                     }
                 }
             }
+                            catch (Exception ex)
+                            {
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
+                continue;
+
+            }
+        }
 
 
             return mainWindow;
@@ -280,7 +288,8 @@ namespace VTOL.Pages
                          File.WriteAllText(Json_Path, "{\t\t\n\n}");
 
                     foreach (var dirInfo in modsToUpdate)
-                    {
+                        {
+                            try { 
                         string dirName = "";
                         NORTHSTARCOMPATIBLE_MOD Mod = new NORTHSTARCOMPATIBLE_MOD();
                         string[] Split_Name = (dirInfo.Name).Split('-');
@@ -318,8 +327,14 @@ namespace VTOL.Pages
 
                         }
                         OUTPUT.Add(Mod);
-
                         }
+                            catch (Exception ex)
+            {
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
+                continue;
+
+            }
+        }
                         // Handle case where json is null or empty
                         return OUTPUT;
                 }
@@ -849,6 +864,7 @@ int millisecondsDelay = 300)
                 var last = subDirs.Last();
                 foreach (System.IO.DirectoryInfo dirInfo in subDirs)
                 {
+                    try { 
                     outt = dirInfo.FullName;
                     if (dirInfo.Name.Contains(Search))
                     {
@@ -861,12 +877,19 @@ int millisecondsDelay = 300)
                         return false;
                     }
                     else
-                    {
+                        {
 
 
+                        }
+                        if (dirInfo == null)
+                        {
+                            continue;
+
+                        }
                     }
-                    if (dirInfo == null)
+                    catch (Exception ex)
                     {
+                        Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
                         continue;
 
                     }
@@ -1649,12 +1672,20 @@ int millisecondsDelay = 300)
                     // Iterate through each directory and call the method recursivly.
                     foreach (string directory in directories)
                     {
+                        try { 
                         string file = FindFirstFile(directory, searchPattern);
 
                         // If we found a file, return it (and break the recursion).
                         if (file != string.Empty)
                         {
                             return file;
+                        }
+                        }
+                        catch (Exception ex)
+                        {
+                            Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
+                            continue;
+
                         }
                     }
                 }
@@ -1719,12 +1750,20 @@ int millisecondsDelay = 300)
 
             foreach (string directoryString in text)
             {
+                try { 
                 string lastFolderName = Path.GetFileName(directoryString);
 
                 if (folderNames.Contains(lastFolderName))
                 {
                     DirectoryInfo directoryInfo = new DirectoryInfo(directoryString);
                     directoryInfoList.Add(directoryInfo);
+                }
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
+                    continue;
+
                 }
             }
 
@@ -2548,26 +2587,7 @@ int millisecondsDelay = 150)
 
                             }
                         }
-                        else if (Script.Length > 1)
-                        {
-                            foreach (var x in Script)
-                            {
-
-                                Console.WriteLine(x.FullName);
-                            }
-                            Console.WriteLine("MULTIPACK - " + Destination);
-
-
-
-
-
-                        }
-                        else
-                        {
-                            //Too many or no mods?
-
-                        }
-
+                        
                     }
                     else
                     {
@@ -2615,12 +2635,19 @@ int millisecondsDelay = 150)
 
                 foreach (var i in Mod_List)
                 {
+                    try { 
                     Console.WriteLine("Started" + i);
                     Install_Mod_Zip(i, User_Settings_Vars.NorthstarInstallLocation + User_Settings_Vars.Profile_Path + @"\packages\" + Path.GetFileNameWithoutExtension(i));
 
                     await Task.Delay(1500);
 
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
+                        continue;
 
+                    }
                 }
 
             });

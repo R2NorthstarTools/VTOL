@@ -887,8 +887,16 @@ int millisecondsDelay = 150)
                         // Write only the new mods to the file if it already exists
                         foreach (string Modname in allMods)
                         {
+                            try { 
                             await writer.WriteLineAsync(Modname);
                         }
+                            catch (Exception ex)
+            {
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
+                continue;
+
+            }
+        }
 
                     }
                     return true;
@@ -1203,7 +1211,15 @@ int millisecondsDelay = 150)
 
             foreach (var TS_MOD in _updater.Thunderstore)
             {
+                try { 
                 AsyncLoadListViewItem(TS_MOD, false, "#");
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
+                    continue;
+
+                }
             }
 
 
@@ -1334,6 +1350,7 @@ int millisecondsDelay = 150)
                     bool Northstar_flagged = false;
                     foreach (var item in list)
                     {
+                        try { 
                         if (modname.Equals(@"Northstar") && Northstar_flagged == false)
                         {
                             if (String.Equals(item.Name.Split(".")[0], modname, StringComparison.OrdinalIgnoreCase))
@@ -1402,7 +1419,13 @@ int millisecondsDelay = 150)
 
 
 
+                        }
+                        catch (Exception ex)
+                        {
+                            Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
+                            continue;
 
+                        }
 
                     }
 
@@ -2680,6 +2703,7 @@ int millisecondsDelay = 150)
 
                 foreach (var y in Links)
                 {
+                    try { 
                     string namespace_ = y.name.Split("-")[0];
 
                     var item = new DownloadQueueItem
@@ -2694,8 +2718,15 @@ int millisecondsDelay = 150)
 
                     };
                     Main._downloadQueue.Enqueue(item);
-                    //  await Download_Zip_To_Path(y, User_Settings_Vars.NorthstarInstallLocation + @"NS_Downloaded_Mods", Progress_Bar);
                 }
+                            catch (Exception ex)
+            {
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
+                continue;
+
+            }
+            //  await Download_Zip_To_Path(y, User_Settings_Vars.NorthstarInstallLocation + @"NS_Downloaded_Mods", Progress_Bar);
+        }
 
 
 
@@ -2991,6 +3022,7 @@ int millisecondsDelay = 300)
                             bool read_NS_version = true;
                             foreach (System.IO.DirectoryInfo dirInfo in subDirs)
                             {
+                                try { 
                                 string[] parts = dirInfo.Name.Split('-');
                                 string name = dirInfo.Name;
                                 string author = null;
@@ -3023,7 +3055,13 @@ int millisecondsDelay = 300)
 
 
                                 Main.Current_Installed_Mods.Add(new GENERAL_MOD { Name = name, Version = ver, Author = author });
+                                }
+                                catch (Exception ex)
+                                {
+                                    Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
+                                    continue;
 
+                                }
                             }
                             Main.loaded_mods = true;
 
@@ -3116,6 +3154,7 @@ int millisecondsDelay = 300)
                                  .GroupBy(s => Path.GetDirectoryName(s));
             foreach (var folder in files)
             {
+                try { 
                 var targetFolder = folder.Key.Replace(sourcePath, targetPath);
                 Directory.CreateDirectory(targetFolder);
                 foreach (var file in folder)
@@ -3123,6 +3162,13 @@ int millisecondsDelay = 300)
                     var targetFile = Path.Combine(targetFolder, Path.GetFileName(file));
                     if (File.Exists(targetFile)) File.Delete(targetFile);
                     File.Move(file, targetFile);
+                }
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
+                    continue;
+
                 }
             }
             Directory.Delete(source, true);
@@ -3170,12 +3216,20 @@ int millisecondsDelay = 300)
                     // Iterate through each directory and call the method recursivly.
                     foreach (string directory in directories)
                     {
+                        try { 
                         string file = FindFirstFile(directory, searchPattern);
 
                         // If we found a file, return it (and break the recursion).
                         if (file != string.Empty)
                         {
                             return file;
+                        }
+                        }
+                        catch (Exception ex)
+                        {
+                            Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
+                            continue;
+
                         }
                     }
                 }
@@ -3630,10 +3684,18 @@ int millisecondsDelay = 300)
 
                         foreach (string folderPath in matchingFolders)
                         {
+                            try { 
                             if (Directory.Exists(folderPath))
                             {
 
                                 TryDeleteDirectory(folderPath, true);
+
+                            }
+                            }
+                            catch (Exception ex)
+                            {
+                                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
+                                continue;
 
                             }
                         }
@@ -3832,6 +3894,7 @@ int millisecondsDelay = 300)
 
                 foreach (string directory in directories)
                 {
+                    try { 
                     string folderName = Path.GetFileName(directory);
 
                     // Check if the folder name is similar to the query folder
@@ -3840,6 +3903,13 @@ int millisecondsDelay = 300)
                     if (similarity >= 0.8)
                     {
                         return directory; // Return the first matching folder found
+                    }
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
+                        continue;
+
                     }
                 }
             }
@@ -4015,6 +4085,7 @@ int millisecondsDelay = 300)
                         });
                         foreach (var mod in removedCards)
                         {
+                            try { 
                             _inProgress.RemoveWhere(i =>
                             {
                                 return i.ToLower().Contains(name.ToLower());
@@ -4034,6 +4105,13 @@ int millisecondsDelay = 300)
 
 
                             });
+                            }
+                            catch (Exception ex)
+                            {
+                                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
+                                continue;
+
+                            }
 
                         }
 

@@ -1524,6 +1524,7 @@ int millisecondsDelay = 150)
                 //Log_Box.AppendText(last.FullName + "sdsdsdsd");
                 foreach (DirectoryInfo dirInfo in subDirs)
                 {
+                    try { 
                     outt = dirInfo.FullName;
                     if (dirInfo.Name.Contains(Search))
                     {
@@ -1549,7 +1550,15 @@ int millisecondsDelay = 150)
 
                     }
                     // Resursive call for each subdirectory.
+
                 }
+                            catch (Exception ex)
+            {
+                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
+                continue;
+
+            }
+        }
 
                 ////Console.WriteLine("\nCould not Find the Install at " + root + " - Continuing Traversal");
 
@@ -2397,6 +2406,7 @@ int millisecondsDelay = 150)
                 var last = subDirs.Last();
                 foreach (System.IO.DirectoryInfo dirInfo in subDirs)
                 {
+                    try { 
                     if (dirInfo.Name.Contains(Search))
                     {
 
@@ -2420,6 +2430,13 @@ int millisecondsDelay = 150)
                     }
                     if (dirInfo == null)
                     {
+                        continue;
+
+                    }
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
                         continue;
 
                     }
