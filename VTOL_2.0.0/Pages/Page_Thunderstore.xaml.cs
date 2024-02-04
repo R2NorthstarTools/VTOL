@@ -3551,7 +3551,7 @@ int millisecondsDelay = 300)
 
 
 
-                    Console.WriteLine("Plugin Detected ------\n\n\n\n\n");
+                   // Console.WriteLine("Plugin Detected ------\n\n\n\n\n");
 
                     bool consent_TM = false;
 
@@ -3707,7 +3707,7 @@ int millisecondsDelay = 300)
                     }
                     else if (mod_json == true && NS_CANDIDATE_INSTALL == false)
                     {
-                        Console.WriteLine("Mod Detected ------\n\n\n\n\n");
+                      //  Console.WriteLine("Mod Detected ------\n\n\n\n\n");
 
                         if (File.Exists(manifest_json) == true)
                         {
@@ -3717,14 +3717,14 @@ int millisecondsDelay = 300)
                             if (manidata.SelectToken("namespace") == null)
                             {
                                 // Create a new JObject for the namespace
-                                Console.WriteLine("Namespace not found - Inserting : " + namespace_.ToString());
+                                Log.Information("Namespace not found - Inserting : " + namespace_.ToString());
                                 //  namespaceObject[namespace__] = namespace_;
                                 manidata["namespace"] = namespace_;
 
 
                                 File.WriteAllText(manifest_json, manidata.ToString());
 
-                                Console.WriteLine("File updated and saved.");
+                                Log.Information("File updated and saved.");
                             }
 
 
@@ -3741,12 +3741,24 @@ int millisecondsDelay = 300)
 
 
                             string Json_Path = FindFirstFile(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\", "enabledmods.json");
-
-
-                            if (File.Exists(Json_Path))
+                            if (!File.Exists(Json_Path))
                             {
-                                // Read the JSON file
-                                string jsonContent = File.ReadAllText(Json_Path);
+                                File.WriteAllText(Json_Path, "{\t\t\n\n}");
+                                DispatchIfNecessary(async () =>
+                                {
+
+
+                                    Snackbar.Title = VTOL.Resources.Languages.Language.ERROR;
+                                    Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Caution;
+                                    Snackbar.Message = VTOL.Resources.Languages.Language.File + Json_Path + VTOL.Resources.Languages.Language.CouldNotBeFoundOrHadAnErrorAndWasEdited;
+                                    Snackbar.ShowAsync();
+                                });
+                            }
+
+
+
+                            // Read the JSON file
+                            string jsonContent = File.ReadAllText(Json_Path);
 
                                 if (jsonContent.IsNullOrEmpty() == true || jsonContent.Length > 2 || jsonContent == "null")
                                 {// Parse the JSON content
@@ -3768,7 +3780,7 @@ int millisecondsDelay = 300)
                                 // Write back to the fileorder
                                 File.WriteAllText(Json_Path, updatedJson);
 
-                            }
+                            
 
                             Update_ActionCard_Progress(Action_Card_, 30, true);
 
@@ -3797,8 +3809,7 @@ int millisecondsDelay = 300)
                     }
                     else
                     {
-
-
+                       
                         DispatchIfNecessary(async () =>
                     {
                         Update_ActionCard_Progress(Action_Card_, 5);

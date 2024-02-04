@@ -285,11 +285,22 @@ namespace VTOL.Pages
                 }
                 
                 string Json_Path = FindFirstFile(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\", "enabledmods.json");
-
-                if (File.Exists(Json_Path) == true)
+                if (!File.Exists(Json_Path))
                 {
-                  // Read the JSON file
-                   string  jsonContent = File.ReadAllText(Json_Path);
+                    File.WriteAllText(Json_Path, "{\t\t\n\n}");
+                    DispatchIfNecessary(async () =>
+                    {
+
+
+                        Snackbar.Title = VTOL.Resources.Languages.Language.ERROR;
+                        Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Caution;
+                        Snackbar.Message = VTOL.Resources.Languages.Language.File + Json_Path + VTOL.Resources.Languages.Language.CouldNotBeFoundOrHadAnErrorAndWasEdited;
+                        Snackbar.ShowAsync();
+                    });
+                }
+
+                // Read the JSON file
+                string  jsonContent = File.ReadAllText(Json_Path);
                     
                  if (jsonContent.IsNullOrEmpty() == true && jsonContent.Length < 5)
                    {
@@ -472,7 +483,7 @@ namespace VTOL.Pages
                        
                    
                 }
-                }
+                
             }
             catch (Exception ex)
             {    
@@ -525,15 +536,26 @@ namespace VTOL.Pages
                                 {
                                     string Json_Path = FindFirstFile(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\", "enabledmods.json");
 
-
-                                    if (File.Exists(Json_Path))
+                                    if (!File.Exists(Json_Path))
                                     {
+                                        File.WriteAllText(Json_Path, "{\t\t\n\n}");
+                                        DispatchIfNecessary(async () =>
+                                        {
+
+
+                                            Snackbar.Title = VTOL.Resources.Languages.Language.ERROR;
+                                            Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Caution;
+                                            Snackbar.Message = VTOL.Resources.Languages.Language.File + Json_Path + VTOL.Resources.Languages.Language.CouldNotBeFoundOrHadAnErrorAndWasEdited;
+                                            Snackbar.ShowAsync();
+                                        });
+                                    }
+                                  
                                     
                                         List<NORTHSTARCOMPATIBLE_MOD> DIRECTORY_MODS = READ_UPDATE_MOD_LIST(subDirs);
 
                                         CLEANED_FORMAT_MODS = DIRECTORY_MODS;
 
-                                    }
+                                    
                                     DispatchIfNecessary(async () =>
 
                                     {
@@ -1074,10 +1096,21 @@ int millisecondsDelay = 300)
 
 
                         string Json_Path = FindFirstFile(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\", "enabledmods.json");
-
-
-                        if (File.Exists(Json_Path))
+                        if (!File.Exists(Json_Path))
                         {
+                            File.WriteAllText(Json_Path, "{\t\t\n\n}");
+                            DispatchIfNecessary(async () =>
+                            {
+                               
+                      
+                            Snackbar.Title = VTOL.Resources.Languages.Language.ERROR;
+                            Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Caution;
+                            Snackbar.Message = VTOL.Resources.Languages.Language.File + Json_Path +VTOL.Resources.Languages.Language.CouldNotBeFoundOrHadAnErrorAndWasEdited;
+                            Snackbar.ShowAsync();
+                            });
+                        }
+
+                       
                             // Read the JSON file
                             string jsonContent = File.ReadAllText(Json_Path);
                             // Parse the JSON content
@@ -1099,16 +1132,11 @@ int millisecondsDelay = 300)
                             // Write back to the file
                             File.WriteAllText(Json_Path, updatedJson);
 
-                        }
-                        else
-                        {
+                       
 
-                            Snackbar.Title = VTOL.Resources.Languages.Language.ERROR;
-                            Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Caution;
-                            Snackbar.Message = "File" + Json_Path + " Could not be Edited.";
-                            Snackbar.Show();
+                           
 
-                        }
+                        
                     }
                     else
                     {
@@ -2315,10 +2343,21 @@ int millisecondsDelay = 300)
                 var btn = sender as Wpf.Ui.Controls.Dialog;
 
                 string Json_Path = FindFirstFile(User_Settings_Vars.NorthstarInstallLocation + @"R2Northstar\", "enabledmods.json");
+                if (!File.Exists(Json_Path))
+                {
+                    File.WriteAllText(Json_Path, "{\t\t\n\n}");
+                    DispatchIfNecessary(async () =>
+                    {
+
+
+                        Snackbar.Title = VTOL.Resources.Languages.Language.ERROR;
+                        Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Caution;
+                        Snackbar.Message = VTOL.Resources.Languages.Language.File + Json_Path + VTOL.Resources.Languages.Language.CouldNotBeFoundOrHadAnErrorAndWasEdited;
+                        Snackbar.ShowAsync();
+                    });
+                }
 
                
-                if (File.Exists(Json_Path))
-                {
                     // Read the JSON file
                     string jsonContent = File.ReadAllText(Json_Path);
 
@@ -2332,7 +2371,7 @@ int millisecondsDelay = 300)
 
                     }
 
-                    JObject jsonObject = JObject.Parse(jsonContent);
+                         JObject jsonObject = JObject.Parse(jsonContent);
                         string Name = workingmod;
                         if (jsonObject.TryGetValue(Name, out _))
                         {
@@ -2349,7 +2388,7 @@ int millisecondsDelay = 300)
 
                     
 
-                    }
+                    
 
 
                 

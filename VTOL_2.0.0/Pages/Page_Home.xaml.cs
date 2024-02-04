@@ -3368,7 +3368,6 @@ int millisecondsDelay = 150)
                         StreamWriter.WriteLine(User_Settings_Json_Strings);
                         StreamWriter.Close();
                     }
-                    //Send_Info_Notif(GetTextResource("NOTIF_INFO_RELEASE_PARSED") + current_Northstar_version_Url);
 
                 }
                 else
@@ -3376,7 +3375,6 @@ int millisecondsDelay = 150)
                     DispatchIfNecessary(async () =>
                     {
 
-                        //Send_Error_Notif(GetTextResource("NOTIF_ERROR_RELEASE_NOT_FOUND"));
                         SnackBar.Appearance = ControlAppearance.Danger;
                         SnackBar.Title = "ERROR!";
                         SnackBar.Message = VTOL.Resources.Languages.Language.Parse_Release_ReleaseNotFound;
