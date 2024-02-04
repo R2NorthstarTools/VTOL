@@ -1,5 +1,6 @@
 ﻿using Downloader;
 using FuzzyString;
+using Lsj.Util.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Serilog;
@@ -3747,6 +3748,14 @@ int millisecondsDelay = 300)
                                 // Read the JSON file
                                 string jsonContent = File.ReadAllText(Json_Path);
 
+                                if (jsonContent.IsNullOrEmpty() == true || jsonContent.Length > 2 || jsonContent == "null")
+                                {// Parse the JSON content
+
+
+                                    jsonContent = "{\t\t\n\n}";
+                                    //File.WriteAllText(Json_Path, "{\t\t\n\n}");
+
+                                }
                                 // Parse the JSON content
                                 JObject jsonObject = JObject.Parse(jsonContent);
 
@@ -3789,7 +3798,6 @@ int millisecondsDelay = 300)
                     else
                     {
 
-                        Console.WriteLine("Candidate Detected ------\n\n\n\n\n");
 
                         DispatchIfNecessary(async () =>
                     {

@@ -2322,11 +2322,17 @@ int millisecondsDelay = 300)
                     // Read the JSON file
                     string jsonContent = File.ReadAllText(Json_Path);
 
-                    if (jsonContent.IsNullOrEmpty() != true && jsonContent.Length > 5)
+
+                    if (jsonContent.IsNullOrEmpty() == true || jsonContent.Length > 2 || jsonContent == "null")
                     {// Parse the JSON content
 
 
-                        JObject jsonObject = JObject.Parse(jsonContent);
+                        jsonContent = "{\t\t\n\n}";
+                        //File.WriteAllText(Json_Path, "{\t\t\n\n}");
+
+                    }
+
+                    JObject jsonObject = JObject.Parse(jsonContent);
                         string Name = workingmod;
                         if (jsonObject.TryGetValue(Name, out _))
                         {
@@ -2341,15 +2347,12 @@ int millisecondsDelay = 300)
                         // Write back to the file
                         File.WriteAllText(Json_Path, updatedJson);
 
-                    }
-                    else
-                    {
-                        File.WriteAllText(Json_Path, "{\t\t\n\n}");
+                    
 
                     }
 
 
-                }
+                
 
                 string delete_mod_path = Dialog.Tag.ToString();
                 if (Directory.Exists(temp_Dir))
