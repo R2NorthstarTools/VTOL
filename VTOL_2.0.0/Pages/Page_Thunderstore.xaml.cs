@@ -3748,10 +3748,10 @@ int millisecondsDelay = 300)
                                 {
 
 
-                                    Snackbar.Title = VTOL.Resources.Languages.Language.ERROR;
-                                    Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Caution;
-                                    Snackbar.Message = VTOL.Resources.Languages.Language.File + Json_Path + VTOL.Resources.Languages.Language.CouldNotBeFoundOrHadAnErrorAndWasEdited;
-                                    Snackbar.ShowAsync();
+                                    SnackBar.Title = VTOL.Resources.Languages.Language.ERROR;
+                                    SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Caution;
+                                    SnackBar.Message = VTOL.Resources.Languages.Language.File + Json_Path + VTOL.Resources.Languages.Language.CouldNotBeFoundOrHadAnErrorAndWasEdited;
+                                    SnackBar.ShowAsync();
                                 });
                             }
 
