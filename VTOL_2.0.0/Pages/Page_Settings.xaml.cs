@@ -288,12 +288,17 @@ namespace VTOL.Pages
 
             }
             catch (Exception ex)
-            {
-                Log.Error(ex, $"A crash happened at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
+            {    
+    var st = new System.Diagnostics.StackTrace(ex, true);
+    var frame = st.GetFrame(0);
+    var line = frame.GetFileLineNumber();
+    var method = frame.GetMethod().Name;
+    var className = frame.GetMethod().DeclaringType.Name;
+    var variables = ""; // You would need to add logic to capture variable values
 
-
-
-            }
+    Log.Fatal(ex, $"An error occurred at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}" +
+                   $" Line Number: {line}, Method Name: {method}, Class Name: {className}, Variables: {variables}" +
+                   $"{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");}
         }
 
 
