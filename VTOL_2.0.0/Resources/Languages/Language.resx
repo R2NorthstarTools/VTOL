@@ -831,4 +831,10 @@
   <data name="FATALERROR" xml:space="preserve">
     <value>FATAL - ERROR</value>
   </data>
+  <data name="CouldNotBeFoundOrHadAnErrorAndWasEdited" xml:space="preserve">
+    <value> " -  Could not be Found or had an error and was Edited.</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>File - </value>
+  </data>
 </root>

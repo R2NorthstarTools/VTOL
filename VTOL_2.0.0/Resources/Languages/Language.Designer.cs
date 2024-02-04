@@ -142,6 +142,15 @@ namespace VTOL.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to  &quot; -  Could not be Found or had an error and was Edited..
+        /// </summary>
+        public static string CouldNotBeFoundOrHadAnErrorAndWasEdited {
+            get {
+                return ResourceManager.GetString("CouldNotBeFoundOrHadAnErrorAndWasEdited", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Could Not Read User Settings, Please Run as Admin or Repair/Clean your Installation.
         /// </summary>
         public static string CouldNotReadUserSettingsPleaseRunAsAdminOrRepairCleanYourInstallation {
@@ -228,6 +237,15 @@ namespace VTOL.Resources.Languages {
         public static string FATALERROR {
             get {
                 return ResourceManager.GetString("FATALERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File - .
+        /// </summary>
+        public static string File {
+            get {
+                return ResourceManager.GetString("File", resourceCulture);
             }
         }
         
