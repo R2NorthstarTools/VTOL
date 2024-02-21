@@ -13,6 +13,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net.Http.Json;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -302,7 +303,7 @@ namespace VTOL.Pages
                 // Read the JSON file
                 string  jsonContent = File.ReadAllText(Json_Path);
                     
-                 if (jsonContent.IsNullOrEmpty() == true && jsonContent.Length < 5)
+                 if (jsonContent.IsNullOrEmpty() == true || jsonContent.Length < 5  || jsonContent == "Null")
                    {
                          File.WriteAllText(Json_Path, "{\t\t\n\n}");
 
@@ -546,11 +547,12 @@ namespace VTOL.Pages
                                             Snackbar.Title = VTOL.Resources.Languages.Language.ERROR;
                                             Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Caution;
                                             Snackbar.Message = VTOL.Resources.Languages.Language.File + Json_Path + VTOL.Resources.Languages.Language.CouldNotBeFoundOrHadAnErrorAndWasEdited;
-                                            Snackbar.ShowAsync();
+                                            Snackbar.Show();
                                         });
                                     }
-                                  
                                     
+
+
                                         List<NORTHSTARCOMPATIBLE_MOD> DIRECTORY_MODS = READ_UPDATE_MOD_LIST(subDirs);
 
                                         CLEANED_FORMAT_MODS = DIRECTORY_MODS;
@@ -1110,11 +1112,15 @@ int millisecondsDelay = 300)
                             });
                         }
 
-                       
-                            // Read the JSON file
-                            string jsonContent = File.ReadAllText(Json_Path);
-                            // Parse the JSON content
-                            JObject jsonObject = JObject.Parse(jsonContent);
+
+                        // Read the JSON file
+                        string jsonContent = File.ReadAllText(Json_Path);
+                        if (jsonContent.IsNullOrEmpty() == true || jsonContent.Length < 5 || jsonContent == "Null")
+                        {
+                            File.WriteAllText(Json_Path, "{\t\t\n\n}");
+                        }
+                        // Parse the JSON content
+                        JObject jsonObject = JObject.Parse(jsonContent);
                             string Name = val;
                             if (jsonObject.TryGetValue(Name, out _))
                             {
@@ -2362,7 +2368,7 @@ int millisecondsDelay = 300)
                     string jsonContent = File.ReadAllText(Json_Path);
 
 
-                    if (jsonContent.IsNullOrEmpty() == true || jsonContent.Length > 2 || jsonContent == "null")
+                    if (jsonContent.IsNullOrEmpty() == true || jsonContent.Length > 2 || jsonContent == "Null")
                     {// Parse the JSON content
 
 
