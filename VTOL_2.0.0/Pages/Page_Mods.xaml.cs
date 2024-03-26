@@ -476,7 +476,7 @@ namespace VTOL.Pages
 
     Log.Fatal(ex, $"An error occurred at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}" +
                    $" Line Number: {line}, Method Name: {method}, Class Name: {className}, Variables: {variables}" +
-                   $"{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");v
+                   $"{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
 
                             }
 
