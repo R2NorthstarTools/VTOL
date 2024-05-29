@@ -259,7 +259,7 @@
     <value>Datei laden</value>
   </data>
   <data name="Page_Server_ImportServerConfig" xml:space="preserve">
-    <value>Import Server Config</value>
+    <value>Serverkonfiguration importieren</value>
   </data>
   <data name="Page_Server_ConfigureImportAndExportDedicatedServerAndClientSettings" xml:space="preserve">
     <value>Konfiguration, Import und Export dedizierte Server und Client Einstellung</value>
@@ -310,7 +310,7 @@
     <value>DIe FAQ-Seite öffnen</value>
   </data>
   <data name="Page_Skins_Browse" xml:space="preserve">
-    <value>Browse</value>
+    <value>Durchsuchen</value>
   </data>
   <data name="Page_Thunderstore_THUNDERSTORE" xml:space="preserve">
     <value>THUNDERSTORE</value>
@@ -817,7 +817,7 @@
     <value>ANWENDUNGS UPDATE IST VERFÜGBAR</value>
   </data>
   <data name="UpdateAvailablePleaseCheckAndDownloadTheLatestRelease" xml:space="preserve">
-    <value>Update verfügbar!, Bitte</value>
+    <value>Update verfügbar!, Bitte überprüfen Sie die aktuellste Veröffentlichung und laden Sie diese herunter.</value>
   </data>
   <data name="CouldNotReadUserSettingsPleaseRunAsAdminOrRepairCleanYourInstallation" xml:space="preserve">
     <value>Benutzereinstellungen konnten nicht gelesen werden, bitte als Administrator ausführen oder die Installation reparieren/bereinigen</value>
@@ -830,5 +830,14 @@
   </data>
   <data name="ERRORONLaunchCouldNotFindNorthstarExe" xml:space="preserve">
     <value>ERROR- BEIM Start konnte nicht die Northstar.exe finden!</value>
+  </data>
+  <data name="ThunderstoreModCount" xml:space="preserve">
+    <value>Thunderstore Modifikationsanzahl</value>
+  </data>
+  <data name="CouldNotBeFoundOrHadAnErrorAndWasEdited" xml:space="preserve">
+    <value> " -  konnte nicht gefunden werden oder hatte einen Fehler und wurde bearbeitet.</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>Datei - </value>
   </data>
 </root>
