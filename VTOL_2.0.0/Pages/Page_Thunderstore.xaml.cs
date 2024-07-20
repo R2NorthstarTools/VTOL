@@ -4456,6 +4456,16 @@ int millisecondsDelay = 300)
                 }
                 Console.WriteLine(Button.Tag.ToString());
 
+                if (name.Contains("VanillaPlus"))
+                {
+                    Main.Snackbar.Message = "VanillaPlus cannot be installed through VTOL";
+                    Main.Snackbar.Title = VTOL.Resources.Languages.Language.INFO;
+                    Main.Snackbar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
+                    Main.Snackbar.Show();
+
+                    return;
+                }
+
                 DispatchIfNecessary(async () =>
                 {
                     if (parts[0].Contains("http") || parts[0].Contains("https"))
