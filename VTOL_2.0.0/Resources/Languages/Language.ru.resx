@@ -139,7 +139,7 @@
     <value>Совместимый скин найден в : </value>
   </data>
   <data name="Page_Skins_Browse_Click_IsNotASkinZip" xml:space="preserve">
-    <value>не является .zip файлом со скином!</value>
+    <value> не является .zip файлом со скином!</value>
   </data>
   <data name="Page_Skins_OPEN_WEBPAGE_OpeningTheFollowingURL" xml:space="preserve">
     <value>Открываем следующий URL - </value>
@@ -160,13 +160,13 @@
     <value>  корректен и был установлен</value>
   </data>
   <data name="Page_Home_Browse_Titanfall_Button_Click_TheLocation" xml:space="preserve">
-    <value>Директория - ' </value>
+    <value>Директория - </value>
   </data>
   <data name="Page_Home_Browse_Titanfall_Button_Click_IsNotValid" xml:space="preserve">
     <value> неверная</value>
   </data>
   <data name="Browse_Titanfall_Button_Click_TheLocation" xml:space="preserve">
-    <value>Директория - ' </value>
+    <value>Директория - </value>
   </data>
   <data name="Check_Integrity_Of_NSINSTALL_DirectoryCheckFailed" xml:space="preserve">
     <value>Проверка директории провалена!</value>
@@ -326,7 +326,7 @@
     <value>Установка Northstar</value>
   </data>
   <data name="Page_Home_LaunchNorthstar" xml:space="preserve">
-    <value>Запустить Northstar</value>
+    <value>Запустить +Northstar</value>
   </data>
   <data name="Page_Home_Install_NS_METHOD_SequenceContainsNoElements" xml:space="preserve">
     <value>Последовательность не содержит элементов</value>
