@@ -2462,7 +2462,7 @@ int millisecondsDelay = 150)
                     Launch_Northstar.IsEnabled = false;
                     SnackBar.Message = VTOL.Resources.Languages.Language.ERRORONLaunchCouldNotFindNorthstarExe;
                     SnackBar.Title = VTOL.Resources.Languages.Language.FATALERROR;
-                    SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Danger;
+                    SnackBar.Appearance = Wpf.Ui.Controls.ControlAppearance.Danger;
                     SnackBar.Show();
 
 
@@ -2473,7 +2473,7 @@ int millisecondsDelay = 150)
                 Launch_Northstar.IsEnabled = false;
                 SnackBar.Message = VTOL.Resources.Languages.Language.ERRORONLaunchCouldNotFindNorthstarExe;
                 SnackBar.Title = VTOL.Resources.Languages.Language.FATALERROR;
-                SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Danger;
+                SnackBar.Appearance = Wpf.Ui.Controls.ControlAppearance.Danger;
                 SnackBar.Show();
 
 

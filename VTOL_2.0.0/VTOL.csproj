@@ -369,7 +369,7 @@
     <PackageReference Include="System.Runtime.InteropServices" Version="4.3.0" />
     <PackageReference Include="System.Threading.Tasks.Dataflow" Version="8.0.0" />
     <PackageReference Include="Walterlv.Windows.Interop" Version="7.6.0" />
-    <PackageReference Include="WPF-UI" Version="2.1.0" />
+    <PackageReference Include="WPF-UI" Version="3.0.5" />
     <PackageReference Include="XamlAnimatedGif" Version="2.2.3" />
     <PackageReference Include="XamlFlair.WPF" Version="1.2.13" />
   </ItemGroup>
