@@ -1,0 +1,78 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Development Northstar AmVCX C\u002B\u002B branch 19023 ID 44\\VTOL_2.0.0_\\VTOL_3.0.0\\VTOL_C\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{2DB44B58-8F8B-4C47-8149-0530DB125E01}|VTOL_C.csproj|d:\\development northstar amvcx c\u002B\u002B branch 19023 id 44\\vtol_2.0.0_\\vtol_3.0.0\\vtol_c\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{2DB44B58-8F8B-4C47-8149-0530DB125E01}|VTOL_C.csproj|solutionrelative:mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2DB44B58-8F8B-4C47-8149-0530DB125E01}|VTOL_C.csproj|d:\\development northstar amvcx c\u002B\u002B branch 19023 id 44\\vtol_2.0.0_\\vtol_3.0.0\\vtol_c\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2DB44B58-8F8B-4C47-8149-0530DB125E01}|VTOL_C.csproj|solutionrelative:mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 196,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 390,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:513309194:0:{83107a3e-496a-485e-b455-16ddb978e55e}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "D:\\Development Northstar AmVCX C\u002B\u002B branch 19023 ID 44\\VTOL_2.0.0_\\VTOL_3.0.0\\VTOL_C\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "MainWindow.xaml",
+              "ToolTip": "D:\\Development Northstar AmVCX C\u002B\u002B branch 19023 ID 44\\VTOL_2.0.0_\\VTOL_3.0.0\\VTOL_C\\MainWindow.xaml",
+              "RelativeToolTip": "MainWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-08-28T21:26:40.512Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "D:\\Development Northstar AmVCX C\u002B\u002B branch 19023 ID 44\\VTOL_2.0.0_\\VTOL_3.0.0\\VTOL_C\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "MainWindow.xaml.cs",
+              "ToolTip": "D:\\Development Northstar AmVCX C\u002B\u002B branch 19023 ID 44\\VTOL_2.0.0_\\VTOL_3.0.0\\VTOL_C\\MainWindow.xaml.cs",
+              "RelativeToolTip": "MainWindow.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-28T21:26:39.2Z"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 399,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:132:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:131:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:133:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{13b12e3e-c1b4-4539-9371-4fe9a0d523fc}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
