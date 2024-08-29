@@ -1,0 +1,786 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="PleaseWaitAsVTOLRestarts" xml:space="preserve">
+    <value>请等待 VTOL 重启!</value>
+  </data>
+  <data name="Page_Skins_Install_Skin_From_Path_TheSkin" xml:space="preserve">
+    <value>皮肤 -</value>
+  </data>
+  <data name="Page_Skins_Install_Skin_From_Path_HasBeenInstalled" xml:space="preserve">
+    <value>-已经被安装!</value>
+  </data>
+  <data name="Page_Skins_Drag_Drop_Area_Drop_IsNotASkinZip" xml:space="preserve">
+    <value>  不是皮肤zip压缩包!</value>
+  </data>
+  <data name="Page_Skins_Drag_Drop_Area_Drop_DragToInstall" xml:space="preserve">
+    <value>拖到到此处来安装</value>
+  </data>
+  <data name="Page_Skins_Drag_Drop_Area_Drop_CompatibleSkinSFound" xml:space="preserve">
+    <value>可使用的皮肤:</value>
+  </data>
+  <data name="Page_Skins_Browse_Click_CompatibleSkinFoundAt" xml:space="preserve">
+    <value>可使用的皮肤路径 : </value>
+  </data>
+  <data name="Page_Skins_Browse_Click_IsNotASkinZip" xml:space="preserve">
+    <value> 不是皮肤zip压缩包!</value>
+  </data>
+  <data name="Page_Skins_OPEN_WEBPAGE_OpeningTheFollowingURL" xml:space="preserve">
+    <value>正在打开这个链接:</value>
+  </data>
+  <data name="Page_Home_Auto_Install__NORTHSTARISNOTINSTALLEDANDAUTOINSTALLFAILED" xml:space="preserve">
+    <value>NorthStar 没有被安装并且自动安装失败!</value>
+  </data>
+  <data name="Page_Home_INIT_NORTHSTARAUTOINSTALLWILLNOWBEGINPLEASEWAITABOUT30SECONDS" xml:space="preserve">
+    <value>NorthStar 自动安装现在启动了, 差不多需要30秒完成!</value>
+  </data>
+  <data name="Page_Home_timer_Tick_MasterServerCheckedAndTimedOutTooMuchTurningOffMasterServerChecks" xml:space="preserve">
+    <value>主服务器超时时间过长. 正在关闭主服务器检查.</value>
+  </data>
+  <data name="Page_Home_Origin_Client_Card_Click_TheOriginClientIsAlreadyRunning" xml:space="preserve">
+    <value>Origin 客户端已经在运行了!</value>
+  </data>
+  <data name="Page_Home_Browse_Titanfall_Button_Click_IsValidAndHasBeenSet" xml:space="preserve">
+    <value>  是有效的并且已经被设置</value>
+  </data>
+  <data name="Page_Home_Browse_Titanfall_Button_Click_TheLocation" xml:space="preserve">
+    <value>路径 - ' </value>
+  </data>
+  <data name="Page_Home_Browse_Titanfall_Button_Click_IsNotValid" xml:space="preserve">
+    <value> 不是有效的</value>
+  </data>
+  <data name="Browse_Titanfall_Button_Click_TheLocation" xml:space="preserve">
+    <value>路径 - </value>
+  </data>
+  <data name="Check_Integrity_Of_NSINSTALL_DirectoryCheckFailed" xml:space="preserve">
+    <value>路径检查失败</value>
+  </data>
+  <data name="Read_Latest_Release_InvalidReleaseDonwloadURL" xml:space="preserve">
+    <value>无效的资源下载链接!</value>
+  </data>
+  <data name="Parse_Release_ReleaseNotFound" xml:space="preserve">
+    <value>资源未找到!</value>
+  </data>
+  <data name="Unpack_To_Location_InstallationComplete" xml:space="preserve">
+    <value>安装成功!</value>
+  </data>
+  <data name="Check_For_New_Northstar_Install_UpdateAvailableDownloadingAndInstallingNow" xml:space="preserve">
+    <value>有新的版本, 正在下载并安装!</value>
+  </data>
+  <data name="Check_For_New_Northstar_Install_ReleaseCandidateDetected" xml:space="preserve">
+    <value>检测到预发行版本</value>
+  </data>
+  <data name="Unpack_To_Location_TheFile" xml:space="preserve">
+    <value>文件 - </value>
+  </data>
+  <data name="Unpack_To_Location_WasNotFound" xml:space="preserve">
+    <value> 未找到!</value>
+  </data>
+  <data name="Page_Home_Unpack_To_Location_WasNotFound" xml:space="preserve">
+    <value> 未找到!</value>
+  </data>
+  <data name="Page_Home_Unpack_To_Location_TheFile" xml:space="preserve">
+    <value>文件 -</value>
+  </data>
+  <data name="Page_Home_Unpack_To_Location_IsNotAZip" xml:space="preserve">
+    <value>不是zip压缩包!</value>
+  </data>
+  <data name="Page_Home_Run_Origin_CouldNotFindEAOriginInstallPleaseStartManuallyOrRepairYourInstallation" xml:space="preserve">
+    <value> 找不到已安装的 EA Origin 客户端, 请手动打开, 或者修复你的安装!</value>
+  </data>
+  <data name="Page_Home_INIT_InstallNorthstar" xml:space="preserve">
+    <value>安装 NorthStar</value>
+  </data>
+  <data name="Page_Home_INIT_UpdateNorthstar" xml:space="preserve">
+    <value>升级 +NorthStar</value>
+  </data>
+  <data name="Page_Tools_Save_Mod_Click_NoValidZipFileToPackWasFound" xml:space="preserve">
+    <value>找不到要打包的有效zip文件</value>
+  </data>
+  <data name="Page_Tools_Icon_Image_MouseDown_InvalidImageSizeMustBe256x256" xml:space="preserve">
+    <value>映像文件大小不可用!. 必须是 256x256</value>
+  </data>
+  <data name="Page_Tools_Locate_Zip_Click_InvalidZipFound" xml:space="preserve">
+    <value>找到了不可用的zip压缩包</value>
+  </data>
+  <data name="Page_Tools_Locate_Zip_Click_ValidZipFound" xml:space="preserve">
+    <value>找到了可用的zip压缩包</value>
+  </data>
+  <data name="Page_Tools_Output_Button_Click_NotAnOutputDirectory" xml:space="preserve">
+    <value>不是一个输出目录</value>
+  </data>
+  <data name="Page_Tools_create_Manifest_OneOfTheManifestInputsAreEmpty" xml:space="preserve">
+    <value> 列表中有一项是空的 </value>
+  </data>
+  <data name="Page_Tools_Save_Mod_Click_NoValidOutputPathFound" xml:space="preserve">
+    <value>找不到可用的输出路径</value>
+  </data>
+  <data name="Page_Tools_Save_Mod_Click_SuccessfullyPackedAllItemsTo" xml:space="preserve">
+    <value> 成功打包了所有文件至 -</value>
+  </data>
+  <data name="Page_Tools_Save_Mod_Click_NoValidModICONFound" xml:space="preserve">
+    <value>找不到可用的 Mod 图标</value>
+  </data>
+  <data name="Page_Tools_Icon_Image_MouseDown_NotAValidPNGImage" xml:space="preserve">
+    <value>不是可用的 png 格式图片</value>
+  </data>
+  <data name="Page_Tools_Icon_Image_MouseDown_ValidImageFoundAt" xml:space="preserve">
+    <value>找到了可用映像 -</value>
+  </data>
+  <data name="Page_Tools_Icon_Image_MouseDown_ThatWasNotAProperPNG" xml:space="preserve">
+    <value>这不是适用的 png 图片</value>
+  </data>
+  <data name="Page_Tools_Image_Icon_Drop_InvalidImageSizeMustBeSmallerThan2048X2048" xml:space="preserve">
+    <value>图片大小不可用!. 必须比 2048x2048 更小</value>
+  </data>
+  <data name="Page_Tools_ProcessSkin_SkinNameNotSet" xml:space="preserve">
+    <value>皮肤名称未设置!</value>
+  </data>
+  <data name="Page_Tools_ProcessSkin_ItemNotSet" xml:space="preserve">
+    <value>物品名称未设置!</value>
+  </data>
+  <data name="Page_Tools_ProcessSkin_OutputPathIsNotSet" xml:space="preserve">
+    <value>输出路径未设置!</value>
+  </data>
+  <data name="Page_Tools_ProcessSkin_MapsAreNotSet" xml:space="preserve">
+    <value>地图未设置!</value>
+  </data>
+  <data name="Page_Tools_ProcessSkin_GeneratedTheSkinSuccessfully" xml:space="preserve">
+    <value>成功生成皮肤!</value>
+  </data>
+  <data name="Page_Thunderstore_Unpack_To_Location_Custom_HasBeenDownloadedAndInstalled" xml:space="preserve">
+    <value> 已经被下载且安装</value>
+  </data>
+  <data name="Page_Server_Launch_Northstar_Dedicated_Click_CouldNotFindDedicatedBat" xml:space="preserve">
+    <value>找不到服务器启动脚本!</value>
+  </data>
+  <data name="Page_Server_OnKeyDownHandler_Dedi_Arg_Saved" xml:space="preserve">
+    <value>已保存</value>
+  </data>
+  <data name="Page_Server_OnKeyDownHandler_Dedi_Arg_AutoSaveFailed" xml:space="preserve">
+    <value>自动保存失败</value>
+  </data>
+  <data name="Page_Server_Validate_Combo_Box_CannotReadInput" xml:space="preserve">
+    <value>不能读取输入</value>
+  </data>
+  <data name="Page_Server_Read_Convar_args_CannotSetThePath" xml:space="preserve">
+    <value>不能设置路径</value>
+  </data>
+  <data name="Page_Server_Launch_Northstar_Advanced_Click_CouldNotFindNorthstarExe" xml:space="preserve">
+    <value>未找到 Northstar.exe!</value>
+  </data>
+  <data name="Page_Server_StartupArgumentsNorthstarDedicatedClient" xml:space="preserve">
+    <value>启动含参数的 NorthStar 服务端</value>
+  </data>
+  <data name="Page_Home_WelcomeTo" xml:space="preserve">
+    <value>欢迎来到</value>
+  </data>
+  <data name="Page_Home_CustomModdingAndServerFramework" xml:space="preserve">
+    <value>可自定义的模组和服务器框架</value>
+  </data>
+  <data name="Page_Home_LaunchTitanfall2Northstar" xml:space="preserve">
+    <value>启动 TitanFall 2 NorthStar</value>
+  </data>
+  <data name="Page_Home_MasterServer" xml:space="preserve">
+    <value>主服务器</value>
+  </data>
+  <data name="Page_Home_ToggleChecking" xml:space="preserve">
+    <value>切换主服务器检查</value>
+  </data>
+  <data name="Page_Home_IndicatesIfOriginIsRunningClickToLaunchIfInactive" xml:space="preserve">
+    <value>显示 Origin 是否正在运行 (如果未激活, 单击此处启动)</value>
+  </data>
+  <data name="Page_Home_ShowsThePingLatencyOverTime" xml:space="preserve">
+    <value>随时间显示 Ping 与 延迟</value>
+  </data>
+  <data name="Page_Home_OpenTitanfall2Folder" xml:space="preserve">
+    <value>打开 TitanFall 2 目录</value>
+  </data>
+  <data name="Page_Home_LocateTitanfall2Install" xml:space="preserve">
+    <value>定位 TitanFall 2 安装目录</value>
+  </data>
+  <data name="Page_Home_ManuallyChangeTheTitanfall2InstallDirectory" xml:space="preserve">
+    <value>手动更改 TitanFall2 安装目录位置</value>
+  </data>
+  <data name="Page_Home_UpdateNorthstar" xml:space="preserve">
+    <value>更新 NorthStar</value>
+  </data>
+  <data name="Page_Home_NorthstarInstallation" xml:space="preserve">
+    <value>NorthStar 安装程序 </value>
+  </data>
+  <data name="Page_Home_LaunchNorthstar" xml:space="preserve">
+    <value>启动 +NorthStar</value>
+  </data>
+  <data name="Page_Home_Install_NS_METHOD_SequenceContainsNoElements" xml:space="preserve">
+    <value>序列不包含任何元素</value>
+  </data>
+  <data name="MainWindow_MainWindow_VTOLSYSTEMSFAILEDTOFINDYOURDOCUMENTSFOLDER" xml:space="preserve">
+    <value>VTOL 未成功找到你的文档文件夹</value>
+  </data>
+  <data name="Page_Mods_RightClickForContextMenu" xml:space="preserve">
+    <value>右键打开菜单</value>
+  </data>
+  <data name="Page_Mods_ListedHereAreTheModsThatAreCurrentlyInstalled" xml:space="preserve">
+    <value>展示在这里的是已经安装的 Mods。</value>
+  </data>
+  <data name="Page_About_AboutVTOLAndDocumentationOnItsUse" xml:space="preserve">
+    <value>关于 VTOL 及其使用文档。</value>
+  </data>
+  <data name="Page_About_ABOUT" xml:space="preserve">
+    <value>关于</value>
+  </data>
+  <data name="Page_About_CheckForUpdate" xml:space="preserve">
+    <value>检查更新</value>
+  </data>
+  <data name="Page_About_ConfigureUpdates" xml:space="preserve">
+    <value>配置更新</value>
+  </data>
+  <data name="Page_About_DefualtTextboxText" xml:space="preserve">
+    <value>默认文本框文本</value>
+  </data>
+  <data name="Page_Mods_MODS" xml:space="preserve">
+    <value>模组</value>
+  </data>
+  <data name="Page_Mods_Filter" xml:space="preserve">
+    <value>筛选</value>
+  </data>
+  <data name="Page_Server_LoadFiles" xml:space="preserve">
+    <value>加载</value>
+  </data>
+  <data name="Page_Server_ImportServerConfig" xml:space="preserve">
+    <value>导入服务器配置</value>
+  </data>
+  <data name="Page_Server_LaunchNorthstarDedicatedServer" xml:space="preserve">
+    <value>启动 NorthStar 服务端</value>
+  </data>
+  <data name="Page_Server_LaunchNorthstarClient" xml:space="preserve">
+    <value>启动 NorthStar 客户端</value>
+  </data>
+  <data name="Page_Server_ConfigureImportAndExportDedicatedServerAndClientSettings" xml:space="preserve">
+    <value>配置, 导入与导出服务端与客户端设定</value>
+  </data>
+  <data name="Page_Server_SERVER" xml:space="preserve">
+    <value>服务器</value>
+  </data>
+  <data name="Page_Server_LaunchNorthstarDedicatedClient" xml:space="preserve">
+    <value>启动 NorthStar 专用客户端</value>
+  </data>
+  <data name="Page_Server_ExportServerConfig" xml:space="preserve">
+    <value>导出服务器配置</value>
+  </data>
+  <data name="Page_Settings_FineTuneAndConfigureVTOLHere" xml:space="preserve">
+    <value>在此微调和配置 VTOL</value>
+  </data>
+  <data name="Page_Settings_SETTINGS" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="Page_Skins_InstallDDSForamttedSkinsHere" xml:space="preserve">
+    <value>在这里安装 DDS 格式的皮肤</value>
+  </data>
+  <data name="Page_Skins_SKINS" xml:space="preserve">
+    <value>皮肤</value>
+  </data>
+  <data name="Page_Skins_InstallSkin" xml:space="preserve">
+    <value>安装皮肤</value>
+  </data>
+  <data name="Page_Skins_OpenTheFAQPage" xml:space="preserve">
+    <value>打开 FAQ 页面</value>
+  </data>
+  <data name="Page_Skins_OpenAGuidePage" xml:space="preserve">
+    <value>打开向导页</value>
+  </data>
+  <data name="Page_Skins_Browse" xml:space="preserve">
+    <value>浏览</value>
+  </data>
+  <data name="Page_Thunderstore_TheseAreTheCollectionOfModsHostedOnTheThunderStoreModPlatform" xml:space="preserve">
+    <value>在 ThunderStore 平台上的模组。</value>
+  </data>
+  <data name="Page_Thunderstore_THUNDERSTORE" xml:space="preserve">
+    <value>ThunderStore</value>
+  </data>
+  <data name="Page_Tools_ToolsForEaseOfDevelopmentOnTheNorthstarClient" xml:space="preserve">
+    <value>便于在 NorthStar 客户端上进行开发的工具</value>
+  </data>
+  <data name="Page_Tools_TOOLS" xml:space="preserve">
+    <value>工具</value>
+  </data>
+  <data name="Page_Home_OriginClientRunning" xml:space="preserve">
+    <value>运行Origin客户端</value>
+  </data>
+  <data name="Page_Tools_Content" xml:space="preserve">
+    <value>内容</value>
+  </data>
+  <data name="Page_Tools_Name" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="Page_Tools_Version" xml:space="preserve">
+    <value>版本</value>
+  </data>
+  <data name="Page_Tools_Webpage" xml:space="preserve">
+    <value>网页</value>
+  </data>
+  <data name="Page_Tools_Description" xml:space="preserve">
+    <value>简介</value>
+  </data>
+  <data name="Page_Tools_Dependencies" xml:space="preserve">
+    <value>依赖</value>
+  </data>
+  <data name="Page_Tools_OutputDirectory" xml:space="preserve">
+    <value>输出目录</value>
+  </data>
+  <data name="Page_Tools_Icon" xml:space="preserve">
+    <value>图标</value>
+  </data>
+  <data name="Page_Tools_Item" xml:space="preserve">
+    <value>物品</value>
+  </data>
+  <data name="Page_Tools_DragAndDropOrClickToPopulateTheMaps" xml:space="preserve">
+    <value>拖动或单击以添加地图</value>
+  </data>
+  <data name="Page_Tools_LocateSkinContent" xml:space="preserve">
+    <value>选择皮肤路径</value>
+  </data>
+  <data name="Page_Tools_TestReadmeText" xml:space="preserve">
+    <value>测试Readme文字</value>
+  </data>
+  <data name="Page_Tools_VersionNumber" xml:space="preserve">
+    <value>版本号</value>
+  </data>
+  <data name="Page_Tools_AuthorName" xml:space="preserve">
+    <value>作者</value>
+  </data>
+  <data name="Page_Tools_SkinName" xml:space="preserve">
+    <value>皮肤名称</value>
+  </data>
+  <data name="Page_Tools_Locate_Repak_Exe" xml:space="preserve">
+    <value>选择Repack路径</value>
+  </data>
+  <data name="Page_Mods_Call_Mods_From_Folder_PleaseOpenYourFolderAt" xml:space="preserve">
+    <value>请前往路径 - </value>
+  </data>
+  <data name="Page_Mods_Call_Mods_From_Folder_AndManuallyRepairTheMod" xml:space="preserve">
+    <value> 并手动修复该Mod - </value>
+  </data>
+  <data name="Page_Mods_Call_Mods_From_Folder_ThereIsAnIssueDetectedWithYourMod" xml:space="preserve">
+    <value>在您的Mod中发现问题!</value>
+  </data>
+  <data name="Page_Mods_Call_Mods_From_Folder_ModCount" xml:space="preserve">
+    <value>Mod数量: </value>
+  </data>
+  <data name="Page_Home_INIT_InvalidInstallPathPleaseManuallyLocateTheCorrectFolder" xml:space="preserve">
+    <value>安装目录错误，请手动选择正确的目录！</value>
+  </data>
+  <data name="Page_Home_CurrentTitanfall2Path" xml:space="preserve">
+    <value>当前 Titanfall 2 路径</value>
+  </data>
+  <data name="Page_Tools_PackageAsADDSSkin" xml:space="preserve">
+    <value>包装为DDS皮肤文件？</value>
+  </data>
+  <data name="Page_Server_Load_Files__ReloadArguments" xml:space="preserve">
+    <value>重新载入参数</value>
+  </data>
+  <data name="Page_Skins_MakingYourOwnSkin" xml:space="preserve">
+    <value>创建你的皮肤</value>
+  </data>
+  <data name="Page_Tools_OutputAsAThunderstoreMod" xml:space="preserve">
+    <value>输出为Thunderstore模组</value>
+  </data>
+  <data name="Page_Tools_CreateSkin" xml:space="preserve">
+    <value>创建皮肤</value>
+  </data>
+  <data name="Page_Tools_ConvertSkin" xml:space="preserve">
+    <value>转换皮肤</value>
+  </data>
+  <data name="Page_Tools_LocateTheModZipManually" xml:space="preserve">
+    <value>手动选择Mod压缩包</value>
+  </data>
+  <data name="Page_Tools_LocateRepakExe" xml:space="preserve">
+    <value>选择Repak路径</value>
+  </data>
+  <data name="Page_Tools_ChooseYourItem" xml:space="preserve">
+    <value>选择你的物品</value>
+  </data>
+  <data name="Page_Server_StartupArgumentsNorthstarClient" xml:space="preserve">
+    <value>Northstar 客户端启动选项</value>
+  </data>
+  <data name="Page_Mods_Call_Mods_From_Folder_Enable" xml:space="preserve">
+    <value>启用</value>
+  </data>
+  <data name="Page_Mods_Call_Mods_From_Folder_Disable_" xml:space="preserve">
+    <value>禁用</value>
+  </data>
+  <data name="Page_Tools_LocateModContent" xml:space="preserve">
+    <value>定位修改内容</value>
+  </data>
+  <data name="MainWindow_Home" xml:space="preserve">
+    <value>主页</value>
+  </data>
+  <data name="MainWindow_Mods" xml:space="preserve">
+    <value>模组</value>
+  </data>
+  <data name="MainWindow_Server" xml:space="preserve">
+    <value>服务器</value>
+  </data>
+  <data name="MainWindow_Tools" xml:space="preserve">
+    <value>工具</value>
+  </data>
+  <data name="MainWindow_Skins" xml:space="preserve">
+    <value>皮肤</value>
+  </data>
+  <data name="MainWindow_About" xml:space="preserve">
+    <value>关于</value>
+  </data>
+  <data name="Page_Tools_OpenFolder" xml:space="preserve">
+    <value>打开文件夹</value>
+  </data>
+  <data name="Page_Tools_WebPage_" xml:space="preserve">
+    <value>网站</value>
+  </data>
+  <data name="Page_Tools_Check_For_Tools_Launch" xml:space="preserve">
+    <value>启动</value>
+  </data>
+  <data name="Page_Tools_Download_Zip_To_Path_DownloadingAndInstalling" xml:space="preserve">
+    <value>正在下载和安装 </value>
+  </data>
+  <data name="Page_Tools_LaunchArguments" xml:space="preserve">
+    <value>启动项</value>
+  </data>
+  <data name="Page_Mods_ReverseFilterOrder" xml:space="preserve">
+    <value>反转排序顺序</value>
+  </data>
+  <data name="Page_Thunderstore_Sort" xml:space="preserve">
+    <value>排序方式</value>
+  </data>
+  <data name="Page_Thunderstore_Category" xml:space="preserve">
+    <value>标签</value>
+  </data>
+  <data name="Page_Mods_Info" xml:space="preserve">
+    <value>详细信息</value>
+  </data>
+  <data name="Page_Mods_Delete" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="Page_Profiles_ExcludeModFolderOnImport" xml:space="preserve">
+    <value>不导入模组文件夹</value>
+  </data>
+  <data name="Page_Profiles_ChangeSaveLocation" xml:space="preserve">
+    <value>更改保存位置</value>
+  </data>
+  <data name="Page_Profiles_ImportProfile" xml:space="preserve">
+    <value>导入配置文件</value>
+  </data>
+  <data name="Page_Profiles_BackupCurrentProfileOnImport" xml:space="preserve">
+    <value>导入前备份当前配置文件</value>
+  </data>
+  <data name="Page_Thunderstore_ConvertDateToString_Yesterday" xml:space="preserve">
+    <value>昨天</value>
+  </data>
+  <data name="Page_Thunderstore_ConvertDateToString_MinutesAgo" xml:space="preserve">
+    <value>分钟前</value>
+  </data>
+  <data name="Page_Thunderstore_ConvertDateToString_DaysAgo" xml:space="preserve">
+    <value>天前</value>
+  </data>
+  <data name="Page_Thunderstore_ConvertDateToString_HoursAgo" xml:space="preserve">
+    <value>小时前</value>
+  </data>
+  <data name="Page_Home_INIT_ReInstallNorthstar" xml:space="preserve">
+    <value>重新安装Northstar</value>
+  </data>
+  <data name="Page_Profiles_IMPORT" xml:space="preserve">
+    <value>导入</value>
+  </data>
+  <data name="Page_Profiles_ExportProfile" xml:space="preserve">
+    <value>导出配置文件</value>
+  </data>
+  <data name="Page_Profiles_AddProfile" xml:space="preserve">
+    <value>添加配置文件</value>
+  </data>
+  <data name="Page_Profiles_PROFILES" xml:space="preserve">
+    <value>配置文件</value>
+  </data>
+  <data name="Page_Profiles_SaveLocation" xml:space="preserve">
+    <value>保存位置</value>
+  </data>
+  <data name="Page_Profiles_NameOfProfile" xml:space="preserve">
+    <value>配置文件名称</value>
+  </data>
+  <data name="MODSIZEONDISK" xml:space="preserve">
+    <value>模组所占用硬盘空间</value>
+  </data>
+  <data name="VERSION" xml:space="preserve">
+    <value>版本号</value>
+  </data>
+  <data name="PATH" xml:space="preserve">
+    <value>模组路径</value>
+  </data>
+  <data name="MODINFO" xml:space="preserve">
+    <value>模组信息</value>
+  </data>
+  <data name="HasBeenDeleted" xml:space="preserve">
+    <value> 已被删除</value>
+  </data>
+  <data name="CouldNotBeDeleted" xml:space="preserve">
+    <value> 无法被删除</value>
+  </data>
+  <data name="SUCCESS" xml:space="preserve">
+    <value>完成</value>
+  </data>
+  <data name="DESCRIPTION" xml:space="preserve">
+    <value>模组说明</value>
+  </data>
+  <data name="DEPENDENCYLIST" xml:space="preserve">
+    <value>前置模组</value>
+  </data>
+  <data name="REQUIRES" xml:space="preserve">
+    <value>需要 - </value>
+  </data>
+  <data name="NAME" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="MANIFESTFILENOTFOUND" xml:space="preserve">
+    <value>未找到清单文件</value>
+  </data>
+  <data name="MANIFESTFILENOTFOUND_" xml:space="preserve">
+    <value>未找到清单文件 </value>
+  </data>
+  <data name="MANIFEST_FILE_NOT_FOUND" xml:space="preserve">
+    <value>未找到清单文件</value>
+  </data>
+  <data name="Page_Thunderstore_CardAction_Click_DoYouWantToInstallTheseAndTheMod" xml:space="preserve">
+    <value>是否安装这些和Mod -</value>
+  </data>
+  <data name="MainWindow_Settings" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="Page_Tools_Check_For_Tools_Install" xml:space="preserve">
+    <value>安装</value>
+  </data>
+  <data name="Page_Mods_Open_Mod_Info_OpenFolder" xml:space="preserve">
+    <value>打开所在文件夹</value>
+  </data>
+  <data name="Page_Thunderstore_ConvertDateToString_Today" xml:space="preserve">
+    <value> 今天</value>
+  </data>
+  <data name="Page_Thunderstore_ConvertDateToString_1WeekAgo" xml:space="preserve">
+    <value>一周前</value>
+  </data>
+  <data name="Page_Profiles_ExcludeModFolder" xml:space="preserve">
+    <value>不备份模组文件夹</value>
+  </data>
+  <data name="Page_Profiles_ChangeTheEntireApplicationByImportingOrExportingProfiles" xml:space="preserve">
+    <value>通过导入或导出配置文件修改本软件</value>
+  </data>
+  <data name="MainWindow_Profiles" xml:space="preserve">
+    <value>配置文件</value>
+  </data>
+  <data name="Page_Tools_Locate_Repak_Exe_Click_ExeLocated" xml:space="preserve">
+    <value>程序已定位！</value>
+  </data>
+  <data name="MainWindow_NewLogChangesHaveBeenDetectedPleaseClickMeToOpenYourLogsFolder" xml:space="preserve">
+    <value>检测到新的日志更改，请单击此处打开您的日志文件夹。</value>
+  </data>
+  <data name="Page_Settings_Settings_LostFocus_Restart" xml:space="preserve">
+    <value>重启</value>
+  </data>
+  <data name="Page_Settings_Settings_LostFocus_LanguageChangeDetected" xml:space="preserve">
+    <value>-检测到语言修改-</value>
+  </data>
+  <data name="Page_Home_Page_Home_EAClientRunning" xml:space="preserve">
+    <value>EA客户端正在运行</value>
+  </data>
+  <data name="Page_Home_Origin_Client_Card_Click_TheEAClientIsAlreadyRunning" xml:space="preserve">
+    <value>EA客户端已经在运行中</value>
+  </data>
+  <data name="Page_Home_Check_For_New_Northstar_Install_With_Notif_ThereIsANewNorthstarVersionAvailablePleaseUpdateYourNorthstarInstall" xml:space="preserve">
+    <value>有新版本Northstar可用。请更新您的Northstar。</value>
+  </data>
+  <data name="Page_Home_Install_NS_METHOD_GitHubRateLimitForDownloadTriesHasBeenExceededError403FromRemoteServerPleaseWait" xml:space="preserve">
+    <value>已超过GitHub下载次数的速率限制。来自远程服务器的错误403。请稍后重试</value>
+  </data>
+  <data name="TheModAt" xml:space="preserve">
+    <value>该模组位于 </value>
+  </data>
+  <data name="ERROR" xml:space="preserve">
+    <value> 错误</value>
+  </data>
+  <data name="CAUTION" xml:space="preserve">
+    <value>警告</value>
+  </data>
+  <data name="MODNAME" xml:space="preserve">
+    <value>模组名称</value>
+  </data>
+  <data name="YouHaveInstalledModSettingsModSettingsHasBeenDepreceatedAndWillCauseErrorsNDeleteItNow" xml:space="preserve">
+    <value> "您已安装Mod Settings！Mod Settings已经弃用，并可能会出现错误。 \n是否立即删除？</value>
+  </data>
+  <data name="WARNING" xml:space="preserve">
+    <value> "警告</value>
+  </data>
+  <data name="Page_Server_Export_Server_Config_Click_PleaseRecheckYourSaveLocation" xml:space="preserve">
+    <value> 请重新检查你的保存位置</value>
+  </data>
+  <data name="Page_Settings_Settings_LostFocus_AChangeInLanguageWasDetectedNVTOLRequiresARestartToDisplayTheseChangesNWouldYouLikeToRestartNow" xml:space="preserve">
+    <value>@检测到语言修改 @VTOL 需要重新启动来加载这些资源。 @你想立即重新启动吗？。</value>
+  </data>
+  <data name="VTOLSYSTEMSFAILEDTOFINDYOURAPPDATAFOLDERLOCATEASAVEDATAFOLDER" xml:space="preserve">
+    <value>VTOL系统未找到您的AppData文件夹，请重新定位存档文件夹</value>
+  </data>
+  <data name="INFO" xml:space="preserve">
+    <value>信息</value>
+  </data>
+  <data name="AreYouSureYouWantToDeleteTheMod" xml:space="preserve">
+    <value>你确定要移除下列Mod - </value>
+  </data>
+  <data name="DELETEMOD" xml:space="preserve">
+    <value>移除Mod</value>
+  </data>
+  <data name="Permanently" xml:space="preserve">
+    <value>永久移除？</value>
+  </data>
+  <data name="VTOLRESTARTINGINADMINMODE" xml:space="preserve">
+    <value>以管理员身份重新运行VTOL</value>
+  </data>
+  <data name="TheModInformationFileCannotBeAccessedOrFound" xml:space="preserve">
+    <value>无法访问或未找到Mod配置文件！</value>
+  </data>
+  <data name="DownloadWithTheSameURLIsWasAlreadyInProgressOrQueued" xml:space="preserve">
+    <value>使用相同URL的下载任务正在进行中或处于任务队列中。</value>
+  </data>
+  <data name="DownloadingFromThunderStore" xml:space="preserve">
+    <value>从雷霆商店下载</value>
+  </data>
+  <data name="TheMod" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="ThunderstoreModCount" xml:space="preserve">
+    <value>雷霆商店模组数量</value>
+  </data>
+  <data name="ModUpdatesAvailable" xml:space="preserve">
+    <value>模组可用更新 - </value>
+  </data>
+  <data name="APPLICATIONUPDATEISAVAILABLE" xml:space="preserve">
+    <value>软件更新已就绪</value>
+  </data>
+  <data name="UpdateAvailablePleaseCheckAndDownloadTheLatestRelease" xml:space="preserve">
+    <value>新版本！请查看并下载最新版本。</value>
+  </data>
+  <data name="HasNotBeenInstalledOnYourDevice" xml:space="preserve">
+    <value> 尚未安装在您的设备上。</value>
+  </data>
+</root>

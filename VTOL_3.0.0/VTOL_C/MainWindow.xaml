@@ -5,8 +5,69 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VTOL_C"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
+        Title="VTOL - 3.0.0" Height="768" Width="1024"
+        ui:WindowHelper.UseModernWindowStyle="True"
+            xmlns:uis="http://schemas.modernwpf.com/2019"
+        xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
+
+ui:WindowHelper.SystemBackdropType="Mica"
+                ui:TitleBar.Height="36" MinWidth="1280" MinHeight="768" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="2,2,2,2" SnapsToDevicePixels="True" ResizeMode="CanResizeWithGrip" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" MaxWidth="1280" MaxHeight="960" Loaded="Window_Loaded"
+
+>
     <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/Resources/Backgrounds/Backgrounds_Home_Page/wallpaper(30).jpg" Stretch="UniformToFill"/>
+        </Grid.Background>
+        <ui:NavigationView x:Name="Nav_Main" IsPaneOpen="False" Panel.ZIndex="10" PaneDisplayMode="Top" SelectionChanged="Nav_Main_SelectionChanged" AlwaysShowHeader="False" IsBackButtonVisible="Collapsed">
+            <FrameworkElement.Resources>
+                <SolidColorBrush x:Key="{x:Static ui:ThemeKeys.NavigationViewContentBackgroundKey}" Color="Transparent"/>
+                <SolidColorBrush x:Key="{x:Static ui:ThemeKeys.ExpanderHeaderBorderBrushKey}" Color="Transparent"/>
+                <Thickness x:Key="NavigationViewContentGridBorderThickness">0,0,0,0</Thickness>
+            </FrameworkElement.Resources>
+
+            <ui:NavigationView.MenuItems>
+                <ui:NavigationViewItem  x:Name="Navitem_Home" Content="Home">
+                    <ui:NavigationViewItem.Icon>
+                        <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Home}"/>
+                    </ui:NavigationViewItem.Icon>
+                </ui:NavigationViewItem>
+
+                <ui:NavigationViewItem  x:Name="Navitem_Mods" Content="Mods">
+                    <ui:NavigationViewItem.Icon>
+                        <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.OEM}"/>
+                    </ui:NavigationViewItem.Icon>
+                </ui:NavigationViewItem>
+
+                <ui:NavigationViewItem x:Name="Navitem_Store" Content="Store">
+                    <ui:NavigationViewItem.Icon>
+                        <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.CloudDownload}"/>
+                    </ui:NavigationViewItem.Icon>
+                </ui:NavigationViewItem>
+                <ui:NavigationViewItem x:Name="Navitem_Tools" Content="Tools">
+                    <ui:NavigationViewItem.Icon>
+                        <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.DeveloperTools}"/>
+                    </ui:NavigationViewItem.Icon>
+                </ui:NavigationViewItem>
+            </ui:NavigationView.MenuItems>
+
+            <ui:NavigationView.FooterMenuItems>
+
+                <ui:NavigationViewItem Content="Settings">
+                    <ui:NavigationViewItem.Icon>
+                        <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Settings}"/>
+                    </ui:NavigationViewItem.Icon>
+                </ui:NavigationViewItem>
+               
+
+            </ui:NavigationView.FooterMenuItems>
+
+            <Border x:Name="Border_Main" CornerRadius="8,8,8,8">
+                <ui:Frame x:Name="Frame_Main" Width="1240" Height="655" HorizontalAlignment="Center" VerticalAlignment="Center" ></ui:Frame>
+               
+            </Border>
+        </ui:NavigationView>
 
     </Grid>
+
 </Window>

@@ -1,0 +1,216 @@
+{
+  "Startup_Arguments": [
+    {
+      "Display_Val": "+setplaylist",
+      "Type": "STRING",
+      "Default": "private_match",
+      "Description": "Currently needed to make servers work",
+      "ARG": "STARTUP"
+
+
+    },
+    {
+      "Display_Val": "-port",
+      "Type": "PORT",
+      "Default": "8080",
+      "Description": "Determines which UDP port the server will listen to",
+      "ARG": "STARTUP"
+
+    },
+    {
+      "Display_Val": "+mp_gamemode",
+      "Type": "LIST",
+      "Default": "private_match",
+      "Description": "Forces the gamemode of the server",
+      "ARG": "STARTUP",
+      "List": [ "private_match", "ps", "gg", "coliseum", "cp", "lf", "lts", "mfd", "ps", "solo", "tdm", "ttdm" ]
+
+    },
+    {
+      "Display_Val": "+setplaylistvaroverrides",
+      "Type": "STRINGQ",
+      "Default": "",
+      "Description": "Currently needed to make servers work",
+      "ARG": "STARTUP"
+
+    }
+  ],
+  "Convar_Arguments": [
+    {
+      "Display_Val": "ns_server_name",
+      "Type": "STRING",
+      "Default": "Unnamed Northstar Server",
+      "Description": "Your server's name on the server browser",
+      "ARG": "CONVAR"
+    },
+    {
+      "Display_Val": "ns_server_desc",
+      "Type": "STRING",
+      "Default": "Default server description",
+      "Description": "Your server's description on the server browser",
+      "ARG": "CONVAR"
+    },
+    {
+      "Display_Val": "ns_server_password",
+      "Type": "STRING",
+      "Default": "",
+      "Description": "The password required to join your server, can be bypassed if clients directly connect and you are using insecure auth",
+      "ARG": "CONVAR"
+    },
+    {
+      "Display_Val": "ns_report_server_to_masterserver",
+      "Type": "BOOL",
+      "Default": "1",
+      "Description": "Whether your server should report itself to the masterserver, for use in auth and the serverbrowser",
+      "ARG": "CONVAR"
+    },
+    {
+      "Display_Val": "ns_report_sp_server_to_masterserver",
+      "Type": "BOOL",
+      "Default": "0",
+      "Description": "Whether your server should report itself to the masterserver if started on a singleplayer map, for use in auth and the serverbrowser",
+      "ARG": "CONVAR"
+    },
+    {
+      "Display_Val": "ns_auth_allow_insecure",
+      "Type": "BOOL",
+      "Default": "0",
+      "Description": "Allows clients to join your server without authenticating with the masterserver, currently required to allow clients to connect directly to your IP, rather than through the server browser",
+      "ARG": "CONVAR"
+    },
+    {
+      "Display_Val": "ns_erase_auth_info",
+      "Type": "BOOL",
+      "Default": "1",
+      "Description": "Whether your server should erase authentication information after it is used, this is useful for development but should normally be kept at 1",
+      "ARG": "CONVAR"
+    },
+    {
+      "Display_Val": "ns_player_auth_port",
+      "Type": "PORT",
+      "Default": "8081",
+      "Description": "The port used for the server's local authentication server, this is the TCP port we forwarded earlier",
+      "ARG": "CONVAR"
+    },
+    {
+      "Display_Val": "everything_unlocked",
+      "Type": "BOOL",
+      "Default": "1",
+      "Description": "Whether all items, weapons, etc should be unlocked on the server",
+      "ARG": "CONVAR"
+    },
+    {
+      "Display_Val": "ns_should_return_to_lobby",
+      "Type": "BOOL",
+      "Default": "1",
+      "Description": "Whether the server should return to private match lobby after completing a game, if 0, this will go to the next map/mode in the playlist",
+      "ARG": "CONVAR"
+    },
+    {
+      "Display_Val": "ns_private_match_only_host_can_change_settings",
+      "Type": "INT",
+      "Default": "2",
+      "Description": "If 0 Players can change all match settings. If 1 Players can only change map and gamemode. If 2 Players can change nothing",
+      "ARG": "CONVAR"
+    },
+    {
+      "Display_Val": "ns_private_match_countdown_length",
+      "Type": "INT",
+      "Default": "15",
+      "Description": "Length is seconds before the match is started after the start button in the lobby",
+      "ARG": "CONVAR"
+    },
+    {
+      "Display_Val": "ns_private_match_last_mode",
+      "Type": "ONE_SELECT",
+      "Default": "tdm",
+      "Description": "Forces the lobby to a specific Gamemode",
+      "List": [ "private_match", "ps", "gg", "coliseum", "cp", "lf", "lts", "mfd", "ps", "solo", "tdm", "ttdm", "alts", "attdm", "ffa", "fra", "holopilot_lf", "rocket_lf", "turbo_lts", "turbo_ttdm", "chamber", "ctf_comp", "fastball", "gg", "hidden", "hs", "inf", "kr", "sbox", "sns", "tffa", "tt", "REMOVE" ],
+      "ARG": "CONVAR"
+    },
+    {
+      "Display_Val": "ns_private_match_last_map",
+      "Type": "ONE_SELECT",
+      "Default": "mp_forwardbase_kodai",
+      "Description": "Forces the lobby to a specifig map",
+      "List": [ "mp_angel_city", "mp_black_water_canal", "mp_box", "mp_coliseum", "mp_coliseum_column", "mp_colony02", "mp_complex3", "mp_crashsite3", "mp_drydock", "mp_eden", "mp_forwardbase_kodai", "mp_grave", "mp_homestead", "mp_lf_deck", "mp_lf_meadow", "mp_lf_stacks", "mp_lf_township", "mp_lf_traffic", "mp_lf_uma", "mp_lobby", "mp_relic02", "mp_rise", "mp_thaw", "mp_wargames", "REMOVE" ],
+      "ARG": "CONVAR"
+    },
+    {
+      "Display_Val": "ns_disallowed_weapons",
+      "Type": "LIST",
+      "Default": "private_match",
+      "Description": "Blacklists weapons",
+      "List": [ "mp_weapon_car", "mp_weapon_alternator_smg", "mp_weapon_hemlok_smg", "mp_weapon_r97", "mp_weapon_hemlok", "mp_weapon_vinson", "mp_weapon_g2", "mp_weapon_rspn101", "mp_weapon_rspn101_og", "mp_weapon_esaw", "mp_weapon_lstar", "mp_weapon_lmg", "mp_weapon_shotgun", "REMOVE", "REMOVE", "REMOVE", "REMOVE", "REMOVE", "REMOVE", "REMOVE", "mp_weapon_mastiff", "mp_weapon_dmr", "mp_weapon_sniper", "mp_weapon_doubletake", "mp_weapon_pulse_lmg", "mp_weapon_smr", "mp_weapon_softball", "mp_weapon_epg", "mp_weapon_shotgun_pistol", "mp_weapon_wingman_n", "mp_weapon_autopistol", "mp_weapon_semipistol", "mp_weapon_wingman", "mp_weapon_mgl", "mp_weapon_arc_launcher", "mp_weapon_rocket_launcher", "mp_weapon_defender", "REMOVE" ],
+      "ARG": "CONVAR"
+    },
+    {
+      "Display_Val": "ns_disallowed_weapon_primary_replacement",
+      "Type": "ONE_SELECT",
+      "Default": "ps",
+      "Description": "Replaces blacklisted weapons by one weapon",
+      "List": [ "mp_weapon_car", "mp_weapon_alternator_smg", "mp_weapon_hemlok_smg", "mp_weapon_r97", "mp_weapon_hemlok", "mp_weapon_vinson", "mp_weapon_g2", "mp_weapon_rspn101", "mp_weapon_rspn101_og", "mp_weapon_esaw", "mp_weapon_lstar", "mp_weapon_lmg", "mp_weapon_shotgun", "REMOVE", "REMOVE", "REMOVE", "REMOVE", "REMOVE", "REMOVE", "REMOVE", "mp_weapon_mastiff", "mp_weapon_dmr", "mp_weapon_sniper", "mp_weapon_doubletake", "mp_weapon_pulse_lmg", "mp_weapon_smr", "mp_weapon_softball", "mp_weapon_epg", "mp_weapon_shotgun_pistol", "mp_weapon_wingman_n", "mp_weapon_autopistol", "mp_weapon_semipistol", "mp_weapon_wingman", "mp_weapon_mgl", "mp_weapon_arc_launcher", "mp_weapon_rocket_launcher", "mp_weapon_defender", "REMOVE" ],
+
+      "ARG": "CONVAR"
+    },
+
+    {
+      "Display_Val": "ns_should_log_unknown_clientcommands",
+      "Type": "BOOL",
+      "Default": "1",
+      "Description": "Whether unknown clientcommands should be printed in the console, worth disabling if they get on your nerves",
+      "ARG": "CONVAR"
+    },
+    {
+      "Display_Val": "net_chan_limit_mode",
+      "Type": "INT",
+      "Default": "2",
+      "Description": "If 0, don't limit the netchannel processing time individual clients are allowed. If 1, kick clients that go over the limit. If 2, log clients that go over the limit in console",
+      "ARG": "CONVAR"
+    },
+    {
+      "Display_Val": "net_chan_limit_msec_per_sec",
+      "Type": "INT",
+      "Default": "20",
+      "Description": "The number of milliseconds of server netchan processing time clients can use per second before triggering the response set in net_chan_limit_mode",
+      "ARG": "CONVAR"
+    },
+    {
+      "Display_Val": "base_tickinterval_mp",
+      "Type": "INT",
+      "Default": "0.016666667",
+      "Description": "The delay between each tick ran on the server, your tickrate will be 1 divided by this value",
+      "ARG": "CONVAR"
+    },
+    {
+      "Display_Val": "sv_updaterate_mp",
+      "Type": "INT",
+      "Default": "20",
+      "Description": "The maximum number of times per second your server will send information to connected players, if a player's cl_updaterate_mp value is lower than this, their rate will be limited to it",
+      "ARG": "CONVAR"
+    },
+    {
+      "Display_Val": "sv_max_snapshots_multiplayer",
+      "Type": "INT",
+      "Default": "300",
+      "Description": "The number of snapshots stored locally for use in replays, this should be set to sv_updaterate_mp x 15",
+      "ARG": "CONVAR"
+    },
+    {
+      "Display_Val": "net_data_block_enabled",
+      "Type": "BOOL",
+      "Default": "0",
+      "Description": "not really sure on this, have heard datablock could have security issues? doesn't seem to have any adverse effects being disabled",
+      "ARG": "CONVAR"
+    },
+    {
+      "Display_Val": "host_skip_client_dll_crc",
+      "Type": "BOOL",
+      "Default": "1",
+      "Description": "allow people to run modded client dlls, this is mainly so people running pilot visor colour mods can keep those, since they use a client.dll edit",
+      "ARG": "CONVAR"
+    }
+
+  ]
+
+}
