@@ -20,7 +20,7 @@ Total Downloads Since First Release:
  
 <h2 align="center" ><a href="https://northstar.tf">This is a Manager for the [Titanfall 2 Northstar Client] </a></h2>
 
-
+## please reach me on this issues page 24/7 for git support.
 <p align="center">
  <a href="https://northstar.tf">
   <img src="https://user-images.githubusercontent.com/23240514/193386634-44f657dc-5733-4d86-a1c4-227520789d9d.png" alt="Northstar Logo Here">
