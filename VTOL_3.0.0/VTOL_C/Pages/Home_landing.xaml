@@ -1,29 +1,61 @@
-﻿<ui:Page x:Class="VTOL_C.Pages.Home_landing"
+﻿<ui:Page
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:VTOL_C.Pages"
-      mc:Ignorable="d" 
+      xmlns:local="clr-namespace:VTOL_C.Pages" 
       xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
-        xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
+xmlns:wd="https://github.com/WPFDevelopersOrg/WPFDevelopers"
+
+      xmlns:ui1="http://schemas.lepo.co/wpfui/2022/xaml" xmlns:ikw="http://schemas.inkore.net/lib/ui/wpf" x:Class="VTOL_C.Pages.Home_landing"
+      mc:Ignorable="d"
 
       d:DesignHeight="703.04" d:DesignWidth="1280"
       Title="Home_landing">
 
     <Grid  >
+        <Border CornerRadius="0,0,12,12">
+            <Border.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#7F000000" Offset="0.646"/>
+                    <GradientStop Color="#00000000" Offset="0"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <ikw:SimpleStackPanel>
 
-        <Rectangle   Fill="{fw:AcrylicBrush grid}" ></Rectangle>
 
 
-        <StackPanel                    UseLayoutRounding="True" Panel.ZIndex="1">
-            <TextBox x:Name="textBox" TextWrapping="Wrap" Text="Welcome to" Width="475" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Height="60" FontSize="48"  FontFamily="Bahnschrift SemiBold"/>
-            <TextBox x:Name="textBox_Copy" TextWrapping="Wrap" Text="TITANFALL 2 +Northstar" Width="765" Background="{x:Null}" BorderBrush="{x:Null}" Height="105" FontSize="72" Padding="10,5,8,6" VerticalContentAlignment="Center" HorizontalAlignment="Left" FontFamily="Bahnschrift SemiBold"/>
-            <TextBox x:Name="textBox_Copy1" TextWrapping="Wrap" Text="A                  custom modding application" Width="765" Background="{x:Null}" BorderBrush="{x:Null}" Height="55" FontSize="36" Padding="10,5,8,6" VerticalContentAlignment="Center" FontFamily="Bahnschrift SemiBold" HorizontalAlignment="Left"/>
-            <Grid Background="#7F444444" UseLayoutRounding="True" Height="188" Panel.ZIndex="2"/>
-            <Button fw:PointerTracker.Enabled="True" x:Name="button_Copy" Content="OPTIONS" Margin="0,20,0,20" VerticalAlignment="Bottom" Width="145" HorizontalAlignment="Right" Height="40" Background="#B34EF3BB"/>
-            <Button  x:Name="button" Content="LAUNCH TITANFALL 2" VerticalAlignment="Stretch" Width="448" HorizontalAlignment="Right" Height="78" Background="#B34EF3BB"/>
+                <StackPanel Height="160" VerticalAlignment="Top" Margin="0,270,0,0" >
+                    <TextBox x:Name="Welcome_" TextWrapping="Wrap" Text="Welcome to" Width="475" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Height="35" FontSize="24"  FontFamily="Bahnschrift SemiBold" VerticalScrollBarVisibility="Disabled" Padding="6,6,6,6" BorderThickness="0,0,0,0" IsHitTestVisible="False" IsTabStop="False" Focusable="False" AllowDrop="False" Margin="15,0,0,0" />
+                    <TextBox x:Name="Welcome_TF" TextWrapping="Wrap" Text="TITANFALL 2 +Northstar" Width="1170" Background="{x:Null}" BorderBrush="{x:Null}" Height="65" FontSize="48"  VerticalContentAlignment="Center" HorizontalAlignment="Left" FontFamily="Bahnschrift SemiBold" Padding="6,6,6,6" BorderThickness="0,0,0,0" IsHitTestVisible="False" IsTabStop="False" Focusable="False" AllowDrop="False" Margin="15,0,0,0"  />
 
-        </StackPanel>
+                    <TextBox x:Name="Welcome_NS" TextWrapping="Wrap" Text="A                  custom modding application" Width="765" Background="{x:Null}" BorderBrush="{x:Null}" Height="55" FontSize="36"  VerticalContentAlignment="Center" FontFamily="Bahnschrift SemiBold" HorizontalAlignment="Left" Margin="15,0,0,170" Padding="6,6,6,6" BorderThickness="0,0,0,0" IsHitTestVisible="False" IsTabStop="False" Focusable="False" AllowDrop="False" />
+                </StackPanel>
+                <Grid Height="222" UseLayoutRounding="True"  Panel.ZIndex="2" Margin="0,0,0,1" VerticalAlignment="Bottom">
+
+                    <ui:SplitButton  x:Name="button" Content="LAUNCH TITANFALL 2" Background="#AA4EF3BB" Margin="0,0,20,23" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="515" d:LayoutOverrides="HorizontalAlignment" Height="73" CornerRadius="8,8,8,8">
+                        <ui:SplitButton.Flyout>
+                            <ui:Flyout>
+                                <StackPanel  Width="200" Orientation="Vertical" Height="80" HorizontalAlignment="Right">
+                                    <TextBlock Width="200" Height="25" Text="Options">
+                                        <TextBlock.Foreground>
+                                            <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlDarkDarkColorKey}}"/>
+                                        </TextBlock.Foreground></TextBlock>
+
+                                    <Button Width="200" Height="50" Content="LAUNCH VANILLA CLIENT">
+                                        <Button.Background>
+                                            <SolidColorBrush Color="{DynamicResource WD.WarningColor}"/>
+                                        </Button.Background>
+                                    </Button>
+                                </StackPanel>
+                            </ui:Flyout>
+
+                        </ui:SplitButton.Flyout>
+
+                    </ui:SplitButton>
+                </Grid>
+
+            </ikw:SimpleStackPanel>
+        </Border>
     </Grid>
 </ui:Page>

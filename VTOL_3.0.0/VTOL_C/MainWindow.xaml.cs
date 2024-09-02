@@ -12,6 +12,10 @@ using Page = iNKORE.UI.WPF.Modern.Controls.Page;
 using iNKORE.UI.WPF.Modern.Controls;
 using VTOL_C.Pages;
 using iNKORE.UI.WPF.Modern.Media.Animation;
+using System.Diagnostics;
+using System.IO;
+using System.Reflection;
+using Wpf.Ui;
 
 namespace VTOL_C
 {
@@ -24,15 +28,84 @@ namespace VTOL_C
         {
 
             InitializeComponent();
+            LoadBackgroundImageAsync();
+     
+
+
         }
         public Pages.Home_landing Page_Home = new Pages.Home_landing();
         public Pages.Modifications Page_Modifications = new Pages.Modifications();
-
+        private const string ResourceFolderPath = "pack://application:,,,/Resources/Backgrounds/Backgrounds_Home_Page";
+        private static readonly string[] AllowedExtensions = { ".jpg", ".jpeg"};
+        private static readonly Color FallbackColor = Colors.DarkGray;
+        private static readonly Random Random = new Random();
+        public ContentDialogService Dialog_Service;
+        public ContentPresenter ContentPresenter { get; set; }
         private void textBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }
 
+        private async void LoadBackgroundImageAsync()
+        {
+            string directoryPath = "Resources/Backgrounds/Backgrounds_Home_Page";
+            string[] supportedExtensions = { ".jpg", ".jpeg" };
+
+            try
+            {
+                if (!Directory.Exists(directoryPath))
+                {
+                    SetFallbackBackground();
+                    return;
+                }
+
+                var imageFiles = Directory.EnumerateFiles(directoryPath)
+                    .Where(file => supportedExtensions.Contains(System.IO.Path.GetExtension(file).ToLower()))
+                    .ToList();
+
+                if (imageFiles.Count() == 0)
+                {
+                    SetFallbackBackground();
+                    return;
+                }
+                Random random = new Random();
+                string randomImageFile = imageFiles[random.Next(imageFiles.Count)];
+
+                await SetImageBackgroundAsync(randomImageFile);
+             
+            }
+            catch (Exception)
+            {
+                SetFallbackBackground();
+            }
+        }
+
+        private async Task SetImageBackgroundAsync(string imagePath)
+        {
+            try
+            {
+                var image = new BitmapImage();
+
+                using (var stream = new FileStream(imagePath, FileMode.Open, FileAccess.Read, FileShare.Read))
+                {
+                    image.BeginInit();
+                    image.CacheOption = BitmapCacheOption.OnLoad; // Load image immediately to free up file lock
+                    image.StreamSource = stream;
+                    image.EndInit();
+                }
+
+                BackgroundImage.Source = image;
+            }
+            catch (Exception)
+            {
+                SetFallbackBackground();
+            }
+        }
+        private void SetFallbackBackground()
+        {
+            fallback_border.Visibility = Visibility.Visible;
+            fallback_border.Background = new SolidColorBrush(FallbackColor);
+        }
         private void Nav_Main_SelectionChanged(iNKORE.UI.WPF.Modern.Controls.NavigationView sender, iNKORE.UI.WPF.Modern.Controls.NavigationViewSelectionChangedEventArgs args)
         {
             var item = sender.SelectedItem;
@@ -59,5 +132,7 @@ namespace VTOL_C
             Nav_Main.SelectedItem = Navitem_Home;
 
         }
+
+     
     }
 }

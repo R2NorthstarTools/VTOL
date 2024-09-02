@@ -1,30 +1,35 @@
-﻿<Window x:Class="VTOL_C.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VTOL_C"
-        mc:Ignorable="d"
         xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
+            xmlns:uis="http://schemas.modernwpf.com/2019"
+   
+xmlns:wd="https://github.com/WPFDevelopersOrg/WPFDevelopers"
+      xmlns:ui1="http://schemas.lepo.co/wpfui/2022/xaml"
+
+xmlns:ikw="http://schemas.inkore.net/lib/ui/wpf" x:Name="Root_WINDOW" x:Class="VTOL_C.MainWindow"
+        mc:Ignorable="d"
         Title="VTOL - 3.0.0" Height="768" Width="1024"
         ui:WindowHelper.UseModernWindowStyle="True"
-            xmlns:uis="http://schemas.modernwpf.com/2019"
-        xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
 
 ui:WindowHelper.SystemBackdropType="Mica"
-                ui:TitleBar.Height="36" MinWidth="1280" MinHeight="768" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="2,2,2,2" SnapsToDevicePixels="True" ResizeMode="CanResizeWithGrip" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" MaxWidth="1280" MaxHeight="960" Loaded="Window_Loaded"
-
+   ui:TitleBar.Height="36" MinWidth="1280" MinHeight="768" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="2,2,2,2" SnapsToDevicePixels="True" ResizeMode="CanMinimize" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" MaxWidth="1280" MaxHeight="768" Loaded="Window_Loaded"
 >
-    <Grid>
-        <Grid.Background>
-            <ImageBrush ImageSource="/Resources/Backgrounds/Backgrounds_Home_Page/wallpaper(30).jpg" Stretch="UniformToFill"/>
-        </Grid.Background>
-        <ui:NavigationView x:Name="Nav_Main" IsPaneOpen="False" Panel.ZIndex="10" PaneDisplayMode="Top" SelectionChanged="Nav_Main_SelectionChanged" AlwaysShowHeader="False" IsBackButtonVisible="Collapsed">
-            <FrameworkElement.Resources>
+    <Grid x:Name="Grid_Top" Background="#FF1D1D1D">
+        <!-- Your content here -->
+        <Image x:Name="BackgroundImage"  Source="/Resources/Backgrounds/Backgrounds_Home_Page/wallpaper(32).jpg" Stretch="UniformToFill" AutomationProperties.Name="BackgroundImage" IsHitTestVisible="False" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
+        <Border x:Name="fallback_border" Visibility="Collapsed"/>
+        
+        
+        <ui:NavigationView x:Name="Nav_Main" IsPaneOpen="False" Panel.ZIndex="10" PaneDisplayMode="Top" SelectionChanged="Nav_Main_SelectionChanged" AlwaysShowHeader="False" IsBackButtonVisible="Collapsed" CornerRadius="12,12,12,12" IsFooterSeparatorVisible="True" OpenPaneLength="200" IsPaneToggleButtonVisible="False">
+            <ui:NavigationView.Resources>
                 <SolidColorBrush x:Key="{x:Static ui:ThemeKeys.NavigationViewContentBackgroundKey}" Color="Transparent"/>
                 <SolidColorBrush x:Key="{x:Static ui:ThemeKeys.ExpanderHeaderBorderBrushKey}" Color="Transparent"/>
                 <Thickness x:Key="NavigationViewContentGridBorderThickness">0,0,0,0</Thickness>
-            </FrameworkElement.Resources>
+            </ui:NavigationView.Resources>
 
             <ui:NavigationView.MenuItems>
                 <ui:NavigationViewItem  x:Name="Navitem_Home" Content="Home">
@@ -58,13 +63,13 @@ ui:WindowHelper.SystemBackdropType="Mica"
                         <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.Settings}"/>
                     </ui:NavigationViewItem.Icon>
                 </ui:NavigationViewItem>
-               
+
 
             </ui:NavigationView.FooterMenuItems>
 
-            <Border x:Name="Border_Main" CornerRadius="8,8,8,8">
-                <ui:Frame x:Name="Frame_Main" Width="1240" Height="655" HorizontalAlignment="Center" VerticalAlignment="Center" ></ui:Frame>
-               
+            <Border x:Name="Border_Main" CornerRadius="12,8,8,8">
+                <ui:Frame x:Name="Frame_Main" Width="1240" Height="655" HorizontalAlignment="Center" VerticalAlignment="Center" />
+
             </Border>
         </ui:NavigationView>
 

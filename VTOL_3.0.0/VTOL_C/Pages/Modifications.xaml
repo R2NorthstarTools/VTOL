@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:VTOL_C.Pages"
       mc:Ignorable="d" 
                xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
+xmlns:wd="https://github.com/WPFDevelopersOrg/WPFDevelopers"
 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Modifications">

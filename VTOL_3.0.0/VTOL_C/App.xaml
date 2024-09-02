@@ -1,18 +1,27 @@
-﻿<Application x:Class="VTOL_C.App"
+﻿<Application
+             x:Class="VTOL_C.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:VTOL_C"
+             xmlns:wd="https://github.com/WPFDevelopersOrg/WPFDevelopers"
+             xmlns:adonisUi="clr-namespace:AdonisUI;assembly=AdonisUI"
              xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
-                 xmlns:uis="http://schemas.modernwpf.com/2019"
-    StartupUri="MainWindow.xaml">
+             xmlns:uis="http://schemas.modernwpf.com/2019"
+             StartupUri="MainWindow.xaml"
+             >
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/WPFDevelopers;component/Themes/Light.Blue.xaml"/>
+                <!--需要注意 wd:Resources 必须在配色主题后，Theme="Dark" 为黑色皮肤-->
+                <wd:Resources Theme="Dark"/>
+                <ResourceDictionary Source="pack://application:,,,/WPFDevelopers;component/Themes/Theme.xaml"/>
                 <uis:ThemeResources />
                 <uis:XamlControlsResources />
                 <ui:ThemeResources/>
                 <ui:XamlControlsResources/>
-                <ResourceDictionary Source="pack://application:,,,/FluentWPF;component/Styles/Controls.xaml" />
+              
+
             </ResourceDictionary.MergedDictionaries>
 
             <!--Your other resources here (if exists)-->
