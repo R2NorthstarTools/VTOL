@@ -14,20 +14,31 @@ xmlns:ikw="http://schemas.inkore.net/lib/ui/wpf" x:Name="Root_WINDOW" x:Class="V
         mc:Ignorable="d"
         Title="VTOL - 3.0.0" Height="768" Width="1024"
         ui:WindowHelper.UseModernWindowStyle="True"
+xmlns:cs="clr-namespace:WPF.CornerSmoothing;assembly=WPF.CornerSmoothing"
 
 ui:WindowHelper.SystemBackdropType="Mica"
    ui:TitleBar.Height="36" MinWidth="1280" MinHeight="768" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="2,2,2,2" SnapsToDevicePixels="True" ResizeMode="CanMinimize" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" MaxWidth="1280" MaxHeight="768" Loaded="Window_Loaded"
 >
+    
     <Grid x:Name="Grid_Top" Background="#FF1D1D1D">
+      
         <!-- Your content here -->
         <Image x:Name="BackgroundImage"  Source="/Resources/Backgrounds/Backgrounds_Home_Page/wallpaper(32).jpg" Stretch="UniformToFill" AutomationProperties.Name="BackgroundImage" IsHitTestVisible="False" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
         <Border x:Name="fallback_border" Visibility="Collapsed"/>
-        
-        
-        <ui:NavigationView x:Name="Nav_Main" IsPaneOpen="False" Panel.ZIndex="10" PaneDisplayMode="Top" SelectionChanged="Nav_Main_SelectionChanged" AlwaysShowHeader="False" IsBackButtonVisible="Collapsed" CornerRadius="12,12,12,12" IsFooterSeparatorVisible="True" OpenPaneLength="200" IsPaneToggleButtonVisible="False">
+        <Border x:Name="Shadow_Menu" Visibility="Visible" Height="49" VerticalAlignment="Top">
+            <Border.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0" SpreadMethod="Repeat">
+                    <GradientStop Color="#00000000" Offset="0.997"/>
+                    <GradientStop Color="#66151515" Offset="0.467"/>
+                </LinearGradientBrush>
+            </Border.Background>
+        </Border>
+
+        <ui:NavigationView x:Name="Nav_Main" IsPaneOpen="False" Panel.ZIndex="10" PaneDisplayMode="Top" SelectionChanged="Nav_Main_SelectionChanged" AlwaysShowHeader="False" IsBackButtonVisible="Collapsed" CornerRadius="12,12,12,12" IsFooterSeparatorVisible="True" OpenPaneLength="200" IsPaneToggleButtonVisible="False" Padding="10,0,0,0">
             <ui:NavigationView.Resources>
                 <SolidColorBrush x:Key="{x:Static ui:ThemeKeys.NavigationViewContentBackgroundKey}" Color="Transparent"/>
                 <SolidColorBrush x:Key="{x:Static ui:ThemeKeys.ExpanderHeaderBorderBrushKey}" Color="Transparent"/>
+
                 <Thickness x:Key="NavigationViewContentGridBorderThickness">0,0,0,0</Thickness>
             </ui:NavigationView.Resources>
 
@@ -67,8 +78,9 @@ ui:WindowHelper.SystemBackdropType="Mica"
 
             </ui:NavigationView.FooterMenuItems>
 
-            <Border x:Name="Border_Main" CornerRadius="12,8,8,8">
-                <ui:Frame x:Name="Frame_Main" Width="1240" Height="655" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <Border x:Name="Border_Main"  >
+                
+                <ui:Frame x:Name="Frame_Main" Width="1240" Height="667" HorizontalAlignment="Center" VerticalAlignment="Top" />
 
             </Border>
         </ui:NavigationView>

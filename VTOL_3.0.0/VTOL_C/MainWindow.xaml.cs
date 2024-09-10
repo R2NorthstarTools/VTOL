@@ -34,7 +34,10 @@ namespace VTOL_C
 
         }
         public Pages.Home_landing Page_Home = new Pages.Home_landing();
-        public Pages.Modifications Page_Modifications = new Pages.Modifications();
+        public Pages.Mods_Local Page_Mods_Local = new Pages.Mods_Local();
+        public Pages.Mods_Online Page_Mods_Remote = new Pages.Mods_Online();
+        public Pages.Tools_Page Page_Tools = new Pages.Tools_Page();
+        public Pages.Settings_Page Page_Settings = new Pages.Settings_Page();
         private const string ResourceFolderPath = "pack://application:,,,/Resources/Backgrounds/Backgrounds_Home_Page";
         private static readonly string[] AllowedExtensions = { ".jpg", ".jpeg"};
         private static readonly Color FallbackColor = Colors.DarkGray;
@@ -116,9 +119,16 @@ namespace VTOL_C
             }
             else if (item == Navitem_Mods)
             {
-                page = Page_Modifications;
+                page = Page_Mods_Local;
             }
-           
+            else if (item == Navitem_Store)
+            {
+                page = Page_Mods_Remote;
+            }
+            else if (item == Navitem_Tools)
+            {
+                page = Page_Tools;
+            }
 
             if (page != null)
             {

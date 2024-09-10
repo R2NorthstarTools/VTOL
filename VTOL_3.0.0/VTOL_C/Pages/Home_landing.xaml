@@ -4,13 +4,13 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:VTOL_C.Pages" 
+      x:Class="VTOL_C.Pages.Home_landing"
       xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
-xmlns:wd="https://github.com/WPFDevelopersOrg/WPFDevelopers"
-
-      xmlns:ui1="http://schemas.lepo.co/wpfui/2022/xaml" xmlns:ikw="http://schemas.inkore.net/lib/ui/wpf" x:Class="VTOL_C.Pages.Home_landing"
+      xmlns:wd="https://github.com/WPFDevelopersOrg/WPFDevelopers"
+      xmlns:ui1="http://schemas.lepo.co/wpfui/2022/xaml" 
+      xmlns:ikw="http://schemas.inkore.net/lib/ui/wpf" 
+      d:DesignHeight="668" d:DesignWidth="1240"
       mc:Ignorable="d"
-
-      d:DesignHeight="703.04" d:DesignWidth="1280"
       Title="Home_landing">
 
     <Grid  >
@@ -33,7 +33,7 @@ xmlns:wd="https://github.com/WPFDevelopersOrg/WPFDevelopers"
                 </StackPanel>
                 <Grid Height="222" UseLayoutRounding="True"  Panel.ZIndex="2" Margin="0,0,0,1" VerticalAlignment="Bottom">
 
-                    <ui:SplitButton  x:Name="button" Content="LAUNCH TITANFALL 2" Background="#AA4EF3BB" Margin="0,0,20,23" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="515" d:LayoutOverrides="HorizontalAlignment" Height="73" CornerRadius="8,8,8,8">
+                    <ui:SplitButton ui:ElevationBorder.IsElevationEnabled="True"  x:Name="button" Content="LAUNCH TITANFALL 2" Background="#FF3EC597" Margin="0,0,20,23" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="515" d:LayoutOverrides="HorizontalAlignment" Height="73" CornerRadius="8,8,8,8" Foreground="Black" BorderBrush="{x:Null}">
                         <ui:SplitButton.Flyout>
                             <ui:Flyout>
                                 <StackPanel  Width="200" Orientation="Vertical" Height="80" HorizontalAlignment="Right">

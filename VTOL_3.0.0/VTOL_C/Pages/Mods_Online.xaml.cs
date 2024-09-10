@@ -17,11 +17,11 @@ using Page = iNKORE.UI.WPF.Modern.Controls.Page;
 namespace VTOL_C.Pages
 {
     /// <summary>
-    /// Interaction logic for Modifications.xaml
+    /// Interaction logic for Mods_Online.xaml
     /// </summary>
-    public partial class Modifications : Page
+    public partial class Mods_Online : Page
     {
-        public Modifications()
+        public Mods_Online()
         {
             InitializeComponent();
         }
