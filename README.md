@@ -1,4 +1,7 @@
 <h2 align="center"> ⚠️VTOL - IN CURRENT RE-DESIGN, VER 3 DUE⚠️ </h2>
+
+
+
 <a href="https://github.com/BigSpice/VTOL/releases/latest/download/VTOL_Installer.msi"><img src="https://user-images.githubusercontent.com/23240514/198708440-42edd953-d2de-4a79-a6fa-28d398e63d7c.png"></a><br>
 
 <h2  align="center">PLEASE USE THE PORTABLE IF THE INSTALLER FAILS</h1><br>
@@ -9,6 +12,8 @@
 <h1  align="center"><a href="https://nightly.link/R2NorthstarTools/VTOL/workflows/dotnet-desktop/master/VTOL_NIGHTLY-artifact">Click To download the latest Portable Release</a></h1><br><br><br><br>
 
 <h2 align="center">🌟Current Issues are being reworked and cleaned as the current codebase did not facilitate quick and clean updates 🌟 </h2> 
+
+ [![Readme Quotes](https://quotes-github-readme.vercel.app/api?type=horizontal&theme=dark)](https://github.com/piyushsuthar/github-readme-quotes) 
 
 Users on the latest release:
 
