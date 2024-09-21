@@ -23,7 +23,7 @@ namespace VTOL_C
             Task.Factory.StartNew(() =>
             {
                 //simulate some work being done
-                System.Threading.Thread.Sleep(3000);
+               // System.Threading.Thread.Sleep(3000);
 
                 //since we're not on the UI thread
                 //once we're done we need to use the Dispatcher
@@ -34,7 +34,7 @@ namespace VTOL_C
                     //and close the splash screen
                     var mainWindow = new MainWindow();
                     this.MainWindow = mainWindow;
-                    mainWindow.Show();
+                    mainWindow.Show();  
                     splashScreen.Close();
                 });
             });
