@@ -27,6 +27,7 @@ namespace VTOL_C
     {
         public MainWindow()
         {
+            System.Threading.Thread.Sleep(3000);
 
             InitializeComponent();
             LoadBackgroundImageAsync();
