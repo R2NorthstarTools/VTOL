@@ -8,8 +8,9 @@
              xmlns:adonisUi="clr-namespace:AdonisUI;assembly=AdonisUI"
              xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
              xmlns:uis="http://schemas.modernwpf.com/2019"
-             StartupUri="MainWindow.xaml"
+           
              >
+    <!-- StartupUri="MainWindow.xaml"-->
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

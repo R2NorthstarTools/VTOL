@@ -12,7 +12,7 @@ xmlns:wd="https://github.com/WPFDevelopersOrg/WPFDevelopers"
 
 xmlns:ikw="http://schemas.inkore.net/lib/ui/wpf" x:Name="Root_WINDOW" x:Class="VTOL_C.MainWindow"
         mc:Ignorable="d"
-        Title="VTOL - 3.0.0" Height="768" Width="1024"
+        Title="VTOL - 4.0.0" Height="768" Width="1024"
         ui:WindowHelper.UseModernWindowStyle="True"
 xmlns:cs="clr-namespace:WPF.CornerSmoothing;assembly=WPF.CornerSmoothing"
 

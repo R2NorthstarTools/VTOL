@@ -10,10 +10,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Pages\Controls\Splash.jpg" />
     <None Remove="Resources\Backgrounds\405e3ab0-2648-4e8b-a4cc-51a008666e75.png" />
     <None Remove="Resources\Backgrounds\alternator.png" />
-    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\651291.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\651293.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\Splash.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%2814%29.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%2821%29.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper%2827%29.jpg" />
@@ -30,6 +31,7 @@
     <None Remove="Resources\Backgrounds\Thunderstore.png" />
     <None Remove="Resources\Backgrounds\warning.png" />
     <None Remove="Resources\Backgrounds\_.jpg" />
+    <None Remove="Resources\Icons\VTOL_multires.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -39,7 +41,7 @@
     <Content Include="Resources\Backgrounds\alternator.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\651291.jpg">
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\Splash.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\651293.jpg">
@@ -107,6 +109,7 @@
     <PackageReference Include="Panuon.UI.Silver" Version="1.1.3.4" />
     <PackageReference Include="Panuon.WPF.UI" Version="1.2.4.2" />
     <PackageReference Include="Parallax.WPF" Version="1.0.8" />
+    <PackageReference Include="Syncfusion.Shared.Base" Version="27.1.48" />
     <PackageReference Include="WPF-UI" Version="3.0.5" />
     <PackageReference Include="WPF-UI-Enhanced" Version="10.0.0" />
     <PackageReference Include="WPF-UI.Tray" Version="3.0.5" />
@@ -115,7 +118,18 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\Controls\" />
+    <Resource Include="Pages\Controls\Splash.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\VTOL_multires.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Pages\Controls\Splash_.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
   </ItemGroup>
 
 </Project>

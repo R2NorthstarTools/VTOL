@@ -16,6 +16,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using Wpf.Ui;
+using DevExpress.Mvvm.UI;
 
 namespace VTOL_C
 {
@@ -29,7 +30,7 @@ namespace VTOL_C
 
             InitializeComponent();
             LoadBackgroundImageAsync();
-     
+           
 
 
         }
