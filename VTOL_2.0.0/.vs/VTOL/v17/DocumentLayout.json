@@ -3,16 +3,24 @@
   "WorkspaceRootPath": "D:\\Development Northstar AmVCX C\u002B\u002B branch 19023 ID 44\\VTOL_2.0.0_\\VTOL_2.0.0\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{7C81C7A2-470D-459F-86CE-D7B242D9E163}|VTOL.csproj|d:\\development northstar amvcx c\u002B\u002B branch 19023 id 44\\vtol_2.0.0_\\vtol_2.0.0\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{7C81C7A2-470D-459F-86CE-D7B242D9E163}|VTOL.csproj|solutionrelative:mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C81C7A2-470D-459F-86CE-D7B242D9E163}|VTOL.csproj|d:\\development northstar amvcx c\u002B\u002B branch 19023 id 44\\vtol_2.0.0_\\vtol_2.0.0\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7C81C7A2-470D-459F-86CE-D7B242D9E163}|VTOL.csproj|solutionrelative:mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C81C7A2-470D-459F-86CE-D7B242D9E163}|VTOL.csproj|d:\\development northstar amvcx c\u002B\u002B branch 19023 id 44\\vtol_2.0.0_\\vtol_2.0.0\\pages\\page_home.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{7C81C7A2-470D-459F-86CE-D7B242D9E163}|VTOL.csproj|solutionrelative:pages\\page_home.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{7C81C7A2-470D-459F-86CE-D7B242D9E163}|VTOL.csproj|d:\\development northstar amvcx c\u002B\u002B branch 19023 id 44\\vtol_2.0.0_\\vtol_2.0.0\\pages\\page_tools.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{7C81C7A2-470D-459F-86CE-D7B242D9E163}|VTOL.csproj|solutionrelative:pages\\page_tools.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{7C81C7A2-470D-459F-86CE-D7B242D9E163}|VTOL.csproj|d:\\development northstar amvcx c\u002B\u002B branch 19023 id 44\\vtol_2.0.0_\\vtol_2.0.0\\pages\\page_home.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{7C81C7A2-470D-459F-86CE-D7B242D9E163}|VTOL.csproj|solutionrelative:pages\\page_home.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7C81C7A2-470D-459F-86CE-D7B242D9E163}|VTOL.csproj|d:\\development northstar amvcx c\u002B\u002B branch 19023 id 44\\vtol_2.0.0_\\vtol_2.0.0\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7C81C7A2-470D-459F-86CE-D7B242D9E163}|VTOL.csproj|solutionrelative:mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{7C81C7A2-470D-459F-86CE-D7B242D9E163}|VTOL.csproj|d:\\development northstar amvcx c\u002B\u002B branch 19023 id 44\\vtol_2.0.0_\\vtol_2.0.0\\pages\\page_mods.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -55,16 +63,8 @@
       "RelativeMoniker": "D:0:0:{7C81C7A2-470D-459F-86CE-D7B242D9E163}|VTOL.csproj|solutionrelative:pages\\page_mods.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7C81C7A2-470D-459F-86CE-D7B242D9E163}|VTOL.csproj|d:\\development northstar amvcx c\u002B\u002B branch 19023 id 44\\vtol_2.0.0_\\vtol_2.0.0\\pages\\page_home.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{7C81C7A2-470D-459F-86CE-D7B242D9E163}|VTOL.csproj|solutionrelative:pages\\page_home.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{7C81C7A2-470D-459F-86CE-D7B242D9E163}|VTOL.csproj|d:\\development northstar amvcx c\u002B\u002B branch 19023 id 44\\vtol_2.0.0_\\vtol_2.0.0\\pages\\page_about.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{7C81C7A2-470D-459F-86CE-D7B242D9E163}|VTOL.csproj|solutionrelative:pages\\page_about.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7C81C7A2-470D-459F-86CE-D7B242D9E163}|VTOL.csproj|d:\\development northstar amvcx c\u002B\u002B branch 19023 id 44\\vtol_2.0.0_\\vtol_2.0.0\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{7C81C7A2-470D-459F-86CE-D7B242D9E163}|VTOL.csproj|solutionrelative:mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{7C81C7A2-470D-459F-86CE-D7B242D9E163}|VTOL.csproj|d:\\development northstar amvcx c\u002B\u002B branch 19023 id 44\\vtol_2.0.0_\\vtol_2.0.0\\pages\\page_about.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -121,8 +121,12 @@
       "DocumentGroups": [
         {
           "DockedWidth": 390,
-          "SelectedChildIndex": 26,
+          "SelectedChildIndex": 6,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:513309194:0:{83107a3e-496a-485e-b455-16ddb978e55e}"
@@ -133,7 +137,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 7,
               "Title": "Page_Logs.xaml",
               "DocumentMoniker": "D:\\Development Northstar AmVCX C\u002B\u002B branch 19023 ID 44\\VTOL_2.0.0_\\VTOL_2.0.0\\Pages\\Page_Logs.xaml",
               "RelativeDocumentMoniker": "Pages\\Page_Logs.xaml",
@@ -144,19 +148,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 8,
               "Title": "NLog.config",
               "DocumentMoniker": "D:\\Development Northstar AmVCX C\u002B\u002B branch 19023 ID 44\\VTOL_2.0.0_\\VTOL_2.0.0\\NLog.config",
               "RelativeDocumentMoniker": "NLog.config",
               "ToolTip": "D:\\Development Northstar AmVCX C\u002B\u002B branch 19023 ID 44\\VTOL_2.0.0_\\VTOL_2.0.0\\NLog.config",
               "RelativeToolTip": "NLog.config",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABYAAAA7AAAA",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAA7AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
               "WhenOpened": "2024-04-29T20:27:21.722Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 9,
               "Title": "nl (1).xaml",
               "DocumentMoniker": "D:\\Development Northstar AmVCX C\u002B\u002B branch 19023 ID 44\\VTOL_2.0.0_\\VTOL_2.0.0\\Resources\\nl (1).xaml",
               "RelativeDocumentMoniker": "Resources\\nl (1).xaml",
@@ -167,24 +171,25 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 0,
               "Title": "MainWindow.xaml",
               "DocumentMoniker": "D:\\Development Northstar AmVCX C\u002B\u002B branch 19023 ID 44\\VTOL_2.0.0_\\VTOL_2.0.0\\MainWindow.xaml",
               "RelativeDocumentMoniker": "MainWindow.xaml",
               "ToolTip": "D:\\Development Northstar AmVCX C\u002B\u002B branch 19023 ID 44\\VTOL_2.0.0_\\VTOL_2.0.0\\MainWindow.xaml",
               "RelativeToolTip": "MainWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-01-30T22:30:20.862Z"
+              "WhenOpened": "2024-01-30T22:30:20.862Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "Page_Server.xaml.cs",
               "DocumentMoniker": "D:\\Development Northstar AmVCX C\u002B\u002B branch 19023 ID 44\\VTOL_2.0.0_\\VTOL_2.0.0\\Pages\\Page_Server.xaml.cs",
               "RelativeDocumentMoniker": "Pages\\Page_Server.xaml.cs",
               "ToolTip": "D:\\Development Northstar AmVCX C\u002B\u002B branch 19023 ID 44\\VTOL_2.0.0_\\VTOL_2.0.0\\Pages\\Page_Server.xaml.cs",
               "RelativeToolTip": "Pages\\Page_Server.xaml.cs",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAEwBMAAAAAAAAA",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAEwBMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-01-29T23:45:06.763Z"
             },
@@ -201,7 +206,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 2,
               "Title": "Page_Home.xaml",
               "DocumentMoniker": "D:\\Development Northstar AmVCX C\u002B\u002B branch 19023 ID 44\\VTOL_2.0.0_\\VTOL_2.0.0\\Pages\\Page_Home.xaml",
               "RelativeDocumentMoniker": "Pages\\Page_Home.xaml",
@@ -216,13 +221,13 @@
               "Title": "AppDomain.cs",
               "DocumentMoniker": "C:\\Users\\jorda\\AppData\\Local\\SourceServer\\0d2c428ad6fba22bc5b004a5282380468015ae5be88dec226aa56e2240f00b1b\\src\\libraries\\System.Private.CoreLib\\src\\System\\AppDomain.cs",
               "ToolTip": "C:\\Users\\jorda\\AppData\\Local\\SourceServer\\0d2c428ad6fba22bc5b004a5282380468015ae5be88dec226aa56e2240f00b1b\\src\\libraries\\System.Private.CoreLib\\src\\System\\AppDomain.cs",
-              "ViewState": "AQIAAAIAAAAAAAAAAAAgwB0AAAAwAAAA",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAgwB0AAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-01-29T04:19:17.177Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 14,
               "Title": "Page_Mods.xaml",
               "DocumentMoniker": "D:\\Development Northstar AmVCX C\u002B\u002B branch 19023 ID 44\\VTOL_2.0.0_\\VTOL_2.0.0\\Pages\\Page_Mods.xaml",
               "RelativeDocumentMoniker": "Pages\\Page_Mods.xaml",
@@ -233,7 +238,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 11,
               "Title": "VTOL",
               "DocumentMoniker": "D:\\Development Northstar AmVCX C\u002B\u002B branch 19023 ID 44\\VTOL_2.0.0_\\VTOL_2.0.0\\VTOL.csproj",
               "RelativeDocumentMoniker": "VTOL.csproj",
@@ -248,7 +253,7 @@
               "Title": "DownloadService.cs",
               "DocumentMoniker": "C:\\Users\\jorda\\AppData\\Local\\SourceServer\\c642639e265d120490141aaa5042362c83b0209b5eced393359c128fe7cdea58\\src\\Downloader\\DownloadService.cs",
               "ToolTip": "C:\\Users\\jorda\\AppData\\Local\\SourceServer\\c642639e265d120490141aaa5042362c83b0209b5eced393359c128fe7cdea58\\src\\Downloader\\DownloadService.cs",
-              "ViewState": "AQIAAL4AAAAAAAAAAAAUwNIAAAAMAAAA",
+              "ViewState": "AgIAAL4AAAAAAAAAAAAUwNIAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-01-26T06:02:11.886Z"
             },
@@ -258,7 +263,7 @@
               "Title": "ExecutionContext.cs",
               "DocumentMoniker": "C:\\Users\\jorda\\AppData\\Local\\SourceServer\\ad85da8b2a36070be24bfdf500dd6419f400aa127310486389b8ae028f24ab80\\src\\libraries\\System.Private.CoreLib\\src\\System\\Threading\\ExecutionContext.cs",
               "ToolTip": "C:\\Users\\jorda\\AppData\\Local\\SourceServer\\ad85da8b2a36070be24bfdf500dd6419f400aa127310486389b8ae028f24ab80\\src\\libraries\\System.Private.CoreLib\\src\\System\\Threading\\ExecutionContext.cs",
-              "ViewState": "AQIAALYAAAAAAAAAAAAgwM4AAAAMAAAA",
+              "ViewState": "AgIAALYAAAAAAAAAAAAgwM4AAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-01-25T00:04:35.07Z"
             },
@@ -268,7 +273,7 @@
               "Title": "Task.cs",
               "DocumentMoniker": "C:\\Users\\jorda\\AppData\\Local\\SourceServer\\2787a74a0a6af22e15697d3e68e846ada32ec9481708a086ec2f7891270ad419\\src\\libraries\\System.Private.CoreLib\\src\\System\\Threading\\Tasks\\Task.cs",
               "ToolTip": "C:\\Users\\jorda\\AppData\\Local\\SourceServer\\2787a74a0a6af22e15697d3e68e846ada32ec9481708a086ec2f7891270ad419\\src\\libraries\\System.Private.CoreLib\\src\\System\\Threading\\Tasks\\Task.cs",
-              "ViewState": "AQIAADgVAAAAAAAAAABRwDsVAAAMAAAA",
+              "ViewState": "AgIAADUVAAAAAAAAAMBdwDsVAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-01-25T00:04:24.441Z"
             },
@@ -280,7 +285,7 @@
               "RelativeDocumentMoniker": "Scripts\\Updater.cs",
               "ToolTip": "D:\\Development Northstar AmVCX C\u002B\u002B branch 19023 ID 44\\VTOL_2.0.0_\\VTOL_2.0.0\\Scripts\\Updater.cs",
               "RelativeToolTip": "Scripts\\Updater.cs",
-              "ViewState": "AQIAADEBAAAAAAAAAAAowDQBAAAiAAAA",
+              "ViewState": "AgIAADEBAAAAAAAAAAAowDQBAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-01-24T21:34:30.553Z"
             },
@@ -292,13 +297,13 @@
               "RelativeDocumentMoniker": "Pages\\Page_About.xaml.cs",
               "ToolTip": "D:\\Development Northstar AmVCX C\u002B\u002B branch 19023 ID 44\\VTOL_2.0.0_\\VTOL_2.0.0\\Pages\\Page_About.xaml.cs",
               "RelativeToolTip": "Pages\\Page_About.xaml.cs",
-              "ViewState": "AQIAAHwAAAAAAAAAAAAMwJQAAAAVAAAA",
+              "ViewState": "AgIAAHwAAAAAAAAAAAAMwJQAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-01-24T18:48:38.959Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 15,
               "Title": "Page_About.xaml",
               "DocumentMoniker": "D:\\Development Northstar AmVCX C\u002B\u002B branch 19023 ID 44\\VTOL_2.0.0_\\VTOL_2.0.0\\Pages\\Page_About.xaml",
               "RelativeDocumentMoniker": "Pages\\Page_About.xaml",
@@ -309,13 +314,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "Page_Mods.xaml.cs",
               "DocumentMoniker": "D:\\Development Northstar AmVCX C\u002B\u002B branch 19023 ID 44\\VTOL_2.0.0_\\VTOL_2.0.0\\Pages\\Page_Mods.xaml.cs",
               "RelativeDocumentMoniker": "Pages\\Page_Mods.xaml.cs",
               "ToolTip": "D:\\Development Northstar AmVCX C\u002B\u002B branch 19023 ID 44\\VTOL_2.0.0_\\VTOL_2.0.0\\Pages\\Page_Mods.xaml.cs",
               "RelativeToolTip": "Pages\\Page_Mods.xaml.cs",
-              "ViewState": "AQIAAB4JAAAAAAAAAAAEwC0JAAA0AAAA",
+              "ViewState": "AgIAAB4JAAAAAAAAAAAEwC0JAAA0AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-01-24T09:41:22.603Z"
             },
@@ -325,43 +330,42 @@
               "Title": "NuGet.Build.Tasks.Pack.targets",
               "DocumentMoniker": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\Sdks\\NuGet.Build.Tasks.Pack\\build\\NuGet.Build.Tasks.Pack.targets",
               "ToolTip": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\Sdks\\NuGet.Build.Tasks.Pack\\build\\NuGet.Build.Tasks.Pack.targets",
-              "ViewState": "AQIAAMMAAAAAAAAAAAApwNwAAAAEAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
               "WhenOpened": "2024-01-23T21:41:09.546Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "Page_Home.xaml.cs",
               "DocumentMoniker": "D:\\Development Northstar AmVCX C\u002B\u002B branch 19023 ID 44\\VTOL_2.0.0_\\VTOL_2.0.0\\Pages\\Page_Home.xaml.cs",
               "RelativeDocumentMoniker": "Pages\\Page_Home.xaml.cs",
               "ToolTip": "D:\\Development Northstar AmVCX C\u002B\u002B branch 19023 ID 44\\VTOL_2.0.0_\\VTOL_2.0.0\\Pages\\Page_Home.xaml.cs",
               "RelativeToolTip": "Pages\\Page_Home.xaml.cs",
-              "ViewState": "AQIAACkIAAAAAAAAAAAhwDQIAAAAAAAA",
+              "ViewState": "AgIAACkIAAAAAAAAAAAhwDQIAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-01-23T21:11:00.379Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "MainWindow.xaml.cs",
               "DocumentMoniker": "D:\\Development Northstar AmVCX C\u002B\u002B branch 19023 ID 44\\VTOL_2.0.0_\\VTOL_2.0.0\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "MainWindow.xaml.cs",
               "ToolTip": "D:\\Development Northstar AmVCX C\u002B\u002B branch 19023 ID 44\\VTOL_2.0.0_\\VTOL_2.0.0\\MainWindow.xaml.cs",
               "RelativeToolTip": "MainWindow.xaml.cs",
-              "ViewState": "AQIAAFkBAAAAAAAAAAAhwGgBAAAQAAAA",
+              "ViewState": "AgIAAFkBAAAAAAAAAAAhwGgBAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-01-23T21:09:20.033Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 13,
               "Title": "Page_Thunderstore.xaml.cs",
               "DocumentMoniker": "D:\\Development Northstar AmVCX C\u002B\u002B branch 19023 ID 44\\VTOL_2.0.0_\\VTOL_2.0.0\\Pages\\Page_Thunderstore.xaml.cs",
               "RelativeDocumentMoniker": "Pages\\Page_Thunderstore.xaml.cs",
               "ToolTip": "D:\\Development Northstar AmVCX C\u002B\u002B branch 19023 ID 44\\VTOL_2.0.0_\\VTOL_2.0.0\\Pages\\Page_Thunderstore.xaml.cs",
               "RelativeToolTip": "Pages\\Page_Thunderstore.xaml.cs",
-              "ViewState": "AQIAAGkEAAAAAAAAAAAUwIgEAAAhAAAA",
+              "ViewState": "AgIAAGkEAAAAAAAAAAAUwIgEAAAhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-01-23T20:42:32.33Z"
             },
@@ -373,7 +377,7 @@
               "RelativeDocumentMoniker": "Pages\\Page_Settings.xaml.cs",
               "ToolTip": "D:\\Development Northstar AmVCX C\u002B\u002B branch 19023 ID 44\\VTOL_2.0.0_\\VTOL_2.0.0\\Pages\\Page_Settings.xaml.cs",
               "RelativeToolTip": "Pages\\Page_Settings.xaml.cs",
-              "ViewState": "AQIAAJ0BAAAAAAAAAAAQwHgBAAAVAAAA",
+              "ViewState": "AgIAAJ0BAAAAAAAAAAAQwHgBAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-01-23T20:33:42.605Z"
             },
@@ -401,7 +405,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "Page_Tools.xaml.cs",
               "DocumentMoniker": "D:\\Development Northstar AmVCX C\u002B\u002B branch 19023 ID 44\\VTOL_2.0.0_\\VTOL_2.0.0\\Pages\\Page_Tools.xaml.cs",
               "RelativeDocumentMoniker": "Pages\\Page_Tools.xaml.cs",
@@ -409,8 +413,7 @@
               "RelativeToolTip": "Pages\\Page_Tools.xaml.cs",
               "ViewState": "AgIAAAgKAAAAAAAAAAAEwCoKAAA4AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-01-23T20:32:22.141Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-01-23T20:32:22.141Z"
             },
             {
               "$type": "Document",
@@ -425,18 +428,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 10,
               "Title": "App.xaml",
               "DocumentMoniker": "D:\\Development Northstar AmVCX C\u002B\u002B branch 19023 ID 44\\VTOL_2.0.0_\\VTOL_2.0.0\\App.xaml",
               "RelativeDocumentMoniker": "App.xaml",
               "ToolTip": "D:\\Development Northstar AmVCX C\u002B\u002B branch 19023 ID 44\\VTOL_2.0.0_\\VTOL_2.0.0\\App.xaml",
               "RelativeToolTip": "App.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-01-23T20:29:02.421Z"
+              "WhenOpened": "2024-01-23T20:29:02.421Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 12,
               "Title": "Page_Thunderstore.xaml",
               "DocumentMoniker": "D:\\Development Northstar AmVCX C\u002B\u002B branch 19023 ID 44\\VTOL_2.0.0_\\VTOL_2.0.0\\Pages\\Page_Thunderstore.xaml",
               "RelativeDocumentMoniker": "Pages\\Page_Thunderstore.xaml",
@@ -453,7 +457,7 @@
               "RelativeDocumentMoniker": "VTOL.csproj",
               "ToolTip": "D:\\Development Northstar AmVCX C\u002B\u002B branch 19023 ID 44\\VTOL_2.0.0_\\VTOL_2.0.0\\VTOL.csproj",
               "RelativeToolTip": "VTOL.csproj",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
               "WhenOpened": "2024-01-23T20:26:11.927Z"
             }

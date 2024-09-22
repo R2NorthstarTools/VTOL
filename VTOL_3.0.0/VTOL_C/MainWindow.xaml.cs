@@ -17,6 +17,7 @@ using System.IO;
 using System.Reflection;
 using Wpf.Ui;
 using DevExpress.Mvvm.UI;
+using Color = System.Windows.Media.Color;
 
 namespace VTOL_C
 {

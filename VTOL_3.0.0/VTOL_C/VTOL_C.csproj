@@ -7,6 +7,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
     <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
+    <UseWindowsForms>False</UseWindowsForms>
   </PropertyGroup>
 
   <ItemGroup>
@@ -31,6 +32,9 @@
     <None Remove="Resources\Backgrounds\Thunderstore.png" />
     <None Remove="Resources\Backgrounds\warning.png" />
     <None Remove="Resources\Backgrounds\_.jpg" />
+    <None Remove="Resources\Fonts\Tf.ttf" />
+    <None Remove="Resources\Icons\Main_UI\northstar_icon_ZfV_icon.png" />
+    <None Remove="Resources\Icons\Titanfall2_Icon.ico" />
     <None Remove="Resources\Icons\VTOL_multires.png" />
   </ItemGroup>
 
@@ -101,6 +105,7 @@
     <PackageReference Include="AdonisUI" Version="1.17.1" />
     <PackageReference Include="BlurryControls" Version="1.0.24" />
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.6.1" />
+    <PackageReference Include="FontAwesome.WPF" Version="4.7.0.9" />
     <PackageReference Include="iNKORE.UI.WinForms.Styler" Version="1.0.2" />
     <PackageReference Include="iNKORE.UI.WPF" Version="1.2.7.1" />
     <PackageReference Include="iNKORE.UI.WPF.Emojis" Version="0.3.6.4" />
@@ -109,6 +114,7 @@
     <PackageReference Include="Panuon.UI.Silver" Version="1.1.3.4" />
     <PackageReference Include="Panuon.WPF.UI" Version="1.2.4.2" />
     <PackageReference Include="Parallax.WPF" Version="1.0.8" />
+    <PackageReference Include="StyledWindow.WPF" Version="7.0.0" />
     <PackageReference Include="Syncfusion.Shared.Base" Version="27.1.48" />
     <PackageReference Include="WPF-UI" Version="3.0.5" />
     <PackageReference Include="WPF-UI-Enhanced" Version="10.0.0" />
@@ -119,6 +125,15 @@
 
   <ItemGroup>
     <Resource Include="Pages\Controls\Splash.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Fonts\Tf.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Main_UI\northstar_icon_ZfV_icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Titanfall2_Icon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Icons\VTOL_multires.png">

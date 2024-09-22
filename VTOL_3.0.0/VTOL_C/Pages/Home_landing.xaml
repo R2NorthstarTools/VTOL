@@ -26,10 +26,35 @@
 
 
                 <StackPanel Height="160" VerticalAlignment="Top" Margin="0,270,0,0" >
-                    <TextBox x:Name="Welcome_" TextWrapping="Wrap" Text="Welcome to" Width="475" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Height="35" FontSize="24"  FontFamily="Bahnschrift SemiBold" VerticalScrollBarVisibility="Disabled" Padding="6,6,6,6" BorderThickness="0,0,0,0" IsHitTestVisible="False" IsTabStop="False" Focusable="False" AllowDrop="False" Margin="15,0,0,0" />
-                    <TextBox x:Name="Welcome_TF" TextWrapping="Wrap" Text="TITANFALL 2 +Northstar" Width="1170" Background="{x:Null}" BorderBrush="{x:Null}" Height="65" FontSize="48"  VerticalContentAlignment="Center" HorizontalAlignment="Left" FontFamily="Bahnschrift SemiBold" Padding="6,6,6,6" BorderThickness="0,0,0,0" IsHitTestVisible="False" IsTabStop="False" Focusable="False" AllowDrop="False" Margin="15,0,0,0"  />
+                    <TextBox x:Name="Welcome_" TextWrapping="Wrap" Text="Welcome to" Width="475" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Height="35" FontSize="24"  VerticalScrollBarVisibility="Disabled" Padding="6,6,6,6" BorderThickness="0,0,0,0" IsHitTestVisible="False" IsTabStop="False" Focusable="False" AllowDrop="False" Margin="15,0,0,0" FontWeight="Bold" FontFamily="Bahnschrift" />
+                    <!--FontFamily="Bahnschrift SemiBold"   FontFamily="Resources/Fonts/#Tf" -->
+                    <Grid Width="760" Height="65" HorizontalAlignment="Left" >
+                        <TextBox x:Name="Welcome_TF" TextWrapping="Wrap" Text=" | Northstar" Width="315" Background="{x:Null}" BorderBrush="{x:Null}" Height="65" FontSize="48"  VerticalContentAlignment="Center" HorizontalAlignment="Left"  Padding="6,6,6,6" BorderThickness="0,0,0,0" IsHitTestVisible="False" IsTabStop="False" Focusable="False" AllowDrop="False" Margin="35,0,0,0" FontWeight="Bold" HorizontalContentAlignment="Right" d:LayoutOverrides="HorizontalAlignment"  />
+                        <ui1:ImageIcon Source="/Resources/Icons/Main_UI/northstar_icon_ZfV_icon.png" Margin="20,0,675,1" d:LayoutOverrides="VerticalAlignment" RenderTransformOrigin="0.5,0.5">
+                            <ui1:ImageIcon.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform ScaleX="-1"/>
+                                    <SkewTransform/>
+                                    <RotateTransform Angle="0"/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </ui1:ImageIcon.RenderTransform>
+                        </ui1:ImageIcon>
+                    </Grid>
+                    <Grid Width="765" Background="{x:Null}" Height="55" HorizontalAlignment="Left">
+                        <TextBox x:Name="Welcome_NS" TextWrapping="Wrap" Text="A                           custom modding application" Width="765" Background="{x:Null}" BorderBrush="{x:Null}" Height="55" FontSize="36"  VerticalContentAlignment="Center" FontFamily="Bahnschrift SemiBold" HorizontalAlignment="Left" Margin="14,0,0,0" Padding="6,6,6,6" BorderThickness="0,0,0,0" IsHitTestVisible="False" IsTabStop="False" Focusable="False" AllowDrop="False" />
+                        <ui1:ImageIcon Source="/Resources/Icons/Titanfall2_Icon.ico" Margin="40,0,465,0" d:LayoutOverrides="VerticalAlignment" RenderTransformOrigin="0.5,0.5">
+                            <ui1:ImageIcon.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform/>
+                                    <TranslateTransform Y="0"/>
+                                </TransformGroup>
+                            </ui1:ImageIcon.RenderTransform>
+                        </ui1:ImageIcon>
 
-                    <TextBox x:Name="Welcome_NS" TextWrapping="Wrap" Text="A                  custom modding application" Width="765" Background="{x:Null}" BorderBrush="{x:Null}" Height="55" FontSize="36"  VerticalContentAlignment="Center" FontFamily="Bahnschrift SemiBold" HorizontalAlignment="Left" Margin="15,0,0,170" Padding="6,6,6,6" BorderThickness="0,0,0,0" IsHitTestVisible="False" IsTabStop="False" Focusable="False" AllowDrop="False" />
+                    </Grid>
                 </StackPanel>
                 <Grid Height="222" UseLayoutRounding="True"  Panel.ZIndex="2" Margin="0,0,0,1" VerticalAlignment="Bottom">
 
