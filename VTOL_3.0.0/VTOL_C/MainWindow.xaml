@@ -89,7 +89,11 @@ ui:WindowHelper.SystemBackdropType="Mica"
     <Grid x:Name="Grid_Top" Background="#FF1D1D1D">
       
         <!-- Your content here -->
-        <Image x:Name="BackgroundImage"  Source="/Resources/Backgrounds/Backgrounds_Home_Page/wallpaper(32).jpg" Stretch="UniformToFill" AutomationProperties.Name="BackgroundImage" IsHitTestVisible="False" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
+        <Image x:Name="BackgroundImage"  Source="/Resources/Backgrounds/Backgrounds_Home_Page/wallpaper(32).jpg" Stretch="UniformToFill" AutomationProperties.Name="BackgroundImage" IsHitTestVisible="False" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+        <Image.Effect>
+            <BlurEffect Radius="15"/>
+        </Image.Effect>
+        </Image>
         <Border x:Name="fallback_border" Visibility="Collapsed"/>
         <Border x:Name="Shadow_Menu" Visibility="Visible" Height="49" VerticalAlignment="Top">
             <Border.Background>

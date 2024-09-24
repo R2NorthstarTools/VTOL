@@ -149,12 +149,12 @@ namespace VTOL_C
             UTILS uTILS = new UTILS();
             if (uTILS.ValidateFileExists("config.json"))
             {
-                Settings = JsonSettings.Load<MySettings>("config.json").EnableAutosave(); ; //relative path to executing file.
+                Settings = JsonSettings.Load<MySettings>("config.json");  //relative path to executing file.
 
             }
             else
             {
-                Settings = JsonSettings.Construct<MySettings>("config.json").EnableAutosave(); ; ; //relative path to executing file.
+                Settings = JsonSettings.Construct<MySettings>("config.json");  //relative path to executing file.
 
             }
         }
