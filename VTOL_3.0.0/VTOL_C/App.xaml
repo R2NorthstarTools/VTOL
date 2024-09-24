@@ -23,7 +23,8 @@
                 <ui:XamlControlsResources/>
               
             </ResourceDictionary.MergedDictionaries>
-           
+            <FontFamily x:Key="SegoeFluentIcons">pack://application:,,,/;component/Fonts/#Segoe Fluent Icons</FontFamily>
+
             <!--Your other resources here (if exists)-->
             <FontFamily x:Key="Titanfall">pack://application:,,,Resources/Fonts/#Tf</FontFamily>
 

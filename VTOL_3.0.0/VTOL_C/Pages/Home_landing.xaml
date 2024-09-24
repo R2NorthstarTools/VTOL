@@ -11,26 +11,35 @@
       xmlns:ikw="http://schemas.inkore.net/lib/ui/wpf" 
       d:DesignHeight="668" d:DesignWidth="1240"
       mc:Ignorable="d"
-      Title="Home_landing">
+        xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
 
+    Title="Home_landing">
+    <!--xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"-->
+ 
     <Grid  >
+
+        <!--Home Grid-->
         <Border CornerRadius="0,0,12,12">
+            <!--Home Border-->
             <Border.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#7F000000" Offset="0.646"/>
+                    <GradientStop Color="#CC000000" Offset="0.65"/>
                     <GradientStop Color="#00000000" Offset="0"/>
                 </LinearGradientBrush>
             </Border.Background>
-            <ikw:SimpleStackPanel>
 
 
+            <!--stack-->
+            <StackPanel>
 
-                <StackPanel Height="160" VerticalAlignment="Top" Margin="0,270,0,0" >
-                    <TextBox x:Name="Welcome_" TextWrapping="Wrap" Text="Welcome to" Width="475" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Height="35" FontSize="24"  VerticalScrollBarVisibility="Disabled" Padding="6,6,6,6" BorderThickness="0,0,0,0" IsHitTestVisible="False" IsTabStop="False" Focusable="False" AllowDrop="False" Margin="15,0,0,0" FontWeight="Bold" FontFamily="Bahnschrift" />
+
+                <!--#region Stack Panel-->
+                <StackPanel Height="160" Margin="0,80,0,0" Width="1145" >
+                    <TextBox x:Name="Welcome_" TextWrapping="Wrap" Text="Welcome to" Width="475" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Height="35" FontSize="24"  VerticalScrollBarVisibility="Disabled" Padding="6,6,6,6" BorderThickness="0,0,0,0" IsHitTestVisible="False" IsTabStop="False" Focusable="False" AllowDrop="False" FontWeight="Bold" FontFamily="Bahnschrift" />
                     <!--FontFamily="Bahnschrift SemiBold"   FontFamily="Resources/Fonts/#Tf" -->
                     <Grid Width="760" Height="65" HorizontalAlignment="Left" >
-                        <TextBox x:Name="Welcome_TF" TextWrapping="Wrap" Text=" | Northstar" Width="315" Background="{x:Null}" BorderBrush="{x:Null}" Height="65" FontSize="48"  VerticalContentAlignment="Center" HorizontalAlignment="Left"  Padding="6,6,6,6" BorderThickness="0,0,0,0" IsHitTestVisible="False" IsTabStop="False" Focusable="False" AllowDrop="False" Margin="35,0,0,0" FontWeight="Bold" HorizontalContentAlignment="Right" d:LayoutOverrides="HorizontalAlignment"  />
-                        <ui1:ImageIcon Source="/Resources/Icons/Main_UI/northstar_icon_ZfV_icon.png" Margin="20,0,675,1" d:LayoutOverrides="VerticalAlignment" RenderTransformOrigin="0.5,0.5">
+                        <TextBox x:Name="Welcome_TF" TextWrapping="Wrap" Text="| Northstar" Width="315" Background="{x:Null}" BorderBrush="{x:Null}" Height="65" FontSize="48"  VerticalContentAlignment="Center" HorizontalAlignment="Left"  Padding="6,6,6,6" BorderThickness="0,0,0,0" IsHitTestVisible="False" IsTabStop="False" Focusable="False" AllowDrop="False" Margin="18,0,0,0" FontWeight="Bold" HorizontalContentAlignment="Right" d:LayoutOverrides="HorizontalAlignment"  />
+                        <ui1:ImageIcon Source="/Resources/Icons/Main_UI/northstar_icon_ZfV_icon.png" Margin="0,0,695,1" d:LayoutOverrides="VerticalAlignment" RenderTransformOrigin="0.5,0.5">
                             <ui1:ImageIcon.RenderTransform>
                                 <TransformGroup>
                                     <ScaleTransform ScaleX="-1"/>
@@ -42,8 +51,8 @@
                         </ui1:ImageIcon>
                     </Grid>
                     <Grid Width="765" Background="{x:Null}" Height="55" HorizontalAlignment="Left">
-                        <TextBox x:Name="Welcome_NS" TextWrapping="Wrap" Text="A                           custom modding application" Width="765" Background="{x:Null}" BorderBrush="{x:Null}" Height="55" FontSize="36"  VerticalContentAlignment="Center" FontFamily="Bahnschrift SemiBold" HorizontalAlignment="Left" Margin="14,0,0,0" Padding="6,6,6,6" BorderThickness="0,0,0,0" IsHitTestVisible="False" IsTabStop="False" Focusable="False" AllowDrop="False" />
-                        <ui1:ImageIcon Source="/Resources/Icons/Titanfall2_Icon.ico" Margin="40,0,465,0" d:LayoutOverrides="VerticalAlignment" RenderTransformOrigin="0.5,0.5">
+                        <TextBox x:Name="Welcome_NS" TextWrapping="Wrap" Text="A                           custom modding application" Width="779" Background="{x:Null}" BorderBrush="{x:Null}" Height="55" FontSize="36"  VerticalContentAlignment="Center" FontFamily="Bahnschrift SemiBold" HorizontalAlignment="Left" Padding="6,6,6,6" BorderThickness="0,0,0,0" IsHitTestVisible="False" IsTabStop="False" Focusable="False" AllowDrop="False" />
+                        <ui1:ImageIcon Source="/Resources/Icons/Titanfall2_Icon.ico" Margin="32,0,473,0" d:LayoutOverrides="VerticalAlignment" RenderTransformOrigin="0.5,0.5">
                             <ui1:ImageIcon.RenderTransform>
                                 <TransformGroup>
                                     <ScaleTransform/>
@@ -56,9 +65,11 @@
 
                     </Grid>
                 </StackPanel>
-                <Grid Height="222" UseLayoutRounding="True"  Panel.ZIndex="2" Margin="0,0,0,1" VerticalAlignment="Bottom">
-
-                    <ui:SplitButton ui:ElevationBorder.IsElevationEnabled="True"  x:Name="button" Content="LAUNCH TITANFALL 2" Background="#FF3EC597" Margin="0,0,20,23" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="515" d:LayoutOverrides="HorizontalAlignment" Height="73" CornerRadius="8,8,8,8" Foreground="Black" BorderBrush="{x:Null}">
+                <!--#endregion-->
+                <!--#region control reigon-->
+                <Grid Height="390" UseLayoutRounding="True"  Panel.ZIndex="2" Margin="0,3,0,0">
+                    <!--Launch Button-->
+                    <ui:SplitButton ui:ElevationBorder.IsElevationEnabled="True"  x:Name="button" Content="LAUNCH TITANFALL 2" Background="{x:Static SystemParameters.WindowGlassBrush}" Margin="0,0,765,328" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="425" Height="60" CornerRadius="5,5,5,5" Foreground="#E5FFFFFF" BorderBrush="#FF565656">
                         <ui:SplitButton.Flyout>
                             <ui:Flyout>
                                 <StackPanel  Width="200" Orientation="Vertical" Height="80" HorizontalAlignment="Right">
@@ -78,9 +89,61 @@
                         </ui:SplitButton.Flyout>
 
                     </ui:SplitButton>
-                </Grid>
+                    <!--Launch Button-->
 
-            </ikw:SimpleStackPanel>
+                    <!--EA Border-->
+                    <Border CornerRadius="8" Background="#FF00612C" HorizontalAlignment="Left" Margin="50,155,0,155" Width="565" Height="80" d:LayoutOverrides="VerticalAlignment">
+                        <Grid>
+                            <lvc:CartesianChart x:Name="PingChart"  AnimationsSpeed="00:00:00.100" Series="{Binding Series}" Margin="0,0,2,0" >
+
+                            </lvc:CartesianChart>
+
+
+                            <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.NetworkConnected}" FontSize="30" Height="48" Width="50" Margin="35,16,0,16" HorizontalAlignment="Left"/>
+                            <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.NetworkConnectedCheckmark}" FontSize="30" Height="48" Width="50" Margin="35,16,0,16" HorizontalAlignment="Left"/>
+
+                            <Label Width="137" Content="Master Server" VerticalContentAlignment="Center" Foreground="White" HorizontalAlignment="Left" Margin="95,28,0,28"/>
+                            <ui:ToggleSwitch Margin="494,0,0,0" UseSystemFocusVisuals="True" OffContent="" OnContent="" Width="70" MinWidth="69" d:LayoutOverrides="TopPosition, BottomPosition" Foreground="Black" Toggled="ToggleSwitch_Toggled" FocusVisualMargin="2,0,1,6"/>
+                           
+
+                        </Grid>
+
+                    </Border>
+                    <Border CornerRadius="10" Height="138" Margin="0,242,0,0" VerticalAlignment="Top" d:LayoutOverrides="Height">
+                        <Grid VerticalAlignment="Center">
+                            <Label Height="21" Width="205" Content="Northstar Installation" VerticalContentAlignment="Center" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" Margin="49,0,0,0"/>
+
+                            <TextBox Height="30" Margin="49,31,570,49" Foreground="Black" Background="#E5383838"/>
+                            <Button Margin="677,31,0,0" Content="Open Folder" VerticalAlignment="Top" Height="34" Width="205" Foreground="#E2FFFFFF" Background="#E5383838"/>
+                            <Button Margin="890,31,0,0" Content="Locate Titanfall 2 Install" VerticalAlignment="Top" Height="34" Width="309" Foreground="White" Background="#E5383838"/>
+                            <Button Margin="49,78,0,0" Content="Install Northstar" VerticalAlignment="Top" Height="34" Width="1150" Foreground="White" OverridesDefaultStyle="True" Background="#E5383838" BorderBrush="#59FFFFFF"/>
+
+                        </Grid>
+
+                    </Border>
+                    <Border CornerRadius="8" Background="#FFB35A30" HorizontalAlignment="Left" Margin="640,155,0,155" Width="560" Height="80" d:LayoutOverrides="VerticalAlignment">
+                        <Grid>
+                            <ui:ImageIcon Source="/Resources/Icons/EA.ico" Height="40" Width="40" Margin="40,16,0,16" HorizontalAlignment="Left"/>
+                            <Label Width="137" Content="Client Closed" VerticalContentAlignment="Center" Foreground="White" HorizontalAlignment="Left" Margin="100,28,0,28"/>
+                            <Button Width="40" Height="36" Margin="505,0,0,0" Background="{x:Null}" Padding="0,0,0,0" BorderBrush="{x:Null}" >
+                                <ui:SymbolIcon Height="30" Width="30" HorizontalAlignment="Center" VerticalAlignment="Center" Symbol="OpenPane" FontSize="23"></ui:SymbolIcon>
+                            </Button>
+
+                        </Grid>
+
+                    </Border>
+                    <!--EA Border-->
+
+                    <!--Origin Border-->
+                    <!--Origin Border-->
+
+
+
+                </Grid>
+                <!--#endregion -->
+            </StackPanel>
+            <!--stack-->
+
         </Border>
     </Grid>
 </ui:Page>

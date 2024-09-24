@@ -16,14 +16,78 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using Wpf.Ui;
-using DevExpress.Mvvm.UI;
 using Color = System.Windows.Media.Color;
+using Nucs.JsonSettings;
+using System.Text.Json.Serialization;
 
 namespace VTOL_C
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    /// 
+
+    class UTILS
+    {
+
+        public bool ValidateFileExists(string filePath)
+        {
+            if (string.IsNullOrWhiteSpace(filePath))
+            {
+                throw new ArgumentException("File path is empty or null.");
+            }
+
+            try
+            {
+                if (File.Exists(filePath))
+                {
+                    return true;
+                }
+                else
+                {
+
+                    return false;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+
+                // This catch block handles other IO exceptions like unauthorized access, etc.
+
+            }
+        }
+    }
+
+    public class MySettings : JsonSettings
+    {
+        //Step 2: override a default FileName or keep it empty. Just make sure to specify it when calling Load!
+        //This is used for default saving and loading so you won't have to specify the filename/path every time.
+        //Putting just a filename without folder will put it inside the executing file's directory.
+        public override string FileName { get; set; } = "TheDefaultFilename.extension"; //for loading and saving.
+
+        #region Settings
+        public string Current_Version { get; set; }
+        public string Theme { get; set; }
+        public string Master_Server_Url { get; set; }
+        public string Repo { get; set; }
+        public string Language { get; set; }
+        public string Repo_Url { get; set; }
+        public string Profile_Path { get; set; }
+        public string Northstar_Install_Location { get; set; }
+        public string MasterServer_URL_CN { get; set; }
+        public string Current_REPO_URL_CN { get; set; }
+        public string Author { get; set; }
+        public bool Auto_Close_VTOL { get; set; }
+        public bool Auto_Update_Northstar { get; set; }
+        #endregion
+
+        //Step 3: Override parent's constructors
+        public MySettings() { }
+        public MySettings(string fileName) : base(fileName) { }
+    }
+
     public partial class MainWindow : Window
     {
         public MainWindow()
@@ -31,8 +95,9 @@ namespace VTOL_C
             System.Threading.Thread.Sleep(3000);
 
             InitializeComponent();
-            LoadBackgroundImageAsync();
            
+            LoadBackgroundImageAsync();
+            Load_Settings();
 
 
         }
@@ -47,12 +112,30 @@ namespace VTOL_C
         private static readonly Random Random = new Random();
         public ContentDialogService Dialog_Service;
         public ContentPresenter ContentPresenter { get; set; }
+
+        //Step 4: Load
+                                                                                   //or create a new empty
         private void textBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }
+        public MySettings Settings; //relative path to executing file.
 
-        private async void LoadBackgroundImageAsync()
+        public void Load_Settings()
+        {
+            UTILS uTILS = new UTILS();
+            if (uTILS.ValidateFileExists("config.json"))
+            {
+                Settings = JsonSettings.Load<MySettings>("config.json"); //relative path to executing file.
+
+            }
+            else
+            {
+                Settings = JsonSettings.Construct<MySettings>("config.json"); ; //relative path to executing file.
+
+            }
+        }
+    private async void LoadBackgroundImageAsync()
         {
             string directoryPath = "Resources/Backgrounds/Backgrounds_Home_Page";
             string[] supportedExtensions = { ".jpg", ".jpeg" };
@@ -146,6 +229,10 @@ namespace VTOL_C
 
         }
 
-     
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+
+        }
     }
 }

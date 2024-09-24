@@ -18,15 +18,17 @@ xmlns:ikw="http://schemas.inkore.net/lib/ui/wpf" x:Name="Root_WINDOW" x:Class="V
 xmlns:cs="clr-namespace:WPF.CornerSmoothing;assembly=WPF.CornerSmoothing"
 
 ui:WindowHelper.SystemBackdropType="Mica"
-   ui:TitleBar.Height="36" MinWidth="1280" MinHeight="768" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="2,2,2,2" SnapsToDevicePixels="True" ResizeMode="CanMinimize" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" MaxWidth="1280" MaxHeight="768" Loaded="Window_Loaded"
+   ui:TitleBar.Height="36" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="2,2,2,2" SnapsToDevicePixels="True" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" MaxWidth="1280" MaxHeight="768" Loaded="Window_Loaded"
 
     xmlns:themes="clr-namespace:StyledWindow.WPF.Themes;assembly=StyledWindow.WPF"
              xmlns:components="clr-namespace:StyledWindow.WPF.Components;assembly=StyledWindow.WPF"
-    
+       
+
       
     
     
     >
+    
     <Window.Resources>
         <ControlTemplate x:Key="ButtonControlTemplate1" TargetType="{x:Type Button}">
             <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True" CornerRadius="20">
@@ -56,7 +58,7 @@ ui:WindowHelper.SystemBackdropType="Mica"
             </ControlTemplate.Triggers>
         </ControlTemplate>
         <ControlTemplate x:Key="ButtonControlTemplate2" TargetType="{x:Type Button}">
-            <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True" CornerRadius="16">
+            <Border x:Name="border"  SnapsToDevicePixels="True" CornerRadius="16">
                 <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
             </Border>
             <ControlTemplate.Triggers>
@@ -83,8 +85,8 @@ ui:WindowHelper.SystemBackdropType="Mica"
             </ControlTemplate.Triggers>
         </ControlTemplate>
     </Window.Resources>
-
-            <Grid x:Name="Grid_Top" Background="#FF1D1D1D">
+   
+    <Grid x:Name="Grid_Top" Background="#FF1D1D1D">
       
         <!-- Your content here -->
         <Image x:Name="BackgroundImage"  Source="/Resources/Backgrounds/Backgrounds_Home_Page/wallpaper(32).jpg" Stretch="UniformToFill" AutomationProperties.Name="BackgroundImage" IsHitTestVisible="False" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
@@ -149,5 +151,5 @@ ui:WindowHelper.SystemBackdropType="Mica"
             </Border>
         </ui:NavigationView>
     </Grid>
-   
+  
 </Window>
