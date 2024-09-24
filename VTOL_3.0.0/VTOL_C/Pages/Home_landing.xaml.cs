@@ -593,9 +593,7 @@ namespace VTOL_C.Pages
         {
             
             Load_Charts();
-            //Step 5: Introduce changes and save.
-            Settings.Author = "Juicy";
-            Settings.Save();
+           
         }
     }
 }
