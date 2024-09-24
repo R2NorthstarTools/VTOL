@@ -57,6 +57,8 @@ using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
 using System.Collections.ObjectModel;
 using Nucs.JsonSettings;
+using Panuon.WPF;
+using System.IO.Compression;
 
 namespace VTOL_C.Pages
 {
@@ -588,12 +590,190 @@ namespace VTOL_C.Pages
             }
 
         }
+//        public bool TryUnzipFile(
+//string Zip_Path, string Destination, bool overwrite = true,
+//int maxRetries = 10,
+//int millisecondsDelay = 150)
+//        {
+//            if (Zip_Path == null)
+//                throw new ArgumentNullException(Zip_Path);
+//            if (maxRetries < 1)
+//                throw new ArgumentOutOfRangeException(nameof(maxRetries));
+//            if (millisecondsDelay < 1)
+//                throw new ArgumentOutOfRangeException(nameof(millisecondsDelay));
+
+//            for (int i = 0; i < maxRetries; ++i)
+//            {
+//                try
+//                {
+//                    ZipFile zipFile = new ZipFile(Zip_Path);
+
+//                    zipFile.ExtractAll(Destination, Ionic.Zip.ExtractExistingFileAction.OverwriteSilently);
+
+//                    return true;
+//                }
+//                catch (IOException ex)
+//                {
+//                    var st = new System.Diagnostics.StackTrace(ex, true);
+//                    var frame = st.GetFrame(0);
+//                    var line = frame.GetFileLineNumber();
+//                    var method = frame.GetMethod().Name;
+//                    var className = frame.GetMethod().DeclaringType.Name;
+//                    var variables = ""; // You would need to add logic to capture variable values
+
+//                    Log.Fatal(ex, $"An error occurred at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}" +
+//                                   $" Line Number: {line}, Method Name: {method}, Class Name: {className}, Variables: {variables}" +
+//                                   $"{Environment.NewLine}{ex.InnerException}{Environment.NewLine}"); Thread.Sleep(millisecondsDelay);
+//                }
+//                catch (UnauthorizedAccessException)
+//                {
+//                    Thread.Sleep(millisecondsDelay);
+//                }
+//                catch (Ionic.Zip.BadReadException)
+//                {
+//                    Thread.Sleep(millisecondsDelay);
+//                }
+//                catch (Ionic.Zip.BadCrcException)
+//                {
+//                    Thread.Sleep(millisecondsDelay);
+//                }
+//                catch (Ionic.Zip.BadStateException)
+//                {
+//                    Thread.Sleep(millisecondsDelay);
+//                }
+//                catch (Ionic.Zip.ZipException)
+//                {
+//                    Thread.Sleep(millisecondsDelay);
+//                }
+//                catch (Exception)
+//                {
+//                    Thread.Sleep(millisecondsDelay);
+//                }
+//            }
+
+//            return false;
+//        }
+
+        public string[] FindFirstFiles(string path, string searchPattern)
+        {
+            try
+            {
+                string[] files;
+
+                try
+                {
+                    // Exception could occur due to insufficient permission.
+                    files = Directory.GetFiles(path, searchPattern, SearchOption.AllDirectories);
+                }
+                catch (Exception ex)
+                {
+                    var st = new System.Diagnostics.StackTrace(ex, true);
+                    var frame = st.GetFrame(0);
+                    var line = frame.GetFileLineNumber();
+                    var method = frame.GetMethod().Name;
+                    var className = frame.GetMethod().DeclaringType.Name;
+                    var variables = ""; // You would need to add logic to capture variable values
+
+                    Log.Fatal(ex, $"An error occurred at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}" +
+                                   $" Line Number: {line}, Method Name: {method}, Class Name: {className}, Variables: {variables}" +
+                                   $"{Environment.NewLine}{ex.InnerException}{Environment.NewLine}"); return Array.Empty<string>();
+                }
+
+                // If matching files have been found, return the first one.
+                if (files.Length > 0)
+                {
+                    return files;
+                }
+                else
+                {
+                    // Otherwise find all directories.
+                    string[] directories;
+
+                    try
+                    {
+                        // Exception could occur due to insufficient permission.
+                        directories = Directory.GetDirectories(path);
+                    }
+                    catch (Exception ex)
+                    {
+                        var st = new System.Diagnostics.StackTrace(ex, true);
+                        var frame = st.GetFrame(0);
+                        var line = frame.GetFileLineNumber();
+                        var method = frame.GetMethod().Name;
+                        var className = frame.GetMethod().DeclaringType.Name;
+                        var variables = ""; // You would need to add logic to capture variable values
+
+                        Log.Fatal(ex, $"An error occurred at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}" +
+                                       $" Line Number: {line}, Method Name: {method}, Class Name: {className}, Variables: {variables}" +
+                                       $"{Environment.NewLine}{ex.InnerException}{Environment.NewLine}"); return Array.Empty<string>();
+                    }
+
+                    // Iterate through each directory and call the method recursivly.
+                    foreach (string directory in directories)
+                    {
+                        string[] files_ = FindFirstFiles(directory, searchPattern);
+
+                        // If we found a file, return it (and break the recursion).
+                        if (files_ != null)
+                        {
+                            return files_;
+                        }
+                    }
+                }
+                return Array.Empty<string>();
+
+            }
+
+
+
+            catch (Exception ex)
+            {
+                var st = new System.Diagnostics.StackTrace(ex, true);
+                var frame = st.GetFrame(0);
+                var line = frame.GetFileLineNumber();
+                var method = frame.GetMethod().Name;
+                var className = frame.GetMethod().DeclaringType.Name;
+                var variables = ""; // You would need to add logic to capture variable values
+
+                Log.Fatal(ex, $"An error occurred at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}" +
+                               $" Line Number: {line}, Method Name: {method}, Class Name: {className}, Variables: {variables}" +
+                               $"{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
+            }
+            // If no file was found (neither in this directory nor in the child directories)
+            // simply return string.Empty.
+            return null;
+        }
+
+
+        async Task OPEN_WEBPAGE(string URL)
+        {
+            await Task.Run(() =>
+            {
+                DispatchIfNecessary(async () =>
+                {
+                    //SnackBar.Message = VTOL.Resources.Languages.Language.Page_Skins_OPEN_WEBPAGE_OpeningTheFollowingURL + URL;
+                    //SnackBar.Title = VTOL.Resources.Languages.Language.INFO;
+                   // SnackBar.Appearance = Wpf.Ui.Common.ControlAppearance.Info;
+                   // SnackBar.Show();
+                });
+
+                Thread.Sleep(1000);
+                System.Diagnostics.Process.Start(new ProcessStartInfo
+                {
+                    FileName = URL,
+                    UseShellExecute = true
+                });
+            });
+        }
+
+
 
         private void ToggleSwitch_Toggled(object sender, RoutedEventArgs e)
         {
             
             Load_Charts();
-           
+            //Step 5: Introduce changes and save.
+            Settings.Version = "1.454545";
         }
     }
 }

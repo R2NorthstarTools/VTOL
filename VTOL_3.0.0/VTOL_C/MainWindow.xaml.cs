@@ -19,6 +19,7 @@ using Wpf.Ui;
 using Color = System.Windows.Media.Color;
 using Nucs.JsonSettings;
 using System.Text.Json.Serialization;
+using Nucs.JsonSettings.Autosave;
 
 namespace VTOL_C
 {
@@ -68,19 +69,41 @@ namespace VTOL_C
         public override string FileName { get; set; } = "TheDefaultFilename.extension"; //for loading and saving.
 
         #region Settings
-        public string Current_Version { get; set; }
+        public bool Ns_Startup { get; set; } = true;
+        public bool Ns_Dedi { get; set; } = true;
+        public bool Advanced_Mode { get; set; } = false;
+        public bool Automatic_Client_Updates { get; set; } = false;
+        public bool Sort_Mods { get; set; } = false;
+        public bool Warning_Close_EA { get; set; } = true;
+        public string Profile_Path { get; set; } = "";
+        public string Current_REPO_URL { get; set; } = "https://api.github.com/repos/R2Northstar/Northstar/releases/latest";
+        public bool Sort_Mods_By_Date { get; set; } = false;
+        public string Author { get; set; } = "R2Northstar";
+        public string Repo { get; set; } = "Northstar";
+        public string MasterServer_URL { get; set; } = "Northstar.tf";
+        public bool PackageAsSkin { get; set; } = false;
+        public string Version { get; set; } = "1.7.1";
+        public bool Auto_Update_Northstar { get; set; } = true;
+        public bool Auto_Close_VTOL_on_Launch { get; set; } = true;
+        public bool Backup_arg_Files { get; set; } = true;
+        public bool Master_Server_Check { get; set; } = true;
+        public string RePak_Launch_Args { get; set; } = "";
+        public int LOG_Folder_Counter { get; set; } = -1;
+        public string REpak_Folder_Path { get; set; } = "";
+        public bool Hide_Console_Window { get; set; } = true;
+        public bool EA_APP_SUPPORT { get; set; } = true;
+        public string BACKUP_SAVE_DEST { get; set; } = "";
+        public bool Minimize_to_Tray { get; set; } = false;
+        public string Profile_Name { get; set; } = "";
+        public int Banner_CNTR { get; set; } = 0;
+        public string Setting { get; set; } = "";
+
+        // Properties from the previous JSON that aren't in the new CSV
         public string Theme { get; set; }
-        public string Master_Server_Url { get; set; }
-        public string Repo { get; set; }
         public string Language { get; set; }
-        public string Repo_Url { get; set; }
-        public string Profile_Path { get; set; }
         public string Northstar_Install_Location { get; set; }
         public string MasterServer_URL_CN { get; set; }
         public string Current_REPO_URL_CN { get; set; }
-        public string Author { get; set; }
-        public bool Auto_Close_VTOL { get; set; }
-        public bool Auto_Update_Northstar { get; set; }
         #endregion
 
         //Step 3: Override parent's constructors
@@ -126,12 +149,12 @@ namespace VTOL_C
             UTILS uTILS = new UTILS();
             if (uTILS.ValidateFileExists("config.json"))
             {
-                Settings = JsonSettings.Load<MySettings>("config.json"); //relative path to executing file.
+                Settings = JsonSettings.Load<MySettings>("config.json").EnableAutosave(); ; //relative path to executing file.
 
             }
             else
             {
-                Settings = JsonSettings.Construct<MySettings>("config.json"); ; //relative path to executing file.
+                Settings = JsonSettings.Construct<MySettings>("config.json").EnableAutosave(); ; ; //relative path to executing file.
 
             }
         }
