@@ -1,4 +1,4 @@
-<h2 align="center"> ⚠️VTOL - IN CURRENT RE-DESIGN, VER 3 DUE⚠️ </h2>
+<h2 align="center"> ⚠️VTOL - IN CURRENT RE-DESIGN, VER 3 Complete (MAY 2025), BUG FIXING  ⚠️  </h2>
 
 !ETA OCT 19th!
 
