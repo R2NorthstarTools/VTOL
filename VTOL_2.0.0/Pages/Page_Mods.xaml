@@ -12,6 +12,7 @@
       d:DesignHeight="670" d:DesignWidth="1148"
       Title="Page_Mods" KeepAlive="True" Unloaded="Page_Unloaded" Initialized="Page_Initialized" Loaded="Page_Loaded">
     <Page.Resources>
+        
         <Style TargetType="Image">
 
             <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality" />
