@@ -21,7 +21,10 @@
                 <uis:XamlControlsResources />
                 <ui:ThemeResources/>
                 <ui:XamlControlsResources/>
-              
+                <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />-->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <!-- Theme setting -->
+                <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />-->
             </ResourceDictionary.MergedDictionaries>
             <FontFamily x:Key="SegoeFluentIcons">pack://application:,,,/;component/Fonts/#Segoe Fluent Icons</FontFamily>
 
@@ -29,5 +32,6 @@
             <FontFamily x:Key="Titanfall">pack://application:,,,Resources/Fonts/#Tf</FontFamily>
 
         </ResourceDictionary>
+        
     </Application.Resources>
 </Application>

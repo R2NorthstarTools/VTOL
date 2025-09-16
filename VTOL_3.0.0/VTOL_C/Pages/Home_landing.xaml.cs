@@ -1,7 +1,4 @@
-﻿using LiveCharts.Defaults;
-using LiveCharts.Wpf;
-using LiveCharts;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,10 +13,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Page = iNKORE.UI.WPF.Modern.Controls.Page;
-using LiveCharts;
-using LiveCharts.Defaults;
-using LiveCharts.Wpf;
-using MathCore.Logging;
 using System.Globalization;
 using System.Net.NetworkInformation;
 using System.Net;
@@ -365,7 +358,6 @@ namespace VTOL_C.Pages
         int minutesIdle = 0;
         int showcntr = 0;
         private readonly System.Windows.Threading.DispatcherTimer _timer;
-        public SeriesCollection LastHourSeries { get; set; }
         public MainWindow MainInstance;
 
 
@@ -393,11 +385,9 @@ namespace VTOL_C.Pages
 
         private int index = 0;
         private Random random = new Random();
-        private ObservableCollection<ObservablePoint> observableValues;
 
       
 
-        public ObservableCollection<ISeries> Series { get; set; }
 
 
 
@@ -427,17 +417,7 @@ namespace VTOL_C.Pages
 
 
 
-        public void AddRandomItem()
-        {
-            var randomValue = random.Next(1, 10);
-            observableValues.Add(new ObservablePoint(index++, randomValue));
-        }
-
-        public void RemoveFirstItem()
-        {
-            observableValues.RemoveAt(0);
-        }
-
+       
 
         public void DispatchIfNecessary(Action action)
         {
@@ -452,29 +432,13 @@ namespace VTOL_C.Pages
         public Home_landing()
         {
             InitializeComponent();
-            observableValues = new ObservableCollection<ObservablePoint>();
 
-            Series = new ObservableCollection<ISeries>
-        {
-            new ColumnSeries<ObservablePoint> { Values = observableValues }
-        };
+           
 
             Load_Settings();
         }
 
-        public void Load_Charts()
-        {
-            DispatchIfNecessary(async () =>
-            {
-                while (true)
-                {
-                    AddRandomItem();
-
-                    RemoveFirstItem();
-                    await Task.Delay(50);
-                }
-            });
-        }
+       
         public async Task PingHost()
         {
 
@@ -507,11 +471,7 @@ namespace VTOL_C.Pages
                     DispatchIfNecessary(async () =>
                     {
 
-                        //Master_Server_Card.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#B2037F10");
-                       // Master_Server_Card.Icon = SymbolRegular.PlugConnected20;
-
-                        LastHourSeries[0].Values.Add(new ObservableValue(_avgRtt));
-                        LastHourSeries[0].Values.RemoveAt(0);
+                       
                     });
 
                     Fail_Counter_Ping = 0;
@@ -522,8 +482,6 @@ namespace VTOL_C.Pages
                     DispatchIfNecessary(async () =>
                     {
 
-                        LastHourSeries[0].Values.Add(new ObservableValue(0));
-                        LastHourSeries[0].Values.RemoveAt(0);
                     });
                     Fail_Counter_Ping++;
                     return;
@@ -543,8 +501,6 @@ namespace VTOL_C.Pages
                         DispatchIfNecessary(async () =>
                         {
 
-                            LastHourSeries[0].Values.Add(new ObservableValue(0));
-                            LastHourSeries[0].Values.RemoveAt(0);
                         });
                         // error 404, do what you need to do
 
@@ -574,8 +530,6 @@ namespace VTOL_C.Pages
                                $"{Environment.NewLine}{ex.InnerException}{Environment.NewLine}"); DispatchIfNecessary(async () =>
                                {
 
-                                   LastHourSeries[0].Values.Add(new ObservableValue(0));
-                                   LastHourSeries[0].Values.RemoveAt(0);
                                });
                 Fail_Counter_Ping++;
                 // Discard PingExceptions and return false;
@@ -771,7 +725,6 @@ namespace VTOL_C.Pages
         private void ToggleSwitch_Toggled(object sender, RoutedEventArgs e)
         {
             
-            Load_Charts();
             //Step 5: Introduce changes and save.
             Settings.Version = "1.454545";
         }

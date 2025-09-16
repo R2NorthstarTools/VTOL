@@ -282,10 +282,11 @@
                 </Border>
             </Grid>
         </Border>
-        <ui:Dialog x:Name="DialogF" Grid.ColumnSpan="3" Grid.RowSpan="3" DialogHeight="250" Foreground="White" FontStretch="SemiCondensed" FontFamily="Segoe UI Semibold" ButtonRightClick="DialogF_ButtonRightClick" ButtonLeftClick="DialogF_ButtonLeftClick" Drop="Mod_List_Box_Drop" PreviewDragEnter="Mod_List_Box_PreviewDragEnter" PreviewDragLeave="Mod_List_Box_PreviewDragLeave" AllowDrop="True" Visibility="Visible"/>
+        
+        <ui:ContentDialog x:Name="DialogF" Grid.ColumnSpan="3" Grid.RowSpan="3" DialogHeight="250" Foreground="White" FontStretch="SemiCondensed" FontFamily="Segoe UI Semibold" ButtonRightClick="DialogF_ButtonRightClick" ButtonLeftClick="DialogF_ButtonLeftClick" Drop="Mod_List_Box_Drop" PreviewDragEnter="Mod_List_Box_PreviewDragEnter" PreviewDragLeave="Mod_List_Box_PreviewDragLeave" AllowDrop="True" Visibility="Visible"/>
 
-        <ui:Dialog x:Name="Dialog" Grid.ColumnSpan="3" Grid.RowSpan="3" DialogHeight="250" Foreground="White" FontStretch="SemiCondensed" FontFamily="Segoe UI Semibold" ButtonRightClick="Dialog_ButtonRightClick" Visibility="Visible">
-        </ui:Dialog>
+        <ui:ContentDialog x:Name="Dialog" Grid.ColumnSpan="3" Grid.RowSpan="3" DialogHeight="250" Foreground="White" FontStretch="SemiCondensed" FontFamily="Segoe UI Semibold" ButtonRightClick="Dialog_ButtonRightClick" Visibility="Visible">
+        </ui:ContentDialog>
 
 
 
@@ -307,7 +308,7 @@
 
         </Border>
 
-        <ui:Snackbar x:Name="Snack" Grid.ColumnSpan="3" Margin="24,0,24,24"/>
+        <ui:SnackbarPresenter x:Name="Snack" Grid.ColumnSpan="3" Margin="24,0,24,24"/>
 
     </Grid>
 </Page>

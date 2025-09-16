@@ -802,7 +802,7 @@
             </TabItem >-->
         </TabControl>
 
-        <!--<ui:Dialog x:Name="Error_Dialog" />-->
+        <!--<ui:ContentDialog x:Name="Error_Dialog" />-->
 
     </Grid>
 

@@ -5,7 +5,7 @@
              StartupUri="MainWindow.xaml"
                  xmlns:xf="clr-namespace:XamlFlair;assembly=XamlFlair.WPF"
 
-             xmlns:wui="http://schemas.lepo.co/wpfui/2022/xaml"
+             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
             xmlns:hc="https://handyorg.github.io/handycontrol" Startup="Application_Startup">
 
     <Application.Resources>
@@ -19,8 +19,8 @@
             <ResourceDictionary.MergedDictionaries>
                 <hc:ThemeResources  RequestedTheme="Dark"/>
                 <hc:Theme/>
-                <wui:ControlsDictionary />
-                <wui:ThemesDictionary Theme="Dark" />
+                <ui:ControlsDictionary />
+                <ui:ThemesDictionary Theme="Dark" />
                 <xf:XamlFlairResources />
 
             </ResourceDictionary.MergedDictionaries>

@@ -12,7 +12,7 @@
         Title="Splash_"   xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
    xmlns:wd="https://github.com/WPFDevelopersOrg/WPFDevelopers"
    xmlns:ui1="http://schemas.lepo.co/wpfui/2022/xaml" 
-   d:DesignHeight="668" d:DesignWidth="1240" Topmost="True" Focusable="False" IsHitTestVisible="False" IsTabStop="False" Background="{x:Null}" MaxWidth="1280" MinWidth="1280" MinHeight="768" MaxHeight="768">
+   d:DesignHeight="768" d:DesignWidth="1280" Topmost="True" Focusable="False" IsHitTestVisible="False" IsTabStop="False" Background="{x:Null}" MaxWidth="1240" MinWidth="1240" MinHeight="768" MaxHeight="768">
     <Border  Background="#F2191919" CornerRadius="19">
         <Grid>
             <Canvas Width="416" Height="175" Margin="412,195,412,298">
@@ -27,8 +27,7 @@
 
             </Canvas>
             <Image Source="/Resources/Icons/VTOL_multires.png"  Canvas.Left="556" Canvas.Top="182" Stretch="UniformToFill" StretchDirection="DownOnly" HorizontalAlignment="Center" Margin="0,218,0,320" />
-
-            <ProgressBar IsIndeterminate="True" Margin="220,435,220,0" VerticalAlignment="Top" Width="800" Foreground="#FF00DE73" Value="5" Height="35" MinHeight="5" />
+            <ui:ProgressBar Foreground="#FF38AC86" MinHeight="5" Margin="0,452,0,0" IsIndeterminate="True" VerticalAlignment="Top" Background="#CCB9B9B9" BorderBrush="#28000000"/>
             <TextBlock x:Name="Loader" FontSize="24" Foreground="White" FontFamily="Calibri" Margin="0,495,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" d:LayoutOverrides="LeftPosition, RightPosition">Loading...</TextBlock>
             <Label Content="V4.0.0 - 2024-20-9 - Stable" Margin="420,628,420,0" FontSize="12" FontFamily="Arial" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" d:LayoutOverrides="HorizontalAlignment" FontWeight="Bold"/>
         </Grid>

@@ -138,7 +138,7 @@
                             </TextBlock>
 
                             <TextBlock TextAlignment="Left" Text="{Binding File_Size}" Margin="10,181,182,87"  FontSize="11" Background="{x:Null}" Foreground="#FFC7C7C7" FontWeight="Bold"/>
-                            <ui:Button x:Name="Open_Webpage" Margin="10,250,130,0" Background="#FF2A4B65" HorizontalAlignment="Stretch" Height="29" Content="WebPage" FontSize="14" Icon="GlobeSearch24" BorderBrush="{x:Null}" VerticalAlignment="Top" Appearance="Secondary" IconFilled="True" Padding="0,0,0,0" Click="Open_Webpage_Click" Tag="{Binding Webpage}" ClickMode="Press"/>
+                            <ui:Button x:Name="Open_Webpage" Margin="10,250,130,0" Background="#FF2A4B65" HorizontalAlignment="Stretch" Height="29" Content="WebPage" FontSize="14" Icon="GlobeSearch24" BorderBrush="{x:Null}" VerticalAlignment="Top" Appearance="Secondary" Icon="True" Padding="0,0,0,0" Click="Open_Webpage_Click" Tag="{Binding Webpage}" ClickMode="Press"/>
 
                             <ui:SymbolIcon  x:Name="LIKEBTTN" Symbol="Heart24" Tag="{Binding is_Favourite_}" HorizontalAlignment="Left" Margin="57,209,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Foreground="#FFFFD200" MouseEnter="SymbolIcon_MouseEnter" MouseLeave="Favourite_MouseLeave" MouseDown="SymbolIcon_MouseDown" IsManipulationEnabled="False" Loaded="SymbolIcon_Loaded" ToolTip="{Binding Name}" SourceUpdated="LIKEBTTN_SourceUpdated">
                                 <ui:SymbolIcon.RenderTransform>
@@ -184,7 +184,7 @@
         </ui:VirtualizingItemsControl>
 
 
-        <ui:Dialog x:Name="Dialog" ButtonRightClick="Dialog_ButtonRightClick" Foreground="White" Focusable="False" ButtonLeftClick="Dialog_ButtonLeftClick" SnapsToDevicePixels="False"/>
+        <ui:ContentDialog x:Name="Dialog" ButtonRightClick="Dialog_ButtonRightClick" Foreground="White" Focusable="False" ButtonLeftClick="Dialog_ButtonLeftClick" SnapsToDevicePixels="False"/>
         <Button x:Name="Reload_BTTN"  Width="120" Height="30"  VerticalAlignment="Top" HorizontalAlignment="Center"  Margin="0,456,0,0" Background="#FF018156" Content="Reload" Click="Reload_BTTN_Click" ClickMode="Press"></Button>
         <ui:ProgressRing x:Name="Loading_Ring" Width="120" Height="120"  IsIndeterminate="True"  Visibility="Visible" Margin="0,327,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" IsHitTestVisible="False" IsTabStop="False" Progress="40" OverridesDefaultStyle="False" EngAngle="20">
             <ui:ProgressRing.Foreground>

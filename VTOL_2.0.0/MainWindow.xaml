@@ -10,6 +10,7 @@
         xmlns:properties="clr-namespace:VTOL.Resources.Languages"
         xmlns:xf="clr-namespace:XamlFlair;assembly=XamlFlair.WPF"
         xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    
         xmlns:hc="https://handyorg.github.io/handycontrol" x:Name="Main_Win_Control" x:Class="VTOL.MainWindow"
         UseLayoutRounding="True"
         RenderOptions.BitmapScalingMode="HighQuality"
@@ -273,7 +274,7 @@
 
         </Border>
 
-        <!--<ui:Dialog x:Name="Dialog" Grid.Column="1" Margin="0,37,0,0" SnapsToDevicePixels="False" ButtonLeftClick="Dialog_ButtonLeftClick" ButtonRightClick="Dialog_ButtonRightClick" />-->
+        <!--<ui:ContentDialog x:Name="Dialog" Grid.Column="1" Margin="0,37,0,0" SnapsToDevicePixels="False" ButtonLeftClick="Dialog_ButtonLeftClick" ButtonRightClick="Dialog_ButtonRightClick" />-->
 
         <!--  This is the main navigation of the application.  -->
         <ui:NavigationCompact 
@@ -531,7 +532,7 @@
         </Border>
 
 
-        <ui:Snackbar x:Name="Snackbar" Grid.Column="1" Margin="197,608,197,0" VerticalAlignment="Top" MessageForeground="White" IconForeground="White"  Timeout="5000"  Height="60"  Content="" Icon="Info24" FontSize="14" AllowDrop="False"  />
+        <ui:Snackbar x:Name="Snackbar" Grid.Column="1" Margin="197,608,197,0" VerticalAlignment="Top"  ContentForeground="White" IconForeground="White"  Timeout="5000"  Height="60"  Content="" Icon="Info24" FontSize="14" AllowDrop="False"  />
         
     </Grid>
 

@@ -93,14 +93,26 @@ namespace VTOL_C.Pages.Controls
             textBlock.Text = randomPhrase;
         }
     }
+
     public partial class Splash_ : Window
     {
         private readonly List<string> loadingPhrases;
         private readonly Random random;
         private RandomPhraseDisplay phraseDisplay;
+        public async void WaitAndDisableTopmost()
+        {
+            // Wait for 5 seconds
+            await Task.Delay(5000);
 
-       
-            public Splash_()
+            // Get the topmost element of the current window
+            var topmostElement = VisualTreeHelper.GetChild(this, 0);
+
+            // Disable the topmost element
+            (topmostElement as FrameworkElement)?.SetValue(UIElement.IsEnabledProperty, false);
+            this.Topmost = false;
+        }
+
+        public Splash_()
         {
             InitializeComponent();
             // Set the TextBlock as the content of the window
@@ -109,6 +121,7 @@ namespace VTOL_C.Pages.Controls
             // Initialize the RandomPhraseDisplay
             phraseDisplay = new RandomPhraseDisplay(Loader);
             phraseDisplay.DisplayRandomPhrase();
+            WaitAndDisableTopmost();
 
         }
     }

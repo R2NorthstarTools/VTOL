@@ -113,8 +113,9 @@
     <PackageReference Include="iNKORE.UI.WPF" Version="1.2.7.1" />
     <PackageReference Include="iNKORE.UI.WPF.Emojis" Version="0.3.6.4" />
     <PackageReference Include="iNKORE.UI.WPF.Modern" Version="0.9.30" />
-    <PackageReference Include="LiveCharts.Wpf.Core" Version="0.9.8" />
     <PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.0-rc3.3" />
+    <PackageReference Include="MahApps.Metro" Version="2.4.10" />
+    <PackageReference Include="MahApps.Metro.IconPacks" Version="5.0.0" />
     <PackageReference Include="ModernWpfUI" Version="0.9.6" />
     <PackageReference Include="Nucs.JsonSettings" Version="2.0.2" />
     <PackageReference Include="Nucs.JsonSettings.Autosave" Version="2.0.2" />
@@ -122,7 +123,6 @@
     <PackageReference Include="Panuon.WPF.UI" Version="1.2.4.2" />
     <PackageReference Include="Serilog" Version="4.0.1" />
     <PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
-    <PackageReference Include="StyledWindow.WPF" Version="7.0.0" />
     <PackageReference Include="Syncfusion.Shared.Base" Version="27.1.48" />
     <PackageReference Include="WPF-UI" Version="3.0.5" />
     <PackageReference Include="WPF-UI-Enhanced" Version="10.0.0" />

@@ -10,7 +10,7 @@
       Title="Page_Themes">
 
     <Grid Background="#FF231915">
-        <ui:Dialog x:Name="Dialog" Grid.Column="1" Margin="0,37,0,0" SnapsToDevicePixels="False"  />
+        <ui:ContentDialog x:Name="Dialog" Grid.Column="1" Margin="0,37,0,0" SnapsToDevicePixels="False"  />
 
     </Grid>
 </Page>

@@ -20,6 +20,7 @@ using Color = System.Windows.Media.Color;
 using Nucs.JsonSettings;
 using System.Text.Json.Serialization;
 using Nucs.JsonSettings.Autosave;
+using MahApps.Metro.Controls;
 
 namespace VTOL_C
 {
@@ -111,7 +112,7 @@ namespace VTOL_C
         public MySettings(string fileName) : base(fileName) { }
     }
 
-    public partial class MainWindow : Window
+    public partial class MainWindow 
     {
         public MainWindow()
         {

@@ -69,7 +69,7 @@
                 <!--#region control reigon-->
                 <Grid Height="390" UseLayoutRounding="True"  Panel.ZIndex="2" Margin="0,3,0,0">
                     <!--Launch Button-->
-                    <ui:SplitButton ui:ElevationBorder.IsElevationEnabled="True"  x:Name="button" Content="LAUNCH TITANFALL 2" Background="{x:Static SystemParameters.WindowGlassBrush}" Margin="0,0,765,328" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="425" Height="60" CornerRadius="5,5,5,5" Foreground="#E5FFFFFF" BorderBrush="#FF565656">
+                    <ui:SplitButton ui:ElevationBorder.IsElevationEnabled="True"  x:Name="button" Content="LAUNCH TITANFALL 2" Background="{x:Static SystemParameters.WindowGlassBrush}" Margin="0,0,765,328" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="425" Height="60" CornerRadius="5,5,5,5" Foreground="#E5FFFFFF" BorderBrush="#19FFFFFF">
                         <ui:SplitButton.Flyout>
                             <ui:Flyout>
                                 <StackPanel  Width="200" Orientation="Vertical" Height="80" HorizontalAlignment="Right">
@@ -103,7 +103,7 @@
                             <ui:FontIcon Icon="{x:Static ui:SegoeFluentIcons.NetworkConnectedCheckmark}" FontSize="30" Height="48" Width="50" Margin="35,16,0,16" HorizontalAlignment="Left"/>
 
                             <Label Width="137" Content="Master Server" VerticalContentAlignment="Center" Foreground="White" HorizontalAlignment="Left" Margin="95,28,0,28"/>
-                            <ui:ToggleSwitch Margin="494,0,0,0" UseSystemFocusVisuals="True" OffContent="" OnContent="" Width="70" MinWidth="69" d:LayoutOverrides="TopPosition, BottomPosition" Foreground="Black" Toggled="ToggleSwitch_Toggled" FocusVisualMargin="2,0,1,6"/>
+                            <ui:ToggleSwitch Margin="494,0,0,0" UseSystemFocusVisuals="True" OffContent="" OnContent="" Width="70" MinWidth="69" d:LayoutOverrides="TopPosition, BottomPosition" Foreground="Black" Toggled="ToggleSwitch_Toggled" FocusVisualMargin="2,0,1,6" OverridesDefaultStyle="True"/>
                            
 
                         </Grid>
