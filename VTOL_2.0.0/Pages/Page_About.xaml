@@ -14,7 +14,7 @@
        
     </Page.Resources>
     <Grid >
-        <Image Source="/Resources/Icons/Main_UI/info-large.png" Margin="465,-35,-602,-590" Opacity="0.1" IsHitTestVisible="False" IsEnabled="False" AllowDrop="False" Stretch="Uniform" MinWidth="250" MinHeight="251" RenderTransformOrigin="0.5,0.5">
+        <Image Source="pack://application:,,,/_VTOL_;component/Resources/Icons/Main_UI/info-large.png" Margin="465,-35,-602,-590" Opacity="0.1" IsHitTestVisible="False" IsEnabled="False" AllowDrop="False" Stretch="Uniform" MinWidth="250" MinHeight="251" RenderTransformOrigin="0.5,0.5">
             <Image.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>

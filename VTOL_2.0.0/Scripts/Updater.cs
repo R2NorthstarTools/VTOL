@@ -1,12 +1,17 @@
-﻿using System;
+﻿using HandyControl.Tools.Extension;
+using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Reflection;
+using Serilog;
 
 //using System.Text.Json;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using VTOL._EventArgs;
+using Wpf.Ui.Controls;
 
 namespace VTOL
 {
@@ -199,9 +204,9 @@ namespace VTOL
                  */
                 if (_call_from_file == true)
                 {
-                    if (File.Exists(AppDataFolder + @"\VTOL_DATA\VARS\Thunderstore.json"))
+                    if (File.Exists(save + @"Thunderstore.json"))
                     {
-                        string json = File.ReadAllText(AppDataFolder + @"\VTOL_DATA\VARS\Thunderstore.json");
+                        string json = File.ReadAllText(save + @"Thunderstore.json");
                         Thunderstore = Thunderstore_V1.FromJson(json);
                     }
                     else
@@ -217,11 +222,11 @@ namespace VTOL
                         using (var webClient = new System.Net.WebClient())
                         {
 
-                            webClient.DownloadFile(uri1, AppDataFolder + @"\VTOL_DATA\VARS\Thunderstore.json");
+                            webClient.DownloadFile(uri1, save + @"Thunderstore.json");
 
                             // Now parse with JSON.Net
                         }
-                        string json = File.ReadAllText(AppDataFolder + @"\VTOL_DATA\VARS\Thunderstore.json");
+                        string json = File.ReadAllText(save + @"Thunderstore.json");
                         Thunderstore = Thunderstore_V1.FromJson(json);
 
                     }
@@ -239,12 +244,16 @@ namespace VTOL
                     using (var webClient = new System.Net.WebClient())
                     {
 
-                        webClient.DownloadFile(uri1, AppDataFolder + @"\VTOL_DATA\VARS\Thunderstore.json");
+                        webClient.DownloadFile(uri1, save + @"Thunderstore.json");
 
                         // Now parse with JSON.Net
                     }
-                    string json = File.ReadAllText(AppDataFolder + @"\VTOL_DATA\VARS\Thunderstore.json");
+                    string json = File.ReadAllText(save + @"Thunderstore.json");
+
+
                     Thunderstore = Thunderstore_V1.FromJson(json);
+
+
                     //if (File.Exists(AppDataFolder + @"\VTOL_DATA\VARS\Thunderstore.json"))
                     //{
 
@@ -260,8 +269,23 @@ namespace VTOL
             catch (Exception ex)
             {
 
+                //Removed PaperTrailSystem Due to lack of reliability.    
+                var st = new System.Diagnostics.StackTrace(ex, true);
+                var frame = st.GetFrame(0);
+                var line = frame.GetFileLineNumber();
+                var method = frame.GetMethod().Name;
+                var className = frame.GetMethod().DeclaringType.Name;
+                var variables = ""; // You would need to add logic to capture variable values
+                System.Windows.Forms.MessageBox.Show(line.ToString());
+
+                Log.Fatal(ex, $"An error occurred at {DateTime.Now.ToString("yyyy - MM - dd HH - mm - ss.ff", CultureInfo.InvariantCulture)}" +
+                               $" Line Number: {line}, Method Name: {method}, Class Name: {className}, Variables: {variables}" +
+                               $"{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");
             }
         }
+
+
+        
         /// <summary>
         /// Gets the the repository, then checks if there is a new version available.
         /// </summary>

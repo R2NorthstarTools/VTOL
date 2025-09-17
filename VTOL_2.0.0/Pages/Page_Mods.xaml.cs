@@ -1,6 +1,6 @@
 ﻿using FuzzyString;
 using HandyControl.Tools.Extension;
-using Ionic.Zip;
+using Aspose.Zip;
 using Lsj.Util.Win32.BaseTypes;
 using Lsj.Util.Win32.Structs;
 using Newtonsoft.Json;
@@ -2751,9 +2751,12 @@ int millisecondsDelay = 150)
             {
                 try
                 {
-                    ZipFile zipFile = new ZipFile(Zip_Path);
+                    using (var archive = new Archive(Zip_Path))
+                    {
+                        archive.ExtractToDirectory(Destination);
 
-                    zipFile.ExtractAll(Destination, Ionic.Zip.ExtractExistingFileAction.OverwriteSilently);
+                    }
+
 
                     return true;
                 }
@@ -2762,22 +2765,6 @@ int millisecondsDelay = 150)
                     Thread.Sleep(millisecondsDelay);
                 }
                 catch (UnauthorizedAccessException)
-                {
-                    Thread.Sleep(millisecondsDelay);
-                }
-                catch (Ionic.Zip.BadReadException)
-                {
-                    Thread.Sleep(millisecondsDelay);
-                }
-                catch (Ionic.Zip.BadCrcException)
-                {
-                    Thread.Sleep(millisecondsDelay);
-                }
-                catch (Ionic.Zip.BadStateException)
-                {
-                    Thread.Sleep(millisecondsDelay);
-                }
-                catch (Ionic.Zip.ZipException)
                 {
                     Thread.Sleep(millisecondsDelay);
                 }

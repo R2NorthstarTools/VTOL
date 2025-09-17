@@ -1,4 +1,5 @@
-﻿using Downloader;
+﻿using Aspose.Zip;
+using Downloader;
 using FuzzyString;
 using Lsj.Util.Text;
 using Newtonsoft.Json;
@@ -41,7 +42,6 @@ using static VTOL.Pages.Page_Mods;
 using static VTOL.Pages.Page_Thunderstore;
 using Path = System.IO.Path;
 using Timer = System.Timers.Timer;
-using ZipFile = Ionic.Zip.ZipFile;
 
 namespace VTOL.Pages
 {
@@ -104,17 +104,24 @@ namespace VTOL.Pages
         User_Settings User_Settings_Vars = null;
         public static bool ZipHasFile(string Search, string zipFullPath)
         {
-            ZipFile zipFile = new ZipFile(zipFullPath);
 
-
-            foreach (var entry in zipFile.Entries)
+            using (var archive = new Archive(zipFullPath))
             {
-                if (entry.FileName.Contains(Search, StringComparison.OrdinalIgnoreCase))
+                ArchiveEntry archiveEntry = null;
+                foreach (var entry in archive.Entries)
                 {
+                    
+                    if (entry.Name.Contains(Search, StringComparison.OrdinalIgnoreCase))
+                    {
 
-                    return true;
+                        return true;
+                    }
                 }
+
             }
+
+
+           
 
             return false;
         }
@@ -362,9 +369,11 @@ int millisecondsDelay = 150)
             {
                 try
                 {
-                    ZipFile zipFile = new ZipFile(Zip_Path);
+                    using (var archive = new Archive(Zip_Path))
+                    {
+                        archive.ExtractToDirectory(Destination);
 
-                    zipFile.ExtractAll(Destination, Ionic.Zip.ExtractExistingFileAction.OverwriteSilently);
+                    }
 
                     return true;
                 }
@@ -373,22 +382,6 @@ int millisecondsDelay = 150)
                     Thread.Sleep(millisecondsDelay);
                 }
                 catch (UnauthorizedAccessException)
-                {
-                    Thread.Sleep(millisecondsDelay);
-                }
-                catch (Ionic.Zip.BadReadException)
-                {
-                    Thread.Sleep(millisecondsDelay);
-                }
-                catch (Ionic.Zip.BadCrcException)
-                {
-                    Thread.Sleep(millisecondsDelay);
-                }
-                catch (Ionic.Zip.BadStateException)
-                {
-                    Thread.Sleep(millisecondsDelay);
-                }
-                catch (Ionic.Zip.ZipException)
                 {
                     Thread.Sleep(millisecondsDelay);
                 }
@@ -1291,7 +1284,7 @@ int millisecondsDelay = 150)
 
 
         }
-        public async Task Call_Ts_Mods()
+        public async Task  Call_Ts_Mods()
         {
 
 
@@ -1302,7 +1295,8 @@ int millisecondsDelay = 150)
 
                 List<Grid_> List = null;
                 _updater = new Updater("https://northstar.thunderstore.io/api/v1/package/");
-                _updater.Download_Cutom_JSON_();
+                _updater.Download_Cutom_JSON();
+
                 if (_updater.Thunderstore != null)
                 {
                     if (_updater.Thunderstore.Count() > 0)
@@ -1319,10 +1313,18 @@ int millisecondsDelay = 150)
 
 
                     }
-                    DispatchIfNecessary(async () =>
+                    else
                     {
-                        Thunderstore_List.Items.Refresh();
-                    });
+
+
+                        itemsList.Clear();
+                        Thunderstore_List.Items.Clear();
+
+                    }
+                        DispatchIfNecessary(async () =>
+                        {
+                            Thunderstore_List.Items.Refresh();
+                        });
                 }
 
 
@@ -2025,7 +2027,7 @@ int millisecondsDelay = 150)
             {
                 return;
             }
-            int rating = updater.RatingScore;
+            long rating = updater.RatingScore;
 
             Tags = String.Join(" , ", updater.Categories);
             List<versions> versions = updater.versions;
@@ -2578,7 +2580,7 @@ int millisecondsDelay = 150)
             public string Action { get; set; }
             public string Name { get; set; }
             public string Description { get; set; }
-            public int Progress { get; set; }
+            public long Progress { get; set; }
             public string Completed { get; set; }
 
         }
@@ -2593,7 +2595,7 @@ int millisecondsDelay = 150)
             public string download_url { get; set; }
             public string Webpage { get; set; }
             public string date_created { get; set; }
-            public int Rating { get; set; }
+            public long Rating { get; set; }
             public string File_Size { get; set; }
             public string Downloads { get; set; }
             public string Dependencies { get; set; }
@@ -2605,13 +2607,13 @@ int millisecondsDelay = 150)
 
             public string Button_label { get; set; }
             public string Button_Color { get; set; }
-            public int is_Favourite_ { get; set; }
-            public int is_NSFW { get; set; }
+            public long is_Favourite_ { get; set; }
+            public long is_NSFW { get; set; }
 
         }
 
 
-        string Convert_To_Size(int size)
+        string Convert_To_Size(long size)
         {
             string[] sizes = { "B", "KB", "MB", "GB", "TB" };
             int order = 0;
@@ -3020,9 +3022,11 @@ int millisecondsDelay = 150)
             {
                 try
                 {
-                    ZipFile zipFile = new ZipFile(Zip_Path);
+                    using (var archive = new Archive(Zip_Path))
+                    {
+                        archive.ExtractToDirectory(Destination);
 
-                    zipFile.ExtractAll(Destination, Ionic.Zip.ExtractExistingFileAction.OverwriteSilently);
+                    }
 
                     return true;
                 }
@@ -3031,22 +3035,6 @@ int millisecondsDelay = 150)
                     Thread.Sleep(millisecondsDelay);
                 }
                 catch (UnauthorizedAccessException)
-                {
-                    Thread.Sleep(millisecondsDelay);
-                }
-                catch (Ionic.Zip.BadReadException)
-                {
-                    Thread.Sleep(millisecondsDelay);
-                }
-                catch (Ionic.Zip.BadCrcException)
-                {
-                    Thread.Sleep(millisecondsDelay);
-                }
-                catch (Ionic.Zip.BadStateException)
-                {
-                    Thread.Sleep(millisecondsDelay);
-                }
-                catch (Ionic.Zip.ZipException)
                 {
                     Thread.Sleep(millisecondsDelay);
                 }
@@ -3447,17 +3435,19 @@ int millisecondsDelay = 300)
         }
         static bool CheckIfFolderExistsInZip(string zipFilePath, string folderName)
         {
-            using (System.IO.Compression.ZipArchive archive = System.IO.Compression.ZipFile.OpenRead(zipFilePath))
+
+            using (var archive = new Archive(zipFilePath))
             {
-                foreach (System.IO.Compression.ZipArchiveEntry entry in archive.Entries)
+                foreach (var entry in archive.Entries)
                 {
-                    if (entry.FullName.StartsWith(folderName) && entry.FullName.EndsWith("/"))
+                    if (entry.Name.StartsWith(folderName) && entry.Name.EndsWith("/"))
                     {
+
                         return true;
                     }
                 }
-            }
             return false;
+            }
         }
         async Task _garbage_holderAsync(string Target_Zip, string Destination)
         {

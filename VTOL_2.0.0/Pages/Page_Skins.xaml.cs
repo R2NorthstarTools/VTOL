@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using Aspose.Zip;
+using Microsoft.Win32;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using Path = System.IO.Path;
-using ZipFile = Ionic.Zip.ZipFile;
 
 namespace VTOL.Pages
 {
@@ -40,19 +40,20 @@ namespace VTOL.Pages
 
         public static bool ZipHasFile(string Search, string zipFullPath)
         {
-            ZipFile zipFile = new ZipFile(zipFullPath);
-
-
-            foreach (var entry in zipFile.Entries)
+            using (var archive = new Archive(zipFullPath))
             {
-                if (entry.FileName.Contains(Search, StringComparison.OrdinalIgnoreCase))
+                foreach (var entry in archive.Entries)
                 {
+                    if (entry.Name.Contains(Search, StringComparison.OrdinalIgnoreCase))
+                    {
 
-                    return true;
+                        return true;
+                    }
                 }
-            }
+               
 
             return false;
+        }
         }
 
         private int ImageCheck(String ImageName)
@@ -125,9 +126,12 @@ namespace VTOL.Pages
                         {
 
                             current_skin_folder = User_Settings_Vars.NorthstarInstallLocation + @"Skins_Unpack_Mod_MNGR";
-                            ZipFile zipFile = new ZipFile(Zip_Path);
+                            using (var archive = new Archive(Zip_Path))
+                            {
+                                archive.ExtractToDirectory(User_Settings_Vars.NorthstarInstallLocation + @"Skins_Unpack_Mod_MNGR");
 
-                            zipFile.ExtractAll(User_Settings_Vars.NorthstarInstallLocation + @"Skins_Unpack_Mod_MNGR", Ionic.Zip.ExtractExistingFileAction.OverwriteSilently);
+                            }
+
                             //Skin_Path = Current_Install_Folder + @"\Skins_Unpack_Mod_MNGR";
 
                         }
@@ -136,10 +140,12 @@ namespace VTOL.Pages
 
                             TryCreateDirectory(User_Settings_Vars.NorthstarInstallLocation + @"Skins_Unpack_Mod_MNGR");
                             current_skin_folder = User_Settings_Vars.NorthstarInstallLocation + @"Skins_Unpack_Mod_MNGR";
+                            using (var archive = new Archive(Zip_Path))
+                            {
+                                archive.ExtractToDirectory(User_Settings_Vars.NorthstarInstallLocation + @"Skins_Unpack_Mod_MNGR");
 
-                            ZipFile zipFile = new ZipFile(Zip_Path);
+                            }
 
-                            zipFile.ExtractAll(User_Settings_Vars.NorthstarInstallLocation + @"Skins_Unpack_Mod_MNGR", Ionic.Zip.ExtractExistingFileAction.OverwriteSilently);
 
                         }
                     }

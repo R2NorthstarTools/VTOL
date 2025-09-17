@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:VTOL.Pages"
         mc:Ignorable="d"
         
-        Title="Image Editor Lizard" Height="564" Width="954" WindowStartupLocation="CenterScreen" WindowState="Normal" ResizeMode="CanResize" WindowStyle="SingleBorderWindow" Cursor="" MinWidth="647" MinHeight="450" Closed="Window_Closed" Icon="/Resources/Icons/Main_UI/VTOL_16.ico" OverridesDefaultStyle="False" >
+        Title="Image Editor Lizard" Height="564" Width="954" WindowStartupLocation="CenterScreen" WindowState="Normal" ResizeMode="CanResize" WindowStyle="SingleBorderWindow" Cursor="" MinWidth="647" MinHeight="450" Closed="Window_Closed" Icon="pack://application:,,,/_VTOL_;component/Resources/Icons/Main_UI/VTOL_16.ico" OverridesDefaultStyle="False" >
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

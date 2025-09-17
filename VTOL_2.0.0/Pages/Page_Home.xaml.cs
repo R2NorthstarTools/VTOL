@@ -1,5 +1,5 @@
 ﻿using HandyControl.Tools.Extension;
-using Ionic.Zip;
+using Aspose.Zip;
 using LiveCharts;
 using LiveCharts.Defaults;
 using LiveCharts.Wpf;
@@ -32,6 +32,7 @@ using Application = System.Windows.Application;
 using FileMode = System.IO.FileMode;
 using Page = System.Windows.Controls.Page;
 using Path = System.IO.Path;
+using System.IO.Compression;
 
 namespace VTOL.Pages
 {
@@ -319,7 +320,7 @@ namespace VTOL.Pages
         bool deep_Chk = false;
         public bool Sort_Lists;
         private static String updaterModulePath;
-        public string Current_REPO_URL;
+        public string Current_REPO_URL= "https://api.github.com/repos/R2Northstar/Northstar/releases/latest";
         public string Author_Used;
         public string Repo_Used;
         public bool Auto_Update_Northstar;
@@ -403,7 +404,9 @@ namespace VTOL.Pages
                 FileInfo[] Files = d.GetFiles(); //Getting Text files
                 foreach (FileInfo file in Files)
                 {
-                    _Images.Add(@"pack://application:,,,/Resources/Backgrounds/Backgrounds_Home_Page/" + file.Name);
+                    _Images.Add(file.FullName);
+
+                  //  _Images.Add(@"pack://application:,,,/Resources/Backgrounds/Backgrounds_Home_Page/" + file.Name);
                 }
 
                 Random random = new Random();
@@ -578,10 +581,11 @@ int millisecondsDelay = 150)
             {
                 try
                 {
-                    ZipFile zipFile = new ZipFile(Zip_Path);
-
-                    zipFile.ExtractAll(Destination, Ionic.Zip.ExtractExistingFileAction.OverwriteSilently);
-
+                    using (var archive = new Archive(Zip_Path))
+                    {
+                        archive.ExtractToDirectory(Destination);
+                        
+                    }
                     return true;
                 }
                 catch (IOException ex)
@@ -598,22 +602,6 @@ int millisecondsDelay = 150)
                    $"{Environment.NewLine}{ex.InnerException}{Environment.NewLine}");Thread.Sleep(millisecondsDelay);
                 }
                 catch (UnauthorizedAccessException)
-                {
-                    Thread.Sleep(millisecondsDelay);
-                }
-                catch (Ionic.Zip.BadReadException)
-                {
-                    Thread.Sleep(millisecondsDelay);
-                }
-                catch (Ionic.Zip.BadCrcException)
-                {
-                    Thread.Sleep(millisecondsDelay);
-                }
-                catch (Ionic.Zip.BadStateException)
-                {
-                    Thread.Sleep(millisecondsDelay);
-                }
-                catch (Ionic.Zip.ZipException)
                 {
                     Thread.Sleep(millisecondsDelay);
                 }
@@ -3010,7 +2998,7 @@ int millisecondsDelay = 150)
                                 SnackBar.Title = VTOL.Resources.Languages.Language.SUCCESS;
                                 SnackBar.Message = VTOL.Resources.Languages.Language.Page_Home_Browse_Titanfall_Button_Click_TheLocation + Current_Install_Folder + VTOL.Resources.Languages.Language.Page_Home_Browse_Titanfall_Button_Click_IsValidAndHasBeenSet;
                                 SnackBar.Show();
-                                Restart_App();
+                               //TODO_UNCOMMENT Restart_App();
                             }
                             else
                             {
@@ -3064,12 +3052,10 @@ int millisecondsDelay = 150)
         {
             if (l1.Intersect(l2).Any())
             {
-                ////Console.WriteLine("matched");
                 return true;
             }
             else
             {
-                ////Console.WriteLine("not matched");
                 return false;
             }
         }
@@ -3087,17 +3073,16 @@ int millisecondsDelay = 150)
                 {
                     @"Titanfall2\bin",
                     @"Titanfall2\Core",
-@"Titanfall2\platform",
-@"Titanfall2\r2",
-@"Titanfall2\R2Northstar",
-@"Titanfall2\ShaderCache",
-@"Titanfall2\Support",
-@"Titanfall2\vpk",
-@"Titanfall2\__Installer"
+                    @"Titanfall2\platform",
+                    @"Titanfall2\r2",
+                    @"Titanfall2\R2Northstar",
+                    @"Titanfall2\ShaderCache",
+                    @"Titanfall2\Support",
+                    @"Titanfall2\vpk",
+                    @"Titanfall2\__Installer"
 
                 };
                 List<string> current = new List<string>();
-                ////Console.WriteLine("Baseline");
 
                 foreach (var Folder in FolderDir)
                 {
@@ -3105,19 +3090,9 @@ int millisecondsDelay = 150)
 
                     current.Add(s);
 
-                    //saveAsyncFile(s, @"C:\temp\NormalFolderStructure");
 
                 }
-                ////Console.WriteLine("current");
-
-                foreach (var Folder in current)
-                {
-
-                    ////Console.WriteLine(Folder.ToString());
-
-                }
-                ////Console.WriteLine(Baseline.SequenceEqual(current));
-
+                
                 if (ListCheck(Baseline, current) == true)
                 {
                     NS_Installed = true;
@@ -3130,7 +3105,6 @@ int millisecondsDelay = 150)
                     SnackBar.Title = "WARNING!";
                     SnackBar.Message = VTOL.Resources.Languages.Language.Check_Integrity_Of_NSINSTALL_DirectoryCheckFailed;
                     SnackBar.Show();
-                    //Send_Error_Notif(GetTextResource("NOTIF_ERROR_DIRECTORY_CHECK_FAILED"));
                     NS_Installed = false;
 
 
@@ -3146,23 +3120,6 @@ int millisecondsDelay = 150)
                 NS_Installed = false;
             }
 
-            if (NS_Installed == false)
-            {
-
-                //Send_Error_Notif(GetTextResource("NOTIF_ERROR_NS_BAD_INTEGRITY"));
-
-                //Install_NS_EXE_Textbox.Foreground = Brushes.Red;
-
-            }
-            else
-            {
-
-                //Install_NS_EXE_Textbox.Foreground = Brushes.Green;
-                //Send_Success_Notif(GetTextResource("NOTIF_SUCCESS_INTEGRITY_VERIFIED"));
-
-
-            }
-            //Install_NS_EXE_Textbox.Text = NSExe;
 
 
 

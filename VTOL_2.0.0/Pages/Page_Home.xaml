@@ -98,7 +98,7 @@
     <ScrollViewer x:Name="Scroller" ScrollChanged="Scroller_ScrollChanged" VerticalScrollBarVisibility="Hidden" UseLayoutRounding="True">
 
         <Grid Background="{ui:ThemeResource}" Height="660" UseLayoutRounding="True">
-            <Image x:Name="Image" Source="/Resources/Backgrounds/62f29dba743d3.jpg" Stretch="UniformToFill" MouseEnter="Image_MouseEnter" Visibility="Visible" 
+            <Image x:Name="Image" Source="pack://application:,,,/_VTOL_;component/Resources/Backgrounds/62f29dba743d3.jpg" Stretch="UniformToFill" MouseEnter="Image_MouseEnter" Visibility="Visible" 
                         
                        parallax:ParallaxEffect.IsBackground="True" 
             parallax:ParallaxEffect.Parent="{Binding  ElementName=Home}"    
@@ -122,7 +122,7 @@
                           
                   >
                 <Border  Width="35" HorizontalAlignment="Center" VerticalAlignment="Center" Height="21">
-                    <Image Source="/Resources/Icons/Main_UI/discord.ico" RenderTransformOrigin="0.5,0.5" Height="21"  >
+                    <Image Source="pack://application:,,,/_VTOL_;component/Resources/Icons/Main_UI/discord.ico" RenderTransformOrigin="0.5,0.5" Height="21"  >
                         <Image.RenderTransform>
                             <TransformGroup>
                                 <ScaleTransform ScaleX="1.1" ScaleY="1.1"/>
@@ -152,7 +152,7 @@
      BlurRadius="4"/>
                     </TextBlock.Effect>
                 </TextBlock>
-                <Image x:Name="HoldImage" Source="/Resources/Icons/Main_UI/northstar_icon_ZfV_icon.png" Width="69" RenderTransformOrigin="0.5,0.5" >
+                <Image x:Name="HoldImage" Source="pack://application:,,,/_VTOL_;component/Resources/Icons/Main_UI/northstar_icon_ZfV_icon.png" Width="69" RenderTransformOrigin="0.5,0.5" >
                     <Image.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform ScaleX="0.95"/>
@@ -177,7 +177,7 @@
                         </TransformGroup>
                     </TextBlock.RenderTransform>
                 </TextBlock>
-                <Image  Width="118" Source="/Resources/Icons/Titanfall2_Icon.ico" Stretch="Uniform" RenderTransformOrigin="0.5,0.5" Margin="4,0,0,0" Height="27">
+                <Image  Width="118" Source="pack://application:,,,/_VTOL_;component/Resources/Icons/Titanfall2_Icon.ico" Stretch="Uniform" RenderTransformOrigin="0.5,0.5" Margin="4,0,0,0" Height="27">
                     <Image.CacheMode>
                         <BitmapCache EnableClearType="False"/>
                     </Image.CacheMode>
@@ -306,7 +306,7 @@
                     </ui:CardControl>
                     <ui:CardControl x:Name="EA_ORGIGIN_Client_Card" Content=""  Height="68" Margin="0,44,40,0" Background="{DynamicResource Bg_Chart_Red}" VerticalAlignment="Top" Grid.Column="2"   Foreground="{DynamicResource TextOnAccentFillColorSelectedTextBrush}" BorderBrush="{x:Null}" Click="Origin_Client_Card_Click" ClickMode="Press" ToolTip="{x:Static properties:Language.Page_Home_IndicatesIfOriginIsRunningClickToLaunchIfInactive}" HorizontalContentAlignment="Left" VerticalContentAlignment="Stretch" FontWeight="Regular" Loaded="EA_ORGIGIN_Client_Card_Loaded">
                         <ui:CardControl.Header>
-                            <Image x:Name="CLIENT_CARD_IMAGE" Source="/Resources/Icons/Origin.ico" Height="34" Width="28" HorizontalAlignment="Left" RenderOptions.BitmapScalingMode="HighQuality"/>
+                            <Image x:Name="CLIENT_CARD_IMAGE" Source="pack://application:,,,/_VTOL_;component/Resources/Icons/Origin.ico" Height="34" Width="28" HorizontalAlignment="Left" RenderOptions.BitmapScalingMode="HighQuality"/>
                         </ui:CardControl.Header>
 
                     </ui:CardControl>
@@ -326,7 +326,7 @@
                   >
 
                 <Border  Width="36" HorizontalAlignment="Center" VerticalAlignment="Center" Height="20">
-                    <Image Source="/Resources/Icons/Main_UI/gitbook.png" RenderTransformOrigin="0.5,0.5" Stretch="Uniform" StretchDirection="Both"  >
+                    <Image Source="pack://application:,,,/_VTOL_;component/Resources/Icons/Main_UI/gitbook.png" RenderTransformOrigin="0.5,0.5" Stretch="Uniform" StretchDirection="Both"  >
                         <Image.RenderTransform>
                             <TransformGroup>
                                 <ScaleTransform ScaleX="1.0" ScaleY="1.1"/>
@@ -346,11 +346,11 @@
 
                     <Border CornerRadius="9,9,9,9" Visibility="Visible" >
                         <Border.Background>
-                            <ImageBrush ImageSource="/Resources/Backgrounds/star_shower.png" Stretch="UniformToFill" Opacity="0.998" TileMode="Tile"/>
+                            <ImageBrush ImageSource="pack://application:,,,/_VTOL_;component/Resources/Backgrounds/star_shower.png" Stretch="UniformToFill" Opacity="0.998" TileMode="Tile"/>
                         </Border.Background>
                     </Border>
 
-                    <Image x:Name="Warning_Sin" Source="/Resources/Backgrounds/warning.png" Margin="251,45,251,304" Loaded="Warning_Sin_Loaded">
+                    <Image x:Name="Warning_Sin" Source="pack://application:,,,/_VTOL_;component/Resources/Backgrounds/warning.png" Margin="251,45,251,304" Loaded="Warning_Sin_Loaded">
 
                     </Image>
                     <ui:Button  x:Name="Exit_BTN" Icon="Dismiss24" Height="25" Margin="685,10,0,0" VerticalAlignment="Top"  BorderBrush="{x:Null}"  Padding="0,0,0,0" ToolTip="Exit" Background="#FF7B0000"  ClickMode="Press" Width="25" Click="Exit_BTN_Click_1" />
@@ -385,7 +385,7 @@
 
                         <Border CornerRadius="9,9,9,9" Visibility="Visible">
                             <Border.Background>
-                                <ImageBrush ImageSource="/Resources/Backgrounds/Backgrounds_Home_Page/BT_.jpg" Stretch="UniformToFill" Opacity="0.998" TileMode="Tile"/>
+                                <ImageBrush ImageSource="pack://application:,,,/_VTOL_;component/Resources/Backgrounds/Backgrounds_Home_Page/BT_.jpg" Stretch="UniformToFill" Opacity="0.998" TileMode="Tile"/>
                             </Border.Background>
                         </Border>
 
@@ -416,7 +416,7 @@
                         </StackPanel>
 
                     </Border>
-                    <Image x:Name="VTOL_ICON" Source="/Resources/Icons/VTOL_multires.png" Margin="11,9,677,438"/>
+                    <Image x:Name="VTOL_ICON" Source="pack://application:,,,/_VTOL_;component/Resources/Icons/VTOL_multires.png" Margin="11,9,677,438"/>
 
                 </Grid>
             </Border>

@@ -31,7 +31,7 @@ namespace VTOL
         public string? Uuid4 { get; set; }
 
         [JsonProperty("rating_score")]
-        public int RatingScore { get; set; }
+        public long RatingScore { get; set; }
 
         [JsonProperty("is_pinned")]
         public bool IsPinned { get; set; }
@@ -74,7 +74,7 @@ namespace VTOL
         public string? DownloadUrl { get; set; }
 
         [JsonProperty("downloads")]
-        public int Downloads { get; set; }
+        public long Downloads { get; set; }
 
         [JsonProperty("date_created")]
         public DateTime DateCreated { get; set; }
@@ -89,7 +89,7 @@ namespace VTOL
         public string? Uuid4 { get; set; }
 
         [JsonProperty("file_size")]
-        public int FileSize { get; set; }
+        public long FileSize { get; set; }
     }
 
 

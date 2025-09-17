@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
@@ -15,18 +15,22 @@
 	  <PublishSingleFile>true</PublishSingleFile>
 	  <IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
 	  <SupportedOSPlatformVersion>8.0</SupportedOSPlatformVersion>
-	  <ApplicationIcon>Resources\Icons\Main_UI\Northstar-512.ico</ApplicationIcon>
-	  <GenerateDocumentationFile>True</GenerateDocumentationFile>
-	  <RepositoryUrl>https://github.com/BigSpice/VTOL</RepositoryUrl>
+	  <ApplicatAsposeon>Resources\Icons\Main_UI\Northstar-512.ico</ApplicatAsposeon>
+	  <GenerateDocumentationFile>False</GenerateDocumentationFile>
+	  <RepositoryUrl>https://github.com/R2NorthstarTools/VTOL</RepositoryUrl>
 	  <RepositoryType>git</RepositoryType>
 	  <PackageTags>mod;installer;modmanager;northstar-client;titanfall2</PackageTags>
-	  <AssemblyVersion>3.0.5</AssemblyVersion>
-	  <FileVersion>3.0.5</FileVersion>
-	  <Version>3.0.5</Version>
+	  <AssemblyVersion>3.0.6</AssemblyVersion>
+	  <FileVersion>3.0.6</FileVersion>
+	  <Version>3.0.6</Version>
 	  <EnableNETAnalyzers>False</EnableNETAnalyzers>
 	  <ErrorReport>none</ErrorReport>
 	  <Title>VTOL</Title>
 	  <PackageLicenseFile>LICENSE</PackageLicenseFile>
+	  <AssemblyName>_VTOL_</AssemblyName>
+	  <ApplicationIcon>Resources\Icons\Main_UI\Northstar-512.ico</ApplicationIcon>
+	  <PackageReadmeFile>README.md</PackageReadmeFile>
+	  <BaseOutputPath>D:\#Dump\Development Northstar AmVCX C++ branch 19023 ID 44\VTOL_2.0.0_\VTOL_2.0.0\bin</BaseOutputPath>
 
   </PropertyGroup>
 
@@ -93,7 +97,6 @@
     <None Remove="Fonts\Segoe-UI-Variable-Static-Text.ttf" />
     <None Remove="Fonts\SegoeUI-VF.ttf" />
     <None Remove="NLog.config" />
-    <None Remove="README.md" />
     <None Remove="Resources\Backgrounds\405e3ab0-2648-4e8b-a4cc-51a008666e75.png" />
     <None Remove="Resources\Backgrounds\5005323-titanfall-2-games-2018-games-hd-4k.jpg" />
     <None Remove="Resources\Backgrounds\6._The_Beacon_-_1.png" />
@@ -159,6 +162,10 @@
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\BT_.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\BT_wallpaper000002_thumb.detail.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\desktop-1680x1050.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\flightcore-wallpaper.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\lewis-walden-exo-planet-shot-01.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\lewis-walden-mendoko-pods-wall-04.jpg" />
+    <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\lewis-walden-screenshot-10-exo.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\nuqupwg1uo461.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\tqzgdxkpvd661.jpg" />
     <None Remove="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper %281%29.jpg" />
@@ -335,14 +342,13 @@
   <ItemGroup>
 	  <PackageReference Include="FileTransferManager" Version="1.0.6" />
 	  <PackageReference Include="FuzzyString" Version="1.0.0" />
-	  <PackageReference Include="Magick.NET-Q16-x86" Version="12.2.1" />
+	  <PackageReference Include="Magick.NET-Q16-x86" Version="14.8.2" />
 	  <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
 	  <PackageReference Include="Microsoft.NETCore.Targets" Version="5.0.0" PrivateAssets="all" />
     <PackageReference Include="Aspose.Zip" Version="24.2.0" />
     <PackageReference Include="BCnEncoder.Net" Version="2.1.0" />
     <PackageReference Include="BCnEncoder.Net.ImageSharp" Version="1.1.1" />
     <PackageReference Include="ByteSize" Version="2.1.2" />
-    <PackageReference Include="DotNetZip" Version="1.16.0" />
     <PackageReference Include="Downloader" Version="3.0.6" />
     <PackageReference Include="HandyControls" Version="3.5.2" />
     <PackageReference Include="Iconic.Zlib.Netstandard" Version="1.0.0" />
@@ -362,7 +368,7 @@
     <PackageReference Include="Serilog.Settings.Configuration" Version="3.4.0" />
     <PackageReference Include="Serilog.Sinks.FastConsole" Version="2.3.0" />
     <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
-    <PackageReference Include="SixLabors.ImageSharp" Version="2.1.7" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="3.1.11" />
     <PackageReference Include="Syncfusion.SfTreeView.WPF" Version="21.2.3" />
     <PackageReference Include="System.Drawing.Common" Version="8.0.3" />
     <PackageReference Include="System.Management" Version="8.0.0" />
@@ -429,9 +435,9 @@
     <EmbeddedResource Include="README.md">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Backgrounds\405e3ab0-2648-4e8b-a4cc-51a008666e75.png">
+    <Resource Include="Resources\Backgrounds\405e3ab0-2648-4e8b-a4cc-51a008666e75.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    </Resource>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\1008810.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -459,9 +465,9 @@
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\765731.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\BT_.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Resource Include="Resources\Backgrounds\Backgrounds_Home_Page\BT_.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\desktop-1680x1050.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -588,33 +594,45 @@
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(9).jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EmbeddedResource Include="Resources\Backgrounds\star_shower.png">
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\flightcore-wallpaper.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\lewis-walden-exo-planet-shot-01.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\lewis-walden-mendoko-pods-wall-04.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\lewis-walden-screenshot-10-exo.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Resources\Backgrounds\star_shower.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Backgrounds\warning.png">
+    </Resource>
+    <Resource Include="Resources\Backgrounds\warning.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    </Resource>
     <Content Include="Resources\Icons\Main_UI\advocate_announcement_1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Icons\Main_UI\Northstar-512.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <EmbeddedResource Include="Resources\Backgrounds\Banner_normal.jpg">
+    <Resource Include="Resources\Backgrounds\Banner_normal.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Backgrounds\FAqBg.png">
+    </Resource>
+    <Resource Include="Resources\Backgrounds\FAqBg.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    </Resource>
     <Content Include="Resources\Icons\Main_UI\plugin.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Icons\Main_UI\settings.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Resource_Static\MDL_SHIT_Banner.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Resource Include="Resources\Resource_Static\MDL_SHIT_Banner.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper (51).jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -639,12 +657,12 @@
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper(50).jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EmbeddedResource Include="Resources\Backgrounds\jack.jpg">
+    <Resource Include="Resources\Backgrounds\jack.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Backgrounds\_.jpg">
+    </Resource>
+    <Resource Include="Resources\Backgrounds\_.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    </Resource>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\1008811.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -759,27 +777,27 @@
     <Resource Include="Resources\Resource_Static\NINJA_RP.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(12).jpg">
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(12).jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(13).jpg">
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(13).jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(16).jpg">
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(16).jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper(43).jpg">
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper(43).jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper(44).jpg">
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper(44).jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper(49).jpg">
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\Wallpaper(49).jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(6).jpg">
+    </Content>
+    <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(6).jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    </Content>
     <Resource Include="Resources\Backgrounds\Home_Nav.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -799,29 +817,29 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Resource_Static\Advocate_banner.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Resource_Static\better_frog.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Resource_Static\Leigon+.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Resource_Static\Rexx_Cat.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Resource_Static\Crowbar.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Content Include="Resources\Resource_Static\Northstar_Server_Vals_Aug_2022.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <EmbeddedResource Include="Resources\Backgrounds\Skin_How_To_BG.png">
+    <Resource Include="Resources\Backgrounds\Skin_How_To_BG.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Backgrounds\Thunderstore.png">
+    </Resource>
+    <Resource Include="Resources\Backgrounds\Thunderstore.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    </Resource>
     <Resource Include="Resources\Icons\GitHub-Mark-32px.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -922,16 +940,16 @@
       <HintPath>..\VTOL\Utils.dll</HintPath>
     </Reference>
     <Resource Include="Resources\Icons\Main_UI\discord.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Icons\Main_UI\gitbook.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Icons\Main_UI\gitbook.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Content Include="Resources\Icons\Main_UI\info-large.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Resource Include="Resources\Icons\Main_UI\Northstar-512.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -940,16 +958,16 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Icons\Main_UI\server-icon-download-icons-17.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Icons\Main_UI\Tools-Silhouette-Transparent.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Icons\Main_UI\twitch.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Icons\Main_UI\User_Icon.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\wallpaper(33).jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -958,16 +976,16 @@
       <Generator>MSBuild:Compile</Generator>
     </None>
     <Resource Include="Resources\Icons\Main_UI\VTOL_16.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Icons\Main_UI\VTOL_24.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Icons\Main_UI\VTOL_32.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Icons\Main_UI\VTOL_multires.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Icons\Titanfall2_Icon.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -975,20 +993,20 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Resources\Backgrounds\alternator.png">
+    <Resource Include="Resources\Backgrounds\alternator.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    </Resource>
     <Resource Include="Resources\Resource_Static\harmony.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Resource_Static\NO_TEXTURE.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Resource_Static\Titanfall_2_Vpk_Tool_.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Resource_Static\VTF_EDIT.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
 
@@ -1046,6 +1064,10 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
     <None Update="Resources\Icons\Main_UI\Northstar-512.ico">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
@@ -1053,6 +1075,15 @@
     <None Update="Resources\Icons\Main_UI\northstar_icon_ZfV_icon.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
+    </None>
+    <None Update="Resources\Icons\Main_UI\Untitled.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Icons\Main_UI\VTOL_multires.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Resource_Static\DeathbyStare2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 

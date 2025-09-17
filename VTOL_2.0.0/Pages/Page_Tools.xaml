@@ -70,7 +70,7 @@
     </Page.Resources>
 
     <Grid UseLayoutRounding="True" >
-        <Image x:Name="Icon_Bg" Source="/Resources/Icons/Main_UI/Tools-Silhouette-Transparent.png" Margin="602,199,-112,-192" Opacity="0.2" IsHitTestVisible="False" IsEnabled="False" AllowDrop="False" Stretch="Uniform" MinWidth="250" MinHeight="251" UseLayoutRounding="True" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
+        <Image x:Name="Icon_Bg" Source="pack://application:,,,/_VTOL_;component/Resources/Icons/Main_UI/Tools-Silhouette-Transparent.png" Margin="602,199,-112,-192" Opacity="0.2" IsHitTestVisible="False" IsEnabled="False" AllowDrop="False" Stretch="Uniform" MinWidth="250" MinHeight="251" UseLayoutRounding="True" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
 
         <Label Content="{x:Static properties:Language.Page_Tools_ToolsForEaseOfDevelopmentOnTheNorthstarClient}" Margin="50,0,0,573" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Height="16" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="590"/>
         <Label Content="{x:Static properties:Language.Page_Tools_TOOLS}" Margin="50,0,357,594" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" UseLayoutRounding="True" Padding="0,0,0,0" Background="{x:Null}" Foreground="White" FontSize="22" FontWeight="Bold" Height="28" VerticalAlignment="Bottom"/>
@@ -476,7 +476,7 @@
                                 <Border CornerRadius="5,5,9,9" Margin="0,0,0,127">
 
                                     <Border.Background>
-                                        <ImageBrush Stretch="UniformToFill" ImageSource="/Resources/Resource_Static/Leigon+.jpg" TileMode="None"/>
+                                        <ImageBrush Stretch="UniformToFill" ImageSource="pack://application:,,,/_VTOL_;component/Resources/Resource_Static/Leigon+.jpg" TileMode="None"/>
                                     </Border.Background>
                                 </Border>
 
@@ -503,7 +503,7 @@
                                 <Border CornerRadius="5,5,9,9" Margin="0,0,0,127">
                                     <ui:Button ToolTip="{x:Static properties:Language.Page_Tools_WebPage_}"  x:Name="HARMONY_INSTALL_PAGE" Margin="447,0,0,0" VerticalAlignment="Top" Background="#CC3E3E3E" BorderBrush="{x:Null}" Height="24" Icon="BookInformation24" Padding="0,0,0,0" Width="24" ClickMode="Press" Click="HARMONY_INSTALL_PAGE_Click"></ui:Button>
                                     <Border.Background>
-                                        <ImageBrush Stretch="UniformToFill" ImageSource="/Resources/Resource_Static/harmony.png" TileMode="None"/>
+                                        <ImageBrush Stretch="UniformToFill" ImageSource="pack://application:,,,/_VTOL_;component/Resources/Resource_Static/harmony.png" TileMode="None"/>
                                     </Border.Background>
                                 </Border>
                                 <ui:Button x:Name="HARMONY_INSTALL_FOLDER"  VerticalAlignment="Top" Icon="Open24" HorizontalAlignment="Stretch"  Background="#FFAF7800" Margin="312,161,10,0" Content="{x:Static properties:Language.Page_Tools_OpenFolder}" Foreground="White" BorderBrush="#029C9C9C" OverridesDefaultStyle="False" ClickMode="Press" Appearance="Primary" IconFilled="True" Click="HARMONY_INSTALL_FOLDER_Click">
@@ -527,7 +527,7 @@
                                 <Border CornerRadius="5,5,9,9" Margin="0,0,0,127">
                                     <ui:Button ToolTip="{x:Static properties:Language.Page_Tools_WebPage_}" x:Name="CROWBAR_INSTALL_PAGE" Margin="447,0,0,0" VerticalAlignment="Top" Background="#CC3E3E3E" BorderBrush="{x:Null}" Height="24" Icon="BookInformation24" Padding="0,0,0,0" Width="24" ClickMode="Press" Click="CROWBAR_INSTALL_PAGE_Click"></ui:Button>
                                     <Border.Background>
-                                        <ImageBrush Stretch="UniformToFill" ImageSource="/Resources/Resource_Static/Crowbar.png" TileMode="None"/>
+                                        <ImageBrush Stretch="UniformToFill" ImageSource="pack://application:,,,/_VTOL_;component/Resources/Resource_Static/Crowbar.png" TileMode="None"/>
                                     </Border.Background>
                                 </Border>
                                 <ui:Button x:Name="CROWBAR_INSTALL_FOLDER"  VerticalAlignment="Top" Icon="Open24" HorizontalAlignment="Stretch"  Background="#FFAF7800" Margin="312,161,10,0" Content="{x:Static properties:Language.Page_Tools_OpenFolder}" Foreground="White" BorderBrush="#029C9C9C" OverridesDefaultStyle="False" ClickMode="Press" Appearance="Primary" IconFilled="True" Click="CROWBAR_INSTALL_FOLDER_Click">
@@ -552,7 +552,7 @@
 
                                     <ui:Button ToolTip="{x:Static properties:Language.Page_Tools_WebPage_}" x:Name="REPAK_INSTALL_PAGE" Margin="447,0,0,0" VerticalAlignment="Top" Background="#CC3E3E3E" BorderBrush="{x:Null}" Height="24" Icon="BookInformation24" Padding="0,0,0,0" Width="24" ClickMode="Press" Click="REPAK_INSTALL_PAGE_Click"></ui:Button>
                                     <Border.Background>
-                                        <ImageBrush Stretch="UniformToFill" ImageSource="/Resources/Resource_Static/Rexx_Cat.jpg" TileMode="None"/>
+                                        <ImageBrush Stretch="UniformToFill" ImageSource="pack://application:,,,/_VTOL_;component/Resources/Resource_Static/Rexx_Cat.jpg" TileMode="None"/>
                                     </Border.Background>
                                 </Border>
                                 <Border CornerRadius="5,5,9,9" x:Name="Launch_Args_Window" Margin="0,0,0,127" Background="#E5000000" Visibility="Hidden" >
@@ -587,7 +587,7 @@
                                 <Border CornerRadius="5,5,9,9" Margin="0,0,0,127">
                                     <ui:Button ToolTip="{x:Static properties:Language.Page_Tools_WebPage_}"  x:Name="VTF_TOOL_PAGE" Margin="447,0,0,0" VerticalAlignment="Top" Background="#CC3E3E3E" BorderBrush="{x:Null}" Height="24" Icon="BookInformation24" Padding="0,0,0,0" Width="24" ClickMode="Press" Click="VTF_TOOL_PAGE_Click"></ui:Button>
                                     <Border.Background>
-                                        <ImageBrush Stretch="UniformToFill" ImageSource="/Resources/Resource_Static/VTF_EDIT.png" TileMode="None"/>
+                                        <ImageBrush Stretch="UniformToFill" ImageSource="pack://application:,,,/_VTOL_;component/Resources/Resource_Static/VTF_EDIT.png" TileMode="None"/>
                                     </Border.Background>
                                 </Border>
                                 <ui:Button x:Name="VTF_TOOL_FOLDER" VerticalAlignment="Top" Icon="Open24" HorizontalAlignment="Stretch"  Background="#FFAF7800" Margin="312,161,10,0" Content="{x:Static properties:Language.Page_Tools_OpenFolder}" Foreground="White" BorderBrush="#029C9C9C" OverridesDefaultStyle="False" ClickMode="Press" Appearance="Primary" IconFilled="True" >
@@ -611,7 +611,7 @@
                                 <Border CornerRadius="5,5,9,9" Margin="0,0,0,127">
                                     <ui:Button ToolTip="{x:Static properties:Language.Page_Tools_WebPage_}" x:Name="VPK_TOOL_PAGE" Margin="447,0,0,0" VerticalAlignment="Top" Background="#CC3E3E3E" BorderBrush="{x:Null}" Height="24" Icon="BookInformation24" Padding="0,0,0,0" Width="24" ClickMode="Press" Click="VPK_TOOL_PAGE_Click"></ui:Button>
                                     <Border.Background>
-                                        <ImageBrush Stretch="UniformToFill" ImageSource="/Resources/Resource_Static/Titanfall_2_Vpk_Tool_.png" TileMode="None"/>
+                                        <ImageBrush Stretch="UniformToFill" ImageSource="pack://application:,,,/_VTOL_;component/Resources/Resource_Static/Titanfall_2_Vpk_Tool_.png" TileMode="None"/>
                                     </Border.Background>
                                 </Border>
                                 <ui:Button x:Name="VPK_TOOL_FOLDER" VerticalAlignment="Top" Icon="Open24" HorizontalAlignment="Stretch"  Background="#FFAF7800" Margin="312,161,10,0" Content="{x:Static properties:Language.Page_Tools_OpenFolder}" Foreground="White" BorderBrush="#029C9C9C" OverridesDefaultStyle="False" ClickMode="Press" Appearance="Primary" IconFilled="True" Click="VPK_TOOL_FOLDER_Click">
@@ -636,7 +636,7 @@
                                 <Border CornerRadius="5,5,9,9" Margin="0,0,0,127">
                                     <ui:Button ToolTip="{x:Static properties:Language.Page_Tools_WebPage_}" x:Name="MDL_TOOL_PAGE" Margin="447,0,0,0" VerticalAlignment="Top" Background="#CC3E3E3E" BorderBrush="{x:Null}" Height="24" Icon="BookInformation24" Padding="0,0,0,0" Width="24" ClickMode="Press" Click="MDL_TOOL_PAGE_Click" ></ui:Button>
                                     <Border.Background>
-                                        <ImageBrush Stretch="UniformToFill" ImageSource="/Resources/Resource_Static/MDL_SHIT_Banner.png" TileMode="None"/>
+                                        <ImageBrush Stretch="UniformToFill" ImageSource="pack://application:,,,/_VTOL_;component/Resources/Resource_Static/MDL_SHIT_Banner.png" TileMode="None"/>
                                     </Border.Background>
                                 </Border>
                                 <ui:Button x:Name="MDL_TOOL_FOLDER" VerticalAlignment="Top" Icon="Open24" HorizontalAlignment="Stretch"  Background="#FFAF7800" Margin="312,161,10,0" Content="{x:Static properties:Language.Page_Tools_OpenFolder}" Foreground="White" BorderBrush="#029C9C9C" OverridesDefaultStyle="False" ClickMode="Press" Appearance="Primary" IconFilled="True"  Click="MDL_TOOL_FOLDER_Click">
@@ -661,7 +661,7 @@
                                 <Border CornerRadius="5,5,9,9" Margin="0,0,0,127">
                                     <ui:Button ToolTip="{x:Static properties:Language.Page_Tools_WebPage_}" x:Name="ESMT_TOOL_PAGE" Margin="447,0,0,0" VerticalAlignment="Top" Background="#CC3E3E3E" BorderBrush="{x:Null}" Height="24" Icon="BookInformation24" Padding="0,0,0,0" Width="24" ClickMode="Press" Click="ESMT_TOOL_PAGE_Click" ></ui:Button>
                                     <Border.Background>
-                                        <ImageBrush Stretch="UniformToFill" ImageSource="/Resources/Resource_Static/better_frog.png" TileMode="None"/>
+                                        <ImageBrush Stretch="UniformToFill" ImageSource="pack://application:,,,/_VTOL_;component/Resources/Resource_Static/better_frog.png" TileMode="None"/>
                                     </Border.Background>
                                 </Border>
                                 <ui:Button x:Name="ESMT_TOOL_FOLDER" VerticalAlignment="Top" Icon="Open24" HorizontalAlignment="Stretch"  Background="#FFAF7800" Margin="312,161,10,0" Content="{x:Static properties:Language.Page_Tools_OpenFolder}" Foreground="White" BorderBrush="#029C9C9C" OverridesDefaultStyle="False" ClickMode="Press" Appearance="Primary" IconFilled="True" Click="ESMT_TOOL_FOLDER_Click">
@@ -686,7 +686,7 @@
                                 <Border CornerRadius="5,5,9,9" Margin="0,0,0,127">
                                     <ui:Button ToolTip="{x:Static properties:Language.Page_Tools_WebPage_}" x:Name="ADV_TOOL_PAGE" Margin="447,0,0,0" VerticalAlignment="Top" Background="#CC3E3E3E" BorderBrush="{x:Null}" Height="24" Icon="BookInformation24" Padding="0,0,0,0" Width="24" ClickMode="Press" Click="ADV_TOOL_PAGE_Click" ></ui:Button>
                                     <Border.Background>
-                                        <ImageBrush Stretch="UniformToFill" ImageSource="/Resources/Resource_Static/Advocate_banner.png" TileMode="None"/>
+                                        <ImageBrush Stretch="UniformToFill" ImageSource="pack://application:,,,/_VTOL_;component/Resources/Resource_Static/Advocate_banner.png" TileMode="None"/>
                                     </Border.Background>
                                 </Border>
                                 <ui:Button x:Name="ADV_TOOL_FOLDER" VerticalAlignment="Top" Icon="Open24" HorizontalAlignment="Stretch"  Background="#FFAF7800" Margin="312,161,10,0" Content="{x:Static properties:Language.Page_Tools_OpenFolder}" Foreground="White" BorderBrush="#029C9C9C" OverridesDefaultStyle="False" ClickMode="Press" Appearance="Primary" IconFilled="True" Click="ADV_TOOL_FOLDER_Click">
@@ -711,7 +711,7 @@
                                 <Border CornerRadius="5,5,9,9" Margin="0,0,0,127">
                                     <ui:Button ToolTip="{x:Static properties:Language.Page_Tools_WebPage_}" x:Name="NINJA_RP_PAGE" Margin="447,0,0,0" VerticalAlignment="Top" Background="#CC3E3E3E" BorderBrush="{x:Null}" Height="24" Icon="BookInformation24" Padding="0,0,0,0" Width="24" ClickMode="Press" Click="NINJA_RP_PAGE_Click"></ui:Button>
                                     <Border.Background>
-                                        <ImageBrush Stretch="UniformToFill" ImageSource="/Resources/Resource_Static/NINJA_RP.png" TileMode="None"/>
+                                        <ImageBrush Stretch="UniformToFill" ImageSource="pack://application:,,,/_VTOL_;component/Resources/Resource_Static/NINJA_RP.png" TileMode="None"/>
                                     </Border.Background>
                                 </Border>
                                 <ui:Button x:Name="NINJA_RP_FOLDER" VerticalAlignment="Top" Icon="Open24" HorizontalAlignment="Stretch"  Background="#FFAF7800" Margin="312,161,10,0" Content="{x:Static properties:Language.Page_Tools_OpenFolder}" Foreground="White" BorderBrush="#029C9C9C" OverridesDefaultStyle="False" ClickMode="Press" Appearance="Primary" IconFilled="True" Click="NINJA_RP_FOLDER_Click" >

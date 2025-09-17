@@ -136,7 +136,7 @@
         </Grid.ColumnDefinitions>
         <hc:Badge x:Name="VTOL_UPDATE_BADGE" Margin="0,399,0,265" BadgeMargin="32,4,10,0" Status="Processing" ToolTip="Update For VTOL Available" BorderBrush="#FF5EFFC6" HorizontalAlignment="Center" Width="52" Visibility="Hidden" Background="#FF5EFFC6" Foreground="#FFFDFDFD"/>
         <ui:NotifyIcon
-                    Icon="/Resources/Icons/Main_UI/VTOL_multires.ico"
+                    Icon="pack://application:,,,/_VTOL_;component/Resources/Icons/Main_UI/VTOL_multires.ico"
                     MenuOnRightClick="True"
                     TooltipText="Quick Menu" MenuFontSize="16">
             <ui:NotifyIcon.Menu>
@@ -178,7 +178,7 @@
         </ui:NotifyIcon>
         <Border Opacity="0.92">
             <Border.Background>
-                <ImageBrush ImageSource="/Resources/Backgrounds/Home_Nav.png" Stretch="UniformToFill" TileMode="Tile"/>
+                <ImageBrush ImageSource="pack://application:,,,/_VTOL_;component/Resources/Backgrounds/Home_Nav.png" Stretch="UniformToFill" TileMode="Tile"/>
             </Border.Background>
         </Border>
         <Border x:Name="Content_Container_Pages"
@@ -273,7 +273,10 @@
 
         </Border>
 
-        <!--<ui:Dialog x:Name="Dialog" Grid.Column="1" Margin="0,37,0,0" SnapsToDevicePixels="False" ButtonLeftClick="Dialog_ButtonLeftClick" ButtonRightClick="Dialog_ButtonRightClick" />-->
+        <!--<ui:
+        
+        
+        x:Name="Dialog" Grid.Column="1" Margin="0,37,0,0" SnapsToDevicePixels="False" ButtonLeftClick="Dialog_ButtonLeftClick" ButtonRightClick="Dialog_ButtonRightClick" />-->
 
         <!--  This is the main navigation of the application.  -->
         <ui:NavigationCompact 
@@ -347,7 +350,7 @@
                 <StatusBarItem Margin="-25,-10,0,-11" Width="598">
                     <StackPanel Orientation="Horizontal" Width="514" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center">
 
-                        <Image Source="/Resources/Icons/Main_UI/VTOL_multires.ico" Height="30" Width="33" Margin="-10.5,0,0,0"        RenderOptions.BitmapScalingMode="HighQuality"
+                        <Image Source="pack://application:,,,/_VTOL_;component/Resources/Icons/Main_UI/VTOL_multires.ico" Height="30" Width="33" Margin="-10.5,0,0,0"        RenderOptions.BitmapScalingMode="HighQuality"
 />
                         <TextBlock x:Name="VERSION_TEXT" Text="VTOL - 0.0.0 |" FontWeight="Normal" FontFamily="Nacelle" TextDecorations="{x:Null}" FontStyle="Normal" Margin="10,0,0,0" VerticalAlignment="Center"/>
                         <ui:Button  x:Name="NORTHSTAR_BUTTON" Width="190" Height="21" Content="Northstar Version 0.0.0" Padding="0,0.5,0,0" VerticalAlignment="Stretch" FontSize="12" BorderThickness="1,1,1,1" Margin="5,0,0,-1" VerticalContentAlignment="Center" BorderBrush="{x:Null}" Click="NORTHSTAR_BUTTON_Click" FontFamily="Nacelle">
@@ -502,7 +505,7 @@
                 </DockPanel>
                 <ui:CardAction x:Name="Changelog" Content="Changelog" Margin="33,40,33,0" VerticalAlignment="Top" ClickMode="Press" AllowDrop="False" Foreground="White" BorderThickness="2,2,1,1" BorderBrush="{x:Null}" Height="70" FontWeight="Bold" ToolTip="Changelog" Click="Changelog_Click">
                     <ui:CardAction.Background>
-                        <ImageBrush ImageSource="/Resources/Backgrounds/_.jpg" Stretch="UniformToFill"/>
+                        <ImageBrush ImageSource="pack://application:,,,/_VTOL_;component/Resources/Backgrounds/_.jpg" Stretch="UniformToFill"/>
                     </ui:CardAction.Background>
                     <ui:CardAction.Effect>
                         <DropShadowEffect
@@ -515,7 +518,7 @@
                 </ui:CardAction>
                 <ui:CardAction x:Name="Troubleshoot" Content="TroubleShooting Northstar" Margin="33,150,33,0" VerticalAlignment="Top" ClickMode="Press" AllowDrop="False" Foreground="White" BorderThickness="2,2,1,1" BorderBrush="{x:Null}" Height="70" FontWeight="Bold" ToolTip="TroubleShooting Northstar" Click="Troubleshoot_Click">
                     <ui:CardAction.Background>
-                        <ImageBrush ImageSource="/Resources/Backgrounds/jack.jpg" Stretch="UniformToFill" Opacity="0.52"/>
+                        <ImageBrush ImageSource="pack://application:,,,/_VTOL_;component/Resources/Backgrounds/jack.jpg" Stretch="UniformToFill" Opacity="0.52"/>
                     </ui:CardAction.Background>
                     <ui:CardAction.Effect>
                         <DropShadowEffect

@@ -1,4 +1,6 @@
-﻿using BCnEncoder.Encoder;
+﻿using Aspose.Zip;
+using BCnEncoder.Encoder;
+using BCnEncoder.ImageSharp;
 using Downloader;
 using ImageMagick;
 using ImageMagick.Formats;
@@ -39,7 +41,6 @@ using Image = SixLabors.ImageSharp.Image;
 using Path = System.IO.Path;
 using PixelFormat = System.Drawing.Imaging.PixelFormat;
 using ZipFile = System.IO.Compression.ZipFile;
-using ZipFile_ = Ionic.Zip.ZipFile;
 
 namespace VTOL.Pages
 {
@@ -1055,24 +1056,33 @@ int millisecondsDelay = 300)
                                         TryCreateDirectory(Current_Output_Dir + @"\" + Mod_name.Text.Trim() + @"\" + "mods" + @"\");
 
                                     }
-                                    ZipFile_ zipFile = new ZipFile_(Current_Mod_To_Pack);
+                                    using (var archive = new Archive(Current_Mod_To_Pack))
+                                    {
+                                        archive.ExtractToDirectory(Current_Output_Dir + @"\" + Mod_name.Text.Trim() + @"\" + "mods" + @"\");
 
-                                    zipFile.ExtractAll(Current_Output_Dir + @"\" + Mod_name.Text.Trim() + @"\" + "mods" + @"\", Ionic.Zip.ExtractExistingFileAction.OverwriteSilently);
+                                    }
 
                                 }
 
                                 if (File.Exists(Current_Output_Dir + @"\" + Mod_name.Text.Trim() + ".zip"))
                                 {
                                     File.Delete(Current_Output_Dir + @"\" + Mod_name.Text.Trim() + ".zip");
-                                    ZipFile_ zipFile = new ZipFile_();
-                                    zipFile.AddDirectory(Current_Output_Dir + @"\" + Mod_name.Text.Trim());
-                                    zipFile.Save(Current_Output_Dir + @"\" + Mod_name.Text.Trim() + ".zip");
+
+                                    using (var archive = new Archive())
+                                    {
+                                        archive.CreateEntry(Mod_name.Text.Trim(), Current_Output_Dir + @"\" + Mod_name.Text.Trim());
+                                        archive.Save(Current_Output_Dir + @"\" + Mod_name.Text.Trim() + ".zip");
+                                    }
+                                
                                 }
                                 else
                                 {
-                                    ZipFile_ zipFile = new ZipFile_();
-                                    zipFile.AddDirectory(Current_Output_Dir + @"\" + Mod_name.Text.Trim());
-                                    zipFile.Save(Current_Output_Dir + @"\" + Mod_name.Text.Trim() + ".zip");
+                                    using (var archive = new Archive())
+                                    {
+                                        archive.CreateEntry(Mod_name.Text.Trim(), Current_Output_Dir + @"\" + Mod_name.Text.Trim());
+                                        archive.Save(Current_Output_Dir + @"\" + Mod_name.Text.Trim() + ".zip");
+                                    }
+                                
                                 }
 
                             }
@@ -1966,13 +1976,13 @@ int millisecondsDelay = 300)
 
         private void SaveTexture(string filename, MagickImage image, ZipArchive archive, BCnEncoder.Shared.CompressionFormat compression = BCnEncoder.Shared.CompressionFormat.Rgba)
         {
-            int[] WidthSize = new int[] {
+            uint[] WidthSize = new uint[] {
                 4096,
                 2048,
                 1024,
                 512
             };
-            int[] HeightSize = new int[] {
+            uint[] HeightSize = new uint[] {
                 4096,
                 2048,
                 1024,
@@ -1985,8 +1995,8 @@ int millisecondsDelay = 300)
             //I forget about the APEX,but I still remember APEX have that 4096
             //May be will fix it in the future:D
             //I found that pilot texture can use it:(
-            int WidthCheck = 1;
-            int HightCheck = 1;
+            uint WidthCheck = 1;
+            uint HightCheck = 1;
             switch (Info.Width)
             {
                 case 4096:
@@ -2011,7 +2021,7 @@ int millisecondsDelay = 300)
                 HightCheck++;
             }
 
-            for (int i = WidthCheck, j = HightCheck; i <= 3; i++, j++)
+            for (uint i = WidthCheck, j = HightCheck; i <= 3; i++, j++)
             {
                 ZipArchiveEntry entry = archive.CreateEntry("contents/" + WidthSize[i].ToString() + "/" + filename);
                 using (Stream s = entry.Open())
@@ -2025,13 +2035,13 @@ int millisecondsDelay = 300)
                         encoder.OutputOptions.GenerateMipMaps = false;
                         encoder.OutputOptions.Format = compression;
                         encoder.OutputOptions.FileFormat = BCnEncoder.Shared.OutputFileFormat.Dds;
-                        encoder.EncodeToStream(image.ToByteArray(MagickFormat.Rgba), WidthSize[i], HeightSize[j], BCnEncoder.Encoder.PixelFormat.Rgba32, s);
+                        encoder.EncodeToStream(image.ToByteArray(MagickFormat.Rgba), (int)WidthSize[i],(int)HeightSize[j], BCnEncoder.Encoder.PixelFormat.Rgba32, s);
                     }
                     else
                     {
                         DdsWriteDefines ddsDefines = new DdsWriteDefines();
                         ddsDefines.Compression = DdsCompression.Dxt1;
-                        ddsDefines.Mipmaps = 0;
+                        ddsDefines.MipmapCount = 0;
 
                         image.Format = MagickFormat.Dds;
                         image.Settings.SetDefines(ddsDefines);
@@ -2413,11 +2423,16 @@ int millisecondsDelay = 300)
         {
             await Task.Run(() =>
             {
+                if (Icon_Bg.Source == null)
+                {
+                    return;
+                }
                 if (X == true)
                 {
 
                     DispatchIfNecessary(async () =>
                     {
+                       
                         if (Icon_Bg.Source.ToString().Contains("advocate_announcement_1.png"))
                         {
                             return;
@@ -3113,10 +3128,11 @@ int millisecondsDelay = 300)
         }
         void downloader_DownloadCompleted(object sender, AsyncCompletedEventArgs e, string Sub_Name, string URL)
         {
-            ZipFile_ zipFile = new ZipFile_(Tools_Dir + Sub_Name + @"\" + Sub_Name + ".zip");
-
-            zipFile.ExtractAll(Tools_Dir, Ionic.Zip.ExtractExistingFileAction.OverwriteSilently);
-
+          
+            using (var archive = new Archive(Tools_Dir + Sub_Name + @"\" + Sub_Name + ".zip"))
+            {
+                archive.ExtractToDirectory(Tools_Dir);
+            }
             Check_For_Tools();
 
             if (File.Exists(Tools_Dir + Sub_Name + @"\" + Sub_Name + ".zip"))
