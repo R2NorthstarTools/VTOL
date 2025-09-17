@@ -1,6 +1,3 @@
-<h2 align="center"> ⚠️VTOL - IN CURRENT RE-DESIGN, VER 3 Complete (MAY 2025), BUG FIXING  ⚠️  </h2>
-
-!ETA OCT 19th!
 
 <a href="https://github.com/BigSpice/VTOL/releases/latest/download/VTOL_Installer.msi"><img src="https://user-images.githubusercontent.com/23240514/198708440-42edd953-d2de-4a79-a6fa-28d398e63d7c.png"></a><br>
 
