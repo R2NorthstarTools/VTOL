@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows10.0.17763.0</TargetFramework>
+    <TargetFramework>net6.0-windows10.0.22621.0</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <Platforms>AnyCPU;x64;x86</Platforms>
@@ -14,7 +14,7 @@
     <StartupObject>VTOL.App</StartupObject>
 	  <PublishSingleFile>true</PublishSingleFile>
 	  <IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
-	  <SupportedOSPlatformVersion>8.0</SupportedOSPlatformVersion>
+	  <SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
 	  <ApplicatAsposeon>Resources\Icons\Main_UI\Northstar-512.ico</ApplicatAsposeon>
 	  <GenerateDocumentationFile>False</GenerateDocumentationFile>
 	  <RepositoryUrl>https://github.com/R2NorthstarTools/VTOL</RepositoryUrl>
@@ -32,6 +32,30 @@
 	  <PackageReadmeFile>README.md</PackageReadmeFile>
 	  <BaseOutputPath>D:\#Dump\Development Northstar AmVCX C++ branch 19023 ID 44\VTOL_2.0.0_\VTOL_2.0.0\bin</BaseOutputPath>
 
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <WarningLevel>8</WarningLevel>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <WarningLevel>8</WarningLevel>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
+    <WarningLevel>8</WarningLevel>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <WarningLevel>8</WarningLevel>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <WarningLevel>8</WarningLevel>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
+    <WarningLevel>8</WarningLevel>
   </PropertyGroup>
 
   <ItemGroup>
@@ -287,6 +311,7 @@
     <None Remove="Resources\Backgrounds\HD-wallpaper-titanfall-2-colony-reborn-dlc-titanfall-2-games-2016-games-xbox-games.jpg" />
     <None Remove="Resources\Backgrounds\Home_Nav.png" />
     <None Remove="Resources\Backgrounds\jack.jpg" />
+    <None Remove="Resources\Backgrounds\profiles_bg.jpg" />
     <None Remove="Resources\Backgrounds\profiles_bg.png" />
     <None Remove="Resources\Backgrounds\Skin_How_To_BG.png" />
     <None Remove="Resources\Backgrounds\Splash.jpg" />
@@ -606,6 +631,12 @@
     <Content Include="Resources\Backgrounds\Backgrounds_Home_Page\lewis-walden-screenshot-10-exo.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\Backgrounds\profiles_bg.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Backgrounds\profiles_bg.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Backgrounds\star_shower.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -801,9 +832,6 @@
     <Resource Include="Resources\Backgrounds\Home_Nav.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <EmbeddedResource Include="Resources\Backgrounds\profiles_bg.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
     <Content Include="Resources\Cursors\Leadwallcur.cur">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -2998,7 +2998,7 @@ int millisecondsDelay = 150)
                                 SnackBar.Title = VTOL.Resources.Languages.Language.SUCCESS;
                                 SnackBar.Message = VTOL.Resources.Languages.Language.Page_Home_Browse_Titanfall_Button_Click_TheLocation + Current_Install_Folder + VTOL.Resources.Languages.Language.Page_Home_Browse_Titanfall_Button_Click_IsValidAndHasBeenSet;
                                 SnackBar.Show();
-                               //TODO_UNCOMMENT Restart_App();
+                               Restart_App();
                             }
                             else
                             {

@@ -23,7 +23,7 @@
     <Grid >
         <Border>
             <Border.Background>
-                <ImageBrush ImageSource="pack://application:,,,/_VTOL_;component/Resource/Backgrounds/profiles_bg.png" TileMode="Tile" Stretch="UniformToFill" Opacity="0.26"/>
+                <ImageBrush ImageSource="pack://application:,,,/_VTOL_;component/Resources/Backgrounds/profiles_bg.png" TileMode="Tile" Stretch="UniformToFill" Opacity="0.26"/>
             </Border.Background>
         </Border>
 
