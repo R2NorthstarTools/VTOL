@@ -1,4 +1,5 @@
-
+[![.NET Core Desktop](https://github.com/R2NorthstarTools/VTOL/actions/workflows/dotnet-desktop.yml/badge.svg?branch=master)](https://github.com/R2NorthstarTools/VTOL/actions/workflows/dotnet-desktop.yml)
+[![CodeQL](https://github.com/R2NorthstarTools/VTOL/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/R2NorthstarTools/VTOL/actions/workflows/github-code-scanning/codeql)
 <a href="https://github.com/BigSpice/VTOL/releases/latest/download/VTOL_Installer.msi"><img src="https://user-images.githubusercontent.com/23240514/198708440-42edd953-d2de-4a79-a6fa-28d398e63d7c.png"></a><br>
 
 <h2  align="center">PLEASE USE THE PORTABLE IF THE INSTALLER FAILS</h1><br>
