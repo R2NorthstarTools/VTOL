@@ -769,6 +769,8 @@ namespace VTOL.Resources.Languages {
         /// <summary>
         ///   Looks up a localized string similar to is not a zip!.
         /// </summary>
+        /// 
+        //remove
         public static string Page_Home_Unpack_To_Location_IsNotAZip {
             get {
                 return ResourceManager.GetString("Page_Home_Unpack_To_Location_IsNotAZip", resourceCulture);
