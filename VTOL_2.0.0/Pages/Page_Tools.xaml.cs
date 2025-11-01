@@ -1014,6 +1014,59 @@ int millisecondsDelay = 300)
 
             return false;
         }
+        public void CompressFiles(string[] inputFiles, string outputZipFile)
+        {
+            using (FileStream fs = File.Create(outputZipFile))
+            using (ICSharpCode.SharpZipLib.Zip.ZipOutputStream zipStream = new ICSharpCode.SharpZipLib.Zip.ZipOutputStream(fs))
+            {
+                foreach (string file in inputFiles)
+                {
+                    FileInfo fileInfo = new FileInfo(file);
+                    ICSharpCode.SharpZipLib.Zip.ZipEntry entry = new ICSharpCode.SharpZipLib.Zip.ZipEntry(fileInfo.Name)
+                    {
+                        DateTime = fileInfo.LastWriteTime,
+                        Size = fileInfo.Length
+                    };
+
+                    zipStream.PutNextEntry(entry);
+
+                    byte[] buffer = new byte[4096];
+                    using (FileStream fileStream = File.OpenRead(file))
+                    {
+                        int bytesRead;
+                        while ((bytesRead = fileStream.Read(buffer, 0, buffer.Length)) > 0)
+                        {
+                            zipStream.Write(buffer, 0, bytesRead);
+                        }
+                    }
+                    zipStream.CloseEntry();
+                }
+            }
+        }
+
+        public void ExtractAllFiles(string zipFilePath, string outputDirectory)
+        {
+            using (FileStream fs = File.OpenRead(zipFilePath))
+            using (ICSharpCode.SharpZipLib.Zip.ZipFile zipFile = new ICSharpCode.SharpZipLib.Zip.ZipFile(fs))
+            {
+                foreach (ICSharpCode.SharpZipLib.Zip.ZipEntry entry in zipFile)
+                {
+                    if (!entry.IsFile) continue;
+
+                    string outputFilePath = Path.Combine(outputDirectory, entry.Name);
+
+                    // Ensure the output directory exists
+                    Directory.CreateDirectory(Path.GetDirectoryName(outputFilePath)!);
+
+                    // Extract each file
+                    using (Stream zipStream = zipFile.GetInputStream(entry))
+                    using (FileStream outputStream = File.Create(outputFilePath))
+                    {
+                        zipStream.CopyTo(outputStream);
+                    }
+                }
+            }
+        }
         private void Save_Mod_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -1057,13 +1110,9 @@ int millisecondsDelay = 300)
 
                                     }
 
+                                    ExtractAllFiles(Current_Mod_To_Pack, Current_Output_Dir + @"\" + Mod_name.Text.Trim() + @"\" + "mods" + @"\");
 
-
-                                    using (var archive = new Archive(Current_Mod_To_Pack))
-                                    {
-                                        archive.ExtractToDirectory(Current_Output_Dir + @"\" + Mod_name.Text.Trim() + @"\" + "mods" + @"\");
-
-                                    }
+                                  
 
                                 }
 
@@ -1071,21 +1120,15 @@ int millisecondsDelay = 300)
                                 {
                                     File.Delete(Current_Output_Dir + @"\" + Mod_name.Text.Trim() + ".zip");
 
-                                    using (var archive = new Archive())
-                                    {
-                                        archive.CreateEntry(Mod_name.Text.Trim(), Current_Output_Dir + @"\" + Mod_name.Text.Trim());
-                                        archive.Save(Current_Output_Dir + @"\" + Mod_name.Text.Trim() + ".zip");
-                                    }
+                                    CompressFiles(Directory.GetFiles(Current_Output_Dir + @"\" + Mod_name.Text.Trim(), "*"), Current_Output_Dir + @"\" + Mod_name.Text.Trim() + ".zip");
+                                 
                                 
                                 }
                                 else
                                 {
-                                    using (var archive = new Archive())
-                                    {
-                                        archive.CreateEntry(Mod_name.Text.Trim(), Current_Output_Dir + @"\" + Mod_name.Text.Trim());
-                                        archive.Save(Current_Output_Dir + @"\" + Mod_name.Text.Trim() + ".zip");
-                                    }
-                                
+                                    CompressFiles(Directory.GetFiles(Current_Output_Dir + @"\" + Mod_name.Text.Trim(), "*"), Current_Output_Dir + @"\" + Mod_name.Text.Trim() + ".zip");
+
+                                   
                                 }
 
                             }
