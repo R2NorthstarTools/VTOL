@@ -2040,7 +2040,7 @@ int millisecondsDelay = 300)
 
                                 for (var x = 0; x < myMObject.dependencies.Count; x++)
                                 {
-                                    if (myMObject.dependencies[x].ToString().Contains("northstar-Northstar") || myMObject.dependencies[x].ToString().Contains("ebkr-r2modman-"))
+                                    if (myMObject.dependencies[x].ToString().Contains("northstar-Northstar") || myMObject.dependencies[x].ToString().Contains("VanillaPlus")  || myMObject.dependencies[x].ToString().Contains("ebkr-r2modman-"))
                                     {
 
                                         continue;
