@@ -1900,6 +1900,36 @@ namespace VTOL.Pages
 
             }
         }
+
+        public void CompressFile(string inputFile, string outputZipFile)
+        {
+            using (FileStream fs = File.Create(outputZipFile))
+            using (ZipOutputStream zipStream = new ZipOutputStream(fs))
+            {
+                zipStream.SetLevel(2);
+
+                // Add a file entry to the ZIP archive
+                FileInfo fileInfo = new FileInfo(inputFile);
+                ZipEntry entry = new ZipEntry(fileInfo.Name)
+                {
+                    DateTime = fileInfo.LastWriteTime,
+                    Size = fileInfo.Length
+                };
+
+                zipStream.PutNextEntry(entry);
+                // Write file data to the ZIP stream
+                byte[] buffer = new byte[4096];
+                using (FileStream fileStream = File.OpenRead(inputFile))
+                {
+                    int bytesRead;
+                    while ((bytesRead = fileStream.Read(buffer, 0, buffer.Length)) > 0)
+                    {
+                        zipStream.Write(buffer, 0, bytesRead);
+                    }
+                }
+                zipStream.CloseEntry();
+            }
+        }
         public void ZIP_LIST(List<string> filesToZip, string sZipFileName, bool deleteExistingZip = true)
         {
             if (filesToZip.Count > 0)
@@ -1937,9 +1967,9 @@ namespace VTOL.Pages
                     if (!sZipFileName.EndsWith(".zip")) { sZipFileName += ".zip"; }
                     string strZipPath = Path.Combine(strRootDirectory, sZipFileName);
                     if (deleteExistingZip == true && File.Exists(strZipPath)) { File.Delete(strZipPath); }
-                   
-                    
-                    ZipFile.CreateFromDirectory(dirTemp.FullName, strZipPath, CompressionLevel.Fastest, false);
+                    CompressFile(dirTemp.FullName, strZipPath);
+
+
 
                     // Delete the temporary directory
                     dirTemp.Delete(true);
