@@ -1056,6 +1056,9 @@ int millisecondsDelay = 300)
                                         TryCreateDirectory(Current_Output_Dir + @"\" + Mod_name.Text.Trim() + @"\" + "mods" + @"\");
 
                                     }
+
+
+
                                     using (var archive = new Archive(Current_Mod_To_Pack))
                                     {
                                         archive.ExtractToDirectory(Current_Output_Dir + @"\" + Mod_name.Text.Trim() + @"\" + "mods" + @"\");

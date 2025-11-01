@@ -29,6 +29,7 @@ using VTOL.Advocate.Conversion.JSON;
 using static VTOL.MainWindow;
 using static VTOL.Pages.Page_Profiles;
 using Path = System.IO.Path;
+using ICSharpCode.SharpZipLib.Zip;
 
 namespace VTOL.Pages
 {
@@ -2751,11 +2752,27 @@ int millisecondsDelay = 150)
             {
                 try
                 {
-                    using (var archive = new Archive(Zip_Path))
+                    using (FileStream fs = File.OpenRead(Zip_Path))
+                    using (ZipFile zipFile = new ZipFile(fs))
                     {
-                        archive.ExtractToDirectory(Destination);
+                        foreach (ZipEntry entry in zipFile)
+                        {
+                            if (!entry.IsFile) continue;
 
+                            string outputFilePath = Path.Combine(Destination, entry.Name);
+
+                            // Ensure the output directory exists
+                            Directory.CreateDirectory(Path.GetDirectoryName(outputFilePath)!);
+
+                            // Extract each file
+                            using (Stream zipStream = zipFile.GetInputStream(entry))
+                            using (FileStream outputStream = File.Create(outputFilePath))
+                            {
+                                zipStream.CopyTo(outputStream);
+                            }
+                        }
                     }
+                  
 
 
                     return true;

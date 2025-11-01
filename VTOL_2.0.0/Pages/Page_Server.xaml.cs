@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using ICSharpCode.SharpZipLib.Zip;
+using Microsoft.Win32;
 using Serilog;
 using System;
 using System.Collections;
@@ -6,7 +7,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
-using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -21,6 +21,7 @@ using Wpf.Ui.Controls;
 using static VTOL.Pages.Server_Template_Selector;
 using Path = System.IO.Path;
 using TextBox = System.Windows.Controls.TextBox;
+using ICSharpCode.SharpZipLib.Zip;
 
 namespace VTOL.Pages
 {
@@ -1713,14 +1714,18 @@ namespace VTOL.Pages
                     if (zipPath != null)
                     {
 
-                        using (ZipArchive archive = ZipFile.OpenRead(zipPath))
-                        {
-                            foreach (ZipArchiveEntry entry in archive.Entries)
+                        using (FileStream fs = File.OpenRead(zipPath))
+                        using (ZipFile zipFile = new ZipFile(fs))
+                        
                             {
-                                if (entry.FullName.EndsWith(".cfg", StringComparison.OrdinalIgnoreCase) || entry.FullName.EndsWith(".txt", StringComparison.OrdinalIgnoreCase))
+                            foreach (ZipEntry entry in zipFile)
+                                {
+                                if (!entry.IsFile) continue;
+
+                                if (entry.Name.EndsWith(".cfg", StringComparison.OrdinalIgnoreCase) || entry.Name.EndsWith(".txt", StringComparison.OrdinalIgnoreCase))
                                 {
                                     // Gets the full path to ensure that relative segments are removed.
-                                    string destinationPath = Path.GetFullPath(Path.Combine(extractPath, entry.FullName));
+                                    string destinationPath = Path.GetFullPath(Path.Combine(extractPath, entry.Name));
 
                                     // Ordinal match is safest, case-sensitive volumes can be mounted within volumes that
                                     // are case-insensitive.
@@ -1732,9 +1737,13 @@ namespace VTOL.Pages
                                         {
                                             string c = GetFile(f, "autoexec_ns_server.cfg").First();
 
-                                            if (entry.FullName.EndsWith(".cfg"))
+                                            if (entry.Name.EndsWith(".cfg"))
                                             {
-                                                entry.ExtractToFile(c, true);
+                                                using (Stream zipStream = zipFile.GetInputStream(entry))
+                                                using (FileStream outputStream = File.Create(c))
+                                                {
+                                                    zipStream.CopyTo(outputStream);
+                                                }
 
 
                                             }
@@ -1744,11 +1753,14 @@ namespace VTOL.Pages
                                         {
                                             string d = GetFile(User_Settings_Vars.NorthstarInstallLocation, "ns_startup_args_dedi.txt").First();
 
-                                            if (entry.FullName.EndsWith(".txt"))
+                                            if (entry.Name.EndsWith(".txt"))
                                             {
-                                                entry.ExtractToFile(d, true);
-
-                                            }
+                                                    using (Stream zipStream = zipFile.GetInputStream(entry))
+                                                    using (FileStream outputStream = File.Create(d))
+                                                    {
+                                                        zipStream.CopyTo(outputStream);
+                                                    }
+                                                }
 
 
                                         }
@@ -1786,14 +1798,18 @@ namespace VTOL.Pages
                     {
 
 
-                        using (ZipArchive archive = ZipFile.OpenRead(zipPath))
-                        {
-                            foreach (ZipArchiveEntry entry in archive.Entries)
+                        using (FileStream fs = File.OpenRead(zipPath))
+                        using (ZipFile zipFile = new ZipFile(fs))
+
+                            foreach (ZipEntry entry in zipFile)
                             {
-                                if (entry.FullName.EndsWith(".cfg", StringComparison.OrdinalIgnoreCase) || entry.FullName.EndsWith(".txt", StringComparison.OrdinalIgnoreCase))
+                                if (!entry.IsFile) continue;
+                                if (entry.Name.EndsWith(".cfg", StringComparison.OrdinalIgnoreCase) || entry.Name.EndsWith(".txt", StringComparison.OrdinalIgnoreCase))
                                 {
+                                    if (!entry.IsFile) continue;
+
                                     // Gets the full path to ensure that relative segments are removed.
-                                    string destinationPath = Path.GetFullPath(Path.Combine(extractPath, entry.FullName));
+                                    string destinationPath = Path.GetFullPath(Path.Combine(extractPath, entry.Name));
 
                                     // Ordinal match is safest, case-sensitive volumes can be mounted within volumes that
                                     // are case-insensitive.
@@ -1805,10 +1821,13 @@ namespace VTOL.Pages
                                         {
                                             string c = GetFile(f, "autoexec_ns_server.cfg").First();
 
-                                            if (entry.FullName.EndsWith(".cfg"))
+                                            if (entry.Name.EndsWith(".cfg"))
                                             {
-                                                entry.ExtractToFile(c, true);
-
+                                                using (Stream zipStream = zipFile.GetInputStream(entry))
+                                                using (FileStream outputStream = File.Create(c))
+                                                {
+                                                    zipStream.CopyTo(outputStream);
+                                                }
 
                                             }
 
@@ -1817,9 +1836,13 @@ namespace VTOL.Pages
                                         {
                                             string d = GetFile(User_Settings_Vars.NorthstarInstallLocation, "ns_startup_args_dedi.txt").First();
 
-                                            if (entry.FullName.EndsWith(".txt"))
+                                            if (entry.Name.EndsWith(".txt"))
                                             {
-                                                entry.ExtractToFile(d, true);
+                                                using (Stream zipStream = zipFile.GetInputStream(entry))
+                                                using (FileStream outputStream = File.Create(d))
+                                                {
+                                                    zipStream.CopyTo(outputStream);
+                                                }
 
                                             }
 
@@ -1852,7 +1875,7 @@ namespace VTOL.Pages
 
 
 
-                }
+                
                 if (File.Exists(Ns_dedi_File) && File.Exists(Convar_File))
                 {
                     Startup_Arguments_UI_List.ItemsSource = Load_Args();
@@ -1914,6 +1937,8 @@ namespace VTOL.Pages
                     if (!sZipFileName.EndsWith(".zip")) { sZipFileName += ".zip"; }
                     string strZipPath = Path.Combine(strRootDirectory, sZipFileName);
                     if (deleteExistingZip == true && File.Exists(strZipPath)) { File.Delete(strZipPath); }
+                   
+                    
                     ZipFile.CreateFromDirectory(dirTemp.FullName, strZipPath, CompressionLevel.Fastest, false);
 
                     // Delete the temporary directory
