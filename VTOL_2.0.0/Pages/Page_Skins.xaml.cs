@@ -1,5 +1,4 @@
-﻿using Aspose.Zip;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -40,20 +39,29 @@ namespace VTOL.Pages
 
         public static bool ZipHasFile(string Search, string zipFullPath)
         {
-            using (var archive = new Archive(zipFullPath))
+
+            using (FileStream fs = File.OpenRead(zipFullPath))
+            using (ICSharpCode.SharpZipLib.Zip.ZipFile zipFile = new ICSharpCode.SharpZipLib.Zip.ZipFile(fs))
             {
-                foreach (var entry in archive.Entries)
+                foreach (ICSharpCode.SharpZipLib.Zip.ZipEntry entry in zipFile)
                 {
+                    if (!entry.IsFile) continue;
+
                     if (entry.Name.Contains(Search, StringComparison.OrdinalIgnoreCase))
                     {
 
                         return true;
                     }
                 }
-               
+                return false;
 
-            return false;
-        }
+            }
+
+
+
+
+
+
         }
 
         private int ImageCheck(String ImageName)
@@ -96,7 +104,29 @@ namespace VTOL.Pages
             }
             return result;
         }
+        public void ExtractAllFiles(string zipFilePath, string outputDirectory)
+        {
+            using (FileStream fs = File.OpenRead(zipFilePath))
+            using (ICSharpCode.SharpZipLib.Zip.ZipFile zipFile = new ICSharpCode.SharpZipLib.Zip.ZipFile(fs))
+            {
+                foreach (ICSharpCode.SharpZipLib.Zip.ZipEntry entry in zipFile)
+                {
+                    if (!entry.IsFile) continue;
 
+                    string outputFilePath = Path.Combine(outputDirectory, entry.Name);
+
+                    // Ensure the output directory exists
+                    Directory.CreateDirectory(Path.GetDirectoryName(outputFilePath)!);
+
+                    // Extract each file
+                    using (Stream zipStream = zipFile.GetInputStream(entry))
+                    using (FileStream outputStream = File.Create(outputFilePath))
+                    {
+                        zipStream.CopyTo(outputStream);
+                    }
+                }
+            }
+        }
         private bool IsPilot(string Name)
         {
             if (Name.Contains("Stim_") || Name.Contains("PhaseShift_") || Name.Contains("HoloPilot_") || Name.Contains("PulseBlade_") || Name.Contains("Grapple_") || Name.Contains("AWall_") || Name.Contains("Cloak_") || Name.Contains("Public_"))
@@ -126,11 +156,8 @@ namespace VTOL.Pages
                         {
 
                             current_skin_folder = User_Settings_Vars.NorthstarInstallLocation + @"Skins_Unpack_Mod_MNGR";
-                            using (var archive = new Archive(Zip_Path))
-                            {
-                                archive.ExtractToDirectory(User_Settings_Vars.NorthstarInstallLocation + @"Skins_Unpack_Mod_MNGR");
-
-                            }
+                           
+                            ExtractAllFiles(Zip_Path, User_Settings_Vars.NorthstarInstallLocation + @"Skins_Unpack_Mod_MNGR");
 
                             //Skin_Path = Current_Install_Folder + @"\Skins_Unpack_Mod_MNGR";
 
@@ -140,11 +167,8 @@ namespace VTOL.Pages
 
                             TryCreateDirectory(User_Settings_Vars.NorthstarInstallLocation + @"Skins_Unpack_Mod_MNGR");
                             current_skin_folder = User_Settings_Vars.NorthstarInstallLocation + @"Skins_Unpack_Mod_MNGR";
-                            using (var archive = new Archive(Zip_Path))
-                            {
-                                archive.ExtractToDirectory(User_Settings_Vars.NorthstarInstallLocation + @"Skins_Unpack_Mod_MNGR");
-
-                            }
+                            ExtractAllFiles(Zip_Path, User_Settings_Vars.NorthstarInstallLocation + @"Skins_Unpack_Mod_MNGR");
+                           
 
 
                         }

@@ -1,10 +1,10 @@
-﻿using Aspose.Zip;
-using Downloader;
+﻿using Downloader;
 using FuzzyString;
 using Lsj.Util.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Serilog;
+using SharpCompress.Archives;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,6 +13,7 @@ using System.Diagnostics;
 using System.Diagnostics.Eventing.Reader;
 using System.Globalization;
 using System.IO;
+using ICSharpCode.SharpZipLib.Zip;
 using System.IO.Compression;
 using System.Linq;
 using System.Reactive.Joins;
@@ -105,25 +106,28 @@ namespace VTOL.Pages
         public static bool ZipHasFile(string Search, string zipFullPath)
         {
 
-            using (var archive = new Archive(zipFullPath))
+            using (FileStream fs = File.OpenRead(zipFullPath))
+            using (ICSharpCode.SharpZipLib.Zip.ZipFile zipFile = new ICSharpCode.SharpZipLib.Zip.ZipFile(fs))
             {
-                ArchiveEntry archiveEntry = null;
-                foreach (var entry in archive.Entries)
+                foreach (ICSharpCode.SharpZipLib.Zip.ZipEntry entry in zipFile)
                 {
-                    
+                    if (!entry.IsFile) continue;
+
                     if (entry.Name.Contains(Search, StringComparison.OrdinalIgnoreCase))
                     {
 
                         return true;
                     }
                 }
+                return false;
 
             }
+
+          
 
 
            
 
-            return false;
         }
 
         private int ImageCheck(String ImageName)
@@ -369,11 +373,30 @@ int millisecondsDelay = 150)
             {
                 try
                 {
-                    using (var archive = new Archive(Zip_Path))
+                    using (FileStream fs = File.OpenRead(Zip_Path))
+                    using (ICSharpCode.SharpZipLib.Zip.ZipFile zipFile = new ICSharpCode.SharpZipLib.Zip.ZipFile(fs))
                     {
-                        archive.ExtractToDirectory(Destination);
+                        foreach (ICSharpCode.SharpZipLib.Zip.ZipEntry entry in zipFile)
+                        {
+                            if (!entry.IsFile) continue;
 
+                            string outputFilePath = Path.Combine(Destination, entry.Name);
+
+                            // Ensure the output directory exists
+                            Directory.CreateDirectory(Path.GetDirectoryName(outputFilePath)!);
+
+                            // Extract each file
+                            using (Stream zipStream = zipFile.GetInputStream(entry))
+                            using (FileStream outputStream = File.Create(outputFilePath))
+                            {
+                                zipStream.CopyTo(outputStream);
+                            }
+                        }
                     }
+
+
+
+
 
                     return true;
                 }
@@ -1879,11 +1902,11 @@ int millisecondsDelay = 150)
 
                             break;
                         case "File Size":
-                            List = List.OrderBy(ob => Convert.ToInt32(ob.raw_size)).ToList();
+                            List = List.OrderBy(ob => Convert.ToInt64(ob.raw_size)).ToList();
 
                             break;
                         case "Downloads":
-                            List = List.OrderBy(ob => Convert.ToInt32(ob.Downloads)).ToList();
+                            List = List.OrderBy(ob => Convert.ToInt64(ob.Downloads)).ToList();
 
                             break;
 
@@ -1938,11 +1961,11 @@ int millisecondsDelay = 150)
 
                             break;
                         case "File Size":
-                            List = List.OrderByDescending(ob => Convert.ToInt32(ob.raw_size)).ToList();
+                            List = List.OrderByDescending(ob => Convert.ToInt64(ob.raw_size)).ToList();
 
                             break;
                         case "Downloads":
-                            List = List.OrderByDescending(ob => Convert.ToInt32(ob.Downloads)).ToList();
+                            List = List.OrderByDescending(ob => Convert.ToInt64(ob.Downloads)).ToList();
 
                             break;
 
@@ -3005,11 +3028,10 @@ int millisecondsDelay = 150)
                 TryCopyFile(file, targetFilePath, true);
             }));
         }
-
         public async Task<bool> TryUnzipFile(
-string Zip_Path, string Destination, bool overwrite = true,
-int maxRetries = 10,
-int millisecondsDelay = 150)
+      string Zip_Path, string Destination, bool overwrite = true,
+      int maxRetries = 10,
+      int millisecondsDelay = 150)
         {
             if (Zip_Path == null)
                 throw new ArgumentNullException(Zip_Path);
@@ -3022,11 +3044,30 @@ int millisecondsDelay = 150)
             {
                 try
                 {
-                    using (var archive = new Archive(Zip_Path))
+                    using (FileStream fs = File.OpenRead(Zip_Path))
+                    using (ICSharpCode.SharpZipLib.Zip.ZipFile zipFile = new ICSharpCode.SharpZipLib.Zip.ZipFile(fs))
                     {
-                        archive.ExtractToDirectory(Destination);
+                        foreach (ICSharpCode.SharpZipLib.Zip.ZipEntry entry in zipFile)
+                        {
+                            if (!entry.IsFile) continue;
 
+                            string outputFilePath = Path.Combine(Destination, entry.Name);
+
+                            // Ensure the output directory exists
+                            Directory.CreateDirectory(Path.GetDirectoryName(outputFilePath)!);
+
+                            // Extract each file
+                            using (Stream zipStream = zipFile.GetInputStream(entry))
+                            using (FileStream outputStream = File.Create(outputFilePath))
+                            {
+                                zipStream.CopyTo(outputStream);
+                            }
+                        }
                     }
+
+
+
+
 
                     return true;
                 }
@@ -3045,7 +3086,6 @@ int millisecondsDelay = 150)
             }
 
             return false;
-
         }
         public async Task<bool> TryDeleteFile(
 string Origin,
@@ -3435,20 +3475,29 @@ int millisecondsDelay = 300)
         }
         static bool CheckIfFolderExistsInZip(string zipFilePath, string folderName)
         {
-
-            using (var archive = new Archive(zipFilePath))
+            using (FileStream fs = File.OpenRead(zipFilePath))
+            using (ICSharpCode.SharpZipLib.Zip.ZipFile zipFile = new ICSharpCode.SharpZipLib.Zip.ZipFile(fs))
             {
-                foreach (var entry in archive.Entries)
+                foreach (ZipEntry entry in zipFile)
                 {
-                    if (entry.Name.StartsWith(folderName) && entry.Name.EndsWith("/"))
-                    {
+                         if (!entry.IsFile) continue; // Skip directories
 
-                        return true;
-                    }
+                  
+                        if (entry.Name.StartsWith(folderName) && entry.Name.EndsWith("/"))
+                        {
+
+                            return true;
+                        }
+                   
+
+                 
                 }
-            return false;
+                return false;
+
             }
+        
         }
+
         async Task _garbage_holderAsync(string Target_Zip, string Destination)
         {
 

@@ -1,5 +1,4 @@
 ﻿using HandyControl.Tools.Extension;
-using Aspose.Zip;
 using LiveCharts;
 using LiveCharts.Defaults;
 using LiveCharts.Wpf;
@@ -582,9 +581,9 @@ int millisecondsDelay = 150)
                 try
                 {
                     using (FileStream fs = File.OpenRead(Zip_Path))
-                    using (ZipFile zipFile = new ZipFile(fs))
+                    using (ICSharpCode.SharpZipLib.Zip.ZipFile zipFile = new ICSharpCode.SharpZipLib.Zip.ZipFile(fs))
                     {
-                        foreach (ZipEntry entry in zipFile)
+                        foreach (ICSharpCode.SharpZipLib.Zip.ZipEntry entry in zipFile)
                         {
                             if (!entry.IsFile) continue;
 

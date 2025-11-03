@@ -1,6 +1,5 @@
 ﻿using FuzzyString;
 using HandyControl.Tools.Extension;
-using Aspose.Zip;
 using Lsj.Util.Win32.BaseTypes;
 using Lsj.Util.Win32.Structs;
 using Newtonsoft.Json;
@@ -2753,9 +2752,9 @@ int millisecondsDelay = 150)
                 try
                 {
                     using (FileStream fs = File.OpenRead(Zip_Path))
-                    using (ZipFile zipFile = new ZipFile(fs))
+                    using (ICSharpCode.SharpZipLib.Zip.ZipFile zipFile = new ICSharpCode.SharpZipLib.Zip.ZipFile(fs))
                     {
-                        foreach (ZipEntry entry in zipFile)
+                        foreach (ICSharpCode.SharpZipLib.Zip.ZipEntry entry in zipFile)
                         {
                             if (!entry.IsFile) continue;
 
@@ -2772,7 +2771,9 @@ int millisecondsDelay = 150)
                             }
                         }
                     }
-                  
+
+
+
 
 
                     return true;

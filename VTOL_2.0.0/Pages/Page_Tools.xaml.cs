@@ -1,5 +1,4 @@
-﻿using Aspose.Zip;
-using BCnEncoder.Encoder;
+﻿using BCnEncoder.Encoder;
 using BCnEncoder.ImageSharp;
 using Downloader;
 using ImageMagick;
@@ -3174,11 +3173,8 @@ int millisecondsDelay = 300)
         }
         void downloader_DownloadCompleted(object sender, AsyncCompletedEventArgs e, string Sub_Name, string URL)
         {
+            ExtractAllFiles(Tools_Dir + Sub_Name + @"\" + Sub_Name + ".zip", Tools_Dir);
           
-            using (var archive = new Archive(Tools_Dir + Sub_Name + @"\" + Sub_Name + ".zip"))
-            {
-                archive.ExtractToDirectory(Tools_Dir);
-            }
             Check_For_Tools();
 
             if (File.Exists(Tools_Dir + Sub_Name + @"\" + Sub_Name + ".zip"))

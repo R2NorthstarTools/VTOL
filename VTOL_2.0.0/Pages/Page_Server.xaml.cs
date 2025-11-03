@@ -1715,10 +1715,10 @@ namespace VTOL.Pages
                     {
 
                         using (FileStream fs = File.OpenRead(zipPath))
-                        using (ZipFile zipFile = new ZipFile(fs))
+                        using (ICSharpCode.SharpZipLib.Zip.ZipFile zipFile = new ICSharpCode.SharpZipLib.Zip.ZipFile(fs))
                         
                             {
-                            foreach (ZipEntry entry in zipFile)
+                            foreach (ICSharpCode.SharpZipLib.Zip.ZipEntry entry in zipFile)
                                 {
                                 if (!entry.IsFile) continue;
 
@@ -1799,9 +1799,9 @@ namespace VTOL.Pages
 
 
                         using (FileStream fs = File.OpenRead(zipPath))
-                        using (ZipFile zipFile = new ZipFile(fs))
+                        using (ICSharpCode.SharpZipLib.Zip.ZipFile zipFile = new ICSharpCode.SharpZipLib.Zip.ZipFile(fs))
 
-                            foreach (ZipEntry entry in zipFile)
+                            foreach (ICSharpCode.SharpZipLib.Zip.ZipEntry entry in zipFile)
                             {
                                 if (!entry.IsFile) continue;
                                 if (entry.Name.EndsWith(".cfg", StringComparison.OrdinalIgnoreCase) || entry.Name.EndsWith(".txt", StringComparison.OrdinalIgnoreCase))
