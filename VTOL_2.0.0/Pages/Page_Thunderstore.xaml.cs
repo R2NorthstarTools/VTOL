@@ -14,7 +14,6 @@ using System.Diagnostics.Eventing.Reader;
 using System.Globalization;
 using System.IO;
 using ICSharpCode.SharpZipLib.Zip;
-using System.IO.Compression;
 using System.Linq;
 using System.Reactive.Joins;
 using System.Reflection;
@@ -3476,7 +3475,7 @@ int millisecondsDelay = 300)
         static bool CheckIfFolderExistsInZip(string zipFilePath, string folderName)
         {
             using (FileStream fs = File.OpenRead(zipFilePath))
-            using (ICSharpCode.SharpZipLib.Zip.ZipFile zipFile = new ICSharpCode.SharpZipLib.Zip.ZipFile(fs))
+            using (ZipFile zipFile = new ZipFile(fs))
             {
                 foreach (ZipEntry entry in zipFile)
                 {
