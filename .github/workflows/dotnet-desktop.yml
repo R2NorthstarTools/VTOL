@@ -21,8 +21,8 @@ jobs:
         dotnet-version: 6.0.x     
 
     - run: dotnet restore ${{ env.PROJECT_PATH }}
-
-    - run: dotnet publish ${{ env.PROJECT_PATH }} -r win-x64 /p:PublishSingleFile=True --self-contained true --output "/actions"
+            
+    - run: dotnet publish -c Release -r win-x64 --output  "/actions" ${{ env.PROJECT_PATH }}
 
     - run: dir /actions
 
