@@ -9,8 +9,6 @@ using Serilog;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
-using ICSharpCode.SharpZipLib.Zip;
-
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -1821,6 +1819,7 @@ int millisecondsDelay = 300)
                     }
                     else
                     {
+
                         colorImage.SetCompression(CompressionMethod.DXT1);
                         SaveTexture(SelectedWeapon + "_Default_col.dds", colorImage, zipArchive, BCnEncoder.Shared.CompressionFormat.Rgba);
                     }
