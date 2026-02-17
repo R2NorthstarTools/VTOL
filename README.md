@@ -11,6 +11,7 @@
 <h1  align="center"><a href="https://nightly.link/R2NorthstarTools/VTOL/workflows/dotnet-desktop/master/VTOL_NIGHTLY-artifact">Click To download the latest Portable Release</a></h1><br><br><br><br>
 
 
+
  [![Readme Quotes](https://quotes-github-readme.vercel.app/api?type=horizontal&theme=dark)](https://github.com/piyushsuthar/github-readme-quotes) 
 
 Users on the latest release:
