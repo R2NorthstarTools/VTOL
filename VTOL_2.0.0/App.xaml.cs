@@ -12,8 +12,6 @@ namespace VTOL
         {
 
 
-
-
         }
     }
 }
