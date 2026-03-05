@@ -16,11 +16,11 @@
 
 Users on the latest release:
 
-![GitHub release (latest by date)](https://img.shields.io/github/downloads/BigSpice/VTOL/latest/total?style=flat-square)
+![GitHub release (latest by date)](https://img.shields.io/github/downloads/BigSpice/VTOL/latest/total?style=flat-square](https://img.shields.io/github/downloads/R2NorthstarTools/VTOL/latest/total))
 
 Total Downloads Since First Release:
     
-![GitHub release (Total)](https://img.shields.io/github/downloads/BigSpice/VTOL/total?style=flat-square)
+![GitHub release (Total)](https://img.shields.io/github/downloads/BigSpice/VTOL/total?style=flat-square](https://img.shields.io/github/downloads/R2NorthstarTools/VTOL/total))
  
 <h2 align="center" ><a href="https://northstar.tf">This is a Manager for the [Titanfall 2 Northstar Client] </a></h2>
 
