@@ -12,11 +12,11 @@ jobs:
  deploy:
   runs-on: windows-latest
   steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v7
     
     - run: mkdir -p /actions
 
-    - uses: actions/setup-dotnet@v1
+    - uses: actions/setup-dotnet@v6
       with:
         dotnet-version: 6.0.x     
 
@@ -26,9 +26,9 @@ jobs:
 
     - run: dir /actions
 
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
 
-    - uses: actions/upload-artifact@v4
+    - uses: actions/upload-artifact@v7
       with:
         name: VTOL_NIGHTLY-artifact
         path: /actions/_VTOL_.exe  
